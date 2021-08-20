@@ -1,0 +1,70 @@
+App structure:
+Main
+    Upper_UI
+    ?ModalWrap
+      NewTab
+          SelectableList
+          TabErrors_render
+    ?ModalWrap   
+        Bookmark_newAndEdit
+          NewBookmark_UpperUI
+              SelectableList
+    ?ModalWrap
+        BackgroundSettings
+            ?Settings_inner_xs (menu for lowest screen width)
+    ?ModalWrap
+        ColorsSettings
+            ?Settings_inner_xs
+            ?ColorsToChoose_DefaultAndColumns
+                (SingleColor_DefaultAndColumn)
+    ?ModalWrap
+        GlobalSettings
+            ?Settings_inner_xs
+    ?ModalWrap
+        Profile
+            Profile_input
+    Grid
+        Column
+            UpperLeftMenu (most left column only)
+                ColumnColor <-> ColumnColor_OneColorX4
+                ?ColorsToChoose_DefaultAndColumns
+                    (SingleColor_DefaultAndColumn)
+                Background (only if background pic is enabled)
+                ?ColorsToChoose_Background
+                    (SingleColor_Background)
+                EyeOff
+            UpperRightMenu (most right column only)
+                ?UpperRightMenu_XS
+            ?Message
+            (Tab)
+                ?Bookmark_newAndEdit
+                    Bookmark_lowerUI (for new bookmark)
+                        SelectableList
+                ?ColorsToChoose_Tab
+                    (SingleColor_Tab)
+                ?EditTab_main
+                    ?EditTab_folder
+                        SelectableList
+                    ?EditTab_notes
+                    ?EditTab_RSS
+                    TabErrors_render
+                ?RSS_reactQuery
+                    (SingleRssNews)
+                ?NoteInput
+                ?(SingleBookmark)
+                    ?Bookmark_newAndEdit
+                        Bookmark_lowerUI (for edit bookmark)
+                            Bookmark_lowerUI_new
+                                BookmarkErrors_render
+                                SelectableList
+                            Bookmark_lowerUI_edit
+                                BookmarkErrors_render
+                                SelectableList
+            (GapAfterTab)
+
+           
+
+      
+? - togglable / optional
+() - 2 or more repeats possible
+<-> either or

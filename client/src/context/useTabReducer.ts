@@ -1,0 +1,179 @@
+import { useReducer } from "react";
+
+import { TabVisAction, TabVisState } from "../utils/interfaces";
+
+export function useTabReducer(
+  tabID: string | number,
+  setTabOpenedState: (nullOrID: string | number | null) => void,
+  setEyeOff: (trueOrFalse: boolean) => void,
+  toggleTab: (tabID: string | number, tabOpened: boolean) => void,
+  tabOpened: boolean,
+  defaultTabContent: (
+    tabID: string | number,
+    tabOpenedByDefault: boolean
+  ) => void,
+  tabOpenedByDefault: boolean
+): [TabVisState, React.Dispatch<TabVisAction>] {
+  const initVisState: TabVisState = {
+    editTabVis: false,
+    colorsVis: false,
+    newBookmarkVis: false,
+    editBookmarkVis: null,
+    touchScreenModeOn: false,
+  };
+
+  const [tabVisState, tabVisDispatch] = useReducer(tabVisReducer, initVisState);
+
+  function tabVisReducer(
+    state: TabVisState,
+    action: TabVisAction
+  ): TabVisState {
+    switch (action.type) {
+      case "COLORS_SETTINGS_TOGGLE":
+        if (!state.colorsVis) {
+          setTimeout(() => {
+            setEyeOff(true);
+            setTabOpenedState(tabID);
+          });
+        }
+        return {
+          ...state,
+          editTabVis: false,
+          newBookmarkVis: false,
+          editBookmarkVis: null,
+          colorsVis: !state.colorsVis,
+        };
+      case "COLORS_CLOSE":
+        return {
+          ...state,
+          colorsVis: false,
+          editTabVis: false,
+          newBookmarkVis: false,
+          editBookmarkVis: null,
+        };
+      case "EDIT_TOGGLE":
+        if (!state.editTabVis) {
+          setTimeout(() => {
+            setEyeOff(true);
+            setTabOpenedState(tabID);
+          });
+        }
+        return {
+          ...state,
+          colorsVis: false,
+          newBookmarkVis: false,
+          editBookmarkVis: null,
+          editTabVis: !state.editTabVis,
+        };
+
+      case "EDIT_CLOSE":
+        return {
+          ...state,
+          editTabVis: false,
+          colorsVis: false,
+          newBookmarkVis: false,
+          editBookmarkVis: null,
+        };
+      case "TAB_CONTENT_TOGGLE":
+        setTimeout(() => {
+          setTabOpenedState(tabID);
+        });
+
+        setTimeout(() => {
+          toggleTab(tabID, tabOpened);
+        });
+
+        return {
+          ...state,
+          colorsVis: false,
+          editTabVis: false,
+          newBookmarkVis: false,
+          editBookmarkVis: null,
+        };
+      case "TAB_CONTENT_DEFAULT":
+        setTimeout(() => {
+          defaultTabContent(tabID, tabOpenedByDefault);
+        });
+
+        return {
+          ...state,
+          colorsVis: false,
+          editTabVis: false,
+          newBookmarkVis: false,
+          editBookmarkVis: null,
+          touchScreenModeOn: false,
+        };
+      case "TAB_CONTENT_OPEN_AFTER_LOCKING":
+        return {
+          ...state,
+          colorsVis: false,
+          editTabVis: false,
+          newBookmarkVis: false,
+          editBookmarkVis: null,
+        };
+
+      case "TAB_EDITABLES_CLOSE":
+        return {
+          ...state,
+          colorsVis: false,
+          editTabVis: false,
+          newBookmarkVis: false,
+          editBookmarkVis: null,
+          touchScreenModeOn: false,
+        };
+      case "NEW_BOOKMARK_TOOGLE":
+        if (!state.newBookmarkVis) {
+          setTimeout(() => {
+            setEyeOff(true);
+            setTabOpenedState(tabID);
+          });
+        }
+        return {
+          ...state,
+          colorsVis: false,
+          editTabVis: false,
+          editBookmarkVis: null,
+          newBookmarkVis: !state.newBookmarkVis,
+        };
+      case "EDIT_BOOKMARK_OPEN":
+        if (!state.editBookmarkVis) {
+          setTimeout(() => {
+            setEyeOff(true);
+            setTabOpenedState(tabID);
+          });
+        }
+        return {
+          ...state,
+          colorsVis: false,
+          editTabVis: false,
+          newBookmarkVis: false,
+          editBookmarkVis: action.payload,
+        };
+
+      case "EDIT_BOOKMARK_CLOSE":
+        return {
+          ...state,
+          colorsVis: false,
+          editTabVis: false,
+          newBookmarkVis: false,
+          editBookmarkVis: null,
+        };
+
+      case "TOUCH_SCREEN_MODE_ON":
+        if (!state.touchScreenModeOn) {
+          setTimeout(() => {
+            setTabOpenedState(tabID);
+          });
+        }
+        return {
+          ...state,
+          touchScreenModeOn: true,
+        };
+
+      default:
+        return state;
+    }
+  }
+
+  return [tabVisState, tabVisDispatch];
+}
