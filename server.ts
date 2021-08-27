@@ -9,6 +9,8 @@ const app = express();
 
 const port = 4000;
 
+import { Request, Response} from 'express';
+
 app.use(helmet());
 
 app.use(
@@ -41,7 +43,7 @@ app.use(
 //   .then(() => console.log("connection successful"))
 //   .catch((err) => console.log(err));
 
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!2");
 });
 
