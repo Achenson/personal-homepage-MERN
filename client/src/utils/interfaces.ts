@@ -21,6 +21,7 @@ export interface TabErrors {
   textAreaErrorVis: boolean;
   noDeletionErrorVis: boolean;
   invalidLinkErrorVis: boolean;
+  invalidLinkErrorHttpsVis: boolean;
 }
 
 export type SetTabErrors = React.Dispatch<React.SetStateAction<TabErrors>>;

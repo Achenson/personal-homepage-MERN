@@ -1,12 +1,12 @@
 import create from "zustand";
 
-export const useEyeOff = create<{
+export const useReset = create<{
   enabled: boolean;
-  setEyeOff: (trueOrFalse: boolean) => void;
+  setReset: (trueOrFalse: boolean) => void;
 }>((set) => ({
   enabled: false,
   // enabled: true,
-  setEyeOff: (trueOrFalse) =>
+  setReset: (trueOrFalse) =>
     set((state) => ({
       ...state,
       enabled: trueOrFalse,

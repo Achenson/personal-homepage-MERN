@@ -5,7 +5,7 @@ import shallow from "zustand/shallow";
 import ColumnColor from "./ColumnColor";
 import ColorsToChoose_DefaultAndColumns from "../Colors/ColorsToChoose_DefaultAndColumns";
 import BackgroundColor from "./BackgroundColor";
-import EyeOff from "./EyeOff";
+import Reset from "./Reset";
 import ColumnColor_OneColorX4 from "./ColumnColor_OneColorX4";
 
 import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
@@ -96,7 +96,7 @@ function UpperLeftMenu(): JSX.Element {
             setFocusOnBackgroundColor={setFocusOnBackgroundColor}
           />
         )}
-        <EyeOff
+        <Reset
           setFocusOnBackgroundColor={setFocusOnBackgroundColor}
           setFocusOnColumnColor={setFocusOnColumnColor}
         />

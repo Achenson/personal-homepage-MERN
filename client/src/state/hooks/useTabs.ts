@@ -22,7 +22,8 @@ interface UseTabs {
     itemID: number | string,
     itemColNumber: number,
     colNumber: number,
-    tabID_orNull: string | number | null
+    tabID_orNull: string | number | null,
+    draggingIntoTab: boolean
   ) => void;
   editTab: (
     tabID: string | number,
@@ -44,7 +45,7 @@ interface UseTabs {
   resetTabRssSettings: (tabID: string | number) => void;
   toggleTab: (tabID: string | number, tabOpened: boolean) => void;
   tabs: SingleTabData[];
-  // setting all tabs to default setting (open/close state) after clicking EyeOff
+  // setting all tabs to default setting (open/close state) after clicking Reset
   closeAllTabsState: boolean;
   setCloseAllTabsState: (trueOrFalse: boolean) => void;
   // displaying tab controls when using keyboard (Tab key)
@@ -125,17 +126,23 @@ export const useTabs = create<UseTabs>(
           })
         ),
 
-      dragTab: (itemID, itemColNumber, colNumber, tabID) =>
+      dragTab: (itemID, itemColNumber, colNumber, tabID, draggingIntoTab) =>
         set(
           produce((state: UseTabs) => {
             let itemToUpdate = state.tabs.find((obj) => obj.id === itemID);
+
+            let itemToUpdateColumn_init = (itemToUpdate as SingleTabData)
+              .column;
+            let itemToUpdatePriority_init = (itemToUpdate as SingleTabData)
+              .priority;
 
             if (itemToUpdate) {
               itemToUpdate.column = colNumber;
             }
 
             // reseting priority numbers in column that was item origin
-            if (itemColNumber !== colNumber) {
+            // no need to reset if draggingIntoTab as tabs will be switched
+            if (itemColNumber !== colNumber && !draggingIntoTab) {
               state.tabs
                 .filter((obj) => obj.column === itemColNumber)
                 .filter((obj) => obj.id !== itemID)
@@ -158,7 +165,7 @@ export const useTabs = create<UseTabs>(
               return;
             }
 
-            // index of tab before the gap the tab is dragged into
+            // index of a tab before the gap the tab is dragged into
             let draggedIntoIndex: number = 0;
 
             state.tabs.forEach((obj, i) => {
@@ -167,30 +174,45 @@ export const useTabs = create<UseTabs>(
               }
             });
 
-            let itemToUpdatePriority_initial = itemToUpdate?.priority as number;
-
             let draggedIntoPriority = state.tabs[draggedIntoIndex].priority;
 
+            // dragging into tab
+            if (draggingIntoTab && itemToUpdate) {
+              let tabToUpdate = state.tabs[draggedIntoIndex];
+
+              itemToUpdate.column = tabToUpdate.column;
+              itemToUpdate.priority = tabToUpdate.priority;
+
+              tabToUpdate.column = itemToUpdateColumn_init;
+              tabToUpdate.priority = itemToUpdatePriority_init;
+              return;
+            }
+
+            // dragging into gap
+            // change priorities only if:
             if (
+              itemToUpdate &&
+              // draggedItem is not the same as dragged into tab
               itemID !== tabID &&
-              // if draggetItem do not belongs to the column OR draggedIntoTab is not the previous tab
+              // if draggedIntoTab is not the previous tab OR draggedItem do not belongs to the column
               (draggedIntoPriority + 1 !== itemToUpdate?.priority ||
                 colNumber !== itemColNumber)
             ) {
-              if (itemToUpdate) {
-                if (colNumber !== itemColNumber) {
-                  itemToUpdate.priority = draggedIntoPriority + 1;
+              // changing itemToUpdate priority
+              if (colNumber !== itemColNumber) {
+                itemToUpdate.priority = draggedIntoPriority + 1;
+              }
+              if (colNumber === itemColNumber) {
+                // if dragging to a Tab further down
+                if (draggedIntoPriority > itemToUpdate.priority) {
+                  itemToUpdate.priority = draggedIntoPriority;
+                  //  if dragging to a Tab further up
                 } else {
-                  // if dragging to a Tab further down
-                  if (draggedIntoPriority > itemToUpdate.priority) {
-                    itemToUpdate.priority = draggedIntoPriority;
-                    //  if dragging to a Tab further up
-                  } else {
-                    itemToUpdate.priority = draggedIntoPriority + 1;
-                  }
+                  itemToUpdate.priority = draggedIntoPriority + 1;
                 }
               }
 
+              // changing priority of other tabs in the column that the item is being dragged to
               state.tabs
                 .filter((obj) => obj.column === colNumber)
                 .filter((obj) => obj.id !== itemID)
@@ -201,25 +223,25 @@ export const useTabs = create<UseTabs>(
                   );
 
                   if (tabToUpdate) {
+                    // if the tab being updated is the one being dragged INTO or further up
                     if (tabToUpdate.priority <= draggedIntoPriority) {
+                      // i => tab being dragged has already been filtered
                       tabToUpdate.priority = i;
-                      // if tab being updated is further down that the tab being dragged INTO
+                      // if the tab being updated is further down that the tab being dragged INTO
                     } else {
-                      // updating priorities further down
-
                       if (colNumber !== itemColNumber) {
                         tabToUpdate.priority += 1;
                       } else {
-                        // DO NOT UPDATE TABS further down then tab being dragged if tab is being dragged up
+                        // DO NOT UPDATE TABS further down than the tab being dragged if tab is being dragged up
                         if (
-                          draggedIntoPriority < itemToUpdatePriority_initial &&
-                          tabToUpdate.priority > itemToUpdatePriority_initial
+                          draggedIntoPriority < itemToUpdatePriority_init &&
+                          tabToUpdate.priority > itemToUpdatePriority_init
                         ) {
                           return;
                         }
-                        // DO NOT UPDATE TABS further down then tab being dragged INTO if tab is being dragged down
+                        // DO NOT UPDATE TABS further down than the tab being dragged INTO if tab is being dragged down
                         if (
-                          draggedIntoPriority > itemToUpdatePriority_initial &&
+                          draggedIntoPriority > itemToUpdatePriority_init &&
                           tabToUpdate.priority > draggedIntoPriority
                         ) {
                           return;

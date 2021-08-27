@@ -70,14 +70,14 @@ export const tabsData: SingleTabData[] = [
 
 Manage bookmarks, RSS channels and notes in a form of draggable & foldable tabs
 
-Bypass CORS to allow RSS channels to work. On Chrome:
+Bypass CORS to allow RSS channels (https only) to work. On Chrome:
 1. Add new shortcut on the desktop
 2. Add the target as "[PATH_TO_CHROME]\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=~/chromeTemp
 `,
   },
   {
     id: "7",
-    title: "cnn",
+    title: "guardian",
     color: null,
     column: 3,
     priority: 0,
@@ -89,11 +89,11 @@ Bypass CORS to allow RSS channels to work. On Chrome:
     description: null,
     itemsPerPage: null,
     items: [],
-    rssLink: "http://rss.cnn.com/rss/edition.rss",
+    rssLink: "https://feeds.theguardian.com/theguardian/uk-news/rss",
   },
   {
     id: "8",
-    title: "guardian",
+    title: "science alert",
     color: null,
     column: 3,
     priority: 1,
@@ -105,11 +105,11 @@ Bypass CORS to allow RSS channels to work. On Chrome:
     description: null,
     itemsPerPage: null,
     items: [],
-    rssLink: "https://feeds.theguardian.com/theguardian/uk-news/rss",
+    rssLink: "https://feeds.feedburner.com/sciencealert-latestnews",
   },
   {
     id: "9",
-    title: "sciam",
+    title: "tech beacon",
     color: null,
     column: 3,
     priority: 2,
@@ -121,17 +121,23 @@ Bypass CORS to allow RSS channels to work. On Chrome:
     description: null,
     itemsPerPage: null,
     items: [],
-    // !!! RSS_reactQuery should run the second URL in case of error
-    rssLink: "http://rss.sciam.com/basic-science",
-    // rssLink: "http://rss.sciam.com/basic-science?format=xml",
+    rssLink: "https://techbeacon.com/rss.xml",
   },
 ];
 
 /*  RSS links for testing
+Not working in production! due to mixed content (http request on https domain)
+  "http://rss.cnn.com/rss/edition.rss"
+  "http://rss.sciam.com/basic-science"
+
+ [ // !!! RSS_reactQuery should run the second URL in case of error
+    rssLink: "http://rss.sciam.com/basic-science",
+    // rssLink: "http://rss.sciam.com/basic-science?format=xml", !!!]
+
    rssLink: "https://dailygalaxy.com/feed/",
     // rssLink: "https://tvn24.pl/najwazniejsze.xml",
     // rssLink: "https://feeds.feedburner.com/sciencealert-latestnews"
-    // rssLink: "https://science.sciencemag.org/rss/twis.xml", <- works
-    // rssLink: "https://techbeacon.com/rss.xml"
+    // rssLink: "https://science.sciencemag.org/rss/twis.xml", <- works, but date & description unknown
+    // rssLink: "https://techbeacon.com/rss.xml"  
     // rssLink:  "https://feeds.theguardian.com/theguardian/uk-news/rss"
 */

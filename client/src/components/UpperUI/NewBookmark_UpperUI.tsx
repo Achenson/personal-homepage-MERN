@@ -46,6 +46,7 @@ interface Props {
   errors: BookmarkErrors;
   setErrors: SetBookmarkErrors;
   mainPaddingRight: boolean;
+  scrollbarWidth: number;
 }
 
 function NewBookmark_UpperUI({
@@ -64,6 +65,7 @@ function NewBookmark_UpperUI({
   errors,
   setErrors,
   mainPaddingRight,
+  scrollbarWidth,
 }: Props): JSX.Element {
   const tabs = useTabs((store) => store.tabs);
   const addTabs = useTabs((store) => store.addTabs);
@@ -208,10 +210,15 @@ function NewBookmark_UpperUI({
         }}
       >
         <div
-          className={`bg-warmGray-100 pb-2 pt-3 pl-2 pr-0.5 border-2 border-${uiColor} rounded-sm md:mb-48 ${
-            mainPaddingRight ? "-ml-4" : ""
-          } `}
-          style={{ width: "350px" }}
+          className={`bg-warmGray-100 pb-2 pt-3 pl-2 pr-0.5 border-2 border-${uiColor} rounded-sm md:mb-48`}
+          style={{
+            width: "350px",
+            marginLeft: `${
+              mainPaddingRight && scrollbarWidth >= 10
+                ? `-${scrollbarWidth - 1}px`
+                : ""
+            }`,
+          }}
           onClick={(e) => {
             e.stopPropagation();
             return;
@@ -219,7 +226,9 @@ function NewBookmark_UpperUI({
         >
           <p className="text-center">New bookmark</p>
           <div className="flex justify-around mb-2 mt-3">
-            <p className="w-11 flex-none">Title</p>
+            <p className="flex-none" style={{ width: "60px" }}>
+              Title
+            </p>
             <input
               type="text"
               ref={firstFieldRef}
@@ -234,7 +243,9 @@ function NewBookmark_UpperUI({
             <div className="w-5 flex-none"></div>
           </div>
           <div className="flex justify-around mb-2">
-            <p className="w-11 flex-none">Link</p>
+            <p className="flex-none" style={{ width: "60px" }}>
+              Link
+            </p>
 
             <input
               type="text"
@@ -249,7 +260,9 @@ function NewBookmark_UpperUI({
             <div className="w-5 flex-none"></div>
           </div>
           <div className="flex justify-start mb-2">
-            <p className="w-11 flex-none">Tags</p>
+            <p className="flex-none" style={{ width: "60px" }}>
+              Folders
+            </p>
 
             <div className="relative w-full">
               <div className="relative">
@@ -260,7 +273,7 @@ function NewBookmark_UpperUI({
                   } focus-1`}
                   ref={selectablesRef}
                   value={selectablesInputStr}
-                  placeholder={"tag1, tag2... [optional]"}
+                  placeholder={"folder1, folder2..."}
                   onChange={(e) => {
                     if (!selectablesListVis) setSelectablesListVis(true);
 

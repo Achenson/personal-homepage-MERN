@@ -114,9 +114,9 @@ function SelectableList({
       return;
     }
 
-    if (selectableToHighlight === null) {
-      return;
-    }
+    // if (selectableToHighlight === null) {
+    //   return;
+    // }
 
     if (setWasAnythingClicked) {
       (setWasAnythingClicked as React.Dispatch<React.SetStateAction<boolean>>)(
@@ -188,10 +188,9 @@ function SelectableList({
                 selectableToHighlight === i ? "bg-blueGray-200" : ""
               }  pl-px truncate`}
               onClick={() => {
-                if (selectableToHighlight !== i) {
-                  return;
-                }
-
+                // if (selectableToHighlight !== i) {
+                //   return;
+                // }
                 chooseCurrent(el, "mouse");
               }}
               onMouseEnter={() => {

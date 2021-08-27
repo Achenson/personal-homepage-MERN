@@ -11,6 +11,7 @@ interface Props {
   description: string;
   descriptionVis: boolean | null | undefined;
   dateVis: boolean | null | undefined;
+  isTabDraggedOver: boolean;
 }
 
 function SingeRssNews({
@@ -20,6 +21,7 @@ function SingeRssNews({
   description,
   descriptionVis,
   dateVis,
+  isTabDraggedOver,
 }: Props): JSX.Element {
   const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -41,7 +43,7 @@ function SingeRssNews({
 
   return (
     <div
-      className={`bg-gray-50 py-1 px-2
+      className={`${isTabDraggedOver ? "bg-gray-200" : "bg-gray-50"} py-1 px-2
     border border-t-0
     ${globalSettings.picBackground ? "" : "border-black border-opacity-10"}
      `}
@@ -54,8 +56,6 @@ function SingeRssNews({
       >
         {title}
       </a>
-      {/* )} */}
-
       <p className="text-sm mt-0.5 leading-snug">
         {descriptionVis && renderDescription(description)}
       </p>

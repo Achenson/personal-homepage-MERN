@@ -30,9 +30,14 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 interface Props {
   tabType: "folder" | "note" | "rss";
   mainPaddingRight: boolean;
+  scrollbarWidth: number;
 }
 
-function NewTab({ tabType, mainPaddingRight }: Props): JSX.Element {
+function NewTab({
+  tabType,
+  mainPaddingRight,
+  scrollbarWidth,
+}: Props): JSX.Element {
   const tabs = useTabs((state) => state.tabs);
   const addTabs = useTabs((state) => state.addTabs);
   const bookmarks = useBookmarks((state) => state.bookmarks);
@@ -309,10 +314,15 @@ function NewTab({ tabType, mainPaddingRight }: Props): JSX.Element {
         }}
       >
         <div
-          className={`bg-warmGray-100 pb-2 pt-3 pl-2 pr-0.5 border-2 border-${uiColor} rounded-sm md:mb-48 ${
-            mainPaddingRight ? "-ml-4" : ""
-          }`}
-          style={{ width: "350px" }}
+          className={`bg-warmGray-100 pb-2 pt-3 pl-2 pr-0.5 border-2 border-${uiColor} rounded-sm md:mb-48`}
+          style={{
+            width: "350px",
+            marginLeft: `${
+              mainPaddingRight && scrollbarWidth >= 10
+                ? `-${scrollbarWidth - 1}px`
+                : ""
+            }`,
+          }}
           onClick={(e) => {
             e.stopPropagation();
             return;
@@ -471,8 +481,9 @@ function NewTab({ tabType, mainPaddingRight }: Props): JSX.Element {
 
           <TabErrors errors={errors} tabType={tabType} componentType={"new"} />
 
-          <div className="w-full flex justify-center"
-          style={{marginTop: "18px"}}
+          <div
+            className="w-full flex justify-center"
+            style={{ marginTop: "18px" }}
           >
             <button
               className="h-5 w-5 mr-6 focus-2-offset-dark"

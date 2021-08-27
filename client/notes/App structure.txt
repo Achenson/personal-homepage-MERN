@@ -32,7 +32,7 @@ Main
                 Background (only if background pic is enabled)
                 ?ColorsToChoose_Background
                     (SingleColor_Background)
-                EyeOff
+                Reset
             UpperRightMenu (most right column only)
                 ?UpperRightMenu_XS
             ?Message

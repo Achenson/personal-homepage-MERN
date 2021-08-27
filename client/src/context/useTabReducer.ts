@@ -5,7 +5,7 @@ import { TabVisAction, TabVisState } from "../utils/interfaces";
 export function useTabReducer(
   tabID: string | number,
   setTabOpenedState: (nullOrID: string | number | null) => void,
-  setEyeOff: (trueOrFalse: boolean) => void,
+  setReset: (trueOrFalse: boolean) => void,
   toggleTab: (tabID: string | number, tabOpened: boolean) => void,
   tabOpened: boolean,
   defaultTabContent: (
@@ -32,7 +32,7 @@ export function useTabReducer(
       case "COLORS_SETTINGS_TOGGLE":
         if (!state.colorsVis) {
           setTimeout(() => {
-            setEyeOff(true);
+            setReset(true);
             setTabOpenedState(tabID);
           });
         }
@@ -54,7 +54,7 @@ export function useTabReducer(
       case "EDIT_TOGGLE":
         if (!state.editTabVis) {
           setTimeout(() => {
-            setEyeOff(true);
+            setReset(true);
             setTabOpenedState(tabID);
           });
         }
@@ -124,7 +124,7 @@ export function useTabReducer(
       case "NEW_BOOKMARK_TOOGLE":
         if (!state.newBookmarkVis) {
           setTimeout(() => {
-            setEyeOff(true);
+            setReset(true);
             setTabOpenedState(tabID);
           });
         }
@@ -138,7 +138,7 @@ export function useTabReducer(
       case "EDIT_BOOKMARK_OPEN":
         if (!state.editBookmarkVis) {
           setTimeout(() => {
-            setEyeOff(true);
+            setReset(true);
             setTabOpenedState(tabID);
           });
         }

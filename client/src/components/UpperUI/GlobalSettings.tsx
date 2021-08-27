@@ -18,9 +18,13 @@ import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handle
 
 interface Props {
   mainPaddingRight: boolean;
+  scrollbarWidth: number;
 }
 
-function GlobalSettings({ mainPaddingRight }: Props): JSX.Element {
+function GlobalSettings({
+  mainPaddingRight,
+  scrollbarWidth,
+}: Props): JSX.Element {
   const uiColor = useDefaultColors((state) => state.uiColor);
 
   const globalSettings = useGlobalSettings((state) => state, shallow);
@@ -56,7 +60,6 @@ function GlobalSettings({ mainPaddingRight }: Props): JSX.Element {
       document.removeEventListener("keydown", handleKeyDown);
     };
   });
-
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 7);
@@ -116,12 +119,15 @@ function GlobalSettings({ mainPaddingRight }: Props): JSX.Element {
           }}
         >
           <div
-            className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${uiColor} rounded-sm relative ${
-              mainPaddingRight ? "-ml-4" : ""
-            }`}
+            className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${uiColor} rounded-sm relative`}
             style={{
               width: `${xsScreen ? "350px" : "417px"}`,
-              height: "255px",
+              height: "287px",
+              marginLeft: `${
+                mainPaddingRight && scrollbarWidth >= 10
+                  ? `-${scrollbarWidth - 1}px`
+                  : ""
+              }`,
             }}
           >
             <Settings_inner_xs currentSettings="global" />
@@ -193,6 +199,23 @@ function GlobalSettings({ mainPaddingRight }: Props): JSX.Element {
                   });
                 }}
                 aria-label={"Hide folder containing all bookmarks"}
+              ></button>
+            </div>
+            <div className="flex justify-between items-center mb-2 mt-2">
+              <p className="">Disable drag & drop</p>
+              <button
+                className={`h-4 w-4 cursor-pointer transition duration-75 border-2 border-${uiColor} ${
+                  globalSettings.disableDrag
+                    ? `bg-${uiColor} bg-opacity-50 hover:border-opacity-30`
+                    : `hover:border-opacity-50`
+                } focus-1-offset-dark `}
+                onClick={() => {
+                  setGlobalSettings({
+                    ...globalSettings,
+                    disableDrag: !globalSettings.disableDrag,
+                  });
+                }}
+                aria-label={"Disable drag and drop"}
               ></button>
             </div>
 

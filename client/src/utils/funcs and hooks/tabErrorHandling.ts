@@ -15,7 +15,7 @@ export function tabErrorHandling(
   textAreaValue: string | null,
   componentType: "edit" | "new",
   // for edit only
-  initialTitle?: string,
+  initialTitle?: string
 ): boolean {
   // ^  and $ -> beginning and end of the text!
   // let regexForBookmarks = /^\w+(,\s\w+)*$/;
@@ -80,6 +80,14 @@ export function tabErrorHandling(
       setErrors({
         ...errorsAllFalse,
         invalidLinkErrorVis: true,
+      });
+      return true;
+    }
+
+    if (!rssLinkInput.match(/https/)) {
+      setErrors({
+        ...errorsAllFalse,
+        invalidLinkErrorHttpsVis: true,
       });
       return true;
     }

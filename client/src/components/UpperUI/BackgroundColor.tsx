@@ -70,7 +70,9 @@ function BackgroundColor({
     <>
       <button
         ref={focusOnBackgroundColor_ref}
-        className={`relative focus:outline-none focus-visible:ring-2 ring-${focusColor()} ring-inset`}
+        className={`h-7 w-7 flex items-center relative transition-colors duration-75 ${calcIconBackground(
+          backgroundColor
+        )} opacity-80 border border-black rounded-lg cursor-pointer hover:border-gray-500 focus:outline-none focus-visible:ring-2 ring-${focusColor()}`}
         onClick={() => {
           setSelected((b) => !b);
           upperUiContext.upperVisDispatch({ type: "COLORS_BACKGROUND_TOGGLE" });
@@ -78,11 +80,7 @@ function BackgroundColor({
         tabIndex={5}
         aria-label={"Background color menu"}
       >
-        <DocumentSVG
-          className={`h-7 transition-colors duration-75 ${calcIconBackground(
-            backgroundColor
-          )} opacity-80 border border-black rounded-lg cursor-pointer  hover:border-gray-500`}
-        />
+        <DocumentSVG className={`h-7`} />
       </button>
       {upperUiContext.upperVisState.colorsBackgroundVis && (
         <div className="absolute">

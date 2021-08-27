@@ -67,7 +67,9 @@ function Bookmark_lowerUI_edit({
       >
         <div className="pt-2">
           <div className="flex justify-around mb-2 mt-2">
-            <p className="w-10 flex-none">Title</p>
+            <p className="flex-none" style={{ width: "60px" }}>
+              Title
+            </p>
 
             <input
               type="text"
@@ -87,7 +89,9 @@ function Bookmark_lowerUI_edit({
             <div className="invisible flex-none" style={{ width: "18px" }} />
           </div>
           <div className="flex justify-around mb-2">
-            <p className="w-10 flex-none">Link</p>
+            <p className="flex-none" style={{ width: "60px" }}>
+              Link
+            </p>
 
             <input
               type="text"
@@ -105,7 +109,9 @@ function Bookmark_lowerUI_edit({
             <div className="invisible flex-none" style={{ width: "18px" }} />
           </div>
           <div className="flex justify-start mb-2">
-            <p className="w-10 flex-none">Tags</p>
+            <p className="flex-none" style={{ width: "60px" }}>
+              Folders
+            </p>
 
             <div className="relative w-full">
               <div className="relative">
@@ -116,7 +122,7 @@ function Bookmark_lowerUI_edit({
                   } focus-1`}
                   ref={selectablesRef}
                   value={selectablesInputStr}
-                  placeholder={"tag1, tag2..."}
+                  placeholder={"folder1, folder2..."}
                   onChange={(e) => {
                     setWasAnythingChanged(true);
                     if (!selectablesListVis) setSelectablesListVis(true);

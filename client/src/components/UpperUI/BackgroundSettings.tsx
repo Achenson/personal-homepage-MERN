@@ -15,9 +15,13 @@ import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handle
 
 interface Props {
   mainPaddingRight: boolean;
+  scrollbarWidth: number;
 }
 
-function BackgroundSettings({ mainPaddingRight }: Props): JSX.Element {
+function BackgroundSettings({
+  mainPaddingRight,
+  scrollbarWidth,
+}: Props): JSX.Element {
   const globalSettings = useGlobalSettings((state) => state, shallow);
   const setGlobalSettings = useGlobalSettings(
     (state) => state.setGlobalSettings
@@ -81,12 +85,15 @@ function BackgroundSettings({ mainPaddingRight }: Props): JSX.Element {
           }}
         >
           <div
-            className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${uiColor} rounded-sm relative ${
-              mainPaddingRight ? "-ml-4" : ""
-            }`}
+            className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${uiColor} rounded-sm relative`}
             style={{
               width: `${xsScreen ? "350px" : "417px"}`,
               height: `${xsScreen ? "238px" : "205px"}`,
+              marginLeft: `${
+                mainPaddingRight && scrollbarWidth >= 10
+                  ? `-${scrollbarWidth - 1}px`
+                  : ""
+              }`,
             }}
           >
             <Settings_inner_xs currentSettings={"background"} />

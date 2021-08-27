@@ -2,11 +2,11 @@ import React from "react";
 
 import shallow from "zustand/shallow";
 
-import { ReactComponent as EyeOffSVG } from "../../svgs/eye-off.svg";
+import { ReactComponent as ResetSVG } from "../../svgs/reset-update.svg";
 
 import { useBackgroundColor } from "../../state/hooks/colorHooks";
 import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-import { useEyeOff } from "../../state/hooks/useEyeOff";
+import { useReset } from "../../state/hooks/useReset";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
@@ -19,7 +19,7 @@ interface Props {
   setFocusOnBackgroundColor: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function EyeOff({
+function Reset({
   setFocusOnBackgroundColor,
   setFocusOnColumnColor,
 }: Props): JSX.Element {
@@ -28,8 +28,8 @@ function EyeOff({
 
   const setCloseAllTabsState = useTabs((state) => state.setCloseAllTabsState);
   const setTabOpenedState = useTabs((state) => state.setTabOpenedState);
-  const eyeOffEnabled = useEyeOff((state) => state.enabled);
-  const setEyeOff = useEyeOff((state) => state.setEyeOff);
+  const resetEnabled = useReset((state) => state.enabled);
+  const setReset = useReset((state) => state.setReset);
 
   const upperUiContext = useUpperUiContext();
 
@@ -73,35 +73,36 @@ function EyeOff({
         upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
         setCloseAllTabsState(true);
         setTabOpenedState(null);
-        if (eyeOffEnabled) setEyeOff(false);
-
+        if (resetEnabled) setReset(false);
         if (!globalSettings.picBackground) {
           setFocusOnBackgroundColor(true);
           return;
         }
-
         if (globalSettings.oneColorForAllCols) {
           setFocusOnColumnColor(1);
         } else {
           setFocusOnColumnColor(globalSettings.numberOfCols);
         }
       }}
-      className={`focus:outline-none focus-visible:ring-2 ring-${focusColor()} ring-inset`}
+      className={`h-7 w-7 flex justify-center items-center transition-colors duration-75 ${calcIconBackground(
+        backgroundColor
+      )} opacity-80 border border-black rounded-lg ${
+        resetEnabled
+          ? " hover:border-gray-500 cursor-pointer"
+          : " border-gray-500 cursor-default"
+      } focus:outline-none focus-visible:ring-2 ring-${focusColor()}`}
       tabIndex={6}
       aria-label={"Reset tabs to default open/close state"}
-      disabled={eyeOffEnabled ? false : true}
+      disabled={resetEnabled ? false : true}
     >
-      <EyeOffSVG
-        className={`h-7 transition-colors duration-75 ${calcIconBackground(
-          backgroundColor
-        )} opacity-80 border border-black rounded-lg ${
-          eyeOffEnabled
-            ? "cursor-pointer hover:border-gray-500"
-            : "cursor-default border-gray-500"
-        }`}
+      <ResetSVG
+        style={{
+          height: "21px",
+          marginLeft: "0px"
+        }}
       />
     </button>
   );
 }
 
-export default EyeOff;
+export default Reset;

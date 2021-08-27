@@ -231,14 +231,14 @@ XXX 19. confirmation for folder delete XXX
 XXX 123 EditBookmarkTitle gray border test diff options XXX
 DONE 125. button inside svgs -> not a good idea, just make svgs clickable? DONE
 DONE 126. bug: wrong background settings on start DONE
-DONE 127. move BackgroudColor and EyeOff to upperUI components DONE
+DONE 127. move BackgroudColor and Reset to upperUI components DONE
 DONE 128. Tab: merge 3 visibilities (from different folders types) into one? DONE (useReducer used)
-DONE 129. EyeOff: version for background image on DONE
+DONE 129. Reset: version for background image on DONE
 DONE 131. to make delayed Icons Appearence on Folders DONE
 DONE 132. Bookmark missing hooks DONE
-DONE 133. EyeOff does not work on RSS and all? DONE
-DONE 134. EyeOff should also close all BookmarkEdits DONE
-DONE 125: Bug: EyeOff DONE
+DONE 133. Reset does not work on RSS and all? DONE
+DONE 134. Reset should also close all BookmarkEdits DONE
+DONE 125: Bug: Reset DONE
 DONE 126. make a note about Grid's logic for setting closeAllFolders !!! DONE
 DONE 127. better hover effect on UpperLeftMenu's columns color contro DONE
 DONE 128. colums color control - problem with border width when clicked in some case (oneColorForAllCols also) DONE
@@ -259,7 +259,7 @@ XXX 145. closing tags when tags are empty is not needed? as Save & cancel are vi
 XXX ? 146. selectables regex works also if there is more than one space: to change or not? ?XXX 
 DONE147. unify EditBookmark and NewBookmark_UpperUI & NewBookmark DONE
 DONE 148. EditBookmark paddings DONE
-DONE 149. make EyeOff hide also edits DONE
+DONE 149. make Reset hide also edits DONE
 DONE 150. Tabs: only 1 edit should be opened at the same time DONE
 DONE 151. In Folder Edit: it should be possible to choose existing bookmarks similar to new Tab DONE
 DONE 152. move SelectableList from UpperUI DONE
@@ -351,7 +351,7 @@ DONE 236. editTab: center Save & Cancel
 DONE 237. make animations for save & cancel SVGs? or on all svgs? DONE
 DONE 238. newTab vs newBookmark save & cancel centering? save icon is cut when trying to center! DONE (bug? px wide div have to be kept for some reason)
 DONE 239. get rid of "else" statements DONE (two cases only)
-DONE 240. EyeOff should be positioned more to the left if image bg is on DONE
+DONE 240. Reset should be positioned more to the left if image bg is on DONE
 DONE 241. Icons to clotted on smallest screen size? make UpperRightMenu more clotted on small screen? (make search UI first!) DONE
 DONE 242. make note about setTimout in Tab DONE
 DONE 243. column colors two components - redundant? DONE (unified)
@@ -489,7 +489,7 @@ DONE 375. invalid display of upperUI pseudoModal (fixed insead of absolute) DONE
 DONE 377. padding right lowerbookmark editTab & editBookmark unite DONE
 DONE 377. "error fetching data" & loading.. non visible on dark background? DONE
 DONE 378. delete inv chevrons in uppperUI DONE
-DONE 378.25 bug: eye off not working properly when locking tabs (changed in editTab()) DONE
+DONE 378.25 bug: Reset off not working properly when locking tabs (changed in editTab()) DONE
 DONE 378.5 yellow columns when img is on -> change note or yellow to gold DONE
 XXX 379. automatic tab closing/opening after locking doesn't work correctly (function) XXX
 DONE 379.5 bring back automatic closing/opening after locking (when state will be in its final form) 
@@ -588,12 +588,12 @@ DONE 458. diff focus order - Upper Left Menu first DONE
 XX 459. first render: problem with single colors for columns focus selection (not a problem: it doesn't happen on click) XX
 DONE 460. make focus outlines more visible (better contrast) DONE
 DONE 461. focus should start on already selected color - tabs & columns color & background colors DONE
-?DONE 462. EyeOff doesn't work properly, only on first Tab!
+?DONE 462. Reset doesn't work properly, only on first Tab!
  DONE ? (fixed by setting delay on Grid useEffect)
  DONE 463. ColorToChoose_Background should not close after selecting, only after interaction with other components
 (<button> cannot appear as a descendant of <button>.) DONE
 DONE 464. all features controlable by keyboard DONE 
-DONE 465. EyeOff: initially disabled? DONE
+DONE 465. Reset: initially disabled? DONE
 DONE 466. Close Default Tab Colors by Escape DONE
 XX? 467. unify ColorsToChoose_DefaultAndColumn and ColorsToChoose_Tab+  ?XX
 DONE 468. visDispatch rename to tabVisDispatch DONE
@@ -612,7 +612,7 @@ DONE 480. GapAfterTab dragWrapper change to tabDrag from zustand DONE
 DONE 481. useBookmarks, useTabs: move data elsewhere, leave methods only DONE
 DONE 482. cannot save after reseting rss settings to default: check if it worked with ridge state DONE
 DONE 483. Tab being dragged color not working? DONE
-DONE 484. when clicking a Tab/tab editables/eye off: "Cannot update a component (`Tab`) while rendering a different component (`Tab`)".
+DONE 484. when clicking a Tab/tab editables/Reset off: "Cannot update a component (`Tab`) while rendering a different component (`Tab`)".
 fixed by wrapping hooks from zustand with setTimout. (setTimeout had to be in the reducer!) In Tab problem was occuring\
  if there was anything dependend on the state being set by setTabOpenedState. Problem because hooks from zustand change
   tab data before render is finished? DONE
@@ -647,7 +647,7 @@ X 502. background img single colors to choose: 1st color tranparent instead of w
 DONE 503. remove unwanted files DONE
 DONE 504. final tests
   V Column colors, background colors/ image changing, tab colors, def. tab colors, def tab colors reset 
-  V EyeOFF/ tab locking
+  V Reset/ tab locking
   V Lower ui deleting, editing, dragging
   V priorities
   V upperUI new
@@ -690,8 +690,8 @@ DONE  515. globalSettings small version doesn't initiate always when needed
   (ColumnColor_OneColorX4 added) DONE
   DONE 527. set proper focus after presing Escape in BackgroudColor upperUi! DONE
   DONE 528. ColumnColor_upperUI check for excesive props DONE
-  DONE 529. proper focus after using EyeOff with keyboard DONE
-  DONE 530. EyeOFf focus dependint on how many column settings DONE
+  DONE 529. proper focus after using Reset with keyboard DONE
+  DONE 530. Reset focus dependint on how many column settings DONE
   DONE 531. in case of one column only -> Right settings XS should be visible all the time if colWidth is limited DONE
   DONE 532. settings should be more aligned to the column if the scrollbar is being removed DONE
   DONE 535. BackgroundColor to choose -> align depending on how many cols are displayed! DONE
@@ -705,24 +705,27 @@ DONE  515. globalSettings small version doesn't initiate always when needed
   DONE 542. Make it possible to select text in notes (double-click to edit notes) DONE
   DONE 543. bug: proper positioning of colorsToChoose in colorSettings DONE
   DONE 544. when there is oneCol only and colGrowth is limited -> not possible to access all settings if screen is wider DONE
+  DONE 548. repo proper code content DONE
+  DONE 549. repo readme DONE
+  DONE 550. make initial rss linkd https only, put info DONE
+  DONE 551. second rss link error if http is being used DONE
+  DONE 552. Reset SVG instead of Reset DONE
+  XXX 553. default column colors, change to matching if background mode is off
+  (contrastive colors seems to work better in that case))XXX
+  DONE 554. tabs draggable to first position DONE
+  DONE 554.5 make all tabs draggable to other tabs? DONE
+  DONE 557. tab that is being dragged into -> make it content somehow different on hover DONE
+  DONE 556. UpperRightMenu xs -> change SVG to plus on the left alone? DONE
+  DONE 558. bug: cannot select selectables with touch (on highlight only conditions deleted)DONE
+  DONE 559. reset svg not always in the middle (marginLeftAdded) DONE
+  DONE 560. bug: wrong margin on global settings when on mobile! -> make it dependend on scrollbard width DONE
+  X 561. hide column & background color options () X
+  XX 562. selectables: problem with highlight on chrome? XX
+  DONE 563. disable drag and drop option (for mobile) DONE
+  DONE 564. folders instead of tags DONE
+  DONE 565. disable crossSVG when disableDrag setting is on DONE
+  DONE 566. smaller resetSVG icon? DONE
 
-
-
-
-TOTAL: 12 452 -> 9 789
-
-547 repo readme
-548. repo proper code content
-
-`Welcome to SmoothTabs
-[frontend demo]    
->manage bookmarks, RSS channels and notes in a form of foldable tabs
->drag the tabs between columns
->choose between plain color or image background modes
->control individual tab colors or set default colors for different tab types
->set default open/close state for each tab, roll back to default with crossed-out eye button
->control individual and global RSS display settings
->check global settings for more customization options
 
 Browserslist: caniuse-lite is outdated. Please run:
 npx browserslist@latest --update-db

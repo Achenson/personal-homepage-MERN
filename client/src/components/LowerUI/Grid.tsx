@@ -7,7 +7,7 @@ import Column from "./Column";
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useResetColors } from "../../state/hooks/colorHooks";
-import { useEyeOff } from "../../state/hooks/useEyeOff";
+import { useReset } from "../../state/hooks/useReset";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
@@ -34,7 +34,7 @@ function Grid({ setTabType }: Props): JSX.Element {
   const resetColors = useResetColors((state) => state.resetColors);
   const setResetColors = useResetColors((state) => state.setResetColors);
 
-  const setEyeOff = useEyeOff((state) => state.setEyeOff);
+  const setReset = useReset((state) => state.setReset);
 
   const upperUiContext = useUpperUiContext();
 
@@ -70,9 +70,9 @@ function Grid({ setTabType }: Props): JSX.Element {
 
   useEffect(() => {
     if (areTabsInDefaultState()) {
-      setEyeOff(false);
+      setReset(false);
     } else {
-      setEyeOff(true);
+      setReset(true);
     }
 
     function areTabsInDefaultState() {
@@ -87,16 +87,16 @@ function Grid({ setTabType }: Props): JSX.Element {
 
       return isDefault;
     }
-  }, [setEyeOff, tabs]);
+  }, [setReset, tabs]);
 
   useEffect(() => {
     if (
       upperUiContext.upperVisState.colorsBackgroundVis ||
       upperUiContext.upperVisState.colorsColumnVis
     ) {
-      setEyeOff(true);
+      setReset(true);
     }
-  }, [upperUiContext, setEyeOff]);
+  }, [upperUiContext, setReset]);
 
   useEffect(() => {
     if (closeAllTabsState) {

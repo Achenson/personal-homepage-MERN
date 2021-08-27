@@ -19,9 +19,14 @@ let parser = new Parser();
 interface Props {
   tabID: string | number;
   currentTab: SingleTabData;
+  isTabDraggedOver: boolean;
 }
 
-function ReactQuery({ currentTab, tabID }: Props): JSX.Element {
+function ReactQuery({
+  currentTab,
+  tabID,
+  isTabDraggedOver,
+}: Props): JSX.Element {
   const globalSettings = useGlobalSettings((state) => state, shallow);
   const rssSettingsState = useRssSettings((state) => state, shallow);
 
@@ -136,6 +141,7 @@ function ReactQuery({ currentTab, tabID }: Props): JSX.Element {
         link={el.link}
         key={i}
         pubDate={convertRssDate(el.pubDate)}
+        isTabDraggedOver={isTabDraggedOver}
       />
     ));
   }
@@ -155,7 +161,9 @@ function ReactQuery({ currentTab, tabID }: Props): JSX.Element {
   return (
     <div>
       <div
-        className={`flex bg-gray-50 justify-end border-r border-l
+        className={`flex ${
+          isTabDraggedOver ? "bg-gray-200" : "bg-gray-50"
+        } justify-end border-r border-l
     ${globalSettings.picBackground ? "" : "border-black border-opacity-10"}`}
       >
         <button

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDrop } from "react-dnd";
 
 import shallow from "zustand/shallow";
 import { useDrag } from "react-dnd";
@@ -17,7 +18,7 @@ import { ReactComponent as PlusSVG } from "../../svgs/plus.svg";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-import { useEyeOff } from "../../state/hooks/useEyeOff";
+import { useReset } from "../../state/hooks/useReset";
 import {
   useTabBeingDraggedColor,
   useDefaultColors,
@@ -29,6 +30,13 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { ItemTypes } from "../../utils/data/itemsDnd";
 import { SingleTabData } from "../../utils/interfaces";
+
+interface Item {
+  type: string;
+  tabID: string | number;
+  colNumber: number;
+  tabColor: string;
+}
 
 interface Props {
   tabID: string | number;
@@ -61,8 +69,8 @@ function Tab({
 
   // needed for immediate tab content opening/closing after locking/unlocking
   const [tabOpened_local, setTabOpened_local] = useState(tabOpened);
-  const setEyeOff = useEyeOff((state) => state.setEyeOff);
-  const eyeOffEnabled = useEyeOff((state) => state.enabled);
+  const setReset = useReset((state) => state.setReset);
+  const resetEnabled = useReset((state) => state.enabled);
   const bookmarks = useBookmarks((state) => state.bookmarks);
 
   const tabs = useTabs((store) => store.tabs);
@@ -96,7 +104,7 @@ function Tab({
   const [tabVisState, tabVisDispatch] = useTabReducer(
     tabID,
     setTabOpenedState,
-    setEyeOff,
+    setReset,
     toggleTab,
     tabOpened,
     defaultTabContent,
@@ -139,6 +147,8 @@ function Tab({
     }
   }
 
+  const dragTab = useTabs((store) => store.dragTab);
+
   // we get two things:
   //  1.) object containing all props - we will get that from collection functions
   // the collecting functions will turn monitor events into props
@@ -158,12 +168,34 @@ function Tab({
     }),
   });
 
+  // to enable tab dragging over first tab in a column
+  const [{ isOver, draggedItem }, drop] = useDrop<
+    Item,
+    void,
+    {
+      isOver: boolean;
+      draggedItem: Item | null;
+    }
+  >({
+    //    required property
+    accept: ItemTypes.BOOKMARK,
+    drop: (item: Item, monitor) => {
+      if (draggedItem && tabID !== draggedItem.tabID) {
+        dragTab(item.tabID, item.colNumber, colNumber, tabID, true);
+      }
+    },
+    // drop: (item: Item, monitor) => console.log(item.tabID),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+      draggedItem: monitor.getItem(),
+    }),
+  });
+
   useEffect(() => {
     if (isDragging) {
       setTabBeingDraggedColor(finalTabColor);
       tabVisDispatch({ type: "TAB_EDITABLES_CLOSE" });
       setTabOpenedState(null);
-      console.log("dragggind");
     }
   }, [
     isDragging,
@@ -249,147 +281,161 @@ function Tab({
     return "text-black";
   }
 
+  let isTabDraggedOver = !!(
+    isOver &&
+    draggedItem &&
+    tabID !== draggedItem.tabID
+  );
+
   return (
     <TabContext.Provider value={tabContextValue}>
       <div
+        ref={drop}
         className={`relative ${
           globalSettings.hideNonDeletable && !tabIsDeletable ? "hidden" : ""
         }`}
       >
-        <div
-          ref={drag}
-          className={`pl-0 h-8 pr-1 bg-${finalTabColor} ${textOrIconColor(
-            finalTabColor,
-            "text"
-          )} border border-t-0 border-r-0 border-l-0 border-gray-700 border-opacity-25 flex justify-between`}
-          style={{
-            boxShadow: "0px -1px inset rgba(0, 0, 0, 0.05)",
-            paddingTop: "2px",
-          }}
-          onTouchStart={() => {
-            setTimeout(() => {
-              tabVisDispatch({ type: "TOUCH_SCREEN_MODE_ON" });
-            }, 200);
-          }}
-          onMouseEnter={() => {
-            setMouseOverTab(true);
-          }}
-          onMouseLeave={() => {
-            setMouseOverTab(false);
-          }}
-        >
+        <div>
           <div
-            className="pl-1 w-full h-7 truncate cursor-pointer"
-            onClick={() => {
-              tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
-              upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
-              if (!eyeOffEnabled) setEyeOff(true);
+            ref={globalSettings.disableDrag ? undefined : drag}
+            className={`pl-0 h-8 pr-1 ${
+              isTabDraggedOver && draggedItem
+                ? `bg-${draggedItem.tabColor}`
+                : `bg-${finalTabColor}`
+            }   ${textOrIconColor(
+              finalTabColor,
+              "text"
+            )} border border-t-0 border-r-0 border-l-0 border-gray-700 border-opacity-25 flex justify-between`}
+            style={{
+              boxShadow: "0px -1px inset rgba(0, 0, 0, 0.05)",
+              paddingTop: "2px",
+            }}
+            onTouchStart={() => {
+              setTimeout(() => {
+                tabVisDispatch({ type: "TOUCH_SCREEN_MODE_ON" });
+              }, 200);
+            }}
+            onMouseEnter={() => {
+              setMouseOverTab(true);
+            }}
+            onMouseLeave={() => {
+              setMouseOverTab(false);
             }}
           >
-            <button
-              className={`mt-px flex focus:outline-none focus-visible:ring-1 ring-${textOrIconColor(
-                finalTabColor,
-                "text"
-              ).slice(5)} ring-opacity-40`}
-              style={{ height: "23px" }}
-              onFocus={() => {
-                setFocusedTabState(tabID);
-              }}
-              aria-label={"Tab open/close"}
-            >
-              <p
-                className={`truncate ${
-                  tabID === "ALL_TAGS" ? "tracking-wider" : ""
-                }`}
-              >
-                {tabTitle}
-              </p>
-            </button>
-          </div>
-
-          <div
-            className={`pt-1 flex ${
-              iconsVis || tabVisState.touchScreenModeOn
-                ? "visible"
-                : "invisible"
-            } fill-current ${textOrIconColor(finalTabColor, "icon")} `}
-          >
             <div
-              className={`w-6 -mt-1 pt-1 cursor-move `}
-              style={{ height: "29px" }}
-              onMouseEnter={() => {
-                setCrossVis(false);
-              }}
-              onMouseLeave={() => {
-                setCrossVis(true);
+              className="pl-1 w-full h-7 truncate cursor-pointer"
+              onClick={() => {
+                tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
+                upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
+                if (!resetEnabled) setReset(true);
               }}
             >
-              {crossVis && (
-                <CrossArrowsSVG className="h-6" style={{ marginTop: "-2px" }} />
-              )}
-            </div>
-
-            {tabType === "folder" && (
               <button
-                className={`h-8 focus:outline-none focus-visible:ring-2 ring-${textOrIconColor(
+                className={`mt-px flex focus:outline-none focus-visible:ring-1 ring-${textOrIconColor(
                   finalTabColor,
                   "text"
-                ).slice(5)} ring-opacity-40 ring-inset   `}
-                style={{ marginTop: "-6px" }}
+                ).slice(5)} ring-opacity-40`}
+                style={{ height: "23px" }}
+                onFocus={() => {
+                  setFocusedTabState(tabID);
+                }}
+                aria-label={"Tab open/close"}
+              >
+                <p
+                  className={`truncate ${
+                    isTabDraggedOver ? `invisible` : "visible"
+                  } ${tabID === "ALL_TAGS" ? "tracking-wider" : ""}`}
+                >
+                  {tabTitle}
+                </p>
+              </button>
+            </div>
+            <div
+              className={`pt-1 flex ${
+                iconsVis || tabVisState.touchScreenModeOn
+                  ? "visible"
+                  : "invisible"
+              } fill-current ${textOrIconColor(finalTabColor, "icon")} `}
+            >
+              <div
+                className={` ${
+                  globalSettings.disableDrag ? "hidden" : ""
+                } w-6 -mt-1 pt-1 cursor-move `}
+                style={{ height: "29px" }}
+                onMouseEnter={() => {
+                  setCrossVis(false);
+                }}
+                onMouseLeave={() => {
+                  setCrossVis(true);
+                }}
+              >
+                {crossVis && (
+                  <CrossArrowsSVG
+                    className="h-6"
+                    style={{ marginTop: "-2px" }}
+                  />
+                )}
+              </div>
+              {tabType === "folder" && (
+                <button
+                  className={`h-8 focus:outline-none focus-visible:ring-2 ring-${textOrIconColor(
+                    finalTabColor,
+                    "text"
+                  ).slice(5)} ring-opacity-40 ring-inset   `}
+                  style={{ marginTop: "-6px" }}
+                  onClick={() => {
+                    tabVisDispatch({ type: "NEW_BOOKMARK_TOOGLE" });
+                    upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
+                  }}
+                  aria-label={"Add new bookmark"}
+                >
+                  <PlusSVG
+                    className={`h-full transition-colors duration-75 hover:${hoverText(
+                      finalTabColor
+                    )} cursor-pointer`}
+                  />
+                </button>
+              )}
+              <button
+                className={`h-5 w-5 mr-2 focus:outline-none focus-visible:ring-2 ring-${textOrIconColor(
+                  finalTabColor,
+                  "text"
+                ).slice(5)} ring-opacity-40`}
+                style={{
+                  marginLeft: `${
+                    tabType === "note" || tabType === "rss" ? "7px" : ""
+                  }`,
+                }}
                 onClick={() => {
-                  tabVisDispatch({ type: "NEW_BOOKMARK_TOOGLE" });
+                  tabVisDispatch({ type: "COLORS_SETTINGS_TOGGLE" });
                   upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                 }}
-                aria-label={"Add new bookmark"}
+                aria-label={"Tab color menu"}
               >
-                <PlusSVG
-                  className={`h-full transition-colors duration-75 hover:${hoverText(
+                <ColorSmallSVG
+                  className={`h-full w-full transition-colors duration-75 hover:${hoverText(
+                    finalTabColor
+                  )} cursor-pointer `}
+                />
+              </button>
+              <button
+                className={`h-5 focus:outline-none focus-visible:ring-2 ring-${textOrIconColor(
+                  finalTabColor,
+                  "text"
+                ).slice(5)} ring-opacity-40 `}
+                onClick={() => {
+                  tabVisDispatch({ type: "EDIT_TOGGLE" });
+                  upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
+                }}
+                aria-label={"Edit tab"}
+              >
+                <PencilSmallSVG
+                  className={`h-full -ml-px transition-colors duration-75 hover:${hoverText(
                     finalTabColor
                   )} cursor-pointer`}
                 />
               </button>
-            )}
-
-            <button
-              className={`h-5 w-5 mr-2 focus:outline-none focus-visible:ring-2 ring-${textOrIconColor(
-                finalTabColor,
-                "text"
-              ).slice(5)} ring-opacity-40`}
-              style={{
-                marginLeft: `${
-                  tabType === "note" || tabType === "rss" ? "7px" : ""
-                }`,
-              }}
-              onClick={() => {
-                tabVisDispatch({ type: "COLORS_SETTINGS_TOGGLE" });
-                upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
-              }}
-              aria-label={"Tab color menu"}
-            >
-              <ColorSmallSVG
-                className={`h-full w-full transition-colors duration-75 hover:${hoverText(
-                  finalTabColor
-                )} cursor-pointer `}
-              />
-            </button>
-
-            <button
-              className={`h-5 focus:outline-none focus-visible:ring-2 ring-${textOrIconColor(
-                finalTabColor,
-                "text"
-              ).slice(5)} ring-opacity-40 `}
-              onClick={() => {
-                tabVisDispatch({ type: "EDIT_TOGGLE" });
-                upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
-              }}
-              aria-label={"Edit tab"}
-            >
-              <PencilSmallSVG
-                className={`h-full -ml-px transition-colors duration-75 hover:${hoverText(
-                  finalTabColor
-                )} cursor-pointer`}
-              />
-            </button>
+            </div>
           </div>
         </div>
 
@@ -439,6 +485,7 @@ function Tab({
                     setBookmarkId={setBookmarkId}
                     key={i}
                     tabID={tabID}
+                    isTabDraggedOver={isTabDraggedOver}
                   />
                 );
               })}
@@ -446,13 +493,17 @@ function Tab({
         )}
 
         {tabOpened_local && tabType === "note" && (
-          <NoteInput currentTab={currentTab as SingleTabData} />
+          <NoteInput
+            currentTab={currentTab as SingleTabData}
+            isTabDraggedOver={isTabDraggedOver}
+          />
         )}
 
         {tabOpened_local && tabType === "rss" && (
           <RSS_reactQuery
             tabID={tabID}
             currentTab={currentTab as SingleTabData}
+            isTabDraggedOver={isTabDraggedOver}
           />
         )}
       </div>

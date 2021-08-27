@@ -42,9 +42,8 @@ function GapAfterTab({
     //    required property
     accept: ItemTypes.BOOKMARK,
     drop: (item: Item, monitor) =>
-      dragTab(item.tabID, item.colNumber, colNumber, tabID_orNull),
+      dragTab(item.tabID, item.colNumber, colNumber, tabID_orNull, false),
     // drop: (item, monitor) => console.log(item.tabID),
-
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),

@@ -7,6 +7,8 @@ interface UseGlobalSettingsData {
   oneColorForAllCols: boolean;
   limitColGrowth: boolean;
   hideNonDeletable: boolean;
+  // for better touchscreen experience, dragging and scrolling can clash
+  disableDrag: boolean;
   numberOfCols: 1 | 2 | 3 | 4;
 }
 
@@ -22,6 +24,7 @@ export const useGlobalSettings = create<UseGlobalSettingsAll>(
       oneColorForAllCols: false,
       limitColGrowth: false,
       hideNonDeletable: false,
+      disableDrag: false,
       numberOfCols: 4,
       setGlobalSettings: (globalSettings) =>
         set((state) => ({

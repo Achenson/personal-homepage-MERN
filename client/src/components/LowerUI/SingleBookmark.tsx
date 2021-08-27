@@ -24,6 +24,7 @@ interface Props {
   >;
   colNumber: number;
   tabID: string | number;
+  isTabDraggedOver: boolean;
 }
 
 function SingleBookmark({
@@ -31,6 +32,7 @@ function SingleBookmark({
   bookmarkId,
   setBookmarkId,
   colNumber,
+  isTabDraggedOver,
 }: Props): JSX.Element {
   const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -51,7 +53,9 @@ function SingleBookmark({
     >
       {tabContext.tabVisState.editBookmarkVis !== bookmarkId && (
         <div
-          className={`flex justify-between bg-gray-50 h-10 pt-2 border border-t-0 ${
+          className={`flex justify-between ${
+            isTabDraggedOver ? "bg-gray-200" : "bg-gray-50"
+          } h-10 pt-2 border border-t-0 ${
             globalSettings.picBackground ? "" : "border-black border-opacity-10"
           }`}
         >

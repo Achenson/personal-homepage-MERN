@@ -14,9 +14,10 @@ import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handle
 
 interface Props {
   mainPaddingRight: boolean;
+  scrollbarWidth: number;
 }
 
-function Profile({ mainPaddingRight }: Props): JSX.Element {
+function Profile({ mainPaddingRight, scrollbarWidth }: Props): JSX.Element {
   const uiColor = useDefaultColors((state) => state.uiColor);
 
   const [loginOrRegister, setLoginOrRegister] = useState<"login" | "register">(
@@ -70,11 +71,14 @@ function Profile({ mainPaddingRight }: Props): JSX.Element {
           }}
         >
           <div
-            className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${uiColor} rounded-sm relative ${
-              mainPaddingRight ? "-ml-4" : ""
-            }`}
+            className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${uiColor} rounded-sm relative`}
             style={{
               width: `350px`,
+              marginLeft: `${
+                mainPaddingRight && scrollbarWidth >= 10
+                  ? `-${scrollbarWidth - 1}px`
+                  : ""
+              }`,
             }}
           >
             <div className="absolute right-0 top-0 mt-1 mr-1">

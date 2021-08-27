@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import shallow from "zustand/shallow";
 
 import { ReactComponent as FolderSVG } from "../../svgs/folder.svg";
-import { ReactComponent as PlusSquareSVG } from "../../svgs/plus-square-line_uxwing.svg";
+import { ReactComponent as PlusSmSVG } from "../../svgs/plus-sm.svg";
 import { ReactComponent as BookmarkSVG } from "../../svgs/bookmarkAlt.svg";
 import { ReactComponent as NoteSVG } from "../../svgs/note_UXwing.svg";
 import { ReactComponent as CogSVG } from "../../svgs/cog.svg";
@@ -50,9 +50,10 @@ function UpperRightMenu({ setTabType }: Props): JSX.Element {
     ) {
       switch (upperUiContext.upperVisState.focusOnUpperRightUi) {
         case 1:
-          focusOnUpperRightUi_xs_ref_1.current.focus();
+          if (focusOnUpperRightUi_xs_ref_1.current) {
+            focusOnUpperRightUi_xs_ref_1.current.focus();
+          }
           return;
-        // 2,3 & 4 visible only if plus SVG is clicked
         case 2:
           if (focusOnUpperRightUi_xs_ref_2.current) {
             focusOnUpperRightUi_xs_ref_2.current.focus();
@@ -105,9 +106,21 @@ function UpperRightMenu({ setTabType }: Props): JSX.Element {
           )} justify-around`}
         >
           <button
+            ref={focusOnUpperRightUi_xs_ref_1}
+            className="h-7 w-7 focus-2-inset-veryDark"
+            onClick={() => {
+              upperUiContext.upperVisDispatch({ type: "NEW_BOOKMARK_TOGGLE" });
+            }}
+            tabIndex={6}
+            aria-label={"New bookmark"}
+          >
+            <BookmarkSVG
+              className={`h-7 w-7 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
+            />
+          </button>
+          <button
             ref={focusOnUpperRightUi_xs_ref_2}
             className="h-7 w-7 focus-2-inset-veryDark"
-            style={{ marginLeft: "0px" }}
             onClick={() => {
               upperUiContext.upperVisDispatch({ type: "NEW_TAB_TOGGLE" });
               setTabType("folder");
@@ -119,7 +132,6 @@ function UpperRightMenu({ setTabType }: Props): JSX.Element {
               className={`h-7 w-7 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
             />
           </button>
-
           <button
             ref={focusOnUpperRightUi_xs_ref_3}
             className="h-6 w-6 focus-2-veryDark"
@@ -135,11 +147,10 @@ function UpperRightMenu({ setTabType }: Props): JSX.Element {
               className={`h-6 w-6 cursor-pointer fill-current transition-colors duration-75 text-black hover:text-${uiColor}`}
             />
           </button>
-
           <button
             ref={focusOnUpperRightUi_xs_ref_4}
             className="h-7 w-7 focus-2-inset-veryDark"
-            style={{ marginRight: "-2px" }}
+            style={{ marginRight: "1px" }}
             onClick={() => {
               upperUiContext.upperVisDispatch({ type: "NEW_TAB_TOGGLE" });
               setTabType("rss");
@@ -151,113 +162,99 @@ function UpperRightMenu({ setTabType }: Props): JSX.Element {
               className={`h-7 w-7 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
             />
           </button>
-
-          <UserSVG
-            className={`invisible h-6 self-center cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
-          />
         </div>
       )}
 
       <div
-        className={`flex ${xsDisplay("sm:hidden", "xs:hidden")} justify-around`}
-        style={{ marginTop: "-1px" }}
+        className={`flex items-center ${xsDisplay("sm:hidden", "xs:hidden")}`}
       >
-        <button
-          ref={focusOnUpperRightUi_xs_ref_1}
-          className="h-7 w-7 focus-2-inset-veryDark"
-          onClick={() => {
-            upperUiContext.upperVisDispatch({ type: "NEW_BOOKMARK_TOGGLE" });
-          }}
-          tabIndex={10}
-          aria-label={"New bookmark"}
-        >
-          <BookmarkSVG
-            className={`h-7 w-7 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
-          />
-        </button>
-        <button
-          className="h-6 w-5 self-center focus-2-veryDark"
-          style={{ width: "22px" }}
-          onClick={() => {
-            upperUiContext.upperVisDispatch({ type: "ADD_TAG_XS_TOGGLE" });
-          }}
-          tabIndex={11}
-          aria-label={"New tab menu"}
-        >
-          <PlusSquareSVG
-            className={`h-5 w-5 cursor-pointer transition-colors duration-75 fill-current hover:text-${uiColor} ml-px`}
-          />
-        </button>
+        <div className="w-1/2 flex justify-start mt-px">
+          <button
+            className={`w-12 ml-1 flex justify-center items-center focus-2-inset-dark
+            rounded border-black border-2 transition-colors duration-75 hover:text-${uiColor} hover:border-${uiColor}`}
+            style={{ height: "22px" }}
+            onClick={() => {
+              upperUiContext.upperVisDispatch({ type: "ADD_TAG_XS_TOGGLE" });
+            }}
+            tabIndex={10}
+            aria-label={"New tab menu"}
+          >
+            <PlusSmSVG
+              className={`h-5 w-5 cursor-pointer  fill-current ml-px`}
+            />
+          </button>
+        </div>
 
-        <button
-          ref={focusOnUpperRightUi_xs_ref_5}
-          className="h-6 w-6 ml-0.5 focus-2-veryDark"
-          style={{ marginTop: "2px" }}
-          onClick={() => {
-            switch (upperUiContext.upperVisState.currentXSsettings) {
-              case "background":
-                upperUiContext.upperVisDispatch({
-                  type: "BACKGROUND_SETTINGS_TOGGLE",
-                });
-                return;
-              case "colors":
-                upperUiContext.upperVisDispatch({
-                  type: "COLORS_SETTINGS_TOGGLE",
-                });
-                return;
-              case "global":
-                upperUiContext.upperVisDispatch({ type: "SETTINGS_TOGGLE" });
-                return;
-              default:
-                upperUiContext.upperVisDispatch({
-                  type: "COLORS_SETTINGS_TOGGLE",
-                });
-            }
-          }}
-          tabIndex={12}
-          aria-label={"Settings"}
-        >
-          <CogSVG
-            className={`h-full w-full cursor-pointer transition-colors duration-75  hover:text-${uiColor}`}
-          />
-        </button>
-        <div className="self-center" style={{ width: "24px", height: "24px" }}>
-          {loggedInState ? (
-            <button
-              ref={focusOnUpperRightUi_xs_ref_8}
-              className="h-6 w-5 focus-2-veryDark"
-              style={{ width: "22px" }}
-              onClick={() => {
-                setLoggedInState(false);
-                upperUiContext.upperVisDispatch({
-                  type: "MESSAGE_OPEN_LOGOUT",
-                });
-              }}
-              tabIndex={13}
-              aria-label={"Logout"}
-            >
-              <LogoutSVG
-                className={`h-6 w-6 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
-                style={{ marginLeft: "-1px" }}
-              />
-            </button>
-          ) : (
-            <button
-              ref={focusOnUpperRightUi_xs_ref_8}
-              className="h-6 w-5 focus-2-veryDark"
-              style={{ width: "18px" }}
-              onClick={() => {
-                upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
-              }}
-              tabIndex={13}
-              aria-label={"Login/register"}
-            >
-              <UserSVG
-                className={`h-6 w-6 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
-                style={{ marginLeft: "-3px", marginBottom: "0px" }}
-              />
-            </button>
-          )}
+        <div className="flex justify-between w-1/2 items-center mt-px">
+          <button
+            ref={focusOnUpperRightUi_xs_ref_5}
+            className="h-6 w-6 ml-px focus-2-veryDark"
+            onClick={() => {
+              switch (upperUiContext.upperVisState.currentXSsettings) {
+                case "background":
+                  upperUiContext.upperVisDispatch({
+                    type: "BACKGROUND_SETTINGS_TOGGLE",
+                  });
+                  return;
+                case "colors":
+                  upperUiContext.upperVisDispatch({
+                    type: "COLORS_SETTINGS_TOGGLE",
+                  });
+                  return;
+                case "global":
+                  upperUiContext.upperVisDispatch({ type: "SETTINGS_TOGGLE" });
+                  return;
+                default:
+                  upperUiContext.upperVisDispatch({
+                    type: "COLORS_SETTINGS_TOGGLE",
+                  });
+              }
+            }}
+            tabIndex={11}
+            aria-label={"Settings"}
+          >
+            <CogSVG
+              className={`h-full w-full cursor-pointer transition-colors duration-75  hover:text-${uiColor}`}
+            />
+          </button>
+          <div className="mr-0.5" style={{ width: "24px", height: "24px" }}>
+            {loggedInState ? (
+              <button
+                ref={focusOnUpperRightUi_xs_ref_8}
+                className="h-6 w-5 focus-2-veryDark"
+                style={{ width: "22px" }}
+                onClick={() => {
+                  setLoggedInState(false);
+                  upperUiContext.upperVisDispatch({
+                    type: "MESSAGE_OPEN_LOGOUT",
+                  });
+                }}
+                tabIndex={12}
+                aria-label={"Logout"}
+              >
+                <LogoutSVG
+                  className={`h-6 w-6 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
+                  style={{ marginLeft: "-1px" }}
+                />
+              </button>
+            ) : (
+              <button
+                ref={focusOnUpperRightUi_xs_ref_8}
+                className="h-6 w-5 focus-2-veryDark"
+                style={{ width: "18px" }}
+                onClick={() => {
+                  upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
+                }}
+                tabIndex={12}
+                aria-label={"Login/register"}
+              >
+                <UserSVG
+                  className={`h-6 w-6 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
+                  style={{ marginLeft: "-3px", marginBottom: "0px" }}
+                />
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </>

@@ -16,9 +16,13 @@ import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handle
 
 interface Props {
   mainPaddingRight: boolean;
+  scrollbarWidth: number;
 }
 
-function ColorsSettings({ mainPaddingRight }: Props): JSX.Element {
+function ColorsSettings({
+  mainPaddingRight,
+  scrollbarWidth,
+}: Props): JSX.Element {
   const [defaultColorsFor, setDefaultColorsFor] = useState<
     "folders" | "notes" | "rss" | "unselected"
   >("unselected");
@@ -87,8 +91,16 @@ function ColorsSettings({ mainPaddingRight }: Props): JSX.Element {
           <div
             className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${
               defaultColors.uiColor
-            } rounded-sm relative ${mainPaddingRight ? "-ml-4" : ""}`}
-            style={{ width: `350px`, height: "200px" }}
+            } rounded-sm relative`}
+            style={{
+              width: `350px`,
+              height: "200px",
+              marginLeft: `${
+                mainPaddingRight && scrollbarWidth >= 10
+                  ? `-${scrollbarWidth - 1}px`
+                  : ""
+              }`,
+            }}
           >
             <Settings_inner_xs currentSettings={"colors"} />
 

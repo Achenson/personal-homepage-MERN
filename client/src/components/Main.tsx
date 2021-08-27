@@ -110,6 +110,11 @@ function Main(): JSX.Element {
     globalSettings.picBackground,
   ]);
 
+  let paddingProps = {
+    mainPaddingRight: paddingRight,
+    scrollbarWidth,
+  }
+
   return (
     <UpperUiContext.Provider value={upperUiValue}>
       <main
@@ -128,35 +133,35 @@ function Main(): JSX.Element {
       >
         {upperVisState.newTabVis && (
           <ModalWrap>
-            <NewTab tabType={tabType} mainPaddingRight={paddingRight} />
+            <NewTab tabType={tabType} {...paddingProps} />
           </ModalWrap>
         )}
         {upperVisState.newBookmarkVis && (
           <ModalWrap>
             <Bookmark_newAndEdit
               bookmarkComponentType={"new_upperUI"}
-              mainPaddingRight={paddingRight}
+              {...paddingProps}
             />
           </ModalWrap>
         )}
         {upperVisState.backgroundSettingsVis && (
           <ModalWrap>
-            <BackgroundSettings mainPaddingRight={paddingRight} />
+            <BackgroundSettings {...paddingProps}/>
           </ModalWrap>
         )}
         {upperVisState.settingsVis && (
           <ModalWrap>
-            <GlobalSettings mainPaddingRight={paddingRight} />
+            <GlobalSettings {...paddingProps} />
           </ModalWrap>
         )}
         {upperVisState.colorsSettingsVis && (
           <ModalWrap>
-            <ColorsSettings mainPaddingRight={paddingRight} />
+            <ColorsSettings {...paddingProps} />
           </ModalWrap>
         )}
         {upperVisState.profileVis && (
           <ModalWrap>
-            <Profile mainPaddingRight={paddingRight} />
+            <Profile {...paddingProps} />
           </ModalWrap>
         )}
 

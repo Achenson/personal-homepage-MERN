@@ -17,6 +17,7 @@ interface Props {
   tabTitle?: string;
   // for upperUI newBookmark only
   mainPaddingRight?: boolean;
+  scrollbarWidth?: number;
 }
 
 const errorsAllFalse = {
@@ -34,7 +35,8 @@ function Bookmark_newAndEdit({
   bookmarkId,
   tabTitle,
   colNumber,
-  mainPaddingRight
+  mainPaddingRight,
+  scrollbarWidth,
 }: Props): JSX.Element {
   const bookmarks = useBookmarks((state) => state.bookmarks);
   const tabs = useTabs((state) => state.tabs);
@@ -194,7 +196,11 @@ function Bookmark_newAndEdit({
   return (
     <>
       {bookmarkComponentType === "new_upperUI" ? (
-        <NewBookmark_UpperUI {...bookmark_props} mainPaddingRight={mainPaddingRight as boolean} />
+        <NewBookmark_UpperUI
+          {...bookmark_props}
+          mainPaddingRight={mainPaddingRight as boolean}
+          scrollbarWidth={scrollbarWidth as number}
+        />
       ) : (
         <Bookmark_lowerUI
           {...bookmark_props}

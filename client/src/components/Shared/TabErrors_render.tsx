@@ -1,7 +1,7 @@
 import React from "react";
 
 import { tabErrors } from "../../utils/data/errors";
-import {TabErrors} from "../../utils/interfaces"
+import { TabErrors } from "../../utils/interfaces";
 
 interface Props {
   errors: TabErrors;
@@ -49,6 +49,10 @@ function TabErrors_render({
 
       {errors.invalidLinkErrorVis && tabType === "rss" && (
         <p className={`${errorsCSS}`}>{tabErrors.invalidLinkError}</p>
+      )}
+
+      {errors.invalidLinkErrorHttpsVis && tabType === "rss" && (
+        <p className={`${errorsCSS}`}>{tabErrors.invalidLinkHttpsError}</p>
       )}
     </>
   );

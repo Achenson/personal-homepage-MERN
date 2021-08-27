@@ -9,9 +9,10 @@ import { useTabContext } from "../../context/tabContext";
 
 interface Props {
   currentTab: SingleTabData;
+  isTabDraggedOver: boolean;
 }
 
-function NoteInput({ currentTab }: Props): JSX.Element {
+function NoteInput({ currentTab, isTabDraggedOver }: Props): JSX.Element {
   const globalSettings = useGlobalSettings((state) => state, shallow);
   const tabContext = useTabContext();
 
@@ -39,8 +40,12 @@ function NoteInput({ currentTab }: Props): JSX.Element {
     <div
       className={`${
         globalSettings.picBackground
-          ? "bg-gray-100 bg-opacity-20 border-b border-gray-800 border-opacity-10"
-          : "bg-amber-100 border border-black border-opacity-10 border-t-0"
+          ? `${
+              isTabDraggedOver ? "bg-gray-900" : "bg-gray-100"
+            } bg-opacity-20 border-b border-gray-800 border-opacity-10`
+          : `${
+              isTabDraggedOver ? "bg-gray-100" : "bg-amber-100"
+            } border border-black border-opacity-10 border-t-0`
       } p-2 `}
     >
       <div
@@ -48,13 +53,16 @@ function NoteInput({ currentTab }: Props): JSX.Element {
         focus:outline-none focus-visible:ring-2 ${
           globalSettings.picBackground ? "ring-gray-50" : "ring-gray-300"
         } focus:border-opacity-0`}
-        style={{ backgroundColor: "rgb(247, 243, 132)" }}
+        style={{
+          backgroundColor: `${
+            isTabDraggedOver ? "#E5E7EB" : "rgb(247, 243, 132)"
+          } `,
+        }}
         onDoubleClick={() => {
-          if(!tabContext.tabVisState.editTabVis) {
+          if (!tabContext.tabVisState.editTabVis) {
             tabContext.tabVisDispatch({ type: "EDIT_TOGGLE" });
           }
         }}
-        
         tabIndex={0}
         onFocus={() => setFocusOnNote(true)}
         onBlur={() => setFocusOnNote(false)}

@@ -9,7 +9,7 @@ Manage bookmarks, RSS channels and notes in a form of foldable tabs
 
 All data is being saved to local storage. Clear local storage to reset to original tab set.
 
-Bypass CORS to allow RSS channels to work. On Chrome:
+Bypass CORS to allow RSS channels (https only) to work. On Chrome:
 1. Add new shortcut on the desktop
 2. Add the target as "[PATH_TO_CHROME]chrome.exe" --disable-web-security --disable-gpu --user-data-dir=~/chromeTemp
 
