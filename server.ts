@@ -44,7 +44,7 @@ app.use(
 //   .catch((err) => console.log(err));
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!2");
+  res.send("Hello World!4");
 });
 
 app.listen(port, () => {

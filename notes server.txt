@@ -1,0 +1,4 @@
+"serv": "ts-node-dev --respawn --pretty --transpile-only server.ts",
+
+ // "server": "nodemon --exec ts-node server.ts",
+ "server": "nodemon server.ts",
