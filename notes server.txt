@@ -2,3 +2,5 @@
 
  // "server": "nodemon --exec ts-node server.ts",
  "server": "nodemon server.ts",
+
+ 1. livereload npm
