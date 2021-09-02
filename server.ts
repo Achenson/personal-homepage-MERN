@@ -1,7 +1,7 @@
 const cors = require("cors");
 const express = require("express");
 const dotenv = require("dotenv");
-const {graphqlHTTP} = require("express-graphql");
+const { graphqlHTTP } = require("express-graphql");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const schema = require("./schema/schema.ts");
@@ -10,15 +10,23 @@ const app = express();
 
 const port = 4000;
 
-import { Request, Response} from 'express';
+import { Request, Response } from "express";
 
-app.use(helmet());
+// app.use(helmet());
+app.use(
+  helmet({
+    // to enable express-graphql playground
+    contentSecurityPolicy:
+      process.env.NODE_ENV === "production" ? undefined : false,
+  })
+);
 
 app.use(
   cors({
     origin: [
       "http://localhost:3000",
       "http://localhost:4000",
+      "http://localhost:4000/graphql",
     ],
     credentials: true,
   })
@@ -27,7 +35,7 @@ app.use(
 app.use(
   "/graphql",
   graphqlHTTP({
-    schema,
+    schema: schema,
     graphiql: true,
   })
 );
