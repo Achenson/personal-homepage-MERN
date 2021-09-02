@@ -17,15 +17,15 @@ const {
 const SettingsType = new GraphQLObjectType({
   name: "Settings",
   fields: () => ({
-    id: GraphQLID,
-    userId: GraphQLID,
-    picBackground: GraphQLBoolean,
-    defaultImage: GraphQLString,
-    oneColorForAllCols: GraphQLBoolean,
-    limitColGrowth: GraphQLBoolean,
-    hideNonDeletable: GraphQLBoolean,
-    disableDrag: GraphQLBoolean,
-    numberOfCols: GraphQLInt,
+    id: { type: GraphQLID },
+    userId: { type: GraphQLID },
+    picBackground: { type: GraphQLBoolean },
+    defaultImage: { type: GraphQLString },
+    oneColorForAllCols: { type: GraphQLBoolean },
+    limitColGrowth: { type: GraphQLBoolean },
+    hideNonDeletable: { type: GraphQLBoolean },
+    disableDrag: { type: GraphQLBoolean },
+    numberOfCols: { type: GraphQLInt },
   }),
 });
 
@@ -34,7 +34,7 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     user: {
       type: SettingsType,
-      args: { userId: GraphQLID },
+      args: { userId: { type: GraphQLID } },
       resolve(_source: unknown, { userId }: { userId: string }) {
         return Settings.findOne({ userId: userId });
       },
@@ -42,15 +42,15 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
-interface Settings {
-  userId: string,
-  picBackground: boolean,
-  defaultImage:string ,
-  oneColorForAllCols: boolean,
-  limitColGrowth: boolean,
-  hideNonDeletable: boolean,
-  disableDrag: boolean,
-  numberOfCols: 1|2|3|4,
+interface Settings_i {
+  userId: string;
+  picBackground: boolean;
+  defaultImage: string;
+  oneColorForAllCols: boolean;
+  limitColGrowth: boolean;
+  hideNonDeletable: boolean;
+  disableDrag: boolean;
+  numberOfCols: 1 | 2 | 3 | 4;
 }
 
 const Mutation = new GraphQLObjectType({
@@ -60,16 +60,16 @@ const Mutation = new GraphQLObjectType({
       type: SettingsType,
       args: {
         // userId: { type: new GraphQLNonNull(GraphQLString) }, ?
-        userId: GraphQLID,
-        picBackground: GraphQLBoolean,
-        defaultImage: GraphQLString ,
-        oneColorForAllCols: GraphQLBoolean,
-        limitColGrowth: GraphQLBoolean,
-        hideNonDeletable: GraphQLBoolean,
-        disableDrag: GraphQLBoolean,
-        numberOfCols: GraphQLInt,
+        userId: { type: GraphQLID },
+        picBackground: { type: GraphQLBoolean },
+        defaultImage: { type: GraphQLString },
+        oneColorForAllCols: { type: GraphQLBoolean },
+        limitColGrowth: { type: GraphQLBoolean },
+        hideNonDeletable: { type: GraphQLBoolean },
+        disableDrag: { type: GraphQLBoolean },
+        numberOfCols: { type: GraphQLInt },
       },
-      resolve(_source: unknown, args: Settings) {
+      resolve(_source: unknown, args: Settings_i) {
         let update = {
           picBackground: args.picBackground,
           defaultImage: args.defaultImage,
@@ -80,7 +80,7 @@ const Mutation = new GraphQLObjectType({
           numberOfCols: args.numberOfCols,
         };
 
-        return Settings.findOneAndUpdtate({ userId: args.userId }, update, {
+        return Settings.findOneAndUpdate({ userId: args.userId }, update, {
           // to return updated object
           new: true,
           upsert: true, // Make this update into an upsert,
@@ -90,6 +90,28 @@ const Mutation = new GraphQLObjectType({
     },
   },
 });
+
+/* 
+mutation {
+  changeSettings(userId: "123", picBackground: true,
+        defaultImage: "img" ,
+        oneColorForAllCols: true,
+        limitColGrowth: true,
+        hideNonDeletable: true,
+        disableDrag: true,
+        numberOfCols: 2,
+) {
+        picBackground,
+        defaultImage,
+        oneColorForAllCols,
+        limitColGrowth,
+        hideNonDeletable,
+        disableDrag,
+        numberOfCols
+  }
+}
+
+*/
 
 module.exports = new GraphQLSchema({
   query: RootQuery,
