@@ -2,5 +2,7 @@
 
  // "server": "nodemon --exec ts-node server.ts",
  "server": "nodemon server.ts",
+ 
+ DONE 2. working graphql playground DONE
 
  1. livereload npm

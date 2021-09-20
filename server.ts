@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const { graphqlHTTP } = require("express-graphql");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
-const schema = require("./schema/schema.ts");
+import {schema} from "./schema/schema"
 
 const app = express();
 
