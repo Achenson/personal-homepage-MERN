@@ -6,3 +6,4 @@
  DONE 2. working graphql playground DONE
 
  1. livereload npm
+ 2. adding user doesn't return anything on graphql playground?

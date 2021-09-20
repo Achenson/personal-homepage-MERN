@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const settingsSchema = new Schema({
    // we don't have to pass id, because mongoDB will create it manualy
-  id: String,
+  // id: String,
   userId: String,
   picBackground: Boolean,
   defaultImage: String,

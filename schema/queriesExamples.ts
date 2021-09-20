@@ -6,6 +6,16 @@
 }
 }    */
 
+/* {
+  settings(userId: "61489020ea91621bf07ebb31") {
+   picBackground
+   user {
+     name,
+     email
+   }
+ }
+ }     */
+
 
 /* 
 mutation {
@@ -26,5 +36,19 @@ mutation {
         numberOfCols
   }
 }
+
+// not returning anything??
+mutation {
+  addUser(name: "John3", email: "test@test", password: "test") {
+    id
+    name
+    email
+    password
+    settings {
+      picBackground
+    }
+  }
+}
+
 
 */
