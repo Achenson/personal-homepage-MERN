@@ -1,7 +1,11 @@
-const mongoose = require("mongoose");
+/* const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+ */
 
-const settingsSchema = new Schema({
+import {model, Schema} from "mongoose"
+import {Settings_i} from "../schema/types/settingsType"
+
+const SettingsSchema = new Schema<Settings_i>({
    // we don't have to pass id, because mongoDB will create it manualy
   // id: String,
   userId: String,
@@ -14,4 +18,4 @@ const settingsSchema = new Schema({
   numberOfCols: Number,
 });
 
-module.exports = mongoose.model("Settings", settingsSchema);
+module.exports = model<Settings_i>("Settings", SettingsSchema);
