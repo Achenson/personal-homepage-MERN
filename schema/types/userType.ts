@@ -2,7 +2,7 @@ const graphql = require("graphql");
 
 const Settings = require("../../mongoModels/settings")
 
-import { SettingsType, Settings_I } from "../types/settingsType";
+import { SettingsType, Settings_i } from "../types/settingsType";
 
 const {
   GraphQLObjectType,
@@ -12,12 +12,12 @@ const {
   GraphQLBoolean,
 } = graphql;
 
-export interface User_I {
+export interface User_i {
   id: string;
   name: string;
   email: string;
   password: string;
-  settings: Settings_I
+  settings: Settings_i
 }
 
 export const UserType = new GraphQLObjectType({
@@ -30,7 +30,7 @@ export const UserType = new GraphQLObjectType({
     // tokenVersion: { type: GraphQLInt },
     settings: {
       type: SettingsType,
-      resolve(parent: User_I) {
+      resolve(parent: User_i) {
         return Settings.findOne({ userId: parent.id });
       },
     },

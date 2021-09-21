@@ -1,10 +1,11 @@
 const graphql = require("graphql");
 
-const SettingsModel = require("../../mongoModels/settings");
-const UserModel = require("../../mongoModels/user");
+const Settings = require("../../mongoModels/settings");
+const User = require("../../mongoModels/user");
 
-import { SettingsType, Settings_I } from "../types/settingsType";
-import { UserType, User_I } from "../types/userType";
+import { UserType, User_i } from "../types/userType";
+
+import {changeSettingsMutationField} from "./changeSettingsMutation"
 
 const {
   GraphQLObjectType,
@@ -21,38 +22,7 @@ const {
 export const Mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
-    changeSettings: {
-      type: SettingsType,
-      args: {
-        // userId: { type: new GraphQLNonNull(GraphQLString) }, ?
-        userId: { type: GraphQLID },
-        picBackground: { type: GraphQLBoolean },
-        defaultImage: { type: GraphQLString },
-        oneColorForAllCols: { type: GraphQLBoolean },
-        limitColGrowth: { type: GraphQLBoolean },
-        hideNonDeletable: { type: GraphQLBoolean },
-        disableDrag: { type: GraphQLBoolean },
-        numberOfCols: { type: GraphQLInt },
-      },
-      resolve(_source: unknown, args: Settings_I) {
-        let update = {
-          picBackground: args.picBackground,
-          defaultImage: args.defaultImage,
-          oneColorForAllCols: args.oneColorForAllCols,
-          limitColGrowth: args.limitColGrowth,
-          hideNonDeletable: args.hideNonDeletable,
-          disableDrag: args.disableDrag,
-          numberOfCols: args.numberOfCols,
-        };
-
-        return SettingsModel.findOneAndUpdate({ userId: args.userId }, update, {
-          // to return updated object
-          new: true,
-          upsert: true, // Make this update into an upsert,
-          useFindAndModify: false,
-        });
-      },
-    },
+    changeSettings: changeSettingsMutationField,
     addUser: {
       type: UserType,
       args: {
@@ -61,20 +31,20 @@ export const Mutation = new GraphQLObjectType({
         password: { type: new GraphQLNonNull(GraphQLString) },
       },
 
-      resolve(_source: unknown, args: User_I) {
-        let user = new UserModel({
+      resolve(_source: unknown, args: User_i) {
+        let user = new User({
           name: args.name,
           email: args.email,
           password: args.password,
         });
 
-        return user.save((err: Error, product: User_I) => {
+        return user.save((err: Error, product: User_i) => {
           if (err) console.log(err);
 
           console.log("product");
           console.log(product);
 
-          let settings = new SettingsModel({
+          let settings = new Settings({
             userId: product.id,
             picBackground: false,
             defaultImage: "img",
@@ -87,13 +57,6 @@ export const Mutation = new GraphQLObjectType({
 
           settings.save();
         });
-
-        // return UserModel.findOneAndUpdate({ userId: args.userId }, update, {
-        //   // to return updated object
-        //   new: true,
-        //   upsert: true, // Make this update into an upsert,
-        //   useFindAndModify: false,
-        // });
       },
     },
   },

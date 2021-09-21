@@ -2,7 +2,7 @@ const graphql = require("graphql");
 
 const User = require("../../mongoModels/user");
 
-import { User_I, UserType } from "../types/userType";
+import { User_i, UserType } from "../types/userType";
 
 const {
   GraphQLObjectType,
@@ -12,7 +12,7 @@ const {
   GraphQLBoolean,
 } = graphql;
 
-export interface Settings_I {
+export interface Settings_i {
   id: string;
   userId: string;
   picBackground: boolean;
@@ -22,7 +22,7 @@ export interface Settings_I {
   hideNonDeletable: boolean;
   disableDrag: boolean;
   numberOfCols: 1 | 2 | 3 | 4;
-  user: User_I;
+  user: User_i;
 }
 
 export const SettingsType = new GraphQLObjectType({
@@ -39,7 +39,7 @@ export const SettingsType = new GraphQLObjectType({
     numberOfCols: { type: GraphQLInt },
     user: {
       type: UserType,
-      resolve(parent: Settings_I) {
+      resolve(parent: Settings_i) {
         return User.findById(parent.userId);
       },
     },
