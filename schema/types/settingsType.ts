@@ -1,6 +1,6 @@
 const graphql = require("graphql");
 
-const User = require("../../mongoModels/user");
+const User = require("../../mongoModels/userSchema");
 
 import { User_i, UserType } from "../types/userType";
 

@@ -1,5 +1,5 @@
 const graphql = require("graphql");
-const Settings = require("../../mongoModels/settings");
+const Settings = require("../../mongoModels/settingsSchema");
 
 const {
   GraphQLObjectType,

@@ -1,10 +1,7 @@
 const graphql = require("graphql");
 
-// import { RootQuery } from "./query/rootQuery";
+import { RootQuery } from "./query/rootQuery";
 
-const Settings = require("../mongoModels/settings")
-
-import { SettingsType } from "./types/settingsType";
 import { Mutation } from "./mutation/mutation";
 
 
@@ -20,18 +17,18 @@ const {
   GraphQLBoolean,
 } = graphql;
 
-const RootQuery = new GraphQLObjectType({
-  name: "RootQueryType",
-  fields: {
-    settings: {
-      type: SettingsType,
-      args: { userId: { type: GraphQLID } },
-      resolve(_source: unknown, { userId }: { userId: string }) {
-        return Settings.findOne({ userId: userId });
-      },
-    },
-  },
-});
+// const RootQuery = new GraphQLObjectType({
+//   name: "RootQueryType",
+//   fields: {
+//     settings: {
+//       type: SettingsType,
+//       args: { userId: { type: GraphQLID } },
+//       resolve(_source: unknown, { userId }: { userId: string }) {
+//         return Settings.findOne({ userId: userId });
+//       },
+//     },
+//   },
+// });
 
 
 export const schema = new GraphQLSchema({
