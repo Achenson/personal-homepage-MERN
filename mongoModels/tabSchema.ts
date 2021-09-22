@@ -21,7 +21,7 @@ const TabSchema = new Schema<Tab_i>({
   // items?: [object] | never[] | [];
 
   // backend only
-  bookmarkIds: [String]
+  // bookmarkIds: [String]
 
 });
 

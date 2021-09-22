@@ -22,7 +22,7 @@ export interface Settings_i {
   hideNonDeletable: boolean;
   disableDrag: boolean;
   numberOfCols: 1 | 2 | 3 | 4;
-  user: User_i;
+  // user: User_i;
 }
 
 export const SettingsType = new GraphQLObjectType({
@@ -37,11 +37,11 @@ export const SettingsType = new GraphQLObjectType({
     hideNonDeletable: { type: GraphQLBoolean },
     disableDrag: { type: GraphQLBoolean },
     numberOfCols: { type: GraphQLInt },
-    user: {
-      type: UserType,
-      resolve(parent: Settings_i) {
-        return User.findById(parent.userId);
-      },
-    },
+    // user: {
+    //   type: UserType,
+    //   resolve(parent: Settings_i) {
+    //     return User.findById(parent.userId);
+    //   },
+    // },
   }),
 });

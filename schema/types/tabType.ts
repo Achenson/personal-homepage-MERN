@@ -2,6 +2,8 @@ const graphql = require("graphql");
 
 import { Bookmark_i, BookmarkType } from "../types/bookmarkType";
 
+const Bookmark = require("../../mongoModels/bookmarkSchema");
+
 const {
   GraphQLObjectType,
   GraphQLID,
@@ -14,6 +16,7 @@ const {
 
 export interface Tab_i {
   id: number | string;
+  userId: number | string;
   title: string;
   color: string | null;
   column: number;
@@ -27,13 +30,12 @@ export interface Tab_i {
   date?: boolean | null;
   description?: boolean | null;
   itemsPerPage?: number | null;
+
   // not being used actually?
   // items?: [object] | never[] | [];
-
   // backend only
-  bookmarkIds?: string[];
-  bookmarks?: Bookmark_i[]; 
-
+  // bookmarkIds?: string[];
+  // bookmarks?: Bookmark_i[]; 
 }
 
 export const TabType = new GraphQLObjectType({
@@ -43,8 +45,8 @@ export const TabType = new GraphQLObjectType({
     title: { type: GraphQLString },
     URL: { type: GraphQLString },
     tags: { type: new GraphQLList(GraphQLID) }, */
-
     id: { type: GraphQLID },
+    userId: {type: GraphQLID},
     title: { type: GraphQLString },
     color: { type: GraphQLString | GraphQLNull },
     column: { type: GraphQLInt },
@@ -58,13 +60,12 @@ export const TabType = new GraphQLObjectType({
     date: { type: GraphQLBoolean | GraphQLNull },
     description: { type: GraphQLBoolean | GraphQLNull },
     itemsPerPage: { type: GraphQLInt | GraphQLNull },
-    bookmarkIds: { type: GraphQLList({type: GraphQLID})},
+    // bookmarkIds: { type: GraphQLList({type: GraphQLID})},
     // bookmarks: {
-    //   type: GraphQLList({type: BookmarkType})
-    //   resolve(parent: Bookmark_i) {
-    //     return 
+    //   type: GraphQLList({type: BookmarkType}),
+    //   resolve(parent: Tab_i) {
+    //     return Bookmark.find
     //   }
     // }
-
   }),
 });

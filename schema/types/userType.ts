@@ -3,6 +3,8 @@ const graphql = require("graphql");
 const Settings = require("../../mongoModels/settingsSchema")
 
 import { SettingsType, Settings_i } from "../types/settingsType";
+import { Bookmark_i } from "./bookmarkType";
+import { Tab_i } from "./tabType";
 
 const {
   GraphQLObjectType,
@@ -17,7 +19,9 @@ export interface User_i {
   name: string;
   email: string;
   password: string;
-  settings: Settings_i
+  settings: Settings_i;
+  tabs: Tab_i[];
+  bookmarks: Bookmark_i[];
 }
 
 export const UserType = new GraphQLObjectType({
