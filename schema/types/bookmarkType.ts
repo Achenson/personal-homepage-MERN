@@ -1,3 +1,5 @@
+import { Tab_i } from "./tabType";
+
 const graphql = require("graphql");
 
 const {
@@ -15,6 +17,7 @@ export interface Bookmark_i {
   title: string;
   URL: string;
   folderIds: string[];
+  folders: Tab_i[];
 }
 
 export const BookmarkType = new GraphQLObjectType({
