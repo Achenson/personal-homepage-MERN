@@ -53,7 +53,7 @@ export const addUserMutationField = {
 
       const tabs = [
         {
-          localId: "1",
+          localId: "ALL_TAGS",
           title: "all bookmarks",
           color: "red-400",
           column: 1,
@@ -61,7 +61,7 @@ export const addUserMutationField = {
           opened: true,
           openedByDefault: true,
           deletable: false,
-          type: "ALL_TAGS",
+          type: "folder",
         },
 
         {
@@ -77,7 +77,7 @@ export const addUserMutationField = {
           date: null,
           description: null,
           itemsPerPage: null,
-          items: [],
+          // items: [],
           rssLink: "https://feeds.theguardian.com/theguardian/uk-news/rss",
         },
       ];
@@ -113,6 +113,9 @@ export const addUserMutationField = {
 
         newBookmark.save();
       });
+
+
+      
     });
   },
 };
