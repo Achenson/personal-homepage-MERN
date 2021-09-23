@@ -5,6 +5,7 @@ import {Bookmark_i} from "../schema/types/bookmarkType"
 const BookmarkSchema = new Schema<Bookmark_i>({
    // we don't have to pass id, because mongoDB will create it manualy
   // id: String,
+  userId: String,
   title: String,
   URL: String,
   folderIds: [String],

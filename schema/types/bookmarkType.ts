@@ -30,3 +30,5 @@ export const BookmarkType = new GraphQLObjectType({
     folderIds: { type: new GraphQLList(GraphQLString) },
   }),
 });
+
+

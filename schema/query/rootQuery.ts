@@ -1,13 +1,14 @@
 const graphql = require("graphql");
 
-import {settingsQueryField} from "./settingsQuery"
+import { settingsQueryField } from "./settingsQuery";
+import { bookmarksQueryField } from "./bookmarksQuery";
 
 const { GraphQLObjectType, GraphQLID } = graphql;
 
 export const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
-    settings: settingsQueryField
+    settings: settingsQueryField,
+    bookmarks: bookmarksQueryField,
   },
 });
-
