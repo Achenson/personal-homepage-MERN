@@ -12,3 +12,4 @@
  4. client: SingleTabData: [object] | never[] | [] ????  <- not being used actually in the client?
  6. userSchema gets ref to settingsSchema, should it be also the other war around?
  7. client: bookmarksData -> change id to strings only?
+ 8. client: ALL_TAGS should not be an id but rather a tab type! ids will be added automatically be database

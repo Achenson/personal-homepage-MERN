@@ -8,9 +8,9 @@ const UserSchema = new Schema<User_i>({
   name: String,
   email: String,
   password: String,
-  settings: { type: Schema.Types.ObjectId, ref: 'Settings' },
+ /*  settings: { type: Schema.Types.ObjectId, ref: 'Settings' },
   tabs: [{type: Schema.Types.ObjectId, ref: 'Tab' }],
-  bookmarks: [{type: Schema.Types.ObjectId, ref: 'Bookmark' }]
+  bookmarks: [{type: Schema.Types.ObjectId, ref: 'Bookmark' }] */
 });
 
 module.exports = model<User_i>("User", UserSchema);
