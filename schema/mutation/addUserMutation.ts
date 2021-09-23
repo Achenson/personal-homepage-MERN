@@ -5,6 +5,9 @@ const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
 const Bookmark = require("../../mongoModels/bookmarkSchema");
 
+import { bookmarks } from "../data/defaultBookmarks";
+import { tabs } from "../data/defaultTabs";
+
 const {
   GraphQLObjectType,
   GraphQLID,
@@ -14,7 +17,6 @@ const {
   GraphQLNonNull,
 } = graphql;
 
-import { bookmarksData } from "../../client/src/state/data/bookmarksData";
 import { UserType, User_i } from "../types/userType";
 
 export const addUserMutationField = {
@@ -51,51 +53,6 @@ export const addUserMutationField = {
 
       settings.save();
 
-      const tabs = [
-        {
-          localId: "ALL_TAGS",
-          title: "all bookmarks",
-          color: "red-400",
-          column: 1,
-          priority: 1,
-          opened: true,
-          openedByDefault: true,
-          deletable: false,
-          type: "folder",
-        },
-
-        {
-          localId: "2",
-          title: "guardian",
-          color: null,
-          column: 3,
-          priority: 0,
-          opened: false,
-          openedByDefault: false,
-          deletable: true,
-          type: "rss",
-          date: null,
-          description: null,
-          itemsPerPage: null,
-          // items: [],
-          rssLink: "https://feeds.theguardian.com/theguardian/uk-news/rss",
-        },
-      ];
-
-      const bookmarks = [
-        {
-          title: "facebook",
-          URL: "https://www.facebook.com/",
-          tags: ["1"],
-        },
-        {
-          title: "gmail",
-          URL: "https://mail.google.com/mail/u/0/",
-          // not saved to db
-          tags: ["1"],
-        },
-      ];
-
       tabs.forEach((el, i) => {
         let newTab = new Tab({
           ...el,
@@ -110,12 +67,8 @@ export const addUserMutationField = {
           ...el,
           userId: product.id,
         });
-
         newBookmark.save();
       });
-
-
-      
     });
   },
 };
