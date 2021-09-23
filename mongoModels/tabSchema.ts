@@ -4,6 +4,7 @@ import {Tab_i} from "../schema/types/tabType"
 const TabSchema = new Schema<Tab_i>({
    // we don't have to pass id, because mongoDB will create it manualy
   // id: String,
+  localId: String,
   userId: String,
   title: String,
   color: Schema.Types.Mixed,

@@ -16,6 +16,7 @@ const {
 
 export interface Tab_i {
   id: number | string;
+  localId: string;
   userId: number | string;
   title: string;
   color: string | null;

@@ -8,7 +8,7 @@ const BookmarkSchema = new Schema<Bookmark_i>({
   title: String,
   URL: String,
   folderIds: [String],
-  folders: [{type: Schema.Types.ObjectId, ref: 'Tab' }]
+  // folders: [{type: Schema.Types.ObjectId, ref: 'Tab' }]
 });
 
 module.exports = model<Bookmark_i>("Bookmark", BookmarkSchema);

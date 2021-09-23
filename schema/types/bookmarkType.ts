@@ -17,7 +17,7 @@ export interface Bookmark_i {
   title: string;
   URL: string;
   folderIds: string[];
-  folders: Tab_i[];
+  // folders: Tab_i[];
 }
 
 export const BookmarkType = new GraphQLObjectType({
@@ -27,6 +27,6 @@ export const BookmarkType = new GraphQLObjectType({
     userId: { type: GraphQLID },
     title: { type: GraphQLString },
     URL: { type: GraphQLString },
-    folderIds: { type: new GraphQLList(GraphQLID) },
+    folderIds: { type: new GraphQLList(GraphQLString) },
   }),
 });

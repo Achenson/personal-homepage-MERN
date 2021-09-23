@@ -3,6 +3,7 @@ const graphql = require("graphql");
 const Settings = require("../../mongoModels/settingsSchema");
 const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
+const Bookmark = require("../../mongoModels/bookmarkSchema");
 
 const {
   GraphQLObjectType,
@@ -13,6 +14,7 @@ const {
   GraphQLNonNull,
 } = graphql;
 
+import { bookmarksData } from "../../client/src/state/data/bookmarksData";
 import { UserType, User_i } from "../types/userType";
 
 export const addUserMutationField = {
@@ -51,6 +53,7 @@ export const addUserMutationField = {
 
       const tabs = [
         {
+          localId: "1",
           title: "all bookmarks",
           color: "red-400",
           column: 1,
@@ -62,6 +65,7 @@ export const addUserMutationField = {
         },
 
         {
+          localId: "2",
           title: "guardian",
           color: null,
           column: 3,
@@ -78,6 +82,20 @@ export const addUserMutationField = {
         },
       ];
 
+      const bookmarks = [
+        {
+          title: "facebook",
+          URL: "https://www.facebook.com/",
+          tags: ["1"],
+        },
+        {
+          title: "gmail",
+          URL: "https://mail.google.com/mail/u/0/",
+          // not saved to db
+          tags: ["1"],
+        },
+      ];
+
       tabs.forEach((el, i) => {
         let newTab = new Tab({
           ...el,
@@ -85,6 +103,15 @@ export const addUserMutationField = {
         });
 
         newTab.save();
+      });
+
+      bookmarks.forEach((el, i) => {
+        let newBookmark = new Bookmark({
+          ...el,
+          userId: product.id,
+        });
+
+        newBookmark.save();
       });
     });
   },
