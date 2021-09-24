@@ -5,8 +5,11 @@ const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
 const Bookmark = require("../../mongoModels/bookmarkSchema");
 
+import { resolve } from "path/posix";
 import { bookmarks } from "../data/defaultBookmarks";
 import { tabs } from "../data/defaultTabs";
+import { Bookmark_i } from "../types/bookmarkType";
+import { Tab_i } from "../types/tabType";
 
 const {
   GraphQLObjectType,
@@ -26,7 +29,6 @@ export const addUserMutationField = {
     email: { type: new GraphQLNonNull(GraphQLString) },
     password: { type: new GraphQLNonNull(GraphQLString) },
   },
-
   resolve(_source: unknown, args: User_i) {
     let user = new User({
       name: args.name,
@@ -34,14 +36,14 @@ export const addUserMutationField = {
       password: args.password,
     });
 
-    return user.save((err: Error, product: User_i) => {
+    return user.save(async (err: Error, settingsProduct: User_i) => {
       if (err) console.log(err);
 
       console.log("product");
-      console.log(product);
+      console.log(settingsProduct);
 
-      let settings = new Settings({
-        userId: product.id,
+      let newSettings = new Settings({
+        userId: settingsProduct.id,
         picBackground: false,
         defaultImage: "img",
         oneColorForAllCols: false,
@@ -51,23 +53,78 @@ export const addUserMutationField = {
         numberOfCols: 4,
       });
 
-      settings.save();
+      newSettings.save();
 
-      tabs.forEach((el, i) => {
-        let newTab = new Tab({
-          ...el,
-          userId: product.id,
+      let arrOfPromises: Promise<unknown>[] = [];
+
+      for (let el of tabs) {
+        let newPromise = new Promise((resolve, reject) => {
+          let newTab = new Tab({
+            ...el,
+            userId: settingsProduct.id,
+          });
+
+          newTab.save((err: Error, folderProduct: Tab_i) => {
+            if (err) {
+              console.log(err);
+              reject();
+            }
+            console.log(folderProduct.id);
+            resolve(folderProduct.id);
+          });
         });
 
-        newTab.save();
-      });
+        arrOfPromises.push(newPromise);
+      }
+
+      let arrOfFolderIds = await Promise.all(arrOfPromises);
+
+      /*     let arrOfFolderIds: (string|number)[] = await Promise.all([
+        new Promise((resolve, reject) => {
+          let newTab = new Tab({
+            ...tabs[0],
+            userId: settingsProduct.id,
+          });
+
+          newTab.save((err: Error, folderProduct: Tab_i) => {
+            if (err) {
+              console.log(err);
+              reject();
+            }
+            console.log(folderProduct.id);
+            resolve(folderProduct.id);
+          });
+        }),
+
+        new Promise((resolve, reject) => {
+          let newTab = new Tab({
+            ...tabs[1],
+            userId: settingsProduct.id,
+          });
+
+          newTab.save((err: Error, folderProduct: Tab_i) => {
+            if (err) {
+              console.log(err);
+              reject();
+            }
+            console.log(folderProduct.id);
+            resolve(folderProduct.id);
+          });
+        }),
+      ]); */
+
+      console.log(arrOfFolderIds);
 
       bookmarks.forEach((el, i) => {
         let newBookmark = new Bookmark({
           ...el,
-          userId: product.id,
+          userId: settingsProduct.id,
+          tags: [...arrOfFolderIds],
         });
-        newBookmark.save();
+
+        newBookmark.save((err: Error, bookmarkProduct: Bookmark_i) => {
+          if (err) console.log(err);
+        });
       });
     });
   },
