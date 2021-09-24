@@ -1,6 +1,5 @@
 export const tabs = [
     {
-      localId: "ALL_TAGS",
       title: "all bookmarks",
       color: "red-400",
       column: 1,
@@ -8,11 +7,10 @@ export const tabs = [
       opened: true,
       openedByDefault: true,
       deletable: false,
-      type: "folder",
+      type: "ALL_TAGS",
     },
 
     {
-      localId: "2",
       title: "guardian",
       color: null,
       column: 3,

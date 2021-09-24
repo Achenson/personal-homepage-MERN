@@ -8,7 +8,7 @@ const BookmarkSchema = new Schema<Bookmark_i>({
   userId: String,
   title: String,
   URL: String,
-  folderIds: [String],
+  tags: [String],
   // folders: [{type: Schema.Types.ObjectId, ref: 'Tab' }]
 });
 
