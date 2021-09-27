@@ -20,7 +20,7 @@ export interface TabLocal_i {
   opened: boolean;
   openedByDefault: boolean;
   deletable: boolean;
-  type: "folder" | "note" | "rss";
+  type: "ALL_TAGS" |"folder" | "note" | "rss";
   noteInput?: string | null;
   rssLink?: string | null;
   date?: boolean | null;

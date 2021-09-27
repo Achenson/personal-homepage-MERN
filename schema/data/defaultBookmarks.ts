@@ -9,6 +9,6 @@ export const bookmarks: BookmarkLocal_i[]  = [
     {
       title: "gmail",
       URL: "https://mail.google.com/mail/u/0/",
-      tagIndices: [0]
+      tagIndices: [0, 1]
     },
   ];
