@@ -51,4 +51,10 @@ mutation {
 }
 
 
+mutation {
+  deleteUser(id: "6151a40ae708770664219b71") {
+    name
+  }
+}
+
 */
