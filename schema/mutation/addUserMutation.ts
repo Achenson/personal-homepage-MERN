@@ -8,7 +8,7 @@ const Bookmark = require("../../mongoModels/bookmarkSchema");
 import { resolve } from "path/posix";
 import { bookmarks } from "../data/defaultBookmarks";
 import { tabs } from "../data/defaultTabs";
-import { BookmarkDatabase_i } from "../types/bookmarkType";
+import { BookmarkDatabase_i, BookmarkLocal_i } from "../types/bookmarkType";
 import { TabDatabase_i } from "../types/tabType";
 
 const {
@@ -55,10 +55,10 @@ export const addUserMutationField = {
 
       newSettings.save();
 
-      let arrOfPromises: Promise<unknown>[] = [];
+      let arrOfPromises: Promise<string>[] = [];
 
       for (let el of tabs) {
-        let newPromise = new Promise((resolve, reject) => {
+        let newPromise = new Promise<string>((resolve, reject) => {
           let newTab = new Tab({
             ...el,
             userId: settingsProduct.id,
@@ -77,25 +77,30 @@ export const addUserMutationField = {
         arrOfPromises.push(newPromise);
       }
 
-      let arrOfFolderIds = await Promise.all(arrOfPromises);
+      let arrOfFolderIds: string[] = await Promise.all(arrOfPromises);
 
       console.log(arrOfFolderIds);
 
-      /* function calcTagNames(bookmark: any) {
+      function calcTagNames(bookmark: BookmarkLocal_i) {
+        let newArr: string[] = [];
 
-        let newArr = []
+        // for each el of arrOfFolderIds
+        arrOfFolderIds.forEach((el, i) => {
+          // if i is present in bookmark.tagIndices
+          if (bookmark.tagIndices.indexOf(i) > -1) {
+            // add arrOfFolderIds[i] to newArr
+            newArr.push(el);
+          }
+        });
 
-        arrOfFolderIds.forEach( (el, i) => {
-          if (arrOfNumberI)
-        })
+        return newArr;
+      }
 
-      } */
-
-      bookmarks.forEach((el: any) => {
+      bookmarks.forEach((el: BookmarkLocal_i) => {
         let newBookmark = new Bookmark({
           ...el,
           userId: settingsProduct.id,
-          tags: [...arrOfFolderIds],
+          tags: calcTagNames(el),
         });
 
         newBookmark.save((err: Error, bookmarkProduct: BookmarkDatabase_i) => {

@@ -35,7 +35,7 @@ export interface TabLocal_i {
 }
 
 export interface TabDatabase_i extends TabLocal_i {
-  id: number | string;
+  id: string;
   userId: number | string;
 }
 
