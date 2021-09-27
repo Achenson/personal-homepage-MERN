@@ -2,27 +2,14 @@ const graphql = require("graphql");
 
 const Tab = require("../../mongoModels/tabSchema");
 
-import { TabDatabase_i, TabType } from "../types/tabType";
+import { TabDatabase_i, TabFields, TabType } from "../types/tabType";
 const { GraphQLString, GraphQLNonNull, GraphQLID, GraphQLBoolean, GraphQLInt } =
   graphql;
 
 export const addTabMutationField = {
   type: TabType,
   args: {
-    userId: { type: GraphQLID },
-    title: { type: GraphQLString },
-    color: { type: GraphQLString },
-    column: { type: GraphQLInt },
-    priority: { type: GraphQLInt },
-    opened: { type: GraphQLBoolean },
-    openedByDefault: { type: GraphQLBoolean },
-    deletable: { type: GraphQLBoolean },
-    type: { type: GraphQLString },
-    noteInput: { type: GraphQLString },
-    rssLink: { type: GraphQLString },
-    date: { type: GraphQLBoolean },
-    description: { type: GraphQLBoolean },
-    itemsPerPage: { type: GraphQLInt },
+    ...TabFields,
   },
   resolve(_source: unknown, args: TabDatabase_i) {
     let newTab = new Tab({

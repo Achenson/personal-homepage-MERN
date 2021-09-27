@@ -39,28 +39,33 @@ export interface TabDatabase_i extends TabLocal_i {
   userId: string;
 }
 
+export const TabFields = {
+  id: { type: GraphQLID },
+  userId: { type: GraphQLID },
+  title: { type: GraphQLString },
+  color: { type: GraphQLString },
+  column: { type: GraphQLInt },
+  priority: { type: GraphQLInt },
+  opened: { type: GraphQLBoolean },
+  openedByDefault: { type: GraphQLBoolean },
+  deletable: { type: GraphQLBoolean },
+  type: { type: GraphQLString },
+  noteInput: { type: GraphQLString },
+  rssLink: { type: GraphQLString },
+  date: { type: GraphQLBoolean },
+  description: { type: GraphQLBoolean },
+  itemsPerPage: { type: GraphQLInt },
+}
+
 export const TabType = new GraphQLObjectType({
   name: "Tab",
   fields: () => ({
+    ...TabFields
     /*    id: { type: GraphQLID },
     title: { type: GraphQLString },
     URL: { type: GraphQLString },
     tags: { type: new GraphQLList(GraphQLID) }, */
-    id: { type: GraphQLID },
-    userId: { type: GraphQLID },
-    title: { type: GraphQLString },
-    color: { type: GraphQLString },
-    column: { type: GraphQLInt },
-    priority: { type: GraphQLInt },
-    opened: { type: GraphQLBoolean },
-    openedByDefault: { type: GraphQLBoolean },
-    deletable: { type: GraphQLBoolean },
-    type: { type: GraphQLString },
-    noteInput: { type: GraphQLString },
-    rssLink: { type: GraphQLString },
-    date: { type: GraphQLBoolean },
-    description: { type: GraphQLBoolean },
-    itemsPerPage: { type: GraphQLInt },
+
     // bookmarkIds: { type: GraphQLList({type: GraphQLID})},
     // bookmarks: {
     //   type: GraphQLList({type: BookmarkType}),
