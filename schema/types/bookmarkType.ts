@@ -1,4 +1,4 @@
-import { Tab_i } from "./tabType";
+
 
 const graphql = require("graphql");
 
@@ -11,13 +11,19 @@ const {
   GraphQLList,
 } = graphql;
 
-export interface Bookmark_i {
-  id: number | string;
-  userId: number | string;
+interface Bookmark_i {
   title: string;
   URL: string;
+}
+
+export interface BookmarkLocal_i extends Bookmark_i {
+  tagIndices: number[];
+}
+
+export interface BookmarkDatabase_i extends Bookmark_i {
+  id: number | string;
+  userId: number | string;
   tags: string[];
-  // folders: Tab_i[];
 }
 
 export const BookmarkType = new GraphQLObjectType({
@@ -30,5 +36,3 @@ export const BookmarkType = new GraphQLObjectType({
     tags: { type: new GraphQLList(GraphQLID) },
   }),
 });
-
-

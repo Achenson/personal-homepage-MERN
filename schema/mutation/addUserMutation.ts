@@ -8,8 +8,8 @@ const Bookmark = require("../../mongoModels/bookmarkSchema");
 import { resolve } from "path/posix";
 import { bookmarks } from "../data/defaultBookmarks";
 import { tabs } from "../data/defaultTabs";
-import { Bookmark_i } from "../types/bookmarkType";
-import { Tab_i } from "../types/tabType";
+import { BookmarkDatabase_i } from "../types/bookmarkType";
+import { TabDatabase_i } from "../types/tabType";
 
 const {
   GraphQLObjectType,
@@ -64,7 +64,7 @@ export const addUserMutationField = {
             userId: settingsProduct.id,
           });
 
-          newTab.save((err: Error, folderProduct: Tab_i) => {
+          newTab.save((err: Error, folderProduct: TabDatabase_i) => {
             if (err) {
               console.log(err);
               reject();
@@ -79,50 +79,26 @@ export const addUserMutationField = {
 
       let arrOfFolderIds = await Promise.all(arrOfPromises);
 
-      /*     let arrOfFolderIds: (string|number)[] = await Promise.all([
-        new Promise((resolve, reject) => {
-          let newTab = new Tab({
-            ...tabs[0],
-            userId: settingsProduct.id,
-          });
-
-          newTab.save((err: Error, folderProduct: Tab_i) => {
-            if (err) {
-              console.log(err);
-              reject();
-            }
-            console.log(folderProduct.id);
-            resolve(folderProduct.id);
-          });
-        }),
-
-        new Promise((resolve, reject) => {
-          let newTab = new Tab({
-            ...tabs[1],
-            userId: settingsProduct.id,
-          });
-
-          newTab.save((err: Error, folderProduct: Tab_i) => {
-            if (err) {
-              console.log(err);
-              reject();
-            }
-            console.log(folderProduct.id);
-            resolve(folderProduct.id);
-          });
-        }),
-      ]); */
-
       console.log(arrOfFolderIds);
 
-      bookmarks.forEach((el, i) => {
+      /* function calcTagNames(bookmark: any) {
+
+        let newArr = []
+
+        arrOfFolderIds.forEach( (el, i) => {
+          if (arrOfNumberI)
+        })
+
+      } */
+
+      bookmarks.forEach((el: any) => {
         let newBookmark = new Bookmark({
           ...el,
           userId: settingsProduct.id,
           tags: [...arrOfFolderIds],
         });
 
-        newBookmark.save((err: Error, bookmarkProduct: Bookmark_i) => {
+        newBookmark.save((err: Error, bookmarkProduct: BookmarkDatabase_i) => {
           if (err) console.log(err);
         });
       });

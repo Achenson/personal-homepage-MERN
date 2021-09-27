@@ -1,7 +1,5 @@
 const graphql = require("graphql");
 
-import { Bookmark_i, BookmarkType } from "../types/bookmarkType";
-
 const Bookmark = require("../../mongoModels/bookmarkSchema");
 
 const {
@@ -14,9 +12,7 @@ const {
   GraphQLNull
 } = graphql;
 
-export interface Tab_i {
-  id: number | string;
-  userId: number | string;
+export interface TabLocal_i {
   title: string;
   color: string | null;
   column: number;
@@ -37,6 +33,12 @@ export interface Tab_i {
   // bookmarkIds?: string[];
   // bookmarks?: Bookmark_i[]; 
 }
+
+export interface TabDatabase_i extends TabLocal_i {
+  id: number | string;
+  userId: number | string;
+}
+
 
 export const TabType = new GraphQLObjectType({
   name: "Tab",

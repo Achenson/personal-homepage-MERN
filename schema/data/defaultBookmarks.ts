@@ -1,13 +1,14 @@
-export const bookmarks = [
+import {BookmarkLocal_i} from "../types/bookmarkType"
+
+export const bookmarks: BookmarkLocal_i[]  = [
     {
       title: "facebook",
       URL: "https://www.facebook.com/",
-      tags: ["1"],
+      tagIndices: [0]
     },
     {
       title: "gmail",
       URL: "https://mail.google.com/mail/u/0/",
-      // not saved to db
-      tags: ["1"],
+      tagIndices: [0]
     },
   ];
