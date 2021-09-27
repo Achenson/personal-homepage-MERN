@@ -5,18 +5,13 @@ const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
 const Bookmark = require("../../mongoModels/bookmarkSchema");
 
-import { resolve } from "path/posix";
 import { bookmarks } from "../data/defaultBookmarks";
 import { tabs } from "../data/defaultTabs";
 import { BookmarkDatabase_i, BookmarkLocal_i } from "../types/bookmarkType";
 import { TabDatabase_i } from "../types/tabType";
 
 const {
-  GraphQLObjectType,
-  GraphQLID,
-  GraphQLBoolean,
   GraphQLString,
-  GraphQLInt,
   GraphQLNonNull,
 } = graphql;
 
