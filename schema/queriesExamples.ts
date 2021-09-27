@@ -57,4 +57,10 @@ mutation {
   }
 }
 
+mutation {
+ deleteBookmark(id: "6151ad9d50ce1ecf5f813f0b") {
+  title
+}
+}
+
 */

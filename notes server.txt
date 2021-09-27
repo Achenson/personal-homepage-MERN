@@ -2,10 +2,17 @@
 
  // "server": "nodemon --exec ts-node server.ts",
  "server": "nodemon server.ts",
+
+
+notes:
+
+1. in GraphQL, all types are nullable by default!
+
+
+ issues:
  
  DONE 2. working graphql playground DONE
  DONE 5. bookmarkSchema.ts: is <Array> type enough? [string] DONE 
-
  1. livereload npm
  2. adding user doesn't return anything on graphql playground? (but it returns in changeSettings)
  3. id: string | number or string only? unify with client
@@ -15,4 +22,8 @@
  8. client: ALL_TAGS should not be an id but rather a tab type! ids will be added automatically be database
  9. deleteUser -> promise.all should be used instead of individual promises? for performance
 10. typescript doesn't work for schemas?
+11. deleteTabMutation -> should it also delete related Bookmark automatically?
+
+
+
 

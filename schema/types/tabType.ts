@@ -9,7 +9,7 @@ const {
   GraphQLString,
   GraphQLBoolean,
   GraphQLList,
-  GraphQLNull
+  GraphQLNull,
 } = graphql;
 
 export interface TabLocal_i {
@@ -20,7 +20,7 @@ export interface TabLocal_i {
   opened: boolean;
   openedByDefault: boolean;
   deletable: boolean;
-  type: "ALL_TAGS" |"folder" | "note" | "rss";
+  type: "ALL_TAGS" | "folder" | "note" | "rss";
   noteInput?: string | null;
   rssLink?: string | null;
   date?: boolean | null;
@@ -31,7 +31,7 @@ export interface TabLocal_i {
   // items?: [object] | never[] | [];
   // backend only
   // bookmarkIds?: string[];
-  // bookmarks?: Bookmark_i[]; 
+  // bookmarks?: Bookmark_i[];
 }
 
 export interface TabDatabase_i extends TabLocal_i {
@@ -39,29 +39,28 @@ export interface TabDatabase_i extends TabLocal_i {
   userId: number | string;
 }
 
-
 export const TabType = new GraphQLObjectType({
   name: "Tab",
   fields: () => ({
- /*    id: { type: GraphQLID },
+    /*    id: { type: GraphQLID },
     title: { type: GraphQLString },
     URL: { type: GraphQLString },
     tags: { type: new GraphQLList(GraphQLID) }, */
     id: { type: GraphQLID },
-    userId: {type: GraphQLID},
+    userId: { type: GraphQLID },
     title: { type: GraphQLString },
-    color: { type: GraphQLString | GraphQLNull },
+    color: { type: GraphQLString },
     column: { type: GraphQLInt },
     priority: { type: GraphQLInt },
     opened: { type: GraphQLBoolean },
     openedByDefault: { type: GraphQLBoolean },
     deletable: { type: GraphQLBoolean },
-    type: {type: GraphQLString},
-    noteInput: { type: GraphQLString | GraphQLNull },
-    rssLink: { type: GraphQLString | GraphQLNull },
-    date: { type: GraphQLBoolean | GraphQLNull },
-    description: { type: GraphQLBoolean | GraphQLNull },
-    itemsPerPage: { type: GraphQLInt | GraphQLNull },
+    type: { type: GraphQLString },
+    noteInput: { type: GraphQLString },
+    rssLink: { type: GraphQLString },
+    date: { type: GraphQLBoolean },
+    description: { type: GraphQLBoolean },
+    itemsPerPage: { type: GraphQLInt },
     // bookmarkIds: { type: GraphQLList({type: GraphQLID})},
     // bookmarks: {
     //   type: GraphQLList({type: BookmarkType}),
