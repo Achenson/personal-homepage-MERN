@@ -23,7 +23,8 @@ notes:
  9. deleteUser -> promise.all should be used instead of individual promises? for performance
 10. typescript doesn't work for schemas?
 11. deleteTabMutation -> should it also delete related Bookmark automatically?
-
-
+12. change args to ...Type
+13. tabType: deletable -> was is used clienside? if not it can be used instead of "ALL_TAGS: type !
+14. non-null types: same everywhere!
 
 

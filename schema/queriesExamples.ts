@@ -73,4 +73,14 @@ mutation {
 }
 }
 
+
+mutation {
+  addTab(userId: "", title: "testTab", color: "red-400",
+   column: 1, priority: 0, opened: true, openedByDefault: false,
+    deletable: true, type: "folder") {
+    title
+  }
+}
+
+
 */
