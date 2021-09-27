@@ -1,5 +1,3 @@
-
-
 const graphql = require("graphql");
 
 const {
@@ -26,13 +24,17 @@ export interface BookmarkDatabase_i extends Bookmark_i {
   tags: string[];
 }
 
+export const BookmarkFields = {
+  id: { type: GraphQLID },
+  userId: { type: GraphQLID },
+  title: { type: GraphQLString },
+  URL: { type: GraphQLString },
+  tags: { type: new GraphQLList(GraphQLID) },
+};
+
 export const BookmarkType = new GraphQLObjectType({
   name: "Bookmark",
   fields: () => ({
-    id: { type: GraphQLID },
-    userId: { type: GraphQLID },
-    title: { type: GraphQLString },
-    URL: { type: GraphQLString },
-    tags: { type: new GraphQLList(GraphQLID) },
+    ...BookmarkFields,
   }),
 });
