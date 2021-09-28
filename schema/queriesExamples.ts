@@ -47,6 +47,13 @@ mutation {
   }
 }
 
+mutation {
+  changeUser(id: "6151c1684589d00af404ab7e", name: "newName", email: "newEmail@mail", password: "secret") {
+    name
+  }
+}
+
+
 // not returning anything??
 mutation {
   addUser(name: "John3", email: "test@test", password: "test") {

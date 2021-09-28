@@ -26,5 +26,7 @@ notes:
 12. change args to ...Type
 13. tabType: deletable -> was is used clienside? if not it can be used instead of "ALL_TAGS: type !
 14. non-null types: same everywhere!
+15. fields -> id can be an argument even if it is never used? delete it from fields?
+16. upserts in changeMutations -> should be false mostly?
 
 
