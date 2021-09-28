@@ -53,6 +53,15 @@ mutation {
   }
 }
 
+mutation {
+  changeTab(id: "6151c1684589d00af404ab82", title: "newFolder", color: "red-900", column: 2, priority: 0,
+    opened: false, openedByDefault: false, deletable: false, type: "folder") {
+    title
+  }
+}
+
+
+
 
 // not returning anything??
 mutation {
