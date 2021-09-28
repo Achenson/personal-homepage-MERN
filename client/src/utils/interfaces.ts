@@ -41,7 +41,7 @@ export interface SingleTabData {
   date?: boolean | null;
   description?: boolean | null;
   itemsPerPage?: number | null;
-  items?: [object] | never[] | [];
+  // items?: [object] | never[] | [];
 }
 
 export interface SingleBookmarkData {

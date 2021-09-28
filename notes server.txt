@@ -14,12 +14,15 @@ notes:
  DONE 2. working graphql playground DONE
  DONE 5. bookmarkSchema.ts: is <Array> type enough? [string] DONE 
  DONE 3. id: string | number or string only? unify with client (client: string only) DONE
+ DONE 4. client: SingleTabData: [object] | never[] | [] ????
+   <- not being used actually in the client? (items deleted from rss clientside) DONE
+ DONE 16. upserts in changeMutations -> should be false mostly? (all false )DONE
  
  1. livereload npm
  2. adding user doesn't return anything on graphql playground? (but it returns in changeSettings)
- 4. client: SingleTabData: [object] | never[] | [] ????  <- not being used actually in the client?
+ 
  6. userSchema gets ref to settingsSchema, should it be also the other war around?
- 7. client: bookmarksData -> change id to strings only?
+ 
  8. client: ALL_TAGS should not be an id but rather a tab type! ids will be added automatically be database
  9. deleteUser -> promise.all should be used instead of individual promises? for performance
 10. typescript doesn't work for schemas?
@@ -28,6 +31,5 @@ notes:
 13. tabType: deletable -> was is used clienside? if not it can be used instead of "ALL_TAGS: type !
 14. non-null types: same everywhere!
 15. fields -> id can be an argument even if it is never used? delete it from fields?
-16. upserts in changeMutations -> should be false mostly?
 
 

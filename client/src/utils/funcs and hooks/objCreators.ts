@@ -53,7 +53,7 @@ export function createRSS_partial(
     date,
     description,
     itemsPerPage,
-    items: [],
+    // items: [],
   };
 }
 

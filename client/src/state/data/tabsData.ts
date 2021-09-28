@@ -88,7 +88,6 @@ Bypass CORS to allow RSS channels (https only) to work. On Chrome:
     date: null,
     description: null,
     itemsPerPage: null,
-    items: [],
     rssLink: "https://feeds.theguardian.com/theguardian/uk-news/rss",
   },
   {
@@ -104,7 +103,6 @@ Bypass CORS to allow RSS channels (https only) to work. On Chrome:
     date: null,
     description: null,
     itemsPerPage: null,
-    items: [],
     rssLink: "https://feeds.feedburner.com/sciencealert-latestnews",
   },
   {
@@ -120,7 +118,6 @@ Bypass CORS to allow RSS channels (https only) to work. On Chrome:
     date: null,
     description: null,
     itemsPerPage: null,
-    items: [],
     rssLink: "https://techbeacon.com/rss.xml",
   },
 ];
