@@ -95,7 +95,7 @@ export function createRSS(
 export function createBookmark(
   title: string,
   URL: string,
-  tags: (string | number)[]
+  tags: string[]
 ): SingleBookmarkData {
   return {
     id: uuidv4(),

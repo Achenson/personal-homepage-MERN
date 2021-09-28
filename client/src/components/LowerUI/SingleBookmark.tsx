@@ -18,12 +18,12 @@ import { SingleBookmarkData } from "../../utils/interfaces";
 
 interface Props {
   singleBookmarkData: SingleBookmarkData;
-  bookmarkId: string | number;
+  bookmarkId: string;
   setBookmarkId: React.Dispatch<
-    React.SetStateAction<string | number | undefined>
+    React.SetStateAction<string | undefined>
   >;
   colNumber: number;
-  tabID: string | number;
+  tabID: string;
   isTabDraggedOver: boolean;
 }
 
@@ -116,7 +116,7 @@ function SingleBookmark({
         <Bookmark_newAndEdit
           bookmarkComponentType="edit"
           colNumber={colNumber}
-          bookmarkId={bookmarkId as string | number}
+          bookmarkId={bookmarkId as string}
         />
       )}
     </div>

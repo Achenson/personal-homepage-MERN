@@ -205,7 +205,7 @@ function Bookmark_newAndEdit({
         <Bookmark_lowerUI
           {...bookmark_props}
           currentBookmark={currentBookmark}
-          bookmarkId={bookmarkId as string | number}
+          bookmarkId={bookmarkId as string}
           colNumber={colNumber as number}
         />
       )}

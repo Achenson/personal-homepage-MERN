@@ -16,7 +16,7 @@ notes:
  
  1. livereload npm
  2. adding user doesn't return anything on graphql playground? (but it returns in changeSettings)
- 3. id: string | number or string only? unify with client
+ DONE 3. id: string | number or string only? unify with client (client: string only) DONE
  4. client: SingleTabData: [object] | never[] | [] ????  <- not being used actually in the client?
  6. userSchema gets ref to settingsSchema, should it be also the other war around?
  7. client: bookmarksData -> change id to strings only?

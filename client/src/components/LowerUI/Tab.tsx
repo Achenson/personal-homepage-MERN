@@ -33,13 +33,13 @@ import { SingleTabData } from "../../utils/interfaces";
 
 interface Item {
   type: string;
-  tabID: string | number;
+  tabID: string;
   colNumber: number;
   tabColor: string;
 }
 
 interface Props {
-  tabID: string | number;
+  tabID: string;
   tabTitle: string;
   tabColor: string | null;
   tabType: "folder" | "note" | "rss";
@@ -119,7 +119,7 @@ function Tab({
     }
   }, [tabOpenedState, tabID, tabVisDispatch]);
 
-  const [bookmarkId, setBookmarkId] = useState<number | string>();
+  const [bookmarkId, setBookmarkId] = useState<string>();
 
   const [crossVis, setCrossVis] = useState<boolean>(true);
 
@@ -480,7 +480,7 @@ function Tab({
                 return (
                   <SingleBookmark
                     singleBookmarkData={el}
-                    bookmarkId={el.id as string | number}
+                    bookmarkId={el.id as string}
                     colNumber={colNumber}
                     setBookmarkId={setBookmarkId}
                     key={i}

@@ -33,7 +33,7 @@ interface Props {
   notesTitlesArr: string[];
   rssTitlesArr: string[];
   bookmarkComponentType: "new_upperUI" | "new_lowerUI" | "edit";
-  bookmarkId: string | number;
+  bookmarkId: string;
   currentBookmark: SingleBookmarkData | undefined;
   colNumber: number;
   errors: BookmarkErrors;
@@ -102,7 +102,7 @@ function Bookmark_lowerUI({
       return [];
     }
 
-    let arrOut: (string | number)[] = [];
+    let arrOut: string[] = [];
 
     selectablesInputStr.split(", ").forEach((el) => {
       let currentTab = tabs.find((obj) => obj.title === el);
@@ -128,9 +128,9 @@ function Bookmark_lowerUI({
 
   function addOrEditBookmark() {
     // creating tags for bookmark being added
-    let tagsInputArr_ToIds: (string | number)[] = ["ALL_TAGS"];
+    let tagsInputArr_ToIds: string[] = ["ALL_TAGS"];
     // for edit only
-    let newTabId: undefined | string | number;
+    let newTabId: undefined | string;
     let newTabsToAdd: SingleTabData[] = [];
 
     let newBookmarksAllTagsData = [...bookmarksAllTags];
@@ -204,7 +204,7 @@ function Bookmark_lowerUI({
         }
       });
 
-      let bookmarksAllTagsData_new: (string | number)[] = [];
+      let bookmarksAllTagsData_new: string[] = [];
 
       if (newTabId) {
         bookmarksAllTagsData_new.push(newTabId);

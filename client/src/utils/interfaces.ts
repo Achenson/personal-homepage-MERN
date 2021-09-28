@@ -27,7 +27,7 @@ export interface TabErrors {
 export type SetTabErrors = React.Dispatch<React.SetStateAction<TabErrors>>;
 
 export interface SingleTabData {
-  id: number | string;
+  id: string;
   title: string;
   color: string | null;
   column: number;
@@ -45,10 +45,10 @@ export interface SingleTabData {
 }
 
 export interface SingleBookmarkData {
-  id: number | string;
+  id: string;
   title: string;
   URL: string;
-  tags: (string | number)[];
+  tags: string[];
 }
 
 export interface GlobalSettingsState {
@@ -91,7 +91,7 @@ export interface TabVisState {
   colorsVis: boolean;
   // tabContentVis: boolean;
   newBookmarkVis: boolean;
-  editBookmarkVis: null | string | number;
+  editBookmarkVis: null | string;
   touchScreenModeOn: boolean;
 }
 
@@ -150,7 +150,7 @@ interface TabVisAction_noPayload {
 
 interface TabVisAction_EDIT_BOOKMARK_OPEN {
   type: "EDIT_BOOKMARK_OPEN";
-  payload: string | number;
+  payload: string;
 }
 
 export type TabVisAction =

@@ -112,7 +112,7 @@ function NewBookmark_UpperUI({
 
   function addBookmarkWrapper() {
     // all tags always being added
-    let tagsInputArr_ToIds: (string | number)[] = ["ALL_TAGS"];
+    let tagsInputArr_ToIds: string[] = ["ALL_TAGS"];
 
     let newTabsToAdd: SingleTabData[] = [];
     let newBookmarksAllTagsData = [...bookmarksAllTags];

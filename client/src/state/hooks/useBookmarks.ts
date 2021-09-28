@@ -8,26 +8,26 @@ import { bookmarksData } from "../data/bookmarksData";
 interface UseBookmarks {
   addBookmark: (singleBookmarkData: SingleBookmarkData) => void;
   editBookmark: (
-    editId: string | number,
+    editId: string,
     title: string,
     URL: string,
-    tags: (string | number)[]
+    tags: string[]
   ) => void;
   deleteBookmark: (
-    bookmarkID: string | number,
+    bookmarkID: string,
     singleBookmarkData: SingleBookmarkData
   ) => void;
   addTag: (newFolderTabId: string, bookmarksInputArr: string[]) => void;
   // changing or adding a tag in all bookmarks
   editTag: (
-    tabID: string | number,
+    tabID: string,
     arrOfBookmarksNames: string[],
     bookmarksInputArr: string[]
   ) => void;
   // delete tag in all bookmarks
   deleteTag: (tabTitle: string) => void;
-  setBookmarksAllTags: (newTags: (string | number)[]) => void;
-  bookmarksAllTags: (string | number)[];
+  setBookmarksAllTags: (newTags: string[]) => void;
+  bookmarksAllTags: string[];
   bookmarks: SingleBookmarkData[];
 }
 
@@ -58,7 +58,7 @@ export const useBookmarks = create<UseBookmarks>(
       },
 
       deleteBookmark: (bookmarkID, singleBookmarkData) => {
-        let tagsIdsToDelete: (string | number)[] = [];
+        let tagsIdsToDelete: string[] = [];
 
         singleBookmarkData.tags.forEach((el) => {
           let filteredBookmarks = get().bookmarks.filter(
@@ -79,7 +79,7 @@ export const useBookmarks = create<UseBookmarks>(
           }
         });
 
-        let bookmarksAllTagsData_new: (string | number)[] = [];
+        let bookmarksAllTagsData_new: string[] = [];
 
         get().bookmarksAllTags.forEach((el) => {
           if (tagsIdsToDelete.indexOf(el) === -1) {

@@ -19,8 +19,8 @@ export interface BookmarkLocal_i extends Bookmark_i {
 }
 
 export interface BookmarkDatabase_i extends Bookmark_i {
-  id: number | string;
-  userId: number | string;
+  id: string;
+  userId: string;
   tags: string[];
 }
 

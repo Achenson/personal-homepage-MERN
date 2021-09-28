@@ -24,7 +24,7 @@ import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
 
 interface Props {
   tabType: "folder" | "note" | "rss";
-  tabID: string | number;
+  tabID: string;
   currentTab: SingleTabData;
   setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>;
 }

@@ -12,7 +12,7 @@ import { tabColors, tabColorsConcat } from "../../utils/data/colors_tab";
 
 interface Props {
   setIconsVis: (value: React.SetStateAction<boolean>) => void;
-  tabID: string | number;
+  tabID: string;
   tabColor: string | null;
   tabType: "folder" | "note" | "rss";
 }
