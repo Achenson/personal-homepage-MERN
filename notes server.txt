@@ -13,6 +13,7 @@ notes:
  
  DONE 2. working graphql playground DONE
  DONE 5. bookmarkSchema.ts: is <Array> type enough? [string] DONE 
+ 
  1. livereload npm
  2. adding user doesn't return anything on graphql playground? (but it returns in changeSettings)
  3. id: string | number or string only? unify with client
