@@ -8,6 +8,7 @@ import { deleteTabMutationField } from "./deleteTabMutation";
 import { addTabMutationField } from "./addTabMutation";
 import { addBookmarkMutationField } from "./addBookmarkMutation";
 import { changeUserMutationField } from "./changeUserMutation";
+import { changeTabMutationField } from "./changeTabMutation";
 
 const { GraphQLObjectType } = graphql;
 
@@ -15,6 +16,7 @@ export const Mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
     changeSettings: changeSettingsMutationField,
+    changeTab: changeTabMutationField,
     changeUser: changeUserMutationField,
     addBookmark: addBookmarkMutationField,
     addTab: addTabMutationField,
