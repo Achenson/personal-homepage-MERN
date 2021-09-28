@@ -15,14 +15,12 @@ const {
   GraphQLNonNull,
 } = graphql;
 
-import { UserType, User_i } from "../types/userType";
+import { UserFields, UserType, User_i } from "../types/userType";
 
 export const addUserMutationField = {
   type: UserType,
   args: {
-    name: { type: new GraphQLNonNull(GraphQLString) },
-    email: { type: new GraphQLNonNull(GraphQLString) },
-    password: { type: new GraphQLNonNull(GraphQLString) },
+    ...UserFields
   },
   resolve(_source: unknown, args: User_i) {
     let user = new User({

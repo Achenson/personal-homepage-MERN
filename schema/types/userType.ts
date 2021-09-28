@@ -1,6 +1,6 @@
 const graphql = require("graphql");
 
-const Settings = require("../../mongoModels/settingsSchema")
+const Settings = require("../../mongoModels/settingsSchema");
 
 import { SettingsType } from "../types/settingsType";
 /* import { Bookmark_i } from "./bookmarkType";
@@ -19,18 +19,22 @@ export interface User_i {
   name: string;
   email: string;
   password: string;
-/*   settings: Settings_i;
+  /*   settings: Settings_i;
   tabs: Tab_i[];
   bookmarks: Bookmark_i[]; */
 }
 
+export const UserFields = {
+  id: { type: GraphQLID },
+  name: { type: GraphQLString },
+  email: { type: GraphQLString },
+  password: { type: GraphQLString },
+};
+
 export const UserType = new GraphQLObjectType({
   name: "User",
   fields: () => ({
-    id: { type: GraphQLID },
-    name: { type: GraphQLString },
-    email: { type: GraphQLString },
-    password: { type: GraphQLString },
+    ...UserFields,
     // tokenVersion: { type: GraphQLInt },
     settings: {
       type: SettingsType,

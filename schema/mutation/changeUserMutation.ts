@@ -3,5 +3,7 @@
 
 export const changeUserMutationField = {
     type: UserType,
-    args: 
+    args: {
+        .
+    }
 } */
