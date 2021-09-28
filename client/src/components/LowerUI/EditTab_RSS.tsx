@@ -16,7 +16,7 @@ interface Props {
   rssItemsPerPage: number;
   setRssItemsPerPage: React.Dispatch<React.SetStateAction<number>>;
   setWasItemsPerPageClicked: React.Dispatch<React.SetStateAction<boolean>>;
-  tabID: string | number;
+  tabID: string;
   rssLinkInput: string;
   setRssLinkInput: React.Dispatch<React.SetStateAction<string>>;
 }

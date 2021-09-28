@@ -178,7 +178,7 @@ function Bookmark_lowerUI({
       editBookmark(bookmarkId, titleInput, urlInput, tagsInputArr_ToIds);
 
       // for deleting empty folder
-      let tagsIdsToDelete: (string | number)[] = [];
+      let tagsIdsToDelete: string[] = [];
 
       initialTagsInputArr.forEach((el) => {
         // if the tag was present in initial tags, but is not present in the end

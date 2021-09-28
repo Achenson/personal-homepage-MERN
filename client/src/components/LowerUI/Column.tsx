@@ -87,7 +87,7 @@ function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
     .filter((el) => el.column === colNumber)
     .sort((a, b) => a.priority - b.priority);
 
-  let lastTabId: number | string | null;
+  let lastTabId: string | null;
   if (sortedTabs.length > 0) {
     lastTabId = sortedTabs[sortedTabs.length - 1].id;
   } else {
@@ -97,8 +97,8 @@ function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
   let tabDataLength = tabs.filter((el) => el.column === colNumber).length;
 
   function isThisLastGap(
-    lastTabId: number | string | null,
-    tabID: string | number
+    lastTabId: string | null,
+    tabID: string
   ) {
     if (lastTabId === tabID) {
       return true;

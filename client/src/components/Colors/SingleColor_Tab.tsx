@@ -5,7 +5,7 @@ import { useTabs } from "../../state/hooks/useTabs";
 
 interface Props {
   color: string;
-  tabID: number | string;
+  tabID: string;
   tabColor: string | null;
   tabType: "folder" | "note" | "rss";
   selectedNumber: number;

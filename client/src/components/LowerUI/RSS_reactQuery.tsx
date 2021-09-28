@@ -17,7 +17,7 @@ let Parser = require("rss-parser");
 let parser = new Parser();
 
 interface Props {
-  tabID: string | number;
+  tabID: string;
   currentTab: SingleTabData;
   isTabDraggedOver: boolean;
 }

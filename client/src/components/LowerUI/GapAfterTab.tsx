@@ -11,14 +11,14 @@ import { useTabs } from "../../state/hooks/useTabs";
 
 interface Item {
   type: string;
-  tabID: string | number;
+  tabID: string;
   colNumber: number;
   tabColor: string;
 }
 
 interface Props {
   colNumber: number;
-  tabID_orNull: number | string | null;
+  tabID_orNull: string | null;
   picBackground: boolean;
   isThisLastGap: boolean;
   // for proper top border display

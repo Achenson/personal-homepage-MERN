@@ -3,15 +3,12 @@ import { useReducer } from "react";
 import { TabVisAction, TabVisState } from "../utils/interfaces";
 
 export function useTabReducer(
-  tabID: string | number,
-  setTabOpenedState: (nullOrID: string | number | null) => void,
+  tabID: string,
+  setTabOpenedState: (nullOrID: string | null) => void,
   setReset: (trueOrFalse: boolean) => void,
-  toggleTab: (tabID: string | number, tabOpened: boolean) => void,
+  toggleTab: (tabID: string, tabOpened: boolean) => void,
   tabOpened: boolean,
-  defaultTabContent: (
-    tabID: string | number,
-    tabOpenedByDefault: boolean
-  ) => void,
+  defaultTabContent: (tabID: string, tabOpenedByDefault: boolean) => void,
   tabOpenedByDefault: boolean
 ): [TabVisState, React.Dispatch<TabVisAction>] {
   const initVisState: TabVisState = {

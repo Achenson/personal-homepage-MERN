@@ -12,7 +12,7 @@ interface Props {
   bookmarkComponentType: "new_upperUI" | "new_lowerUI" | "edit";
   colNumber?: number;
   // for "edit" type only
-  bookmarkId?: string | number | undefined;
+  bookmarkId?: string | undefined;
   // for lowerUI newBookmark only
   tabTitle?: string;
   // for upperUI newBookmark only

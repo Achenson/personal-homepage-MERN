@@ -11,22 +11,19 @@ interface UseTabs {
   // moving tabs to lower number cols(left) if globalSettings numberOfCols changes
   tabsLessColumns: (numberOfCols: 1 | 2 | 3 | 4) => void;
   // reseting tab content (open/closed state) to default
-  defaultTabContent: (
-    tabID: string | number,
-    tabOpenedByDefault: boolean
-  ) => void;
+  defaultTabContent: (tabID: string, tabOpenedByDefault: boolean) => void;
   // deleting tab if there are no bookmarks with this tag (tab's name)
-  deleteEmptyTab: (bookmarksAllTags: (string | number)[]) => void;
-  deleteTab: (tabID: string | number) => void;
+  deleteEmptyTab: (bookmarksAllTags: string[]) => void;
+  deleteTab: (tabID: string) => void;
   dragTab: (
-    itemID: number | string,
+    itemID: string,
     itemColNumber: number,
     colNumber: number,
-    tabID_orNull: string | number | null,
+    tabID_orNull: string | null,
     draggingIntoTab: boolean
   ) => void;
   editTab: (
-    tabID: string | number,
+    tabID: string,
     tabTitleInput: string,
     textAreaValue: string | null,
     rssLinkInput: string,
@@ -41,19 +38,19 @@ interface UseTabs {
     setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
   resetAllTabColors: () => void;
-  setTabColor: (color: string, tabID: string | number) => void;
-  resetTabRssSettings: (tabID: string | number) => void;
-  toggleTab: (tabID: string | number, tabOpened: boolean) => void;
+  setTabColor: (color: string, tabID: string) => void;
+  resetTabRssSettings: (tabID: string) => void;
+  toggleTab: (tabID: string, tabOpened: boolean) => void;
   tabs: SingleTabData[];
   // setting all tabs to default setting (open/close state) after clicking Reset
   closeAllTabsState: boolean;
   setCloseAllTabsState: (trueOrFalse: boolean) => void;
   // displaying tab controls when using keyboard (Tab key)
-  focusedTabState: null | (string | number);
-  setFocusedTabState: (nullOrID: null | (string | number)) => void;
+  focusedTabState: null | string;
+  setFocusedTabState: (nullOrID: null | string) => void;
   // id (or empty) of a only tab that is currently being edited(eg. colors to choose are on )
-  tabOpenedState: null | (string | number);
-  setTabOpenedState: (nullOrID: null | (string | number)) => void;
+  tabOpenedState: null | string;
+  setTabOpenedState: (nullOrID: null | string) => void;
 }
 
 // this can be used everywhere in your application
@@ -323,7 +320,7 @@ export const useTabs = create<UseTabs>(
             }
           })
         ),
-      resetTabRssSettings: (tabID: string | number) =>
+      resetTabRssSettings: (tabID: string) =>
         set((state) =>
           produce((state: UseTabs) => {
             let currentTab = state.tabs.find((obj) => obj.id === tabID);
