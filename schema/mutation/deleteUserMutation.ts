@@ -12,9 +12,16 @@ export const deleteUserMutationField = {
     id: { type: GraphQLID },
   },
   async resolve(_source: unknown, args: { id: string }) {
-    await Settings.findOneAndDelete({ userId: args.id });
+    // await so that everything connected to user is deleted before
+    // user is deleted and returned
+    await Promise.all([
+      Settings.findOneAndDelete({ userId: args.id }),
+      Bookmark.deleteMany({ userId: args.id }),
+      Tab.deleteMany({ userId: args.id }),
+    ]);
+    /*  await Settings.findOneAndDelete({ userId: args.id });
     await Bookmark.deleteMany({ userId: args.id });
-    await Tab.deleteMany({ userId: args.id });
-    return await User.findByIdAndDelete(args.id);
+    await Tab.deleteMany({ userId: args.id }); */
+    return User.findByIdAndDelete(args.id);
   },
 };

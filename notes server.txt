@@ -17,6 +17,7 @@ notes:
  DONE 4. client: SingleTabData: [object] | never[] | [] ????
    <- not being used actually in the client? (items deleted from rss clientside) DONE
  DONE 8. client: ALL_TAGS should not be an id but rather deletable property should be used! ids will be added automatically be database DONE
+ DONE 9. deleteUser -> promise.all should be used instead of individual promises? for performance DONE
  DONE 16. upserts in changeMutations -> should be false mostly? (all false )DONE
  
  1. livereload npm
@@ -24,15 +25,13 @@ notes:
  
  6. userSchema gets ref to settingsSchema, should it be also the other war around?
  
- 9. deleteUser -> promise.all should be used instead of individual promises? for performance
 10. typescript doesn't work for schemas?
+
 11. deleteTabMutation -> should it also delete related Bookmark automatically?
-12. change args to ...Type
-13. tabType: deletable -> was is used clienside? if not it can be used instead of "ALL_TAGS: type !
 14. non-null types: same everywhere!
 15. fields -> id can be an argument even if it is never used? delete it from fields?
 16. make npm run dev open 2 console instances
-
 17. bookmarkAllTags should be filled from db at the start
+18. client: comment out useStorage
 
 
