@@ -344,7 +344,8 @@ function Tab({
                 <p
                   className={`truncate ${
                     isTabDraggedOver ? `invisible` : "visible"
-                  } ${tabID === "ALL_TAGS" ? "tracking-wider" : ""}`}
+                  // } ${tabID === "ALL_TAGS" ? "tracking-wider" : ""}`}
+                  } ${!tabIsDeletable ? "tracking-wider" : ""}`}
                 >
                   {tabTitle}
                 </p>

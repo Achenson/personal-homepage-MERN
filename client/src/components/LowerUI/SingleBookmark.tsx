@@ -43,6 +43,7 @@ function SingleBookmark({
   const upperUiContext = useUpperUiContext();
 
   const bookmarks = useBookmarks((state) => state.bookmarks);
+  const tabs = useTabs((state) => state.tabs);
   const deleteBookmark = useBookmarks((state) => state.deleteBookmark);
 
   return (
@@ -101,7 +102,7 @@ function SingleBookmark({
                 );
 
                 if (bookmarkToDelete) {
-                  deleteBookmark(bookmarkId, singleBookmarkData);
+                  deleteBookmark(bookmarkId, singleBookmarkData, tabs.find(obj => !obj.deletable)?.id as string);
                 }
               }}
               aria-label={"Delete bookmark"}

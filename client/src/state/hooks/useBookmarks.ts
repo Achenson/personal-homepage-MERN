@@ -15,7 +15,8 @@ interface UseBookmarks {
   ) => void;
   deleteBookmark: (
     bookmarkID: string,
-    singleBookmarkData: SingleBookmarkData
+    singleBookmarkData: SingleBookmarkData,
+    nonDeletableTabId: string
   ) => void;
   addTag: (newFolderTabId: string, bookmarksInputArr: string[]) => void;
   // changing or adding a tag in all bookmarks
@@ -57,7 +58,7 @@ export const useBookmarks = create<UseBookmarks>(
         );
       },
 
-      deleteBookmark: (bookmarkID, singleBookmarkData) => {
+      deleteBookmark: (bookmarkID, singleBookmarkData, nonDeletableTabId) => {
         let tagsIdsToDelete: string[] = [];
 
         singleBookmarkData.tags.forEach((el) => {
@@ -74,7 +75,8 @@ export const useBookmarks = create<UseBookmarks>(
             }
           });
 
-          if (!isElPresent && el !== "ALL_TAGS") {
+          // if (!isElPresent && el !== "ALL_TAGS") {
+          if (!isElPresent && el !== nonDeletableTabId) {
             tagsIdsToDelete.push(el);
           }
         });

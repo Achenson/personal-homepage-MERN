@@ -128,7 +128,8 @@ function Bookmark_lowerUI({
 
   function addOrEditBookmark() {
     // creating tags for bookmark being added
-    let tagsInputArr_ToIds: string[] = ["ALL_TAGS"];
+    // let tagsInputArr_ToIds: string[] = ["ALL_TAGS"];
+    let tagsInputArr_ToIds: string[] = [tabs.find(obj => !obj.deletable)?.id as string];
     // for edit only
     let newTabId: undefined | string;
     let newTabsToAdd: SingleTabData[] = [];
@@ -198,7 +199,9 @@ function Bookmark_lowerUI({
             }
           });
 
-          if (!isElPresent && el !== "ALL_TAGS") {
+          // if (!isElPresent && el !== "ALL_TAGS") {
+          if (!isElPresent && tabs.find(obj => obj.id === el)?.deletable) {
+            
             tagsIdsToDelete.push(el);
           }
         }
@@ -216,6 +219,7 @@ function Bookmark_lowerUI({
         }
       });
 
+      
       setBookmarksAllTags([...bookmarksAllTagsData_new]);
     } else {
       addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));

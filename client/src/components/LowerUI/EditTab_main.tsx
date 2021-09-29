@@ -144,7 +144,8 @@ function EditTab({
   const [selectablesListVis, setSelectablesListVis] = useState<boolean>(false);
 
   function titleWidth() {
-    if (tabType === "note" || tabID === "ALL_TAGS") {
+    // if (tabType === "note" || tabID === "ALL_TAGS") {
+    if (tabType === "note" || !currentTab.deletable) {
       return "40px";
     }
     if (tabType === "rss") return "65px";
@@ -237,7 +238,8 @@ function EditTab({
                 setSelectablesListVis(false);
               }}
             />
-            {tabType === "folder" && tabID !== "ALL_TAGS" && (
+            {/* {tabType === "folder" && tabID !== "ALL_TAGS" && ( */}
+            {tabType === "folder" && currentTab.deletable && (
               <div
                 style={{ height: "18px", width: "18px" }}
                 className="flex-none -mr-1"
@@ -245,7 +247,8 @@ function EditTab({
             )}
           </div>
 
-          {tabType === "folder" && tabID !== "ALL_TAGS" && (
+          {/* {tabType === "folder" && tabID !== "ALL_TAGS" && ( */}
+          {tabType === "folder" && currentTab.deletable && (
             <EditTab_folder
               selectablesListVis={selectablesListVis}
               setSelectablesListVis={setSelectablesListVis}

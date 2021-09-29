@@ -73,7 +73,8 @@ function Bookmark_newAndEdit({
     }
 
     if (bookmarkComponentType === "new_lowerUI") {
-      if (tabTitle !== tabs.find((obj) => obj.id === "ALL_TAGS")?.title) {
+      // if (tabTitle !== tabs.find((obj) => obj.id === "ALL_TAGS")?.title) {
+      if (tabTitle !== tabs.find((obj) => !obj.deletable)?.title) {
         return tabTitle as string;
       } else return "";
     }
@@ -83,7 +84,8 @@ function Bookmark_newAndEdit({
     tabs.forEach((obj) => {
       if (
         (currentBookmark as SingleBookmarkData).tags.indexOf(obj.id) > -1 &&
-        obj.id !== "ALL_TAGS"
+        // obj.id !== "ALL_TAGS"
+        obj.deletable
       ) {
         arrOut.push(obj.title);
       }
@@ -166,7 +168,8 @@ function Bookmark_newAndEdit({
     let tags: string[] = [];
 
     foldersTab.forEach((obj) => {
-      if (obj.id !== "ALL_TAGS") {
+      // if (obj.id !== "ALL_TAGS") {
+      if (obj.deletable) {
         tags.push(obj.title);
       }
     });
