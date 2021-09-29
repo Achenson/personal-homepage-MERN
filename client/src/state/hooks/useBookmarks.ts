@@ -1,5 +1,5 @@
 import create from "zustand";
-import { persist } from "zustand/middleware";
+// import { persist } from "zustand/middleware";
 import produce from "immer";
 
 import { SingleBookmarkData } from "../../utils/interfaces";
@@ -33,7 +33,7 @@ interface UseBookmarks {
 }
 
 export const useBookmarks = create<UseBookmarks>(
-  persist(
+  // persist(
     (set, get) => ({
       addBookmark: (singleBookmarkData) => {
         set(
@@ -167,8 +167,8 @@ export const useBookmarks = create<UseBookmarks>(
       bookmarksAllTags: ["ALL_TAGS", "2", "3", "4", "5"],
       bookmarks: [...bookmarksData],
     }),
-    {
-      name: "bookmarks-storage",
-    }
-  )
+  //   {
+  //     name: "bookmarks-storage",
+  //   }
+  // )
 );

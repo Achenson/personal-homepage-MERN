@@ -1,5 +1,5 @@
 import create from "zustand";
-import { persist } from "zustand/middleware";
+// import { persist } from "zustand/middleware";
 import produce from "immer";
 
 import { tabsData } from "../data/tabsData";
@@ -55,7 +55,7 @@ interface UseTabs {
 
 // this can be used everywhere in your application
 export const useTabs = create<UseTabs>(
-  persist(
+  // persist(
     (set) => ({
       addTabs: (newTabDataArr) => {
         set(
@@ -365,8 +365,8 @@ export const useTabs = create<UseTabs>(
         }));
       },
     }),
-    {
-      name: "tabs-storage",
-    }
-  )
+  //   {
+  //     name: "tabs-storage",
+  //   }
+  // )
 );

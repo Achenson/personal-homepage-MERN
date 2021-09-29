@@ -1,5 +1,5 @@
 import create from "zustand";
-import { persist } from "zustand/middleware";
+// import { persist } from "zustand/middleware";
 
 interface UseGlobalSettingsData {
   picBackground: boolean;
@@ -17,7 +17,7 @@ interface UseGlobalSettingsAll extends UseGlobalSettingsData {
 }
 
 export const useGlobalSettings = create<UseGlobalSettingsAll>(
-  persist(
+  // persist(
     (set) => ({
       picBackground: false,
       defaultImage: "defaultBackground",
@@ -31,10 +31,10 @@ export const useGlobalSettings = create<UseGlobalSettingsAll>(
           ...globalSettings,
         })),
     }),
-    {
-      name: "globalSettings-storage",
-    }
-  )
+  //   {
+  //     name: "globalSettings-storage",
+  //   }
+  // )
 );
 
 interface RssSettingsData {
@@ -48,7 +48,7 @@ interface RssSettingsAll extends RssSettingsData {
 }
 
 export const useRssSettings = create<RssSettingsAll>(
-  persist(
+  // persist(
     (set) => ({
       date: true,
       description: false,
@@ -58,8 +58,8 @@ export const useRssSettings = create<RssSettingsAll>(
           ...rssSettingsData,
         })),
     }),
-    {
-      name: "rssSettings-storage",
-    }
-  )
+  //   {
+  //     name: "rssSettings-storage",
+  //   }
+  // )
 );

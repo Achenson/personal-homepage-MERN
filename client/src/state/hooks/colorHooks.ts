@@ -1,5 +1,5 @@
 import create from "zustand";
-import { persist } from "zustand/middleware";
+// import { persist } from "zustand/middleware";
 
 import {
   columnColors,
@@ -41,7 +41,7 @@ interface UseColumnsColorsAll extends UseColumnsColorsData {
 }
 
 export const useDefaultColors = create<DefaultColorsAll>(
-  persist(
+  // persist(
     (set) => ({
       folderColor: tabColors[7][2],
       noteColor: tabColors[1][2],
@@ -53,17 +53,17 @@ export const useDefaultColors = create<DefaultColorsAll>(
           [defaultColorObj.key]: defaultColorObj.color,
         })),
     }),
-    {
-      name: "defaultColors-storage",
-    }
-  )
+    // {
+    //   name: "defaultColors-storage",
+    // }
+  // )
 );
 
 export const useBackgroundColor = create<{
   backgroundColor: string;
   setBackgroundColor: (backgroundColor: string) => void;
 }>(
-  persist(
+  // persist(
     (set) => ({
       backgroundColor: backgroundColors[0][1],
       setBackgroundColor: (backgroundColor) =>
@@ -72,10 +72,10 @@ export const useBackgroundColor = create<{
           backgroundColor: backgroundColor,
         })),
     }),
-    {
-      name: "backgroundColor-storage",
-    }
-  )
+  //   {
+  //     name: "backgroundColor-storage",
+  //   }
+  // )
 );
 
 export const useResetColors = create<{
@@ -91,7 +91,7 @@ export const useResetColors = create<{
 }));
 
 export const useColumnsColors = create<UseColumnsColorsAll>(
-  persist(
+  // persist(
     (set) => ({
       column_1: columnColors[0][8],
       column_2: columnColors[1][5],
@@ -103,14 +103,14 @@ export const useColumnsColors = create<UseColumnsColorsAll>(
           [columnColorsObj.key]: columnColorsObj.color,
         })),
     }),
-    {
-      name: "columnsColors-storage",
-    }
-  )
+  //   {
+  //     name: "columnsColors-storage",
+  //   }
+  // )
 );
 
 export const useColumnsColorsImg = create<UseColumnsColorsAll>(
-  persist(
+  // persist(
     (set) => ({
       column_1: imageColumnColors[2][6],
       column_2: imageColumnColors[2][6],
@@ -122,10 +122,10 @@ export const useColumnsColorsImg = create<UseColumnsColorsAll>(
           [columnColorsObj.key]: columnColorsObj.color,
         })),
     }),
-    {
-      name: "columnsColorsImg-storage",
-    }
-  )
+  //   {
+  //     name: "columnsColorsImg-storage",
+  //   }
+  // )
 );
 
 export const useTabBeingDraggedColor = create<{
