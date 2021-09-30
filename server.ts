@@ -21,16 +21,16 @@ app.use(
   })
 );
 
-// app.use(
-//   cors({
-//     origin: [
-//       "http://localhost:3000",
-//       "http://localhost:4000",
-//       "http://localhost:4000/graphql",
-//     ],
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:4000",
+      "http://localhost:4000/graphql",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(
   "/graphql",

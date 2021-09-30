@@ -17,12 +17,27 @@
  }     */
 
 
-/*  {
-  tabs(userId: "6151ad9d50ce1ecf5f813f01") {
+/* {
+  tabs(userId: "6154708145808b7678b78762") {
+   id
+    userId
     title
+    color
+    column
+    priority
+    opened
+    openedByDefault
+    deletable
+    type
+    noteInput
+    rssLink
+    date
+    description
+    itemsPerPage
+    
+    
   }
-}
- */
+} */
 
 
 // MUTATIONS ===================================

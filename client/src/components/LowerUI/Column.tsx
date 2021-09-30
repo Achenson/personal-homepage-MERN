@@ -1,6 +1,7 @@
 import React from "react";
 
 import shallow from "zustand/shallow";
+import { useQuery } from "urql";
 
 import Tab from "./Tab";
 import GapAfterTab from "./GapAfterTab";
@@ -14,8 +15,9 @@ import {
   useColumnsColorsImg,
 } from "../../state/hooks/colorHooks";
 
-import { useTabs } from "../../state/hooks/useTabs";
+// import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
+import { SingleTabData } from "../../utils/interfaces";
 
 interface Props {
   colNumber: number;
@@ -27,11 +29,42 @@ function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
   const columnsColors = useColumnsColors((state) => state, shallow);
   const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);
 
-  const tabs = useTabs((store) => store.tabs);
+  const TabsQuery = `query ($userId: ID) {
+    tabs (userId: $userId) {
+      id
+      userId
+      title
+      color
+      column
+      priority
+      opened
+      openedByDefault
+      deletable
+      type
+      noteInput
+      rssLink
+      date
+      description
+      itemsPerPage
+    }
+  }`;
+
+  // const tabs = useTabs((store) => store.tabs);
+  const [tabResults] = useQuery({
+    query: TabsQuery,
+    variables: { userId: "6154708145808b7678b78762" },
+  });
+
+  const { data, fetching, error } = tabResults;
 
   const globalSettings = useGlobalSettings((state) => state, shallow);
 
   const upperUiContext = useUpperUiContext();
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  let tabs = data.tabs;
 
   function calcColumnColor(
     colNumber: number,
@@ -83,7 +116,7 @@ function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
     }
   }
 
-  let sortedTabs = tabs
+  let sortedTabs = (tabs as SingleTabData[])
     .filter((el) => el.column === colNumber)
     .sort((a, b) => a.priority - b.priority);
 
@@ -94,12 +127,11 @@ function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
     lastTabId = null;
   }
 
-  let tabDataLength = tabs.filter((el) => el.column === colNumber).length;
+  let tabDataLength = (tabs as SingleTabData[]).filter(
+    (el) => el.column === colNumber
+  ).length;
 
-  function isThisLastGap(
-    lastTabId: string | null,
-    tabID: string
-  ) {
+  function isThisLastGap(lastTabId: string | null, tabID: string) {
     if (lastTabId === tabID) {
       return true;
     }
@@ -155,7 +187,7 @@ function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
         ),
       }}
     >
-      {tabs
+      {(tabs as SingleTabData[])
         .filter((el) => el.column === colNumber)
         // lower priority, higher in the column
         .sort((a, b) => a.priority - b.priority)
