@@ -10,7 +10,7 @@ export const tabs: TabLocal_i[] = [
       opened: true,
       openedByDefault: true,
       deletable: false,
-      type: "ALL_TAGS",
+      type: "folder",
     },
     {
       title: "main",

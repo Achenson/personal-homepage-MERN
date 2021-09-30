@@ -14,6 +14,7 @@ import {
   useColumnsColors,
   useColumnsColorsImg,
 } from "../../state/hooks/colorHooks";
+import {TabsQuery} from "../../graphql/graphqlQueries"
 
 // import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
@@ -28,26 +29,6 @@ interface Props {
 function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
   const columnsColors = useColumnsColors((state) => state, shallow);
   const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);
-
-  const TabsQuery = `query ($userId: ID) {
-    tabs (userId: $userId) {
-      id
-      userId
-      title
-      color
-      column
-      priority
-      opened
-      openedByDefault
-      deletable
-      type
-      noteInput
-      rssLink
-      date
-      description
-      itemsPerPage
-    }
-  }`;
 
   // const tabs = useTabs((store) => store.tabs);
   const [tabResults] = useQuery({

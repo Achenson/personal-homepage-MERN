@@ -34,4 +34,6 @@ notes:
 16. make npm run dev open 2 console instances
 17. bookmarkAllTags should be filled from db at the start
 
+18. Column: better error handling?
+
 
