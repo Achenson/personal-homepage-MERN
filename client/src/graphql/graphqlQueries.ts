@@ -17,3 +17,15 @@ export const TabsQuery = `query ($userId: ID) {
       itemsPerPage
     }
   }`;
+
+
+
+export const BookmarksQuery = `query ($userId: ID) {
+    bookmarks (userId: $userId) {
+      id
+      userId
+      title
+      URL
+      tags
+    }
+  }`;

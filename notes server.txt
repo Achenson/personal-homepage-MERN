@@ -35,5 +35,7 @@ notes:
 17. bookmarkAllTags should be filled from db at the start
 
 18. Column: better error handling?
+19. bookmarks: better query -> finding the bookmarks matched to a particular tab right away
+21. unhandled promise rejections! addUser, handle it everywhere!
 
 

@@ -39,6 +39,20 @@
   }
 } */
 
+/*
+
+{
+bookmarks(userId: "") {
+  id,
+  userId,
+  title,
+  URL,
+  tags
+}
+}
+
+*/
+
 
 // MUTATIONS ===================================
 

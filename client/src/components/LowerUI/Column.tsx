@@ -33,7 +33,7 @@ function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   const [tabResults] = useQuery({
     query: TabsQuery,
-    variables: { userId: "6154708145808b7678b78762" },
+    variables: { userId: "615b0653bff434e490ef754e"},
   });
 
   const { data, fetching, error } = tabResults;
@@ -45,7 +45,7 @@ function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  let tabs = data.tabs;
+  let tabs: SingleTabData[] = data.tabs;
 
   function calcColumnColor(
     colNumber: number,

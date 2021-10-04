@@ -3,6 +3,7 @@ import { useDrop } from "react-dnd";
 
 import shallow from "zustand/shallow";
 import { useDrag } from "react-dnd";
+import { useQuery } from "urql";
 
 import SingleBookmark from "./SingleBookmark";
 import ColorsToChoose_Tab from "../Colors/ColorsToChoose_Tab";
@@ -16,7 +17,8 @@ import { ReactComponent as PencilSmallSVG } from "../../svgs/pencilSmall.svg";
 import { ReactComponent as CrossArrowsSVG } from "../../svgs/cross-arrows.svg";
 import { ReactComponent as PlusSVG } from "../../svgs/plus.svg";
 
-import { useBookmarks } from "../../state/hooks/useBookmarks";
+import {BookmarksQuery} from "../../graphql/graphqlQueries"
+// import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useReset } from "../../state/hooks/useReset";
 import {
@@ -29,7 +31,7 @@ import { TabContext } from "../../context/tabContext";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { ItemTypes } from "../../utils/data/itemsDnd";
-import { SingleTabData } from "../../utils/interfaces";
+import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 
 interface Item {
   type: string;
@@ -71,7 +73,7 @@ function Tab({
   const [tabOpened_local, setTabOpened_local] = useState(tabOpened);
   const setReset = useReset((state) => state.setReset);
   const resetEnabled = useReset((state) => state.enabled);
-  const bookmarks = useBookmarks((state) => state.bookmarks);
+  // const bookmarks = useBookmarks((state) => state.bookmarks);
 
   const tabs = useTabs((store) => store.tabs);
   const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
@@ -84,6 +86,15 @@ function Tab({
   const toggleTab = useTabs((store) => store.toggleTab);
 
   const upperUiContext = useUpperUiContext();
+
+  const [bookmarkResults] = useQuery({
+    query: BookmarksQuery,
+    variables: { userId: "615b0653bff434e490ef754e" },
+  });
+
+  const { data, fetching, error } = bookmarkResults;
+
+
 
   useEffect(() => {
     setTabOpened_local(tabOpened);
@@ -286,6 +297,13 @@ function Tab({
     draggedItem &&
     tabID !== draggedItem.tabID
   );
+
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  let bookmarks: SingleBookmarkData[] = data.bookmarks;
+  
 
   return (
     <TabContext.Provider value={tabContextValue}>
