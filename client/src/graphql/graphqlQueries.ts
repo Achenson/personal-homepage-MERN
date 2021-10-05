@@ -39,5 +39,8 @@ export const SettingsQuery = `query ($userId: ID) {
     hideNonDeletable
     disableDrag
     numberOfCols
+    date
+    description
+    itemsPerPage
     }
   }`;

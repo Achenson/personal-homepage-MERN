@@ -14,7 +14,7 @@ const {
   GraphQLBoolean,
 } = graphql;
 
-export interface Settings_i extends GlobalSettingsState {
+export interface SettingsDatabase_i extends GlobalSettingsState {
   id: string;
   userId: string;
 }

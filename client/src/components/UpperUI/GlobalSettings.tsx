@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import FocusLock from "react-focus-lock";
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 import { useQuery } from "urql";
 
 import Settings_inner_xs from "./Settings_inner_xs";
@@ -16,11 +16,11 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
-import {SettingsQuery} from "../../graphql/graphqlQueries"
+import { SettingsQuery } from "../../graphql/graphqlQueries";
 
-import {testUserId} from "../../state/data/testUserId"
+import { testUserId } from "../../state/data/testUserId";
 
-
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   mainPaddingRight: boolean;
@@ -34,14 +34,14 @@ function GlobalSettings({
   const uiColor = useDefaultColors((state) => state.uiColor);
 
   // shallow option enables updates when any of the object keys changes!
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const setGlobalSettings = useGlobalSettings(
     (state) => state.setGlobalSettings
   );
 
   const setTabOpenedState = useTabs((state) => state.setTabOpenedState);
 
- /*  const rssSettingsState = useRssSettings((state) => state, shallow);
+  /*  const rssSettingsState = useRssSettings((state) => state, shallow);
   const setRssSettingsState = useRssSettings((state) => state.setRssSettings); */
 
   const upperUiContext = useUpperUiContext();
@@ -70,16 +70,20 @@ function GlobalSettings({
 
   const [settingsResults] = useQuery({
     query: SettingsQuery,
-    variables: { userId: testUserId},
+    variables: { userId: testUserId },
   });
 
-/*   const { data, fetching, error } = settingsResults;
+  const { data, fetching, error } = settingsResults;
 
-  
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  let globalSettings: GlobalSettingsState = data.globalSettings */
+  let globalSettings: SettingsDatabase_i = data.settings;
+
+  console.log(JSON.stringify(data, null, 2));
+  
+
+  // return <p>{globalSettings.defaultImage}</p>
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 7);

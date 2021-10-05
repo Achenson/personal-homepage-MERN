@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
  */
 
 import { model, Schema } from "mongoose";
-import { Settings_i } from "../schema/types/settingsType";
+import { SettingsDatabase_i } from "../schema/types/settingsType";
 
-const SettingsSchema = new Schema<Settings_i>({
+const SettingsSchema = new Schema<SettingsDatabase_i>({
   // we don't have to pass id, because mongoDB will create it manualy
   // id: String,
   userId: String,
@@ -21,4 +21,4 @@ const SettingsSchema = new Schema<Settings_i>({
   itemsPerPage: Number,
 });
 
-module.exports = model<Settings_i>("Settings", SettingsSchema);
+module.exports = model<SettingsDatabase_i>("Settings", SettingsSchema);
