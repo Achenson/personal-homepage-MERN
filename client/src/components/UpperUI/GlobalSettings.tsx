@@ -2,19 +2,23 @@ import React, { useEffect, useState } from "react";
 
 import FocusLock from "react-focus-lock";
 import shallow from "zustand/shallow";
+import { useQuery } from "urql";
 
 import Settings_inner_xs from "./Settings_inner_xs";
 
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
 import { useDefaultColors } from "../../state/hooks/colorHooks";
-import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
+import {SettingsQuery} from "../../graphql/graphqlQueries"
+
+import {testUserId} from "../../state/data/testUserId"
 
 interface Props {
   mainPaddingRight: boolean;
@@ -27,15 +31,16 @@ function GlobalSettings({
 }: Props): JSX.Element {
   const uiColor = useDefaultColors((state) => state.uiColor);
 
+  // shallow option enables updates when any of the object keys changes!
   const globalSettings = useGlobalSettings((state) => state, shallow);
   const setGlobalSettings = useGlobalSettings(
     (state) => state.setGlobalSettings
   );
 
   const setTabOpenedState = useTabs((state) => state.setTabOpenedState);
-  // shallow option enables updates when any of the object keys changes!
-  const rssSettingsState = useRssSettings((state) => state, shallow);
-  const setRssSettingsState = useRssSettings((state) => state.setRssSettings);
+
+ /*  const rssSettingsState = useRssSettings((state) => state, shallow);
+  const setRssSettingsState = useRssSettings((state) => state.setRssSettings); */
 
   const upperUiContext = useUpperUiContext();
 
@@ -60,6 +65,19 @@ function GlobalSettings({
       document.removeEventListener("keydown", handleKeyDown);
     };
   });
+
+/*   const [settingsResults] = useQuery({
+    query: SettingsQuery,
+    variables: { userId: testUserId},
+  });
+
+  const { data, fetching, error } = settingsResults;
+
+  
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  let globalSettings: GlobalSettingsState = data.globalSettings */
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 7);
@@ -229,15 +247,15 @@ function GlobalSettings({
                   <div className="flex items-center mr-2">
                     <button
                       className={`h-3 w-3 cursor-pointer transition duration-75 border-2 border-${uiColor} ${
-                        rssSettingsState.description
+                        globalSettings.description
                           ? `bg-${uiColor} bg-opacity-50 hover:border-opacity-30`
                           : `hover:border-opacity-50`
                       } focus-1-offset-dark `}
                       style={{ marginTop: "2px" }}
                       onClick={() => {
-                        setRssSettingsState({
-                          ...rssSettingsState,
-                          description: !rssSettingsState.description,
+                        setGlobalSettings({
+                          ...globalSettings,
+                          description: !globalSettings.description,
                         });
 
                         setTabOpenedState(null);
@@ -250,15 +268,15 @@ function GlobalSettings({
                   <div className="flex items-center">
                     <button
                       className={`h-3 w-3 cursor-pointer transition duration-75 border-2 border-${uiColor} ${
-                        rssSettingsState.date
+                        globalSettings.date
                           ? `bg-${uiColor} bg-opacity-50 hover:border-opacity-30`
                           : `hover:border-opacity-50`
                       } focus-1-offset-dark`}
                       style={{ marginTop: "2px" }}
                       onClick={() => {
-                        setRssSettingsState({
-                          ...rssSettingsState,
-                          date: !rssSettingsState.date,
+                        setGlobalSettings({
+                          ...globalSettings,
+                          date: !globalSettings.date,
                         });
                         setTabOpenedState(null);
                       }}
@@ -280,11 +298,11 @@ function GlobalSettings({
                   className="border w-8 text-center border-gray-300 bg-gray-50
                 focus-1
                 "
-                  value={rssSettingsState.itemsPerPage}
+                  value={globalSettings.itemsPerPage}
                   onWheel={(event) => event.currentTarget.blur()}
                   onChange={(e) => {
-                    setRssSettingsState({
-                      ...rssSettingsState,
+                    setGlobalSettings({
+                      ...globalSettings,
                       itemsPerPage: parseInt(e.target.value),
                     });
 

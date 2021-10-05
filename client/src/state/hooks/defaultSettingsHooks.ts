@@ -1,19 +1,11 @@
 import create from "zustand";
 // import { persist } from "zustand/middleware";
 
-interface UseGlobalSettingsData {
-  picBackground: boolean;
-  defaultImage: string;
-  oneColorForAllCols: boolean;
-  limitColGrowth: boolean;
-  hideNonDeletable: boolean;
-  // for better touchscreen experience, dragging and scrolling can clash
-  disableDrag: boolean;
-  numberOfCols: 1 | 2 | 3 | 4;
-}
+import {GlobalSettingsState} from "../../utils/interfaces"
 
-interface UseGlobalSettingsAll extends UseGlobalSettingsData {
-  setGlobalSettings: (globalSettings: UseGlobalSettingsData) => void;
+
+interface UseGlobalSettingsAll extends GlobalSettingsState {
+  setGlobalSettings: (globalSettings: GlobalSettingsState) => void;
 }
 
 export const useGlobalSettings = create<UseGlobalSettingsAll>(
@@ -26,6 +18,9 @@ export const useGlobalSettings = create<UseGlobalSettingsAll>(
       hideNonDeletable: false,
       disableDrag: false,
       numberOfCols: 4,
+      date: true,
+      description: false,
+      itemsPerPage: 7,
       setGlobalSettings: (globalSettings) =>
         set((state) => ({
           ...globalSettings,
@@ -37,7 +32,10 @@ export const useGlobalSettings = create<UseGlobalSettingsAll>(
   // )
 );
 
-interface RssSettingsData {
+
+
+
+/* interface RssSettingsData {
   date: boolean;
   description: boolean;
   itemsPerPage: number;
@@ -45,9 +43,10 @@ interface RssSettingsData {
 
 interface RssSettingsAll extends RssSettingsData {
   setRssSettings: (rssSettings: RssSettingsData) => void;
-}
+} */
 
-export const useRssSettings = create<RssSettingsAll>(
+// moved to useGlobalSettings
+/* export const useRssSettings = create<RssSettingsAll>(
   // persist(
     (set) => ({
       date: true,
@@ -62,4 +61,4 @@ export const useRssSettings = create<RssSettingsAll>(
   //     name: "rssSettings-storage",
   //   }
   // )
-);
+); */

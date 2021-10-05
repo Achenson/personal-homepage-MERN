@@ -2,7 +2,8 @@ import React from "react";
 
 import shallow from "zustand/shallow";
 
-import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
+import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 
 import { useTabs } from "../../state/hooks/useTabs";
 
@@ -35,7 +36,8 @@ function EditTab_RSS({
   rssLinkInput,
   setRssLinkInput,
 }: Props): JSX.Element {
-  const rssSettingsState = useRssSettings((state) => state, shallow);
+  // const rssSettingsState = useRssSettings((state) => state, shallow);
+  const globalSettings = useGlobalSettings((state) => state, shallow);
   const resetTabRssSettings = useTabs((state) => state.resetTabRssSettings);
 
   return (
@@ -124,9 +126,9 @@ function EditTab_RSS({
           className="text-red-600 hover:underline cursor-pointer"
           onClick={() => {
             // setResetColorsData(true);
-            setDescriptionCheckbox(rssSettingsState.description);
-            setDateCheckbox(rssSettingsState.date);
-            setRssItemsPerPage(rssSettingsState.itemsPerPage);
+            setDescriptionCheckbox(globalSettings.description);
+            setDateCheckbox(globalSettings.date);
+            setRssItemsPerPage(globalSettings.itemsPerPage);
 
             setWasAnythingClicked(true);
             setWasCheckboxClicked(true);

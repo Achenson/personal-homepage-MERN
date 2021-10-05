@@ -33,6 +33,8 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 import { ItemTypes } from "../../utils/data/itemsDnd";
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 
+import {testUserId} from "../../state/data/testUserId"
+
 interface Item {
   type: string;
   tabID: string;
@@ -89,7 +91,7 @@ function Tab({
 
   const [bookmarkResults] = useQuery({
     query: BookmarksQuery,
-    variables: { userId: "615b0653bff434e490ef754e" },
+    variables: { userId: testUserId },
   });
 
   const { data, fetching, error } = bookmarkResults;

@@ -57,7 +57,12 @@ export interface GlobalSettingsState {
   oneColorForAllCols: boolean;
   limitColGrowth: boolean;
   hideNonDeletable: boolean;
+  disableDrag: boolean;
   numberOfCols: 1 | 2 | 3 | 4;
+  // rss settings
+  date: boolean;
+  description: boolean;
+  itemsPerPage: number;
 }
 
 export interface UpperVisState {

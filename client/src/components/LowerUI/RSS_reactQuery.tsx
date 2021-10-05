@@ -9,7 +9,7 @@ import { ReactComponent as ArrowLeft } from "../../svgs/arrowLeft.svg";
 import { ReactComponent as ArrowRight } from "../../svgs/arrowRight.svg";
 
 import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
 
 import { SingleTabData } from "../../utils/interfaces";
 
@@ -28,7 +28,7 @@ function ReactQuery({
   isTabDraggedOver,
 }: Props): JSX.Element {
   const globalSettings = useGlobalSettings((state) => state, shallow);
-  const rssSettingsState = useRssSettings((state) => state, shallow);
+  // const rssSettingsState = useRssSettings((state) => state, shallow);
 
   function calcItemsPerPage() {
     // if currentBookmars itemsPerPage is set, return it, otherwise
@@ -38,7 +38,7 @@ function ReactQuery({
       return currentTab.itemsPerPage;
     }
 
-    return rssSettingsState.itemsPerPage;
+    return globalSettings.itemsPerPage;
   }
 
   function calcDescriptionVis() {
@@ -46,7 +46,7 @@ function ReactQuery({
       return currentTab.description;
     }
 
-    return rssSettingsState.description;
+    return globalSettings.description;
   }
 
   function calcDateVis() {
@@ -54,7 +54,7 @@ function ReactQuery({
       return currentTab.date;
     }
 
-    return rssSettingsState.date;
+    return globalSettings.date;
   }
 
   let itemsPerPage = calcItemsPerPage();

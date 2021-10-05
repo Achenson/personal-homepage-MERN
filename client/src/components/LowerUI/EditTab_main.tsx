@@ -14,7 +14,8 @@ import { ReactComponent as LockClosedSVG } from "../../svgs/lock-closed.svg";
 import { ReactComponent as LockOpenSVG } from "../../svgs/lock-open.svg";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
-import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
+import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 
 import { useTabs } from "../../state/hooks/useTabs";
 import { useTabContext } from "../../context/tabContext";
@@ -38,7 +39,8 @@ function EditTab({
   const tabs = useTabs((store) => store.tabs);
   const editTab = useTabs((store) => store.editTab);
   const deleteTab = useTabs((store) => store.deleteTab);
-  const rssSettingsState = useRssSettings((state) => state, shallow);
+  // const rssSettingsState = useRssSettings((state) => state, shallow);
+  const globalSettings = useGlobalSettings((state) => state, shallow);
   const tabContext = useTabContext();
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
@@ -77,13 +79,13 @@ function EditTab({
       return currentTab.description;
     }
 
-    return rssSettingsState.description;
+    return globalSettings.description;
   });
   const [dateCheckbox, setDateCheckbox] = useState(() => {
     if (typeof currentTab.date === "boolean") {
       return currentTab.date;
     }
-    return rssSettingsState.date;
+    return globalSettings.date;
   });
 
   // checkboxes won't be saved on Save if there were not manipulated
@@ -94,7 +96,7 @@ function EditTab({
     if (typeof currentTab.itemsPerPage === "number") {
       return currentTab.itemsPerPage;
     }
-    return rssSettingsState.itemsPerPage;
+    return globalSettings.itemsPerPage;
   });
 
   // items per page won't be saved on Save if there were not manipulated

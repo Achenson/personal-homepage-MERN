@@ -37,5 +37,7 @@ notes:
 18. Column: better error handling?
 19. bookmarks: better query -> finding the bookmarks matched to a particular tab right away
 21. unhandled promise rejections! addUser, handle it everywhere!
+22. use zustand state conditionally if the user is not authenticated
 
-
+23. delete testUserId in the end
+24. client: rss settings merges with global settings -> test -> delete all commented out code

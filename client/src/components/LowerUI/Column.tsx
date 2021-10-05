@@ -14,11 +14,13 @@ import {
   useColumnsColors,
   useColumnsColorsImg,
 } from "../../state/hooks/colorHooks";
-import {TabsQuery} from "../../graphql/graphqlQueries"
 
 // import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { SingleTabData } from "../../utils/interfaces";
+import {TabsQuery} from "../../graphql/graphqlQueries"
+
+import {testUserId} from "../../state/data/testUserId"
 
 interface Props {
   colNumber: number;
@@ -33,7 +35,7 @@ function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   const [tabResults] = useQuery({
     query: TabsQuery,
-    variables: { userId: "615b0653bff434e490ef754e"},
+    variables: { userId: testUserId},
   });
 
   const { data, fetching, error } = tabResults;

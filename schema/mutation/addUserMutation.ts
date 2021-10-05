@@ -38,7 +38,7 @@ export const addUserMutationField = {
       let newSettings = new Settings({
         userId: settingsProduct.id,
         picBackground: false,
-        defaultImage: "img",
+        defaultImage: "defaultBackground",
         oneColorForAllCols: false,
         limitColGrowth: false,
         hideNonDeletable: false,
