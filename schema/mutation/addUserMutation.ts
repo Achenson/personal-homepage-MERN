@@ -43,7 +43,10 @@ export const addUserMutationField = {
         limitColGrowth: false,
         hideNonDeletable: false,
         disableDrag: false,
-        numberOfCols: 4,
+        numberOfCols: 4,  
+        date: true,
+        description: false,
+        itemsPerPage: 7
       });
 
       newSettings.save();

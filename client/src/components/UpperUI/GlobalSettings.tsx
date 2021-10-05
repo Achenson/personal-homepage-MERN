@@ -20,6 +20,8 @@ import {SettingsQuery} from "../../graphql/graphqlQueries"
 
 import {testUserId} from "../../state/data/testUserId"
 
+
+
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
@@ -66,12 +68,12 @@ function GlobalSettings({
     };
   });
 
-/*   const [settingsResults] = useQuery({
+  const [settingsResults] = useQuery({
     query: SettingsQuery,
     variables: { userId: testUserId},
   });
 
-  const { data, fetching, error } = settingsResults;
+/*   const { data, fetching, error } = settingsResults;
 
   
   if (fetching) return <p>Loading...</p>;

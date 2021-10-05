@@ -2,11 +2,11 @@
 const Schema = mongoose.Schema;
  */
 
-import {model, Schema} from "mongoose"
-import {Settings_i} from "../schema/types/settingsType"
+import { model, Schema } from "mongoose";
+import { Settings_i } from "../schema/types/settingsType";
 
 const SettingsSchema = new Schema<Settings_i>({
-   // we don't have to pass id, because mongoDB will create it manualy
+  // we don't have to pass id, because mongoDB will create it manualy
   // id: String,
   userId: String,
   picBackground: Boolean,
@@ -16,6 +16,9 @@ const SettingsSchema = new Schema<Settings_i>({
   hideNonDeletable: Boolean,
   disableDrag: Boolean,
   numberOfCols: Number,
+  date: Boolean,
+  description: Boolean,
+  itemsPerPage: Number,
 });
 
 module.exports = model<Settings_i>("Settings", SettingsSchema);

@@ -1,8 +1,10 @@
 const graphql = require("graphql");
 
-const User = require("../../mongoModels/userSchema");
+// const User = require("../../mongoModels/userSchema");
 
-import { User_i, UserType } from "../types/userType";
+// import { User_i, UserType } from "../types/userType";
+
+import { GlobalSettingsState } from "../../client/src/utils/interfaces";
 
 const {
   GraphQLObjectType,
@@ -12,17 +14,9 @@ const {
   GraphQLBoolean,
 } = graphql;
 
-export interface Settings_i {
+export interface Settings_i extends GlobalSettingsState {
   id: string;
   userId: string;
-  picBackground: boolean;
-  defaultImage: string;
-  oneColorForAllCols: boolean;
-  limitColGrowth: boolean;
-  hideNonDeletable: boolean;
-  disableDrag: boolean;
-  numberOfCols: 1 | 2 | 3 | 4;
-  // user: User_i;
 }
 
 export const SettingsFields = {
@@ -35,12 +29,16 @@ export const SettingsFields = {
   hideNonDeletable: { type: GraphQLBoolean },
   disableDrag: { type: GraphQLBoolean },
   numberOfCols: { type: GraphQLInt },
-}
+  // rss
+  date: { type: GraphQLBoolean },
+  description: { type: GraphQLBoolean },
+  itemsPerPage: { type: GraphQLInt },
+};
 
 export const SettingsType = new GraphQLObjectType({
   name: "Settings",
   fields: () => ({
-   ...SettingsFields
+    ...SettingsFields,
     // user: {
     //   type: UserType,
     //   resolve(parent: Settings_i) {
