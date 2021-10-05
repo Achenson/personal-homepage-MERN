@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import FocusLock from "react-focus-lock";
 // import shallow from "zustand/shallow";
-import { useQuery } from "urql";
+import { useQuery, useMutation } from "urql";
 
 import Settings_inner_xs from "./Settings_inner_xs";
 
@@ -17,6 +17,7 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import { SettingsQuery } from "../../graphql/graphqlQueries";
+import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
 
 import { testUserId } from "../../state/data/testUserId";
 
@@ -73,6 +74,8 @@ function GlobalSettings({
     variables: { userId: testUserId },
   });
 
+  const [changeSettingsResult, changeSettings] = useMutation(ChangeSettingsMutation);
+
   const { data, fetching, error } = settingsResults;
 
   if (fetching) return <p>Loading...</p>;
@@ -80,10 +83,9 @@ function GlobalSettings({
 
   let globalSettings: SettingsDatabase_i = data.settings;
 
-  console.log(JSON.stringify(data, null, 2));
   
 
-  // return <p>{globalSettings.defaultImage}</p>
+
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 7);
@@ -182,9 +184,14 @@ function GlobalSettings({
                     : `hover:border-opacity-50`
                 } focus-1-offset-dark`}
                 onClick={() => {
-                  setGlobalSettings({
+                /*   setGlobalSettings({
                     ...globalSettings,
                     oneColorForAllCols: !globalSettings.oneColorForAllCols,
+                  }); */
+
+                  let variables ={...globalSettings, oneColorForAllCols: !globalSettings.oneColorForAllCols}
+                  changeSettings(variables).then(result => {
+                    console.log(result)
                   });
                 }}
                 aria-label={"One color for all columns"}
