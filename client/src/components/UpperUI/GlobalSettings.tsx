@@ -74,7 +74,9 @@ function GlobalSettings({
     variables: { userId: testUserId },
   });
 
-  const [changeSettingsResult, changeSettings] = useMutation(ChangeSettingsMutation);
+  const [changeSettingsResult, changeSettings] = useMutation(
+    ChangeSettingsMutation
+  );
 
   const { data, fetching, error } = settingsResults;
 
@@ -82,8 +84,6 @@ function GlobalSettings({
   if (error) return <p>Oh no... {error.message}</p>;
 
   let globalSettings: SettingsDatabase_i = data.settings;
-
-
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 7);
@@ -108,7 +108,7 @@ function GlobalSettings({
                 ...globalSettings,
                 numberOfCols: el,
               }); */
-              let variables ={...globalSettings, numberOfCols: el}
+              let variables = { ...globalSettings, numberOfCols: el };
               changeSettings(variables);
             }}
             className="focus-1-offset"
@@ -184,14 +184,17 @@ function GlobalSettings({
                     : `hover:border-opacity-50`
                 } focus-1-offset-dark`}
                 onClick={() => {
-                /*   setGlobalSettings({
+                  /*   setGlobalSettings({
                     ...globalSettings,
                     oneColorForAllCols: !globalSettings.oneColorForAllCols,
                   }); */
 
-                  let variables ={...globalSettings, oneColorForAllCols: !globalSettings.oneColorForAllCols}
-                  changeSettings(variables).then(result => {
-                    console.log(result)
+                  let variables = {
+                    ...globalSettings,
+                    oneColorForAllCols: !globalSettings.oneColorForAllCols,
+                  };
+                  changeSettings(variables).then((result) => {
+                    console.log(result);
                   });
                 }}
                 aria-label={"One color for all columns"}
@@ -206,10 +209,16 @@ function GlobalSettings({
                     : `hover:border-opacity-50`
                 } focus-1-offset-dark  `}
                 onClick={() => {
-                  setGlobalSettings({
+                  /*   setGlobalSettings({
                     ...globalSettings,
                     limitColGrowth: !globalSettings.limitColGrowth,
-                  });
+                  }); */
+
+                  let variables = {
+                    ...globalSettings,
+                    limitColGrowth: !globalSettings.limitColGrowth,
+                  };
+                  changeSettings(variables);
                 }}
                 aria-label={"Limit column width growth"}
               ></button>
@@ -224,10 +233,15 @@ function GlobalSettings({
                     : `hover:border-opacity-50`
                 } focus-1-offset-dark `}
                 onClick={() => {
-                  setGlobalSettings({
+                  /*   setGlobalSettings({
                     ...globalSettings,
                     hideNonDeletable: !globalSettings.hideNonDeletable,
-                  });
+                  }); */
+                  let variables = {
+                    ...globalSettings,
+                    hideNonDeletable: !globalSettings.hideNonDeletable,
+                  };
+                  changeSettings(variables);
                 }}
                 aria-label={"Hide folder containing all bookmarks"}
               ></button>
@@ -241,10 +255,15 @@ function GlobalSettings({
                     : `hover:border-opacity-50`
                 } focus-1-offset-dark `}
                 onClick={() => {
-                  setGlobalSettings({
+                  /*   setGlobalSettings({
                     ...globalSettings,
                     disableDrag: !globalSettings.disableDrag,
-                  });
+                  }); */
+                  let variables = {
+                    ...globalSettings,
+                    disableDrag: !globalSettings.disableDrag,
+                  };
+                  changeSettings(variables);
                 }}
                 aria-label={"Disable drag and drop"}
               ></button>
@@ -266,10 +285,15 @@ function GlobalSettings({
                       } focus-1-offset-dark `}
                       style={{ marginTop: "2px" }}
                       onClick={() => {
-                        setGlobalSettings({
+                        /*   setGlobalSettings({
                           ...globalSettings,
                           description: !globalSettings.description,
-                        });
+                        }); */
+                        let variables = {
+                          ...globalSettings,
+                          description: !globalSettings.description,
+                        };
+                        changeSettings(variables);
 
                         setTabOpenedState(null);
                       }}
@@ -287,10 +311,17 @@ function GlobalSettings({
                       } focus-1-offset-dark`}
                       style={{ marginTop: "2px" }}
                       onClick={() => {
-                        setGlobalSettings({
+                        /*      setGlobalSettings({
                           ...globalSettings,
                           date: !globalSettings.date,
                         });
+                         */
+                        let variables = {
+                          ...globalSettings,
+                          date: !globalSettings.date,
+                        };
+                        changeSettings(variables);
+
                         setTabOpenedState(null);
                       }}
                       aria-label={"RSS date on by default"}
@@ -314,10 +345,15 @@ function GlobalSettings({
                   value={globalSettings.itemsPerPage}
                   onWheel={(event) => event.currentTarget.blur()}
                   onChange={(e) => {
-                    setGlobalSettings({
+                    /*   setGlobalSettings({
                       ...globalSettings,
                       itemsPerPage: parseInt(e.target.value),
-                    });
+                    }); */
+                    let variables = {
+                      ...globalSettings,
+                      itemsPerPage: parseInt(e.target.value),
+                    };
+                    changeSettings(variables);
 
                     setTabOpenedState(null);
                   }}

@@ -42,3 +42,6 @@ notes:
 23. delete testUserId in the end
 24. client: rss settings merges with global settings -> test -> delete all commented out code
 25. typescript: save eg. settingsType new Settings -> save() method does not exist
+26. all settings working with db init
+27. globalSettings make it impossible to enter a value other than 5-15!
+28. client: make + & - for rss itemsPerPage  
