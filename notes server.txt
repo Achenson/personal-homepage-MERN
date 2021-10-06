@@ -45,3 +45,4 @@ notes:
 26. all settings working with db init
 27. globalSettings make it impossible to enter a value other than 5-15!
 28. client: make + & - for rss itemsPerPage  
+29. Main -> fetching and date are after useEffects (globalSettings in a useEffect dep) but globalSettings is declared already?

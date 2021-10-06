@@ -1,6 +1,7 @@
 import React, { useState, useReducer, useEffect } from "react";
 
 import shallow from "zustand/shallow";
+import { useQuery } from "urql";
 
 import Grid from "./LowerUI/Grid";
 import Bookmark_newAndEdit from "./Shared/Bookmark_newAndEdit";
@@ -12,7 +13,7 @@ import GlobalSettings from "./UpperUI/GlobalSettings";
 import Profile from "./UpperUI/Profile";
 import ModalWrap from "./UpperUI/ModalWrap";
 
-import { useGlobalSettings } from "../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../state/hooks/defaultSettingsHooks";
 import { useBackgroundColor } from "../state/hooks/colorHooks";
 
 import { initUpperVisState } from "../context/upperVisInitState";
@@ -20,8 +21,13 @@ import { upperVisReducer } from "../context/upperVisReducer";
 import { useWindowSize } from "../utils/funcs and hooks/useWindowSize";
 import { UpperUiContext } from "../context/upperUiContext";
 
+import { SettingsQuery } from "../graphql/graphqlQueries";
+import { testUserId } from "../state/data/testUserId";
+
+import { SettingsDatabase_i } from "../../../schema/types/settingsType";
+
 function Main(): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
 
   const [upperVisState, upperVisDispatch] = useReducer(
@@ -55,6 +61,17 @@ function Main(): JSX.Element {
     //  () => (windowSize.width as number) >= 400 ? 17 : 0
     0
   );
+
+  const [settingsResults] = useQuery({
+    query: SettingsQuery,
+    variables: { userId: testUserId },
+  });
+
+  const { data, fetching, error } = settingsResults;
+
+  
+
+  let globalSettings: SettingsDatabase_i = data.settings;
 
   useEffect(() => {
     if (document.body.style.overflow === "visible") {
@@ -109,6 +126,9 @@ function Main(): JSX.Element {
     document.documentElement.scrollHeight,
     globalSettings.picBackground,
   ]);
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
 
   let paddingProps = {
     mainPaddingRight: paddingRight,
