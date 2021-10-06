@@ -36,9 +36,9 @@ function GlobalSettings({
 
   // shallow option enables updates when any of the object keys changes!
   // const globalSettings = useGlobalSettings((state) => state, shallow);
-  const setGlobalSettings = useGlobalSettings(
+ /*  const setGlobalSettings = useGlobalSettings(
     (state) => state.setGlobalSettings
-  );
+  ); */
 
   const setTabOpenedState = useTabs((state) => state.setTabOpenedState);
 

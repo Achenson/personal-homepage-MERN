@@ -1,16 +1,19 @@
 export const ChangeSettingsMutation = `
   mutation ($userId: ID,
+    $picBackground: Boolean,
     $defaultImage: String,
     $oneColorForAllCols: Boolean,
     $limitColGrowth: Boolean,
     $hideNonDeletable: Boolean,
     $disableDrag: Boolean,
     $numberOfCols: Int,
-    $date:  Boolean,
+    $date: Boolean,
     $description: Boolean,
     $itemsPerPage: Int,
     ) {
-    changeSettings (userId: $userId, defaultImage: $defaultImage,
+    changeSettings (userId: $userId, 
+        picBackground: $picBackground,
+        defaultImage: $defaultImage,
         oneColorForAllCols: $oneColorForAllCols,
         limitColGrowth: $limitColGrowth,
         hideNonDeletable: $hideNonDeletable,
@@ -19,6 +22,7 @@ export const ChangeSettingsMutation = `
         date: $date,
         description: $description,
         itemsPerPage: $itemsPerPage) {
+            picBackground
             oneColorForAllCols
             limitColGrowth
             hideNonDeletable

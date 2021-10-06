@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import shallow from "zustand/shallow";
 import FocusLock from "react-focus-lock";
+import { useQuery, useMutation } from "urql";
 
 import Settings_inner_xs from "./Settings_inner_xs";
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
@@ -12,6 +13,12 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
+import { SettingsQuery } from "../../graphql/graphqlQueries";
+import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
+
+import { testUserId } from "../../state/data/testUserId";
+
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   mainPaddingRight: boolean;
@@ -22,10 +29,10 @@ function BackgroundSettings({
   mainPaddingRight,
   scrollbarWidth,
 }: Props): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
-  const setGlobalSettings = useGlobalSettings(
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
+  /*  const setGlobalSettings = useGlobalSettings(
     (state) => state.setGlobalSettings
-  );
+  ); */
   const uiColor = useDefaultColors((state) => state.uiColor);
 
   const upperUiContext = useUpperUiContext();
@@ -51,6 +58,22 @@ function BackgroundSettings({
       document.removeEventListener("keydown", handleKeyDown);
     };
   });
+
+  const [settingsResults] = useQuery({
+    query: SettingsQuery,
+    variables: { userId: testUserId },
+  });
+
+  const [changeSettingsResult, changeSettings] = useMutation(
+    ChangeSettingsMutation
+  );
+
+  const { data, fetching, error } = settingsResults;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  let globalSettings: SettingsDatabase_i = data.settings;
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 5);
@@ -123,10 +146,15 @@ function BackgroundSettings({
                   className="ml-2 focus-1-offset"
                   onClick={() => {
                     if (!globalSettings.picBackground) {
-                      setGlobalSettings({
+                      /* setGlobalSettings({
                         ...globalSettings,
                         picBackground: true,
-                      });
+                      }); */
+                      let variables = {
+                        ...globalSettings,
+                        picBackground: true,
+                      };
+                      changeSettings(variables);
                     }
                   }}
                   aria-label={"Background image on"}
@@ -148,10 +176,15 @@ function BackgroundSettings({
                   className="ml-1.5 focus-1-offset"
                   onClick={() => {
                     if (globalSettings.picBackground) {
-                      setGlobalSettings({
+                      /*   setGlobalSettings({
                         ...globalSettings,
                         picBackground: false,
-                      });
+                      }); */
+                      let variables = {
+                        ...globalSettings,
+                        picBackground: false,
+                      };
+                      changeSettings(variables);
                     }
                   }}
                   aria-label={"Background image off"}
@@ -179,10 +212,15 @@ function BackgroundSettings({
                     <span> </span>
                     <button
                       onClick={() => {
-                        setGlobalSettings({
+                        /*   setGlobalSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground",
-                        });
+                        }); */
+                        let variables = {
+                          ...globalSettings,
+                          defaultImage: "defaultBackground",
+                        };
+                        changeSettings(variables);
                       }}
                       className="focus-1-offset"
                       aria-label={"Background image one"}
@@ -197,10 +235,15 @@ function BackgroundSettings({
                     <span> </span>
                     <button
                       onClick={() => {
-                        setGlobalSettings({
+                        /*   setGlobalSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground_2",
-                        });
+                        }); */
+                        let variables = {
+                          ...globalSettings,
+                          defaultImage: "defaultBackground_2",
+                        };
+                        changeSettings(variables);
                       }}
                       className="focus-1-offset"
                       aria-label={"Background image two"}
@@ -216,10 +259,15 @@ function BackgroundSettings({
                     <button
                       className="focus-1-offset"
                       onClick={() => {
-                        setGlobalSettings({
+                        /*   setGlobalSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground_3",
-                        });
+                        }); */
+                        let variables = {
+                          ...globalSettings,
+                          defaultImage: "defaultBackground_3",
+                        };
+                        changeSettings(variables);
                       }}
                       aria-label={"Background image three"}
                     >
