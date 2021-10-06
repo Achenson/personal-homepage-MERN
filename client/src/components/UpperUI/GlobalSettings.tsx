@@ -83,8 +83,6 @@ function GlobalSettings({
 
   let globalSettings: SettingsDatabase_i = data.settings;
 
-  
-
 
 
   function handleKeyDown(event: KeyboardEvent) {
@@ -106,10 +104,12 @@ function GlobalSettings({
         <div className="flex items-center ml-2" key={i}>
           <button
             onClick={() => {
-              setGlobalSettings({
+              /* setGlobalSettings({
                 ...globalSettings,
                 numberOfCols: el,
-              });
+              }); */
+              let variables ={...globalSettings, numberOfCols: el}
+              changeSettings(variables);
             }}
             className="focus-1-offset"
           >
