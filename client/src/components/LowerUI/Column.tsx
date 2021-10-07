@@ -9,7 +9,7 @@ import UpperLeftMenu from "../UpperUI/UpperLeftMenu";
 import UpperRightMenu from "../UpperUI/UpperRightMenu";
 import Message from "../UpperUI/Message";
 
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import {
   useColumnsColors,
   useColumnsColorsImg,
@@ -18,9 +18,12 @@ import {
 // import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { SingleTabData } from "../../utils/interfaces";
-import {TabsQuery} from "../../graphql/graphqlQueries"
+import { TabsQuery } from "../../graphql/graphqlQueries";
+import { SettingsQuery } from "../../graphql/graphqlQueries";
 
-import {testUserId} from "../../state/data/testUserId"
+import { testUserId } from "../../state/data/testUserId";
+
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   colNumber: number;
@@ -35,19 +38,35 @@ function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   const [tabResults] = useQuery({
     query: TabsQuery,
-    variables: { userId: testUserId},
+    variables: { userId: testUserId },
   });
 
-  const { data, fetching, error } = tabResults;
+  const {
+    data: data_tabs,
+    fetching: fetching_tabs,
+    error: error_tabs,
+  } = tabResults;
 
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   const upperUiContext = useUpperUiContext();
+
+  const [settingsResults] = useQuery({
+    query: SettingsQuery,
+    variables: { userId: testUserId },
+  });
+
+  const { data, fetching, error } = settingsResults;
+
+  if (fetching_tabs) return <p>Loading...</p>;
+  if (error_tabs) return <p>Oh no... {error_tabs.message}</p>;
+
+  let tabs: SingleTabData[] = data_tabs.tabs;
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  let tabs: SingleTabData[] = data.tabs;
+  let globalSettings: SettingsDatabase_i = data.settings;
 
   function calcColumnColor(
     colNumber: number,
