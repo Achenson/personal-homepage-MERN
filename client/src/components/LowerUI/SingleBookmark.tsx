@@ -1,6 +1,6 @@
 import React from "react";
 
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 
 import Bookmark_newAndEdit from "../Shared/Bookmark_newAndEdit";
 
@@ -9,12 +9,14 @@ import { ReactComponent as TrashSmallSVG } from "../../svgs/trashSmall.svg";
 import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 
 import { useTabContext } from "../../context/tabContext";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
+
 import { SingleBookmarkData } from "../../utils/interfaces";
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   singleBookmarkData: SingleBookmarkData;
@@ -25,6 +27,7 @@ interface Props {
   colNumber: number;
   tabID: string;
   isTabDraggedOver: boolean;
+  globalSettings: SettingsDatabase_i
 }
 
 function SingleBookmark({
@@ -33,8 +36,9 @@ function SingleBookmark({
   setBookmarkId,
   colNumber,
   isTabDraggedOver,
+  globalSettings
 }: Props): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   const tabContext = useTabContext();
 

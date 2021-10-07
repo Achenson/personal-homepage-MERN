@@ -521,6 +521,7 @@ function Tab({
                     key={i}
                     tabID={tabID}
                     isTabDraggedOver={isTabDraggedOver}
+                    globalSettings={globalSettings}
                   />
                 );
               })}
