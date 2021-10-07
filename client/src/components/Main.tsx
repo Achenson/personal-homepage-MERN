@@ -172,7 +172,9 @@ function Main({ globalSettings }: Props): JSX.Element {
         )}
 
         <UpperUI />
-        <Grid setTabType={setTabType} />
+        <Grid setTabType={setTabType}
+        globalSettings={globalSettings}
+        />
       </main>
     </UpperUiContext.Provider>
   );

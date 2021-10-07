@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 
 import Column from "./Column";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useResetColors } from "../../state/hooks/colorHooks";
 import { useReset } from "../../state/hooks/useReset";
 import { useTabs } from "../../state/hooks/useTabs";
@@ -13,11 +13,14 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+
 interface Props {
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
+  globalSettings: SettingsDatabase_i;
 }
 
-function Grid({ setTabType }: Props): JSX.Element {
+function Grid({ setTabType, globalSettings }: Props): JSX.Element {
   const tabs = useTabs((store) => store.tabs);
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
 
@@ -29,7 +32,7 @@ function Grid({ setTabType }: Props): JSX.Element {
   const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
   const setCloseAllTabsState = useTabs((store) => store.setCloseAllTabsState);
 
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   const resetColors = useResetColors((state) => state.resetColors);
   const setResetColors = useResetColors((state) => state.setResetColors);
