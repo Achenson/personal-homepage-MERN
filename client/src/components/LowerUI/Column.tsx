@@ -268,7 +268,10 @@ function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
               right: "0px",
             }}
           >
-            <UpperRightMenu setTabType={setTabType} />
+            <UpperRightMenu
+              setTabType={setTabType}
+              globalSettings={globalSettings}
+            />
           </div>
           {upperUiContext.upperVisState.messagePopup && (
             <Message globalSettings={globalSettings} />

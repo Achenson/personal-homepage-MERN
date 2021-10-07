@@ -15,18 +15,21 @@ import { ReactComponent as AddRssSVG } from "../../svgs/rss.svg";
 import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 
 import { useLoggedInState } from "../../state/hooks/useLoggedInState";
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useDefaultColors } from "../../state/hooks/colorHooks";
 
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+
 interface Props {
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
+  globalSettings: SettingsDatabase_i;
 }
 
-function UpperRightMenu({ setTabType }: Props): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   const uiColor = useDefaultColors((state) => state.uiColor);
 
