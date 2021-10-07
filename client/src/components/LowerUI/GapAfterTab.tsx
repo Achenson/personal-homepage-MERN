@@ -1,13 +1,15 @@
 import React from "react";
 
 import { useDrop } from "react-dnd";
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useTabBeingDraggedColor } from "../../state/hooks/colorHooks";
 
 import { ItemTypes } from "../../utils/data/itemsDnd";
 import { useTabs } from "../../state/hooks/useTabs";
+
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Item {
   type: string;
@@ -23,6 +25,7 @@ interface Props {
   isThisLastGap: boolean;
   // for proper top border display
   isThisTheOnlyGap: boolean;
+  globalSettings: SettingsDatabase_i
 }
 
 function GapAfterTab({
@@ -30,8 +33,9 @@ function GapAfterTab({
   tabID_orNull,
   isThisLastGap,
   isThisTheOnlyGap,
+  globalSettings
 }: Props): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const tabBeingDraggedColor = useTabBeingDraggedColor(
     (state) => state.tabBeingDraggedColor
   );

@@ -218,6 +218,7 @@ function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
                 picBackground={globalSettings.picBackground}
                 isThisLastGap={isThisLastGap(lastTabId, el.id)}
                 isThisTheOnlyGap={false}
+                globalSettings={globalSettings}
               />
               {/* </div> */}
             </div>
@@ -232,6 +233,7 @@ function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
             picBackground={globalSettings.picBackground}
             isThisLastGap={true}
             isThisTheOnlyGap={true}
+            globalSettings={globalSettings}
           />
         </div>
       ) : null}
