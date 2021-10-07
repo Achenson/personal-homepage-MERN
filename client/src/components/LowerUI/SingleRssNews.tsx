@@ -1,8 +1,10 @@
 import React from "react";
 
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   title: string;
@@ -12,6 +14,7 @@ interface Props {
   descriptionVis: boolean | null | undefined;
   dateVis: boolean | null | undefined;
   isTabDraggedOver: boolean;
+  globalSettings: SettingsDatabase_i;
 }
 
 function SingeRssNews({
@@ -22,8 +25,9 @@ function SingeRssNews({
   descriptionVis,
   dateVis,
   isTabDraggedOver,
+  globalSettings,
 }: Props): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   function renderDescription(descripion: string) {
     if (!description) {

@@ -21,14 +21,14 @@ interface Props {
   tabID: string;
   currentTab: SingleTabData;
   isTabDraggedOver: boolean;
-  globalSettings: SettingsDatabase_i
+  globalSettings: SettingsDatabase_i;
 }
 
 function ReactQuery({
   currentTab,
   tabID,
   isTabDraggedOver,
-  globalSettings
+  globalSettings,
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   // const rssSettingsState = useRssSettings((state) => state, shallow);
@@ -145,6 +145,7 @@ function ReactQuery({
         key={i}
         pubDate={convertRssDate(el.pubDate)}
         isTabDraggedOver={isTabDraggedOver}
+        globalSettings={globalSettings}
       />
     ));
   }
