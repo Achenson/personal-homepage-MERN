@@ -540,6 +540,7 @@ function Tab({
             tabID={tabID}
             currentTab={currentTab as SingleTabData}
             isTabDraggedOver={isTabDraggedOver}
+            globalSettings={globalSettings}
           />
         )}
       </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 import { useQuery } from "react-query";
 
 import SingleRssNews from "./SingleRssNews";
@@ -8,9 +8,10 @@ import SingleRssNews from "./SingleRssNews";
 import { ReactComponent as ArrowLeft } from "../../svgs/arrowLeft.svg";
 import { ReactComponent as ArrowRight } from "../../svgs/arrowRight.svg";
 
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
 
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { SingleTabData } from "../../utils/interfaces";
 
 let Parser = require("rss-parser");
@@ -20,14 +21,16 @@ interface Props {
   tabID: string;
   currentTab: SingleTabData;
   isTabDraggedOver: boolean;
+  globalSettings: SettingsDatabase_i
 }
 
 function ReactQuery({
   currentTab,
   tabID,
   isTabDraggedOver,
+  globalSettings
 }: Props): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
   // const rssSettingsState = useRssSettings((state) => state, shallow);
 
   function calcItemsPerPage() {
