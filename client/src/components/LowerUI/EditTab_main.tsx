@@ -288,6 +288,7 @@ function EditTab({
               tabID={tabID}
               rssLinkInput={rssLinkInput}
               setRssLinkInput={setRssLinkInput}
+              globalSettings={globalSettings}
             />
           )}
 

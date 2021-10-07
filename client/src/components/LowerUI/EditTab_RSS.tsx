@@ -3,9 +3,11 @@ import React from "react";
 import shallow from "zustand/shallow";
 
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 
 import { useTabs } from "../../state/hooks/useTabs";
+
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   setWasAnythingClicked: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,6 +22,7 @@ interface Props {
   tabID: string;
   rssLinkInput: string;
   setRssLinkInput: React.Dispatch<React.SetStateAction<string>>;
+  globalSettings: SettingsDatabase_i;
 }
 
 function EditTab_RSS({
@@ -35,9 +38,10 @@ function EditTab_RSS({
   tabID,
   rssLinkInput,
   setRssLinkInput,
+  globalSettings
 }: Props): JSX.Element {
   // const rssSettingsState = useRssSettings((state) => state, shallow);
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const resetTabRssSettings = useTabs((state) => state.resetTabRssSettings);
 
   return (
