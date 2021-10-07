@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
 
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useBackgroundColor } from "../../state/hooks/colorHooks";
 
 import { backgroundColors } from "../../utils/data/colors_background";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import "../../utils/fade.css";
 
-function Message(): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+
+interface Props {
+  globalSettings: SettingsDatabase_i;
+}
+
+function Message({ globalSettings }: Props): JSX.Element {
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   const [close, setClose] = useState(false);
   const [fadeInEnd, setFadeInEnd] = useState(false);

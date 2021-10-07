@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useState, useReducer, useEffect, Children } from "react";
 
 // import shallow from "zustand/shallow";
 
@@ -20,7 +20,7 @@ import { upperVisReducer } from "../context/upperVisReducer";
 import { useWindowSize } from "../utils/funcs and hooks/useWindowSize";
 import { UpperUiContext } from "../context/upperUiContext";
 
-import { SettingsDatabase_i } from "../../../schema/types/settingsType"; 
+import { SettingsDatabase_i } from "../../../schema/types/settingsType";
 
 interface Props {
   globalSettings: SettingsDatabase_i;
@@ -138,12 +138,12 @@ function Main({ globalSettings }: Props): JSX.Element {
         }}
       >
         {upperVisState.newTabVis && (
-          <ModalWrap>
+          <ModalWrap globalSettings={globalSettings}>
             <NewTab tabType={tabType} {...paddingProps} />
           </ModalWrap>
         )}
         {upperVisState.newBookmarkVis && (
-          <ModalWrap>
+          <ModalWrap globalSettings={globalSettings}>
             <Bookmark_newAndEdit
               bookmarkComponentType={"new_upperUI"}
               {...paddingProps}
@@ -151,30 +151,28 @@ function Main({ globalSettings }: Props): JSX.Element {
           </ModalWrap>
         )}
         {upperVisState.backgroundSettingsVis && (
-          <ModalWrap>
+          <ModalWrap globalSettings={globalSettings}>
             <BackgroundSettings {...paddingProps} />
           </ModalWrap>
         )}
         {upperVisState.settingsVis && (
-          <ModalWrap>
+          <ModalWrap globalSettings={globalSettings}>
             <GlobalSettings {...paddingProps} />
           </ModalWrap>
         )}
         {upperVisState.colorsSettingsVis && (
-          <ModalWrap>
+          <ModalWrap globalSettings={globalSettings}>
             <ColorsSettings {...paddingProps} />
           </ModalWrap>
         )}
         {upperVisState.profileVis && (
-          <ModalWrap>
+          <ModalWrap globalSettings={globalSettings}>
             <Profile {...paddingProps} />
           </ModalWrap>
         )}
 
         <UpperUI />
-        <Grid setTabType={setTabType}
-        globalSettings={globalSettings}
-        />
+        <Grid setTabType={setTabType} globalSettings={globalSettings} />
       </main>
     </UpperUiContext.Provider>
   );

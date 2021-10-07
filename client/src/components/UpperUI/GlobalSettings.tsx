@@ -10,7 +10,7 @@ import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
 import { useDefaultColors } from "../../state/hooks/colorHooks";
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
