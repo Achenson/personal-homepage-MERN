@@ -1,7 +1,6 @@
 import React, { useState, useReducer, useEffect } from "react";
 
-import shallow from "zustand/shallow";
-import { useQuery } from "urql";
+// import shallow from "zustand/shallow";
 
 import Grid from "./LowerUI/Grid";
 import Bookmark_newAndEdit from "./Shared/Bookmark_newAndEdit";
@@ -21,12 +20,13 @@ import { upperVisReducer } from "../context/upperVisReducer";
 import { useWindowSize } from "../utils/funcs and hooks/useWindowSize";
 import { UpperUiContext } from "../context/upperUiContext";
 
-import { SettingsQuery } from "../graphql/graphqlQueries";
-import { testUserId } from "../state/data/testUserId";
+import { SettingsDatabase_i } from "../../../schema/types/settingsType"; 
 
-import { SettingsDatabase_i } from "../../../schema/types/settingsType";
+interface Props {
+  globalSettings: SettingsDatabase_i;
+}
 
-function Main(): JSX.Element {
+function Main({ globalSettings }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
 
@@ -61,17 +61,6 @@ function Main(): JSX.Element {
     //  () => (windowSize.width as number) >= 400 ? 17 : 0
     0
   );
-
-  const [settingsResults] = useQuery({
-    query: SettingsQuery,
-    variables: { userId: testUserId },
-  });
-
-  const { data, fetching, error } = settingsResults;
-
-  
-
-  let globalSettings: SettingsDatabase_i = data.settings;
 
   useEffect(() => {
     if (document.body.style.overflow === "visible") {
@@ -127,13 +116,10 @@ function Main(): JSX.Element {
     globalSettings.picBackground,
   ]);
 
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
-
   let paddingProps = {
     mainPaddingRight: paddingRight,
     scrollbarWidth,
-  }
+  };
 
   return (
     <UpperUiContext.Provider value={upperUiValue}>
@@ -166,7 +152,7 @@ function Main(): JSX.Element {
         )}
         {upperVisState.backgroundSettingsVis && (
           <ModalWrap>
-            <BackgroundSettings {...paddingProps}/>
+            <BackgroundSettings {...paddingProps} />
           </ModalWrap>
         )}
         {upperVisState.settingsVis && (

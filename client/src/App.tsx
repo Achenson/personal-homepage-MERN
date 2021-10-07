@@ -5,7 +5,7 @@ import HTML5toTouch from "react-dnd-multi-backend/dist/esm/HTML5toTouch";
 import { createClient, Provider } from "urql";
 import { QueryClientProvider, QueryClient } from "react-query";
 
-import Main from "./components/Main";
+import MainWrapper from "./components/MainWrapper";
 
 const client = createClient({
   url: "http://localhost:4000/graphql",
@@ -25,7 +25,7 @@ function App() {
         <div className="App">
           {/* <DndProvider backend={HTML5Backend}> */}
           <DndProvider options={HTML5toTouch}>
-            <Main />
+            <MainWrapper />
           </DndProvider>
         </div>
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
