@@ -74,7 +74,6 @@ function ColorsSettings({
     };
   });
 
-
   const [settingsResults] = useQuery({
     query: SettingsQuery,
     variables: { userId: testUserId },
@@ -108,9 +107,7 @@ function ColorsSettings({
           }}
         >
           <div
-            className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${
-              defaultColors.uiColor
-            } rounded-sm relative`}
+            className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${defaultColors.uiColor} rounded-sm relative`}
             style={{
               width: `350px`,
               height: "200px",
@@ -121,7 +118,10 @@ function ColorsSettings({
               }`,
             }}
           >
-            <Settings_inner_xs currentSettings={"colors"} />
+            <Settings_inner_xs
+              currentSettings={"colors"}
+              globalSettings={globalSettings}
+            />
 
             <div className="absolute right-0 top-0 mt-1 mr-1 ">
               <button

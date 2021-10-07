@@ -1,26 +1,29 @@
 import React from "react";
 
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 
 import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 import { ReactComponent as ColorSVG } from "../../svgs/beaker.svg";
 import { ReactComponent as SettingsSVG } from "../../svgs/settingsAlt.svg";
 
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useDefaultColors } from "../../state/hooks/colorHooks";
 
 import { useUpperUiContext } from "../../context/upperUiContext";
 
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+
 interface Props {
   currentSettings: "background" | "colors" | "global";
+  globalSettings: SettingsDatabase_i
 }
 
-function Settings_inner_xs({ currentSettings }: Props): JSX.Element {
+function Settings_inner_xs({ currentSettings, globalSettings }: Props): JSX.Element {
   const uiColor = useDefaultColors((state) => state.uiColor);
 
   const upperUiContext = useUpperUiContext();
 
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   // inner settings vis depending on numberOfCols && col width limit
   function innerSettingsVis() {

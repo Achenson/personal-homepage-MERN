@@ -120,6 +120,7 @@ function UpperLeftMenu(): JSX.Element {
         <Reset
           setFocusOnBackgroundColor={setFocusOnBackgroundColor}
           setFocusOnColumnColor={setFocusOnColumnColor}
+          globalSettings={globalSettings}
         />
       </div>
       <div>

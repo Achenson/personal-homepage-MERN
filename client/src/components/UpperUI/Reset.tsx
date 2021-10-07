@@ -5,25 +5,29 @@ import shallow from "zustand/shallow";
 import { ReactComponent as ResetSVG } from "../../svgs/reset-update.svg";
 
 import { useBackgroundColor } from "../../state/hooks/colorHooks";
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useReset } from "../../state/hooks/useReset";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { backgroundColorsUpperUiFocus } from "../../utils/data/colors_background";
 
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+
 interface Props {
   setFocusOnColumnColor: React.Dispatch<
     React.SetStateAction<1 | 2 | 4 | 3 | null>
   >;
   setFocusOnBackgroundColor: React.Dispatch<React.SetStateAction<boolean>>;
+  globalSettings: SettingsDatabase_i
 }
 
 function Reset({
   setFocusOnBackgroundColor,
   setFocusOnColumnColor,
+  globalSettings
 }: Props): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
 
   const setCloseAllTabsState = useTabs((state) => state.setCloseAllTabsState);

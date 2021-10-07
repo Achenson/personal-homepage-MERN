@@ -36,7 +36,7 @@ function GlobalSettings({
 
   // shallow option enables updates when any of the object keys changes!
   // const globalSettings = useGlobalSettings((state) => state, shallow);
- /*  const setGlobalSettings = useGlobalSettings(
+  /*  const setGlobalSettings = useGlobalSettings(
     (state) => state.setGlobalSettings
   ); */
 
@@ -156,7 +156,10 @@ function GlobalSettings({
               }`,
             }}
           >
-            <Settings_inner_xs currentSettings="global" />
+            <Settings_inner_xs
+              currentSettings="global"
+              globalSettings={globalSettings}
+            />
 
             <div className="absolute right-0 top-0 mt-1 mr-1">
               <button

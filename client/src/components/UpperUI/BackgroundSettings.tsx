@@ -119,7 +119,7 @@ function BackgroundSettings({
               }`,
             }}
           >
-            <Settings_inner_xs currentSettings={"background"} />
+            <Settings_inner_xs currentSettings={"background"} globalSettings={globalSettings} />
             <div className="absolute right-0 top-0 mt-1 mr-1">
               <button
                 className="h-5 w-5 focus-2-offset-dark"
