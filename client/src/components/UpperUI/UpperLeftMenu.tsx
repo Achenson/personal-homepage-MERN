@@ -125,6 +125,7 @@ function UpperLeftMenu(): JSX.Element {
             <ColorsToChoose_DefaultAndColumns
               defaultColorsFor={defaultColorsFor}
               setFocusOnColumnColor={setFocusOnColumnColor}
+              globalSettings={globalSettings}
             />
           </div>
         )}

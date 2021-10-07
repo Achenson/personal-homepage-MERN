@@ -5,7 +5,7 @@ import shallow from "zustand/shallow";
 
 import SingleColor_DefaultAndColumn from "./SingleColor_DefaultAndColumn";
 
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import {
   useDefaultColors,
   useColumnsColors,
@@ -22,6 +22,8 @@ import {
   imageColumnColorsConcat,
 } from "../../utils/data/colors_column";
 
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+
 interface Props {
   defaultColorsFor:
     | "folders"
@@ -36,14 +38,16 @@ interface Props {
   setFocusOnColumnColor?: React.Dispatch<
     React.SetStateAction<null | 1 | 2 | 3 | 4>
   >;
+  globalSettings: SettingsDatabase_i
 }
 
 function ColorsToChoose_DefaultAndColumns({
   defaultColorsFor,
   setColorsToChooseVis,
   setFocusOnColumnColor,
+  globalSettings
 }: Props): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const defaultColors = useDefaultColors((state) => state, shallow);
 
   const columnsColors = useColumnsColors((state) => state, shallow);

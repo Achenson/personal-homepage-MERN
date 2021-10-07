@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "urql";
 
 import shallow from "zustand/shallow";
 import FocusLock from "react-focus-lock";
@@ -13,6 +14,11 @@ import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
+import { SettingsQuery } from "../../graphql/graphqlQueries";
+
+import { testUserId } from "../../state/data/testUserId";
+
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   mainPaddingRight: boolean;
@@ -67,6 +73,19 @@ function ColorsSettings({
       document.removeEventListener("keydown", handleKeyDown);
     };
   });
+
+
+  const [settingsResults] = useQuery({
+    query: SettingsQuery,
+    variables: { userId: testUserId },
+  });
+
+  const { data, fetching, error } = settingsResults;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  let globalSettings: SettingsDatabase_i = data.settings;
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 6);
@@ -231,6 +250,7 @@ function ColorsSettings({
                 <ColorsToChoose_DefaultAndColumns
                   defaultColorsFor={defaultColorsFor}
                   setColorsToChooseVis={setColorsToChooseVis}
+                  globalSettings={globalSettings}
                 />
               </div>
             )}
