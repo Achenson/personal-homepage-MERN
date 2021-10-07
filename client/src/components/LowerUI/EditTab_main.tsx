@@ -15,7 +15,7 @@ import { ReactComponent as LockOpenSVG } from "../../svgs/lock-open.svg";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 
 import { useTabs } from "../../state/hooks/useTabs";
 import { useTabContext } from "../../context/tabContext";
@@ -23,11 +23,14 @@ import { SingleTabData } from "../../utils/interfaces";
 import { tabErrorHandling } from "../../utils/funcs and hooks/tabErrorHandling";
 import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
 
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+
 interface Props {
   tabType: "folder" | "note" | "rss";
   tabID: string;
   currentTab: SingleTabData;
   setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>;
+  globalSettings: SettingsDatabase_i
 }
 
 function EditTab({
@@ -35,12 +38,13 @@ function EditTab({
   tabType,
   currentTab,
   setTabOpened_local,
+  globalSettings
 }: Props): JSX.Element {
   const tabs = useTabs((store) => store.tabs);
   const editTab = useTabs((store) => store.editTab);
   const deleteTab = useTabs((store) => store.deleteTab);
   // const rssSettingsState = useRssSettings((state) => state, shallow);
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const tabContext = useTabContext();
 
   let firstFieldRef = useRef<HTMLInputElement>(null);

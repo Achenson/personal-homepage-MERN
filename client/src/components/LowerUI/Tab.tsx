@@ -17,9 +17,9 @@ import { ReactComponent as PencilSmallSVG } from "../../svgs/pencilSmall.svg";
 import { ReactComponent as CrossArrowsSVG } from "../../svgs/cross-arrows.svg";
 import { ReactComponent as PlusSVG } from "../../svgs/plus.svg";
 
-import {BookmarksQuery} from "../../graphql/graphqlQueries"
+import {BookmarksQuery, SettingsQuery} from "../../graphql/graphqlQueries"
 // import { useBookmarks } from "../../state/hooks/useBookmarks";
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useReset } from "../../state/hooks/useReset";
 import {
   useTabBeingDraggedColor,
@@ -34,6 +34,8 @@ import { ItemTypes } from "../../utils/data/itemsDnd";
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 
 import {testUserId} from "../../state/data/testUserId"
+
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Item {
   type: string;
@@ -63,7 +65,7 @@ function Tab({
   tabOpenedByDefault,
   tabIsDeletable,
 }: Props): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   const setTabBeingDraggedColor = useTabBeingDraggedColor(
     (state) => state.setTabBeingDraggedColor
@@ -94,9 +96,14 @@ function Tab({
     variables: { userId: testUserId },
   });
 
-  const { data, fetching, error } = bookmarkResults;
+  const { data: data_bookmarks, fetching: fetching_bookmarks, error: errors_bookmarks } = bookmarkResults;
 
+  const [settingsResults] = useQuery({
+    query: SettingsQuery,
+    variables: { userId: testUserId },
+  });
 
+  const { data, fetching, error } = settingsResults;
 
   useEffect(() => {
     setTabOpened_local(tabOpened);
@@ -301,10 +308,16 @@ function Tab({
   );
 
 
+  if (fetching_bookmarks) return <p>Loading...</p>;
+  if (errors_bookmarks) return <p>Oh no... {errors_bookmarks.message}</p>;
+
+  let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
+
+
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  let bookmarks: SingleBookmarkData[] = data.bookmarks;
+  let globalSettings: SettingsDatabase_i = data.settings;
   
 
   return (
@@ -489,6 +502,7 @@ function Tab({
               tabType={tabType}
               currentTab={currentTab as SingleTabData}
               setTabOpened_local={setTabOpened_local}
+              globalSettings={globalSettings}
             />
           )}
 
