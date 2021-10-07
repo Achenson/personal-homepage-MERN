@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 
 import { SingleTabData } from "../../utils/interfaces";
 import { useTabContext } from "../../context/tabContext";
 
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+
 interface Props {
   currentTab: SingleTabData;
   isTabDraggedOver: boolean;
+  globalSettings: SettingsDatabase_i
 }
 
-function NoteInput({ currentTab, isTabDraggedOver }: Props): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+function NoteInput({ currentTab, isTabDraggedOver, globalSettings }: Props): JSX.Element {
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const tabContext = useTabContext();
 
   const [focusOnNote, setFocusOnNote] = useState(false);

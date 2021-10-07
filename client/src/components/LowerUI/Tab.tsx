@@ -531,6 +531,7 @@ function Tab({
           <NoteInput
             currentTab={currentTab as SingleTabData}
             isTabDraggedOver={isTabDraggedOver}
+            globalSettings={globalSettings}
           />
         )}
 
