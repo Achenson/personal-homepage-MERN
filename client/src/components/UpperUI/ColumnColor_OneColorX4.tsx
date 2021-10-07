@@ -2,13 +2,15 @@ import React, { useEffect, useRef } from "react";
 
 import shallow from "zustand/shallow";
 
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import {
   useColumnsColors,
   useColumnsColorsImg,
 } from "../../state/hooks/colorHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
+
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   setDefaultColorsFor: React.Dispatch<
@@ -20,14 +22,16 @@ interface Props {
   setFocusOnColumnColor: React.Dispatch<
     React.SetStateAction<null | 1 | 2 | 3 | 4>
   >;
+  globalSettings: SettingsDatabase_i
 }
 
 function ColumnColor_OneColorX4({
   setDefaultColorsFor,
   focusOnColumnColor,
   setFocusOnColumnColor,
+  globalSettings
 }: Props): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const columnsColors = useColumnsColors((state) => state, shallow);
   const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);
   const setTabOpenedState = useTabs((state) => state.setTabOpenedState);

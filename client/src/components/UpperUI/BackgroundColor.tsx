@@ -1,26 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 
 import ColorsToChoose_Background from "../Colors/ColorsToChoose_Background";
 import { ReactComponent as DocumentSVG } from "../../svgs/document.svg";
 
 import { useBackgroundColor } from "../../state/hooks/colorHooks";
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { backgroundColorsUpperUiFocus } from "../../utils/data/colors_background";
 
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+
 interface Props {
   focusOnBackgroundColor: boolean;
   setFocusOnBackgroundColor: React.Dispatch<React.SetStateAction<boolean>>;
+  globalSettings: SettingsDatabase_i;
 }
 
 function BackgroundColor({
   focusOnBackgroundColor,
   setFocusOnBackgroundColor,
+  globalSettings
 }: Props): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
 
   const [selected, setSelected] = useState(false);

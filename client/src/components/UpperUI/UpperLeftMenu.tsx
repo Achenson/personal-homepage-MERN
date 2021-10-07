@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 import { useQuery } from "urql";
 
 import ColumnColor from "./ColumnColor";
@@ -70,6 +70,7 @@ function UpperLeftMenu(): JSX.Element {
           tabIndex={index + 1}
           focusOnColumnColor={focusOnColumnColor}
           setFocusOnColumnColor={setFocusOnColumnColor}
+          globalSettings={globalSettings}
         />
       );
     });
@@ -88,6 +89,7 @@ function UpperLeftMenu(): JSX.Element {
             setDefaultColorsFor={setDefaultColorsFor}
             focusOnColumnColor={focusOnColumnColor}
             setFocusOnColumnColor={setFocusOnColumnColor}
+            globalSettings={globalSettings}
           />
         ) : (
           <div
@@ -112,6 +114,7 @@ function UpperLeftMenu(): JSX.Element {
           <BackgroundColor
             focusOnBackgroundColor={focusOnBackgroundColor}
             setFocusOnBackgroundColor={setFocusOnBackgroundColor}
+            globalSettings={globalSettings}
           />
         )}
         <Reset

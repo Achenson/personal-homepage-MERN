@@ -3,12 +3,14 @@ import React, { useEffect, useRef } from "react";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import shallow from "zustand/shallow";
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import {
   useColumnsColors,
   useColumnsColorsImg,
 } from "../../state/hooks/colorHooks";
 import { useTabs } from "../../state/hooks/useTabs";
+
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   colNumber: number;
@@ -30,6 +32,7 @@ interface Props {
   setFocusOnColumnColor: React.Dispatch<
     React.SetStateAction<null | 1 | 2 | 3 | 4>
   >;
+  globalSettings: SettingsDatabase_i
 }
 
 function ColumnColor({
@@ -40,8 +43,9 @@ function ColumnColor({
   tabIndex,
   focusOnColumnColor,
   setFocusOnColumnColor,
+  globalSettings
 }: Props): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   const columnsColors = useColumnsColors((state) => state, shallow);
   const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);

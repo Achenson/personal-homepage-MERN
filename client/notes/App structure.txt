@@ -30,7 +30,7 @@ MainWrapper(for proper server code, see the component for notes)
                     ColumnColor <-> ColumnColor_OneColorX4
                     ?ColorsToChoose_DefaultAndColumns
                         (SingleColor_DefaultAndColumn)
-                    Background (only if background pic is enabled)
+                    BackgroundColor(only if background pic is enabled)
                     ?ColorsToChoose_Background
                         (SingleColor_Background)
                     Reset
