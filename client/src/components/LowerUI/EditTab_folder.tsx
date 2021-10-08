@@ -10,6 +10,7 @@ import { ReactComponent as XsmallSVG } from "../../svgs/x-small.svg";
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
+import { SingleBookmarkData } from "../../utils/interfaces";
 
 interface Props {
   selectablesListVis: boolean;
@@ -19,6 +20,7 @@ interface Props {
   selectablesInputStr: string;
   setSelectablesInputStr: React.Dispatch<React.SetStateAction<string>>;
   saveFunc: () => void;
+  bookmarks: SingleBookmarkData[];
 }
 
 function EditTab_folder({
@@ -29,8 +31,9 @@ function EditTab_folder({
   selectablesInputStr,
   setSelectablesInputStr,
   saveFunc,
+  bookmarks
 }: Props): JSX.Element {
-  const bookmarks = useBookmarks((state) => state.bookmarks);
+  // const bookmarks = useBookmarks((state) => state.bookmarks);
 
   let selectablesRef = useRef<HTMLInputElement>(null);
 

@@ -491,6 +491,7 @@ function Tab({
               bookmarkComponentType={"new_lowerUI"}
               colNumber={colNumber}
               tabTitle={tabTitle as string}
+              // bookmarks={bookmarks}
               tabs={tabs}
             />
           )}
@@ -504,6 +505,7 @@ function Tab({
               currentTab={currentTab as SingleTabData}
               setTabOpened_local={setTabOpened_local}
               globalSettings={globalSettings}
+              bookmarks={bookmarks}
               tabs={tabs}
             />
           )}
@@ -524,6 +526,7 @@ function Tab({
                     tabID={tabID}
                     isTabDraggedOver={isTabDraggedOver}
                     globalSettings={globalSettings}
+                    bookmarks={bookmarks}
                     tabs={tabs}
                   />
                 );

@@ -28,6 +28,7 @@ interface Props {
   tabID: string;
   isTabDraggedOver: boolean;
   globalSettings: SettingsDatabase_i
+  bookmarks: SingleBookmarkData[];
   tabs: SingleTabData[];
 }
 
@@ -38,6 +39,7 @@ function SingleBookmark({
   colNumber,
   isTabDraggedOver,
   globalSettings,
+  bookmarks,
   tabs
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
@@ -48,7 +50,7 @@ function SingleBookmark({
 
   const upperUiContext = useUpperUiContext();
 
-  const bookmarks = useBookmarks((state) => state.bookmarks);
+  // const bookmarks = useBookmarks((state) => state.bookmarks);
   // const tabs = useTabs((state) => state.tabs);
   const deleteBookmark = useBookmarks((state) => state.deleteBookmark);
 

@@ -50,3 +50,4 @@ notes:
 + it requires more code) -> unify?
 31. interfaces: database vs client side: currently settings are from database but tabs from clientside...
 32. clientside: hooks for store -> sometimes it's state.tabs, sometimes store.tabs -> unify
+33. take care of state other that settings, tabs & bookmarks (use of existings queries should be enough?)

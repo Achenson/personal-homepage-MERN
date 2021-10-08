@@ -18,6 +18,7 @@ interface Props {
   // for upperUI newBookmark only
   mainPaddingRight?: boolean;
   scrollbarWidth?: number;
+  // bookmarks: SingleBookmarkData[];
   tabs: SingleTabData[];
 }
 
@@ -38,6 +39,7 @@ function Bookmark_newAndEdit({
   colNumber,
   mainPaddingRight,
   scrollbarWidth,
+  // bookmarks,
   tabs
 }: Props): JSX.Element {
   const bookmarks = useBookmarks((state) => state.bookmarks);

@@ -19,7 +19,7 @@ import { useBookmarks } from "../../state/hooks/useBookmarks";
 
 import { useTabs } from "../../state/hooks/useTabs";
 import { useTabContext } from "../../context/tabContext";
-import { SingleTabData } from "../../utils/interfaces";
+import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { tabErrorHandling } from "../../utils/funcs and hooks/tabErrorHandling";
 import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
 
@@ -32,6 +32,7 @@ interface Props {
   setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>;
   globalSettings: SettingsDatabase_i
   tabs: SingleTabData[];
+  bookmarks: SingleBookmarkData[];
 }
 
 function EditTab({
@@ -40,7 +41,8 @@ function EditTab({
   currentTab,
   setTabOpened_local,
   globalSettings,
-  tabs
+  tabs,
+  bookmarks
 }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   const editTab = useTabs((store) => store.editTab);
@@ -65,7 +67,7 @@ function EditTab({
     rssLink = currentTab.rssLink;
   }
 
-  const bookmarks = useBookmarks((state) => state.bookmarks);
+  // const bookmarks = useBookmarks((state) => state.bookmarks);
   const editTag = useBookmarks((state) => state.editTag);
   const deleteTag = useBookmarks((state) => state.deleteTag);
 
@@ -265,6 +267,7 @@ function EditTab({
               selectablesInputStr={selectablesInputStr}
               setSelectablesInputStr={setSelectablesInputStr}
               saveFunc={saveFunc}
+              bookmarks={bookmarks}
             />
           )}
 
