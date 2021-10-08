@@ -29,24 +29,19 @@ interface Props {
   colNumber: number;
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
   breakpoint: 0 | 1 | 2 | 3 | 4 | null;
+  tabs: SingleTabData[];
 }
 
-function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
+function Column({
+  colNumber,
+  setTabType,
+  breakpoint,
+  tabs,
+}: Props): JSX.Element {
   const columnsColors = useColumnsColors((state) => state, shallow);
   const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);
 
   // const tabs = useTabs((store) => store.tabs);
-  const [tabResults] = useQuery({
-    query: TabsQuery,
-    variables: { userId: testUserId },
-  });
-
-  const {
-    data: data_tabs,
-    fetching: fetching_tabs,
-    error: error_tabs,
-  } = tabResults;
-
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   const upperUiContext = useUpperUiContext();
@@ -57,11 +52,6 @@ function Column({ colNumber, setTabType, breakpoint }: Props): JSX.Element {
   });
 
   const { data, fetching, error } = settingsResults;
-
-  if (fetching_tabs) return <p>Loading...</p>;
-  if (error_tabs) return <p>Oh no... {error_tabs.message}</p>;
-
-  let tabs: SingleTabData[] = data_tabs.tabs;
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;

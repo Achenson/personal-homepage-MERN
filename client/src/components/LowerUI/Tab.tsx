@@ -503,6 +503,7 @@ function Tab({
               currentTab={currentTab as SingleTabData}
               setTabOpened_local={setTabOpened_local}
               globalSettings={globalSettings}
+              tabs={tabs}
             />
           )}
 

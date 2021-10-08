@@ -14,14 +14,16 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { SingleTabData } from "../../utils/interfaces";
 
 interface Props {
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
   globalSettings: SettingsDatabase_i;
+  tabs: SingleTabData[];
 }
 
-function Grid({ setTabType, globalSettings }: Props): JSX.Element {
-  const tabs = useTabs((store) => store.tabs);
+function Grid({ setTabType, globalSettings, tabs }: Props): JSX.Element {
+  // const tabs = useTabs((store) => store.tabs);
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
 
   const deleteEmptyTab = useTabs((store) => store.deleteEmptyTab);
@@ -133,6 +135,7 @@ function Grid({ setTabType, globalSettings }: Props): JSX.Element {
     let columnProps = {
       setTabType,
       breakpoint,
+      tabs
     };
 
     switch (numberOfCols) {

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import FocusLock from "react-focus-lock";
+import { useQuery } from "urql";
 
 import SelectableList from "../Shared/SelectableList";
 import BookmarkErrors_render from "../Shared/BookmarkErrors_render";
@@ -22,6 +23,10 @@ import {
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { bookmarkErrorHandling } from "../../utils/funcs and hooks/bookmarkErrorHandling";
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
+import { TabsQuery } from "../../graphql/graphqlQueries";
+
+import { testUserId } from "../../state/data/testUserId";
+
 import {
   BookmarkErrors,
   SetBookmarkErrors,
@@ -67,7 +72,7 @@ function NewBookmark_UpperUI({
   mainPaddingRight,
   scrollbarWidth,
 }: Props): JSX.Element {
-  const tabs = useTabs((store) => store.tabs);
+  // const tabs = useTabs((store) => store.tabs);
   const addTabs = useTabs((store) => store.addTabs);
 
   const bookmarks = useBookmarks((store) => store.bookmarks);
@@ -98,6 +103,22 @@ function NewBookmark_UpperUI({
     }
   }, []);
 
+  const [tabResults] = useQuery({
+    query: TabsQuery,
+    variables: { userId: testUserId },
+  });
+
+  const {
+    data: data_tabs,
+    fetching: fetching_tabs,
+    error: error_tabs,
+  } = tabResults;
+
+  if (fetching_tabs) return <p>Loading...</p>;
+  if (error_tabs) return <p>Oh no... {error_tabs.message}</p>;
+
+  let tabs: SingleTabData[] = data_tabs.tabs;
+
   let tagsInputArr: string[] = selectablesInputStr.split(", ");
 
   let selectablesInputStr_noComma: string;
@@ -113,7 +134,9 @@ function NewBookmark_UpperUI({
   function addBookmarkWrapper() {
     // all tags always being added
     // let tagsInputArr_ToIds: string[] = ["ALL_TAGS"];
-    let tagsInputArr_ToIds: string[] = [tabs.find(obj => !obj.deletable)?.id as string];
+    let tagsInputArr_ToIds: string[] = [
+      tabs.find((obj) => !obj.deletable)?.id as string,
+    ];
 
     let newTabsToAdd: SingleTabData[] = [];
     let newBookmarksAllTagsData = [...bookmarksAllTags];

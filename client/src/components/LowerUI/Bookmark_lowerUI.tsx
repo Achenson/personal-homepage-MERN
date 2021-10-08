@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useQuery } from "urql";
 
 import Bookmark_lowerUI_edit from "./Bookmark_lowerUI_edit";
 import Bookmark_lowerUI_new from "./Bookmark_lowerUI_new";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
-
 import { useTabs } from "../../state/hooks/useTabs";
 
 import { useTabContext } from "../../context/tabContext";
@@ -13,10 +13,14 @@ import {
   createBookmark,
   createFolderTab,
 } from "../../utils/funcs and hooks/objCreators";
-import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
-import { BookmarkErrors, SetBookmarkErrors } from "../../utils/interfaces";
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 import { bookmarkErrorHandling } from "../../utils/funcs and hooks/bookmarkErrorHandling";
+import { TabsQuery } from "../../graphql/graphqlQueries";
+
+import { testUserId } from "../../state/data/testUserId";
+
+import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
+import { BookmarkErrors, SetBookmarkErrors } from "../../utils/interfaces";
 
 interface Props {
   titleInput: string;
@@ -69,7 +73,7 @@ function Bookmark_lowerUI({
   );
 
   const addTabs = useTabs((store) => store.addTabs);
-  const tabs = useTabs((store) => store.tabs);
+  // const tabs = useTabs((store) => store.tabs);
 
   const tabContext = useTabContext();
 
@@ -96,6 +100,22 @@ function Bookmark_lowerUI({
 
   // for disabling save btn
   const [wasAnythingChanged, setWasAnythingChanged] = useState(false);
+
+  const [tabResults] = useQuery({
+    query: TabsQuery,
+    variables: { userId: testUserId },
+  });
+
+  const {
+    data: data_tabs,
+    fetching: fetching_tabs,
+    error: error_tabs,
+  } = tabResults;
+
+  if (fetching_tabs) return <p>Loading...</p>;
+  if (error_tabs) return <p>Oh no... {error_tabs.message}</p>;
+
+  let tabs: SingleTabData[] = data_tabs.tabs;
 
   function generateTagIds() {
     if (bookmarkComponentType !== "edit") {
@@ -129,7 +149,9 @@ function Bookmark_lowerUI({
   function addOrEditBookmark() {
     // creating tags for bookmark being added
     // let tagsInputArr_ToIds: string[] = ["ALL_TAGS"];
-    let tagsInputArr_ToIds: string[] = [tabs.find(obj => !obj.deletable)?.id as string];
+    let tagsInputArr_ToIds: string[] = [
+      tabs.find((obj) => !obj.deletable)?.id as string,
+    ];
     // for edit only
     let newTabId: undefined | string;
     let newTabsToAdd: SingleTabData[] = [];
@@ -200,8 +222,7 @@ function Bookmark_lowerUI({
           });
 
           // if (!isElPresent && el !== "ALL_TAGS") {
-          if (!isElPresent && tabs.find(obj => obj.id === el)?.deletable) {
-            
+          if (!isElPresent && tabs.find((obj) => obj.id === el)?.deletable) {
             tagsIdsToDelete.push(el);
           }
         }
@@ -219,7 +240,6 @@ function Bookmark_lowerUI({
         }
       });
 
-      
       setBookmarksAllTags([...bookmarksAllTagsData_new]);
     } else {
       addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));

@@ -1,4 +1,5 @@
 import React, { useState, useReducer, useEffect, Children } from "react";
+import { useQuery } from "urql";
 
 // import shallow from "zustand/shallow";
 
@@ -12,6 +13,7 @@ import GlobalSettings from "./UpperUI/GlobalSettings";
 import Profile from "./UpperUI/Profile";
 import ModalWrap from "./UpperUI/ModalWrap";
 
+
 // import { useGlobalSettings } from "../state/hooks/defaultSettingsHooks";
 import { useBackgroundColor } from "../state/hooks/colorHooks";
 
@@ -21,6 +23,11 @@ import { useWindowSize } from "../utils/funcs and hooks/useWindowSize";
 import { UpperUiContext } from "../context/upperUiContext";
 
 import { SettingsDatabase_i } from "../../../schema/types/settingsType";
+import { TabsQuery } from "../graphql/graphqlQueries";
+
+import { testUserId } from "../state/data/testUserId";
+
+import { SingleTabData } from "../utils/interfaces";
 
 interface Props {
   globalSettings: SettingsDatabase_i;
@@ -116,6 +123,22 @@ function Main({ globalSettings }: Props): JSX.Element {
     globalSettings.picBackground,
   ]);
 
+  const [tabResults] = useQuery({
+    query: TabsQuery,
+    variables: { userId: testUserId },
+  });
+
+  const {
+    data: data_tabs,
+    fetching: fetching_tabs,
+    error: error_tabs,
+  } = tabResults;
+
+  if (fetching_tabs) return <p>Loading...</p>;
+  if (error_tabs) return <p>Oh no... {error_tabs.message}</p>;
+
+  let tabs: SingleTabData[] = data_tabs.tabs;
+
   let paddingProps = {
     mainPaddingRight: paddingRight,
     scrollbarWidth,
@@ -172,7 +195,7 @@ function Main({ globalSettings }: Props): JSX.Element {
         )}
 
         <UpperUI />
-        <Grid setTabType={setTabType} globalSettings={globalSettings} />
+        <Grid setTabType={setTabType} globalSettings={globalSettings} tabs={tabs}/>
       </main>
     </UpperUiContext.Provider>
   );

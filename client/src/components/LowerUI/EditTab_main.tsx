@@ -31,6 +31,7 @@ interface Props {
   currentTab: SingleTabData;
   setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>;
   globalSettings: SettingsDatabase_i
+  tabs: SingleTabData[];
 }
 
 function EditTab({
@@ -38,9 +39,10 @@ function EditTab({
   tabType,
   currentTab,
   setTabOpened_local,
-  globalSettings
+  globalSettings,
+  tabs
 }: Props): JSX.Element {
-  const tabs = useTabs((store) => store.tabs);
+  // const tabs = useTabs((store) => store.tabs);
   const editTab = useTabs((store) => store.editTab);
   const deleteTab = useTabs((store) => store.deleteTab);
   // const rssSettingsState = useRssSettings((state) => state, shallow);
