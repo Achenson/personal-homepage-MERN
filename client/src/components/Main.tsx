@@ -13,7 +13,6 @@ import GlobalSettings from "./UpperUI/GlobalSettings";
 import Profile from "./UpperUI/Profile";
 import ModalWrap from "./UpperUI/ModalWrap";
 
-
 // import { useGlobalSettings } from "../state/hooks/defaultSettingsHooks";
 import { useBackgroundColor } from "../state/hooks/colorHooks";
 
@@ -162,13 +161,14 @@ function Main({ globalSettings }: Props): JSX.Element {
       >
         {upperVisState.newTabVis && (
           <ModalWrap globalSettings={globalSettings}>
-            <NewTab tabType={tabType} {...paddingProps} />
+            <NewTab tabType={tabType} tabs={tabs} {...paddingProps} />
           </ModalWrap>
         )}
         {upperVisState.newBookmarkVis && (
           <ModalWrap globalSettings={globalSettings}>
             <Bookmark_newAndEdit
               bookmarkComponentType={"new_upperUI"}
+              tabs={tabs}
               {...paddingProps}
             />
           </ModalWrap>
@@ -195,7 +195,11 @@ function Main({ globalSettings }: Props): JSX.Element {
         )}
 
         <UpperUI />
-        <Grid setTabType={setTabType} globalSettings={globalSettings} tabs={tabs}/>
+        <Grid
+          setTabType={setTabType}
+          globalSettings={globalSettings}
+          tabs={tabs}
+        />
       </main>
     </UpperUiContext.Provider>
   );

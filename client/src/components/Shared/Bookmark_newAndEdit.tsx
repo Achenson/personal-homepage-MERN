@@ -4,9 +4,9 @@ import NewBookmark_UpperUI from "../UpperUI/NewBookmark_UpperUI";
 import Bookmark_lowerUI from "../LowerUI/Bookmark_lowerUI";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
-import { useTabs } from "../../state/hooks/useTabs";
+// import { useTabs } from "../../state/hooks/useTabs";
 
-import { SingleBookmarkData } from "../../utils/interfaces";
+import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 
 interface Props {
   bookmarkComponentType: "new_upperUI" | "new_lowerUI" | "edit";
@@ -18,6 +18,7 @@ interface Props {
   // for upperUI newBookmark only
   mainPaddingRight?: boolean;
   scrollbarWidth?: number;
+  tabs: SingleTabData[];
 }
 
 const errorsAllFalse = {
@@ -37,9 +38,10 @@ function Bookmark_newAndEdit({
   colNumber,
   mainPaddingRight,
   scrollbarWidth,
+  tabs
 }: Props): JSX.Element {
   const bookmarks = useBookmarks((state) => state.bookmarks);
-  const tabs = useTabs((state) => state.tabs);
+  // const tabs = useTabs((state) => state.tabs);
 
   let currentBookmark: SingleBookmarkData | undefined;
 
@@ -203,6 +205,7 @@ function Bookmark_newAndEdit({
           {...bookmark_props}
           mainPaddingRight={mainPaddingRight as boolean}
           scrollbarWidth={scrollbarWidth as number}
+          tabs={tabs}
         />
       ) : (
         <Bookmark_lowerUI
@@ -210,6 +213,7 @@ function Bookmark_newAndEdit({
           currentBookmark={currentBookmark}
           bookmarkId={bookmarkId as string}
           colNumber={colNumber as number}
+          tabs={tabs}
         />
       )}
     </>

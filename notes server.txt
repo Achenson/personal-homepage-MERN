@@ -49,3 +49,4 @@ notes:
 30. globalSettings taken either from props or from hooks (hooks cannot apply if useEffect uses globalSettings
 + it requires more code) -> unify?
 31. interfaces: database vs client side: currently settings are from database but tabs from clientside...
+32. clientside: hooks for store -> sometimes it's state.tabs, sometimes store.tabs -> unify

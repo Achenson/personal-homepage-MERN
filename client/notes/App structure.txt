@@ -8,8 +8,8 @@ MainWrapper(for proper server code, see the component for notes)
             TabErrors_render
         ?ModalWrap   
             Bookmark_newAndEdit
-            NewBookmark_UpperUI
-                SelectableList
+                NewBookmark_UpperUI
+                    SelectableList
         ?ModalWrap
             BackgroundSettings
                 ?Settings_inner_xs (menu for lowest screen width)

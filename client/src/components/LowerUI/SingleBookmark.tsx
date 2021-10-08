@@ -15,7 +15,7 @@ import { useTabContext } from "../../context/tabContext";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
-import { SingleBookmarkData } from "../../utils/interfaces";
+import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
@@ -28,6 +28,7 @@ interface Props {
   tabID: string;
   isTabDraggedOver: boolean;
   globalSettings: SettingsDatabase_i
+  tabs: SingleTabData[];
 }
 
 function SingleBookmark({
@@ -36,7 +37,8 @@ function SingleBookmark({
   setBookmarkId,
   colNumber,
   isTabDraggedOver,
-  globalSettings
+  globalSettings,
+  tabs
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -47,7 +49,7 @@ function SingleBookmark({
   const upperUiContext = useUpperUiContext();
 
   const bookmarks = useBookmarks((state) => state.bookmarks);
-  const tabs = useTabs((state) => state.tabs);
+  // const tabs = useTabs((state) => state.tabs);
   const deleteBookmark = useBookmarks((state) => state.deleteBookmark);
 
   return (
@@ -122,6 +124,7 @@ function SingleBookmark({
           bookmarkComponentType="edit"
           colNumber={colNumber}
           bookmarkId={bookmarkId as string}
+          tabs={tabs}
         />
       )}
     </div>

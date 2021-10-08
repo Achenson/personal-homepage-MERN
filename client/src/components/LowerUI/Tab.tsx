@@ -491,6 +491,7 @@ function Tab({
               bookmarkComponentType={"new_lowerUI"}
               colNumber={colNumber}
               tabTitle={tabTitle as string}
+              tabs={tabs}
             />
           )}
 
@@ -523,6 +524,7 @@ function Tab({
                     tabID={tabID}
                     isTabDraggedOver={isTabDraggedOver}
                     globalSettings={globalSettings}
+                    tabs={tabs}
                   />
                 );
               })}

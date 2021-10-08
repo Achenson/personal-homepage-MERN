@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useQuery } from "urql";
 
 import Bookmark_lowerUI_edit from "./Bookmark_lowerUI_edit";
 import Bookmark_lowerUI_new from "./Bookmark_lowerUI_new";
@@ -15,9 +14,6 @@ import {
 } from "../../utils/funcs and hooks/objCreators";
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 import { bookmarkErrorHandling } from "../../utils/funcs and hooks/bookmarkErrorHandling";
-import { TabsQuery } from "../../graphql/graphqlQueries";
-
-import { testUserId } from "../../state/data/testUserId";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { BookmarkErrors, SetBookmarkErrors } from "../../utils/interfaces";
@@ -42,6 +38,7 @@ interface Props {
   colNumber: number;
   errors: BookmarkErrors;
   setErrors: SetBookmarkErrors;
+  tabs: SingleTabData[];
 }
 
 function Bookmark_lowerUI({
@@ -63,6 +60,7 @@ function Bookmark_lowerUI({
   colNumber,
   errors,
   setErrors,
+  tabs
 }: Props): JSX.Element {
   const addBookmark = useBookmarks((store) => store.addBookmark);
   const editBookmark = useBookmarks((store) => store.editBookmark);
@@ -100,22 +98,6 @@ function Bookmark_lowerUI({
 
   // for disabling save btn
   const [wasAnythingChanged, setWasAnythingChanged] = useState(false);
-
-  const [tabResults] = useQuery({
-    query: TabsQuery,
-    variables: { userId: testUserId },
-  });
-
-  const {
-    data: data_tabs,
-    fetching: fetching_tabs,
-    error: error_tabs,
-  } = tabResults;
-
-  if (fetching_tabs) return <p>Loading...</p>;
-  if (error_tabs) return <p>Oh no... {error_tabs.message}</p>;
-
-  let tabs: SingleTabData[] = data_tabs.tabs;
 
   function generateTagIds() {
     if (bookmarkComponentType !== "edit") {
