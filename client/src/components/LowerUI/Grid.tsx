@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 
 import Column from "./Column";
 
-import { useBookmarks } from "../../state/hooks/useBookmarks";
+// import { useBookmarks } from "../../state/hooks/useBookmarks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useResetColors } from "../../state/hooks/colorHooks";
 import { useReset } from "../../state/hooks/useReset";
@@ -14,22 +14,25 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
-import { SingleTabData } from "../../utils/interfaces";
+import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 
 interface Props {
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
   globalSettings: SettingsDatabase_i;
+  bookmarks: SingleBookmarkData[];
   tabs: SingleTabData[];
 }
 
-function Grid({ setTabType, globalSettings, tabs }: Props): JSX.Element {
+function Grid({ setTabType, globalSettings, bookmarks, tabs }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
 
   const deleteEmptyTab = useTabs((store) => store.deleteEmptyTab);
   const resetAllTabColors = useTabs((store) => store.resetAllTabColors);
 
-  const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
+  // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
+  const bookmarksAllTags: string[] = bookmarks.map(obj => obj.id);
+
 
   const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
   const setCloseAllTabsState = useTabs((store) => store.setCloseAllTabsState);

@@ -220,6 +220,7 @@ function Main({ globalSettings }: Props): JSX.Element {
         <Grid
           setTabType={setTabType}
           globalSettings={globalSettings}
+          bookmarks={bookmarks}
           tabs={tabs}
         />
       </main>

@@ -109,7 +109,7 @@ function ColumnColor_OneColorX4({
         tabIndex={1}
       >
         {arrOfCols.map((el, i) => (
-          <div className={`h-4 w-8 ${borderStyle(i)} border-black`}></div>
+          <div className={`h-4 w-8 ${borderStyle(i)} border-black`} key={i}></div>
         ))}
       </button>
     </div>
