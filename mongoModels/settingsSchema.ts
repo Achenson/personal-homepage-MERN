@@ -19,6 +19,19 @@ const SettingsSchema = new Schema<SettingsDatabase_i>({
   date: Boolean,
   description: Boolean,
   itemsPerPage: Number,
+  backgroundColor: String,
+  folderColor: String,
+  noteColor: String,
+  rssColor: String,
+  uiColor: String,
+  colColor_1: String,
+  colColor_2: String,
+  colColor_3: String,
+  colColor_4: String,
+  colColorImg_1: String,
+  colColorImg_2: String,
+  colColorImg_3: String,
+  colColorImg_4: String,
 });
 
 module.exports = model<SettingsDatabase_i>("Settings", SettingsSchema);

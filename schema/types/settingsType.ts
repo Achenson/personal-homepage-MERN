@@ -17,6 +17,19 @@ const {
 export interface SettingsDatabase_i extends GlobalSettingsState {
   id: string;
   userId: string;
+  backgroundColor: string;
+  folderColor: string;
+  noteColor: string;
+  rssColor: string;
+  uiColor: string;
+  colColor_1: string;
+  colColor_2: string;
+  colColor_3: string;
+  colColor_4: string;
+  colColorImg_1: string;
+  colColorImg_2: string;
+  colColorImg_3: string;
+  colColorImg_4: string;
 }
 
 export const SettingsFields = {
@@ -33,6 +46,19 @@ export const SettingsFields = {
   date: { type: GraphQLBoolean },
   description: { type: GraphQLBoolean },
   itemsPerPage: { type: GraphQLInt },
+  backgroundColor: { type: GraphQLString },
+  folderColor: { type: GraphQLString },
+  noteColor: { type: GraphQLString },
+  rssColor: { type: GraphQLString },
+  uiColor: { type: GraphQLString },
+  colColor_1: { type: GraphQLString },
+  colColor_2: { type: GraphQLString },
+  colColor_3: { type: GraphQLString },
+  colColor_4: { type: GraphQLString },
+  colColorImg_1: { type: GraphQLString },
+  colColorImg_2: { type: GraphQLString },
+  colColorImg_3: { type: GraphQLString },
+  colColorImg_4: { type: GraphQLString },
 };
 
 export const SettingsType = new GraphQLObjectType({

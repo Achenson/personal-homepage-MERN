@@ -2,19 +2,19 @@
 
 /* {
  settings(userId: "123") {
+  id
+  userId
   picBackground
+  defaultImage
+  oneColorForAllCols
+  limitColGrowth
+  hideNonDeletable
+  disableDrag
+  numberOfCols
 }
 }    */
 
-/* {
-  settings(userId: "61489020ea91621bf07ebb31") {
-   picBackground
-   user {
-     name,
-     email
-   }
- }
- }     */
+
 
 
 /* {

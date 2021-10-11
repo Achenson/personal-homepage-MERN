@@ -5,22 +5,24 @@ const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
 const Bookmark = require("../../mongoModels/bookmarkSchema");
 
+import {
+  columnColors,
+  imageColumnColors,
+} from "../../client/src/utils/data/colors_column";
+import { backgroundColors } from "../../client/src/utils/data/colors_background";
+import { tabColors } from "../../client/src/utils/data/colors_tab";
+
 import { bookmarks } from "../data/defaultBookmarks";
 import { tabs } from "../data/defaultTabs";
+
 import { BookmarkDatabase_i, BookmarkLocal_i } from "../types/bookmarkType";
 import { TabDatabase_i } from "../types/tabType";
-
-const {
-  GraphQLString,
-  GraphQLNonNull,
-} = graphql;
-
 import { UserFields, UserType, User_i } from "../types/userType";
 
 export const addUserMutationField = {
   type: UserType,
   args: {
-    ...UserFields
+    ...UserFields,
   },
   resolve(_source: unknown, args: User_i) {
     let user = new User({
@@ -43,10 +45,23 @@ export const addUserMutationField = {
         limitColGrowth: false,
         hideNonDeletable: false,
         disableDrag: false,
-        numberOfCols: 4,  
+        numberOfCols: 4,
         date: true,
         description: false,
-        itemsPerPage: 7
+        itemsPerPage: 7,
+        backgroundColor: backgroundColors[0][1],
+        folderColor: tabColors[7][2],
+        noteColor: tabColors[1][2],
+        rssColor: tabColors[9][2],
+        uiColor: tabColors[7][2],
+        colColor_1: columnColors[0][8],
+        colColor_2: columnColors[1][5],
+        colColor_3: columnColors[1][8],
+        colColor_4: columnColors[3][2],
+        colColorImg_1: imageColumnColors[2][6],
+        colColorImg_2: imageColumnColors[2][6],
+        colColorImg_3: imageColumnColors[3][5],
+        colColorImg_4: imageColumnColors[0][5],
       });
 
       newSettings.save();
