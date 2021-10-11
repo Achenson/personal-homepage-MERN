@@ -6,11 +6,11 @@ import shallow from "zustand/shallow";
 import SingleColor_DefaultAndColumn from "./SingleColor_DefaultAndColumn";
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-import {
+/* import {
   useDefaultColors,
   useColumnsColors,
   useColumnsColorsImg,
-} from "../../state/hooks/colorHooks";
+} from "../../state/hooks/colorHooks"; */
 
 import { useUpperUiContext } from "../../context/upperUiContext";
 
@@ -48,10 +48,10 @@ function ColorsToChoose_DefaultAndColumns({
   globalSettings
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
-  const defaultColors = useDefaultColors((state) => state, shallow);
 
-  const columnsColors = useColumnsColors((state) => state, shallow);
-  const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);
+  // const defaultColors = useDefaultColors((state) => state, shallow);
+  // const columnsColors = useColumnsColors((state) => state, shallow);
+  // const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);
 
   const calcSelectedNumber = useCallback((): number => {
     let selectedNumber: number = 0;
@@ -61,7 +61,7 @@ function ColorsToChoose_DefaultAndColumns({
         imageColumnColorsConcat.forEach((color, i) => {
           switch (defaultColorsFor) {
             case "column_1":
-              if (color === columnsColorsImg.column_1) {
+              if (color === globalSettings.colColorImg_1) {
                 selectedNumber = calcColorNumbering(
                   color,
                   imageColumnColorsConcat
@@ -69,7 +69,7 @@ function ColorsToChoose_DefaultAndColumns({
               }
               break;
             case "column_2":
-              if (color === columnsColorsImg.column_2) {
+              if (color === globalSettings.colColorImg_2) {
                 selectedNumber = calcColorNumbering(
                   color,
                   imageColumnColorsConcat
@@ -77,7 +77,7 @@ function ColorsToChoose_DefaultAndColumns({
               }
               break;
             case "column_3":
-              if (color === columnsColorsImg.column_3) {
+              if (color === globalSettings.colColorImg_3) {
                 selectedNumber = calcColorNumbering(
                   color,
                   imageColumnColorsConcat
@@ -85,7 +85,7 @@ function ColorsToChoose_DefaultAndColumns({
               }
               break;
             case "column_4":
-              if (color === columnsColorsImg.column_4) {
+              if (color === globalSettings.colColorImg_4) {
                 selectedNumber = calcColorNumbering(
                   color,
                   imageColumnColorsConcat
@@ -102,22 +102,22 @@ function ColorsToChoose_DefaultAndColumns({
         columnColorsConcat.forEach((color, i) => {
           switch (defaultColorsFor) {
             case "column_1":
-              if (color === columnsColors.column_1) {
+              if (color === globalSettings.colColor_1) {
                 selectedNumber = calcColorNumbering(color, columnColorsConcat);
               }
               break;
             case "column_2":
-              if (color === columnsColors.column_2) {
+              if (color === globalSettings.colColor_2) {
                 selectedNumber = calcColorNumbering(color, columnColorsConcat);
               }
               break;
             case "column_3":
-              if (color === columnsColors.column_3) {
+              if (color === globalSettings.colColor_3) {
                 selectedNumber = calcColorNumbering(color, columnColorsConcat);
               }
               break;
             case "column_4":
-              if (color === columnsColors.column_4) {
+              if (color === globalSettings.colColor_4) {
                 selectedNumber = calcColorNumbering(color, columnColorsConcat);
               }
               break;
@@ -132,18 +132,18 @@ function ColorsToChoose_DefaultAndColumns({
     tabColorsConcat.forEach((color, i) => {
       switch (defaultColorsFor) {
         case "folders":
-          if (color === defaultColors.folderColor) {
+          if (color === globalSettings.folderColor) {
             selectedNumber = calcColorNumbering(color, tabColorsConcat);
           }
           break;
 
         case "notes":
-          if (color === defaultColors.noteColor) {
+          if (color === globalSettings.noteColor) {
             selectedNumber = calcColorNumbering(color, tabColorsConcat);
           }
           break;
         case "rss":
-          if (color === defaultColors.rssColor) {
+          if (color === globalSettings.rssColor) {
             selectedNumber = calcColorNumbering(color, tabColorsConcat);
           }
           break;
@@ -154,17 +154,17 @@ function ColorsToChoose_DefaultAndColumns({
 
     return selectedNumber;
   }, [
-    columnsColors.column_1,
-    columnsColors.column_2,
-    columnsColors.column_3,
-    columnsColors.column_4,
-    columnsColorsImg.column_1,
-    columnsColorsImg.column_2,
-    columnsColorsImg.column_3,
-    columnsColorsImg.column_4,
-    defaultColors.folderColor,
-    defaultColors.noteColor,
-    defaultColors.rssColor,
+    globalSettings.colColor_1,
+    globalSettings.colColor_2,
+    globalSettings.colColor_3,
+    globalSettings.colColor_4,
+    globalSettings.colColorImg_1,
+    globalSettings.colColorImg_2,
+    globalSettings.colColorImg_3,
+    globalSettings.colColorImg_4,
+    globalSettings.folderColor,
+    globalSettings.noteColor,
+    globalSettings.rssColor,
     defaultColorsFor,
     globalSettings.picBackground,
   ]);
