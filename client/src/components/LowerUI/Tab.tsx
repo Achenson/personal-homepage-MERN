@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
 
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 import { useDrag } from "react-dnd";
 import { useQuery } from "urql";
 
@@ -23,7 +23,7 @@ import { BookmarksQuery, SettingsQuery } from "../../graphql/graphqlQueries";
 import { useReset } from "../../state/hooks/useReset";
 import {
   useTabBeingDraggedColor,
-  useDefaultColors,
+  // useDefaultColors,
 } from "../../state/hooks/colorHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useTabReducer } from "../../context/useTabReducer";
@@ -53,6 +53,7 @@ interface Props {
   tabOpened: boolean;
   tabOpenedByDefault: boolean;
   tabIsDeletable: boolean;
+  globalSettings: SettingsDatabase_i;
 }
 
 function Tab({
@@ -64,6 +65,7 @@ function Tab({
   tabOpened,
   tabOpenedByDefault,
   tabIsDeletable,
+  globalSettings,
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -71,7 +73,7 @@ function Tab({
     (state) => state.setTabBeingDraggedColor
   );
 
-  const defaultColors = useDefaultColors((state) => state, shallow);
+  // const defaultColors = useDefaultColors((state) => state, shallow);
 
   // needed for immediate tab content opening/closing after locking/unlocking
   const [tabOpened_local, setTabOpened_local] = useState(tabOpened);
@@ -101,13 +103,6 @@ function Tab({
     fetching: fetching_bookmarks,
     error: errors_bookmarks,
   } = bookmarkResults;
-
-  const [settingsResults] = useQuery({
-    query: SettingsQuery,
-    variables: { userId: testUserId },
-  });
-
-  const { data, fetching, error } = settingsResults;
 
   useEffect(() => {
     setTabOpened_local(tabOpened);
@@ -159,17 +154,21 @@ function Tab({
     finalTabColor = tabColor;
   } else {
     if (tabType === "folder") {
-      finalTabColor = defaultColors.folderColor;
+      finalTabColor = globalSettings.folderColor;
     }
 
     if (tabType === "note") {
-      finalTabColor = defaultColors.noteColor;
+      finalTabColor = globalSettings.noteColor;
     }
 
     if (tabType === "rss") {
-      finalTabColor = defaultColors.rssColor;
+      finalTabColor = globalSettings.rssColor;
+      console.log(finalTabColor);
+      
     }
   }
+
+ 
 
   const dragTab = useTabs((store) => store.dragTab);
 
@@ -315,11 +314,6 @@ function Tab({
   if (errors_bookmarks) return <p>Oh no... {errors_bookmarks.message}</p>;
 
   let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
-
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
-
-  let globalSettings: SettingsDatabase_i = data.settings;
 
   return (
     <TabContext.Provider value={tabContextValue}>
@@ -482,6 +476,7 @@ function Tab({
               tabID={tabID}
               tabColor={tabColor}
               tabType={tabType}
+              globalSettings={globalSettings}
             />
           )}
 

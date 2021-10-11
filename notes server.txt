@@ -47,7 +47,7 @@ notes:
 28. client: make + & - for rss itemsPerPage  
 29. Main -> fetching and date are after useEffects (globalSettings in a useEffect dep) but globalSettings is declared already?
 30. globalSettings taken either from props or from hooks (hooks cannot apply if useEffect uses globalSettings
-+ it requires more code) -> unify?
++ it requires more code) -> unify? -> currently hook is in MainWrapper & Column
 31. interfaces: database vs client side: currently settings are from database but tabs from clientside...
 32. clientside: hooks for store -> sometimes it's state.tabs, sometimes store.tabs -> unify
 33. take care of state other that settings, tabs & bookmarks (use of existings queries should be enough?)

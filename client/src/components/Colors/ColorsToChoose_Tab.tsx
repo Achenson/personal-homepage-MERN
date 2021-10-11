@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 
 import FocusLock from "react-focus-lock";
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 
 import SingleColor_Tab from "./SingleColor_Tab";
 
 import { useTabContext } from "../../context/tabContext";
-import { useDefaultColors } from "../../state/hooks/colorHooks";
+// import { useDefaultColors } from "../../state/hooks/colorHooks";
 
 import { tabColors, tabColorsConcat } from "../../utils/data/colors_tab";
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   setIconsVis: (value: React.SetStateAction<boolean>) => void;
   tabID: string;
   tabColor: string | null;
   tabType: "folder" | "note" | "rss";
+  globalSettings: SettingsDatabase_i;
 }
 
 function ColorsToChoose_Tab({
@@ -22,8 +24,9 @@ function ColorsToChoose_Tab({
   tabID,
   tabColor,
   tabType,
+  globalSettings
 }: Props): JSX.Element {
-  const defaultColors = useDefaultColors((state) => state, shallow);
+  // const defaultColors = useDefaultColors((state) => state, shallow);
   const [selectedNumber, setSelectedNumber] = useState(calcSelectedNumber());
 
   const tabContext = useTabContext();
@@ -55,15 +58,15 @@ function ColorsToChoose_Tab({
 
     if (!tabColor) {
       if (tabType === "folder") {
-        selectedNumber = calcColorNumbering(defaultColors.folderColor);
+        selectedNumber = calcColorNumbering(globalSettings.folderColor);
       }
 
       if (tabType === "note") {
-        selectedNumber = calcColorNumbering(defaultColors.noteColor);
+        selectedNumber = calcColorNumbering(globalSettings.noteColor);
       }
 
       if (tabType === "rss") {
-        selectedNumber = calcColorNumbering(defaultColors.rssColor);
+        selectedNumber = calcColorNumbering(globalSettings.rssColor);
       }
     }
 

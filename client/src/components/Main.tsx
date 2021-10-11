@@ -197,7 +197,7 @@ function Main({ globalSettings }: Props): JSX.Element {
         )}
         {upperVisState.backgroundSettingsVis && (
           <ModalWrap globalSettings={globalSettings}>
-            <BackgroundSettings {...paddingProps} />
+            <BackgroundSettings globalSettings={globalSettings} {...paddingProps} />
           </ModalWrap>
         )}
         {upperVisState.settingsVis && (

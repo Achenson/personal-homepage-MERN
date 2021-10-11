@@ -42,5 +42,18 @@ export const SettingsQuery = `query ($userId: ID) {
     date
     description
     itemsPerPage
+    backgroundColor
+    folderColor
+    noteColor
+    rssColor
+    uiColor
+    colColor_1
+    colColor_2
+    colColor_3
+    colColor_4
+    colColorImg_1
+    colColorImg_2
+    colColorImg_3
+    colColorImg_4
     }
   }`;

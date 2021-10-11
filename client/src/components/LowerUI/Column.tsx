@@ -200,6 +200,7 @@ function Column({
                 tabOpened={el.opened}
                 tabOpenedByDefault={el.openedByDefault}
                 tabIsDeletable={el.deletable}
+                globalSettings={globalSettings}
               />
               {/* <div className="flex-grow"> */}
               <GapAfterTab

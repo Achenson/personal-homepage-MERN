@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 import FocusLock from "react-focus-lock";
 import { useQuery, useMutation } from "urql";
 
 import Settings_inner_xs from "./Settings_inner_xs";
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-import { useDefaultColors } from "../../state/hooks/colorHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useDefaultColors } from "../../state/hooks/colorHooks";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
@@ -23,17 +23,20 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
+  globalSettings: SettingsDatabase_i
 }
 
 function BackgroundSettings({
   mainPaddingRight,
   scrollbarWidth,
+  globalSettings
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   /*  const setGlobalSettings = useGlobalSettings(
     (state) => state.setGlobalSettings
   ); */
-  const uiColor = useDefaultColors((state) => state.uiColor);
+  // const uiColor = useDefaultColors((state) => state.uiColor);
+  const uiColor = globalSettings.uiColor;
 
   const upperUiContext = useUpperUiContext();
 
@@ -73,7 +76,7 @@ function BackgroundSettings({
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  let globalSettings: SettingsDatabase_i = data.settings;
+  // let globalSettings: SettingsDatabase_i = data.settings;
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 5);
