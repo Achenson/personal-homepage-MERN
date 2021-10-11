@@ -47,7 +47,8 @@ function NewTab({
   const addTabs = useTabs((state) => state.addTabs);
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   const addTag = useBookmarks((state) => state.addTag);
-  const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
+  // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
+  const bookmarksAllTags: string[] = bookmarks.map(obj => obj.id);
   const setBookmarksAllTags = useBookmarks(
     (store) => store.setBookmarksAllTags
   );

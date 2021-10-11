@@ -77,7 +77,8 @@ function NewBookmark_UpperUI({
   const addTabs = useTabs((store) => store.addTabs);
 
   // const bookmarks = useBookmarks((store) => store.bookmarks);
-  const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
+  // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
+  const bookmarksAllTags: string[] = bookmarks.map(obj => obj.id);
   const setBookmarksAllTags = useBookmarks(
     (store) => store.setBookmarksAllTags
   );

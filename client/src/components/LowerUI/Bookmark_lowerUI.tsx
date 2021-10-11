@@ -62,12 +62,13 @@ function Bookmark_lowerUI({
   errors,
   setErrors,
   bookmarks,
-  tabs
+  tabs,
 }: Props): JSX.Element {
   const addBookmark = useBookmarks((store) => store.addBookmark);
   const editBookmark = useBookmarks((store) => store.editBookmark);
   // const bookmarks = useBookmarks((store) => store.bookmarks);
-  const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
+  // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
+  const bookmarksAllTags: string[] = bookmarks.map((obj) => obj.id);
   const setBookmarksAllTags = useBookmarks(
     (store) => store.setBookmarksAllTags
   );
