@@ -26,6 +26,7 @@ import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_b
 import {
   BookmarkErrors,
   SetBookmarkErrors,
+  SingleBookmarkData,
   SingleTabData,
 } from "../../utils/interfaces";
 
@@ -48,6 +49,7 @@ interface Props {
   setErrors: SetBookmarkErrors;
   mainPaddingRight: boolean;
   scrollbarWidth: number;
+  bookmarks: SingleBookmarkData[];
   tabs: SingleTabData[];
 }
 
@@ -68,12 +70,13 @@ function NewBookmark_UpperUI({
   setErrors,
   mainPaddingRight,
   scrollbarWidth,
+  bookmarks,
   tabs
 }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   const addTabs = useTabs((store) => store.addTabs);
 
-  const bookmarks = useBookmarks((store) => store.bookmarks);
+  // const bookmarks = useBookmarks((store) => store.bookmarks);
   const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   const setBookmarksAllTags = useBookmarks(
     (store) => store.setBookmarksAllTags

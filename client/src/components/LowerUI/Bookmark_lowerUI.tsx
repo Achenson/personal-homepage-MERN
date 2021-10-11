@@ -38,6 +38,7 @@ interface Props {
   colNumber: number;
   errors: BookmarkErrors;
   setErrors: SetBookmarkErrors;
+  bookmarks: SingleBookmarkData[];
   tabs: SingleTabData[];
 }
 
@@ -60,11 +61,12 @@ function Bookmark_lowerUI({
   colNumber,
   errors,
   setErrors,
+  bookmarks,
   tabs
 }: Props): JSX.Element {
   const addBookmark = useBookmarks((store) => store.addBookmark);
   const editBookmark = useBookmarks((store) => store.editBookmark);
-  const bookmarks = useBookmarks((store) => store.bookmarks);
+  // const bookmarks = useBookmarks((store) => store.bookmarks);
   const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   const setBookmarksAllTags = useBookmarks(
     (store) => store.setBookmarksAllTags

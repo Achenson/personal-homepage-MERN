@@ -126,6 +126,7 @@ function SingleBookmark({
           bookmarkComponentType="edit"
           colNumber={colNumber}
           bookmarkId={bookmarkId as string}
+          bookmarks={bookmarks}
           tabs={tabs}
         />
       )}

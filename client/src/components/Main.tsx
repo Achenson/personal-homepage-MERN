@@ -22,11 +22,11 @@ import { useWindowSize } from "../utils/funcs and hooks/useWindowSize";
 import { UpperUiContext } from "../context/upperUiContext";
 
 import { SettingsDatabase_i } from "../../../schema/types/settingsType";
-import { TabsQuery } from "../graphql/graphqlQueries";
+import { TabsQuery, BookmarksQuery } from "../graphql/graphqlQueries";
 
 import { testUserId } from "../state/data/testUserId";
 
-import { SingleTabData } from "../utils/interfaces";
+import { SingleBookmarkData, SingleTabData } from "../utils/interfaces";
 
 interface Props {
   globalSettings: SettingsDatabase_i;
@@ -133,10 +133,26 @@ function Main({ globalSettings }: Props): JSX.Element {
     error: error_tabs,
   } = tabResults;
 
+  const [bookmarkResults] = useQuery({
+    query: BookmarksQuery,
+    variables: { userId: testUserId },
+  });
+
+  const {
+    data: data_bookmarks,
+    fetching: fetching_bookmarks,
+    error: error_bookmarks,
+  } = bookmarkResults;
+
   if (fetching_tabs) return <p>Loading...</p>;
   if (error_tabs) return <p>Oh no... {error_tabs.message}</p>;
 
   let tabs: SingleTabData[] = data_tabs.tabs;
+
+  if (fetching_bookmarks) return <p>Loading...</p>;
+  if (error_bookmarks) return <p>Oh no... {error_bookmarks.message}</p>;
+
+  let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
 
   let paddingProps = {
     mainPaddingRight: paddingRight,
@@ -161,7 +177,12 @@ function Main({ globalSettings }: Props): JSX.Element {
       >
         {upperVisState.newTabVis && (
           <ModalWrap globalSettings={globalSettings}>
-            <NewTab tabType={tabType} tabs={tabs} {...paddingProps} />
+            <NewTab
+              tabType={tabType}
+              tabs={tabs}
+              {...paddingProps}
+              bookmarks={bookmarks}
+            />
           </ModalWrap>
         )}
         {upperVisState.newBookmarkVis && (
@@ -169,6 +190,7 @@ function Main({ globalSettings }: Props): JSX.Element {
             <Bookmark_newAndEdit
               bookmarkComponentType={"new_upperUI"}
               tabs={tabs}
+              bookmarks={bookmarks}
               {...paddingProps}
             />
           </ModalWrap>

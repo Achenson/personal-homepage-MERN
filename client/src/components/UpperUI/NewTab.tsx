@@ -26,24 +26,26 @@ import { tabErrorHandling } from "../../utils/funcs and hooks/tabErrorHandling";
 import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { SingleTabData } from "../../utils/interfaces";
+import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 
 interface Props {
   tabType: "folder" | "note" | "rss";
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   tabs: SingleTabData[];
+  bookmarks: SingleBookmarkData[];
 }
 
 function NewTab({
   tabType,
   mainPaddingRight,
   scrollbarWidth,
-  tabs
+  tabs,
+  bookmarks
 }: Props): JSX.Element {
   // const tabs = useTabs((state) => state.tabs);
   const addTabs = useTabs((state) => state.addTabs);
-  const bookmarks = useBookmarks((state) => state.bookmarks);
+  // const bookmarks = useBookmarks((state) => state.bookmarks);
   const addTag = useBookmarks((state) => state.addTag);
   const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   const setBookmarksAllTags = useBookmarks(

@@ -17,7 +17,7 @@ import { ReactComponent as PencilSmallSVG } from "../../svgs/pencilSmall.svg";
 import { ReactComponent as CrossArrowsSVG } from "../../svgs/cross-arrows.svg";
 import { ReactComponent as PlusSVG } from "../../svgs/plus.svg";
 
-import {BookmarksQuery, SettingsQuery} from "../../graphql/graphqlQueries"
+import { BookmarksQuery, SettingsQuery } from "../../graphql/graphqlQueries";
 // import { useBookmarks } from "../../state/hooks/useBookmarks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useReset } from "../../state/hooks/useReset";
@@ -33,7 +33,7 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 import { ItemTypes } from "../../utils/data/itemsDnd";
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 
-import {testUserId} from "../../state/data/testUserId"
+import { testUserId } from "../../state/data/testUserId";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
@@ -96,7 +96,11 @@ function Tab({
     variables: { userId: testUserId },
   });
 
-  const { data: data_bookmarks, fetching: fetching_bookmarks, error: errors_bookmarks } = bookmarkResults;
+  const {
+    data: data_bookmarks,
+    fetching: fetching_bookmarks,
+    error: errors_bookmarks,
+  } = bookmarkResults;
 
   const [settingsResults] = useQuery({
     query: SettingsQuery,
@@ -307,18 +311,15 @@ function Tab({
     tabID !== draggedItem.tabID
   );
 
-
   if (fetching_bookmarks) return <p>Loading...</p>;
   if (errors_bookmarks) return <p>Oh no... {errors_bookmarks.message}</p>;
 
   let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
 
-
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
   let globalSettings: SettingsDatabase_i = data.settings;
-  
 
   return (
     <TabContext.Provider value={tabContextValue}>
@@ -377,7 +378,7 @@ function Tab({
                 <p
                   className={`truncate ${
                     isTabDraggedOver ? `invisible` : "visible"
-                  // } ${tabID === "ALL_TAGS" ? "tracking-wider" : ""}`}
+                    // } ${tabID === "ALL_TAGS" ? "tracking-wider" : ""}`}
                   } ${!tabIsDeletable ? "tracking-wider" : ""}`}
                 >
                   {tabTitle}
@@ -491,7 +492,7 @@ function Tab({
               bookmarkComponentType={"new_lowerUI"}
               colNumber={colNumber}
               tabTitle={tabTitle as string}
-              // bookmarks={bookmarks}
+              bookmarks={bookmarks}
               tabs={tabs}
             />
           )}
