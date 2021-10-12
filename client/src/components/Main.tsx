@@ -207,7 +207,7 @@ function Main({ globalSettings }: Props): JSX.Element {
         )}
         {upperVisState.colorsSettingsVis && (
           <ModalWrap globalSettings={globalSettings}>
-            <ColorsSettings {...paddingProps} />
+            <ColorsSettings {...paddingProps} globalSettings={globalSettings}/>
           </ModalWrap>
         )}
         {upperVisState.profileVis && (

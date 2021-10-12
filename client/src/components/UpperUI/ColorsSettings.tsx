@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useQuery } from "urql";
 
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 import FocusLock from "react-focus-lock";
 
 import Settings_inner_xs from "./Settings_inner_xs";
@@ -14,20 +13,19 @@ import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
-import { SettingsQuery } from "../../graphql/graphqlQueries";
-
-import { testUserId } from "../../state/data/testUserId";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
+  globalSettings: SettingsDatabase_i;
 }
 
 function ColorsSettings({
   mainPaddingRight,
   scrollbarWidth,
+  globalSettings,
 }: Props): JSX.Element {
   const [defaultColorsFor, setDefaultColorsFor] = useState<
     "folders" | "notes" | "rss" | "unselected"
@@ -41,7 +39,7 @@ function ColorsSettings({
 
   const setResetColors = useResetColors((state) => state.setResetColors);
 
-  const defaultColors = useDefaultColors((state) => state, shallow);
+  // const defaultColors = useDefaultColors((state) => state, shallow);
 
   const setTabOpenedState = useTabs((state) => state.setTabOpenedState);
 
@@ -74,7 +72,7 @@ function ColorsSettings({
     };
   });
 
-  const [settingsResults] = useQuery({
+  /*   const [settingsResults] = useQuery({
     query: SettingsQuery,
     variables: { userId: testUserId },
   });
@@ -84,7 +82,7 @@ function ColorsSettings({
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  let globalSettings: SettingsDatabase_i = data.settings;
+  let globalSettings: SettingsDatabase_i = data.settings; */
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 6);
@@ -107,7 +105,7 @@ function ColorsSettings({
           }}
         >
           <div
-            className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${defaultColors.uiColor} rounded-sm relative`}
+            className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${globalSettings.uiColor} rounded-sm relative`}
             style={{
               width: `350px`,
               height: "200px",
@@ -161,7 +159,7 @@ function ColorsSettings({
                   setTabOpenedState(null);
                 }}
                 className={`h-4 w-8 bg-${
-                  defaultColors.folderColor
+                  globalSettings.folderColor
                 } cursor-pointer ${
                   foldersSelected ? "border-2" : "border"
                 } border-black hover:border-gray-500 focus-1-offset-dark`}
@@ -187,7 +185,7 @@ function ColorsSettings({
                   setTabOpenedState(null);
                 }}
                 className={`h-4 w-8 bg-${
-                  defaultColors.noteColor
+                  globalSettings.noteColor
                 } cursor-pointer ${
                   notesSelected ? "border-2" : "border"
                 } border-black hover:border-gray-500 focus-1-offset-dark`}
@@ -212,7 +210,7 @@ function ColorsSettings({
                   setTabOpenedState(null);
                 }}
                 className={`h-4 w-8 bg-${
-                  defaultColors.rssColor
+                  globalSettings.rssColor
                 } cursor-pointer ${
                   rssSelected ? "border-2" : "border"
                 } border-black hover:border-gray-500 focus-1-offset-dark`}
