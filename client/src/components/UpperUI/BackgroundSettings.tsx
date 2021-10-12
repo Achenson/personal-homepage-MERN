@@ -20,13 +20,13 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
-  globalSettings: SettingsDatabase_i
+  globalSettings: SettingsDatabase_i;
 }
 
 function BackgroundSettings({
   mainPaddingRight,
   scrollbarWidth,
-  globalSettings
+  globalSettings,
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   /*  const setGlobalSettings = useGlobalSettings(
@@ -109,7 +109,10 @@ function BackgroundSettings({
               }`,
             }}
           >
-            <Settings_inner_xs currentSettings={"background"} globalSettings={globalSettings} />
+            <Settings_inner_xs
+              currentSettings={"background"}
+              globalSettings={globalSettings}
+            />
             <div className="absolute right-0 top-0 mt-1 mr-1">
               <button
                 className="h-5 w-5 focus-2-offset-dark"
@@ -140,11 +143,10 @@ function BackgroundSettings({
                         ...globalSettings,
                         picBackground: true,
                       }); */
-                      let variables = {
+                      changeSettings({
                         ...globalSettings,
                         picBackground: true,
-                      };
-                      changeSettings(variables);
+                      });
                     }
                   }}
                   aria-label={"Background image on"}
@@ -170,11 +172,10 @@ function BackgroundSettings({
                         ...globalSettings,
                         picBackground: false,
                       }); */
-                      let variables = {
+                      changeSettings({
                         ...globalSettings,
                         picBackground: false,
-                      };
-                      changeSettings(variables);
+                      });
                     }
                   }}
                   aria-label={"Background image off"}
@@ -206,11 +207,10 @@ function BackgroundSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground",
                         }); */
-                        let variables = {
+                        changeSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground",
-                        };
-                        changeSettings(variables);
+                        });
                       }}
                       className="focus-1-offset"
                       aria-label={"Background image one"}
@@ -229,11 +229,10 @@ function BackgroundSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground_2",
                         }); */
-                        let variables = {
+                        changeSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground_2",
-                        };
-                        changeSettings(variables);
+                        });
                       }}
                       className="focus-1-offset"
                       aria-label={"Background image two"}
@@ -253,11 +252,10 @@ function BackgroundSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground_3",
                         }); */
-                        let variables = {
+                        changeSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground_3",
-                        };
-                        changeSettings(variables);
+                        });
                       }}
                       aria-label={"Background image three"}
                     >

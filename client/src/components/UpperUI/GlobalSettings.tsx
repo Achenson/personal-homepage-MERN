@@ -111,8 +111,7 @@ function GlobalSettings({
                 ...globalSettings,
                 numberOfCols: el,
               }); */
-              let variables = { ...globalSettings, numberOfCols: el };
-              changeSettings(variables);
+              changeSettings({ ...globalSettings, numberOfCols: el });
             }}
             className="focus-1-offset"
           >
@@ -194,13 +193,9 @@ function GlobalSettings({
                     ...globalSettings,
                     oneColorForAllCols: !globalSettings.oneColorForAllCols,
                   }); */
-
-                  let variables = {
+                  changeSettings({
                     ...globalSettings,
                     oneColorForAllCols: !globalSettings.oneColorForAllCols,
-                  };
-                  changeSettings(variables).then((result) => {
-                    console.log(result);
                   });
                 }}
                 aria-label={"One color for all columns"}
@@ -219,12 +214,10 @@ function GlobalSettings({
                     ...globalSettings,
                     limitColGrowth: !globalSettings.limitColGrowth,
                   }); */
-
-                  let variables = {
+                  changeSettings({
                     ...globalSettings,
                     limitColGrowth: !globalSettings.limitColGrowth,
-                  };
-                  changeSettings(variables);
+                  });
                 }}
                 aria-label={"Limit column width growth"}
               ></button>
@@ -243,11 +236,10 @@ function GlobalSettings({
                     ...globalSettings,
                     hideNonDeletable: !globalSettings.hideNonDeletable,
                   }); */
-                  let variables = {
+                  changeSettings({
                     ...globalSettings,
                     hideNonDeletable: !globalSettings.hideNonDeletable,
-                  };
-                  changeSettings(variables);
+                  });
                 }}
                 aria-label={"Hide folder containing all bookmarks"}
               ></button>
@@ -265,11 +257,10 @@ function GlobalSettings({
                     ...globalSettings,
                     disableDrag: !globalSettings.disableDrag,
                   }); */
-                  let variables = {
+                  changeSettings({
                     ...globalSettings,
                     disableDrag: !globalSettings.disableDrag,
-                  };
-                  changeSettings(variables);
+                  });
                 }}
                 aria-label={"Disable drag and drop"}
               ></button>
@@ -295,11 +286,10 @@ function GlobalSettings({
                           ...globalSettings,
                           description: !globalSettings.description,
                         }); */
-                        let variables = {
+                        changeSettings({
                           ...globalSettings,
                           description: !globalSettings.description,
-                        };
-                        changeSettings(variables);
+                        });
 
                         setTabOpenedState(null);
                       }}
@@ -322,11 +312,10 @@ function GlobalSettings({
                           date: !globalSettings.date,
                         });
                          */
-                        let variables = {
+                        changeSettings({
                           ...globalSettings,
                           date: !globalSettings.date,
-                        };
-                        changeSettings(variables);
+                        });
 
                         setTabOpenedState(null);
                       }}
@@ -355,11 +344,10 @@ function GlobalSettings({
                       ...globalSettings,
                       itemsPerPage: parseInt(e.target.value),
                     }); */
-                    let variables = {
+                    changeSettings({
                       ...globalSettings,
                       itemsPerPage: parseInt(e.target.value),
-                    };
-                    changeSettings(variables);
+                    });
 
                     setTabOpenedState(null);
                   }}
