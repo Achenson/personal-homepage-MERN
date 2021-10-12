@@ -237,7 +237,7 @@ function Column({
             top: "-32px",
           }}
         >
-          <UpperLeftMenu />
+          <UpperLeftMenu globalSettings={globalSettings}/>
         </div>
       )}
 

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 // import shallow from "zustand/shallow";
-import { useQuery } from "urql";
 
 import ColumnColor from "./ColumnColor";
 import ColorsToChoose_DefaultAndColumns from "../Colors/ColorsToChoose_DefaultAndColumns";
@@ -13,12 +11,13 @@ import ColumnColor_OneColorX4 from "./ColumnColor_OneColorX4";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
-import { SettingsQuery } from "../../graphql/graphqlQueries";
-import { testUserId } from "../../state/data/testUserId";
-
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
-function UpperLeftMenu(): JSX.Element {
+interface Props {
+  globalSettings: SettingsDatabase_i;
+}
+
+function UpperLeftMenu({ globalSettings }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   const [defaultColorsFor, setDefaultColorsFor] = useState<
@@ -39,18 +38,6 @@ function UpperLeftMenu(): JSX.Element {
 
   // set focus on BackgroundColor SVG when pressing "Escape" for closing ColorsToChoose_Background
   const [focusOnBackgroundColor, setFocusOnBackgroundColor] = useState(false);
-
-  const [settingsResults] = useQuery({
-    query: SettingsQuery,
-    variables: { userId: testUserId },
-  });
-
-  const { data, fetching, error } = settingsResults;
-
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
-
-  let globalSettings: SettingsDatabase_i = data.settings;
 
   function columnsRendering(howMany: number, oneColorForAllCols: boolean) {
     let arrOfColumns = [];

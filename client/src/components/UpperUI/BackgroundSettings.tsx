@@ -13,10 +13,7 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
-import { SettingsQuery } from "../../graphql/graphqlQueries";
 import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
-
-import { testUserId } from "../../state/data/testUserId";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
@@ -62,19 +59,9 @@ function BackgroundSettings({
     };
   });
 
-  const [settingsResults] = useQuery({
-    query: SettingsQuery,
-    variables: { userId: testUserId },
-  });
-
   const [changeSettingsResult, changeSettings] = useMutation(
     ChangeSettingsMutation
   );
-
-  const { data, fetching, error } = settingsResults;
-
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
 
   // let globalSettings: SettingsDatabase_i = data.settings;
 
