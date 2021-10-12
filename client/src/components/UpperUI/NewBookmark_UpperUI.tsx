@@ -13,7 +13,7 @@ import { ReactComponent as ChevronUpSVG } from "../../svgs/chevron-up.svg";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
-import { useDefaultColors } from "../../state/hooks/colorHooks";
+// import { useDefaultColors } from "../../state/hooks/colorHooks";
 
 import {
   createBookmark,
@@ -29,6 +29,7 @@ import {
   SingleBookmarkData,
   SingleTabData,
 } from "../../utils/interfaces";
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   titleInput: string;
@@ -51,6 +52,7 @@ interface Props {
   scrollbarWidth: number;
   bookmarks: SingleBookmarkData[];
   tabs: SingleTabData[];
+  globalSettings: SettingsDatabase_i;
 }
 
 function NewBookmark_UpperUI({
@@ -71,20 +73,22 @@ function NewBookmark_UpperUI({
   mainPaddingRight,
   scrollbarWidth,
   bookmarks,
-  tabs
+  tabs,
+  globalSettings,
 }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   const addTabs = useTabs((store) => store.addTabs);
 
   // const bookmarks = useBookmarks((store) => store.bookmarks);
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
-  const bookmarksAllTags: string[] = bookmarks.map(obj => obj.id);
+  const bookmarksAllTags: string[] = bookmarks.map((obj) => obj.id);
   const setBookmarksAllTags = useBookmarks(
     (store) => store.setBookmarksAllTags
   );
   const addBookmark = useBookmarks((store) => store.addBookmark);
 
-  const uiColor = useDefaultColors((state) => state.uiColor);
+  // const uiColor = useDefaultColors((state) => state.uiColor);
+  const uiColor = globalSettings.uiColor;
 
   const upperUiContext = useUpperUiContext();
 

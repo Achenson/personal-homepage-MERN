@@ -180,8 +180,9 @@ function Main({ globalSettings }: Props): JSX.Element {
             <NewTab
               tabType={tabType}
               tabs={tabs}
-              {...paddingProps}
               bookmarks={bookmarks}
+              globalSettings={globalSettings}
+              {...paddingProps}
             />
           </ModalWrap>
         )}
@@ -191,28 +192,32 @@ function Main({ globalSettings }: Props): JSX.Element {
               bookmarkComponentType={"new_upperUI"}
               tabs={tabs}
               bookmarks={bookmarks}
+              globalSettings={globalSettings}
               {...paddingProps}
             />
           </ModalWrap>
         )}
         {upperVisState.backgroundSettingsVis && (
           <ModalWrap globalSettings={globalSettings}>
-            <BackgroundSettings globalSettings={globalSettings} {...paddingProps} />
+            <BackgroundSettings
+              globalSettings={globalSettings}
+              {...paddingProps}
+            />
           </ModalWrap>
         )}
         {upperVisState.settingsVis && (
           <ModalWrap globalSettings={globalSettings}>
-            <GlobalSettings {...paddingProps} globalSettings={globalSettings}/>
+            <GlobalSettings globalSettings={globalSettings} {...paddingProps} />
           </ModalWrap>
         )}
         {upperVisState.colorsSettingsVis && (
           <ModalWrap globalSettings={globalSettings}>
-            <ColorsSettings {...paddingProps} globalSettings={globalSettings}/>
+            <ColorsSettings globalSettings={globalSettings} {...paddingProps} />
           </ModalWrap>
         )}
         {upperVisState.profileVis && (
           <ModalWrap globalSettings={globalSettings}>
-            <Profile {...paddingProps} />
+            <Profile globalSettings={globalSettings} {...paddingProps} />
           </ModalWrap>
         )}
 

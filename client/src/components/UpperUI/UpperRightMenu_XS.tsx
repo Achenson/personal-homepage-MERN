@@ -11,20 +11,23 @@ import { ReactComponent as UserSVG } from "../../svgs/user.svg";
 import { ReactComponent as LogoutSVG } from "../../svgs/logout.svg";
 import { ReactComponent as AddRssSVG } from "../../svgs/rss.svg";
 
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-import { useDefaultColors } from "../../state/hooks/colorHooks";
+// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+// import { useDefaultColors } from "../../state/hooks/colorHooks";
 import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 
 import { useUpperUiContext } from "../../context/upperUiContext";
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
+  globalSettings: SettingsDatabase_i;
 }
 
-function UpperRightMenu({ setTabType }: Props): JSX.Element {
-  const globalSettings = useGlobalSettings((state) => state, shallow);
+function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
+  // const globalSettings = useGlobalSettings((state) => state, shallow);
 
-  const uiColor = useDefaultColors((state) => state.uiColor);
+  // const uiColor = useDefaultColors((state) => state.uiColor);
+  const uiColor = globalSettings.uiColor;
 
   const loggedInState = useLoggedInState((state) => state.loggedInState);
   const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);

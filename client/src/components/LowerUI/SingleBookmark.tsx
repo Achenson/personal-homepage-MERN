@@ -21,13 +21,11 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 interface Props {
   singleBookmarkData: SingleBookmarkData;
   bookmarkId: string;
-  setBookmarkId: React.Dispatch<
-    React.SetStateAction<string | undefined>
-  >;
+  setBookmarkId: React.Dispatch<React.SetStateAction<string | undefined>>;
   colNumber: number;
   tabID: string;
   isTabDraggedOver: boolean;
-  globalSettings: SettingsDatabase_i
+  globalSettings: SettingsDatabase_i;
   bookmarks: SingleBookmarkData[];
   tabs: SingleTabData[];
 }
@@ -40,7 +38,7 @@ function SingleBookmark({
   isTabDraggedOver,
   globalSettings,
   bookmarks,
-  tabs
+  tabs,
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -110,7 +108,11 @@ function SingleBookmark({
                 );
 
                 if (bookmarkToDelete) {
-                  deleteBookmark(bookmarkId, singleBookmarkData, tabs.find(obj => !obj.deletable)?.id as string);
+                  deleteBookmark(
+                    bookmarkId,
+                    singleBookmarkData,
+                    tabs.find((obj) => !obj.deletable)?.id as string
+                  );
                 }
               }}
               aria-label={"Delete bookmark"}
@@ -128,6 +130,7 @@ function SingleBookmark({
           bookmarkId={bookmarkId as string}
           bookmarks={bookmarks}
           tabs={tabs}
+          globalSettings={globalSettings}
         />
       )}
     </div>

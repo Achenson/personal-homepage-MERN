@@ -27,6 +27,7 @@ import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   tabType: "folder" | "note" | "rss";
@@ -34,6 +35,7 @@ interface Props {
   scrollbarWidth: number;
   tabs: SingleTabData[];
   bookmarks: SingleBookmarkData[];
+  globalSettings: SettingsDatabase_i;
 }
 
 function NewTab({
@@ -41,18 +43,20 @@ function NewTab({
   mainPaddingRight,
   scrollbarWidth,
   tabs,
-  bookmarks
+  bookmarks,
+  globalSettings,
 }: Props): JSX.Element {
   // const tabs = useTabs((state) => state.tabs);
   const addTabs = useTabs((state) => state.addTabs);
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   const addTag = useBookmarks((state) => state.addTag);
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
-  const bookmarksAllTags: string[] = bookmarks.map(obj => obj.id);
+  const bookmarksAllTags: string[] = bookmarks.map((obj) => obj.id);
   const setBookmarksAllTags = useBookmarks(
     (store) => store.setBookmarksAllTags
   );
-  const uiColor = useDefaultColors((state) => state.uiColor);
+  // const uiColor = useDefaultColors((state) => state.uiColor);
+  const uiColor = globalSettings.uiColor;
 
   const upperUiContext = useUpperUiContext();
 

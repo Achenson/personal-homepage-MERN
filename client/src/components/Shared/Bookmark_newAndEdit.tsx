@@ -7,6 +7,7 @@ import Bookmark_lowerUI from "../LowerUI/Bookmark_lowerUI";
 // import { useTabs } from "../../state/hooks/useTabs";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   bookmarkComponentType: "new_upperUI" | "new_lowerUI" | "edit";
@@ -21,6 +22,7 @@ interface Props {
   // bookmarks: SingleBookmarkData[];
   tabs: SingleTabData[];
   bookmarks: SingleBookmarkData[];
+  globalSettings: SettingsDatabase_i;
 }
 
 const errorsAllFalse = {
@@ -41,7 +43,8 @@ function Bookmark_newAndEdit({
   mainPaddingRight,
   scrollbarWidth,
   bookmarks,
-  tabs
+  tabs,
+  globalSettings,
 }: Props): JSX.Element {
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   // const tabs = useTabs((state) => state.tabs);
@@ -210,6 +213,7 @@ function Bookmark_newAndEdit({
           scrollbarWidth={scrollbarWidth as number}
           bookmarks={bookmarks}
           tabs={tabs}
+          globalSettings={globalSettings}
         />
       ) : (
         <Bookmark_lowerUI

@@ -7,18 +7,25 @@ import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 import Profile_input from "./Profile_input";
 
 import { useLoggedInState } from "../../state/hooks/useLoggedInState";
-import { useDefaultColors } from "../../state/hooks/colorHooks";
+// import { useDefaultColors } from "../../state/hooks/colorHooks";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
+  globalSettings: SettingsDatabase_i;
 }
 
-function Profile({ mainPaddingRight, scrollbarWidth }: Props): JSX.Element {
-  const uiColor = useDefaultColors((state) => state.uiColor);
+function Profile({
+  mainPaddingRight,
+  scrollbarWidth,
+  globalSettings,
+}: Props): JSX.Element {
+  // const uiColor = useDefaultColors((state) => state.uiColor);
+  const uiColor = globalSettings.uiColor;
 
   const [loginOrRegister, setLoginOrRegister] = useState<"login" | "register">(
     "login"

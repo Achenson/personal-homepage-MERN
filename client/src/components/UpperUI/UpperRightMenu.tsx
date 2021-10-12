@@ -16,7 +16,7 @@ import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 
 import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-import { useDefaultColors } from "../../state/hooks/colorHooks";
+// import { useDefaultColors } from "../../state/hooks/colorHooks";
 
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
@@ -31,7 +31,8 @@ interface Props {
 function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
-  const uiColor = useDefaultColors((state) => state.uiColor);
+  // const uiColor = useDefaultColors((state) => state.uiColor);
+  const uiColor = globalSettings.uiColor;
 
   const loggedInState = useLoggedInState((state) => state.loggedInState);
   const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
@@ -184,7 +185,10 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
         </button>
       </div>
       {/* XS============================== */}
-      <UpperRightMenu_XS setTabType={setTabType} />
+      <UpperRightMenu_XS
+        setTabType={setTabType}
+        globalSettings={globalSettings}
+      />
       {/* xs ============================^ */}
 
       <div

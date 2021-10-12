@@ -164,11 +164,8 @@ function Tab({
     if (tabType === "rss") {
       finalTabColor = globalSettings.rssColor;
       console.log(finalTabColor);
-      
     }
   }
-
- 
 
   const dragTab = useTabs((store) => store.dragTab);
 
@@ -489,6 +486,7 @@ function Tab({
               tabTitle={tabTitle as string}
               bookmarks={bookmarks}
               tabs={tabs}
+              globalSettings={globalSettings}
             />
           )}
 

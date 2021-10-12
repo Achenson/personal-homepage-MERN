@@ -7,7 +7,7 @@ import { ReactComponent as ColorSVG } from "../../svgs/beaker.svg";
 import { ReactComponent as SettingsSVG } from "../../svgs/settingsAlt.svg";
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-import { useDefaultColors } from "../../state/hooks/colorHooks";
+// import { useDefaultColors } from "../../state/hooks/colorHooks";
 
 import { useUpperUiContext } from "../../context/upperUiContext";
 
@@ -15,11 +15,15 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   currentSettings: "background" | "colors" | "global";
-  globalSettings: SettingsDatabase_i
+  globalSettings: SettingsDatabase_i;
 }
 
-function Settings_inner_xs({ currentSettings, globalSettings }: Props): JSX.Element {
-  const uiColor = useDefaultColors((state) => state.uiColor);
+function Settings_inner_xs({
+  currentSettings,
+  globalSettings,
+}: Props): JSX.Element {
+  // const uiColor = useDefaultColors((state) => state.uiColor);
+  const uiColor = globalSettings.uiColor;
 
   const upperUiContext = useUpperUiContext();
 
