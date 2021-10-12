@@ -4,10 +4,10 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 
 import shallow from "zustand/shallow";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-import {
+/* import {
   useColumnsColors,
   useColumnsColorsImg,
-} from "../../state/hooks/colorHooks";
+} from "../../state/hooks/colorHooks"; */
 import { useTabs } from "../../state/hooks/useTabs";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
@@ -15,14 +15,14 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 interface Props {
   colNumber: number;
   defaultColorsFor:
-    | "column_1"
-    | "column_2"
-    | "column_3"
-    | "column_4"
+    | "colColor_1"
+    | "colColor_2"
+    | "colColor_3"
+    | "colColor_4"
     | "unselected";
   setDefaultColorsFor: React.Dispatch<
     React.SetStateAction<
-      "column_1" | "column_2" | "column_3" | "column_4" | "unselected"
+      "colColor_1" | "colColor_2" | "colColor_3" | "colColor_4" | "unselected"
     >
   >;
   arrIndex: number;
@@ -47,8 +47,8 @@ function ColumnColor({
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
-  const columnsColors = useColumnsColors((state) => state, shallow);
-  const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);
+ /*  const columnsColors = useColumnsColors((state) => state, shallow);
+  const columnsColorsImg = useColumnsColorsImg((state) => state, shallow); */
 
   const setTabOpenedState = useTabs((state) => state.setTabOpenedState);
 
@@ -70,29 +70,39 @@ function ColumnColor({
     if (!globalSettings.picBackground) {
       switch (colNumber) {
         case 1:
-          return "bg-" + columnsColors.column_1;
+          return "bg-" + globalSettings.colColor_1;
+          // return "bg-" + columnsColors.colColor_1;
         case 2:
-          return "bg-" + columnsColors.column_2;
+          return "bg-" + globalSettings.colColor_2;
+          // return "bg-" + columnsColors.colColor_2;
         case 3:
-          return "bg-" + columnsColors.column_3;
+          return "bg-" + globalSettings.colColor_3;
+          // return "bg-" + columnsColors.colColor_3;
         case 4:
-          return "bg-" + columnsColors.column_4;
+          return "bg-" + globalSettings.colColor_4;
+          // return "bg-" + columnsColors.colColor_4;
         default:
-          return columnsColors.column_1;
+          return globalSettings.colColor_1;
+          // return columnsColors.colColor_1;
       }
     }
 
     switch (colNumber) {
       case 1:
-        return columnsColorsImg.column_1;
+        return globalSettings.colColorImg_1;
+        // return columnsColorsImg.colColor_1;
       case 2:
-        return columnsColorsImg.column_2;
+        return globalSettings.colColorImg_2;
+        // return columnsColorsImg.colColor_2;
       case 3:
-        return columnsColorsImg.column_3;
+        return globalSettings.colColorImg_3;
+        // return columnsColorsImg.colColor_3;
       case 4:
-        return columnsColorsImg.column_4;
+        return globalSettings.colColorImg_4;
+        // return columnsColorsImg.colColor_4;
       default:
-        return columnsColorsImg.column_1;
+        return globalSettings.colColorImg_1;
+        // return columnsColorsImg.colColor_1;
     }
   }
 

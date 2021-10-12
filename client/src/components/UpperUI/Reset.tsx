@@ -1,10 +1,10 @@
 import React from "react";
 
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 
 import { ReactComponent as ResetSVG } from "../../svgs/reset-update.svg";
 
-import { useBackgroundColor } from "../../state/hooks/colorHooks";
+// import { useBackgroundColor } from "../../state/hooks/colorHooks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useReset } from "../../state/hooks/useReset";
 import { useTabs } from "../../state/hooks/useTabs";
@@ -28,7 +28,8 @@ function Reset({
   globalSettings
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
-  const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
+  // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
+  const backgroundColor = globalSettings.backgroundColor;
 
   const setCloseAllTabsState = useTabs((state) => state.setCloseAllTabsState);
   const setTabOpenedState = useTabs((state) => state.setTabOpenedState);

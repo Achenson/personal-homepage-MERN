@@ -10,6 +10,19 @@ export const ChangeSettingsMutation = `
     $date: Boolean,
     $description: Boolean,
     $itemsPerPage: Int,
+    $backgroundColor: String,
+    $folderColor: String
+    $noteColor: String
+    $rssColor: String
+    $uiColor: String
+    $colColor_1: String
+    $colColor_2: String
+    $colColor_3: String
+    $colColor_4: String
+    $colColorImg_1: String
+    $colColorImg_2: String
+    $colColorImg_3: String
+    $colColorImg_4: String
     ) {
     changeSettings (userId: $userId, 
         picBackground: $picBackground,
@@ -21,7 +34,21 @@ export const ChangeSettingsMutation = `
         numberOfCols: $numberOfCols,
         date: $date,
         description: $description,
-        itemsPerPage: $itemsPerPage) {
+        itemsPerPage: $itemsPerPage,
+        backgroundColor: $backgroundColor,
+        folderColor: $folderColor
+        noteColor: $noteColor
+        rssColor: $rssColor
+        uiColor:  $uiColor
+        colColor_1: $colColor_1
+        colColor_2: $colColor_2
+        colColor_3: $colColor_3
+        colColor_4: $colColor_4
+        colColorImg_1: $colColorImg_1
+        colColorImg_2: $colColorImg_2
+        colColorImg_3: $colColorImg_3
+        colColorImg_4: $colColorImg_4
+        ) {
             picBackground
             oneColorForAllCols
             limitColGrowth
@@ -31,6 +58,19 @@ export const ChangeSettingsMutation = `
             date
             description
             itemsPerPage
+            backgroundColor
+            folderColor
+            noteColor
+            rssColor
+            uiColor
+            colColor_1
+            colColor_2
+            colColor_3
+            colColor_4
+            colColorImg_1
+            colColorImg_2
+            colColorImg_3
+            colColorImg_4
     }
   }
 `;

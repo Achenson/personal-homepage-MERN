@@ -77,7 +77,7 @@ function GlobalSettings({
     variables: { userId: testUserId },
   }); */
 
-  const [changeSettingsResult, changeSettings] = useMutation(
+  const [changeSettingsResult, changeSettings] = useMutation<any, SettingsDatabase_i>(
     ChangeSettingsMutation
   );
 

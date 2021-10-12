@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ColorsToChoose_Background from "../Colors/ColorsToChoose_Background";
 import { ReactComponent as DocumentSVG } from "../../svgs/document.svg";
 
-import { useBackgroundColor } from "../../state/hooks/colorHooks";
+// import { useBackgroundColor } from "../../state/hooks/colorHooks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
@@ -25,7 +25,8 @@ function BackgroundColor({
   globalSettings
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
-  const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
+  // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
+  const backgroundColor = globalSettings.backgroundColor;
 
   const [selected, setSelected] = useState(false);
 
@@ -90,6 +91,7 @@ function BackgroundColor({
         <div className="absolute">
           <ColorsToChoose_Background
             setFocusOnBackgroundColor={setFocusOnBackgroundColor}
+            globalSettings={globalSettings}
           />
         </div>
       )}

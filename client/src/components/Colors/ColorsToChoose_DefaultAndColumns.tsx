@@ -29,10 +29,10 @@ interface Props {
     | "folders"
     | "notes"
     | "rss"
-    | "column_1"
-    | "column_2"
-    | "column_3"
-    | "column_4"
+    | "colColor_1"
+    | "colColor_2"
+    | "colColor_3"
+    | "colColor_4"
     | "unselected";
   setColorsToChooseVis?: React.Dispatch<React.SetStateAction<boolean>>;
   setFocusOnColumnColor?: React.Dispatch<
@@ -60,7 +60,7 @@ function ColorsToChoose_DefaultAndColumns({
       if (globalSettings.picBackground) {
         imageColumnColorsConcat.forEach((color, i) => {
           switch (defaultColorsFor) {
-            case "column_1":
+            case "colColor_1":
               if (color === globalSettings.colColorImg_1) {
                 selectedNumber = calcColorNumbering(
                   color,
@@ -68,7 +68,7 @@ function ColorsToChoose_DefaultAndColumns({
                 );
               }
               break;
-            case "column_2":
+            case "colColor_2":
               if (color === globalSettings.colColorImg_2) {
                 selectedNumber = calcColorNumbering(
                   color,
@@ -76,7 +76,7 @@ function ColorsToChoose_DefaultAndColumns({
                 );
               }
               break;
-            case "column_3":
+            case "colColor_3":
               if (color === globalSettings.colColorImg_3) {
                 selectedNumber = calcColorNumbering(
                   color,
@@ -84,7 +84,7 @@ function ColorsToChoose_DefaultAndColumns({
                 );
               }
               break;
-            case "column_4":
+            case "colColor_4":
               if (color === globalSettings.colColorImg_4) {
                 selectedNumber = calcColorNumbering(
                   color,
@@ -101,22 +101,22 @@ function ColorsToChoose_DefaultAndColumns({
       if (!globalSettings.picBackground) {
         columnColorsConcat.forEach((color, i) => {
           switch (defaultColorsFor) {
-            case "column_1":
+            case "colColor_1":
               if (color === globalSettings.colColor_1) {
                 selectedNumber = calcColorNumbering(color, columnColorsConcat);
               }
               break;
-            case "column_2":
+            case "colColor_2":
               if (color === globalSettings.colColor_2) {
                 selectedNumber = calcColorNumbering(color, columnColorsConcat);
               }
               break;
-            case "column_3":
+            case "colColor_3":
               if (color === globalSettings.colColor_3) {
                 selectedNumber = calcColorNumbering(color, columnColorsConcat);
               }
               break;
-            case "column_4":
+            case "colColor_4":
               if (color === globalSettings.colColor_4) {
                 selectedNumber = calcColorNumbering(color, columnColorsConcat);
               }
@@ -227,6 +227,7 @@ function ColorsToChoose_DefaultAndColumns({
                 selectedNumber={selectedNumber}
                 setSelectedNumber={setSelectedNumber}
                 colorArrLength={tabColorsConcat.length}
+                globalSettings={globalSettings}
               />
             );
           })}
@@ -260,6 +261,7 @@ function ColorsToChoose_DefaultAndColumns({
                     ? imageColumnColorsConcat.length
                     : columnColorsConcat.length
                 }
+                globalSettings={globalSettings}
               />
             );
           })}

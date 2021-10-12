@@ -1,13 +1,18 @@
 import React from "react";
 
-import {
+import { useMutation } from "urql";
+
+/* import {
   useDefaultColors,
   useColumnsColors,
   useColumnsColorsImg,
-} from "../../state/hooks/colorHooks";
+} from "../../state/hooks/colorHooks"; */
 
 import { setComplementaryUiColor } from "../../utils/funcs and hooks/complementaryUIcolor";
 import { tabColorsLightFocus } from "../../utils/data/colors_tab";
+
+import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   color: string;
@@ -15,16 +20,17 @@ interface Props {
     | "folders"
     | "notes"
     | "rss"
-    | "column_1"
-    | "column_2"
-    | "column_3"
-    | "column_4"
+    | "colColor_1"
+    | "colColor_2"
+    | "colColor_3"
+    | "colColor_4"
     | "unselected";
   colsForBackgroundImg?: boolean;
   selectedNumber: number;
   colorNumber: number;
   setSelectedNumber: React.Dispatch<React.SetStateAction<number>>;
   colorArrLength: number;
+  globalSettings: SettingsDatabase_i;
 }
 
 function SingleColor_DefaultAndColumn({
@@ -35,11 +41,16 @@ function SingleColor_DefaultAndColumn({
   colorNumber,
   setSelectedNumber,
   colorArrLength,
+  globalSettings
 }: Props): JSX.Element {
-  const setDefaultColors = useDefaultColors((state) => state.setDefaultColors);
-  const setColumnsColors = useColumnsColors((state) => state.setColumsColors);
+  // const setDefaultColors = useDefaultColors((state) => state.setDefaultColors);
+ /*  const setColumnsColors = useColumnsColors((state) => state.setColumnsColors);
   const setColumnsColorsImg = useColumnsColorsImg(
     (state) => state.setColumsColors
+  ); */
+
+  const [changeSettingsResult, changeSettings] = useMutation<any, SettingsDatabase_i>(
+    ChangeSettingsMutation
   );
 
   function borderMaker(
@@ -47,10 +58,10 @@ function SingleColor_DefaultAndColumn({
       | "folders"
       | "notes"
       | "rss"
-      | "column_1"
-      | "column_2"
-      | "column_3"
-      | "column_4"
+      | "colColor_1"
+      | "colColor_2"
+      | "colColor_3"
+      | "colColor_4"
       | "unselected"
   ) {
     const unselected = "border border-black";
@@ -68,13 +79,13 @@ function SingleColor_DefaultAndColumn({
         return selectedWhite;
       case "rss":
         return selectedWhite;
-      case "column_1":
+      case "colColor_1":
         return selectedBlack;
-      case "column_2":
+      case "colColor_2":
         return selectedBlack;
-      case "column_3":
+      case "colColor_3":
         return selectedBlack;
-      case "column_4":
+      case "colColor_4":
         return selectedBlack;
       default:
         return unselected;
@@ -126,41 +137,47 @@ function SingleColor_DefaultAndColumn({
       style={{ backgroundColor: `${colsForBackgroundImg ? color : ""}` }}
       onClick={() => {
         if (defaultColorsFor === "folders") {
-          setDefaultColors({ key: "folderColor", color: color });
-          setDefaultColors({
-            key: "uiColor",
-            color: setComplementaryUiColor(color),
-          });
+          // setDefaultColors({ key: "folderColor", color: color });
+          // setDefaultColors({
+          //   key: "uiColor",
+          //   color: setComplementaryUiColor(color),
+          // });
+          changeSettings({...globalSettings, folderColor: color, uiColor: setComplementaryUiColor(color) })
         }
 
         if (defaultColorsFor === "notes") {
-          setDefaultColors({ key: "noteColor", color: color });
+          // setDefaultColors({ key: "noteColor", color: color });
+          changeSettings({...globalSettings, noteColor: color})
         }
 
         if (defaultColorsFor === "rss") {
-          setDefaultColors({ key: "rssColor", color: color });
+          // setDefaultColors({ key: "rssColor", color: color });
+          changeSettings({...globalSettings, rssColor: color})
         }
 
-        if (/column/.test(defaultColorsFor) && !colsForBackgroundImg) {
-          setColumnsColors({
+        if (/colColor/.test(defaultColorsFor) && !colsForBackgroundImg) {
+         /*  setColumnsColors({
             key: defaultColorsFor as
-              | "column_1"
-              | "column_2"
-              | "column_3"
-              | "column_4",
+              | "colColor_1"
+              | "colColor_2"
+              | "colColor_3"
+              | "colColor_4",
             color: color,
-          });
+          }); */
+          changeSettings({...globalSettings, [defaultColorsFor]: color })
+
         }
 
-        if (/column/.test(defaultColorsFor) && colsForBackgroundImg) {
-          setColumnsColorsImg({
+        if (/colColor/.test(defaultColorsFor) && colsForBackgroundImg) {
+   /*        setColumnsColorsImg({
             key: defaultColorsFor as
-              | "column_1"
-              | "column_2"
-              | "column_3"
-              | "column_4",
+              | "colColor_1"
+              | "colColor_2"
+              | "colColor_3"
+              | "colColor_4",
             color: color,
-          });
+          }); */
+          changeSettings({...globalSettings, [defaultColorsFor]: color})
         }
 
         setSelectedNumber(colorNumber);

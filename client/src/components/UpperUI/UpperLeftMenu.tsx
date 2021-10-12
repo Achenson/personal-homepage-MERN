@@ -21,7 +21,7 @@ function UpperLeftMenu({ globalSettings }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   const [defaultColorsFor, setDefaultColorsFor] = useState<
-    "column_1" | "column_2" | "column_3" | "column_4" | "unselected"
+    "colColor_1" | "colColor_2" | "colColor_3" | "colColor_4" | "unselected"
   >("unselected");
 
   const [isHoverOnAnyColumn, setIsHoverOnAnyColumn] = useState(false);

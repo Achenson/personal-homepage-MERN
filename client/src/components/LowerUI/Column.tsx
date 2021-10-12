@@ -1,6 +1,6 @@
 import React from "react";
 
-import shallow from "zustand/shallow";
+// import shallow from "zustand/shallow";
 import { useQuery } from "urql";
 
 import Tab from "./Tab";
@@ -10,10 +10,10 @@ import UpperRightMenu from "../UpperUI/UpperRightMenu";
 import Message from "../UpperUI/Message";
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-import {
+/* import {
   useColumnsColors,
   useColumnsColorsImg,
-} from "../../state/hooks/colorHooks";
+} from "../../state/hooks/colorHooks"; */
 
 // import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
@@ -38,8 +38,8 @@ function Column({
   breakpoint,
   tabs,
 }: Props): JSX.Element {
-  const columnsColors = useColumnsColors((state) => state, shallow);
-  const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);
+  // const columnsColors = useColumnsColors((state) => state, shallow);
+  // const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);
 
   // const tabs = useTabs((store) => store.tabs);
   // const globalSettings = useGlobalSettings((state) => state, shallow);
@@ -68,18 +68,23 @@ function Column({
     }
 
     if (oneColorForAllColumns) {
-      return columnsColorsImg.column_1;
+      // return columnsColorsImg.colColor_1;
+      return globalSettings.colColor_1;
     }
 
     switch (colNumber) {
       case 1:
-        return columnsColorsImg.column_1;
+        // return columnsColorsImg.colColor_1;
+        return globalSettings.colColor_1;
       case 2:
-        return columnsColorsImg.column_2;
+        // return columnsColorsImg.colColor_2;
+        return globalSettings.colColor_2;
       case 3:
-        return columnsColorsImg.column_3;
+        // return columnsColorsImg.colColor_3;
+        return globalSettings.colColor_3;
       case 4:
-        return columnsColorsImg.column_4;
+        // return columnsColorsImg.colColor_4;
+        return globalSettings.colColor_4;
     }
   }
 
@@ -93,18 +98,23 @@ function Column({
     }
 
     if (oneColorForAllColumns) {
-      return "bg-" + columnsColors.column_1;
+      // return "bg-" + columnsColors.colColor_1;
+      return "bg-" + globalSettings.colColor_1;
     }
 
     switch (colNumber) {
       case 1:
-        return "bg-" + columnsColors.column_1;
+        // return "bg-" + columnsColors.colColor_1;
+        return "bg-" + globalSettings.colColor_1;
       case 2:
-        return "bg-" + columnsColors.column_2;
+        // return "bg-" + columnsColors.colColor_2;
+        return "bg-" + globalSettings.colColor_2;
       case 3:
-        return "bg-" + columnsColors.column_3;
+        return "bg-" + globalSettings.colColor_3;
+        // return "bg-" + columnsColors.colColor_3;
       case 4:
-        return "bg-" + columnsColors.column_4;
+        return "bg-" + globalSettings.colColor_4;
+        // return "bg-" + columnsColors.colColor_4;
     }
   }
 

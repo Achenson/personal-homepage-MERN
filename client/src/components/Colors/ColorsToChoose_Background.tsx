@@ -4,22 +4,26 @@ import FocusLock from "react-focus-lock";
 
 import SingleColor_Background from "./SingleColor_Background";
 
-import { useBackgroundColor } from "../../state/hooks/colorHooks";
+// import { useBackgroundColor } from "../../state/hooks/colorHooks";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import {
   backgroundColors,
   backgroundColorsConcat,
 } from "../../utils/data/colors_background";
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   setFocusOnBackgroundColor: React.Dispatch<React.SetStateAction<boolean>>;
+  globalSettings: SettingsDatabase_i;
 }
 
 function ColorsToChoose_Background({
   setFocusOnBackgroundColor,
+  globalSettings,
 }: Props): JSX.Element {
-  const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
+  // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
+  const backgroundColor = globalSettings.backgroundColor;
 
   const calcSelectedNumber = useCallback((): number => {
     let selectedNumber: number = 0;
@@ -79,6 +83,7 @@ function ColorsToChoose_Background({
                 colorNumber={calcColorNumbering(el)}
                 selectedNumber={selectedNumber}
                 setSelectedNumber={setSelectedNumber}
+                globalSettings={globalSettings}
               />
             );
           })}

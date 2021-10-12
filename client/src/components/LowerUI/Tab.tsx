@@ -163,7 +163,6 @@ function Tab({
 
     if (tabType === "rss") {
       finalTabColor = globalSettings.rssColor;
-      console.log(finalTabColor);
     }
   }
 

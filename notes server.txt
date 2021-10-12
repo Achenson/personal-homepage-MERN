@@ -20,6 +20,7 @@ notes:
  DONE 9. deleteUser -> promise.all should be used instead of individual promises? for performance DONE
  DONE 16. upserts in changeMutations -> should be false mostly? (all false )DONE
  DONE 18. client: comment out useStorage (zustand's perist commented out) DONE
+ DONE 34. mutations -> proper typescript types! DONE
  
  1. livereload npm
  2. adding user doesn't return anything on graphql playground? (but it returns in changeSettings)
@@ -51,3 +52,5 @@ notes:
 31. interfaces: database vs client side: currently settings are from database but tabs from clientside...
 32. clientside: hooks for store -> sometimes it's state.tabs, sometimes store.tabs -> unify
 33. take care of state other that settings, tabs & bookmarks (use of existings queries should be enough?)
+35. client-side: unify column_1 naming with server-side naming (colColor_1 itp) when the client-side code
+ will be working again for nonauthorised user!

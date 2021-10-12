@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 // import shallow from "zustand/shallow";
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-import { useBackgroundColor } from "../../state/hooks/colorHooks";
+// import { useBackgroundColor } from "../../state/hooks/colorHooks";
 
 import { backgroundColors } from "../../utils/data/colors_background";
 import { useUpperUiContext } from "../../context/upperUiContext";
@@ -21,8 +21,8 @@ function Message({ globalSettings }: Props): JSX.Element {
   const [close, setClose] = useState(false);
   const [fadeInEnd, setFadeInEnd] = useState(false);
 
-  const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
-
+  // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
+  const backgroundColor = globalSettings.backgroundColor;
   const upperUiContext = useUpperUiContext();
 
   useEffect(() => {

@@ -14,7 +14,7 @@ import Profile from "./UpperUI/Profile";
 import ModalWrap from "./UpperUI/ModalWrap";
 
 // import { useGlobalSettings } from "../state/hooks/defaultSettingsHooks";
-import { useBackgroundColor } from "../state/hooks/colorHooks";
+// import { useBackgroundColor } from "../state/hooks/colorHooks";
 
 import { initUpperVisState } from "../context/upperVisInitState";
 import { upperVisReducer } from "../context/upperVisReducer";
@@ -34,7 +34,9 @@ interface Props {
 
 function Main({ globalSettings }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
-  const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
+  // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
+  const backgroundColor = globalSettings.backgroundColor
+
 
   const [upperVisState, upperVisDispatch] = useReducer(
     upperVisReducer,

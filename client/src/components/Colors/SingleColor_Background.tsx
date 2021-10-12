@@ -1,8 +1,13 @@
 import React from "react";
+import { useMutation } from "urql";
 
-import { useBackgroundColor } from "../../state/hooks/colorHooks";
+// import { useBackgroundColor } from "../../state/hooks/colorHooks";
 
 import { backgroundColorsLightFocus } from "../../utils/data/colors_background";
+
+import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
+
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   color: string;
@@ -11,6 +16,7 @@ interface Props {
   colorNumber: number;
   setSelectedNumber: React.Dispatch<React.SetStateAction<number>>;
   colorArrLength: number;
+  globalSettings: SettingsDatabase_i;
 }
 
 function SingleColor_Background({
@@ -20,10 +26,16 @@ function SingleColor_Background({
   colorNumber,
   setSelectedNumber,
   colorArrLength,
+  globalSettings,
 }: Props): JSX.Element {
-  const setBackgroundColor = useBackgroundColor(
+  /*   const setBackgroundColor = useBackgroundColor(
     (state) => state.setBackgroundColor
-  );
+  ); */
+
+  const [changeSettingsResult, changeSettings] = useMutation<
+    any,
+    SettingsDatabase_i
+  >(ChangeSettingsMutation);
 
   function borderMaker() {
     if (colorNumber !== selectedNumber) {
@@ -62,7 +74,10 @@ function SingleColor_Background({
       focus:outline-none focus-visible:ring-2 ring-${focusColor()} ring-inset
       `}
       onClick={() => {
-        setBackgroundColor(color);
+        // setBackgroundColor(color);
+        changeSettings({ ...globalSettings, backgroundColor: color }).then(
+          (results) => console.log(results)
+        );
         setSelectedNumber(colorNumber);
       }}
       tabIndex={tabIndex}

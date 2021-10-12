@@ -25,19 +25,19 @@ interface DefaultColorsAll extends DefaultColorsData {
 }
 
 interface ColumnsColorsObj {
-  key: "column_1" | "column_2" | "column_3" | "column_4";
+  key: "colColor_1" | "colColor_2" | "colColor_3" | "colColor_4";
   color: string;
 }
 
 interface UseColumnsColorsData {
-  column_1: string;
-  column_2: string;
-  column_3: string;
-  column_4: string;
+  colColor_1: string;
+  colColor_2: string;
+  colColor_3: string;
+  colColor_4: string;
 }
 
 interface UseColumnsColorsAll extends UseColumnsColorsData {
-  setColumsColors: (columnsColorsObj: ColumnsColorsObj) => void;
+  setColumnsColors: (columnsColorsObj: ColumnsColorsObj) => void;
 }
 
 export const useDefaultColors = create<DefaultColorsAll>(
@@ -93,11 +93,11 @@ export const useResetColors = create<{
 export const useColumnsColors = create<UseColumnsColorsAll>(
   // persist(
   (set) => ({
-    column_1: columnColors[0][8],
-    column_2: columnColors[1][5],
-    column_3: columnColors[1][8],
-    column_4: columnColors[3][2],
-    setColumsColors: (columnColorsObj) =>
+    colColor_1: columnColors[0][8],
+    colColor_2: columnColors[1][5],
+    colColor_3: columnColors[1][8],
+    colColor_4: columnColors[3][2],
+    setColumnsColors: (columnColorsObj) =>
       set((state) => ({
         ...state,
         [columnColorsObj.key]: columnColorsObj.color,
@@ -112,11 +112,11 @@ export const useColumnsColors = create<UseColumnsColorsAll>(
 export const useColumnsColorsImg = create<UseColumnsColorsAll>(
   // persist(
   (set) => ({
-    column_1: imageColumnColors[2][6],
-    column_2: imageColumnColors[2][6],
-    column_3: imageColumnColors[3][5],
-    column_4: imageColumnColors[0][5],
-    setColumsColors: (columnColorsObj) =>
+    colColor_1: imageColumnColors[2][6],
+    colColor_2: imageColumnColors[2][6],
+    colColor_3: imageColumnColors[3][5],
+    colColor_4: imageColumnColors[0][5],
+    setColumnsColors: (columnColorsObj) =>
       set((state) => ({
         ...state,
         [columnColorsObj.key]: columnColorsObj.color,
