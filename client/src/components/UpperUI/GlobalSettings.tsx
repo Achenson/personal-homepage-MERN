@@ -8,7 +8,7 @@ import Settings_inner_xs from "./Settings_inner_xs";
 
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
-import { useDefaultColors } from "../../state/hooks/colorHooks";
+// import { useDefaultColors } from "../../state/hooks/colorHooks";
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useTabs } from "../../state/hooks/useTabs";
@@ -26,13 +26,16 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
+  globalSettings: SettingsDatabase_i;
 }
 
 function GlobalSettings({
   mainPaddingRight,
   scrollbarWidth,
+  globalSettings,
 }: Props): JSX.Element {
-  const uiColor = useDefaultColors((state) => state.uiColor);
+  // const uiColor = useDefaultColors((state) => state.uiColor);
+  const uiColor = globalSettings.uiColor;
 
   // shallow option enables updates when any of the object keys changes!
   // const globalSettings = useGlobalSettings((state) => state, shallow);
@@ -69,21 +72,21 @@ function GlobalSettings({
     };
   });
 
-  const [settingsResults] = useQuery({
+  /* const [settingsResults] = useQuery({
     query: SettingsQuery,
     variables: { userId: testUserId },
-  });
+  }); */
 
   const [changeSettingsResult, changeSettings] = useMutation(
     ChangeSettingsMutation
   );
 
-  const { data, fetching, error } = settingsResults;
+  /*  const { data, fetching, error } = settingsResults;
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  let globalSettings: SettingsDatabase_i = data.settings;
+  let globalSettings: SettingsDatabase_i = data.settings; */
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 7);
