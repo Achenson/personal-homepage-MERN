@@ -41,17 +41,23 @@ function SingleColor_DefaultAndColumn({
   colorNumber,
   setSelectedNumber,
   colorArrLength,
-  globalSettings
+  globalSettings,
 }: Props): JSX.Element {
   // const setDefaultColors = useDefaultColors((state) => state.setDefaultColors);
- /*  const setColumnsColors = useColumnsColors((state) => state.setColumnsColors);
+  /*  const setColumnsColors = useColumnsColors((state) => state.setColumnsColors);
   const setColumnsColorsImg = useColumnsColorsImg(
     (state) => state.setColumsColors
   ); */
 
-  const [changeSettingsResult, changeSettings] = useMutation<any, SettingsDatabase_i>(
-    ChangeSettingsMutation
-  );
+  const [changeSettingsResult, changeSettings] = useMutation<
+    any,
+    SettingsDatabase_i
+  >(ChangeSettingsMutation);
+
+  let defaultColorsForImg =
+    defaultColorsFor.slice(0, defaultColorsFor.length - 2) +
+    "Img" +
+    defaultColorsFor.slice(defaultColorsFor.length - 2);
 
   function borderMaker(
     defaultColorsFor:
@@ -94,7 +100,7 @@ function SingleColor_DefaultAndColumn({
 
   function focusColor(): string {
     // for column colors
-    if (/column/.test(defaultColorsFor)) {
+    if (/colColor/.test(defaultColorsFor)) {
       if (colsForBackgroundImg) {
         return "blueGray-500";
       }
@@ -136,27 +142,35 @@ function SingleColor_DefaultAndColumn({
       // for columns with background img only
       style={{ backgroundColor: `${colsForBackgroundImg ? color : ""}` }}
       onClick={() => {
+
+        console.log(defaultColorsFor);
+        console.log(defaultColorsForImg);
+        
         if (defaultColorsFor === "folders") {
           // setDefaultColors({ key: "folderColor", color: color });
           // setDefaultColors({
           //   key: "uiColor",
           //   color: setComplementaryUiColor(color),
           // });
-          changeSettings({...globalSettings, folderColor: color, uiColor: setComplementaryUiColor(color) })
+          changeSettings({
+            ...globalSettings,
+            folderColor: color,
+            uiColor: setComplementaryUiColor(color),
+          });
         }
 
         if (defaultColorsFor === "notes") {
           // setDefaultColors({ key: "noteColor", color: color });
-          changeSettings({...globalSettings, noteColor: color})
+          changeSettings({ ...globalSettings, noteColor: color });
         }
 
         if (defaultColorsFor === "rss") {
           // setDefaultColors({ key: "rssColor", color: color });
-          changeSettings({...globalSettings, rssColor: color})
+          changeSettings({ ...globalSettings, rssColor: color });
         }
 
         if (/colColor/.test(defaultColorsFor) && !colsForBackgroundImg) {
-         /*  setColumnsColors({
+          /*  setColumnsColors({
             key: defaultColorsFor as
               | "colColor_1"
               | "colColor_2"
@@ -164,12 +178,13 @@ function SingleColor_DefaultAndColumn({
               | "colColor_4",
             color: color,
           }); */
-          changeSettings({...globalSettings, [defaultColorsFor]: color })
-
+          changeSettings({ ...globalSettings, [defaultColorsFor]: color }).then(
+            (results) => console.log(results)
+          );
         }
 
         if (/colColor/.test(defaultColorsFor) && colsForBackgroundImg) {
-   /*        setColumnsColorsImg({
+          /*        setColumnsColorsImg({
             key: defaultColorsFor as
               | "colColor_1"
               | "colColor_2"
@@ -177,7 +192,7 @@ function SingleColor_DefaultAndColumn({
               | "colColor_4",
             color: color,
           }); */
-          changeSettings({...globalSettings, [defaultColorsFor]: color})
+          changeSettings({ ...globalSettings, [defaultColorsForImg]: color });
         }
 
         setSelectedNumber(colorNumber);

@@ -130,7 +130,7 @@ function ColumnColor({
         <button
           ref={focusOnColumnColor_ref}
           onClick={() => {
-            setDefaultColorsFor(`column_${colNumber}` as any);
+            setDefaultColorsFor(`colColor_${colNumber}` as any);
             setTabOpenedState(null);
 
             if (upperUiContext.upperVisState.columnSelected === colNumber) {

@@ -58,7 +58,7 @@ function Column({
 
   let globalSettings: SettingsDatabase_i = data.settings;
 
-  function calcColumnColor(
+  function calcColumnColor_picBackground(
     colNumber: number,
     picBackground: boolean,
     oneColorForAllColumns: boolean
@@ -69,26 +69,26 @@ function Column({
 
     if (oneColorForAllColumns) {
       // return columnsColorsImg.colColor_1;
-      return globalSettings.colColor_1;
+      return globalSettings.colColorImg_1;
     }
 
     switch (colNumber) {
       case 1:
         // return columnsColorsImg.colColor_1;
-        return globalSettings.colColor_1;
+        return globalSettings.colColorImg_1;
       case 2:
         // return columnsColorsImg.colColor_2;
-        return globalSettings.colColor_2;
+        return globalSettings.colColorImg_2;
       case 3:
         // return columnsColorsImg.colColor_3;
-        return globalSettings.colColor_3;
+        return globalSettings.colColorImg_3;
       case 4:
         // return columnsColorsImg.colColor_4;
-        return globalSettings.colColor_4;
+        return globalSettings.colColorImg_4;
     }
   }
 
-  function calcColumnColor_picBackground(
+  function calcColumnColor(
     colNumber: number,
     picBackground: boolean,
     oneColorForAllColumns: boolean
@@ -111,10 +111,10 @@ function Column({
         return "bg-" + globalSettings.colColor_2;
       case 3:
         return "bg-" + globalSettings.colColor_3;
-        // return "bg-" + columnsColors.colColor_3;
+      // return "bg-" + columnsColors.colColor_3;
       case 4:
         return "bg-" + globalSettings.colColor_4;
-        // return "bg-" + columnsColors.colColor_4;
+      // return "bg-" + columnsColors.colColor_4;
     }
   }
 
@@ -176,13 +176,13 @@ function Column({
       className={`h-full relative flex flex-col ${
         globalSettings.picBackground ? "" : bordersIfNoBackground()
       }
-       ${calcColumnColor_picBackground(
+       ${calcColumnColor(
          colNumber,
          globalSettings.picBackground,
          globalSettings.oneColorForAllCols
        )}`}
       style={{
-        backgroundColor: calcColumnColor(
+        backgroundColor: calcColumnColor_picBackground(
           colNumber,
           globalSettings.picBackground,
           globalSettings.oneColorForAllCols
@@ -247,7 +247,7 @@ function Column({
             top: "-32px",
           }}
         >
-          <UpperLeftMenu globalSettings={globalSettings}/>
+          <UpperLeftMenu globalSettings={globalSettings} />
         </div>
       )}
 

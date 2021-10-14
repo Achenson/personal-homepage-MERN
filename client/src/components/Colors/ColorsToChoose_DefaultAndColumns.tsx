@@ -56,7 +56,7 @@ function ColorsToChoose_DefaultAndColumns({
   const calcSelectedNumber = useCallback((): number => {
     let selectedNumber: number = 0;
 
-    if (/column/.test(defaultColorsFor)) {
+    if (/colColor/.test(defaultColorsFor)) {
       if (globalSettings.picBackground) {
         imageColumnColorsConcat.forEach((color, i) => {
           switch (defaultColorsFor) {
@@ -187,7 +187,7 @@ function ColorsToChoose_DefaultAndColumns({
 
   function handleKeyDown(event: KeyboardEvent) {
     if (event.code === "Escape") {
-      if (/column/.test(defaultColorsFor)) {
+      if (/colColor/.test(defaultColorsFor)) {
         if (upperUiContext.upperVisState.columnSelected !== null) {
           upperUiContext.upperVisDispatch({ type: "COLORS_COLUMN_TOGGLE" });
         }
@@ -274,7 +274,7 @@ function ColorsToChoose_DefaultAndColumns({
     <FocusLock>
       <div className="z-50 relative">
         <div className="absolute bg-white">
-          {/column/.test(defaultColorsFor)
+          {/colColor/.test(defaultColorsFor)
             ? mapColumnColors(
                 globalSettings.picBackground ? imageColumnColors : columnColors
               )
