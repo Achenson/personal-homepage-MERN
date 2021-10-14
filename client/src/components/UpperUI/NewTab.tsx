@@ -52,9 +52,9 @@ function NewTab({
   const addTag = useBookmarks((state) => state.addTag);
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   const bookmarksAllTags: string[] = bookmarks.map((obj) => obj.id);
-  const setBookmarksAllTags = useBookmarks(
-    (store) => store.setBookmarksAllTags
-  );
+  // const setBookmarksAllTags = useBookmarks(
+  //   (store) => store.setBookmarksAllTags
+  // );
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
 
@@ -245,7 +245,7 @@ function NewTab({
 
       let newBookmarksAllTagsData = [...bookmarksAllTags];
       newBookmarksAllTagsData.push(newFolderTab.id);
-      setBookmarksAllTags([...newBookmarksAllTagsData]);
+      // setBookmarksAllTags([...newBookmarksAllTagsData]);
 
       addTabs([newFolderTab]);
       // updating links data (tags array)

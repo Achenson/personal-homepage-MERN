@@ -82,9 +82,9 @@ function NewBookmark_UpperUI({
   // const bookmarks = useBookmarks((store) => store.bookmarks);
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   const bookmarksAllTags: string[] = bookmarks.map((obj) => obj.id);
-  const setBookmarksAllTags = useBookmarks(
+/*   const setBookmarksAllTags = useBookmarks(
     (store) => store.setBookmarksAllTags
-  );
+  ); */
   const addBookmark = useBookmarks((store) => store.addBookmark);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
@@ -165,7 +165,7 @@ function NewBookmark_UpperUI({
     });
 
     if (newTabsToAdd.length > 0) {
-      setBookmarksAllTags([...newBookmarksAllTagsData]);
+      // setBookmarksAllTags([...newBookmarksAllTagsData]);
       addTabs(newTabsToAdd);
     }
 

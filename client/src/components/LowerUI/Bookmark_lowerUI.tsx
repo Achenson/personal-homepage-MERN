@@ -4,7 +4,7 @@ import { useMutation } from "urql";
 import Bookmark_lowerUI_edit from "./Bookmark_lowerUI_edit";
 import Bookmark_lowerUI_new from "./Bookmark_lowerUI_new";
 
-import { useBookmarks } from "../../state/hooks/useBookmarks";
+// import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
 
 import { useTabContext } from "../../context/tabContext";
@@ -89,9 +89,9 @@ function Bookmark_lowerUI({
   // const bookmarks = useBookmarks((store) => store.bookmarks);
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   const bookmarksAllTags: string[] = bookmarks.map((obj) => obj.id);
-  const setBookmarksAllTags = useBookmarks(
+/*   const setBookmarksAllTags = useBookmarks(
     (store) => store.setBookmarksAllTags
-  );
+  ); */
 
   const addTabs = useTabs((store) => store.addTabs);
   // const tabs = useTabs((store) => store.tabs);
@@ -198,7 +198,7 @@ function Bookmark_lowerUI({
     });
 
     if (newTabsToAdd.length > 0) {
-      setBookmarksAllTags([...newBookmarksAllTagsData]);
+      // setBookmarksAllTags([...newBookmarksAllTagsData]);
       addTabs(newTabsToAdd);
     }
 
@@ -253,7 +253,7 @@ function Bookmark_lowerUI({
         }
       });
 
-      setBookmarksAllTags([...bookmarksAllTagsData_new]);
+      // setBookmarksAllTags([...bookmarksAllTagsData_new]);
     } else {
       // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
       addBookmark(
