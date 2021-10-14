@@ -14,9 +14,6 @@
 }
 }    */
 
-
-
-
 /* {
   tabs(userId: "6154708145808b7678b78762") {
    id
@@ -53,7 +50,6 @@ bookmarks(userId: "") {
 
 */
 
-
 // MUTATIONS ===================================
 
 /* 
@@ -88,6 +84,24 @@ mutation {
     title
   }
 }
+
+
+
+mutation {
+  changeBookmark(id: "61642207c38a6fc18f65a22a", userId: "61642206c38a6fc18f65a214",
+        title: "facebooknewww",
+        URL: "https://www.facebook.com/",
+        tags: ["61642206c38a6fc18f65a217", "61642206c38a6fc18f65a218", "61642206c38a6fc18f65a219"]) {
+         id
+          userId
+          title
+          URL
+          tags
+  }
+}
+
+
+
 
 
 

@@ -7,7 +7,7 @@ import { ReactComponent as ChevronUpSVG } from "../../svgs/chevron-up.svg";
 import { ReactComponent as CheckSVG } from "../../svgs/check-small.svg";
 import { ReactComponent as XsmallSVG } from "../../svgs/x-small.svg";
 
-import { useBookmarks } from "../../state/hooks/useBookmarks";
+// import { useBookmarks } from "../../state/hooks/useBookmarks";
 
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 import { SingleBookmarkData } from "../../utils/interfaces";

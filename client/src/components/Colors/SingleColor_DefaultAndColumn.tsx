@@ -142,9 +142,6 @@ function SingleColor_DefaultAndColumn({
       // for columns with background img only
       style={{ backgroundColor: `${colsForBackgroundImg ? color : ""}` }}
       onClick={() => {
-
-        console.log(defaultColorsFor);
-        console.log(defaultColorsForImg);
         
         if (defaultColorsFor === "folders") {
           // setDefaultColors({ key: "folderColor", color: color });

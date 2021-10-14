@@ -94,3 +94,24 @@ export const AddBookmarkMutation = `
     }
   }
 `;
+
+export const ChangeBookmarkMutation = `
+  mutation ($userId: ID,
+    $title: String,
+    $URL: String,
+    $tags: [ID]
+    ) {
+    changeBookmark (userId: $userId, 
+      title: $title,
+      URL: $URL,
+      tags: $tags,
+        ) {
+          id
+          userId
+          title
+          URL
+          tags
+    }
+  }
+`;
+

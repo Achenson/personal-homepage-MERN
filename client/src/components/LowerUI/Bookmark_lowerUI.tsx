@@ -16,7 +16,10 @@ import {
 } from "../../utils/funcs and hooks/objCreators";
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 import { bookmarkErrorHandling } from "../../utils/funcs and hooks/bookmarkErrorHandling";
-import { AddBookmarkMutation } from "../../graphql/graphqlMutations";
+import {
+  AddBookmarkMutation,
+  ChangeBookmarkMutation,
+} from "../../graphql/graphqlMutations";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { BookmarkErrors, SetBookmarkErrors } from "../../utils/interfaces";
@@ -72,10 +75,16 @@ function Bookmark_lowerUI({
   globalSettings,
 }: Props): JSX.Element {
   // const addBookmark = useBookmarks((store) => store.addBookmark);
-  const editBookmark = useBookmarks((store) => store.editBookmark);
+  // const editBookmark = useBookmarks((store) => store.editBookmark);
+
   const [addBookmarkResult, addBookmark] = useMutation<any, BookmarkDatabase_i>(
     AddBookmarkMutation
   );
+
+  const [editBookmarkResult, editBookmark] = useMutation<
+    any,
+    BookmarkDatabase_i
+  >(ChangeBookmarkMutation);
 
   // const bookmarks = useBookmarks((store) => store.bookmarks);
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
@@ -194,7 +203,15 @@ function Bookmark_lowerUI({
     }
 
     if (bookmarkComponentType === "edit") {
-      editBookmark(bookmarkId, titleInput, urlInput, tagsInputArr_ToIds);
+      // editBookmark(bookmarkId, titleInput, urlInput, tagsInputArr_ToIds);
+      editBookmark({
+        id: bookmarkId,
+        userId: globalSettings.userId,
+        title: titleInput,
+        URL: urlInput,
+        // tags: tagsInputArr_ToIds,
+        tags: ["61642206c38a6fc18f65a217", "61642206c38a6fc18f65a218", "61642206c38a6fc18f65a219"],
+      }).then((result) => console.log(result));
 
       // for deleting empty folder
       let tagsIdsToDelete: string[] = [];
@@ -246,7 +263,7 @@ function Bookmark_lowerUI({
           urlInput,
           tagsInputArr_ToIds
         )
-      ).then((result) => console.log(result));
+      );
     }
   }
 

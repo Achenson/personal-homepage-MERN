@@ -13,6 +13,8 @@ export const changeBookmarkMutationField = {
   },
   resolve(_source: unknown, args: BookmarkDatabase_i) {
     let update = {
+      id: args.id,
+      userId: args.userId,
       title: args.title,
       URL: args.URL,
       tags: args.tags,

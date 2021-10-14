@@ -75,9 +75,7 @@ function SingleColor_Background({
       `}
       onClick={() => {
         // setBackgroundColor(color);
-        changeSettings({ ...globalSettings, backgroundColor: color }).then(
-          (results) => console.log(results)
-        );
+        changeSettings({ ...globalSettings, backgroundColor: color });
         setSelectedNumber(colorNumber);
       }}
       tabIndex={tabIndex}

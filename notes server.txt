@@ -56,3 +56,4 @@ notes:
  will be working again for nonauthorised user!
 36. addBookmark -> tabQueries should be refetched?
 37. way to use urql as a central state?
+38. editBookmark doesn't work on the client!
