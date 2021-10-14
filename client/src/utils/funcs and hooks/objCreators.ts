@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 import { SingleTabData, SingleBookmarkData } from "../interfaces";
+import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 
 export function createBasicTab(
   title: string,
@@ -102,5 +103,17 @@ export function createBookmark(
     title,
     URL,
     tags,
+  };
+}
+
+export function createBookmarkDb(
+  userId: string,
+  title: string,
+  URL: string,
+  tags: string[]
+): BookmarkDatabase_i {
+  return {
+    ...createBookmark(title, URL, tags),
+    userId: userId,
   };
 }

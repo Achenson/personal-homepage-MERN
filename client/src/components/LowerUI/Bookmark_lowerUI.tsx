@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useMutation } from "urql";
 
 import Bookmark_lowerUI_edit from "./Bookmark_lowerUI_edit";
 import Bookmark_lowerUI_new from "./Bookmark_lowerUI_new";
@@ -9,14 +10,18 @@ import { useTabs } from "../../state/hooks/useTabs";
 import { useTabContext } from "../../context/tabContext";
 
 import {
-  createBookmark,
+  // createBookmark,
+  createBookmarkDb,
   createFolderTab,
 } from "../../utils/funcs and hooks/objCreators";
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 import { bookmarkErrorHandling } from "../../utils/funcs and hooks/bookmarkErrorHandling";
+import { AddBookmarkMutation } from "../../graphql/graphqlMutations";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { BookmarkErrors, SetBookmarkErrors } from "../../utils/interfaces";
+import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
+import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   titleInput: string;
@@ -40,6 +45,7 @@ interface Props {
   setErrors: SetBookmarkErrors;
   bookmarks: SingleBookmarkData[];
   tabs: SingleTabData[];
+  globalSettings: SettingsDatabase_i;
 }
 
 function Bookmark_lowerUI({
@@ -63,9 +69,14 @@ function Bookmark_lowerUI({
   setErrors,
   bookmarks,
   tabs,
+  globalSettings,
 }: Props): JSX.Element {
-  const addBookmark = useBookmarks((store) => store.addBookmark);
+  // const addBookmark = useBookmarks((store) => store.addBookmark);
   const editBookmark = useBookmarks((store) => store.editBookmark);
+  const [addBookmarkResult, addBookmark] = useMutation<any, BookmarkDatabase_i>(
+    AddBookmarkMutation
+  );
+
   // const bookmarks = useBookmarks((store) => store.bookmarks);
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   const bookmarksAllTags: string[] = bookmarks.map((obj) => obj.id);
@@ -227,7 +238,15 @@ function Bookmark_lowerUI({
 
       setBookmarksAllTags([...bookmarksAllTagsData_new]);
     } else {
-      addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
+      // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
+      addBookmark(
+        createBookmarkDb(
+          globalSettings.userId,
+          titleInput,
+          urlInput,
+          tagsInputArr_ToIds
+        )
+      ).then((result) => console.log(result));
     }
   }
 

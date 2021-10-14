@@ -223,6 +223,7 @@ function Bookmark_newAndEdit({
           colNumber={colNumber as number}
           bookmarks={bookmarks}
           tabs={tabs}
+          globalSettings={globalSettings}
         />
       )}
     </>

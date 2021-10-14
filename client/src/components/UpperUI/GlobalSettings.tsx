@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import FocusLock from "react-focus-lock";
 // import shallow from "zustand/shallow";
-import { useQuery, useMutation } from "urql";
+import {useMutation } from "urql";
 
 import Settings_inner_xs from "./Settings_inner_xs";
 
@@ -16,10 +16,7 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
-import { SettingsQuery } from "../../graphql/graphqlQueries";
 import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
-
-import { testUserId } from "../../state/data/testUserId";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 

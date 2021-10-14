@@ -54,6 +54,7 @@ interface Props {
   tabOpenedByDefault: boolean;
   tabIsDeletable: boolean;
   globalSettings: SettingsDatabase_i;
+  tabs: SingleTabData[];
 }
 
 function Tab({
@@ -66,6 +67,7 @@ function Tab({
   tabOpenedByDefault,
   tabIsDeletable,
   globalSettings,
+  tabs
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -81,7 +83,7 @@ function Tab({
   const resetEnabled = useReset((state) => state.enabled);
   // const bookmarks = useBookmarks((state) => state.bookmarks);
 
-  const tabs = useTabs((store) => store.tabs);
+  // const tabs = useTabs((store) => store.tabs);
   const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
   const tabOpenedState = useTabs((store) => store.tabOpenedState);
   const focusedTabState = useTabs((store) => store.focusedTabState);

@@ -74,3 +74,23 @@ export const ChangeSettingsMutation = `
     }
   }
 `;
+
+export const AddBookmarkMutation = `
+  mutation ($userId: ID,
+    $title: String,
+    $URL: String,
+    $tags: [ID]
+    ) {
+    addBookmark (userId: $userId, 
+      title: $title,
+      URL: $URL,
+      tags: $tags,
+        ) {
+          id
+          userId
+          title
+          URL
+          tags
+    }
+  }
+`;

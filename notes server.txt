@@ -54,3 +54,5 @@ notes:
 33. take care of state other that settings, tabs & bookmarks (use of existings queries should be enough?)
 35. client-side: unify column_1 naming with server-side naming (colColor_1 itp) when the client-side code
  will be working again for nonauthorised user!
+36. addBookmark -> tabQueries should be refetched?
+37. way to use urql as a central state?
