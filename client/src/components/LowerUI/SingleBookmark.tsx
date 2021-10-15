@@ -1,4 +1,5 @@
 import React from "react";
+import { useMutation } from "urql";
 
 // import shallow from "zustand/shallow";
 
@@ -8,15 +9,19 @@ import { ReactComponent as PencilSmallSVG } from "../../svgs/pencilSmall.svg";
 import { ReactComponent as TrashSmallSVG } from "../../svgs/trashSmall.svg";
 import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 
-import { useBookmarks } from "../../state/hooks/useBookmarks";
+// import { useBookmarks } from "../../state/hooks/useBookmarks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-
 import { useTabContext } from "../../context/tabContext";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
+import {
+  DeleteBookmarkMutation
+} from "../../graphql/graphqlMutations";
+
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 
 interface Props {
   singleBookmarkData: SingleBookmarkData;
@@ -28,6 +33,10 @@ interface Props {
   globalSettings: SettingsDatabase_i;
   bookmarks: SingleBookmarkData[];
   tabs: SingleTabData[];
+}
+
+interface BookmarkId {
+  id: string
 }
 
 function SingleBookmark({
@@ -50,7 +59,13 @@ function SingleBookmark({
 
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   // const tabs = useTabs((state) => state.tabs);
-  const deleteBookmark = useBookmarks((state) => state.deleteBookmark);
+  // const deleteBookmark = useBookmarks((state) => state.deleteBookmark);
+
+
+  const [deleteBookmarkResult, deleteBookmark] = useMutation<any, BookmarkId>(
+   DeleteBookmarkMutation
+  );
+
 
   return (
     <div
@@ -103,7 +118,7 @@ function SingleBookmark({
             <button
               className="h-5 w-5 ml-1 focus-1-inset-darkGray"
               onClick={() => {
-                let bookmarkToDelete = bookmarks.find(
+          /*       let bookmarkToDelete = bookmarks.find(
                   (obj) => obj.id === bookmarkId
                 );
 
@@ -113,7 +128,15 @@ function SingleBookmark({
                     singleBookmarkData,
                     tabs.find((obj) => !obj.deletable)?.id as string
                   );
-                }
+                } */
+                
+                console.log(singleBookmarkData.title);
+                console.log(bookmarkId);
+                
+                deleteBookmark({id: bookmarkId}).then(result => console.log(result));
+        
+                
+
               }}
               aria-label={"Delete bookmark"}
             >

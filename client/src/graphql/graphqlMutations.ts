@@ -115,3 +115,16 @@ export const ChangeBookmarkMutation = `
   }
 `;
 
+export const DeleteBookmarkMutation = `
+  mutation ($id: ID,
+    ) {
+    deleteBookmark (id: $id, 
+        ) {
+          id
+          userId
+          title
+          URL
+          tags
+    }
+  }
+`;

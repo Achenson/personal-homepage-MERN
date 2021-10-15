@@ -9,6 +9,6 @@ export const deleteBookmarkMutationField = {
     id: { type: GraphQLID },
   },
   resolve(_source: unknown, args: { id: string }) {
-    return Bookmark.findOneAndDelete(args.id);
+    return Bookmark.findByIdAndDelete(args.id);
   },
 };
