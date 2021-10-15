@@ -8,6 +8,7 @@ import Bookmark_lowerUI from "../LowerUI/Bookmark_lowerUI";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 
 interface Props {
   bookmarkComponentType: "new_upperUI" | "new_lowerUI" | "edit";
@@ -218,7 +219,7 @@ function Bookmark_newAndEdit({
       ) : (
         <Bookmark_lowerUI
           {...bookmark_props}
-          currentBookmark={currentBookmark}
+          currentBookmark={currentBookmark as BookmarkDatabase_i}
           bookmarkId={bookmarkId as string}
           colNumber={colNumber as number}
           bookmarks={bookmarks}

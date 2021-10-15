@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useMutation } from "urql";
 
 import FocusLock from "react-focus-lock";
 
@@ -18,16 +19,21 @@ import { useTabs } from "../../state/hooks/useTabs";
 
 import {
   createFolderTab,
+  createFolderTabDb,
   createNote,
+  createNoteDb,
   createRSS,
+  createRSSDb,
 } from "../../utils/funcs and hooks/objCreators";
-
 import { tabErrorHandling } from "../../utils/funcs and hooks/tabErrorHandling";
 import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
+import { AddTabMutation } from "../../graphql/graphqlMutations";
+
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 interface Props {
   tabType: "folder" | "note" | "rss";
@@ -47,7 +53,11 @@ function NewTab({
   globalSettings,
 }: Props): JSX.Element {
   // const tabs = useTabs((state) => state.tabs);
-  const addTabs = useTabs((state) => state.addTabs);
+  // const addTabs = useTabs((state) => state.addTabs);
+  const [addTabResult, addTab] = useMutation<any, TabDatabase_i>(
+    AddTabMutation
+  );
+
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   const addTag = useBookmarks((state) => state.addTag);
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
@@ -224,7 +234,7 @@ function NewTab({
     }
 
     if (tabType === "note") {
-      addTabs([
+      /*    addTabs([
         {
           ...createNote(
             tabTitleInput,
@@ -233,11 +243,28 @@ function NewTab({
             textAreaValue
           ),
         },
-      ]);
+      ]); */
+      addTab(
+        createNoteDb(
+          globalSettings.userId,
+          tabTitleInput,
+          tabColumnInput,
+          newTabPriority,
+          textAreaValue
+        )
+      ).then(result => console.log(result)
+      );
     }
 
     if (tabType === "folder") {
-      let newFolderTab = createFolderTab(
+      /*   let newFolderTab = createFolderTab(
+        tabTitleInput,
+        tabColumnInput,
+        newTabPriority
+      ); */
+
+      let newFolderTab = createFolderTabDb(
+        globalSettings.userId,
         tabTitleInput,
         tabColumnInput,
         newTabPriority
@@ -247,13 +274,14 @@ function NewTab({
       newBookmarksAllTagsData.push(newFolderTab.id);
       // setBookmarksAllTags([...newBookmarksAllTagsData]);
 
-      addTabs([newFolderTab]);
+      // addTabs([newFolderTab]);
+      addTab(newFolderTab);
       // updating links data (tags array)
       addTag(newFolderTab.id, bookmarksInputArr);
     }
 
     if (tabType === "rss") {
-      addTabs([
+ /*      addTabs([
         {
           ...createRSS(
             tabTitleInput,
@@ -262,7 +290,14 @@ function NewTab({
             rssLinkInput
           ),
         },
-      ]);
+      ]); */
+      addTab(createRSSDb(
+        globalSettings.userId,
+        tabTitleInput,
+        tabColumnInput,
+        newTabPriority,
+        rssLinkInput
+      ),)
     }
   }
 

@@ -128,3 +128,54 @@ export const DeleteBookmarkMutation = `
     }
   }
 `;
+
+export const AddTabMutation = `
+  mutation ($userId: ID,
+    $title: String,
+    $color: String,
+    $column: Int,
+    $priority: Int,
+    $opened: Boolean,
+    $openedByDefault: Boolean,
+    $deletable: Boolean,
+    $type: String,
+    $noteInput: String,
+    $rssLink: String,
+    $date: Boolean,
+    $description: Boolean,
+    $itemsPerPage: Int
+    ) {
+    addTab(userId: $userId, 
+      title: $title,
+      color: $color,
+      column: $column,
+      priority: $priority,
+      opened: $opened,
+      openedByDefault: $openedByDefault,
+      deletable: $deletable,
+      type: $type,
+      noteInput: $noteInput,
+      rssLink: $rssLink,
+      date: $date,
+      description: $description,
+      itemsPerPage: $itemsPerPage
+        ) {
+          id
+          userId
+          title
+          color
+          column
+          priority
+          opened
+          openedByDefault
+          deletable
+          type
+          noteInput
+          rssLink
+          date
+          description
+          itemsPerPage
+        
+    }
+  }
+`;

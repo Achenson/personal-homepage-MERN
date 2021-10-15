@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { SingleTabData, SingleBookmarkData } from "../interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
+import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 export function createBasicTab(
   title: string,
@@ -62,7 +63,7 @@ export function createFolderTab(
   title: string,
   column: number,
   priority: number
-) {
+): SingleTabData {
   return {
     ...createBasicTab(title, column, priority),
     ...createFolderTab_partial(),
@@ -88,6 +89,47 @@ export function createRSS(
   rssLink: string
 ): SingleTabData {
   return {
+    ...createBasicTab(title, column, priority),
+    ...createRSS_partial(rssLink),
+  };
+}
+
+export function createFolderTabDb(
+  userId: string,
+  title: string,
+  column: number,
+  priority: number
+): TabDatabase_i {
+  return {
+    userId: userId,
+    ...createBasicTab(title, column, priority),
+    ...createFolderTab_partial(),
+  };
+}
+
+export function createNoteDb(
+  userId: string,
+  title: string,
+  column: number,
+  priority: number,
+  noteInput: string | null
+): TabDatabase_i {
+  return {
+    userId: userId,
+    ...createBasicTab(title, column, priority),
+    ...createNote_partial(noteInput),
+  };
+}
+
+export function createRSSDb(
+  userId: string,
+  title: string,
+  column: number,
+  priority: number,
+  rssLink: string
+): TabDatabase_i {
+  return {
+    userId: userId,
     ...createBasicTab(title, column, priority),
     ...createRSS_partial(rssLink),
   };

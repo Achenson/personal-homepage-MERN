@@ -13,18 +13,21 @@ import {
   // createBookmark,
   createBookmarkDb,
   createFolderTab,
+  createFolderTabDb
 } from "../../utils/funcs and hooks/objCreators";
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 import { bookmarkErrorHandling } from "../../utils/funcs and hooks/bookmarkErrorHandling";
 import {
   AddBookmarkMutation,
   ChangeBookmarkMutation,
+  AddTabMutation
 } from "../../graphql/graphqlMutations";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { BookmarkErrors, SetBookmarkErrors } from "../../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 interface Props {
   titleInput: string;
@@ -42,7 +45,8 @@ interface Props {
   rssTitlesArr: string[];
   bookmarkComponentType: "new_upperUI" | "new_lowerUI" | "edit";
   bookmarkId: string;
-  currentBookmark: SingleBookmarkData | undefined;
+  // currentBookmark: SingleBookmarkData | undefined;
+  currentBookmark: BookmarkDatabase_i;
   colNumber: number;
   errors: BookmarkErrors;
   setErrors: SetBookmarkErrors;
@@ -86,6 +90,11 @@ function Bookmark_lowerUI({
     BookmarkDatabase_i
   >(ChangeBookmarkMutation);
 
+  const [addTabResult, addTab] = useMutation<any, TabDatabase_i>(
+    AddTabMutation
+  );
+
+
   // const bookmarks = useBookmarks((store) => store.bookmarks);
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   const bookmarksAllTags: string[] = bookmarks.map((obj) => obj.id);
@@ -93,7 +102,9 @@ function Bookmark_lowerUI({
     (store) => store.setBookmarksAllTags
   ); */
 
-  const addTabs = useTabs((store) => store.addTabs);
+  // const addTabs = useTabs((store) => store.addTabs);
+
+
   // const tabs = useTabs((store) => store.tabs);
 
   const tabContext = useTabContext();
@@ -159,7 +170,8 @@ function Bookmark_lowerUI({
     ];
     // for edit only
     let newTabId: undefined | string;
-    let newTabsToAdd: SingleTabData[] = [];
+    // let newTabsToAdd: SingleTabData[] = [];
+    let newTabsToAdd: TabDatabase_i[] = [];
 
     let newBookmarksAllTagsData = [...bookmarksAllTags];
 
@@ -180,7 +192,8 @@ function Bookmark_lowerUI({
 
       // if folder with title corresponding to tag doesn't exist create it...
       if (!tabForCurrentTag && selectablesInputStr !== "") {
-        let newTab = createFolderTab(el, colNumber, newTabPriority);
+        // let newTab = createFolderTab(el, colNumber, newTabPriority);
+        let newTab = createFolderTabDb(currentBookmark?.userId, el, colNumber, newTabPriority);
         tagsInputArr_ToIds.push(newTab.id);
         // for edit only
         newTabId = newTab.id;
@@ -199,7 +212,8 @@ function Bookmark_lowerUI({
 
     if (newTabsToAdd.length > 0) {
       // setBookmarksAllTags([...newBookmarksAllTagsData]);
-      addTabs(newTabsToAdd);
+      // addTabs(newTabsToAdd);
+      newTabsToAdd.forEach( obj => addTab(obj))
     }
 
     if (bookmarkComponentType === "edit") {

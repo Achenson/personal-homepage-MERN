@@ -57,3 +57,5 @@ notes:
 36. addBookmark -> tabQueries should be refetched?
 37. way to use urql as a central state?
 38. editBookmark doesn't work on the client!
+39. objCreators: too much repetition in db tab creators?
+40. bookmarksAllTags -> change it (it should be a list of all tabs ids that are bookmarks tags) or use mongoose query!!!!
