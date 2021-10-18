@@ -29,7 +29,10 @@ import { tabErrorHandling } from "../../utils/funcs and hooks/tabErrorHandling";
 import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { AddTabMutation } from "../../graphql/graphqlMutations";
+import {
+  AddTabMutation,
+  ChangeBookmarkMutation,
+} from "../../graphql/graphqlMutations";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
@@ -57,6 +60,11 @@ function NewTab({
   const [addTabResult, addTab] = useMutation<any, TabDatabase_i>(
     AddTabMutation
   );
+
+  const [changeBookmarkResult, changeBookmark] = useMutation<
+    any,
+    TabDatabase_i
+  >(ChangeBookmarkMutation);
 
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   const addTag = useBookmarks((state) => state.addTag);
@@ -252,8 +260,7 @@ function NewTab({
           newTabPriority,
           textAreaValue
         )
-      ).then(result => console.log(result)
-      );
+      ).then((result) => console.log(result));
     }
 
     if (tabType === "folder") {
@@ -263,25 +270,28 @@ function NewTab({
         newTabPriority
       ); */
 
-      let newFolderTab = createFolderTabDb(
-        globalSettings.userId,
-        tabTitleInput,
-        tabColumnInput,
-        newTabPriority
-      );
+      addTab(
+        createFolderTabDb(
+          globalSettings.userId,
+          tabTitleInput,
+          tabColumnInput,
+          newTabPriority
+        )
+      ).then((result) => {
+        console.log(result);
+      });
 
-      let newBookmarksAllTagsData = [...bookmarksAllTags];
-      newBookmarksAllTagsData.push(newFolderTab.id);
+      /* let newBookmarksAllTagsData = [...bookmarksAllTags];
+      newBookmarksAllTagsData.push(newFolderTab.id); */
       // setBookmarksAllTags([...newBookmarksAllTagsData]);
 
-      // addTabs([newFolderTab]);
-      addTab(newFolderTab);
+      // addTab(newFolderTab);
       // updating links data (tags array)
-      addTag(newFolderTab.id, bookmarksInputArr);
+      // addTag(newFolderTab.id, bookmarksInputArr);
     }
 
     if (tabType === "rss") {
- /*      addTabs([
+      /*      addTabs([
         {
           ...createRSS(
             tabTitleInput,
@@ -291,13 +301,15 @@ function NewTab({
           ),
         },
       ]); */
-      addTab(createRSSDb(
-        globalSettings.userId,
-        tabTitleInput,
-        tabColumnInput,
-        newTabPriority,
-        rssLinkInput
-      ),)
+      addTab(
+        createRSSDb(
+          globalSettings.userId,
+          tabTitleInput,
+          tabColumnInput,
+          newTabPriority,
+          rssLinkInput
+        )
+      );
     }
   }
 

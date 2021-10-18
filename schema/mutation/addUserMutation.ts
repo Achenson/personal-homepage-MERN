@@ -31,92 +31,101 @@ export const addUserMutationField = {
       password: args.password,
     });
 
-    return user.save(async (err: Error, settingsProduct: User_i) => {
-      if (err) console.log(err);
+    return new Promise((resolve, reject) => {
+      user.save(async (err: Error, userProduct: User_i) => {
+        if (err) {
+          console.log(err);
+          reject(err);
+        }
 
-      console.log("product");
-      console.log(settingsProduct);
+        console.log("product");
+        console.log(userProduct);
 
-      let newSettings = new Settings({
-        userId: settingsProduct.id,
-        picBackground: false,
-        defaultImage: "defaultBackground",
-        oneColorForAllCols: false,
-        limitColGrowth: false,
-        hideNonDeletable: false,
-        disableDrag: false,
-        numberOfCols: 4,
-        date: true,
-        description: false,
-        itemsPerPage: 7,
-        backgroundColor: backgroundColors[0][1],
-        folderColor: tabColors[7][2],
-        noteColor: tabColors[1][2],
-        rssColor: tabColors[9][2],
-        uiColor: tabColors[7][2],
-        colColor_1: columnColors[0][8],
-        colColor_2: columnColors[1][5],
-        colColor_3: columnColors[1][8],
-        colColor_4: columnColors[3][2],
-        colColorImg_1: imageColumnColors[2][6],
-        colColorImg_2: imageColumnColors[2][6],
-        colColorImg_3: imageColumnColors[3][5],
-        colColorImg_4: imageColumnColors[0][5],
-      });
+        let newSettings = new Settings({
+          userId: userProduct.id,
+          picBackground: false,
+          defaultImage: "defaultBackground",
+          oneColorForAllCols: false,
+          limitColGrowth: false,
+          hideNonDeletable: false,
+          disableDrag: false,
+          numberOfCols: 4,
+          date: true,
+          description: false,
+          itemsPerPage: 7,
+          backgroundColor: backgroundColors[0][1],
+          folderColor: tabColors[7][2],
+          noteColor: tabColors[1][2],
+          rssColor: tabColors[9][2],
+          uiColor: tabColors[7][2],
+          colColor_1: columnColors[0][8],
+          colColor_2: columnColors[1][5],
+          colColor_3: columnColors[1][8],
+          colColor_4: columnColors[3][2],
+          colColorImg_1: imageColumnColors[2][6],
+          colColorImg_2: imageColumnColors[2][6],
+          colColorImg_3: imageColumnColors[3][5],
+          colColorImg_4: imageColumnColors[0][5],
+        });
 
-      newSettings.save();
+        newSettings.save();
 
-      let arrOfPromises: Promise<string>[] = [];
+        let arrOfPromises: Promise<string>[] = [];
 
-      for (let el of tabs) {
-        let newPromise = new Promise<string>((resolve, reject) => {
-          let newTab = new Tab({
-            ...el,
-            userId: settingsProduct.id,
+        for (let el of tabs) {
+          let newPromise = new Promise<string>((resolve, reject) => {
+            let newTab = new Tab({
+              ...el,
+              userId: userProduct.id,
+            });
+
+            newTab.save((err: Error, folderProduct: TabDatabase_i) => {
+              if (err) {
+                console.log(err);
+                reject();
+              }
+              console.log(folderProduct.id);
+              resolve(folderProduct.id);
+            });
           });
 
-          newTab.save((err: Error, folderProduct: TabDatabase_i) => {
-            if (err) {
-              console.log(err);
-              reject();
+          arrOfPromises.push(newPromise);
+        }
+
+        let arrOfFolderIds: string[] = await Promise.all(arrOfPromises);
+
+        console.log(arrOfFolderIds);
+
+        function calcTagNames(bookmark: BookmarkLocal_i) {
+          let newArr: string[] = [];
+
+          // for each el of arrOfFolderIds
+          arrOfFolderIds.forEach((el, i) => {
+            // if i is present in bookmark.tagIndices
+            if (bookmark.tagIndices.indexOf(i) > -1) {
+              // add arrOfFolderIds[i] to newArr
+              newArr.push(el);
             }
-            console.log(folderProduct.id);
-            resolve(folderProduct.id);
           });
+
+          return newArr;
+        }
+
+        bookmarks.forEach((el: BookmarkLocal_i) => {
+          let newBookmark = new Bookmark({
+            ...el,
+            userId: userProduct.id,
+            tags: calcTagNames(el),
+          });
+
+          newBookmark.save(
+            (err: Error, bookmarkProduct: BookmarkDatabase_i) => {
+              if (err) console.log(err);
+            }
+          );
         });
 
-        arrOfPromises.push(newPromise);
-      }
-
-      let arrOfFolderIds: string[] = await Promise.all(arrOfPromises);
-
-      console.log(arrOfFolderIds);
-
-      function calcTagNames(bookmark: BookmarkLocal_i) {
-        let newArr: string[] = [];
-
-        // for each el of arrOfFolderIds
-        arrOfFolderIds.forEach((el, i) => {
-          // if i is present in bookmark.tagIndices
-          if (bookmark.tagIndices.indexOf(i) > -1) {
-            // add arrOfFolderIds[i] to newArr
-            newArr.push(el);
-          }
-        });
-
-        return newArr;
-      }
-
-      bookmarks.forEach((el: BookmarkLocal_i) => {
-        let newBookmark = new Bookmark({
-          ...el,
-          userId: settingsProduct.id,
-          tags: calcTagNames(el),
-        });
-
-        newBookmark.save((err: Error, bookmarkProduct: BookmarkDatabase_i) => {
-          if (err) console.log(err);
-        });
+        resolve(userProduct);
       });
     });
   },

@@ -143,5 +143,17 @@ mutation {
 
 
 
+mutation {
+  addBookmark(userId: "616d84ffe1ea080b82f05e50", title: "testBookmark", URL: "https://mongoosejs.com/docs/search.html?q=save", tags: ["616d84ffe1ea080b82f05e53"]) {
+    id
+    userId
+    title
+    URL
+    tags
+  }
+}
+
+
+
 
 */

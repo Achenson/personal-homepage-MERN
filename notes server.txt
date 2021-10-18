@@ -7,11 +7,13 @@
 notes:
 
 1. in GraphQL, all types are nullable by default!
+2. to get object from mutation with saving: return a promise, resolve with the product!
 
 
  issues:
  
  DONE 2. working graphql playground DONE
+ DONE 3. adding user doesn't return anything on graphql playground? (but it returns in changeSettings) (see notes pt.2) DONE
  DONE 5. bookmarkSchema.ts: is <Array> type enough? [string] DONE 
  DONE 3. id: string | number or string only? unify with client (client: string only) DONE
  DONE 4. client: SingleTabData: [object] | never[] | [] ????
@@ -23,7 +25,6 @@ notes:
  DONE 34. mutations -> proper typescript types! DONE
  
  1. livereload npm
- 2. adding user doesn't return anything on graphql playground? (but it returns in changeSettings)
  
  6. userSchema gets ref to settingsSchema, should it be also the other war around?
  
@@ -59,3 +60,4 @@ notes:
 38. editBookmark doesn't work on the client!
 39. objCreators: too much repetition in db tab creators?
 40. bookmarksAllTags -> change it (it should be a list of all tabs ids that are bookmarks tags) or use mongoose query!!!!
+41. newTab -> no color as argument, should be null

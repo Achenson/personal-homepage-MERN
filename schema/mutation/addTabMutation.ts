@@ -27,13 +27,24 @@ export const addTabMutationField = {
       itemsPerPage: args.itemsPerPage,
     });
 
-    newTab.save((err: Error, tabProduct: TabDatabase_i) => {
+    return new Promise((resolve, reject) => {
+        newTab.save((err: Error, tabProduct: TabDatabase_i) => {
+        if (err) {
+          console.log(err);
+          reject(err);
+        } else {
+          resolve(tabProduct);
+        }
+      });
+    });
+
+ /*    newTab.save((err: Error, tabProduct: TabDatabase_i) => {
       if (err) {
         console.log(err);
         return;
       }
 
       console.log(tabProduct);
-    });
+    }); */
   },
 };

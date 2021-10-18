@@ -21,12 +21,15 @@ export const addBookmarkMutationField = {
       tags: args.tags,
     });
 
-    newBookmark.save((err: Error, bookmarkProduct: BookmarkDatabase_i) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      console.log(bookmarkProduct);
+    return new Promise((resolve, reject) => {
+      newBookmark.save((err: Error, bookmarkProduct: BookmarkDatabase_i) => {
+        if (err) {
+          console.log(err);
+          reject(err);
+        }
+        console.log(bookmarkProduct);
+        resolve(bookmarkProduct);
+      });
     });
   },
 };
