@@ -37,6 +37,7 @@ import { testUserId } from "../../state/data/testUserId";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
+import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 interface Item {
   type: string;
@@ -499,7 +500,8 @@ function Tab({
             <EditTab_main
               tabID={tabID}
               tabType={tabType}
-              currentTab={currentTab as SingleTabData}
+              // currentTab={currentTab as SingleTabData}
+              currentTab={currentTab as TabDatabase_i}
               setTabOpened_local={setTabOpened_local}
               globalSettings={globalSettings}
               bookmarks={bookmarks}

@@ -26,11 +26,13 @@ import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
 import {
   DeleteTabMutation,
   ChangeBookmarkMutation,
+  ChangeTabMutation,
 } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
+import { imageColumnColorsConcat } from "../../utils/data/colors_column";
 
 interface TabId {
   id: string;
@@ -39,7 +41,8 @@ interface TabId {
 interface Props {
   tabType: "folder" | "note" | "rss";
   tabID: string;
-  currentTab: SingleTabData;
+  // currentTab: SingleTabData;
+  currentTab: TabDatabase_i;
   setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>;
   globalSettings: SettingsDatabase_i;
   tabs: SingleTabData[];
@@ -57,7 +60,11 @@ function EditTab({
   bookmarks,
 }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
-  const editTab = useTabs((store) => store.editTab);
+  // const editTab = useTabs((store) => store.editTab);
+  const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
+    ChangeTabMutation
+  );
+
   // const deleteTab = useTabs((store) => store.deleteTab);
   const [deleteTabResult, deleteTab] = useMutation<any, TabId>(
     DeleteTabMutation
@@ -195,26 +202,40 @@ function EditTab({
   }
 
   function editTabWrapper() {
-    editTab(
-      tabID,
-      tabTitleInput,
-      textAreaValue,
-      rssLinkInput,
-      dateCheckbox,
-      descriptionCheckbox,
-      rssItemsPerPage,
-      wasTabOpenClicked,
-      wasCheckboxClicked,
-      wasItemsPerPageClicked,
-      tabType,
-      tabOpen,
-      setTabOpened_local
-    );
-
     if (tabType === "folder") {
+      editTab({
+        ...currentTab,
+        title: tabTitleInput,
+        openedByDefault: tabOpen,
+      });
+      return;
+    }
+
+    if (tabType === "note") {
+      editTab({
+        ...currentTab,
+        title: tabTitleInput,
+        openedByDefault: tabOpen,
+        noteInput: textAreaValue,
+      });
+    }
+
+    if (tabType === "rss") {
+      editTab({
+        ...currentTab,
+        title: tabTitleInput,
+        openedByDefault: tabOpen,
+        rssLink: rssLinkInput,
+        date: dateCheckbox,
+        description: descriptionCheckbox,
+        itemsPerPage: rssItemsPerPage,
+      });
+    }
+
+    /* if (tabType === "folder") {
       // changing a tag in bookmarks
       editTag(tabID, arrOfBookmarksNames, bookmarksInputArr);
-    }
+    } */
   }
 
   function saveFunc() {
