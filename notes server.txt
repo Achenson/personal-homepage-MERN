@@ -61,3 +61,4 @@ notes:
 39. objCreators: too much repetition in db tab creators?
 40. bookmarksAllTags -> change it (it should be a list of all tabs ids that are bookmarks tags) or use mongoose query!!!!
 41. newTab -> no color as argument, should be null
+42. editing Tab -> bookmarks are not sorted alphabetically!

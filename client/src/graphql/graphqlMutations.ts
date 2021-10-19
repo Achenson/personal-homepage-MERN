@@ -96,12 +96,16 @@ export const AddBookmarkMutation = `
 `;
 
 export const ChangeBookmarkMutation = `
-  mutation ($userId: ID,
+  mutation (
+    $id: ID,
+    $userId: ID,
     $title: String,
     $URL: String,
     $tags: [ID]
     ) {
-    changeBookmark (userId: $userId, 
+    changeBookmark (
+      id: $id,
+      userId: $userId, 
       title: $title,
       URL: $URL,
       tags: $tags,
@@ -160,6 +164,7 @@ export const AddTabMutation = `
       description: $description,
       itemsPerPage: $itemsPerPage
         ) {
+          id
           userId
           title
           color

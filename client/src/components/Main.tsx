@@ -27,6 +27,7 @@ import { TabsQuery, BookmarksQuery } from "../graphql/graphqlQueries";
 import { testUserId } from "../state/data/testUserId";
 
 import { SingleBookmarkData, SingleTabData } from "../utils/interfaces";
+import { BookmarkDatabase_i } from "../../../schema/types/bookmarkType";
 
 interface Props {
   globalSettings: SettingsDatabase_i;
@@ -154,7 +155,8 @@ function Main({ globalSettings }: Props): JSX.Element {
   if (fetching_bookmarks) return <p>Loading...</p>;
   if (error_bookmarks) return <p>Oh no... {error_bookmarks.message}</p>;
 
-  let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
+  // let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
+  let bookmarks: BookmarkDatabase_i[] = data_bookmarks.bookmarks;
 
   let paddingProps = {
     mainPaddingRight: paddingRight,

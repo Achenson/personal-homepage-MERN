@@ -37,13 +37,15 @@ import {
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
+import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 
 interface Props {
   tabType: "folder" | "note" | "rss";
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   tabs: SingleTabData[];
-  bookmarks: SingleBookmarkData[];
+  // bookmarks: SingleBookmarkData[];
+  bookmarks: BookmarkDatabase_i[];
   globalSettings: SettingsDatabase_i;
 }
 
@@ -63,13 +65,13 @@ function NewTab({
 
   const [changeBookmarkResult, changeBookmark] = useMutation<
     any,
-    TabDatabase_i
+    BookmarkDatabase_i
   >(ChangeBookmarkMutation);
 
   // const bookmarks = useBookmarks((state) => state.bookmarks);
-  const addTag = useBookmarks((state) => state.addTag);
+  // const addTag = useBookmarks((state) => state.addTag);
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
-  const bookmarksAllTags: string[] = bookmarks.map((obj) => obj.id);
+  // const bookmarksAllTags: string[] = bookmarks.map((obj) => obj.id);
   // const setBookmarksAllTags = useBookmarks(
   //   (store) => store.setBookmarksAllTags
   // );
@@ -278,7 +280,15 @@ function NewTab({
           newTabPriority
         )
       ).then((result) => {
-        console.log(result);
+        let filteredBookmarks = bookmarks.filter(
+          (obj) => bookmarksInputArr.indexOf(obj.title) > -1
+        );
+        filteredBookmarks.forEach((obj) => {
+          let changedBookmark = { ...obj };
+          changedBookmark.tags.push(result.data.addTab.id);
+          //  console.log(JSON.stringify(changedBookmark, null, 2));
+          changeBookmark(changedBookmark);
+        });
       });
 
       /* let newBookmarksAllTagsData = [...bookmarksAllTags];

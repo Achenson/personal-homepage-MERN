@@ -100,6 +100,17 @@ mutation {
   }
 }
 
+"id": "616d8500e1ea080b82f05e66",
+  "userId": "616d84ffe1ea080b82f05e50",
+  "title": "facebook",
+  "URL": "https://www.facebook.com/",
+  "tags": [
+    "616d84ffe1ea080b82f05e53",
+    "616d84ffe1ea080b82f05e54",
+    "616d84ffe1ea080b82f05e55",
+    "616e89e35ba12b820740f82a",
+    "616e8a215ba12b820740f82e"
+
 
 
 
