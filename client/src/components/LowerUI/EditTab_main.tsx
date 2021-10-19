@@ -23,13 +23,17 @@ import { useTabContext } from "../../context/tabContext";
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { tabErrorHandling } from "../../utils/funcs and hooks/tabErrorHandling";
 import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
-import { DeleteTabMutation } from "../../graphql/graphqlMutations";
+import {
+  DeleteTabMutation,
+  ChangeBookmarkMutation,
+} from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
+import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 
 interface TabId {
-  id: string
+  id: string;
 }
 
 interface Props {
@@ -39,7 +43,8 @@ interface Props {
   setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>;
   globalSettings: SettingsDatabase_i;
   tabs: SingleTabData[];
-  bookmarks: SingleBookmarkData[];
+  // bookmarks: SingleBookmarkData[];
+  bookmarks: BookmarkDatabase_i[];
 }
 
 function EditTab({
@@ -57,6 +62,11 @@ function EditTab({
   const [deleteTabResult, deleteTab] = useMutation<any, TabId>(
     DeleteTabMutation
   );
+
+  const [changeBookmarkResult, changeBookmark] = useMutation<
+    any,
+    BookmarkDatabase_i
+  >(ChangeBookmarkMutation);
   // const rssSettingsState = useRssSettings((state) => state, shallow);
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   const tabContext = useTabContext();
@@ -362,12 +372,31 @@ function EditTab({
                   return;
                 }
 
-                deleteTab({id: tabID});
+                deleteTab({ id: tabID }).then((result) => {
+                  if (tabType === "note" || tabType === "rss") {
+                    return;
+                  }
+
+                  let filteredBookmarks = bookmarks.filter(
+                    (obj) => obj.tags.indexOf(result.data.deleteTab.id) > -1
+                  );
+
+                  filteredBookmarks.forEach((obj) => {
+                    let changedBookmark = { ...obj };
+                    // console.log(JSON.stringify(changedBookmark, null, 2));
+                    let indexOfDeletedTab = changedBookmark.tags.indexOf(
+                      result.data.deleteTab.id
+                    );
+                    changedBookmark.tags.splice(indexOfDeletedTab, 1);
+                    // console.log(JSON.stringify(changedBookmark, null, 2));
+                    changeBookmark(changedBookmark);
+                  });
+                });
 
                 tabContext.tabVisDispatch({ type: "EDIT_TOGGLE" });
 
                 // removing deleted tab(tag) from bookmarks
-                deleteTag(tabTitle);
+                // deleteTag(tabTitle);
               }}
               aria-label={"Delete tab"}
             >

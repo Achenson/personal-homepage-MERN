@@ -36,6 +36,7 @@ import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { testUserId } from "../../state/data/testUserId";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 
 interface Item {
   type: string;
@@ -311,7 +312,8 @@ function Tab({
   if (fetching_bookmarks) return <p>Loading...</p>;
   if (errors_bookmarks) return <p>Oh no... {errors_bookmarks.message}</p>;
 
-  let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
+  // let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
+  let bookmarks: BookmarkDatabase_i[] = data_bookmarks.bookmarks;
 
   return (
     <TabContext.Provider value={tabContextValue}>
