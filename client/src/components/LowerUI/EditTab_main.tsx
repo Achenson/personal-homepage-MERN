@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import FocusLock from "react-focus-lock";
-import shallow from "zustand/shallow";
+import { useMutation } from "urql";
+// import shallow from "zustand/shallow";
 
 import EditTab_folder from "./EditTab_folder";
 import EditTab_notes from "./EditTab_notes";
@@ -22,15 +23,21 @@ import { useTabContext } from "../../context/tabContext";
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { tabErrorHandling } from "../../utils/funcs and hooks/tabErrorHandling";
 import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
+import { DeleteTabMutation } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { TabDatabase_i } from "../../../../schema/types/tabType";
+
+interface TabId {
+  id: string
+}
 
 interface Props {
   tabType: "folder" | "note" | "rss";
   tabID: string;
   currentTab: SingleTabData;
   setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>;
-  globalSettings: SettingsDatabase_i
+  globalSettings: SettingsDatabase_i;
   tabs: SingleTabData[];
   bookmarks: SingleBookmarkData[];
 }
@@ -42,11 +49,14 @@ function EditTab({
   setTabOpened_local,
   globalSettings,
   tabs,
-  bookmarks
+  bookmarks,
 }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   const editTab = useTabs((store) => store.editTab);
-  const deleteTab = useTabs((store) => store.deleteTab);
+  // const deleteTab = useTabs((store) => store.deleteTab);
+  const [deleteTabResult, deleteTab] = useMutation<any, TabId>(
+    DeleteTabMutation
+  );
   // const rssSettingsState = useRssSettings((state) => state, shallow);
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   const tabContext = useTabContext();
@@ -352,11 +362,11 @@ function EditTab({
                   return;
                 }
 
-                deleteTab(tabID);
+                deleteTab({id: tabID});
 
                 tabContext.tabVisDispatch({ type: "EDIT_TOGGLE" });
 
-                // removing deleted tab(tag) for bookmarks
+                // removing deleted tab(tag) from bookmarks
                 deleteTag(tabTitle);
               }}
               aria-label={"Delete tab"}

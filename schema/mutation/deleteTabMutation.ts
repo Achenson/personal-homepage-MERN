@@ -9,6 +9,6 @@ export const deleteTabMutationField = {
     id: { type: GraphQLID },
   },
   resolve(_source: unknown, args: { id: string }) {
-    return Tab.findOneAndDelete(args.id);
+    return Tab.findByIdAndDelete(args.id);
   },
 };

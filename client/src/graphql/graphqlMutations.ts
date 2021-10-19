@@ -182,3 +182,27 @@ export const AddTabMutation = `
     }
   }
 `;
+
+export const DeleteTabMutation = `
+  mutation (
+    $id: ID
+    ) {
+    deleteTab (id: $id ) {
+        id
+        userId
+        title
+        color
+        column
+        priority
+        opened
+        openedByDefault
+        deletable
+        type
+        noteInput
+        rssLink
+        date
+        description
+        itemsPerPage 
+    }
+  }
+`;
