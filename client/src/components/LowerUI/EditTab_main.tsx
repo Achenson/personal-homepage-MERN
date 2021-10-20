@@ -33,8 +33,13 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { imageColumnColorsConcat } from "../../utils/data/colors_column";
+import { triggerAsyncId } from "async_hooks";
 
 interface TabId {
+  id: string;
+}
+
+interface BookmarkId {
   id: string;
 }
 
@@ -208,6 +213,40 @@ function EditTab({
         title: tabTitleInput,
         openedByDefault: tabOpen,
       });
+
+      console.log(bookmarksInputArr);
+
+      let bookmarksFiltered = bookmarks.filter((obj) =>
+        bookmarksInputArr.includes(obj.title)
+      );
+      console.log(bookmarksFiltered);
+
+      // adding new tag (tabID) to bookmarks
+      bookmarksFiltered.forEach((obj) => {
+        if (!obj.tags.includes(tabID)) {
+          let newTags = [...obj.tags];
+          newTags.push(tabID);
+          changeBookmark({ ...obj, tags: newTags });
+        }
+      });
+
+      // deleting =======
+      // initial bookmarks
+      let bookmarksFiltered_initial = bookmarks.filter((obj) =>
+        arrOfBookmarksNames.includes(obj.title)
+      );
+
+      bookmarksFiltered_initial.forEach((obj) => {
+        // if final bookmarks does not include an initial bookmark
+        if (!bookmarksInputArr.includes(obj.title)) {
+          let newTags = [...obj.tags];
+          // delete tabID from this initial bookmark
+          let indexOfTabId = newTags.indexOf(tabID);
+          newTags.splice(indexOfTabId, 1);
+          changeBookmark({ ...obj, tags: newTags });
+        }
+      });
+
       return;
     }
 
