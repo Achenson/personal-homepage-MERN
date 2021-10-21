@@ -13,7 +13,10 @@ import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
-import { DeleteTabMutation } from "../../graphql/graphqlMutations";
+import {
+  DeleteTabMutation,
+  ChangeTabMutation,
+} from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
@@ -44,7 +47,12 @@ function Grid({
   const [deleteTabResult, deleteTab] = useMutation<any, TabId>(
     DeleteTabMutation
   );
-  const resetAllTabColors = useTabs((store) => store.resetAllTabColors);
+
+  const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
+    ChangeTabMutation
+  );
+
+  // const resetAllTabColors = useTabs((store) => store.resetAllTabColors);
 
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
 
@@ -128,12 +136,21 @@ function Grid({
     }
   }, [closeAllTabsState, setCloseAllTabsState]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (resetColors) {
       resetAllTabColors();
       setResetColors(false);
     }
-  }, [resetColors, setResetColors, resetAllTabColors]);
+  }, [resetColors, setResetColors, resetAllTabColors]); */
+
+  useEffect(() => {
+    if (resetColors) {
+      tabs.forEach((obj) => {
+        editTab({ ...obj, color: null });
+      });
+      setResetColors(false);
+    }
+  }, [resetColors, setResetColors]);
 
   /* useEffect(() => {
     deleteEmptyTab(bookmarksAllTags);
