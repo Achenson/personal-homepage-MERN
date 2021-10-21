@@ -191,7 +191,8 @@ function Column({
         ),
       }}
     >
-      {(tabs as SingleTabData[])
+      {/* {(tabs as SingleTabData[]) */}
+      {(tabs as TabDatabase_i[])
         .filter((el) => el.column === colNumber)
         // lower priority, higher in the column
         .sort((a, b) => a.priority - b.priority)
@@ -214,6 +215,7 @@ function Column({
                 tabIsDeletable={el.deletable}
                 globalSettings={globalSettings}
                 tabs={tabs}
+                currentTab={el}
               />
               {/* <div className="flex-grow"> */}
               <GapAfterTab

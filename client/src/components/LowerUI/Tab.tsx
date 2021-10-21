@@ -61,6 +61,7 @@ interface Props {
   tabIsDeletable: boolean;
   globalSettings: SettingsDatabase_i;
   tabs: TabDatabase_i[];
+  currentTab: TabDatabase_i;
   // tabs: SingleTabData[];
 }
 
@@ -74,7 +75,8 @@ function Tab({
   tabOpenedByDefault,
   tabIsDeletable,
   globalSettings,
-  tabs
+  tabs,
+  currentTab
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -121,7 +123,7 @@ function Tab({
     setTabOpened_local(tabOpened);
   }, [tabOpened]);
 
-  let currentTab = tabs.find((obj) => obj.id === tabID);
+  // let currentTab = tabs.find((obj) => obj.id === tabID);
 
   const [iconsVis, setIconsVis] = useState<boolean>(false);
 
@@ -491,6 +493,7 @@ function Tab({
               tabColor={tabColor}
               tabType={tabType}
               globalSettings={globalSettings}
+              currentTab={currentTab}
             />
           )}
 

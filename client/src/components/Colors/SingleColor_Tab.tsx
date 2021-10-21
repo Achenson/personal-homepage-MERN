@@ -1,7 +1,11 @@
 import React from "react";
+import { useMutation } from "urql";
 
 import { tabColorsLightFocus } from "../../utils/data/colors_tab";
-import { useTabs } from "../../state/hooks/useTabs";
+// import { useTabs } from "../../state/hooks/useTabs";
+
+import { ChangeTabMutation } from "../../graphql/graphqlMutations";
+import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 interface Props {
   color: string;
@@ -12,6 +16,7 @@ interface Props {
   colorNumber: number;
   setSelectedNumber: React.Dispatch<React.SetStateAction<number>>;
   colorArrLength: number;
+  currentTab: TabDatabase_i;
 }
 
 function SingleColor_Tab({
@@ -21,9 +26,13 @@ function SingleColor_Tab({
   colorNumber,
   setSelectedNumber,
   colorArrLength,
+  currentTab
 }: Props): JSX.Element {
+  // const setTabColor = useTabs((state) => state.setTabColor);
 
-  const setTabColor = useTabs(state => state.setTabColor)
+  const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
+    ChangeTabMutation
+  );
 
   let tabIndex = calcTabIndex();
 
@@ -55,10 +64,10 @@ function SingleColor_Tab({
       focus:outline-none focus-visible:ring-2 ring-${focusColor()} ring-inset
       `}
       onClick={() => {
-        setTabColor(color, tabID);
+        // setTabColor(color, tabID);
+        editTab({...currentTab, color: color})
         setSelectedNumber(colorNumber);
       }}
-
       tabIndex={tabIndex}
       aria-label={"Choose color"}
     ></button>
