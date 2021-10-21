@@ -47,19 +47,6 @@ function Grid({
   const resetAllTabColors = useTabs((store) => store.resetAllTabColors);
 
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
-  const bookmarksAllTags: string[] = [];
-  bookmarks.forEach((obj) => {
-    obj.tags.forEach((el) => {
-      if (!bookmarksAllTags.includes(el)) {
-        bookmarksAllTags.push(el);
-      }
-    });
-  });
-
-  useEffect( () => {
-    console.log(bookmarksAllTags);
-  
-  }, [bookmarksAllTags])
 
   const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
   const setCloseAllTabsState = useTabs((store) => store.setCloseAllTabsState);
@@ -152,15 +139,40 @@ function Grid({
     deleteEmptyTab(bookmarksAllTags);
   }, [tabs, bookmarksAllTags, deleteEmptyTab]); */
 
- /*  useEffect(() => {
+  /*   useEffect(() => {
+    console.log(bookmarksAllTags);
+    tabs
+      .filter((obj) => obj.type === "folder")
+      .forEach((obj) => {
+        if (!bookmarksAllTags.includes(obj.id)) {
+          // deleteTab({ id: obj.id });
+          console.log(obj.id);
+        }
+      });
+  }, [tabs, bookmarksAllTags]); */
+
+  useEffect(() => {
+    let bookmarksAllTags: string[] = [];
+
+    bookmarks.forEach((obj) => {
+      obj.tags.forEach((el) => {
+        if (!bookmarksAllTags.includes(el)) {
+          bookmarksAllTags.push(el);
+        }
+      });
+    });
+
+    console.log(bookmarksAllTags);
+
     tabs
       .filter((obj) => obj.type === "folder")
       .forEach((obj) => {
         if (!bookmarksAllTags.includes(obj.id)) {
           deleteTab({ id: obj.id });
+          // console.log(obj.id);
         }
       });
-  }, [tabs, bookmarksAllTags]); */
+  }, [bookmarks, tabs]);
 
   useEffect(() => {
     createLessColumns(globalSettings.numberOfCols);
