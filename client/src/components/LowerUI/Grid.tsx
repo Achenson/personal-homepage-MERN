@@ -130,6 +130,10 @@ function Grid({
 
   useEffect(() => {
     if (closeAllTabsState) {
+      tabs.forEach((obj) => {
+        editTab({ ...obj, opened: obj.openedByDefault });
+      });
+
       setTimeout(() => {
         setCloseAllTabsState(false);
       }, 500);

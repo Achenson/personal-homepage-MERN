@@ -157,11 +157,12 @@ function Tab({
 
   const [crossVis, setCrossVis] = useState<boolean>(true);
 
-  useEffect(() => {
+  // client-side
+/*   useEffect(() => {
     if (closeAllTabsState) {
       tabVisDispatch({ type: "TAB_CONTENT_DEFAULT" });
     }
-  }, [closeAllTabsState, tabVisDispatch]);
+  }, [closeAllTabsState, tabVisDispatch]); */
 
   let finalTabColor: string = "";
 

@@ -63,3 +63,4 @@ notes:
 41. newTab -> no color as argument, should be null
 42. editing Tab -> bookmarks are not sorted alphabetically!
 43. Tab (and other components further down?) should take tab data from Column, not from db?
+44. clientside: tab are set to default individually -> should be handle more centrally? (in Grid, as it is done server-side now)
