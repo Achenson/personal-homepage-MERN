@@ -366,7 +366,7 @@ function Tab({
                 // tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
                 tabVisDispatch({ type: "TAB_CONTENT_TOGGLE_DB", payload: {
                   editTab: editTab,
-                  changedTab: {...currentTab as TabDatabase_i, opened: !currentTab?.opened}
+                  changedTab: {...currentTab as TabDatabase_i, opened: !tabOpened}
                 }});
                 upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                 if (!resetEnabled) setReset(true);
