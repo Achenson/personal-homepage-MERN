@@ -24,12 +24,14 @@ import { SettingsQuery } from "../../graphql/graphqlQueries";
 import { testUserId } from "../../state/data/testUserId";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 interface Props {
   colNumber: number;
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
   breakpoint: 0 | 1 | 2 | 3 | 4 | null;
-  tabs: SingleTabData[];
+  // tabs: SingleTabData[];
+  tabs: TabDatabase_i[];
 }
 
 function Column({

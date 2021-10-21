@@ -1,3 +1,5 @@
+import { TabDatabase_i } from "../../../schema/types/tabType";
+
 export interface BookmarkErrors {
   tagErrorVis: boolean;
   tagRepeatErrorVis: boolean;
@@ -158,6 +160,18 @@ interface TabVisAction_EDIT_BOOKMARK_OPEN {
   payload: string;
 }
 
+interface TabContentToggle_payload {
+  editTab: (changedTab: TabDatabase_i) => {},
+  changedTab: TabDatabase_i
+}
+
+interface TabVisAction_TAB_CONTENT_TOGGLE_DB {
+  type: "TAB_CONTENT_TOGGLE_DB";
+  payload: TabContentToggle_payload;
+
+}
+
 export type TabVisAction =
   | TabVisAction_noPayload
-  | TabVisAction_EDIT_BOOKMARK_OPEN;
+  | TabVisAction_EDIT_BOOKMARK_OPEN
+  | TabVisAction_TAB_CONTENT_TOGGLE_DB;

@@ -216,13 +216,12 @@ function EditTab({
 
       console.log(bookmarksInputArr);
 
-      let bookmarksFiltered = bookmarks.filter((obj) =>
+      let finalBookmarks = bookmarks.filter((obj) =>
         bookmarksInputArr.includes(obj.title)
       );
-      console.log(bookmarksFiltered);
 
       // adding new tag (tabID) to bookmarks
-      bookmarksFiltered.forEach((obj) => {
+      finalBookmarks.forEach((obj) => {
         if (!obj.tags.includes(tabID)) {
           let newTags = [...obj.tags];
           newTags.push(tabID);
@@ -232,11 +231,11 @@ function EditTab({
 
       // deleting =======
       // initial bookmarks
-      let bookmarksFiltered_initial = bookmarks.filter((obj) =>
+      let initialBookmarks = bookmarks.filter((obj) =>
         arrOfBookmarksNames.includes(obj.title)
       );
 
-      bookmarksFiltered_initial.forEach((obj) => {
+      initialBookmarks.forEach((obj) => {
         // if final bookmarks does not include an initial bookmark
         if (!bookmarksInputArr.includes(obj.title)) {
           let newTags = [...obj.tags];

@@ -3,7 +3,7 @@ import { useDrop } from "react-dnd";
 
 // import shallow from "zustand/shallow";
 import { useDrag } from "react-dnd";
-import { useQuery } from "urql";
+import { useQuery, useMutation } from "urql";
 
 import SingleBookmark from "./SingleBookmark";
 import ColorsToChoose_Tab from "../Colors/ColorsToChoose_Tab";
@@ -17,7 +17,6 @@ import { ReactComponent as PencilSmallSVG } from "../../svgs/pencilSmall.svg";
 import { ReactComponent as CrossArrowsSVG } from "../../svgs/cross-arrows.svg";
 import { ReactComponent as PlusSVG } from "../../svgs/plus.svg";
 
-import { BookmarksQuery, SettingsQuery } from "../../graphql/graphqlQueries";
 // import { useBookmarks } from "../../state/hooks/useBookmarks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useReset } from "../../state/hooks/useReset";
@@ -30,10 +29,15 @@ import { useTabReducer } from "../../context/useTabReducer";
 import { TabContext } from "../../context/tabContext";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
-import { ItemTypes } from "../../utils/data/itemsDnd";
-import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
+import { BookmarksQuery, SettingsQuery } from "../../graphql/graphqlQueries";
+import {
+  ChangeTabMutation,
+} from "../../graphql/graphqlMutations";
 
 import { testUserId } from "../../state/data/testUserId";
+
+import { ItemTypes } from "../../utils/data/itemsDnd";
+import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
@@ -56,7 +60,8 @@ interface Props {
   tabOpenedByDefault: boolean;
   tabIsDeletable: boolean;
   globalSettings: SettingsDatabase_i;
-  tabs: SingleTabData[];
+  tabs: TabDatabase_i[];
+  // tabs: SingleTabData[];
 }
 
 function Tab({
@@ -94,6 +99,10 @@ function Tab({
 
   const defaultTabContent = useTabs((store) => store.defaultTabContent);
   const toggleTab = useTabs((store) => store.toggleTab);
+
+  const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
+    ChangeTabMutation
+  );
 
   const upperUiContext = useUpperUiContext();
 
@@ -354,7 +363,11 @@ function Tab({
             <div
               className="pl-1 w-full h-7 truncate cursor-pointer"
               onClick={() => {
-                tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
+                // tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
+                tabVisDispatch({ type: "TAB_CONTENT_TOGGLE_DB", payload: {
+                  editTab: editTab,
+                  changedTab: {...currentTab as TabDatabase_i, opened: !currentTab?.opened}
+                }});
                 upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                 if (!resetEnabled) setReset(true);
               }}

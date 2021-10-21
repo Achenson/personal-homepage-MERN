@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useMutation } from "urql";
 
 // import shallow from "zustand/shallow";
 
@@ -12,27 +13,53 @@ import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
+import { DeleteTabMutation } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
+
+interface TabId {
+  id: string;
+}
 
 interface Props {
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
   globalSettings: SettingsDatabase_i;
   bookmarks: SingleBookmarkData[];
-  tabs: SingleTabData[];
+  // tabs: SingleTabData[];
+  tabs: TabDatabase_i[];
 }
 
-function Grid({ setTabType, globalSettings, bookmarks, tabs }: Props): JSX.Element {
+function Grid({
+  setTabType,
+  globalSettings,
+  bookmarks,
+  tabs,
+}: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
 
-  const deleteEmptyTab = useTabs((store) => store.deleteEmptyTab);
+  // const deleteEmptyTab = useTabs((store) => store.deleteEmptyTab);
+  const [deleteTabResult, deleteTab] = useMutation<any, TabId>(
+    DeleteTabMutation
+  );
   const resetAllTabColors = useTabs((store) => store.resetAllTabColors);
 
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
-  const bookmarksAllTags: string[] = bookmarks.map(obj => obj.id);
+  const bookmarksAllTags: string[] = [];
+  bookmarks.forEach((obj) => {
+    obj.tags.forEach((el) => {
+      if (!bookmarksAllTags.includes(el)) {
+        bookmarksAllTags.push(el);
+      }
+    });
+  });
 
+  useEffect( () => {
+    console.log(bookmarksAllTags);
+  
+  }, [bookmarksAllTags])
 
   const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
   const setCloseAllTabsState = useTabs((store) => store.setCloseAllTabsState);
@@ -121,9 +148,19 @@ function Grid({ setTabType, globalSettings, bookmarks, tabs }: Props): JSX.Eleme
     }
   }, [resetColors, setResetColors, resetAllTabColors]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     deleteEmptyTab(bookmarksAllTags);
-  }, [tabs, bookmarksAllTags, deleteEmptyTab]);
+  }, [tabs, bookmarksAllTags, deleteEmptyTab]); */
+
+ /*  useEffect(() => {
+    tabs
+      .filter((obj) => obj.type === "folder")
+      .forEach((obj) => {
+        if (!bookmarksAllTags.includes(obj.id)) {
+          deleteTab({ id: obj.id });
+        }
+      });
+  }, [tabs, bookmarksAllTags]); */
 
   useEffect(() => {
     createLessColumns(globalSettings.numberOfCols);
@@ -138,7 +175,7 @@ function Grid({ setTabType, globalSettings, bookmarks, tabs }: Props): JSX.Eleme
     let columnProps = {
       setTabType,
       breakpoint,
-      tabs
+      tabs,
     };
 
     switch (numberOfCols) {

@@ -28,6 +28,7 @@ import { testUserId } from "../state/data/testUserId";
 
 import { SingleBookmarkData, SingleTabData } from "../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../schema/types/bookmarkType";
+import { TabDatabase_i } from "../../../schema/types/tabType";
 
 interface Props {
   globalSettings: SettingsDatabase_i;
@@ -150,7 +151,8 @@ function Main({ globalSettings }: Props): JSX.Element {
   if (fetching_tabs) return <p>Loading...</p>;
   if (error_tabs) return <p>Oh no... {error_tabs.message}</p>;
 
-  let tabs: SingleTabData[] = data_tabs.tabs;
+  // let tabs: SingleTabData[] = data_tabs.tabs;
+  let tabs: TabDatabase_i[] = data_tabs.tabs;
 
   if (fetching_bookmarks) return <p>Loading...</p>;
   if (error_bookmarks) return <p>Oh no... {error_bookmarks.message}</p>;

@@ -75,7 +75,6 @@ export function useTabReducer(
         setTimeout(() => {
           setTabOpenedState(tabID);
         });
-
         setTimeout(() => {
           toggleTab(tabID, tabOpened);
         });
@@ -87,6 +86,22 @@ export function useTabReducer(
           newBookmarkVis: false,
           editBookmarkVis: null,
         };
+        case "TAB_CONTENT_TOGGLE_DB":
+          setTimeout(() => {
+            setTabOpenedState(tabID);
+          });
+          setTimeout(() => {
+            action.payload.editTab(action.payload.changedTab);
+          });
+  
+          return {
+            ...state,
+            colorsVis: false,
+            editTabVis: false,
+            newBookmarkVis: false,
+            editBookmarkVis: null,
+          };
+
       case "TAB_CONTENT_DEFAULT":
         setTimeout(() => {
           defaultTabContent(tabID, tabOpenedByDefault);
