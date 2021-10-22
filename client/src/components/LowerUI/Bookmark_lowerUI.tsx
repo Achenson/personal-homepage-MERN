@@ -95,6 +95,9 @@ function Bookmark_lowerUI({
     AddTabMutation
   );
 
+  const tabDeletingPause = useTabs((store) => store.tabDeletingPause);
+  const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
+
   // const bookmarks = useBookmarks((store) => store.bookmarks);
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   // DB: bookmarksAllTags in Grid only
@@ -190,6 +193,7 @@ function Bookmark_lowerUI({
         1 +
         counterForIndices;
 
+      setTabDeletingPause(true);
       // if folder with title corresponding to tag doesn't exist create it...
       if (!tabForCurrentTag && selectablesInputStr !== "") {
         // let newTab = createFolderTab(el, colNumber, newTabPriority);
@@ -253,72 +257,93 @@ function Bookmark_lowerUI({
       }); */
     }
 
-    if (bookmarkComponentType === "edit") {
-      // editBookmark(bookmarkId, titleInput, urlInput, tagsInputArr_ToIds);
-      editBookmark({
-        id: bookmarkId,
-        userId: globalSettings.userId,
-        title: titleInput,
-        URL: urlInput,
-        tags: tagsInputArr_ToIds,
-      });
-
-      // for deleting empty folder
-      let tagsIdsToDelete: string[] = [];
-
-      initialTagsInputArr.forEach((el) => {
-        // if the tag was present in initial tags, but is not present in the end
-        if (tagsInputArr_ToIds.indexOf(el) === -1) {
-          // all bookmarks except for curren
-          let filteredBookmarks = bookmarks.filter(
-            (obj) => obj.id !== (currentBookmark as SingleBookmarkData).id
-          );
-
-          let isElPresent: boolean = false;
-
-          filteredBookmarks.forEach((obj) => {
-            if (obj.tags.indexOf(el) > -1) {
-              // tag is present in some other bookmark than this
-              isElPresent = true;
-              return;
-            }
-          });
-
-          // if (!isElPresent && el !== "ALL_TAGS") {
-          if (!isElPresent && tabs.find((obj) => obj.id === el)?.deletable) {
-            tagsIdsToDelete.push(el);
+    let bookmarkPromise = new Promise((resolve, reject) => {
+      if (bookmarkComponentType === "edit") {
+        // editBookmark(bookmarkId, titleInput, urlInput, tagsInputArr_ToIds);
+        editBookmark({
+          id: bookmarkId,
+          userId: globalSettings.userId,
+          title: titleInput,
+          URL: urlInput,
+          tags: tagsInputArr_ToIds,
+        }).then((result) => {
+          if (result.error) {
+            reject(result.error);
+            return;
           }
+          resolve(result.data.editBookmark);
+        });
+
+        // for deleting empty folder
+        let tagsIdsToDelete: string[] = [];
+
+        initialTagsInputArr.forEach((el) => {
+          // if the tag was present in initial tags, but is not present in the end
+          if (tagsInputArr_ToIds.indexOf(el) === -1) {
+            // all bookmarks except for curren
+            let filteredBookmarks = bookmarks.filter(
+              (obj) => obj.id !== (currentBookmark as SingleBookmarkData).id
+            );
+
+            let isElPresent: boolean = false;
+
+            filteredBookmarks.forEach((obj) => {
+              if (obj.tags.indexOf(el) > -1) {
+                // tag is present in some other bookmark than this
+                isElPresent = true;
+                return;
+              }
+            });
+
+            // if (!isElPresent && el !== "ALL_TAGS") {
+            if (!isElPresent && tabs.find((obj) => obj.id === el)?.deletable) {
+              tagsIdsToDelete.push(el);
+            }
+          }
+        });
+
+        /*   let bookmarksAllTagsData_new: string[] = [];
+  
+        if (newTabId) {
+          bookmarksAllTagsData_new.push(newTabId);
         }
-      });
+   */
+        /*     bookmarksAllTags.forEach((el) => {
+          if (tagsIdsToDelete.indexOf(el) === -1) {
+            bookmarksAllTagsData_new.push(el);
+          }
+        }); */
 
-      /*   let bookmarksAllTagsData_new: string[] = [];
+        // setBookmarksAllTags([...bookmarksAllTagsData_new]);
+      } else {
+        // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
 
-      if (newTabId) {
-        bookmarksAllTagsData_new.push(newTabId);
+        console.log("tagsInputArr_ToIds");
+        console.log(tagsInputArr_ToIds);
+
+        addBookmark(
+          createBookmarkDb(
+            globalSettings.userId,
+            titleInput,
+            urlInput,
+            tagsInputArr_ToIds
+          )
+        ).then((result) => {
+          if (result.error) {
+            reject(result.error);
+            return;
+          }
+          resolve(result.data.addBookmark);
+        });
       }
- */
-      /*     bookmarksAllTags.forEach((el) => {
-        if (tagsIdsToDelete.indexOf(el) === -1) {
-          bookmarksAllTagsData_new.push(el);
-        }
-      }); */
+    });
 
-      // setBookmarksAllTags([...bookmarksAllTagsData_new]);
-    } else {
-      // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
+    await bookmarkPromise;
 
-      console.log("tagsInputArr_ToIds");
-      console.log(tagsInputArr_ToIds);
+    /* console.log("bookmarkPromise");
+    console.log(bookmarkPromise); */
 
-      addBookmark(
-        createBookmarkDb(
-          globalSettings.userId,
-          titleInput,
-          urlInput,
-          tagsInputArr_ToIds
-        )
-      );
-    }
+    setTimeout(() => setTabDeletingPause(false), 500);
   }
 
   function handleKeyDown(event: KeyboardEvent) {
@@ -361,9 +386,9 @@ function Bookmark_lowerUI({
       tabContext.tabVisDispatch({ type: "EDIT_BOOKMARK_CLOSE" });
     }
 
-    /*  if (bookmarkComponentType === "new_lowerUI") {
+    if (bookmarkComponentType === "new_lowerUI") {
       tabContext.tabVisDispatch({ type: "NEW_BOOKMARK_TOOGLE" });
-    } */
+    }
   }
 
   const editAndNewProps = {

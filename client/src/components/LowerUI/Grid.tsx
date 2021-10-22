@@ -43,6 +43,8 @@ function Grid({
   // const tabs = useTabs((store) => store.tabs);
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
 
+  const tabDeletingPause = useTabs((store) => store.tabDeletingPause);
+
   // const deleteEmptyTab = useTabs((store) => store.deleteEmptyTab);
   const [deleteTabResult, deleteTab] = useMutation<any, TabId>(
     DeleteTabMutation
@@ -172,7 +174,12 @@ function Grid({
       });
   }, [tabs, bookmarksAllTags]); */
 
-/*   useEffect(() => {
+  useEffect(() => {
+
+    if(tabDeletingPause) {
+      return;
+    }
+
     let bookmarksAllTags: string[] = [];
 
     bookmarks.forEach((obj) => {
@@ -188,12 +195,12 @@ function Grid({
     tabs
       .filter((obj) => obj.type === "folder")
       .forEach((obj) => {
-        if (!bookmarksAllTags.includes(obj.id)) {
+        if (!bookmarksAllTags.includes(obj.id) && !tabDeletingPause) {
           deleteTab({ id: obj.id });
           // console.log(obj.id);
         }
       });
-  }, [bookmarks, tabs]); */
+  }, [bookmarks, tabs, tabDeletingPause]);
 
   useEffect(() => {
     createLessColumns(globalSettings.numberOfCols);

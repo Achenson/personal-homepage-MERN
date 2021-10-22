@@ -51,6 +51,9 @@ interface UseTabs {
   // id (or empty) of a only tab that is currently being edited(eg. colors to choose are on )
   tabOpenedState: null | string;
   setTabOpenedState: (nullOrID: null | string) => void;
+  // deletion of empty tabs in Grid will be paused during editing/adding of bookmarks
+  tabDeletingPause: boolean;
+  setTabDeletingPause: (trueOrFalse: boolean) => void;
 }
 
 // this can be used everywhere in your application
@@ -364,7 +367,16 @@ export const useTabs = create<UseTabs>(
           tabOpenedState: nullOrID,
         }));
       },
+      tabDeletingPause: false,
+      setTabDeletingPause: (trueOrFalse) => {
+        set((state: UseTabs) => ({
+          ...state,
+          tabDeletingPause: trueOrFalse
+        }))
+      }
     }),
+ 
+
   //   {
   //     name: "tabs-storage",
   //   }
