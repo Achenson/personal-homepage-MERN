@@ -208,7 +208,6 @@ function Bookmark_lowerUI({
         newTabsToAdd.push(newTab);
         console.log("newTabsToAdd");
         console.log(newTabsToAdd);
-        
 
         counterForIndices++;
       } else {
@@ -261,13 +260,8 @@ function Bookmark_lowerUI({
         userId: globalSettings.userId,
         title: titleInput,
         URL: urlInput,
-        // tags: tagsInputArr_ToIds,
-        tags: [
-          "61642206c38a6fc18f65a217",
-          "61642206c38a6fc18f65a218",
-          "61642206c38a6fc18f65a219",
-        ],
-      }).then((result) => console.log(result));
+        tags: tagsInputArr_ToIds,
+      });
 
       // for deleting empty folder
       let tagsIdsToDelete: string[] = [];
@@ -367,7 +361,7 @@ function Bookmark_lowerUI({
       tabContext.tabVisDispatch({ type: "EDIT_BOOKMARK_CLOSE" });
     }
 
-   /*  if (bookmarkComponentType === "new_lowerUI") {
+    /*  if (bookmarkComponentType === "new_lowerUI") {
       tabContext.tabVisDispatch({ type: "NEW_BOOKMARK_TOOGLE" });
     } */
   }
