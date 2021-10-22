@@ -13,14 +13,14 @@ import {
   // createBookmark,
   createBookmarkDb,
   createFolderTab,
-  createFolderTabDb
+  createFolderTabDb,
 } from "../../utils/funcs and hooks/objCreators";
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 import { bookmarkErrorHandling } from "../../utils/funcs and hooks/bookmarkErrorHandling";
 import {
   AddBookmarkMutation,
   ChangeBookmarkMutation,
-  AddTabMutation
+  AddTabMutation,
 } from "../../graphql/graphqlMutations";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
@@ -28,6 +28,7 @@ import { BookmarkErrors, SetBookmarkErrors } from "../../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
+import { responsePathAsArray } from "graphql";
 
 interface Props {
   titleInput: string;
@@ -94,16 +95,14 @@ function Bookmark_lowerUI({
     AddTabMutation
   );
 
-
   // const bookmarks = useBookmarks((store) => store.bookmarks);
   // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
-  const bookmarksAllTags: string[] = bookmarks.map((obj) => obj.id);
-/*   const setBookmarksAllTags = useBookmarks(
+  // DB: bookmarksAllTags in Grid only
+  /*   const setBookmarksAllTags = useBookmarks(
     (store) => store.setBookmarksAllTags
   ); */
 
   // const addTabs = useTabs((store) => store.addTabs);
-
 
   // const tabs = useTabs((store) => store.tabs);
 
@@ -162,9 +161,10 @@ function Bookmark_lowerUI({
     tagsInputArr = selectablesInputStr_noComma.split(", ");
   }
 
-  function addOrEditBookmark() {
+  async function addOrEditBookmark() {
     // creating tags for bookmark being added
     // let tagsInputArr_ToIds: string[] = ["ALL_TAGS"];
+    // non deletable folder("all bookmarks") always in the arr
     let tagsInputArr_ToIds: string[] = [
       tabs.find((obj) => !obj.deletable)?.id as string,
     ];
@@ -173,7 +173,7 @@ function Bookmark_lowerUI({
     // let newTabsToAdd: SingleTabData[] = [];
     let newTabsToAdd: TabDatabase_i[] = [];
 
-    let newBookmarksAllTagsData = [...bookmarksAllTags];
+    // let newBookmarksAllTagsData = [...bookmarksAllTags];
 
     // getting higher priority for each subsequent tab that is being added at the same time
     let counterForIndices = 0;
@@ -193,14 +193,22 @@ function Bookmark_lowerUI({
       // if folder with title corresponding to tag doesn't exist create it...
       if (!tabForCurrentTag && selectablesInputStr !== "") {
         // let newTab = createFolderTab(el, colNumber, newTabPriority);
-        let newTab = createFolderTabDb(currentBookmark?.userId, el, colNumber, newTabPriority);
-        tagsInputArr_ToIds.push(newTab.id);
+        let newTab = createFolderTabDb(
+          globalSettings.userId,
+          el,
+          colNumber,
+          newTabPriority
+        );
+        // tagsInputArr_ToIds.push(newTab.id);
         // for edit only
-        newTabId = newTab.id;
+        // newTabId = newTab.id;
 
         //... and add new folder tab to the main tags list
-        newBookmarksAllTagsData.push(newTab.id);
+        // newBookmarksAllTagsData.push(newTab.id);
         newTabsToAdd.push(newTab);
+        console.log("newTabsToAdd");
+        console.log(newTabsToAdd);
+        
 
         counterForIndices++;
       } else {
@@ -213,7 +221,37 @@ function Bookmark_lowerUI({
     if (newTabsToAdd.length > 0) {
       // setBookmarksAllTags([...newBookmarksAllTagsData]);
       // addTabs(newTabsToAdd);
-      newTabsToAdd.forEach( obj => addTab(obj))
+
+      let arrOfPromises: Promise<string>[] = [];
+
+      newTabsToAdd.forEach((obj) => {
+        let newPromise = new Promise<string>((resolve, reject) => {
+          addTab(obj).then((result) => {
+            if (result.error) {
+              reject(result.error);
+              return;
+            }
+            resolve(result.data.addTab.id);
+          });
+        });
+
+        arrOfPromises.push(newPromise);
+      });
+
+      let arrOfNewFolderIds: string[] = await Promise.all(arrOfPromises);
+
+      arrOfNewFolderIds.forEach((id) => {
+        tagsInputArr_ToIds.push(id);
+      });
+
+      /*   newTabsToAdd.forEach((obj) => {
+        console.log(obj.title);
+
+        addTab(obj).then((result) => {
+          console.log(result);
+          tagsInputArr_ToIds.push(result.data.addTab.id);
+        });
+      }); */
     }
 
     if (bookmarkComponentType === "edit") {
@@ -224,7 +262,11 @@ function Bookmark_lowerUI({
         title: titleInput,
         URL: urlInput,
         // tags: tagsInputArr_ToIds,
-        tags: ["61642206c38a6fc18f65a217", "61642206c38a6fc18f65a218", "61642206c38a6fc18f65a219"],
+        tags: [
+          "61642206c38a6fc18f65a217",
+          "61642206c38a6fc18f65a218",
+          "61642206c38a6fc18f65a219",
+        ],
       }).then((result) => console.log(result));
 
       // for deleting empty folder
@@ -255,21 +297,25 @@ function Bookmark_lowerUI({
         }
       });
 
-      let bookmarksAllTagsData_new: string[] = [];
+      /*   let bookmarksAllTagsData_new: string[] = [];
 
       if (newTabId) {
         bookmarksAllTagsData_new.push(newTabId);
       }
-
-      bookmarksAllTags.forEach((el) => {
+ */
+      /*     bookmarksAllTags.forEach((el) => {
         if (tagsIdsToDelete.indexOf(el) === -1) {
           bookmarksAllTagsData_new.push(el);
         }
-      });
+      }); */
 
       // setBookmarksAllTags([...bookmarksAllTagsData_new]);
     } else {
       // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
+
+      console.log("tagsInputArr_ToIds");
+      console.log(tagsInputArr_ToIds);
+
       addBookmark(
         createBookmarkDb(
           globalSettings.userId,
@@ -321,9 +367,9 @@ function Bookmark_lowerUI({
       tabContext.tabVisDispatch({ type: "EDIT_BOOKMARK_CLOSE" });
     }
 
-    if (bookmarkComponentType === "new_lowerUI") {
+   /*  if (bookmarkComponentType === "new_lowerUI") {
       tabContext.tabVisDispatch({ type: "NEW_BOOKMARK_TOOGLE" });
-    }
+    } */
   }
 
   const editAndNewProps = {

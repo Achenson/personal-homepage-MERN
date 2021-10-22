@@ -172,7 +172,7 @@ function Grid({
       });
   }, [tabs, bookmarksAllTags]); */
 
-  useEffect(() => {
+/*   useEffect(() => {
     let bookmarksAllTags: string[] = [];
 
     bookmarks.forEach((obj) => {
@@ -193,7 +193,7 @@ function Grid({
           // console.log(obj.id);
         }
       });
-  }, [bookmarks, tabs]);
+  }, [bookmarks, tabs]); */
 
   useEffect(() => {
     createLessColumns(globalSettings.numberOfCols);
