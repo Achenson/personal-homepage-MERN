@@ -38,8 +38,7 @@ interface Props {
 function Main({ globalSettings }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
-  const backgroundColor = globalSettings.backgroundColor
-
+  const backgroundColor = globalSettings.backgroundColor;
 
   const [upperVisState, upperVisDispatch] = useReducer(
     upperVisReducer,
@@ -141,12 +140,14 @@ function Main({ globalSettings }: Props): JSX.Element {
   const [bookmarkResults, reexecuteBookmarks] = useQuery({
     query: BookmarksQuery,
     variables: { userId: testUserId },
+    // requestPolicy: 'cache-and-network',
   });
 
   const {
     data: data_bookmarks,
     fetching: fetching_bookmarks,
     error: error_bookmarks,
+    stale: stale_bookmarks
   } = bookmarkResults;
 
   if (fetching_tabs) return <p>Loading...</p>;
@@ -156,14 +157,18 @@ function Main({ globalSettings }: Props): JSX.Element {
   let tabs: TabDatabase_i[] = data_tabs.tabs;
 
   if (fetching_bookmarks) return <p>Loading...</p>;
+  /* setTimeout(() => {
+    if (fetching_bookmarks) return <p>Loading...</p>;
+  }, 1000); */
   if (error_bookmarks) return <p>Oh no... {error_bookmarks.message}</p>;
 
   // let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
   let bookmarks: BookmarkDatabase_i[] = data_bookmarks.bookmarks;
 
   let bookmarksDbValue = {
-    bookmarks, reexecuteBookmarks
-  }
+    bookmarks,
+    reexecuteBookmarks,
+  };
 
   let paddingProps = {
     mainPaddingRight: paddingRight,
@@ -219,12 +224,18 @@ function Main({ globalSettings }: Props): JSX.Element {
           )}
           {upperVisState.settingsVis && (
             <ModalWrap globalSettings={globalSettings}>
-              <GlobalSettings globalSettings={globalSettings} {...paddingProps} />
+              <GlobalSettings
+                globalSettings={globalSettings}
+                {...paddingProps}
+              />
             </ModalWrap>
           )}
           {upperVisState.colorsSettingsVis && (
             <ModalWrap globalSettings={globalSettings}>
-              <ColorsSettings globalSettings={globalSettings} {...paddingProps} />
+              <ColorsSettings
+                globalSettings={globalSettings}
+                {...paddingProps}
+              />
             </ModalWrap>
           )}
           {upperVisState.profileVis && (
@@ -238,6 +249,7 @@ function Main({ globalSettings }: Props): JSX.Element {
             globalSettings={globalSettings}
             // bookmarks={bookmarks}
             tabs={tabs}
+            staleBookmarks={stale_bookmarks}
           />
         </main>
       </UpperUiContext.Provider>

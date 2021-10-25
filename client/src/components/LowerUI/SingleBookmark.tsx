@@ -50,6 +50,7 @@ function SingleBookmark({
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   const bookmarks = useBookmarksDbContext().bookmarks;
+  const reexecuteBookmarks = useBookmarksDbContext().reexecuteBookmarks;
 
   const tabContext = useTabContext();
 
@@ -117,7 +118,7 @@ function SingleBookmark({
 
             <button
               className="h-5 w-5 ml-1 focus-1-inset-darkGray"
-              onClick={() => {
+              onClick={async() => {
                 /*       let bookmarkToDelete = bookmarks.find(
                   (obj) => obj.id === bookmarkId
                 );
@@ -133,14 +134,16 @@ function SingleBookmark({
                 console.log(singleBookmarkData.title);
                 console.log(bookmarkId);
 
-                deleteBookmark({ id: bookmarkId }).then((result) =>
+               await deleteBookmark({ id: bookmarkId }).then((result) =>
                   console.log(result)
                 );
 
-                setTimeout(() => {
+                // reexecuteBookmarks({ requestPolicy: 'network-only' })
+                /* setTimeout(() => {
                   setTabDeletingPause(false);
-                }, 500);
-                // setTabDeletingPause(false);
+                }, 500); */
+
+                setTabDeletingPause(false);
               }}
               aria-label={"Delete bookmark"}
             >

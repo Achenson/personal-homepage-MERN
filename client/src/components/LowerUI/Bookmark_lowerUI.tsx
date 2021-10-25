@@ -83,6 +83,7 @@ function Bookmark_lowerUI({
   // const addBookmark = useBookmarks((store) => store.addBookmark);
   // const editBookmark = useBookmarks((store) => store.editBookmark);
   const bookmarks = useBookmarksDbContext().bookmarks;
+  let reexecuteBookmarks = useBookmarksDbContext().reexecuteBookmarks;
 
   const [addBookmarkResult, addBookmark] = useMutation<any, BookmarkDatabase_i>(
     AddBookmarkMutation
@@ -344,9 +345,10 @@ function Bookmark_lowerUI({
 
     /* console.log("bookmarkPromise");
     console.log(bookmarkPromise); */
-
-    setTimeout(() => setTabDeletingPause(false), 500);
-    // setTabDeletingPause(false);
+   
+    // reexecuteBookmarks({ requestPolicy: 'network-only' });
+    // setTimeout(() => setTabDeletingPause(false), 500);
+    setTabDeletingPause(false);
   }
 
   function handleKeyDown(event: KeyboardEvent) {

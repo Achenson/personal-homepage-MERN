@@ -33,6 +33,7 @@ interface Props {
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
   tabs: TabDatabase_i[];
+  staleBookmarks: boolean;
 }
 
 function Grid({
@@ -40,6 +41,7 @@ function Grid({
   globalSettings,
   // bookmarks,
   tabs,
+  staleBookmarks
 }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
@@ -47,7 +49,8 @@ function Grid({
   const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
   const tabDeletingPause = useTabs((store) => store.tabDeletingPause);
 
-  const bookmarks = useBookmarksDbContext().bookmarks
+  const bookmarks = useBookmarksDbContext().bookmarks;
+  // const reexecuteBookmarks = useBookmarksDbContext().reexecuteBookmarks;
 
   // const deleteEmptyTab = useTabs((store) => store.deleteEmptyTab);
   const [deleteTabResult, deleteTab] = useMutation<any, TabId>(
@@ -188,7 +191,12 @@ function Grid({
         return;
       }
 
+      if (staleBookmarks) {
+        return;
+      }
+
       let bookmarksAllTags: string[] = [];
+      
 
       bookmarks.forEach((obj) => {
         obj.tags.forEach((el) => {
