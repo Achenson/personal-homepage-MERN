@@ -28,19 +28,20 @@ import { useTabs } from "../../state/hooks/useTabs";
 import { useTabReducer } from "../../context/useTabReducer";
 import { TabContext } from "../../context/tabContext";
 import { useUpperUiContext } from "../../context/upperUiContext";
+import { useBookmarksDbContext } from "../../context/bookmarksDbContext";
 
-import { BookmarksQuery, SettingsQuery } from "../../graphql/graphqlQueries";
+// import { BookmarksQuery, SettingsQuery } from "../../graphql/graphqlQueries";
 import {
   ChangeTabMutation,
 } from "../../graphql/graphqlMutations";
 
-import { testUserId } from "../../state/data/testUserId";
+// import { testUserId } from "../../state/data/testUserId";
 
 import { ItemTypes } from "../../utils/data/itemsDnd";
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
-import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
+// import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 interface Item {
@@ -91,6 +92,7 @@ function Tab({
   const setReset = useReset((state) => state.setReset);
   const resetEnabled = useReset((state) => state.enabled);
   // const bookmarks = useBookmarks((state) => state.bookmarks);
+  const bookmarks = useBookmarksDbContext().bookmarks;
 
   // const tabs = useTabs((store) => store.tabs);
   const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
@@ -108,16 +110,16 @@ function Tab({
 
   const upperUiContext = useUpperUiContext();
 
-  const [bookmarkResults] = useQuery({
-    query: BookmarksQuery,
-    variables: { userId: testUserId },
-  });
+  // const [bookmarkResults] = useQuery({
+  //   query: BookmarksQuery,
+  //   variables: { userId: testUserId },
+  // });
 
-  const {
-    data: data_bookmarks,
-    fetching: fetching_bookmarks,
-    error: errors_bookmarks,
-  } = bookmarkResults;
+  // const {
+  //   data: data_bookmarks,
+  //   fetching: fetching_bookmarks,
+  //   error: errors_bookmarks,
+  // } = bookmarkResults;
 
   useEffect(() => {
     setTabOpened_local(tabOpened);
@@ -322,11 +324,11 @@ function Tab({
     tabID !== draggedItem.tabID
   );
 
-  if (fetching_bookmarks) return <p>Loading...</p>;
-  if (errors_bookmarks) return <p>Oh no... {errors_bookmarks.message}</p>;
+  // if (fetching_bookmarks) return <p>Loading...</p>;
+  // if (errors_bookmarks) return <p>Oh no... {errors_bookmarks.message}</p>;
 
   // let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
-  let bookmarks: BookmarkDatabase_i[] = data_bookmarks.bookmarks;
+  // let bookmarks: BookmarkDatabase_i[] = data_bookmarks.bookmarks;
 
   return (
     <TabContext.Provider value={tabContextValue}>
@@ -521,7 +523,6 @@ function Tab({
               currentTab={currentTab as TabDatabase_i}
               setTabOpened_local={setTabOpened_local}
               globalSettings={globalSettings}
-              bookmarks={bookmarks}
               tabs={tabs}
             />
           )}

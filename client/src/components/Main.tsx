@@ -192,7 +192,7 @@ function Main({ globalSettings }: Props): JSX.Element {
               <NewTab
                 tabType={tabType}
                 tabs={tabs}
-                bookmarks={bookmarks}
+                // bookmarks={bookmarks}
                 globalSettings={globalSettings}
                 {...paddingProps}
               />

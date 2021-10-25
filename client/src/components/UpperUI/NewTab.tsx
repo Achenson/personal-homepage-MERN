@@ -13,9 +13,10 @@ import { ReactComponent as XsmallSVG } from "../../svgs/x-small.svg";
 import { ReactComponent as ChevronDownSVG } from "../../svgs/chevron-down.svg";
 import { ReactComponent as ChevronUpSVG } from "../../svgs/chevron-up.svg";
 
-import { useDefaultColors } from "../../state/hooks/colorHooks";
-import { useBookmarks } from "../../state/hooks/useBookmarks";
-import { useTabs } from "../../state/hooks/useTabs";
+import { useBookmarksDbContext } from "../../context/bookmarksDbContext";
+// import { useDefaultColors } from "../../state/hooks/colorHooks";
+// import { useBookmarks } from "../../state/hooks/useBookmarks";
+// import { useTabs } from "../../state/hooks/useTabs";
 
 import {
   createFolderTab,
@@ -45,7 +46,7 @@ interface Props {
   scrollbarWidth: number;
   tabs: SingleTabData[];
   // bookmarks: SingleBookmarkData[];
-  bookmarks: BookmarkDatabase_i[];
+  // bookmarks: BookmarkDatabase_i[];
   globalSettings: SettingsDatabase_i;
 }
 
@@ -54,11 +55,13 @@ function NewTab({
   mainPaddingRight,
   scrollbarWidth,
   tabs,
-  bookmarks,
+  // bookmarks,
   globalSettings,
 }: Props): JSX.Element {
   // const tabs = useTabs((state) => state.tabs);
   // const addTabs = useTabs((state) => state.addTabs);
+  const bookmarks = useBookmarksDbContext().bookmarks;
+
   const [addTabResult, addTab] = useMutation<any, TabDatabase_i>(
     AddTabMutation
   );
