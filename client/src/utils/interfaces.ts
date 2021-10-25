@@ -1,3 +1,4 @@
+import { BookmarkDatabase_i } from "../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../schema/types/tabType";
 
 export interface BookmarkErrors {
@@ -90,6 +91,12 @@ export interface UpperVisState {
 export interface UpperUiContext_i {
   upperVisState: UpperVisState;
   upperVisDispatch: React.Dispatch<UpperVisAction>;
+}
+
+export interface BookmarksDbContext_i {
+  bookmarks: BookmarkDatabase_i[];
+  // reexecuteBookmarks: (opts?: Partial<OperationContext> | undefined) => void;
+  reexecuteBookmarks: (opts?: Partial<any> | undefined) => void;
 }
 
 // for Tab

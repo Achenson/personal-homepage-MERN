@@ -11,6 +11,7 @@ import { useResetColors } from "../../state/hooks/colorHooks";
 import { useReset } from "../../state/hooks/useReset";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
+import { useBookmarksDbContext } from "../../context/bookmarksDbContext";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import {
@@ -29,7 +30,7 @@ interface TabId {
 interface Props {
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
   globalSettings: SettingsDatabase_i;
-  bookmarks: SingleBookmarkData[];
+  // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
   tabs: TabDatabase_i[];
 }
@@ -37,7 +38,7 @@ interface Props {
 function Grid({
   setTabType,
   globalSettings,
-  bookmarks,
+  // bookmarks,
   tabs,
 }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
@@ -45,6 +46,8 @@ function Grid({
 
   const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
   const tabDeletingPause = useTabs((store) => store.tabDeletingPause);
+
+  const bookmarks = useBookmarksDbContext().bookmarks
 
   // const deleteEmptyTab = useTabs((store) => store.deleteEmptyTab);
   const [deleteTabResult, deleteTab] = useMutation<any, TabId>(

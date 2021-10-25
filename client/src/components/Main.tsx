@@ -20,6 +20,7 @@ import { initUpperVisState } from "../context/upperVisInitState";
 import { upperVisReducer } from "../context/upperVisReducer";
 import { useWindowSize } from "../utils/funcs and hooks/useWindowSize";
 import { UpperUiContext } from "../context/upperUiContext";
+import { BookmarksDbContext } from "../context/bookmarksDbContext";
 
 import { SettingsDatabase_i } from "../../../schema/types/settingsType";
 import { TabsQuery, BookmarksQuery } from "../graphql/graphqlQueries";
@@ -137,7 +138,7 @@ function Main({ globalSettings }: Props): JSX.Element {
     error: error_tabs,
   } = tabResults;
 
-  const [bookmarkResults] = useQuery({
+  const [bookmarkResults, reexecuteBookmarks] = useQuery({
     query: BookmarksQuery,
     variables: { userId: testUserId },
   });
@@ -160,82 +161,87 @@ function Main({ globalSettings }: Props): JSX.Element {
   // let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
   let bookmarks: BookmarkDatabase_i[] = data_bookmarks.bookmarks;
 
+  let bookmarksDbValue = {
+    bookmarks, reexecuteBookmarks
+  }
+
   let paddingProps = {
     mainPaddingRight: paddingRight,
     scrollbarWidth,
   };
 
   return (
-    <UpperUiContext.Provider value={upperUiValue}>
-      <main
-        className={`relative min-h-screen ${
-          globalSettings.picBackground
-            ? `bg-${globalSettings.defaultImage}`
-            : `bg-${backgroundColor}`
-        } bg-cover bg-fixed`}
-        style={{
-          paddingRight: `${
-            paddingRight && !globalSettings.picBackground
-              ? `${scrollbarWidth}px`
-              : ""
-          }`,
-        }}
-      >
-        {upperVisState.newTabVis && (
-          <ModalWrap globalSettings={globalSettings}>
-            <NewTab
-              tabType={tabType}
-              tabs={tabs}
-              bookmarks={bookmarks}
-              globalSettings={globalSettings}
-              {...paddingProps}
-            />
-          </ModalWrap>
-        )}
-        {upperVisState.newBookmarkVis && (
-          <ModalWrap globalSettings={globalSettings}>
-            <Bookmark_newAndEdit
-              bookmarkComponentType={"new_upperUI"}
-              tabs={tabs}
-              bookmarks={bookmarks}
-              globalSettings={globalSettings}
-              {...paddingProps}
-            />
-          </ModalWrap>
-        )}
-        {upperVisState.backgroundSettingsVis && (
-          <ModalWrap globalSettings={globalSettings}>
-            <BackgroundSettings
-              globalSettings={globalSettings}
-              {...paddingProps}
-            />
-          </ModalWrap>
-        )}
-        {upperVisState.settingsVis && (
-          <ModalWrap globalSettings={globalSettings}>
-            <GlobalSettings globalSettings={globalSettings} {...paddingProps} />
-          </ModalWrap>
-        )}
-        {upperVisState.colorsSettingsVis && (
-          <ModalWrap globalSettings={globalSettings}>
-            <ColorsSettings globalSettings={globalSettings} {...paddingProps} />
-          </ModalWrap>
-        )}
-        {upperVisState.profileVis && (
-          <ModalWrap globalSettings={globalSettings}>
-            <Profile globalSettings={globalSettings} {...paddingProps} />
-          </ModalWrap>
-        )}
-
-        <UpperUI />
-        <Grid
-          setTabType={setTabType}
-          globalSettings={globalSettings}
-          bookmarks={bookmarks}
-          tabs={tabs}
-        />
-      </main>
-    </UpperUiContext.Provider>
+    <BookmarksDbContext.Provider value={bookmarksDbValue}>
+      <UpperUiContext.Provider value={upperUiValue}>
+        <main
+          className={`relative min-h-screen ${
+            globalSettings.picBackground
+              ? `bg-${globalSettings.defaultImage}`
+              : `bg-${backgroundColor}`
+          } bg-cover bg-fixed`}
+          style={{
+            paddingRight: `${
+              paddingRight && !globalSettings.picBackground
+                ? `${scrollbarWidth}px`
+                : ""
+            }`,
+          }}
+        >
+          {upperVisState.newTabVis && (
+            <ModalWrap globalSettings={globalSettings}>
+              <NewTab
+                tabType={tabType}
+                tabs={tabs}
+                bookmarks={bookmarks}
+                globalSettings={globalSettings}
+                {...paddingProps}
+              />
+            </ModalWrap>
+          )}
+          {upperVisState.newBookmarkVis && (
+            <ModalWrap globalSettings={globalSettings}>
+              <Bookmark_newAndEdit
+                bookmarkComponentType={"new_upperUI"}
+                tabs={tabs}
+                bookmarks={bookmarks}
+                globalSettings={globalSettings}
+                {...paddingProps}
+              />
+            </ModalWrap>
+          )}
+          {upperVisState.backgroundSettingsVis && (
+            <ModalWrap globalSettings={globalSettings}>
+              <BackgroundSettings
+                globalSettings={globalSettings}
+                {...paddingProps}
+              />
+            </ModalWrap>
+          )}
+          {upperVisState.settingsVis && (
+            <ModalWrap globalSettings={globalSettings}>
+              <GlobalSettings globalSettings={globalSettings} {...paddingProps} />
+            </ModalWrap>
+          )}
+          {upperVisState.colorsSettingsVis && (
+            <ModalWrap globalSettings={globalSettings}>
+              <ColorsSettings globalSettings={globalSettings} {...paddingProps} />
+            </ModalWrap>
+          )}
+          {upperVisState.profileVis && (
+            <ModalWrap globalSettings={globalSettings}>
+              <Profile globalSettings={globalSettings} {...paddingProps} />
+            </ModalWrap>
+          )}
+          <UpperUI />
+          <Grid
+            setTabType={setTabType}
+            globalSettings={globalSettings}
+            // bookmarks={bookmarks}
+            tabs={tabs}
+          />
+        </main>
+      </UpperUiContext.Provider>
+    </BookmarksDbContext.Provider>
   );
 }
 
