@@ -507,7 +507,7 @@ function Tab({
               bookmarkComponentType={"new_lowerUI"}
               colNumber={colNumber}
               tabTitle={tabTitle as string}
-              bookmarks={bookmarks}
+              // bookmarks={bookmarks}
               tabs={tabs}
               globalSettings={globalSettings}
             />
@@ -543,7 +543,7 @@ function Tab({
                     tabID={tabID}
                     isTabDraggedOver={isTabDraggedOver}
                     globalSettings={globalSettings}
-                    bookmarks={bookmarks}
+                    // bookmarks={bookmarks}
                     tabs={tabs}
                   />
                 );

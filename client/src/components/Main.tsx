@@ -203,7 +203,7 @@ function Main({ globalSettings }: Props): JSX.Element {
               <Bookmark_newAndEdit
                 bookmarkComponentType={"new_upperUI"}
                 tabs={tabs}
-                bookmarks={bookmarks}
+                // bookmarks={bookmarks}
                 globalSettings={globalSettings}
                 {...paddingProps}
               />

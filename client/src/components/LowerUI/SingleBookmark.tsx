@@ -14,6 +14,7 @@ import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 import { useTabContext } from "../../context/tabContext";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
+import { useBookmarksDbContext } from "../../context/bookmarksDbContext"
 
 import { DeleteBookmarkMutation } from "../../graphql/graphqlMutations";
 
@@ -29,7 +30,7 @@ interface Props {
   tabID: string;
   isTabDraggedOver: boolean;
   globalSettings: SettingsDatabase_i;
-  bookmarks: SingleBookmarkData[];
+  // bookmarks: SingleBookmarkData[];
   tabs: SingleTabData[];
 }
 
@@ -44,10 +45,11 @@ function SingleBookmark({
   colNumber,
   isTabDraggedOver,
   globalSettings,
-  bookmarks,
+  // bookmarks,
   tabs,
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
+  const bookmarks = useBookmarksDbContext().bookmarks;
 
   const tabContext = useTabContext();
 
@@ -153,7 +155,7 @@ function SingleBookmark({
           bookmarkComponentType="edit"
           colNumber={colNumber}
           bookmarkId={bookmarkId as string}
-          bookmarks={bookmarks}
+          // bookmarks={bookmarks}
           tabs={tabs}
           globalSettings={globalSettings}
         />

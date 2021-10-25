@@ -348,7 +348,7 @@ Props): JSX.Element {
               selectablesInputStr={selectablesInputStr}
               setSelectablesInputStr={setSelectablesInputStr}
               saveFunc={saveFunc}
-              bookmarks={bookmarks}
+              // bookmarks={bookmarks}
             />
           )}
 

@@ -13,6 +13,7 @@ import { ReactComponent as ChevronUpSVG } from "../../svgs/chevron-up.svg";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
+import { useBookmarksDbContext } from "../../context/bookmarksDbContext";
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
 
 import {
@@ -50,7 +51,7 @@ interface Props {
   setErrors: SetBookmarkErrors;
   mainPaddingRight: boolean;
   scrollbarWidth: number;
-  bookmarks: SingleBookmarkData[];
+  // bookmarks: SingleBookmarkData[];
   tabs: SingleTabData[];
   globalSettings: SettingsDatabase_i;
 }
@@ -72,11 +73,12 @@ function NewBookmark_UpperUI({
   setErrors,
   mainPaddingRight,
   scrollbarWidth,
-  bookmarks,
+  // bookmarks,
   tabs,
   globalSettings,
 }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
+  const bookmarks = useBookmarksDbContext().bookmarks;
   const addTabs = useTabs((store) => store.addTabs);
 
   // const bookmarks = useBookmarks((store) => store.bookmarks);

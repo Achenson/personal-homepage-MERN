@@ -10,7 +10,6 @@ export function bookmarkErrorHandling(
   selectablesInputStr: string,
   notesTitlesArr: string[],
   rssTitlesArr: string[],
-
   bookmarks: SingleBookmarkData[],
   setErrors: SetBookmarkErrors,
   setSelectablesListVis: React.Dispatch<React.SetStateAction<boolean>>,
