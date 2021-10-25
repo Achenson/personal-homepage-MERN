@@ -64,4 +64,4 @@ notes:
 42. editing Tab -> bookmarks are not sorted alphabetically!
 43. Tab (and other components further down?) should take tab data from Column, not from db?
 44. clientside: tab are set to default individually -> should be handle more centrally? (in Grid, as it is done server-side now)
-45. logic for tab deletion in Grid work only thanks to setTimeout() -> make it better!!!
+45. logic for tab deletion in Grid work only thanks to setTimeout() [in Boomark_lowerUI] -> make it better!!!

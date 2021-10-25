@@ -367,7 +367,7 @@ export const useTabs = create<UseTabs>(
           tabOpenedState: nullOrID,
         }));
       },
-      tabDeletingPause: false,
+      tabDeletingPause: true,
       setTabDeletingPause: (trueOrFalse) => {
         set((state: UseTabs) => ({
           ...state,

@@ -43,6 +43,7 @@ function Grid({
   // const tabs = useTabs((store) => store.tabs);
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
 
+  const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
   const tabDeletingPause = useTabs((store) => store.tabDeletingPause);
 
   // const deleteEmptyTab = useTabs((store) => store.deleteEmptyTab);
@@ -176,30 +177,67 @@ function Grid({
 
   useEffect(() => {
 
-    if(tabDeletingPause) {
-      return;
+    deleteEmptyTabs();
+    async function deleteEmptyTabs() {
+      console.log(tabDeletingPause);
+      
+      if (tabDeletingPause) {
+        return;
+      }
+
+      let bookmarksAllTags: string[] = [];
+
+      bookmarks.forEach((obj) => {
+        obj.tags.forEach((el) => {
+          if (!bookmarksAllTags.includes(el)) {
+            bookmarksAllTags.push(el);
+          }
+        });
+      });
+
+      console.log(bookmarksAllTags);
+
+      let arrOfPromises: Promise<string>[] = [];
+
+      tabs
+        .filter((obj) => obj.type === "folder")
+        .forEach((obj) => {
+          let newPromise = new Promise<string>((resolve, reject) => {
+            if (!bookmarksAllTags.includes(obj.id) && !tabDeletingPause) {
+              deleteTab({ id: obj.id }).then((result) => {
+                if (result.error) {
+                  reject(result.error);
+                  return;
+                }
+                resolve(result.data.deleteTab.id);
+              });
+              // console.log(obj.id);
+            } else {
+              resolve("no ID")
+            }
+          });
+
+          arrOfPromises.push(newPromise);
+        });
+
+      // let allPromises = "test"
+
+      let arrOfIds = await Promise.all(arrOfPromises);
+
+      console.log("sth");
+      
+
+      setTabDeletingPause(true);
+
+      /*  tabs
+        .filter((obj) => obj.type === "folder")
+        .forEach((obj) => {
+          if (!bookmarksAllTags.includes(obj.id) && !tabDeletingPause) {
+            deleteTab({ id: obj.id });
+            // console.log(obj.id);
+          }
+        }); */
     }
-
-    let bookmarksAllTags: string[] = [];
-
-    bookmarks.forEach((obj) => {
-      obj.tags.forEach((el) => {
-        if (!bookmarksAllTags.includes(el)) {
-          bookmarksAllTags.push(el);
-        }
-      });
-    });
-
-    console.log(bookmarksAllTags);
-
-    tabs
-      .filter((obj) => obj.type === "folder")
-      .forEach((obj) => {
-        if (!bookmarksAllTags.includes(obj.id) && !tabDeletingPause) {
-          deleteTab({ id: obj.id });
-          // console.log(obj.id);
-        }
-      });
   }, [bookmarks, tabs, tabDeletingPause]);
 
   useEffect(() => {

@@ -193,7 +193,7 @@ function Bookmark_lowerUI({
         1 +
         counterForIndices;
 
-      setTabDeletingPause(true);
+      // setTabDeletingPause(true);
       // if folder with title corresponding to tag doesn't exist create it...
       if (!tabForCurrentTag && selectablesInputStr !== "") {
         // let newTab = createFolderTab(el, colNumber, newTabPriority);
@@ -344,6 +344,7 @@ function Bookmark_lowerUI({
     console.log(bookmarkPromise); */
 
     setTimeout(() => setTabDeletingPause(false), 500);
+    // setTabDeletingPause(false);
   }
 
   function handleKeyDown(event: KeyboardEvent) {

@@ -15,9 +15,7 @@ import { useTabContext } from "../../context/tabContext";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
-import {
-  DeleteBookmarkMutation
-} from "../../graphql/graphqlMutations";
+import { DeleteBookmarkMutation } from "../../graphql/graphqlMutations";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
@@ -36,7 +34,7 @@ interface Props {
 }
 
 interface BookmarkId {
-  id: string
+  id: string;
 }
 
 function SingleBookmark({
@@ -57,15 +55,15 @@ function SingleBookmark({
 
   const upperUiContext = useUpperUiContext();
 
+  const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
+
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   // const tabs = useTabs((state) => state.tabs);
   // const deleteBookmark = useBookmarks((state) => state.deleteBookmark);
 
-
   const [deleteBookmarkResult, deleteBookmark] = useMutation<any, BookmarkId>(
-   DeleteBookmarkMutation
+    DeleteBookmarkMutation
   );
-
 
   return (
     <div
@@ -118,7 +116,7 @@ function SingleBookmark({
             <button
               className="h-5 w-5 ml-1 focus-1-inset-darkGray"
               onClick={() => {
-          /*       let bookmarkToDelete = bookmarks.find(
+                /*       let bookmarkToDelete = bookmarks.find(
                   (obj) => obj.id === bookmarkId
                 );
 
@@ -129,14 +127,18 @@ function SingleBookmark({
                     tabs.find((obj) => !obj.deletable)?.id as string
                   );
                 } */
-                
+
                 console.log(singleBookmarkData.title);
                 console.log(bookmarkId);
-                
-                deleteBookmark({id: bookmarkId}).then(result => console.log(result));
-        
-                
 
+                deleteBookmark({ id: bookmarkId }).then((result) =>
+                  console.log(result)
+                );
+
+                setTimeout(() => {
+                  setTabDeletingPause(false);
+                }, 500);
+                // setTabDeletingPause(false);
               }}
               aria-label={"Delete bookmark"}
             >
