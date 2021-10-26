@@ -228,7 +228,10 @@ function Bookmark_lowerUI({
       // setBookmarksAllTags([...newBookmarksAllTagsData]);
       // addTabs(newTabsToAdd);
 
-      let arrOfPromises: Promise<string>[] = [];
+
+      let arrOfPromises =  newTabsToAdd.map(obj => addTab(obj))
+
+   /*    let arrOfPromises: Promise<string>[] = [];
 
       newTabsToAdd.forEach((obj) => {
         let newPromise = new Promise<string>((resolve, reject) => {
@@ -242,14 +245,19 @@ function Bookmark_lowerUI({
         });
 
         arrOfPromises.push(newPromise);
+      }); */
+
+      let arrOfNewFolderObjs = await Promise.all(arrOfPromises);
+      // let arrOfNewFolderIds = await Promise.all(arrOfPromises);
+
+      arrOfNewFolderObjs.forEach((obj) => {
+        tagsInputArr_ToIds.push(obj.data.addTab.id);
+
       });
 
-      let arrOfNewFolderIds: string[] = await Promise.all(arrOfPromises);
 
-      arrOfNewFolderIds.forEach((id) => {
-        tagsInputArr_ToIds.push(id);
-      });
-
+      console.log(tagsInputArr_ToIds);
+      
       /*   newTabsToAdd.forEach((obj) => {
         console.log(obj.title);
 

@@ -41,7 +41,7 @@ function Grid({
   globalSettings,
   // bookmarks,
   tabs,
-  staleBookmarks
+  staleBookmarks,
 }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
@@ -182,11 +182,10 @@ function Grid({
   }, [tabs, bookmarksAllTags]); */
 
   useEffect(() => {
-
     deleteEmptyTabs();
     async function deleteEmptyTabs() {
       console.log(tabDeletingPause);
-      
+
       if (tabDeletingPause) {
         return;
       }
@@ -196,7 +195,6 @@ function Grid({
       }
 
       let bookmarksAllTags: string[] = [];
-      
 
       bookmarks.forEach((obj) => {
         obj.tags.forEach((el) => {
@@ -208,9 +206,24 @@ function Grid({
 
       console.log(bookmarksAllTags);
 
-      let arrOfPromises: Promise<string>[] = [];
-
       tabs
+        .filter((obj) => obj.type === "folder")
+        .forEach((obj) => {
+          if (!bookmarksAllTags.includes(obj.id) && !tabDeletingPause) {
+            deleteTab({ id: obj.id }).then((result) => {
+              if (result.error) {
+                console.log(result.error);
+                return;
+              }
+              // console.log(result.data.deleteTab.id);
+            });
+            // console.log(obj.id);
+          }
+        });
+
+      // let arrOfPromises: Promise<string>[] = [];
+
+  /*     tabs
         .filter((obj) => obj.type === "folder")
         .forEach((obj) => {
           let newPromise = new Promise<string>((resolve, reject) => {
@@ -224,19 +237,18 @@ function Grid({
               });
               // console.log(obj.id);
             } else {
-              resolve("no ID")
+              resolve("no ID");
             }
           });
 
           arrOfPromises.push(newPromise);
-        });
+        }); */
 
       // let allPromises = "test"
 
-      let arrOfIds = await Promise.all(arrOfPromises);
+      // await Promise.all(arrOfPromises);
 
-      console.log("sth");
-      
+      // console.log("sth");
 
       setTabDeletingPause(true);
 

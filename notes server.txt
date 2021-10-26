@@ -8,6 +8,7 @@ notes:
 
 1. in GraphQL, all types are nullable by default!
 2. to get object from mutation with saving: return a promise, resolve with the product!
+3. urql - results.stale crucial for having up to date db data! 
 
 
  issues:
@@ -24,6 +25,7 @@ notes:
  DONE 18. client: comment out useStorage (zustand's perist commented out) DONE
  DONE 34. mutations -> proper typescript types! DONE
 DONE 45. logic for tab deletion in Grid work only thanks to setTimeout() [in Boomark_lowerUI] -> make it better!!! DONE (result.stale used!!!)
+DONE 47. promise.all -> no need for new Promise everywhere? mutation return promises (change in Bookmark_lowerUI, no promise.all in Grids now, ) DONE
  
  1. livereload npm
  
