@@ -15,10 +15,9 @@ import { ReactComponent as LockClosedSVG } from "../../svgs/lock-closed.svg";
 import { ReactComponent as LockOpenSVG } from "../../svgs/lock-open.svg";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
-import { useBookmarksDbContext } from "../../context/bookmarksDbContext";
+import { useDbContext } from "../../context/dbContext";
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-
 import { useTabs } from "../../state/hooks/useTabs";
 import { useTabContext } from "../../context/tabContext";
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
@@ -51,7 +50,7 @@ interface Props {
   currentTab: TabDatabase_i;
   setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>;
   globalSettings: SettingsDatabase_i;
-  tabs: SingleTabData[];
+  // tabs: SingleTabData[];
   // bookmarks: SingleBookmarkData[];
   // bookmarks: BookmarkDatabase_i[];
 }
@@ -62,12 +61,13 @@ function EditTab({
   currentTab,
   setTabOpened_local,
   globalSettings,
-  tabs,
+  // tabs,
 }: // bookmarks,
 Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   // const editTab = useTabs((store) => store.editTab);
-  const bookmarks = useBookmarksDbContext().bookmarks;
+  const bookmarks = useDbContext().bookmarks;
+  const tabs = useDbContext().tabs;
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
     ChangeTabMutation
   );

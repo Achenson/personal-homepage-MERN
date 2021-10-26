@@ -28,7 +28,7 @@ import { useTabs } from "../../state/hooks/useTabs";
 import { useTabReducer } from "../../context/useTabReducer";
 import { TabContext } from "../../context/tabContext";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { useBookmarksDbContext } from "../../context/bookmarksDbContext";
+import { useDbContext } from "../../context/dbContext";
 
 // import { BookmarksQuery, SettingsQuery } from "../../graphql/graphqlQueries";
 import {
@@ -61,7 +61,7 @@ interface Props {
   tabOpenedByDefault: boolean;
   tabIsDeletable: boolean;
   globalSettings: SettingsDatabase_i;
-  tabs: TabDatabase_i[];
+  // tabs: TabDatabase_i[];
   currentTab: TabDatabase_i;
   // tabs: SingleTabData[];
 }
@@ -76,7 +76,7 @@ function Tab({
   tabOpenedByDefault,
   tabIsDeletable,
   globalSettings,
-  tabs,
+  // tabs,
   currentTab
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
@@ -92,7 +92,8 @@ function Tab({
   const setReset = useReset((state) => state.setReset);
   const resetEnabled = useReset((state) => state.enabled);
   // const bookmarks = useBookmarks((state) => state.bookmarks);
-  const bookmarks = useBookmarksDbContext().bookmarks;
+  const bookmarks = useDbContext().bookmarks;
+  const tabs = useDbContext().tabs;
 
   // const tabs = useTabs((store) => store.tabs);
   const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
@@ -508,7 +509,7 @@ function Tab({
               colNumber={colNumber}
               tabTitle={tabTitle as string}
               // bookmarks={bookmarks}
-              tabs={tabs}
+              // tabs={tabs}
               globalSettings={globalSettings}
             />
           )}
@@ -523,7 +524,7 @@ function Tab({
               currentTab={currentTab as TabDatabase_i}
               setTabOpened_local={setTabOpened_local}
               globalSettings={globalSettings}
-              tabs={tabs}
+              // tabs={tabs}
             />
           )}
 
@@ -544,7 +545,7 @@ function Tab({
                     isTabDraggedOver={isTabDraggedOver}
                     globalSettings={globalSettings}
                     // bookmarks={bookmarks}
-                    tabs={tabs}
+                    // tabs={tabs}
                   />
                 );
               })}

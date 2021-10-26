@@ -20,7 +20,7 @@ import { initUpperVisState } from "../context/upperVisInitState";
 import { upperVisReducer } from "../context/upperVisReducer";
 import { useWindowSize } from "../utils/funcs and hooks/useWindowSize";
 import { UpperUiContext } from "../context/upperUiContext";
-import { BookmarksDbContext } from "../context/bookmarksDbContext";
+import { DbContext } from "../context/dbContext";
 
 import { SettingsDatabase_i } from "../../../schema/types/settingsType";
 import { TabsQuery, BookmarksQuery } from "../graphql/graphqlQueries";
@@ -126,7 +126,7 @@ function Main({ globalSettings }: Props): JSX.Element {
     globalSettings.picBackground,
   ]);
 
-  const [tabResults] = useQuery({
+  const [tabResults, reexecuteTabs] = useQuery({
     query: TabsQuery,
     variables: { userId: testUserId },
   });
@@ -165,9 +165,11 @@ function Main({ globalSettings }: Props): JSX.Element {
   // let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
   let bookmarks: BookmarkDatabase_i[] = data_bookmarks.bookmarks;
 
-  let bookmarksDbValue = {
+  let dbValue = {
     bookmarks,
+    tabs,
     reexecuteBookmarks,
+    reexecuteTabs
   };
 
   let paddingProps = {
@@ -176,7 +178,7 @@ function Main({ globalSettings }: Props): JSX.Element {
   };
 
   return (
-    <BookmarksDbContext.Provider value={bookmarksDbValue}>
+    <DbContext.Provider value={dbValue}>
       <UpperUiContext.Provider value={upperUiValue}>
         <main
           className={`relative min-h-screen ${
@@ -196,7 +198,7 @@ function Main({ globalSettings }: Props): JSX.Element {
             <ModalWrap globalSettings={globalSettings}>
               <NewTab
                 tabType={tabType}
-                tabs={tabs}
+                // tabs={tabs}
                 // bookmarks={bookmarks}
                 globalSettings={globalSettings}
                 {...paddingProps}
@@ -207,7 +209,7 @@ function Main({ globalSettings }: Props): JSX.Element {
             <ModalWrap globalSettings={globalSettings}>
               <Bookmark_newAndEdit
                 bookmarkComponentType={"new_upperUI"}
-                tabs={tabs}
+                // tabs={tabs}
                 // bookmarks={bookmarks}
                 globalSettings={globalSettings}
                 {...paddingProps}
@@ -248,12 +250,12 @@ function Main({ globalSettings }: Props): JSX.Element {
             setTabType={setTabType}
             globalSettings={globalSettings}
             // bookmarks={bookmarks}
-            tabs={tabs}
+            // tabs={tabs}
             staleBookmarks={stale_bookmarks}
           />
         </main>
       </UpperUiContext.Provider>
-    </BookmarksDbContext.Provider>
+    </DbContext.Provider>
   );
 }
 

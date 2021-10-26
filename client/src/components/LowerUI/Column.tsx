@@ -17,12 +17,13 @@ import Message from "../UpperUI/Message";
 
 // import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { SingleTabData } from "../../utils/interfaces";
+import { useDbContext } from "../../context/dbContext";
 import { TabsQuery } from "../../graphql/graphqlQueries";
 import { SettingsQuery } from "../../graphql/graphqlQueries";
 
 import { testUserId } from "../../state/data/testUserId";
 
+import { SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
@@ -31,20 +32,21 @@ interface Props {
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
   breakpoint: 0 | 1 | 2 | 3 | 4 | null;
   // tabs: SingleTabData[];
-  tabs: TabDatabase_i[];
+  // tabs: TabDatabase_i[];
 }
 
 function Column({
   colNumber,
   setTabType,
   breakpoint,
-  tabs,
+  // tabs,
 }: Props): JSX.Element {
   // const columnsColors = useColumnsColors((state) => state, shallow);
   // const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);
 
   // const tabs = useTabs((store) => store.tabs);
   // const globalSettings = useGlobalSettings((state) => state, shallow);
+  const tabs = useDbContext().tabs;
 
   const upperUiContext = useUpperUiContext();
 
@@ -214,7 +216,7 @@ function Column({
                 tabOpenedByDefault={el.openedByDefault}
                 tabIsDeletable={el.deletable}
                 globalSettings={globalSettings}
-                tabs={tabs}
+                // tabs={tabs}
                 currentTab={el}
               />
               {/* <div className="flex-grow"> */}

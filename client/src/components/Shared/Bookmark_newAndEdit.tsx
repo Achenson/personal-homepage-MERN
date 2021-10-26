@@ -5,7 +5,7 @@ import Bookmark_lowerUI from "../LowerUI/Bookmark_lowerUI";
 
 // import { useBookmarks } from "../../state/hooks/useBookmarks";
 // import { useTabs } from "../../state/hooks/useTabs";
-import { useBookmarksDbContext } from "../../context/bookmarksDbContext";
+import { useDbContext } from "../../context/dbContext";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
@@ -22,7 +22,7 @@ interface Props {
   mainPaddingRight?: boolean;
   scrollbarWidth?: number;
   // bookmarks: SingleBookmarkData[];
-  tabs: SingleTabData[];
+  // tabs: SingleTabData[];
   // bookmarks: SingleBookmarkData[];
   globalSettings: SettingsDatabase_i;
 }
@@ -45,13 +45,14 @@ function Bookmark_newAndEdit({
   mainPaddingRight,
   scrollbarWidth,
   // bookmarks,
-  tabs,
+  // tabs,
   globalSettings,
 }: Props): JSX.Element {
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   // const tabs = useTabs((state) => state.tabs);
 
-  const bookmarks = useBookmarksDbContext().bookmarks;
+  const bookmarks = useDbContext().bookmarks;
+  const tabs = useDbContext().tabs;
 
   let currentBookmark: SingleBookmarkData | undefined;
 
@@ -216,7 +217,7 @@ function Bookmark_newAndEdit({
           mainPaddingRight={mainPaddingRight as boolean}
           scrollbarWidth={scrollbarWidth as number}
           // bookmarks={bookmarks}
-          tabs={tabs}
+          // tabs={tabs}
           globalSettings={globalSettings}
         />
       ) : (
@@ -226,7 +227,7 @@ function Bookmark_newAndEdit({
           bookmarkId={bookmarkId as string}
           colNumber={colNumber as number}
           // bookmarks={bookmarks}
-          tabs={tabs}
+          // tabs={tabs}
           globalSettings={globalSettings}
         />
       )}

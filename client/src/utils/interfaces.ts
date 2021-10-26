@@ -93,10 +93,12 @@ export interface UpperUiContext_i {
   upperVisDispatch: React.Dispatch<UpperVisAction>;
 }
 
-export interface BookmarksDbContext_i {
+export interface DbContext_i {
   bookmarks: BookmarkDatabase_i[];
+  tabs: TabDatabase_i[]
   // reexecuteBookmarks: (opts?: Partial<OperationContext> | undefined) => void;
   reexecuteBookmarks: (opts?: Partial<any> | undefined) => void;
+  reexecuteTabs: (opts?: Partial<any> | undefined) => void;
 }
 
 // for Tab

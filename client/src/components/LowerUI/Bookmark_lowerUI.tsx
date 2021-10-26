@@ -8,7 +8,7 @@ import Bookmark_lowerUI_new from "./Bookmark_lowerUI_new";
 import { useTabs } from "../../state/hooks/useTabs";
 
 import { useTabContext } from "../../context/tabContext";
-import {useBookmarksDbContext } from "../../context/bookmarksDbContext";
+import {useDbContext } from "../../context/dbContext";
 
 import {
   // createBookmark,
@@ -53,7 +53,7 @@ interface Props {
   errors: BookmarkErrors;
   setErrors: SetBookmarkErrors;
   // bookmarks: SingleBookmarkData[];
-  tabs: SingleTabData[];
+  // tabs: SingleTabData[];
   globalSettings: SettingsDatabase_i;
 }
 
@@ -77,13 +77,13 @@ function Bookmark_lowerUI({
   errors,
   setErrors,
   // bookmarks,
-  tabs,
+  // tabs,
   globalSettings,
 }: Props): JSX.Element {
   // const addBookmark = useBookmarks((store) => store.addBookmark);
   // const editBookmark = useBookmarks((store) => store.editBookmark);
-  const bookmarks = useBookmarksDbContext().bookmarks;
-  let reexecuteBookmarks = useBookmarksDbContext().reexecuteBookmarks;
+  const bookmarks = useDbContext().bookmarks;
+  const tabs = useDbContext().tabs;
 
   const [addBookmarkResult, addBookmark] = useMutation<any, BookmarkDatabase_i>(
     AddBookmarkMutation

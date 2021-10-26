@@ -11,7 +11,7 @@ import { useResetColors } from "../../state/hooks/colorHooks";
 import { useReset } from "../../state/hooks/useReset";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { useBookmarksDbContext } from "../../context/bookmarksDbContext";
+import { useDbContext } from "../../context/dbContext";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import {
@@ -32,7 +32,7 @@ interface Props {
   globalSettings: SettingsDatabase_i;
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
-  tabs: TabDatabase_i[];
+  // tabs: TabDatabase_i[];
   staleBookmarks: boolean;
 }
 
@@ -40,7 +40,7 @@ function Grid({
   setTabType,
   globalSettings,
   // bookmarks,
-  tabs,
+  // tabs,
   staleBookmarks,
 }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
@@ -49,8 +49,9 @@ function Grid({
   const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
   const tabDeletingPause = useTabs((store) => store.tabDeletingPause);
 
-  const bookmarks = useBookmarksDbContext().bookmarks;
-  // const reexecuteBookmarks = useBookmarksDbContext().reexecuteBookmarks;
+  const bookmarks = useDbContext().bookmarks;
+  const tabs = useDbContext().tabs;
+  // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
 
   // const deleteEmptyTab = useTabs((store) => store.deleteEmptyTab);
   const [deleteTabResult, deleteTab] = useMutation<any, TabId>(

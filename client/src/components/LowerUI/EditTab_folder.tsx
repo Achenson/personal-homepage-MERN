@@ -11,7 +11,7 @@ import { ReactComponent as XsmallSVG } from "../../svgs/x-small.svg";
 
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 import { SingleBookmarkData } from "../../utils/interfaces";
-import { useBookmarksDbContext } from "../../context/bookmarksDbContext";
+import { useDbContext } from "../../context/dbContext";
 
 interface Props {
   selectablesListVis: boolean;
@@ -35,7 +35,7 @@ function EditTab_folder({
   // bookmarks
 }: Props): JSX.Element {
   // const bookmarks = useBookmarks((state) => state.bookmarks);
-  const bookmarks = useBookmarksDbContext().bookmarks;
+  const bookmarks = useDbContext().bookmarks;
 
   let selectablesRef = useRef<HTMLInputElement>(null);
 

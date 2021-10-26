@@ -1,15 +1,15 @@
 import React from "react";
 
-import { BookmarksDbContext_i } from "../utils/interfaces";
+import { DbContext_i } from "../utils/interfaces";
 
 // undefined, so it can be initialised with no specific value
-export const BookmarksDbContext = React.createContext<BookmarksDbContext_i | undefined>(
+export const DbContext = React.createContext<DbContext_i | undefined>(
   undefined
 );
 
 // use in place of useContext in children (because Typescript)
-export function useBookmarksDbContext() {
-  const context = React.useContext(BookmarksDbContext);
+export function useDbContext() {
+  const context = React.useContext(DbContext);
 
   if (context === undefined) {
     throw new Error(
