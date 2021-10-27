@@ -61,8 +61,8 @@ function EditTab({
   currentTab,
   setTabOpened_local,
   globalSettings,
-  // tabs,
-}: // bookmarks,
+}: // tabs,
+// bookmarks,
 Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   // const editTab = useTabs((store) => store.editTab);

@@ -264,14 +264,15 @@ function Grid({
     }
   }, [bookmarks, tabs, tabDeletingPause]);
 
-  useEffect(() => {
+  // client-side legacy code, now handled by GlobalSettings
+/*   useEffect(() => {
     createLessColumns(globalSettings.numberOfCols);
 
     function createLessColumns(numberOfCols: 1 | 2 | 3 | 4) {
       if (numberOfCols === 4) return;
       tabsLessColumns(numberOfCols);
     }
-  }, [globalSettings.numberOfCols, tabsLessColumns]);
+  }, [globalSettings.numberOfCols, tabsLessColumns]); */
 
   function renderColumns(numberOfCols: 1 | 2 | 3 | 4) {
     let columnProps = {

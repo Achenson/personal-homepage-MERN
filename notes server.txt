@@ -25,6 +25,7 @@ notes:
  DONE 18. client: comment out useStorage (zustand's perist commented out) DONE
  DONE 34. mutations -> proper typescript types! DONE
 DONE 45. logic for tab deletion in Grid work only thanks to setTimeout() [in Boomark_lowerUI] -> make it better!!! DONE (result.stale used!!!)
+DONE 46. bookmark /tabs database interfaces everywhere! (now both from context) DONE
 DONE 47. promise.all -> no need for new Promise everywhere? mutation return promises (change in Bookmark_lowerUI, no promise.all in Grids now, ) DONE
  
  1. livereload npm
@@ -65,6 +66,5 @@ DONE 47. promise.all -> no need for new Promise everywhere? mutation return prom
 40. bookmarksAllTags -> change it (it should be a list of all tabs ids that are bookmarks tags) or use mongoose query!!!!
 41. newTab -> no color as argument, should be null
 42. editing Tab -> bookmarks are not sorted alphabetically!
-43. Tab (and other components further down?) should take tab data from Column, not from db?
+43. Tab (and other components further down?) should take tab data from Column (context??), not from db?
 44. clientside: tab are set to default individually -> should be handle more centrally? (in Grid, as it is done server-side now)
-46. bookmark /tabs database interfaces everywhere!

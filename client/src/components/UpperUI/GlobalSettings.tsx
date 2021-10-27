@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import FocusLock from "react-focus-lock";
 // import shallow from "zustand/shallow";
-import {useMutation } from "urql";
+import { useMutation } from "urql";
 
 import Settings_inner_xs from "./Settings_inner_xs";
 
@@ -13,12 +13,18 @@ import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
+import { useDbContext } from "../../context/dbContext";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
-import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
+import {
+  ChangeSettingsMutation,
+  ChangeTabMutation,
+} from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { TabDatabase_i } from "../../../../schema/types/tabType";
+import { objectTraps } from "immer/dist/internal";
 
 interface Props {
   mainPaddingRight: boolean;
@@ -39,6 +45,7 @@ function GlobalSettings({
   /*  const setGlobalSettings = useGlobalSettings(
     (state) => state.setGlobalSettings
   ); */
+  const tabs = useDbContext().tabs;
 
   const setTabOpenedState = useTabs((state) => state.setTabOpenedState);
 
@@ -74,8 +81,13 @@ function GlobalSettings({
     variables: { userId: testUserId },
   }); */
 
-  const [changeSettingsResult, changeSettings] = useMutation<any, SettingsDatabase_i>(
-    ChangeSettingsMutation
+  const [changeSettingsResult, changeSettings] = useMutation<
+    any,
+    SettingsDatabase_i
+  >(ChangeSettingsMutation);
+
+  const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
+    ChangeTabMutation
   );
 
   /*  const { data, fetching, error } = settingsResults;
@@ -90,7 +102,7 @@ function GlobalSettings({
   }
 
   function renderColsNumberControls() {
-    const arrOfColsNumbers: (1 | 2 | 3 | 4)[] = [1, 2, 3, 4];
+    const arrOfColsNumbers: ( 1 | 2 | 3 | 4 )[] = [1, 2, 3, 4];
 
     let colsNumbering = {
       1: "one",
@@ -109,6 +121,24 @@ function GlobalSettings({
                 numberOfCols: el,
               }); */
               changeSettings({ ...globalSettings, numberOfCols: el });
+
+              tabs
+                // .filter((obj) => obj.column >= globalSettings.numberOfCols)
+                .filter((obj) => obj.column >= el)
+                .sort((a, b) => {
+                  if (a.title < b.title) {
+                    return -1;
+                  }
+                  if (a.title > b.title) {
+                    return 1;
+                  }
+                  return 0;
+                })
+                .forEach((obj, i) => {
+                  editTab({ ...obj, column: el, priority: i });
+                  /* obj.column = globalSettings.numberOfCols;
+                  obj.priority = i; */
+                });
             }}
             className="focus-1-offset"
           >
