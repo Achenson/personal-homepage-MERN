@@ -88,6 +88,7 @@ function NewBookmark_UpperUI({
 }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   const bookmarks = useDbContext().bookmarks;
+  const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
   const tabs = useDbContext().tabs;
   // const addTabs = useTabs((store) => store.addTabs);
   const [addTabResult, addTab] = useMutation<any, TabDatabase_i>(
@@ -222,6 +223,10 @@ function NewBookmark_UpperUI({
 
     await bookmarkPromise;
     // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
+    if(bookmarks.length === 0) {
+      reexecuteBookmarks({ requestPolicy: 'network-only' });
+    }
+    
   }
 
   function handleKeyDown(event: KeyboardEvent) {

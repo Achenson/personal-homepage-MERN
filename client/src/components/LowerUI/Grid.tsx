@@ -33,7 +33,7 @@ interface Props {
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
   // tabs: TabDatabase_i[];
-  staleBookmarks: boolean;
+  // staleBookmarks: boolean;
 }
 
 function Grid({
@@ -41,7 +41,7 @@ function Grid({
   globalSettings,
   // bookmarks,
   // tabs,
-  staleBookmarks,
+  // staleBookmarks,
 }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
@@ -50,6 +50,7 @@ function Grid({
   const tabDeletingPause = useTabs((store) => store.tabDeletingPause);
 
   const bookmarks = useDbContext().bookmarks;
+  const staleBookmarks = useDbContext().stale_bookmarks;
   const tabs = useDbContext().tabs;
   // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
 
@@ -205,10 +206,11 @@ function Grid({
         });
       });
 
-      console.log(bookmarksAllTags);
+      // console.log(bookmarksAllTags);
+
 
       tabs
-        .filter((obj) => obj.type === "folder")
+        .filter((obj) => obj.type === "folder" && obj.deletable)
         .forEach((obj) => {
           if (!bookmarksAllTags.includes(obj.id) && !tabDeletingPause) {
             deleteTab({ id: obj.id }).then((result) => {
@@ -224,7 +226,7 @@ function Grid({
 
       // let arrOfPromises: Promise<string>[] = [];
 
-  /*     tabs
+      /*     tabs
         .filter((obj) => obj.type === "folder")
         .forEach((obj) => {
           let newPromise = new Promise<string>((resolve, reject) => {
@@ -265,7 +267,7 @@ function Grid({
   }, [bookmarks, tabs, tabDeletingPause]);
 
   // client-side legacy code, now handled by GlobalSettings
-/*   useEffect(() => {
+  /*   useEffect(() => {
     createLessColumns(globalSettings.numberOfCols);
 
     function createLessColumns(numberOfCols: 1 | 2 | 3 | 4) {

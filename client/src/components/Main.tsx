@@ -27,7 +27,7 @@ import { TabsQuery, BookmarksQuery } from "../graphql/graphqlQueries";
 
 import { testUserId } from "../state/data/testUserId";
 
-import { SingleBookmarkData, SingleTabData } from "../utils/interfaces";
+import { DbContext_i, SingleBookmarkData, SingleTabData } from "../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../schema/types/tabType";
 
@@ -129,6 +129,7 @@ function Main({ globalSettings }: Props): JSX.Element {
   const [tabResults, reexecuteTabs] = useQuery({
     query: TabsQuery,
     variables: { userId: testUserId },
+    // requestPolicy: 'cache-and-network',
   });
 
   const {
@@ -165,9 +166,10 @@ function Main({ globalSettings }: Props): JSX.Element {
   // let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
   let bookmarks: BookmarkDatabase_i[] = data_bookmarks.bookmarks;
 
-  let dbValue = {
+  let dbValue: DbContext_i = {
     bookmarks,
     tabs,
+    stale_bookmarks,
     reexecuteBookmarks,
     reexecuteTabs
   };
@@ -251,7 +253,7 @@ function Main({ globalSettings }: Props): JSX.Element {
             globalSettings={globalSettings}
             // bookmarks={bookmarks}
             // tabs={tabs}
-            staleBookmarks={stale_bookmarks}
+            // staleBookmarks={stale_bookmarks}
           />
         </main>
       </UpperUiContext.Provider>

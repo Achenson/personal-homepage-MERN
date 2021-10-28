@@ -67,4 +67,6 @@ DONE 47. promise.all -> no need for new Promise everywhere? mutation return prom
 41. newTab -> no color as argument, should be null
 42. editing Tab -> bookmarks are not sorted alphabetically!
 43. Tab (and other components further down?) should take tab data from Column (context??), not from db?
-44. clientside: tab are set to default individually -> should be handle more centrally? (in Grid, as it is done server-side now)
+44. clientside: tab are set to default individually -> should be handle more centrally? (in Grid, as it is done server-side now),
+45. memory leaks? when adding bookmark
+46. bookmarks not up to date when adding newBookmark if there are none -> hacky solution only, reexectuing query which causes rerender - solve?
