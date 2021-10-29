@@ -30,6 +30,7 @@ import { TabContext } from "../../context/tabContext";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { useDbContext } from "../../context/dbContext";
 
+import {dragTabDb} from "../../utils/funcs and hooks/dragTabDb"
 // import { BookmarksQuery, SettingsQuery } from "../../graphql/graphqlQueries";
 import {
   ChangeTabMutation,
@@ -219,7 +220,8 @@ function Tab({
     accept: ItemTypes.BOOKMARK,
     drop: (item: Item, monitor) => {
       if (draggedItem && tabID !== draggedItem.tabID) {
-        dragTab(item.tabID, item.colNumber, colNumber, tabID, true);
+        // dragTab(item.tabID, item.colNumber, colNumber, tabID, true);
+        dragTabDb(item.tabID, item.colNumber, colNumber, tabID, true, tabs, editTab);
       }
     },
     // drop: (item: Item, monitor) => console.log(item.tabID),
@@ -395,7 +397,7 @@ function Tab({
                     // } ${tabID === "ALL_TAGS" ? "tracking-wider" : ""}`}
                   } ${!tabIsDeletable ? "tracking-wider" : ""}`}
                 >
-                  {tabTitle}
+                  {tabTitle} {currentTab.priority}
                 </p>
               </button>
             </div>

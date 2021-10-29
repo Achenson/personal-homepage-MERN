@@ -1,4 +1,5 @@
 import React from "react";
+import { useQuery, useMutation } from "urql";
 
 import { useDrop } from "react-dnd";
 // import shallow from "zustand/shallow";
@@ -8,8 +9,13 @@ import { useTabBeingDraggedColor } from "../../state/hooks/colorHooks";
 
 import { ItemTypes } from "../../utils/data/itemsDnd";
 import { useTabs } from "../../state/hooks/useTabs";
+import { useDbContext } from "../../context/dbContext";
+
+import { dragTabDb } from "../../utils/funcs and hooks/dragTabDb";
+import { ChangeTabMutation } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 interface Item {
   type: string;
@@ -25,7 +31,7 @@ interface Props {
   isThisLastGap: boolean;
   // for proper top border display
   isThisTheOnlyGap: boolean;
-  globalSettings: SettingsDatabase_i
+  globalSettings: SettingsDatabase_i;
 }
 
 function GapAfterTab({
@@ -33,9 +39,15 @@ function GapAfterTab({
   tabID_orNull,
   isThisLastGap,
   isThisTheOnlyGap,
-  globalSettings
+  globalSettings,
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
+  const tabs = useDbContext().tabs;
+
+  const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
+    ChangeTabMutation
+  );
+
   const tabBeingDraggedColor = useTabBeingDraggedColor(
     (state) => state.tabBeingDraggedColor
   );
@@ -46,7 +58,16 @@ function GapAfterTab({
     //    required property
     accept: ItemTypes.BOOKMARK,
     drop: (item: Item, monitor) =>
-      dragTab(item.tabID, item.colNumber, colNumber, tabID_orNull, false),
+      // dragTab(item.tabID, item.colNumber, colNumber, tabID_orNull, false),
+      dragTabDb(
+        item.tabID,
+        item.colNumber,
+        colNumber,
+        tabID_orNull,
+        false,
+        tabs,
+        editTab
+      ),
     // drop: (item, monitor) => console.log(item.tabID),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
