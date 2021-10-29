@@ -44,7 +44,6 @@ export function dragTabDb(
 
   // when column is empty
   if (!tabID) {
-    console.log("column is empty");
 
     // if (itemToUpdate) {
     if (newItemToUpdate) {
@@ -70,7 +69,6 @@ export function dragTabDb(
   // dragging into tab
   //   if (draggingIntoTab && itemToUpdate) {
   if (draggingIntoTab && newItemToUpdate) {
-    console.log("dragging into");
 
     let tabToUpdate = tabs[draggedIntoIndex];
 

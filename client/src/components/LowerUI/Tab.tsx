@@ -397,7 +397,7 @@ function Tab({
                     // } ${tabID === "ALL_TAGS" ? "tracking-wider" : ""}`}
                   } ${!tabIsDeletable ? "tracking-wider" : ""}`}
                 >
-                  {tabTitle} {currentTab.priority}
+                  {tabTitle}
                 </p>
               </button>
             </div>

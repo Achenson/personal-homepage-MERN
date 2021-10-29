@@ -71,3 +71,5 @@ DONE 47. promise.all -> no need for new Promise everywhere? mutation return prom
 45. memory leaks? when adding bookmark
 46. bookmarks not up to date when adding newBookmark if there are none -> hacky solution only, reexectuing query which causes rerender - solve?
 47. useBookmarks & useTabs -> mark which methods are used server-side!
+48. explain somewhere to the user why disable drag & drop is there
+49. rss -> still not working because of CORS, fetch them server side?
