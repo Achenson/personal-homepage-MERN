@@ -70,9 +70,8 @@ export function dragTabDb(
   // dragging into tab
   //   if (draggingIntoTab && itemToUpdate) {
   if (draggingIntoTab && newItemToUpdate) {
-
     console.log("dragging into");
-    
+
     let tabToUpdate = tabs[draggedIntoIndex];
 
     /*     itemToUpdate.column = tabToUpdate.column;
@@ -80,12 +79,20 @@ export function dragTabDb(
     newItemToUpdate.column = tabToUpdate.column;
     newItemToUpdate.priority = tabToUpdate.priority;
 
+    editTab({
+      ...newItemToUpdate,
+    });
+
+    let newTabToUpdate = { ...tabToUpdate };
+
     /* tabToUpdate.column = itemToUpdateColumn_init;
     tabToUpdate.priority = itemToUpdatePriority_init; */
+
+    newTabToUpdate.column = itemToUpdateColumn_init;
+    newTabToUpdate.priority = itemToUpdatePriority_init;
+
     editTab({
-      ...tabToUpdate,
-      column: itemToUpdateColumn_init,
-      priority: itemToUpdatePriority_init,
+      ...newTabToUpdate,
     });
     return;
   }
