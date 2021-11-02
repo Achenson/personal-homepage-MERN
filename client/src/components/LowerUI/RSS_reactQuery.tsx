@@ -71,21 +71,49 @@ function ReactQuery({
     // cacheTime: 10,
     onSuccess: () => {
       console.log("data fetched with no problems");
+      console.log(data);
     },
   });
 
   async function fetchFeed() {
     let extendedRSSurl = `${currentTab?.rssLink}?format=xml`;
+
+    let baseFetchUrl = "http://localhost:4000/fetch_rss/";
+
     try {
-      let response = await parser.parseURL(currentTab?.rssLink);
-      return response;
+      // let response = await parser.parseURL(currentTab?.rssLink);
+      // return response;
+      let toSendUrl = encodeURIComponent(`${currentTab.rssLink}`);
+      /*   let response = await fetch(
+        `http://localhost:4000/fetch_rss/${currentTab.rssLink}`
+      ); */
+      let response = await fetch(baseFetchUrl + toSendUrl);
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      return response.json();
     } catch (err) {
-      let newResponse = await parser.parseURL(extendedRSSurl);
-      return newResponse;
+      // let newResponse = await parser.parseURL(extendedRSSurl);
+      // return newResponse;
+
+      let newToSendUrl = encodeURIComponent(`${currentTab.rssLink}?format=xml`);
+      /* 
+      let newResponse = await fetch(
+        `http://localhost:4000/fetch_rss/${currentTab.rssLink}?format=xml`
+      ); */
+      let newResponse = await fetch(baseFetchUrl + newToSendUrl);
+
+      if (!newResponse.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      return newResponse.json();
     }
   }
 
-  function mapData() {
+    function mapData() {
     let arrOfObj = [];
 
     let howManyNews = data.items.length;
@@ -190,20 +218,20 @@ function ReactQuery({
 
         <button
           className="focus-2-inset"
-          onClick={() => {
+        onClick={() => {
             if (pageNumber < lastPageNumber()) {
               setPageNumber(pageNumber + 1);
             }
-          }}
+          }} 
           aria-label={"Next page"}
         >
-          <ArrowRight
+            <ArrowRight
             className={`h-8 ${
               pageNumber === lastPageNumber()
                 ? `text-gray-400`
                 : `cursor-pointer text-black hover:bg-gray-200`
             }`}
-          />
+          /> 
         </button>
       </div>
       <div

@@ -4,7 +4,10 @@ const dotenv = require("dotenv");
 const { graphqlHTTP } = require("express-graphql");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
+const Parser = require("rss-parser");
 import {schema} from "./schema/schema"
+
+let rssParser = new Parser();
 
 const app = express();
 
@@ -27,6 +30,7 @@ app.use(
       "http://localhost:3000",
       "http://localhost:4000",
       "http://localhost:4000/graphql",
+      "http://localhost:4000/fetch_rss",
     ],
     credentials: true,
   })
@@ -39,6 +43,22 @@ app.use(
     graphiql: true,
   })
 );
+
+app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
+  // res.send("fetching rss");
+// res.send(req.params)
+
+ /*  console.log(req.params);
+  console.log(req.params.rsslink); */
+
+  let response = await rssParser.parseURL(req.params.rsslink);
+  console.log(response);
+  
+  res.send(response)
+
+
+
+} )
 
 dotenv.config();
 
