@@ -27,6 +27,7 @@ notes:
 DONE 45. logic for tab deletion in Grid work only thanks to setTimeout() [in Boomark_lowerUI] -> make it better!!! DONE (result.stale used!!!)
 DONE 46. bookmark /tabs database interfaces everywhere! (now both from context) DONE
 DONE 47. promise.all -> no need for new Promise everywhere? mutation return promises (change in Bookmark_lowerUI, no promise.all in Grids now, ) DONE
+DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
  
  1. livereload npm
  
@@ -72,4 +73,4 @@ DONE 47. promise.all -> no need for new Promise everywhere? mutation return prom
 46. bookmarks not up to date when adding newBookmark if there are none -> hacky solution only, reexectuing query which causes rerender - solve?
 47. useBookmarks & useTabs -> mark which methods are used server-side!
 48. explain somewhere to the user why disable drag & drop is there
-49. rss -> still not working because of CORS, fetch them server side?
+50. server.ts -> figure out which cors urls are actually needed

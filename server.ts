@@ -5,7 +5,7 @@ const { graphqlHTTP } = require("express-graphql");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const Parser = require("rss-parser");
-import {schema} from "./schema/schema"
+import { schema } from "./schema/schema";
 
 let rssParser = new Parser();
 
@@ -43,22 +43,12 @@ app.use(
     graphiql: true,
   })
 );
-
+// fetching rss server-side
 app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
-  // res.send("fetching rss");
-// res.send(req.params)
-
- /*  console.log(req.params);
-  console.log(req.params.rsslink); */
-
   let response = await rssParser.parseURL(req.params.rsslink);
-  console.log(response);
-  
-  res.send(response)
-
-
-
-} )
+  // console.log(response);
+  res.send(response);
+});
 
 dotenv.config();
 

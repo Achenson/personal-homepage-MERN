@@ -71,22 +71,20 @@ function ReactQuery({
     // cacheTime: 10,
     onSuccess: () => {
       console.log("data fetched with no problems");
-      console.log(data);
+      // console.log(data);
     },
   });
 
   async function fetchFeed() {
-    let extendedRSSurl = `${currentTab?.rssLink}?format=xml`;
 
     let baseFetchUrl = "http://localhost:4000/fetch_rss/";
+    let extendedRSSurl = `${currentTab.rssLink}?format=xml`;
 
     try {
       // let response = await parser.parseURL(currentTab?.rssLink);
       // return response;
       let toSendUrl = encodeURIComponent(`${currentTab.rssLink}`);
-      /*   let response = await fetch(
-        `http://localhost:4000/fetch_rss/${currentTab.rssLink}`
-      ); */
+    
       let response = await fetch(baseFetchUrl + toSendUrl);
 
       if (!response.ok) {
@@ -97,12 +95,8 @@ function ReactQuery({
     } catch (err) {
       // let newResponse = await parser.parseURL(extendedRSSurl);
       // return newResponse;
-
-      let newToSendUrl = encodeURIComponent(`${currentTab.rssLink}?format=xml`);
-      /* 
-      let newResponse = await fetch(
-        `http://localhost:4000/fetch_rss/${currentTab.rssLink}?format=xml`
-      ); */
+      let newToSendUrl = encodeURIComponent(extendedRSSurl);
+   
       let newResponse = await fetch(baseFetchUrl + newToSendUrl);
 
       if (!newResponse.ok) {
