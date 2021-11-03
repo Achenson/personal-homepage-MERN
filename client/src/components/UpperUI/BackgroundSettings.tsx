@@ -16,6 +16,7 @@ import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handle
 import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import BackgroundSettings_Upload from "./BackgroundSettings_Upload";
 
 interface Props {
   mainPaddingRight: boolean;
@@ -271,12 +272,13 @@ function BackgroundSettings({
                 <p className="text-center mb-3">{noImgDescription}</p>
               )}
 
-              <div
+              {/* <div
                 className={`flex justify-between items-center ${
                   globalSettings.picBackground ? "" : "hidden"
                 }`}
-              >
-                <div
+              > */}
+                <BackgroundSettings_Upload xsScreen={xsScreen} globalSettings={globalSettings}/>
+          {/*       <div
                   className={`bg-blueGray-50 h-6 ${
                     xsScreen ? "w-48" : "w-60"
                   } border border-gray-300`}
@@ -286,8 +288,8 @@ function BackgroundSettings({
                 focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
                 >
                   Upload image
-                </button>
-              </div>
+                </button> */}
+              {/* </div> */}
             </div>
           </div>
         </div>
