@@ -6,10 +6,11 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 const Parser = require("rss-parser");
 const multer = require('multer');
+import { Multer } from 'multer';
 import { schema } from "./schema/schema";
 
 let rssParser = new Parser();
-let upload = multer({dest: "uploads/"})
+// let upload = multer({dest: "uploads/"})
 
 const app = express();
 
@@ -52,6 +53,32 @@ app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
   res.send(response);
 });
 
+
+const storage = multer.diskStorage({
+  destination: function(req: any, file: any, cb: any) {
+    cb(null, './uploads/');
+  },
+  filename: function(req: any, file: any, cb: any) {
+    cb(null, Date.now() + file.originalname);
+  }
+});
+
+function fileFilter (req:any, file: any, cb: any) {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(new Error("Only .jpg and .png files are accepted"), false);
+  }
+};
+
+const upload: Multer = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 10
+  },
+  fileFilter: fileFilter
+});
 
 // uploading background image
 app.use("/background_img", upload.single("backgroundImg") ,(req: any, res: Response) => {

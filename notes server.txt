@@ -74,3 +74,4 @@ DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 47. useBookmarks & useTabs -> mark which methods are used server-side!
 48. explain somewhere to the user why disable drag & drop is there
 50. server.ts -> figure out which cors urls are actually needed
+51. fix any types (server.js)
