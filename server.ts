@@ -5,9 +5,11 @@ const { graphqlHTTP } = require("express-graphql");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const Parser = require("rss-parser");
+const multer = require('multer');
 import { schema } from "./schema/schema";
 
 let rssParser = new Parser();
+let upload = multer({dest: "uploads/"})
 
 const app = express();
 
@@ -49,6 +51,16 @@ app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
   // console.log(response);
   res.send(response);
 });
+
+
+// uploading background image
+app.use("/background_img", upload.single("backgroundImg") ,(req: any, res: Response) => {
+
+  console.log(req.file);
+  
+
+
+})
 
 dotenv.config();
 
