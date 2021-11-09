@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 const Parser = require("rss-parser");
 const multer = require("multer");
+const mkdirp = require("mkdirp");
 // const BackgroundImgSchema = require("../../mongoModels/BackgroundImgSchema");
 const BackgroundImgSchema = require("./mongoModels/backgroundImgSchema");
 import { Multer } from "multer";
@@ -59,7 +60,9 @@ app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
 
 const storage = multer.diskStorage({
   destination: function (req: any, file: any, cb: any) {
-    cb(null, "./uploads/");
+    let dest = "backgroundImgs/" + testUserId + "/";
+    mkdirp.sync(dest);
+    cb(null, dest);
   },
   filename: function (req: any, file: any, cb: any) {
     cb(null, Date.now() + file.originalname);
