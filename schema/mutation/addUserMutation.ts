@@ -1,5 +1,7 @@
 const graphql = require("graphql");
 
+const mkdirp = require("mkdirp");
+
 const Settings = require("../../mongoModels/settingsSchema");
 const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
@@ -40,6 +42,11 @@ export const addUserMutationField = {
 
         console.log("product");
         console.log(userProduct);
+
+        // creating folder for the user inside backgroundImgs
+        let dest = "backgroundImgs/" + userProduct.id + "/";
+        console.log(dest);
+        mkdirp.sync(dest);
 
         let newSettings = new Settings({
           userId: userProduct.id,
