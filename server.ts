@@ -71,7 +71,7 @@ const storage = multer.diskStorage({
   filename: function (req: any, file: any, cb: any) {
     let newFileName = Date.now() + "_" + file.originalname;
     cb(null, newFileName);
-    newBackgroundImageName = newFileName
+    newBackgroundImageName = newFileName;
   },
 });
 
@@ -111,9 +111,19 @@ app.use(
           error: err,
         });
 
-        removeBackgroundImg(newBackgroundImageName)
+        removeBackgroundImg(newBackgroundImageName);
         return;
       }
+
+      let dest = "backgroundImgs/" + testUserId + "/";
+
+      fs.readdirSync(dest).forEach((file: string) => {
+        console.log(file);
+
+        if (file !== newBackgroundImageName) {
+          removeBackgroundImg(file);
+        }
+      });
 
       res.status(201).json({
         message: "Created product successfully",

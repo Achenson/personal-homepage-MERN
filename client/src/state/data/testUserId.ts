@@ -1,2 +1,2 @@
 // for testing only
-export const testUserId = "618b9701a3e35b0c8dd6368f"
+export const testUserId = "618baec8a2b878c9e5fd8705"
