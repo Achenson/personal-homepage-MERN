@@ -10,7 +10,7 @@ const mkdirp = require("mkdirp");
 const fs = require("fs");
 const path = require("path");
 // const BackgroundImgSchema = require("../../mongoModels/BackgroundImgSchema");
-const BackgroundImg = require("./mongoModels/backgroundImgSchema");
+const BackgroundImgSchema = require("./mongoModels/backgroundImgSchema");
 import { Multer } from "multer";
 import { schema } from "./schema/schema";
 
@@ -92,6 +92,26 @@ const upload: Multer = multer({
   fileFilter: fileFilter,
 });
 
+app.get("/background_img/:userId", (req: Request, res: Response) => {
+  BackgroundImgSchema.findOne({ userId: testUserId }).then(
+    (result: BackgroundImg) => {
+      let response = {
+        userId: result.userId,
+        backgroundImg: result.backgroundImg,
+      };
+
+      res.status(200).json(response);
+    }
+  );
+});
+
+/* app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
+  let response = await rssParser.parseURL(req.params.rsslink);
+  // console.log(response);
+  res.send(response);
+});
+ */
+
 // uploading background image
 app.use(
   "/background_img",
@@ -109,32 +129,37 @@ app.use(
       backgroundImg: req.file.path,
     };
 
-    BackgroundImg.replaceOne( {userId: testUserId}, newBackgroundImg, {upsert: true}, (err: Error, backgroundImgProduct: BackgroundImg) => {
-      if (err) {
-        console.log(err);
-        res.status(500).json({
-          error: err,
+    BackgroundImgSchema.replaceOne(
+      { userId: testUserId },
+      newBackgroundImg,
+      { upsert: true },
+      (err: Error, backgroundImgProduct: BackgroundImg) => {
+        if (err) {
+          console.log(err);
+          res.status(500).json({
+            error: err,
+          });
+
+          removeBackgroundImg(newBackgroundImageName);
+          return;
+        }
+
+        let dest = "backgroundImgs/" + testUserId + "/";
+
+        fs.readdirSync(dest).forEach((file: string) => {
+          console.log(file);
+
+          if (file !== newBackgroundImageName) {
+            removeBackgroundImg(file);
+          }
         });
 
-        removeBackgroundImg(newBackgroundImageName);
-        return;
+        res.status(201).json({
+          message: "Created product successfully",
+          createdProduct: backgroundImgProduct,
+        });
       }
-
-      let dest = "backgroundImgs/" + testUserId + "/";
-
-      fs.readdirSync(dest).forEach((file: string) => {
-        console.log(file);
-
-        if (file !== newBackgroundImageName) {
-          removeBackgroundImg(file);
-        }
-      });
-
-      res.status(201).json({
-        message: "Created product successfully",
-        createdProduct: backgroundImgProduct,
-      });
-    });
+    );
   }
 );
 
