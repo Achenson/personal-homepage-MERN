@@ -35,6 +35,8 @@ export const deleteUserMutationField = {
       fs.rmdir(path.join("backgroundImgs/" + args.id + "/"), (err: any) => {
         if (err) console.error(err);
       });
+
+      
     });
   },
 };

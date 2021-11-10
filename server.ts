@@ -10,7 +10,7 @@ const mkdirp = require("mkdirp");
 const fs = require("fs");
 const path = require("path");
 // const BackgroundImgSchema = require("../../mongoModels/BackgroundImgSchema");
-const BackgroundImgSchema = require("./mongoModels/backgroundImgSchema");
+const BackgroundImg = require("./mongoModels/backgroundImgSchema");
 import { Multer } from "multer";
 import { schema } from "./schema/schema";
 
@@ -99,12 +99,17 @@ app.use(
   (req: any, res: Response) => {
     console.log(req.file);
 
-    let newBackgroundImg = new BackgroundImgSchema({
+    /* let newBackgroundImg = new BackgroundImg({
       userId: testUserId,
       backgroundImg: req.file.path,
-    });
+    }); */
 
-    newBackgroundImg.save((err: Error, backgroundImgProduct: BackgroundImg) => {
+    let newBackgroundImg = {
+      userId: testUserId,
+      backgroundImg: req.file.path,
+    };
+
+    BackgroundImg.replaceOne( {userId: testUserId}, newBackgroundImg, {upsert: true}, (err: Error, backgroundImgProduct: BackgroundImg) => {
       if (err) {
         console.log(err);
         res.status(500).json({
