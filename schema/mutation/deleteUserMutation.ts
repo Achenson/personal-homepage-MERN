@@ -1,6 +1,9 @@
 import { GraphQLID } from "graphql";
 import { UserType } from "../types/userType";
 
+const fs = require("fs");
+const path = require("path");
+
 const Settings = require("../../mongoModels/settingsSchema");
 const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
@@ -22,6 +25,16 @@ export const deleteUserMutationField = {
     /*  await Settings.findOneAndDelete({ userId: args.id });
     await Bookmark.deleteMany({ userId: args.id });
     await Tab.deleteMany({ userId: args.id }); */
-    return User.findByIdAndDelete(args.id);
+
+    return User.findByIdAndDelete(args.id, (err: Error) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+
+      fs.rmdir(path.join("backgroundImgs/" + args.id + "/"), (err: any) => {
+        if (err) console.error(err);
+      });
+    });
   },
 };
