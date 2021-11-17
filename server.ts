@@ -34,15 +34,22 @@ app.use(
   })
 );
 
-app.use(
+/* app.use(
   cors({
     origin: [
       "http://localhost:3000",
       "http://localhost:4000",
       "http://localhost:4000/graphql",
       "http://localhost:4000/fetch_rss",
+      "http://localhost:4000/background_img/",
     ],
     credentials: true,
+  })
+);
+ */
+app.use(
+  cors({
+    origin: "*"
   })
 );
 
@@ -92,7 +99,7 @@ const upload: Multer = multer({
   fileFilter: fileFilter,
 });
 
-app.get("/background_img/:userId", (req: Request, res: Response) => {
+/* app.get("/background_img/:userId", (req: Request, res: Response) => {
   BackgroundImgSchema.findOne({ userId: testUserId }).then(
     (result: BackgroundImg) => {
       let response = {
@@ -103,7 +110,7 @@ app.get("/background_img/:userId", (req: Request, res: Response) => {
       res.status(200).json(response);
     }
   );
-});
+}); */
 
 /* app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
   let response = await rssParser.parseURL(req.params.rsslink);
@@ -117,7 +124,9 @@ app.use(
   "/background_img",
   upload.single("backgroundImg"),
   (req: any, res: Response) => {
-    console.log(req.file);
+    // console.log(req);
+    // console.log(req.file.path);
+    
 
     /* let newBackgroundImg = new BackgroundImg({
       userId: testUserId,
@@ -147,7 +156,7 @@ app.use(
         let dest = "backgroundImgs/" + testUserId + "/";
 
         fs.readdirSync(dest).forEach((file: string) => {
-          console.log(file);
+          // console.log(file);
 
           if (file !== newBackgroundImageName) {
             removeBackgroundImg(file);

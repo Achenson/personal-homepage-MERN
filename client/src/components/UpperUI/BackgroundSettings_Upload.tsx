@@ -18,13 +18,14 @@ function BackgroundSettings_Upload({
     event.preventDefault();
 
     let dataArray = new FormData();
-    dataArray.append("uploadFile", uploadFile as Blob);
+    // dataArray.append("uploadFile", uploadFile as Blob);
+    dataArray.append("backgroundImg", uploadFile as Blob);
 
-    fetch("url", {
+    fetch("http://localhost:4000/background_img/", {
       method: "POST",
-      headers: {
+     /*  headers: {
         "Content-Type": "multipart/form-data",
-      },
+      }, */
       body: dataArray,
     })
       .then((response) => {
@@ -44,10 +45,12 @@ function BackgroundSettings_Upload({
     >
       <input
         type="file"
+        name="file"
+        // accept="image/x-png,image/jpeg,image/gif"
         className={`bg-blueGray-50 h-6 ${
           xsScreen ? "w-48" : "w-60"
         } border border-gray-300`}
-        onChange={(e: any) => setUploadFile(e.target.files)}
+        onChange={(e: any) => setUploadFile(e.target.files[0])}
       />
       <br />
       <button
