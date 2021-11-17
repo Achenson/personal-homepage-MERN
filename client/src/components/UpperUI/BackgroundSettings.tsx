@@ -77,7 +77,9 @@ function BackgroundSettings({
   }
 
   const imgDescription_1 = "Transparent colors for columns";
-  const imgDescription_2 = "Upload background image or use default:";
+  const imgDescription_2a = "Use ";
+  const imgDescription_2b = " or choose default:";
+  // const imgDescription_2 = "Upload background image or use default:";
   const noImgDescription = "Full colors for background and columns";
 
   return (
@@ -200,7 +202,28 @@ function BackgroundSettings({
                 <div className="text-center">
                   <p className={`mb-2 xs:mb-0`}>{imgDescription_1}</p>
                   <div className={`mb-3`}>
-                    <p className="block xs:inline-block">{imgDescription_2}</p>
+                    <p className="block xs:inline-block">{imgDescription_2a}
+                    <button
+                      onClick={() => {
+                        /*   setGlobalSettings({
+                          ...globalSettings,
+                          defaultImage: "defaultBackground",
+                        }); */
+                        changeSettings({
+                          ...globalSettings,
+                          defaultImage: "customBackground",
+                        });
+                      }}
+                      className="focus-1-offset"
+                      aria-label={"Default Background image"}
+                    >
+                      <span
+                        className={`text-${uiColor} cursor-pointer hover:underline`}
+                      >
+                        custom image
+                      </span>
+                    </button>
+                    {imgDescription_2b}</p>
                     <span> </span>
                     <button
                       onClick={() => {

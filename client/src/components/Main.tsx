@@ -27,7 +27,11 @@ import { TabsQuery, BookmarksQuery } from "../graphql/graphqlQueries";
 
 import { testUserId } from "../state/data/testUserId";
 
-import { DbContext_i, SingleBookmarkData, SingleTabData } from "../utils/interfaces";
+import {
+  DbContext_i,
+  SingleBookmarkData,
+  SingleTabData,
+} from "../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../schema/types/tabType";
 
@@ -71,6 +75,21 @@ function Main({ globalSettings }: Props): JSX.Element {
     //  () => (windowSize.width as number) >= 400 ? 17 : 0
     0
   );
+
+ /*  const [customBackgroundImg, setCustomBackgroundImg] = useState(false);
+
+  useEffect(() => {
+    if (
+      globalSettings.defaultImage === "customBackground" &&
+      globalSettings.picBackground
+    ) {
+      setCustomBackgroundImg(true);
+      console.log("true");
+    } else {
+      setCustomBackgroundImg(false);
+      console.log("false");
+    }
+  }, [globalSettings.defaultImage, globalSettings.picBackground]); */
 
   useEffect(() => {
     if (document.body.style.overflow === "visible") {
@@ -148,7 +167,7 @@ function Main({ globalSettings }: Props): JSX.Element {
     data: data_bookmarks,
     fetching: fetching_bookmarks,
     error: error_bookmarks,
-    stale: stale_bookmarks
+    stale: stale_bookmarks,
   } = bookmarkResults;
 
   if (fetching_tabs) return <p>Loading...</p>;
@@ -171,7 +190,7 @@ function Main({ globalSettings }: Props): JSX.Element {
     tabs,
     stale_bookmarks,
     reexecuteBookmarks,
-    reexecuteTabs
+    reexecuteTabs,
   };
 
   let paddingProps = {
@@ -179,21 +198,35 @@ function Main({ globalSettings }: Props): JSX.Element {
     scrollbarWidth,
   };
 
+
+  function renderBackgroundImg(picBackground: boolean, defaultImage: string) {
+    if (picBackground && defaultImage === "customBackground") {
+      return `url(http://localhost:4000/background_img/618bc0f9518920c0f6296748/1637157771955_testWallpaper.jpg)`;
+    }
+    return undefined;
+  }
+
   return (
     <DbContext.Provider value={dbValue}>
       <UpperUiContext.Provider value={upperUiValue}>
         <main
-          className={`relative min-h-screen ${
+          className={`relative min-h-screen 
+          ${
             globalSettings.picBackground
               ? `bg-${globalSettings.defaultImage}`
               : `bg-${backgroundColor}`
-          } bg-cover bg-fixed`}
+          }
+           bg-cover bg-fixed`}
           style={{
             paddingRight: `${
               paddingRight && !globalSettings.picBackground
                 ? `${scrollbarWidth}px`
                 : ""
             }`,
+            backgroundImage: renderBackgroundImg(
+              globalSettings.picBackground,
+              globalSettings.defaultImage
+            ),
           }}
         >
           {upperVisState.newTabVis && (
