@@ -34,24 +34,24 @@ app.use(
   })
 );
 
-/* app.use(
+app.use(
   cors({
     origin: [
       "http://localhost:3000",
       "http://localhost:4000",
       "http://localhost:4000/graphql",
       "http://localhost:4000/fetch_rss",
-      "http://localhost:4000/background_img/",
+      "http://localhost:4000/background_img",
     ],
     credentials: true,
   })
 );
- */
-app.use(
+
+/* app.use(
   cors({
     origin: "*"
   })
-);
+); */
 
 app.use(
   "/graphql",
@@ -60,6 +60,7 @@ app.use(
     graphiql: true,
   })
 );
+
 // fetching rss server-side
 app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
   let response = await rssParser.parseURL(req.params.rsslink);
@@ -120,7 +121,12 @@ const upload: Multer = multer({
  */
 
 // uploading background image
-app.use(
+
+app.use('/background_img', express.static('backgroundImgs'));
+
+
+
+app.post(
   "/background_img",
   upload.single("backgroundImg"),
   (req: any, res: Response) => {
