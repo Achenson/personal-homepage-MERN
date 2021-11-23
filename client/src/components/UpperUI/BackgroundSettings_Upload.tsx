@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 
 import { useBackgroundImgContext } from "../../context/backgroundImgContext";
 
@@ -17,15 +17,11 @@ function BackgroundSettings_Upload({
 
   const [uploadFile, setUploadFile] = React.useState<Blob>();
 
-
-
   let uploadFileName;
   // @ts-ignore
-  if (uploadFile) uploadFileName = uploadFile.name
+  if (uploadFile) uploadFileName = uploadFile.name;
 
-
-
-  const hiddenFileInput = useRef<HTMLInputElement>(null); 
+  const hiddenFileInput = useRef<HTMLInputElement>(null);
 
   // let keyForUseReactQuery = useBackgroundImgContext().currentBackgroundImg;
   let setCurrentBackgroundImgKey =
@@ -63,43 +59,45 @@ function BackgroundSettings_Upload({
     >
       <div className="flex">
         <button
-        className={`border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
+          className={`border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
         focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-        onClick={(e) => {
-          e.preventDefault();
-          console.log("click");
-          hiddenFileInput.current?.click()
-          
-        }}
+          style={{ height: "26px" }}
+          onClick={(e) => {
+            e.preventDefault();
+            console.log("click");
+            hiddenFileInput.current?.click();
+          }}
         >
           Browse...
         </button>
-        <div className={`bg-blueGray-50 h-6 ${
-            xsScreen ? "w-28" : "w-40"
-          } border border-gray-300`}>
-          
-            {uploadFileName}
+        <div
+          className={`bg-blueGray-50 ${
+            xsScreen ? "w-32" : "w-44"
+          } border border-gray-300 align-text-bottom`}
+          style={{ height: "26px" }}
+        >
+          {uploadFileName}
         </div>
-        
+
         <input
           type="file"
           name="file"
           // accept="image/x-png,image/jpeg,image/gif"
-          className={`bg-blueGray-50 h-6 ${
+          /*     className={`bg-blueGray-50 h-6 ${
             xsScreen ? "w-48" : "w-60"
-          } border border-gray-300`}
+          } border border-gray-300`} */
           onChange={(e: any) => {
-            setUploadFile(e.target.files[0])
+            setUploadFile(e.target.files[0]);
             console.log(e.target.files[0]);
-            
           }}
-          style={{display: "none"}}
+          style={{ display: "none" }}
           ref={hiddenFileInput}
         />
       </div>
-      <br />
+
       <button
         type="submit"
+        style={{ height: "26px" }}
         className={`border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                 focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
       >

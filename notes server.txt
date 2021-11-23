@@ -83,3 +83,6 @@ DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 57. is path module needed? (server.js
 58. status 201
 59. graphql for file upload? how to use middleware for graphql
+60. flickering when uploadin background img file
+61. background img -> currently there is no point in storing it in db, as it is get from server only??
+62. upload background img -> should use one btn only??
