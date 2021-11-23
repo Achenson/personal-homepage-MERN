@@ -1,6 +1,9 @@
 import React, { useRef } from "react";
+import { useMutation } from "urql";
 
 import { useBackgroundImgContext } from "../../context/backgroundImgContext";
+
+import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
@@ -16,6 +19,10 @@ function BackgroundSettings_Upload({
   const uiColor = globalSettings.uiColor;
 
   const [uploadFile, setUploadFile] = React.useState<Blob>();
+
+  const [changeSettingsResult, changeSettings] = useMutation<any, SettingsDatabase_i>(
+    ChangeSettingsMutation
+  );
 
   let uploadFileName;
   // @ts-ignore
@@ -43,6 +50,10 @@ function BackgroundSettings_Upload({
     })
       .then((response) => {
         console.log(response);
+        changeSettings({
+          ...globalSettings,
+          defaultImage: "customBackground",
+        });
         setCurrentBackgroundImgKey(Date.now().toString());
       })
       .catch((error) => {
@@ -57,7 +68,7 @@ function BackgroundSettings_Upload({
         globalSettings.picBackground ? "" : "hidden"
       }`}
     >
-      <div className="flex">
+      
         <button
           className={`border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
         focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
@@ -71,12 +82,12 @@ function BackgroundSettings_Upload({
           Browse...
         </button>
         <div
-          className={`bg-blueGray-50 ${
+          className={`bg-blueGray-50 pl-px ${
             xsScreen ? "w-32" : "w-44"
           } border border-gray-300 align-text-bottom`}
           style={{ height: "26px" }}
         >
-          {uploadFileName}
+          <p className="overflow-hidden">{uploadFileName}</p>
         </div>
 
         <input
@@ -93,7 +104,7 @@ function BackgroundSettings_Upload({
           style={{ display: "none" }}
           ref={hiddenFileInput}
         />
-      </div>
+ 
 
       <button
         type="submit"
