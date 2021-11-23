@@ -86,3 +86,4 @@ DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 60. flickering when uploadin background img file
 61. background img -> currently there is no point in storing it in db, as it is get from server only??
 62. upload background img -> should use one btn only??
+63. cannot upload image if there are spaces in the file name?
