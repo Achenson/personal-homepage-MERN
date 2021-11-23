@@ -82,3 +82,4 @@ DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 56. clientside: make it possible to choose backgroundImg colors also from settings? or close the modal and open backgroundColors menu
 57. is path module needed? (server.js
 58. status 201
+59. graphql for file upload? how to use middleware for graphql
