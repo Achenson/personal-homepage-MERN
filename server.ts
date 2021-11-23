@@ -122,9 +122,7 @@ const upload: Multer = multer({
 
 // uploading background image
 
-app.use('/background_img', express.static('backgroundImgs'));
-
-
+app.use("/background_img", express.static("backgroundImgs"));
 
 app.post(
   "/background_img",
@@ -132,7 +130,6 @@ app.post(
   (req: any, res: Response) => {
     // console.log(req);
     // console.log(req.file.path);
-    
 
     /* let newBackgroundImg = new BackgroundImg({
       userId: testUserId,
@@ -173,10 +170,43 @@ app.post(
           message: "Created product successfully",
           createdProduct: backgroundImgProduct,
         });
+        // res.send(backgroundImgProduct)
+        // res.send({message: "done"})
+        // res.statusMessage = backgroundImgProduct.backgroundImg
+        // res.send("aaaaaaaaaaaaaaaaaaaaa");
+
+
       }
     );
   }
 );
+
+/* let backgroundImgFiles = fs.readdirSync("backgroundImgs/" + testUserId);
+console.log(backgroundImgFiles[0]); */
+
+app.get("/background_img/:userId", (req: Request, res: Response) => {
+  let backgroundImgFiles = fs.readdirSync(
+    "backgroundImgs/" + req.params.userId
+  );
+
+  /* let backgroundImgUrl = path.join(
+    "backgroundImgs/" + req.params.userId + "/" + backgroundImgFiles[0]
+  ); */
+
+  let backgroundImgUrl =
+    "background_img/" + req.params.userId + "/" + backgroundImgFiles[0];
+
+  if (backgroundImgUrl) {
+    res.status(201).json({
+      backgroundImgUrl: backgroundImgUrl,
+    });
+    return;
+  }
+
+  res.status(500).json({
+    error: "No background image available",
+  });
+});
 
 function removeBackgroundImg(fileName: string) {
   fs.unlink(

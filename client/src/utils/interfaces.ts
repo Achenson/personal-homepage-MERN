@@ -95,11 +95,16 @@ export interface UpperUiContext_i {
 
 export interface DbContext_i {
   bookmarks: BookmarkDatabase_i[];
-  tabs: TabDatabase_i[],
-  stale_bookmarks: boolean,
+  tabs: TabDatabase_i[];
+  stale_bookmarks: boolean;
   // reexecuteBookmarks: (opts?: Partial<OperationContext> | undefined) => void;
   reexecuteBookmarks: (opts?: Partial<any> | undefined) => void;
   reexecuteTabs: (opts?: Partial<any> | undefined) => void;
+}
+
+export interface BackgroundImgContext_i {
+  currentBackgroundImgKey: string;
+  updateCurrentBackgroundImgKey: React.Dispatch<React.SetStateAction<string>>;
 }
 
 // for Tab
@@ -171,14 +176,13 @@ interface TabVisAction_EDIT_BOOKMARK_OPEN {
 }
 
 interface TabContentToggle_payload {
-  editTab: (changedTab: TabDatabase_i) => {},
-  changedTab: TabDatabase_i
+  editTab: (changedTab: TabDatabase_i) => {};
+  changedTab: TabDatabase_i;
 }
 
 interface TabVisAction_TAB_CONTENT_TOGGLE_DB {
   type: "TAB_CONTENT_TOGGLE_DB";
   payload: TabContentToggle_payload;
-
 }
 
 export type TabVisAction =

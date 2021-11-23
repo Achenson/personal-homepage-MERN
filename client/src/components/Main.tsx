@@ -1,5 +1,7 @@
 import React, { useState, useReducer, useEffect, Children } from "react";
 import { useQuery } from "urql";
+import { useQuery as useReactQuery } from "react-query";
+import path from "path";
 
 // import shallow from "zustand/shallow";
 
@@ -21,6 +23,7 @@ import { upperVisReducer } from "../context/upperVisReducer";
 import { useWindowSize } from "../utils/funcs and hooks/useWindowSize";
 import { UpperUiContext } from "../context/upperUiContext";
 import { DbContext } from "../context/dbContext";
+import { BackgroundImgContext } from "../context/backgroundImgContext";
 
 import { SettingsDatabase_i } from "../../../schema/types/settingsType";
 import { TabsQuery, BookmarksQuery } from "../graphql/graphqlQueries";
@@ -28,6 +31,7 @@ import { TabsQuery, BookmarksQuery } from "../graphql/graphqlQueries";
 import { testUserId } from "../state/data/testUserId";
 
 import {
+  BackgroundImgContext_i,
   DbContext_i,
   SingleBookmarkData,
   SingleTabData,
@@ -76,7 +80,18 @@ function Main({ globalSettings }: Props): JSX.Element {
     0
   );
 
- /*  const [customBackgroundImg, setCustomBackgroundImg] = useState(false);
+  const [backgroundImgKey, setBackgroundImgKey] = useState(
+    "initial"
+  )
+
+  useEffect( () => {
+
+    console.log("backgroundImgKey");
+    console.log(backgroundImgKey);
+    
+  }, [backgroundImgKey])
+
+  /*  const [customBackgroundImg, setCustomBackgroundImg] = useState(false);
 
   useEffect(() => {
     if (
@@ -145,6 +160,46 @@ function Main({ globalSettings }: Props): JSX.Element {
     globalSettings.picBackground,
   ]);
 
+  let backgroundImgValue: BackgroundImgContext_i = {
+    currentBackgroundImgKey: backgroundImgKey,
+    updateCurrentBackgroundImgKey: setBackgroundImgKey
+  };
+
+
+  const { data, status } = useReactQuery(
+    [`backgroundImg_${testUserId}`, backgroundImgKey],
+    fetchBackgroundImg,
+    {
+      // staleTime: 2000,
+      // cacheTime: 10,
+      onSuccess: () => {
+        console.log("data fetched with no problems");
+        // console.log(data);
+      },
+    }
+  );
+
+  async function fetchBackgroundImg() {
+    let response = await fetch(
+      "http://localhost:4000/background_img/" + testUserId
+    );
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    return response.json();
+  }
+
+  let backgroundImgUrl: string;
+
+  if (status === "success") {
+    console.log("data");
+    console.log(data);
+
+    backgroundImgUrl = data.backgroundImgUrl;
+  }
+
   const [tabResults, reexecuteTabs] = useQuery({
     query: TabsQuery,
     variables: { userId: testUserId },
@@ -198,98 +253,111 @@ function Main({ globalSettings }: Props): JSX.Element {
     scrollbarWidth,
   };
 
-
   function renderBackgroundImg(picBackground: boolean, defaultImage: string) {
-    if (picBackground && defaultImage === "customBackground") {
-      return `url(http://localhost:4000/background_img/618bc0f9518920c0f6296748/1637157771955_testWallpaper.jpg)`;
+    if (
+      picBackground &&
+      defaultImage === "customBackground" &&
+      backgroundImgUrl
+    ) {
+      // return `url(http://localhost:4000/background_img/618bc0f9518920c0f6296748/1637157771955_testWallpaper.jpg)`;
+
+      // let parsedUrl = path.join("http://localhost:4000/" + backgroundImgUrl)
+      let parsedUrl = "http://localhost:4000/" + backgroundImgUrl;
+      console.log(parsedUrl);
+
+      // return `url(http://localhost:4000/${backgroundImgUrl})`;
+      // return `url(${parsedUrl})`;
+      return `url(${parsedUrl})`;
     }
     return undefined;
   }
 
   return (
     <DbContext.Provider value={dbValue}>
-      <UpperUiContext.Provider value={upperUiValue}>
-        <main
-          className={`relative min-h-screen 
-          ${
-            globalSettings.picBackground
-              ? `bg-${globalSettings.defaultImage}`
-              : `bg-${backgroundColor}`
-          }
-           bg-cover bg-fixed`}
-          style={{
-            paddingRight: `${
-              paddingRight && !globalSettings.picBackground
-                ? `${scrollbarWidth}px`
-                : ""
-            }`,
-            backgroundImage: renderBackgroundImg(
-              globalSettings.picBackground,
-              globalSettings.defaultImage
-            ),
-          }}
-        >
-          {upperVisState.newTabVis && (
-            <ModalWrap globalSettings={globalSettings}>
-              <NewTab
-                tabType={tabType}
-                // tabs={tabs}
-                // bookmarks={bookmarks}
-                globalSettings={globalSettings}
-                {...paddingProps}
-              />
-            </ModalWrap>
-          )}
-          {upperVisState.newBookmarkVis && (
-            <ModalWrap globalSettings={globalSettings}>
-              <Bookmark_newAndEdit
-                bookmarkComponentType={"new_upperUI"}
-                // tabs={tabs}
-                // bookmarks={bookmarks}
-                globalSettings={globalSettings}
-                {...paddingProps}
-              />
-            </ModalWrap>
-          )}
-          {upperVisState.backgroundSettingsVis && (
-            <ModalWrap globalSettings={globalSettings}>
-              <BackgroundSettings
-                globalSettings={globalSettings}
-                {...paddingProps}
-              />
-            </ModalWrap>
-          )}
-          {upperVisState.settingsVis && (
-            <ModalWrap globalSettings={globalSettings}>
-              <GlobalSettings
-                globalSettings={globalSettings}
-                {...paddingProps}
-              />
-            </ModalWrap>
-          )}
-          {upperVisState.colorsSettingsVis && (
-            <ModalWrap globalSettings={globalSettings}>
-              <ColorsSettings
-                globalSettings={globalSettings}
-                {...paddingProps}
-              />
-            </ModalWrap>
-          )}
-          {upperVisState.profileVis && (
-            <ModalWrap globalSettings={globalSettings}>
-              <Profile globalSettings={globalSettings} {...paddingProps} />
-            </ModalWrap>
-          )}
-          <UpperUI />
-          <Grid
-            setTabType={setTabType}
-            globalSettings={globalSettings}
-            // bookmarks={bookmarks}
-            // tabs={tabs}
-            // staleBookmarks={stale_bookmarks}
-          />
-        </main>
-      </UpperUiContext.Provider>
+      <BackgroundImgContext.Provider value={backgroundImgValue}>
+        <UpperUiContext.Provider value={upperUiValue}>
+          <main
+            className={`relative min-h-screen
+            ${
+              globalSettings.picBackground
+                ? `bg-${globalSettings.defaultImage}`
+                : `bg-${backgroundColor}`
+            }
+             bg-cover bg-fixed`}
+            style={{
+              paddingRight: `${
+                paddingRight && !globalSettings.picBackground
+                  ? `${scrollbarWidth}px`
+                  : ""
+              }`,
+              backgroundImage: renderBackgroundImg(
+                globalSettings.picBackground,
+                globalSettings.defaultImage
+              ),
+            }}
+          >
+            {upperVisState.newTabVis && (
+              <ModalWrap globalSettings={globalSettings}>
+                <NewTab
+                  tabType={tabType}
+                  // tabs={tabs}
+                  // bookmarks={bookmarks}
+                  globalSettings={globalSettings}
+                  {...paddingProps}
+                />
+              </ModalWrap>
+            )}
+            {upperVisState.newBookmarkVis && (
+              <ModalWrap globalSettings={globalSettings}>
+                <Bookmark_newAndEdit
+                  bookmarkComponentType={"new_upperUI"}
+                  // tabs={tabs}
+                  // bookmarks={bookmarks}
+                  globalSettings={globalSettings}
+                  {...paddingProps}
+                />
+              </ModalWrap>
+            )}
+            {upperVisState.backgroundSettingsVis && (
+              <ModalWrap globalSettings={globalSettings}>
+                <BackgroundSettings
+                  globalSettings={globalSettings}
+                  {...paddingProps}
+                />
+              </ModalWrap>
+            )}
+            {upperVisState.settingsVis && (
+              <ModalWrap globalSettings={globalSettings}>
+                <GlobalSettings
+                  globalSettings={globalSettings}
+                  {...paddingProps}
+                />
+              </ModalWrap>
+            )}
+            {upperVisState.colorsSettingsVis && (
+              <ModalWrap globalSettings={globalSettings}>
+                <ColorsSettings
+                  globalSettings={globalSettings}
+                  {...paddingProps}
+                />
+              </ModalWrap>
+            )}
+            {upperVisState.profileVis && (
+              <ModalWrap globalSettings={globalSettings}>
+                <Profile globalSettings={globalSettings} {...paddingProps} />
+              </ModalWrap>
+            )}
+            <UpperUI />
+            <Grid
+              setTabType={setTabType}
+              globalSettings={globalSettings}
+              // bookmarks={bookmarks}
+              // tabs={tabs}
+              // staleBookmarks={stale_bookmarks}
+            />
+          </main>
+        </UpperUiContext.Provider>
+      </BackgroundImgContext.Provider>
     </DbContext.Provider>
   );
 }

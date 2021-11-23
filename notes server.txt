@@ -80,3 +80,5 @@ DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 54. move backgroundImg logic from server.js?
 55. test which cors rules are actually needed
 56. clientside: make it possible to choose backgroundImg colors also from settings? or close the modal and open backgroundColors menu
+57. is path module needed? (server.js
+58. status 201

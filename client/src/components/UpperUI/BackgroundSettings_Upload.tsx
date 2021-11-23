@@ -1,4 +1,7 @@
 import React from "react";
+
+import { useBackgroundImgContext } from "../../context/backgroundImgContext";
+
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
@@ -14,6 +17,10 @@ function BackgroundSettings_Upload({
 
   const [uploadFile, setUploadFile] = React.useState<Blob>();
 
+  // let keyForUseReactQuery = useBackgroundImgContext().currentBackgroundImg;
+  let setCurrentBackgroundImgKey =
+    useBackgroundImgContext().updateCurrentBackgroundImgKey;
+
   function submitForm(event: any) {
     event.preventDefault();
 
@@ -23,13 +30,14 @@ function BackgroundSettings_Upload({
 
     fetch("http://localhost:4000/background_img/", {
       method: "POST",
-     /*  headers: {
+      /*  headers: {
         "Content-Type": "multipart/form-data",
       }, */
       body: dataArray,
     })
       .then((response) => {
         console.log(response);
+        setCurrentBackgroundImgKey(Date.now().toString());
       })
       .catch((error) => {
         console.log(error);
