@@ -88,7 +88,12 @@ function BackgroundSettings_Upload({
 
   return (
     <div>
-      {dbFilesError && <p>{dbFilesError}</p>}
+      {/* {dbFilesError ? <p>{dbFilesError}</p> : <p className="invisible"></p>} */}
+      {/* {dbFilesError ? <p>{dbFilesError}</p> : <p className="invisible"></p>} */}
+     {/* <p className={ dbFilesError ? "invisible" : "visible" }>{dbFilesError}</p> */}
+      <div className="h-6 mt-0.5 mb-1 text-red-600 text-center text-sm">
+          {dbFilesError }
+      </div>
       <form
         onSubmit={submitForm}
         className={`flex justify-between items-center ${

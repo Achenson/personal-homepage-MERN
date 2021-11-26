@@ -104,7 +104,8 @@ function BackgroundSettings({
             className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${uiColor} rounded-sm relative`}
             style={{
               width: `${xsScreen ? "350px" : "417px"}`,
-              height: `${xsScreen ? "238px" : "205px"}`,
+              // height: `${xsScreen ? "238px" : "205px"}`,
+              height: `${xsScreen ? "258px" : "225px"}`,
               marginLeft: `${
                 mainPaddingRight && scrollbarWidth >= 10
                   ? `-${scrollbarWidth - 1}px`
@@ -201,7 +202,7 @@ function BackgroundSettings({
               {globalSettings.picBackground ? (
                 <div className="text-center">
                   <p className={`mb-2 xs:mb-0`}>{imgDescription_1}</p>
-                  <div className={`mb-3`}>
+                  <div className={`mb-0`}>
                     <p className="block xs:inline-block">{imgDescription_2a}
                     <button
                       onClick={() => {
