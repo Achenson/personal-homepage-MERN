@@ -120,7 +120,7 @@ function fileFilter(
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 1024 * 1024 * 1,
+    fileSize: 1024 * 1024 * 10,
   },
   fileFilter: fileFilter,
 });

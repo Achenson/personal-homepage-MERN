@@ -71,24 +71,24 @@ Props): JSX.Element {
 
   const [favicon, setFavicon] = useState<string | null>(null);
 
-  /*   useEffect(() => {
+    useEffect(() => {
 
-    fetch( "http://localhost:4000/favicon/" + singleBookmarkData.URL, {
-      method: "GET"
-    })
-    .then((res) => res.json())
-    .then(res => {
-      setFavicon(res)
-
-   
-
-
-    } )
+      fetch(
+        "http://localhost:4000/favicon/" + encodeURIComponent(singleBookmarkData.URL),
+        {
+          method: "GET",
+        }
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          setFavicon(res)
+          
+        });
 
     
     
-  }, [])
- */
+  }, [singleBookmarkData.URL])
+
 
   return (
     <div
@@ -109,11 +109,11 @@ Props): JSX.Element {
               <PhotographSVG
                 className="h-full"
                 onClick={() => {
-                  console.log(singleBookmarkData.URL);
+                  // console.log(singleBookmarkData.URL);
 
                   console.log(favicon);
 
-                  fetch(
+              /*     fetch(
                     "http://localhost:4000/favicon/" + encodeURIComponent(singleBookmarkData.URL),
                     {
                       method: "GET",
@@ -123,7 +123,9 @@ Props): JSX.Element {
                     .then((res) => {
                       // setFavicon(res)
                       console.log(res);
-                    });
+                    }); */
+
+
                 }}
               />
             </div>
