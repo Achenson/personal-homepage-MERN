@@ -9,6 +9,8 @@ import multer = require("multer");
 const mkdirp = require("mkdirp");
 const fs = require("fs");
 const path = require("path");
+const faviconFetch = require("favicon-fetch");
+
 // const BackgroundImgSchema = require("../../mongoModels/BackgroundImgSchema");
 const BackgroundImgSchema = require("./mongoModels/backgroundImgSchema");
 import {
@@ -30,6 +32,18 @@ const app = express();
 const port = 4000;
 
 import { Request, Response } from "express";
+
+// favicon test
+/* let fetchTest1 = faviconFetch({ hostname: "wikipedia.org" });
+console.log(fetchTest1);
+let fetchTest2 = faviconFetch({ uri: "https://en.wikipedia.org/wiki/1986" });
+console.log(fetchTest2); */
+
+// let fetchTest2 = faviconFetch({ uri: "https://www.facebook.com/" });
+// console.log(fetchTest2);
+
+
+// ============
 
 // app.use(helmet());
 app.use(
@@ -94,7 +108,6 @@ function fileFilter(
   file: Express.Multer.File,
   cb: multer.FileFilterCallback
 ) {
-
   if (file.mimetype !== "image/jpeg" && file.mimetype !== "image/png") {
     // cb(new Error("Only .jpg and .png files are accepted"));
     cb(new Error("Only .jpg and .png files are accepted"));
@@ -143,7 +156,6 @@ app.post(
   // upload.single("backgroundImg"),
   (req: any, res: Response) => {
     backgroundImgUpload(req, res, function (multerErr) {
-     
       if (multerErr) {
         if (multerErr instanceof multer.MulterError) {
           res.send({ error: multerErr.message });
@@ -234,6 +246,24 @@ app.get("/background_img/:userId", (req: Request, res: Response) => {
     error: "No background image available",
   });
 });
+
+app.get("/favicon/:faviconUrl", (req: Request, res: Response) => {
+  let fetchFavicon = faviconFetch({ uri: `${decodeURIComponent(req.params.faviconUrl)}` });
+  console.log(fetchFavicon);
+
+  if (fetchFavicon) {
+    res.status(201).json({
+      favicon: fetchFavicon,
+    });
+    return;
+  }
+
+  res.status(500).json({
+    error: "No favicon available",
+  });
+});
+
+
 
 function removeBackgroundImg(fileName: string) {
   fs.unlink(

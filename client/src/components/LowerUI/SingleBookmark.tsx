@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "urql";
 
 // import shallow from "zustand/shallow";
@@ -14,7 +14,7 @@ import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 import { useTabContext } from "../../context/tabContext";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { useDbContext } from "../../context/dbContext"
+import { useDbContext } from "../../context/dbContext";
 
 import { DeleteBookmarkMutation } from "../../graphql/graphqlMutations";
 
@@ -45,9 +45,9 @@ function SingleBookmark({
   colNumber,
   isTabDraggedOver,
   globalSettings,
-  // bookmarks,
-  // tabs,
-}: Props): JSX.Element {
+}: // bookmarks,
+// tabs,
+Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   const bookmarks = useDbContext().bookmarks;
   const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
@@ -69,6 +69,27 @@ function SingleBookmark({
     DeleteBookmarkMutation
   );
 
+  const [favicon, setFavicon] = useState<string | null>(null);
+
+  /*   useEffect(() => {
+
+    fetch( "http://localhost:4000/favicon/" + singleBookmarkData.URL, {
+      method: "GET"
+    })
+    .then((res) => res.json())
+    .then(res => {
+      setFavicon(res)
+
+   
+
+
+    } )
+
+    
+    
+  }, [])
+ */
+
   return (
     <div
       onFocus={() => {
@@ -85,7 +106,26 @@ function SingleBookmark({
         >
           <div className="flex truncate">
             <div className="h-6 mr-px">
-              <PhotographSVG className="h-full" />
+              <PhotographSVG
+                className="h-full"
+                onClick={() => {
+                  console.log(singleBookmarkData.URL);
+
+                  console.log(favicon);
+
+                  fetch(
+                    "http://localhost:4000/favicon/" + encodeURIComponent(singleBookmarkData.URL),
+                    {
+                      method: "GET",
+                    }
+                  )
+                    .then((res) => res.json())
+                    .then((res) => {
+                      // setFavicon(res)
+                      console.log(res);
+                    });
+                }}
+              />
             </div>
             <div className="truncate">
               <a
@@ -119,7 +159,7 @@ function SingleBookmark({
 
             <button
               className="h-5 w-5 ml-1 focus-1-inset-darkGray"
-              onClick={async() => {
+              onClick={async () => {
                 /*       let bookmarkToDelete = bookmarks.find(
                   (obj) => obj.id === bookmarkId
                 );
@@ -135,7 +175,7 @@ function SingleBookmark({
                 console.log(singleBookmarkData.title);
                 console.log(bookmarkId);
 
-               await deleteBookmark({ id: bookmarkId }).then((result) =>
+                await deleteBookmark({ id: bookmarkId }).then((result) =>
                   console.log(result)
                 );
 

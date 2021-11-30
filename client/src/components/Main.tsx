@@ -84,12 +84,12 @@ function Main({ globalSettings }: Props): JSX.Element {
     "initial"
   )
 
-  useEffect( () => {
+/*   useEffect( () => {
 
     console.log("backgroundImgKey");
     console.log(backgroundImgKey);
     
-  }, [backgroundImgKey])
+  }, [backgroundImgKey]) */
 
   /*  const [customBackgroundImg, setCustomBackgroundImg] = useState(false);
 
@@ -194,8 +194,8 @@ function Main({ globalSettings }: Props): JSX.Element {
   let backgroundImgUrl: string;
 
   if (status === "success") {
-    console.log("data");
-    console.log(data);
+    /* console.log("data");
+    console.log(data); */
 
     backgroundImgUrl = data.backgroundImgUrl;
   }
@@ -263,7 +263,7 @@ function Main({ globalSettings }: Props): JSX.Element {
 
       // let parsedUrl = path.join("http://localhost:4000/" + backgroundImgUrl)
       let parsedUrl = "http://localhost:4000/" + backgroundImgUrl;
-      console.log(parsedUrl);
+      // console.log(parsedUrl);
 
       // return `url(http://localhost:4000/${backgroundImgUrl})`;
       // return `url(${parsedUrl})`;
