@@ -17,11 +17,28 @@ export const testMutationField = {
   args: {
     ...TestMutationField,
   },
-  resolve(_source: unknown, args: {stringToAdd: string}) {
+//   resolve(_source: unknown, args: {stringToAdd: string}) {
+  resolve(rootValue: any) {
 
 
-    console.log("args.stringToAdd");
-    console.log(args.stringToAdd);
+
+    /* console.log("args.stringToAdd");
+    console.log(args.stringToAdd); */
+
+    
+    // console.log(rootValue.request.params);
+    
+    console.log(rootValue.request.customKey);
+    
+    /* console.log(typeof rootValue);
+    // console.log(JSON.stringify(rootValue.request, null, 2));
+
+    /* console.log("dddd");
+    
+    
+    
+    let test = JSON.parse(rootValue)
+    console.log(test); */
     
 
    /*  let newBookmark = new Bookmark({

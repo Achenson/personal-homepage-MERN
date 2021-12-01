@@ -31,7 +31,7 @@ const app = express();
 
 const port = 4000;
 
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 // favicon test
 /* let fetchTest1 = faviconFetch({ hostname: "wikipedia.org" });
@@ -42,10 +42,7 @@ console.log(fetchTest2); */
 // let fetchTest2 = faviconFetch({ uri: "https://www.facebook.com/" });
 // console.log(fetchTest2);
 
-
 // ============
-
-
 
 // app.use(helmet());
 app.use(
@@ -75,13 +72,7 @@ app.use(
   })
 ); */
 
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema: schema,
-    graphiql: true,
-  })
-);
+
 
 // fetching rss server-side
 app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
@@ -250,7 +241,9 @@ app.get("/background_img/:userId", (req: Request, res: Response) => {
 });
 
 app.get("/favicon/:faviconUrl", (req: Request, res: Response) => {
-  let fetchFavicon = faviconFetch({ uri: `${decodeURIComponent(req.params.faviconUrl)}` });
+  let fetchFavicon = faviconFetch({
+    uri: `${decodeURIComponent(req.params.faviconUrl)}`,
+  });
   console.log(fetchFavicon);
 
   if (fetchFavicon) {
@@ -264,6 +257,47 @@ app.get("/favicon/:faviconUrl", (req: Request, res: Response) => {
     error: "No favicon available",
   });
 });
+
+
+
+ app.use((req: Request, res: Response, next: any) => {
+
+  // req.body.variables = JSON.parse(req.body.variables)
+  // req.body.variables = JSON.parse(req.body.variables)
+
+  
+// req.body.custom = "custom message"
+
+// console.log(req.params);
+// next()
+// req.body = "dddd";
+// req.params.custom = "custom"
+// @ts-ignore
+ req.customKey = "finally";
+// @ts-ignore
+// console.log(req.customKey);
+
+// console.log(req.body);
+
+next()
+
+})
+ 
+app.use(
+  "/graphql",
+  graphqlHTTP((req: Request) => {
+    return {
+      schema: schema,
+      graphiql: true,
+      rootValue: { request: req },
+    };
+  })
+);
+
+
+
+
+
 
 /* 
 =creating new bookmark
@@ -291,8 +325,6 @@ app.post(site url) {
 
 
 */
-
-
 
 function removeBackgroundImg(fileName: string) {
   fs.unlink(
