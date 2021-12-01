@@ -89,3 +89,4 @@ DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 63. cannot upload image if there are spaces in the file name?
 64. npm modules should be imported like: import multer = require("multer"). with const types are not working!!
 change everywhere!!
+65. add qpl`` ... package to graphql schema

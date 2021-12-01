@@ -45,6 +45,8 @@ console.log(fetchTest2); */
 
 // ============
 
+
+
 // app.use(helmet());
 app.use(
   helmet({
@@ -262,6 +264,33 @@ app.get("/favicon/:faviconUrl", (req: Request, res: Response) => {
     error: "No favicon available",
   });
 });
+
+/* 
+=creating new bookmark
+
+
+app.post(site url) {
+
+ getting favicon using fetch-favicon
+
+ fetch image using node js
+
+//  calling another route??
+ save to folder(multer? or saving directly fs?)
+
+ save to db
+
+
+ respond wiht a url from the server
+
+
+}
+
+
+
+
+
+*/
 
 
 

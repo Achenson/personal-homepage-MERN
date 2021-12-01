@@ -260,3 +260,15 @@ export const ChangeTabMutation = `
     }
   }
 `;
+
+export const TestMutation = `
+  mutation (
+    $stringToAdd: String,
+    ) {
+    testMutation (stringToAdd: $stringToAdd, 
+      
+        ) {
+         stringToAdd
+    }
+  }
+`;

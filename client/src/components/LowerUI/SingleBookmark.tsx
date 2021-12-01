@@ -16,7 +16,7 @@ import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { useDbContext } from "../../context/dbContext";
 
-import { DeleteBookmarkMutation } from "../../graphql/graphqlMutations";
+import { DeleteBookmarkMutation, TestMutation } from "../../graphql/graphqlMutations";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
@@ -71,24 +71,27 @@ Props): JSX.Element {
 
   const [favicon, setFavicon] = useState<string | null>(null);
 
-    useEffect(() => {
+  const [testMutationResult, testMutation] = useMutation<
+  any,
+  any
+>(TestMutation);
 
-      fetch(
-        "http://localhost:4000/favicon/" + encodeURIComponent(singleBookmarkData.URL),
-        {
-          method: "GET",
-        }
-      )
-        .then((res) => res.json())
-        .then((res) => {
-          setFavicon(res)
-          
-        });
+  useEffect(() => {
+    fetch(
+      "http://localhost:4000/favicon/" +
+        encodeURIComponent(singleBookmarkData.URL),
+      {
+        method: "GET",
+      }
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        setFavicon(res);
+      });
+  }, [singleBookmarkData.URL]);
 
-    
-    
-  }, [singleBookmarkData.URL])
 
+  
 
   return (
     <div
@@ -111,9 +114,14 @@ Props): JSX.Element {
                 onClick={() => {
                   // console.log(singleBookmarkData.URL);
 
-                  console.log(favicon);
+                  testMutation({stringToAdd: "string to add"})
 
-              /*     fetch(
+
+                  // console.log(favicon);
+
+
+
+                  /*     fetch(
                     "http://localhost:4000/favicon/" + encodeURIComponent(singleBookmarkData.URL),
                     {
                       method: "GET",
@@ -124,8 +132,6 @@ Props): JSX.Element {
                       // setFavicon(res)
                       console.log(res);
                     }); */
-
-
                 }}
               />
             </div>
