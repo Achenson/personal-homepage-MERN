@@ -14,6 +14,16 @@ export const addBookmarkMutationField = {
     ...BookmarkFields,
   },
   resolve(_source: unknown, args: BookmarkDatabase_i) {
+
+
+
+    
+
+
+
+
+
+
     let newBookmark = new Bookmark({
       userId: args.userId,
       title: args.title,

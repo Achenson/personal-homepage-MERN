@@ -9,6 +9,8 @@ notes:
 1. in GraphQL, all types are nullable by default!
 2. to get object from mutation with saving: return a promise, resolve with the product!
 3. urql - results.stale crucial for having up to date db data! 
+[server.js & SingleBookmark -> favicon test on click]
+[server.js & testMutation -> adding additional data through middleware and passing to graphql resolver test]
 
 
  issues:
@@ -82,7 +84,7 @@ DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 56. clientside: make it possible to choose backgroundImg colors also from settings? or close the modal and open backgroundColors menu
 57. is path module needed? (server.js
 58. status 201
-59. graphql for file upload? how to use middleware for graphql
+59. graphql for file upload? use middleware which should detect if the file is attached to post req
 60. flickering when uploadin background img file
 61. background img -> currently there is no point in storing it in db, as it is get from server only??
 62. upload background img -> should use one btn only??
@@ -90,3 +92,5 @@ DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 64. npm modules should be imported like: import multer = require("multer"). with const types are not working!!
 change everywhere!!
 65. add qpl`` ... package to graphql schema
+66. background img - remove it once the user is deleted?
+

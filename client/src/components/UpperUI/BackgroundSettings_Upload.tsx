@@ -30,11 +30,6 @@ function BackgroundSettings_Upload({
     SettingsDatabase_i
   >(ChangeSettingsMutation);
 
- 
-
-
-
-
 
   const [dbFilesError, setDbFilesError] = useState<null | string>(null);
 

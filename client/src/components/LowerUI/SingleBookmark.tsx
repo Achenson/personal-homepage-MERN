@@ -16,7 +16,10 @@ import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { useDbContext } from "../../context/dbContext";
 
-import { DeleteBookmarkMutation, TestMutation } from "../../graphql/graphqlMutations";
+import {
+  DeleteBookmarkMutation,
+  TestMutation,
+} from "../../graphql/graphqlMutations";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
@@ -71,10 +74,9 @@ Props): JSX.Element {
 
   const [favicon, setFavicon] = useState<string | null>(null);
 
-  const [testMutationResult, testMutation] = useMutation<
-  any,
-  any
->(TestMutation);
+  const [testMutationResult, testMutation] = useMutation<any, any>(
+    TestMutation
+  );
 
   useEffect(() => {
     fetch(
@@ -90,8 +92,16 @@ Props): JSX.Element {
       });
   }, [singleBookmarkData.URL]);
 
+  let faviconUrlApi =
+    "https://www.google.com/s2/favicons?domain=" + singleBookmarkData.URL;
 
-  
+  console.log(faviconUrlApi);
+
+  let faviconUrlApi2 = "https://icon.horse/icon/metacritic.com";
+
+  let faviconUrlApi3 = "https://icon.horse/icon?uri=https://www.metacritic.com/"
+  // let faviconUrlApi4 = "https://icon.horse/icon?uri=" + "https://www.metacritic.com/"
+  let faviconUrlApi4 = "https://icon.horse/icon?uri=" + singleBookmarkData.URL
 
   return (
     <div
@@ -108,32 +118,30 @@ Props): JSX.Element {
           }`}
         >
           <div className="flex truncate">
-            <div className="h-6 mr-px">
-              <PhotographSVG
+            <div className="flex justify-center items-center h-6 w-6 mr-px mt-px">
+            {/*       <PhotographSVG
                 className="h-full"
                 onClick={() => {
-                  // console.log(singleBookmarkData.URL);
-
-                  testMutation({stringToAdd: "string to add"})
-
-
-                  // console.log(favicon);
-
-
-
-                  /*     fetch(
-                    "http://localhost:4000/favicon/" + encodeURIComponent(singleBookmarkData.URL),
-                    {
-                      method: "GET",
-                    }
-                  )
-                    .then((res) => res.json())
-                    .then((res) => {
-                      // setFavicon(res)
-                      console.log(res);
-                    }); */
+                  // testMutation({stringToAdd: "string to add"})
                 }}
-              />
+              /> */}
+
+            {/*  <div style={{
+                backgroundImage: faviconUrlApi,
+                height: "15px",
+                width: "15px"
+                
+              }}></div> */}
+            <img
+              src={faviconUrlApi4}
+              // src={singleBookmarkData.URL === "https://www.metacritic.com/" ? faviconUrlApi2 : faviconUrlApi}
+              className=""
+              style={{
+                height: "15px",
+                width: "15px",
+              }}
+            />
+
             </div>
             <div className="truncate">
               <a

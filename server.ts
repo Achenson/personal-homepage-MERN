@@ -1,7 +1,8 @@
 const cors = require("cors");
 const express = require("express");
 const dotenv = require("dotenv");
-const { graphqlHTTP } = require("express-graphql");
+import { graphqlHTTP } from "express-graphql";
+// const { graphqlHTTP } = require("express-graphql");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const Parser = require("rss-parser");
@@ -71,8 +72,6 @@ app.use(
     origin: "*"
   })
 ); */
-
-
 
 // fetching rss server-side
 app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
@@ -258,34 +257,20 @@ app.get("/favicon/:faviconUrl", (req: Request, res: Response) => {
   });
 });
 
+/*  app.use((req: Request, res: Response, next: any) => {
 
 
- app.use((req: Request, res: Response, next: any) => {
-
-  // req.body.variables = JSON.parse(req.body.variables)
-  // req.body.variables = JSON.parse(req.body.variables)
-
-  
-// req.body.custom = "custom message"
-
-// console.log(req.params);
-// next()
-// req.body = "dddd";
-// req.params.custom = "custom"
 // @ts-ignore
  req.customKey = "finally";
 // @ts-ignore
 // console.log(req.customKey);
-
-// console.log(req.body);
-
 next()
 
-})
- 
+}) */
+
 app.use(
   "/graphql",
-  graphqlHTTP((req: Request) => {
+  graphqlHTTP((req) => {
     return {
       schema: schema,
       graphiql: true,
@@ -293,11 +278,6 @@ app.use(
     };
   })
 );
-
-
-
-
-
 
 /* 
 =creating new bookmark
