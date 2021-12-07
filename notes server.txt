@@ -93,4 +93,4 @@ DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 change everywhere!!
 65. add qpl`` ... package to graphql schema
 66. background img - remove it once the user is deleted?
-
+67. delete all test mutation code in the end

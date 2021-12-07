@@ -78,6 +78,8 @@ Props): JSX.Element {
     TestMutation
   );
 
+  const [isFaviconDefault, setIsFaviconDefault] = useState(false);
+
   useEffect(() => {
     fetch(
       "http://localhost:4000/favicon/" +
@@ -92,16 +94,23 @@ Props): JSX.Element {
       });
   }, [singleBookmarkData.URL]);
 
-  let faviconUrlApi =
+  let urlParse = new URL(singleBookmarkData.URL)
+  // will replace only the first occurence of www.
+  // let domain = urlParse.hostname
+  let domain = urlParse.hostname.replace('www.','')
+
+  let faviconUrlApi_domain = "https://icon.horse/icon/" + domain
+  
+    /*  
+    
+    ============= google API -> low quality
+    let faviconUrlApi_google =
     "https://www.google.com/s2/favicons?domain=" + singleBookmarkData.URL;
 
-  console.log(faviconUrlApi);
+    ===== domain will be parsed from url automatically by icon horse, BUT the fallback will still
+    be from the address, so usually all fallbacks would be the same ("W") - unwanted behavior
 
-  let faviconUrlApi2 = "https://icon.horse/icon/metacritic.com";
-
-  let faviconUrlApi3 = "https://icon.horse/icon?uri=https://www.metacritic.com/"
-  // let faviconUrlApi4 = "https://icon.horse/icon?uri=" + "https://www.metacritic.com/"
-  let faviconUrlApi4 = "https://icon.horse/icon?uri=" + singleBookmarkData.URL
+    let faviconUrlApi = "https://icon.horse/icon?uri=" + singleBookmarkData.URL; */
 
   return (
     <div
@@ -119,29 +128,45 @@ Props): JSX.Element {
         >
           <div className="flex truncate">
             <div className="flex justify-center items-center h-6 w-6 mr-px mt-px">
-            {/*       <PhotographSVG
+              {isFaviconDefault ? (
+                <PhotographSVG
+                  // className="h-full"
+                  onClick={() => {
+                    // testMutation({stringToAdd: "string to add"})
+                    setIsFaviconDefault(b=>!b)
+                  }}
+                  style={{
+                    height: "18px",
+                    width: "18px",
+                  }}
+                />
+              ) : (
+                <img
+                  src={faviconUrlApi_domain}
+                  // src={singleBookmarkData.URL === "https://www.metacritic.com/" ? faviconUrlApi2 : faviconUrlApi}
+                  className=""
+                  style={{
+                    height: "15px",
+                    width: "15px",
+                  }}
+                  onClick={() => {
+                    setIsFaviconDefault(b=>!b)
+                  }}
+                />
+              )}
+              {/*       <PhotographSVG
                 className="h-full"
                 onClick={() => {
                   // testMutation({stringToAdd: "string to add"})
                 }}
               /> */}
 
-            {/*  <div style={{
+              {/*  <div style={{
                 backgroundImage: faviconUrlApi,
                 height: "15px",
                 width: "15px"
                 
               }}></div> */}
-            <img
-              src={faviconUrlApi4}
-              // src={singleBookmarkData.URL === "https://www.metacritic.com/" ? faviconUrlApi2 : faviconUrlApi}
-              className=""
-              style={{
-                height: "15px",
-                width: "15px",
-              }}
-            />
-
             </div>
             <div className="truncate">
               <a
