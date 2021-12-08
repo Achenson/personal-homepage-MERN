@@ -9,6 +9,41 @@ import { ReactComponent as PencilSmallSVG } from "../../svgs/pencilSmall.svg";
 import { ReactComponent as TrashSmallSVG } from "../../svgs/trashSmall.svg";
 import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 
+
+
+
+
+// import { ReactComponent as GlobeSVG } from "../../svgs/globe-line-option.svg";
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-line.svg";
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_internet.svg";
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_WEB-conv.svg"; 
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_emblem-web-conv.svg"; 
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_Mappamondo-conv.svg"; 
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_earth-globe-cartoon-2.svg"; 
+
+
+
+// import { ReactComponent as GlobeSVG } from "../../svgs/globe-alt.svg";
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_globe.svg";
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_pseudo-globe.svg"; 
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_jongo-jingoro-globe.svg"; 
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-with-ring.svg"; 
+// import { ReactComponent as GlobeSVG } from "../../svgs/photograph.svg";
+
+
+import { ReactComponent as GlobeSVG } from "../../svgs/test_internet-web-browser-conv.svg"; 
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-with-meridians.svg";
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-svgrepo-com.svg";
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-svgrepo-standard.svg"; 
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_svgrepo-blue-white.svg"; 
+
+
+
+// import Icon from "../../svgs/testIcon"; 
+
+
+
+
 // import { useBookmarks } from "../../state/hooks/useBookmarks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useTabContext } from "../../context/tabContext";
@@ -129,15 +164,24 @@ Props): JSX.Element {
           <div className="flex truncate">
             <div className="flex justify-center items-center h-6 w-6 mr-px mt-px">
               {isFaviconDefault ? (
-                <PhotographSVG
+                <GlobeSVG
+                // @ts-ignore
+                
                   // className="h-full"
+                  // @ts-ignore
+                  className="fill-current text-blue-800"
+                  // className="fill-current text-blueGray-500"
                   onClick={() => {
                     // testMutation({stringToAdd: "string to add"})
                     setIsFaviconDefault(b=>!b)
                   }}
+                  /* style={{
+                    height: "15px",
+                    width: "15px",
+                  }} */
                   style={{
-                    height: "18px",
-                    width: "18px",
+                    height: "15px",
+                    width: "15px",
                   }}
                 />
               ) : (

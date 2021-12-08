@@ -94,3 +94,4 @@ change everywhere!!
 65. add qpl`` ... package to graphql schema
 66. background img - remove it once the user is deleted?
 67. delete all test mutation code in the end
+68. list all links to free svgs in notes
