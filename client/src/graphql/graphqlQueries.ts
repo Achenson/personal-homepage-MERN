@@ -25,6 +25,7 @@ export const BookmarksQuery = `query ($userId: ID) {
       title
       URL
       tags
+      defaultFaviconFallback
     }
   }`;
 

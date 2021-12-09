@@ -5,7 +5,7 @@ const mkdirp = require("mkdirp");
 const Settings = require("../../mongoModels/settingsSchema");
 const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
-const Bookmark = require("../../mongoModels/bookmarkSchema");
+import Bookmark = require("../../mongoModels/bookmarkSchema");
 
 import {
   columnColors,
@@ -119,10 +119,12 @@ export const addUserMutationField = {
         }
 
         bookmarks.forEach((el: BookmarkLocal_i) => {
+          // @ts-ignore
           let newBookmark = new Bookmark({
             ...el,
             userId: userProduct.id,
             tags: calcTagNames(el),
+            defaultFaviconFallback: false
           });
 
           newBookmark.save(

@@ -138,13 +138,15 @@ export function createRSSDb(
 export function createBookmark(
   title: string,
   URL: string,
-  tags: string[]
+  tags: string[],
+  defaultFaviconFallback = false
 ): SingleBookmarkData {
   return {
     id: uuidv4(),
     title,
     URL,
     tags,
+    defaultFaviconFallback
   };
 }
 
@@ -152,7 +154,8 @@ export function createBookmarkDb(
   userId: string,
   title: string,
   URL: string,
-  tags: string[]
+  tags: string[],
+  defaultFaviconFallback = false
 ): BookmarkDatabase_i {
   return {
     ...createBookmark(title, URL, tags),

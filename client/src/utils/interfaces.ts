@@ -52,6 +52,7 @@ export interface SingleBookmarkData {
   title: string;
   URL: string;
   tags: string[];
+  defaultFaviconFallback: boolean;
 }
 
 export interface GlobalSettingsState {

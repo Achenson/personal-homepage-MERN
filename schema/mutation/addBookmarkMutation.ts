@@ -1,6 +1,7 @@
 const graphql = require("graphql");
 
-const Bookmark = require("../../mongoModels/bookmarkSchema");
+// const Bookmark = require("../../mongoModels/bookmarkSchema");
+import Bookmark = require("../../mongoModels/bookmarkSchema");
 
 import {
   BookmarkFields,
@@ -15,20 +16,13 @@ export const addBookmarkMutationField = {
   },
   resolve(_source: unknown, args: BookmarkDatabase_i) {
 
-
-
-    
-
-
-
-
-
-
+    // @ts-ignore
     let newBookmark = new Bookmark({
       userId: args.userId,
       title: args.title,
       URL: args.URL,
       tags: args.tags,
+      defaultFaviconFallback: false
     });
 
     return new Promise((resolve, reject) => {

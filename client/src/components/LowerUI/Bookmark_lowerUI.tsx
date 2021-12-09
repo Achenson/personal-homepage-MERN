@@ -279,6 +279,7 @@ function Bookmark_lowerUI({
           title: titleInput,
           URL: urlInput,
           tags: tagsInputArr_ToIds,
+          defaultFaviconFallback: currentBookmark.defaultFaviconFallback
         }).then((result) => {
           if (result.error) {
             reject(result.error);

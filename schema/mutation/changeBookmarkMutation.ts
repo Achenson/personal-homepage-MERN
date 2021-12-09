@@ -18,6 +18,7 @@ export const changeBookmarkMutationField = {
       title: args.title,
       URL: args.URL,
       tags: args.tags,
+      defaultFaviconFallback: args.defaultFaviconFallback
     };
 
     return Bookmark.findByIdAndUpdate(args.id, update, {

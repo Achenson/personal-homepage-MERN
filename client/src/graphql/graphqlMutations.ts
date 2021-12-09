@@ -102,6 +102,7 @@ export const ChangeBookmarkMutation = `
     $title: String,
     $URL: String,
     $tags: [ID]
+    $defaultFaviconFallback: Boolean
     ) {
     changeBookmark (
       id: $id,
@@ -109,12 +110,14 @@ export const ChangeBookmarkMutation = `
       title: $title,
       URL: $URL,
       tags: $tags,
+      defaultFaviconFallback: $defaultFaviconFallback
         ) {
           id
           userId
           title
           URL
           tags
+          defaultFaviconFallback
     }
   }
 `;

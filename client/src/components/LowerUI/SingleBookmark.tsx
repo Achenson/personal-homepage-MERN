@@ -7,43 +7,37 @@ import Bookmark_newAndEdit from "../Shared/Bookmark_newAndEdit";
 
 import { ReactComponent as PencilSmallSVG } from "../../svgs/pencilSmall.svg";
 import { ReactComponent as TrashSmallSVG } from "../../svgs/trashSmall.svg";
-import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 
+import { testUserId } from "../../state/data/testUserId";
 
-
+// import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 
 // ====worser
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-line-option.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-line.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_internet.svg";
-// import { ReactComponent as GlobeSVG } from "../../svgs/test_WEB-conv.svg"; 
-// import { ReactComponent as GlobeSVG } from "../../svgs/test_emblem-web-conv.svg"; 
-// import { ReactComponent as GlobeSVG } from "../../svgs/test_Mappamondo-conv.svg"; 
-// import { ReactComponent as GlobeSVG } from "../../svgs/test_earth-globe-cartoon-2.svg"; 
-
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_WEB-conv.svg";
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_emblem-web-conv.svg";
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_Mappamondo-conv.svg";
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_earth-globe-cartoon-2.svg";
 
 // ==== okay
 // import { ReactComponent as GlobeSVG } from "../../svgs/globe-alt.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_globe.svg";
-// import { ReactComponent as GlobeSVG } from "../../svgs/test_pseudo-globe.svg"; 
-// import { ReactComponent as GlobeSVG } from "../../svgs/test_jongo-jingoro-globe.svg"; 
-// import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-with-ring.svg"; 
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_pseudo-globe.svg";
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_jongo-jingoro-globe.svg";
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-with-ring.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/photograph.svg";
 
-
 // ==== best
-import { ReactComponent as GlobeSVG } from "../../svgs/test_internet-web-browser-conv.svg"; 
+import { ReactComponent as GlobeSVG } from "../../svgs/test_internet-web-browser-conv.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-with-meridians.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-svgrepo-com.svg";
-// import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-svgrepo-standard.svg"; 
-// import { ReactComponent as GlobeSVG } from "../../svgs/test_svgrepo-blue-white.svg"; 
-
-
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-svgrepo-standard.svg";
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_svgrepo-blue-white.svg";
 
 // import { useBookmarks } from "../../state/hooks/useBookmarks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-
-
 
 import { useTabContext } from "../../context/tabContext";
 import { useTabs } from "../../state/hooks/useTabs";
@@ -51,6 +45,7 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 import { useDbContext } from "../../context/dbContext";
 
 import {
+  ChangeBookmarkMutation,
   DeleteBookmarkMutation,
   TestMutation,
 } from "../../graphql/graphqlMutations";
@@ -86,6 +81,8 @@ function SingleBookmark({
 // tabs,
 Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
+
+  
   const bookmarks = useDbContext().bookmarks;
   const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
   const tabs = useDbContext().tabs;
@@ -106,13 +103,18 @@ Props): JSX.Element {
     DeleteBookmarkMutation
   );
 
+  const [changeBookmarkResutl, changeBookmark] = useMutation<
+    any,
+    BookmarkDatabase_i
+  >(ChangeBookmarkMutation);
+
   const [favicon, setFavicon] = useState<string | null>(null);
 
   const [testMutationResult, testMutation] = useMutation<any, any>(
     TestMutation
   );
 
-  const [isFaviconDefault, setIsFaviconDefault] = useState(false);
+  // const [isFaviconDefault, setIsFaviconDefault] = useState(false);
 
   useEffect(() => {
     fetch(
@@ -128,14 +130,14 @@ Props): JSX.Element {
       });
   }, [singleBookmarkData.URL]);
 
-  let urlParse = new URL(singleBookmarkData.URL)
+  let urlParse = new URL(singleBookmarkData.URL);
   // will replace only the first occurence of www.
   // let domain = urlParse.hostname
-  let domain = urlParse.hostname.replace('www.','')
+  let domain = urlParse.hostname.replace("www.", "");
 
-  let faviconUrlApi_domain = "https://icon.horse/icon/" + domain
-  
-    /*  
+  let faviconUrlApi_domain = "https://icon.horse/icon/" + domain;
+
+  /*  
     
     ============= google API -> low quality
     let faviconUrlApi_google =
@@ -162,17 +164,28 @@ Props): JSX.Element {
         >
           <div className="flex truncate">
             <div className="flex justify-center items-center h-6 w-6 mr-px mt-px">
-              {isFaviconDefault ? (
+              {singleBookmarkData.defaultFaviconFallback ? (
                 <GlobeSVG
-                // @ts-ignore
-                
+                  // @ts-ignore
+
                   // className="h-full"
                   // @ts-ignore
                   className="fill-current text-blue-800"
                   // className="fill-current text-blueGray-500"
                   onClick={() => {
                     // testMutation({stringToAdd: "string to add"})
-                    setIsFaviconDefault(b=>!b)
+
+                    // setIsFaviconDefault(b=>!b)
+                    console.log("clicked");
+                    console.log(singleBookmarkData.defaultFaviconFallback);
+                    
+                    
+                    changeBookmark({
+                      ...singleBookmarkData,
+                      userId: testUserId,
+                      defaultFaviconFallback:
+                        !singleBookmarkData.defaultFaviconFallback,
+                    });
                   }}
                   /* style={{
                     height: "15px",
@@ -193,7 +206,15 @@ Props): JSX.Element {
                     width: "15px",
                   }}
                   onClick={() => {
-                    setIsFaviconDefault(b=>!b)
+                    // setIsFaviconDefault(b=>!b)
+                    console.log("clicked2");
+                    console.log(singleBookmarkData.defaultFaviconFallback);
+                    changeBookmark({
+                      ...singleBookmarkData,
+                      userId: testUserId,
+                      defaultFaviconFallback:
+                        !singleBookmarkData.defaultFaviconFallback,
+                    });
                   }}
                 />
               )}

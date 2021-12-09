@@ -9,6 +9,7 @@ const BookmarkSchema = new Schema<BookmarkDatabase_i>({
   title: String,
   URL: String,
   tags: [String],
+  defaultFaviconFallback: Boolean
   // folders: [{type: Schema.Types.ObjectId, ref: 'Tab' }]
 });
 

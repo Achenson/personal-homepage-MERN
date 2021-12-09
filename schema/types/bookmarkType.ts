@@ -12,6 +12,7 @@ const {
 interface Bookmark_i {
   title: string;
   URL: string;
+  defaultFaviconFallback: boolean;
 }
 
 export interface BookmarkLocal_i extends Bookmark_i {
@@ -30,6 +31,7 @@ export const BookmarkFields = {
   title: { type: GraphQLString },
   URL: { type: GraphQLString },
   tags: { type: new GraphQLList(GraphQLID) },
+  defaultFaviconFallback: {type: GraphQLBoolean}
 };
 
 export const BookmarkType = new GraphQLObjectType({

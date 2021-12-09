@@ -96,3 +96,4 @@ change everywhere!!
 67. delete all test mutation code in the end
 68. list all links to free svgs in notes
 69. delete unused test_svgs, rename the chosen one
+70. singleBookmarkData: change interface to BookmarkDatabase_i ?
