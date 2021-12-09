@@ -95,3 +95,4 @@ change everywhere!!
 66. background img - remove it once the user is deleted?
 67. delete all test mutation code in the end
 68. list all links to free svgs in notes
+69. delete unused test_svgs, rename the chosen one

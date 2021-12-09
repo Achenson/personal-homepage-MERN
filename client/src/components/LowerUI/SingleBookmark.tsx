@@ -12,8 +12,8 @@ import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 
 
 
-
-// import { ReactComponent as GlobeSVG } from "../../svgs/globe-line-option.svg";
+// ====worser
+// import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-line-option.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-line.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_internet.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_WEB-conv.svg"; 
@@ -22,7 +22,7 @@ import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_earth-globe-cartoon-2.svg"; 
 
 
-
+// ==== okay
 // import { ReactComponent as GlobeSVG } from "../../svgs/globe-alt.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_globe.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_pseudo-globe.svg"; 
@@ -31,6 +31,7 @@ import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/photograph.svg";
 
 
+// ==== best
 import { ReactComponent as GlobeSVG } from "../../svgs/test_internet-web-browser-conv.svg"; 
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-with-meridians.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-svgrepo-com.svg";
@@ -39,13 +40,11 @@ import { ReactComponent as GlobeSVG } from "../../svgs/test_internet-web-browser
 
 
 
-// import Icon from "../../svgs/testIcon"; 
-
-
-
-
 // import { useBookmarks } from "../../state/hooks/useBookmarks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+
+
+
 import { useTabContext } from "../../context/tabContext";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
