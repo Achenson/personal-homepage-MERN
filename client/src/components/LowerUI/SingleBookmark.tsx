@@ -170,7 +170,7 @@ Props): JSX.Element {
 
                   // className="h-full"
                   // @ts-ignore
-                  className="fill-current text-blue-800"
+                  className="fill-current text-blue-800 cursor-pointer"
                   // className="fill-current text-blueGray-500"
                   onClick={() => {
                     // testMutation({stringToAdd: "string to add"})
@@ -200,7 +200,7 @@ Props): JSX.Element {
                 <img
                   src={faviconUrlApi_domain}
                   // src={singleBookmarkData.URL === "https://www.metacritic.com/" ? faviconUrlApi2 : faviconUrlApi}
-                  className=""
+                  className="cursor-pointer"
                   style={{
                     height: "15px",
                     width: "15px",
