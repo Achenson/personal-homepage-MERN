@@ -92,8 +92,52 @@ DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 64. npm modules should be imported like: import multer = require("multer"). with const types are not working!!
 change everywhere!!
 65. add qpl`` ... package to graphql schema
-66. background img - remove it once the user is deleted?
+66. background img - remove it once the user is deleted? implemented already -test it!
 67. delete all test mutation code in the end
 68. list all links to free svgs in notes
 69. delete unused test_svgs, rename the chosen one
 70. singleBookmarkData: change interface to BookmarkDatabase_i ?
+71. msg to user when clicking custom img and there is none present
+
+
+JWT logic: 
+
+0. Login component -> login Mutation (see below -> res from the server contains the refresh token in a cookie and is setting it on client),
+ access token & authenticatedUserId is taken from the server response is saved to central state
+
+serverside: Login mutation (vars: name/email, password): 
+1. searches db by name/email
+2. check if password is valid
+3. sends refresh token (first creates it) in a cookie? (from the server)
+ - so client has a refresh token in a cookie set now!!
+[refresh token is being send in a request only if hiting /refresh_token (point 6)]
+4. creates accessToken, returns it so it can be stored in central state (point 0)
+
+5. clientside (ApolloClient/urqlClient?):
+ every request to the server is going to have access token (in the headers) taken from central state
+
+6. clientside during every app reload:
+ App.js is posting to /refresh_token route on the server,
+  which verifies if client has a valid refresh token in a cookie,
+  if yes -> 
+    server creates new refresh token and sends it back
+    server sends access token in a response from the server
+    access token is stored clientside in memory (central state)
+
+7. creating new access token if old expires -> Apollo middleware? what about urql??
+
+8. mutation/queries are being protected by isAuth, which checks if accessTOken is valid
+
+9. logOut -> setting empty string in a cookie instead of refresh token + setting access token to null clientside
+
+...more, check
+
+
+To so sum up, after login: 
+1. Client has a cookie with refresh token (that is not being sent with every request, but only to /refresh_token endpoint),
+access token is stored in client's memory (state manager), and is being sent in every request to the server (in headers)
+(mutations/queries are being protected by isAuth on the server, which checks if there is proper accessToken set in the header)
+
+2. app reload: post to /refresh_token route -> after validating if client has proper refresh token in a cookie, new refresh token & access token is being sent to client
+
+3. creating new access token if old expires -> apollo middleware
