@@ -98,7 +98,9 @@ change everywhere!!
 69. delete unused test_svgs, rename the chosen one
 70. singleBookmarkData: change interface to BookmarkDatabase_i ?
 71. msg to user when clicking custom img and there is none present
-
+72. graphql ID vd string type, they may be mixed
+73. user creation: check if user name or email already exists
+74. implement token versioning: refreshToken
 
 JWT logic: 
 
