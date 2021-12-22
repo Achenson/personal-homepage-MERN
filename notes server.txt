@@ -101,6 +101,7 @@ change everywhere!!
 72. graphql ID vd string type, they may be mixed
 73. user creation: check if user name or email already exists
 74. implement token versioning: refreshToken
+75. Main -> change context values obj, so it is taken from state directly
 
 JWT logic: 
 

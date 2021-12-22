@@ -108,6 +108,18 @@ export interface BackgroundImgContext_i {
   updateCurrentBackgroundImgKey: React.Dispatch<React.SetStateAction<string>>;
 }
 
+export interface AuthContextObj_i {
+  isAuthenticated: boolean;
+  authenticatedUserId: null | string;
+  accessToken: null | string;
+  loginNotification: null | string;
+  loginErrorMessage: null | string;
+}
+
+export interface AuthContext_i extends AuthContextObj_i {
+  updateAuthContext: React.Dispatch<React.SetStateAction<AuthContextObj_i>>;
+}
+
 // for Tab
 export interface TabVisState {
   editTabVis: boolean;

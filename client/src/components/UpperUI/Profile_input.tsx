@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 
-interface Props {}
+interface Props {
+  // inputType: "name" | "email" | "name_or_email" | "password";
+  /* name?: string;
+  email?: string;
+  name_or_email?: string;
+  password?: string; */
+  inputValue: string;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+}
 
 function Profile_input(
-  {}: Props,
+  { inputValue, setInputValue }: Props,
   passedRef: React.LegacyRef<HTMLInputElement> | undefined
 ): JSX.Element {
   const [inputHover, setInputHover] = useState(false);
@@ -14,6 +22,30 @@ function Profile_input(
   }
 }
   */
+
+  // const [inputType, setInputType] = useState("name_or_email", "password")
+
+  /*   function calcValue() {
+    let value;
+
+    switch (inputType) {
+      case "name":
+        value = name;
+        break;
+      case "email":
+        value = email;
+        break;
+      case "name_or_email":
+        value = name_or_email;
+        break;
+      case "password":
+        value = password;
+        break;
+    }
+
+    return value;
+  } */
+
   return (
     <input
       ref={passedRef}
@@ -33,6 +65,10 @@ function Profile_input(
       onMouseLeave={() => {
         setInputHover(false);
       }}
+      onChange={(e) => {
+        setInputValue(e.target.value);
+      }}
+      value={inputValue}
     />
   );
 }

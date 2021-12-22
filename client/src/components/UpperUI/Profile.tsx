@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-
 import FocusLock from "react-focus-lock";
+import { useMutation } from "urql";
 
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
@@ -9,9 +9,13 @@ import Profile_input from "./Profile_input";
 import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
 import { useUpperUiContext } from "../../context/upperUiContext";
+import { useAuthContext } from "../../context/authContext";
 
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { LoginMutation } from "../../graphql/graphqlMutations";
+
+import { AuthDataInput_i } from "../../../../schema/types/authDataType";
 
 interface Props {
   mainPaddingRight: boolean;
@@ -34,8 +38,24 @@ function Profile({
   const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
 
   const upperUiContext = useUpperUiContext();
+  const authContext = useAuthContext();
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [email_or_name, setEmail_or_name] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordForRegister, setPasswordForRegister] = useState("");
+  const [passwordForRegisterConfirm, setPasswordForRegisterConfirm] =
+    useState("");
+  const [loginErrorMessage, setLoginErrorMessage] = useState<null | string>(
+    null
+  );
+
+  const [loginMutResult, loginMut] = useMutation<any, AuthDataInput_i>(
+    LoginMutation
+  );
 
   useEffect(() => {
     if (firstFieldRef.current !== null) {
@@ -58,6 +78,84 @@ function Profile({
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);
+  }
+
+  function loginValidation() {
+    console.log("sth");
+
+    if (email_or_name === "" || password === "") {
+      // !!! change
+      setLoginErrorMessage("Email or password not provided");
+      console.log("Email or password not provided");
+      return;
+    }
+
+    console.log("name email provided");
+
+    // diffent than in apollo!
+    loginMut({
+      email_or_name: email_or_name,
+      password: password,
+    }).then(
+      (res) => {
+        console.log("RES DATA");
+        console.log(res.data);
+
+        if (res.data.token === "User does not exist!") {
+        // if (res.data.login.token === "User does not exist!") {
+          // setLoginErrorMessage(`${res.data.login.token}`);
+          setLoginErrorMessage(`${res.data.token}`);
+          return;
+        }
+
+        if (res.data.token === "Password is incorrect!") {
+        // if (res.data.login.token === "Password is incorrect!") {
+          // setLoginErrorMessage(`${res.data.login.token}`);
+          setLoginErrorMessage(`${res.data.token}`);
+          return;
+        }
+
+        if (!res) {
+          return;
+        }
+
+        if (loggedInState === false) {
+          setLoggedInState(true);
+        }
+        upperUiContext.upperVisDispatch({
+          type: "PROFILE_TOGGLE",
+        });
+        upperUiContext.upperVisDispatch({
+          type: "MESSAGE_OPEN_LOGIN",
+        });
+
+        // console.log("loginMut res");
+        // console.log(res);
+
+        setLoginErrorMessage(null);
+
+        authContext.updateAuthContext({
+          ...authContext,
+          authenticatedUserId: res.data.userId,
+          // authenticatedUserId: res.data.login.userId,
+          accessToken: res.data.token,
+          // accessToken: res.data.login.token,
+          // token: res.data.login.token,
+        });
+        // !!! display message that the login was successful
+        // setLoginNotification(null);
+
+        // history.push('/')
+        // no going back! not possible to go back to login when logged in
+        // !!! no react router will be implemented?
+        // history.replace("/");
+      },
+      (err) => {
+        console.log(err);
+        setLoginErrorMessage("Server connection Error");
+        return;
+      }
+    );
   }
 
   return (
@@ -143,17 +241,27 @@ function Profile({
                 {loginOrRegister === "login" ? (
                   <div className="w-48">
                     <p>Email address / username</p>
-                    <Profile_input ref={firstFieldRef} />
+                    <Profile_input
+                      ref={firstFieldRef}
+                      inputValue={email_or_name}
+                      setInputValue={setEmail_or_name}
+                    />
                   </div>
                 ) : (
                   <>
                     <div className="w-48">
                       <p>Username</p>
-                      <Profile_input />
+                      <Profile_input
+                        inputValue={name}
+                        setInputValue={setName}
+                      />
                     </div>
                     <div className="mt-1 w-48">
                       <p>Email address</p>
-                      <Profile_input />
+                      <Profile_input
+                        inputValue={email}
+                        setInputValue={setEmail}
+                      />
                     </div>
                   </>
                 )}
@@ -163,13 +271,19 @@ function Profile({
                 >
                   <div className="mt-1 w-48">
                     <p>Password</p>
-                    <Profile_input />
+                    <Profile_input
+                      inputValue={loginOrRegister === "login"? password : passwordForRegister}
+                      setInputValue={loginOrRegister === "login" ?  setPassword : setPasswordForRegister}
+                    />
                   </div>
 
                   {loginOrRegister === "register" && (
                     <div className="mt-1 w-48">
                       <p>Confirm password</p>
-                      <Profile_input />
+                      <Profile_input
+                        inputValue={passwordForRegisterConfirm}
+                        setInputValue={setPasswordForRegisterConfirm}
+                      />
                     </div>
                   )}
                 </div>
@@ -181,15 +295,7 @@ function Profile({
                     className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
                     onClick={() => {
-                      if (loggedInState === false) {
-                        setLoggedInState(true);
-                      }
-                      upperUiContext.upperVisDispatch({
-                        type: "PROFILE_TOGGLE",
-                      });
-                      upperUiContext.upperVisDispatch({
-                        type: "MESSAGE_OPEN_LOGIN",
-                      });
+                      loginValidation();
                     }}
                   >
                     Login
