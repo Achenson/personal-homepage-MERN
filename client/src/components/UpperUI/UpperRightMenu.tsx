@@ -20,6 +20,7 @@ import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
+import { AuthContext, useAuthContext } from "../../context/authContext";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
@@ -40,6 +41,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   const setFocusedTabState = useTabs((state) => state.setFocusedTabState);
 
   const upperUiContext = useUpperUiContext();
+  const authContext = useAuthContext();
 
   const colLimit = globalSettings.limitColGrowth;
 
@@ -248,6 +250,9 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
               className="h-6 w-6 focus-2-inset-veryDark"
               onClick={() => {
                 setLoggedInState(false);
+                authContext.updateAuthContext({...authContext,
+                isAuthenticated: false
+                })
                 upperUiContext.upperVisDispatch({
                   type: "MESSAGE_OPEN_LOGOUT",
                 });

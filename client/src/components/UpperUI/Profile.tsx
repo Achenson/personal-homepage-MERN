@@ -136,6 +136,7 @@ function Profile({
 
         authContext.updateAuthContext({
           ...authContext,
+          isAuthenticated: true,
           authenticatedUserId: res.data.userId,
           // authenticatedUserId: res.data.login.userId,
           accessToken: res.data.token,
