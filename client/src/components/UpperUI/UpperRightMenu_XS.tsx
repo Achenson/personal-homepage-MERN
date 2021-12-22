@@ -232,7 +232,9 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                 onClick={() => {
                   setLoggedInState(false);
                   authContext.updateAuthContext({...authContext,
-                    isAuthenticated: false
+                    isAuthenticated: false,
+                    authenticatedUserId: null,
+                    accessToken: null
                     })
                   upperUiContext.upperVisDispatch({
                     type: "MESSAGE_OPEN_LOGOUT",
