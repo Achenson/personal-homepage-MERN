@@ -102,6 +102,8 @@ change everywhere!!
 73. user creation: check if user name or email already exists
 74. implement token versioning: refreshToken
 75. Main -> change context values obj, so it is taken from state directly
+75. fetchFavicon in server.js -> delete?
+76. AppWrapper, MainWrapper in different placec - chaos?
 
 JWT logic: 
 

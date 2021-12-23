@@ -107,13 +107,6 @@ function Main({ globalSettings }: Props): JSX.Element {
     }
   }, [globalSettings.defaultImage, globalSettings.picBackground]); */
 
-  const [authContext, setAuthContext] = useState<AuthContextObj_i>({
-    isAuthenticated: false,
-    authenticatedUserId: null,
-    accessToken: null,
-    loginNotification: null,
-    loginErrorMessage: null,
-  });
 
   useEffect(() => {
     if (document.body.style.overflow === "visible") {
@@ -172,15 +165,6 @@ function Main({ globalSettings }: Props): JSX.Element {
   let backgroundImgValue: BackgroundImgContext_i = {
     currentBackgroundImgKey: backgroundImgKey,
     updateCurrentBackgroundImgKey: setBackgroundImgKey,
-  };
-
-  let authValue = {
-    isAuthenticated: authContext.isAuthenticated,
-    authenticatedUserId: authContext.authenticatedUserId,
-    accessToken: authContext.accessToken,
-    loginNotification: authContext.loginNotification,
-    loginErrorMessage: authContext.loginErrorMessage,
-    updateAuthContext: setAuthContext,
   };
 
   const { data, status } = useReactQuery(
@@ -290,7 +274,7 @@ function Main({ globalSettings }: Props): JSX.Element {
   }
 
   return (
-    <AuthContext.Provider value={authValue}>
+    // <AuthContext.Provider value={authValue}>
       <DbContext.Provider value={dbValue}>
         <BackgroundImgContext.Provider value={backgroundImgValue}>
           <UpperUiContext.Provider value={upperUiValue}>
@@ -377,7 +361,7 @@ function Main({ globalSettings }: Props): JSX.Element {
           </UpperUiContext.Provider>
         </BackgroundImgContext.Provider>
       </DbContext.Provider>
-    </AuthContext.Provider>
+    // </AuthContext.Provider>
   );
 }
 

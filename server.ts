@@ -11,6 +11,13 @@ const mkdirp = require("mkdirp");
 const fs = require("fs");
 const path = require("path");
 const faviconFetch = require("favicon-fetch");
+const cookieParser = require("cookie-parser")
+const jwt = require("jsonwebtoken");
+
+import User = require('./mongoModels/userSchema')
+const createAccessToken = require("./schema/middleware/accessToken");
+const createRefreshToken = require("./schema/middleware/refreshToken");
+const sendRefreshToken = require("./schema/middleware/sendRefreshToken");
 
 
 // const BackgroundImgSchema = require("../../mongoModels/BackgroundImgSchema");
@@ -67,6 +74,69 @@ app.use(
     credentials: true,
   })
 );
+
+//  parsing cookie only in the context of that particular route
+app.use("/refresh_token", cookieParser())
+
+app.post("/refresh_token", async (req: Request, res: Response) => {
+  // 1. testing sending test cookie in request using postman
+  // cookies -> add domain: localhost -> coookie name: jid
+  // console.log(req.headers);
+
+  // testing sending cookie after cookie-parser is applied
+  console.log(req.cookies);
+
+  const token = req.cookies.jid;
+
+  if (!token) {
+    return res.send({ ok: false, accessToken: "" });
+  }
+
+  let payload = null;
+
+  try {
+    // payload = jwt.verify(token, "secretKeyForRefreshToken");
+    payload = jwt.verify(token, process.env.REFRESH);
+  } catch (err) {
+    console.log(err);
+    console.log("refresh token error2");
+    return res.send({ ok: false, accessToken: "" });
+  }
+
+  // token is valid
+  // we can send access token
+  // @ts-ignore
+  const user = await User.findById(payload.userId);
+
+  if (!user) {
+    console.log("refresh token error3");
+    return res.send({ ok: false, accessToken: "" });
+  }
+
+  // revoking tokens: tokenVersion == 0 when creating user
+  // refreshTokens' tokenVersion == user.tokenVerssion
+  // to invalidate user -> increment user's tokenVersion
+  // when the user tries to refresh tokens(refreshing or after accessToken runs out),
+  // his user.tokenVersion doesn't match the version from the refresh token in his cookies
+
+  if (user.tokenVersion !== payload.tokenVersion) {
+    console.log("invalid tokenVersion");
+
+    return res.send({ ok: false, accessToken: "" });
+  }
+
+  sendRefreshToken(res, createRefreshToken(user));
+
+  return res.send({
+    ok: true,
+    accessToken: createAccessToken(user),
+    userId: payload.userId,
+  });
+
+  //  testing: send login mutation in graphql, get accessToken
+  // testin2: take refresh cookie from res (sieć)
+});
+
 
 /* app.use(
   cors({
