@@ -6,7 +6,7 @@ import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
 import Profile_input from "./Profile_input";
 
-import { useLoggedInState } from "../../state/hooks/useLoggedInState";
+// import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { useAuthContext } from "../../context/authContext";
@@ -34,8 +34,8 @@ function Profile({
   const [loginOrRegister, setLoginOrRegister] = useState<"login" | "register">(
     "login"
   );
-  const loggedInState = useLoggedInState((state) => state.loggedInState);
-  const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
+  // const loggedInState = useLoggedInState((state) => state.loggedInState);
+  // const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
 
   const upperUiContext = useUpperUiContext();
   const authContext = useAuthContext();
@@ -100,8 +100,11 @@ function Profile({
       (res) => {
         console.log("RES DATA");
         console.log(res.data);
+        console.log(res.data.loginMutation);
+        
+        
 
-        if (res.data.token === "User does not exist!") {
+        if (res.data.loginMutation.token === "User does not exist!") {
         // if (res.data.login.token === "User does not exist!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
           setLoginErrorMessage(`${res.data.token}`);
@@ -119,9 +122,11 @@ function Profile({
           return;
         }
 
-        if (loggedInState === false) {
-          setLoggedInState(true);
-        }
+        // if (loggedInState === false) {
+        //   setLoggedInState(true);
+        // }
+
+
         upperUiContext.upperVisDispatch({
           type: "PROFILE_TOGGLE",
         });

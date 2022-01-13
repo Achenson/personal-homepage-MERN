@@ -14,7 +14,7 @@ import { ReactComponent as ColorSVG } from "../../svgs/beaker.svg";
 import { ReactComponent as AddRssSVG } from "../../svgs/rss.svg";
 import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 
-import { useLoggedInState } from "../../state/hooks/useLoggedInState";
+// import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
 
@@ -35,8 +35,8 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
 
-  const loggedInState = useLoggedInState((state) => state.loggedInState);
-  const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
+  // const loggedInState = useLoggedInState((state) => state.loggedInState);
+  // const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
 
   const setFocusedTabState = useTabs((state) => state.setFocusedTabState);
 
@@ -244,12 +244,12 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
         </button>
 
         <div style={{ width: "24px", height: "24px" }}>
-          {loggedInState ? (
+          {authContext.isAuthenticated ? (
             <button
               ref={focusOnUpperRightUi_ref_8}
               className="h-6 w-6 focus-2-inset-veryDark"
               onClick={() => {
-                setLoggedInState(false);
+                // setLoggedInState(false);
                 authContext.updateAuthContext({...authContext,
                 isAuthenticated: false,
                 authenticatedUserId: null,
