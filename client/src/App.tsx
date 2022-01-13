@@ -18,6 +18,7 @@ import { useAuthContext } from "./context/authContext";
 
 import MainWrapper from "./components/MainWrapper";
 
+
 interface AuthState {
   // userId: string | null;
   accessToken: string | null;
@@ -30,7 +31,7 @@ interface AuthToOperation {
 
 const environment = process.env.NODE_ENV;
 
-let graphqlUri;
+let graphqlUri: string;
 
 if (environment === "production") {
   graphqlUri = "/graphql";
@@ -38,7 +39,7 @@ if (environment === "production") {
   graphqlUri = "http://localhost:4000/graphql";
 }
 
-let refreshTokenUri;
+let refreshTokenUri: string;
 
 if (environment === "production") {
   refreshTokenUri = "/refresh_token";
@@ -79,30 +80,74 @@ function App() {
               ...fetchOptions,
               headers: {
                 ...fetchOptions.headers,
-                Authorization: authState.accessToken,
+                // Authorization: authState.accessToken,
+                Authorization: `Bearer ${authState.accessToken}`,
               },
             },
           });
         },
         getAuth: async ({ authState, mutate }) => {
-          // for initial launch, fetch the auth state from storage (local storage, async storage etc)
+          // for initial launch, fetch the auth state from central state (react context in AppWrapper)
           if (!authState) {
             // const accessToken = localStorage.getItem("token");
             const accessToken = authContext.accessToken;
             // const refreshToken = localStorage.getItem("refreshToken");
             if (accessToken) {
-              return { accessToken };
+              // ====== checking if accessToken is expired
+              try {
+                // @ts-ignore
+                const { exp } = jwtDecode(accessToken);
+                if (Date.now() >= exp * 1000) {
+                  refreshToken();
+                } else {
+                  return { accessToken };
+                }
+              } catch {
+                refreshToken();
+              }
+
+              // return { accessToken };
             }
             return null;
           }
-
-          return null;
 
           /**
            * the following code gets executed when an auth error has occurred
            * we should refresh the token if possible and return a new auth state
            * If refresh fails, we should log out
            **/
+
+          refreshToken();
+
+          function refreshToken() {
+            fetch(`${refreshTokenUri}`, {
+              method: "POST",
+              credentials: "include",
+            })
+              .then((res) => res.json())
+              .then((res) => {
+                console.log(res);
+
+                authContext.updateAuthContext({
+                  ...authContext,
+                  isAuthenticated: res.ok,
+                  accessToken: res.accessToken,
+                  authenticatedUserId: res.userId,
+                  /* isAuthenticated: authContext.isAuthenticated,
+                    authenticatedUserId: authContext.authenticatedUserId,
+                    accessToken: authContext.accessToken,
+                    loginNotification: authContext.loginNotification,
+                    loginErrorMessage: authContext.loginErrorMessage
+                     */
+                });
+
+                return { accessToken: res.accessToken };
+              });
+          }
+
+          // implement logout logic here!
+
+          return null;
         },
       }),
       fetchExchange,

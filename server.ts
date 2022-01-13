@@ -122,7 +122,7 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
   if (user.tokenVersion !== payload.tokenVersion) {
     console.log("invalid tokenVersion");
 
-    return res.send({ ok: false, accessToken: "" });
+    return res.send({ ok: false, accessToken: "", userId: "" });
   }
 
   sendRefreshToken(res, createRefreshToken(user));

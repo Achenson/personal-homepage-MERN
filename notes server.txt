@@ -104,6 +104,7 @@ change everywhere!!
 75. Main -> change context values obj, so it is taken from state directly
 75. fetchFavicon in server.js -> delete?
 76. AppWrapper, MainWrapper in different placec - chaos?
+77. UpperRightMenu: loggedInState -> change for it to be compatible with authContext
 
 JWT logic: 
 
