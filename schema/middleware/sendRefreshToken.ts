@@ -1,6 +1,8 @@
 import {Request, Response} from "express"
 
 module.exports = (res: Response, token: String) => {
+  console.log("REFRESHhh222");
+  
     res.cookie("jid", token, {
       httpOnly: true,
       // to prevent sending cookie in every request

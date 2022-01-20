@@ -127,19 +127,14 @@ function Profile({
         // }
 
 
-        upperUiContext.upperVisDispatch({
-          type: "PROFILE_TOGGLE",
-        });
-        upperUiContext.upperVisDispatch({
-          type: "MESSAGE_OPEN_LOGIN",
-        });
+     
 
         // console.log("loginMut res");
         // console.log(res);
 
         setLoginErrorMessage(null);
 
-        authContext.updateAuthContext({
+   /*      authContext.updateAuthContext({
           ...authContext,
           isAuthenticated: true,
           authenticatedUserId: res.data.userId,
@@ -147,7 +142,7 @@ function Profile({
           accessToken: res.data.token,
           // accessToken: res.data.login.token,
           // token: res.data.login.token,
-        });
+        }); */
         // !!! display message that the login was successful
         // setLoginNotification(null);
 
@@ -155,6 +150,15 @@ function Profile({
         // no going back! not possible to go back to login when logged in
         // !!! no react router will be implemented?
         // history.replace("/");
+
+
+    /*     upperUiContext.upperVisDispatch({
+          type: "PROFILE_TOGGLE",
+        });
+        upperUiContext.upperVisDispatch({
+          type: "MESSAGE_OPEN_LOGIN",
+        }); */
+
       },
       (err) => {
         console.log(err);

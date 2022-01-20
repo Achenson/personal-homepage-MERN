@@ -105,6 +105,7 @@ change everywhere!!
 75. fetchFavicon in server.js -> delete?
 76. AppWrapper, MainWrapper in different placec - chaos?
 77. UpperRightMenu: loggedInState -> change for it to be compatible with authContext
+78. middleware for token -> generated code for types is being used??
 
 JWT logic: 
 

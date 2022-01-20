@@ -9,9 +9,9 @@ const {
 
 import User = require("../../mongoModels/userSchema");
 
-import createAccessToken = require("../middleware/accessToken");
-import createRefreshToken = require("../middleware/refreshToken");
-import sendRefreshToken = require("../middleware/sendRefreshToken");
+const createAccessToken = require("../middleware/accessToken");
+const createRefreshToken = require("../middleware/refreshToken");
+const sendRefreshToken = require("../middleware/sendRefreshToken");
 
 import { AuthDataType } from "../types/authDataType";
 
@@ -68,9 +68,9 @@ export const loginMutationField = {
           }
  */
 
-    // @ts-ignore
+    
     sendRefreshToken(res, createRefreshToken(user));
-    // @ts-ignore
+    
     const token = createAccessToken(user);
 
     return { userId: user.id, token: token };
