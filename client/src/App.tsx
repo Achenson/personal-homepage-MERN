@@ -153,6 +153,7 @@ function App() {
       fetchExchange,
     ],
     fetchOptions: {
+      // !!!! whitout this line cookie will not be set clientside
       credentials: 'include',
     },
   });

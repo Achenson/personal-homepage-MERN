@@ -102,8 +102,7 @@ function Profile({
         console.log(res.data);
         console.log(res.data.loginMutation);
         
-        
-
+      
         if (res.data.loginMutation.token === "User does not exist!") {
         // if (res.data.login.token === "User does not exist!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
@@ -125,9 +124,6 @@ function Profile({
         // if (loggedInState === false) {
         //   setLoggedInState(true);
         // }
-
-
-     
 
         // console.log("loginMut res");
         // console.log(res);

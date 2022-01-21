@@ -273,6 +273,12 @@ export const LoginMutation = `
   }
 `;
 
+export const LogoutMutation = `
+  mutation {
+    logoutMutation 
+  }
+`;
+
 export const TestMutation = `
   mutation (
     $stringToAdd: String,

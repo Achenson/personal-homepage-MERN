@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useMutation } from "urql";
 
 import shallow from "zustand/shallow";
 
@@ -17,10 +18,11 @@ import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 // import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
-
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { AuthContext, useAuthContext } from "../../context/authContext";
+
+import {LogoutMutation } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
@@ -53,6 +55,10 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   let focusOnUpperRightUi_ref_6 = useRef<HTMLButtonElement>(null);
   let focusOnUpperRightUi_ref_7 = useRef<HTMLButtonElement>(null);
   let focusOnUpperRightUi_ref_8 = useRef<HTMLButtonElement>(null);
+
+  const [logoutMutResult, logoutMut] = useMutation<any, any>(
+    LogoutMutation
+  );
 
   useEffect(() => {
     if (
@@ -250,14 +256,15 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
               className="h-6 w-6 focus-2-inset-veryDark"
               onClick={() => {
                 // setLoggedInState(false);
-                authContext.updateAuthContext({...authContext,
+                logoutMut()
+          /*       authContext.updateAuthContext({...authContext,
                 isAuthenticated: false,
                 authenticatedUserId: null,
                 accessToken: null
                 })
                 upperUiContext.upperVisDispatch({
                   type: "MESSAGE_OPEN_LOGOUT",
-                });
+                }); */
               }}
               tabIndex={14}
               aria-label={"Logout"}
