@@ -152,6 +152,9 @@ function App() {
       }),
       fetchExchange,
     ],
+    fetchOptions: {
+      credentials: 'include',
+    },
   });
 
   return (

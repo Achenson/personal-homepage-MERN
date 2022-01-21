@@ -134,7 +134,7 @@ function Profile({
 
         setLoginErrorMessage(null);
 
-   /*      authContext.updateAuthContext({
+        authContext.updateAuthContext({
           ...authContext,
           isAuthenticated: true,
           authenticatedUserId: res.data.userId,
@@ -142,7 +142,7 @@ function Profile({
           accessToken: res.data.token,
           // accessToken: res.data.login.token,
           // token: res.data.login.token,
-        }); */
+        });
         // !!! display message that the login was successful
         // setLoginNotification(null);
 
@@ -152,12 +152,12 @@ function Profile({
         // history.replace("/");
 
 
-    /*     upperUiContext.upperVisDispatch({
+        upperUiContext.upperVisDispatch({
           type: "PROFILE_TOGGLE",
         });
         upperUiContext.upperVisDispatch({
           type: "MESSAGE_OPEN_LOGIN",
-        }); */
+        });
 
       },
       (err) => {
