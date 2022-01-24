@@ -106,6 +106,7 @@ change everywhere!!
 76. AppWrapper, MainWrapper in different placec - chaos?
 77. UpperRightMenu: loggedInState -> change for it to be compatible with authContext
 78. middleware for token -> generated code for types is being used??
+79. is case of failure, accessToken will be an empty string - to change?
 
 JWT logic: 
 
@@ -142,7 +143,7 @@ serverside: Login mutation (vars: name/email, password):
 
 To so sum up, after login: 
 1. Client has a cookie with refresh token (that is not being sent with every request, but only to /refresh_token endpoint),
-access token is stored in client's memory (state manager), and is being sent in every request to the server (in headers)
+access token is stored in client's memory (state manager)), and it is being sent in every request to the server (in headers)
 (mutations/queries are being protected by isAuth on the server, which checks if there is proper accessToken set in the header)
 
 2. app reload: post to /refresh_token route -> after validating if client has proper refresh token in a cookie, new refresh token & access token is being sent to client

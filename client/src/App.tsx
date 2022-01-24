@@ -64,7 +64,7 @@ function App() {
       cacheExchange,
       authExchange({
         addAuthToOperation: ({ authState, operation }: AuthToOperation) => {
-          // the token isn't in the auth state, return the operation without changes
+          //if the token isn't in the auth state, return the operation without changes
           if (!authState || !authState.accessToken) {
             return operation;
           }
@@ -88,13 +88,16 @@ function App() {
         },
         getAuth: async ({ authState, mutate }) => {
           // for initial launch, fetch the auth state from central state (react context in AppWrapper)
+
+          // "We check that the authState doesn't already exist (this indicates that it is the first time 
+          // this exchange is executed and not an auth failure) "
           if (!authState) {
             // const accessToken = localStorage.getItem("token");
             const accessToken = authContext.accessToken;
             // const refreshToken = localStorage.getItem("refreshToken");
             if (accessToken) {
               // ====== checking if accessToken is expired
-              try {
+             /*  try {
                 // @ts-ignore
                 const { exp } = jwtDecode(accessToken);
                 if (Date.now() >= exp * 1000) {
@@ -104,13 +107,13 @@ function App() {
                 }
               } catch {
                 refreshToken();
-              }
+              } */
 
-              // return { accessToken };
+              return { accessToken };
             }
             return null;
           }
-
+          
           /**
            * the following code gets executed when an auth error has occurred
            * we should refresh the token if possible and return a new auth state
@@ -128,6 +131,7 @@ function App() {
               .then((res) => {
                 console.log(res);
 
+                // (if case of failure, this will be a logout logic)
                 authContext.updateAuthContext({
                   ...authContext,
                   isAuthenticated: res.ok,
@@ -140,12 +144,11 @@ function App() {
                     loginErrorMessage: authContext.loginErrorMessage
                      */
                 });
-
-                return { accessToken: res.accessToken };
+                
+                // accessToken will be an empty string in case of failure!!
+                return { accessToken: res.accessToken as string};
               });
           }
-
-          // implement logout logic here!
 
           return null;
         },
