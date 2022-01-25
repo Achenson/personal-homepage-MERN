@@ -1,11 +1,9 @@
 const graphql = require("graphql");
+const bcrypt = require("bcrypt");
 
 import { Request, Response } from "express";
 
-const {
-  GraphQLString,
-  GraphQLNonNull,
-} = graphql;
+const { GraphQLString, GraphQLNonNull } = graphql;
 
 import User = require("../../mongoModels/userSchema");
 
@@ -58,19 +56,17 @@ export const loginMutationField = {
     }
 
     //   implement later!!
-    /*     const isEqual = await bcrypt.compare(password, user.password);
-          if (!isEqual) {
-            // throw new Error("Password is incorrect!");
-            return {
-              userId: null,
-              token: "Password is incorrect!",
-            };
-          }
- */
+    const isEqual = await bcrypt.compare(password, user.password);
+    if (!isEqual) {
+      // throw new Error("Password is incorrect!");
+      return {
+        userId: null,
+        token: "Password is incorrect!",
+      };
+    }
 
-    
     sendRefreshToken(res, createRefreshToken(user));
-    
+
     const token = createAccessToken(user);
 
     return { userId: user.id, token: token };

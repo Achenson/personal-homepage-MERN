@@ -106,16 +106,19 @@ function Profile({
         if (res.data.loginMutation.token === "User does not exist!") {
         // if (res.data.login.token === "User does not exist!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
+          console.log(res.data.token);
           setLoginErrorMessage(`${res.data.token}`);
           return;
         }
 
-        if (res.data.token === "Password is incorrect!") {
+        if (res.data.loginMutation.token === "Password is incorrect!") {
         // if (res.data.login.token === "Password is incorrect!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
+          console.log(res.data.token);
           setLoginErrorMessage(`${res.data.token}`);
           return;
         }
+
 
         if (!res) {
           return;

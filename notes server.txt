@@ -106,7 +106,8 @@ change everywhere!!
 76. AppWrapper, MainWrapper in different placec - chaos?
 77. UpperRightMenu: loggedInState -> change for it to be compatible with authContext
 78. middleware for token -> generated code for types is being used??
-79. is case of failure, accessToken will be an empty string - to change?
+79. is case of failure, accessToken will be an empty string - to change? compare with loginMutation
+80. get rid of all ts "any"s
 
 JWT logic: 
 
@@ -149,3 +150,10 @@ access token is stored in client's memory (state manager)), and it is being sent
 2. app reload: post to /refresh_token route -> after validating if client has proper refresh token in a cookie, new refresh token & access token is being sent to client
 
 3. creating new access token if old expires -> apollo middleware
+
+
+
+urql auth:
+
+login mutation: code from willAuthError won't run!
+central state should be updated after jwt logic is handled??
