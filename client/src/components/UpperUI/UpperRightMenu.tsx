@@ -257,14 +257,14 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
               onClick={() => {
                 // setLoggedInState(false);
                 logoutMut()
-          /*       authContext.updateAuthContext({...authContext,
+                authContext.updateAuthContext({...authContext,
                 isAuthenticated: false,
                 authenticatedUserId: null,
                 accessToken: null
                 })
                 upperUiContext.upperVisDispatch({
                   type: "MESSAGE_OPEN_LOGOUT",
-                }); */
+                });
               }}
               tabIndex={14}
               aria-label={"Logout"}

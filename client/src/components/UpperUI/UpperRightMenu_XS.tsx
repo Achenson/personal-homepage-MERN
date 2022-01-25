@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useMutation } from "urql";
 
 import shallow from "zustand/shallow";
 
@@ -18,6 +19,8 @@ import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { AuthContext, useAuthContext } from "../../context/authContext";
 
+import {LogoutMutation } from "../../graphql/graphqlMutations";
+
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
@@ -31,8 +34,8 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
 
-  const loggedInState = useLoggedInState((state) => state.loggedInState);
-  const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
+  // const loggedInState = useLoggedInState((state) => state.loggedInState);
+  // const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
 
   const colLimit = globalSettings.limitColGrowth;
 
@@ -46,6 +49,10 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   // no ref 6 & 7 in UpperRightMenu_XS as there is only one SVG for all settings
   let focusOnUpperRightUi_xs_ref_5 = useRef<HTMLButtonElement>(null);
   let focusOnUpperRightUi_xs_ref_8 = useRef<HTMLButtonElement>(null);
+
+  const [logoutMutResult, logoutMut] = useMutation<any, any>(
+    LogoutMutation
+  );
 
   useEffect(() => {
     if (
@@ -224,13 +231,14 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
             />
           </button>
           <div className="mr-0.5" style={{ width: "24px", height: "24px" }}>
-            {loggedInState ? (
+            {authContext.isAuthenticated ? (
               <button
                 ref={focusOnUpperRightUi_xs_ref_8}
                 className="h-6 w-5 focus-2-veryDark"
                 style={{ width: "22px" }}
                 onClick={() => {
-                  setLoggedInState(false);
+                  // setLoggedInState(false);
+                  logoutMut()
                   authContext.updateAuthContext({...authContext,
                     isAuthenticated: false,
                     authenticatedUserId: null,
