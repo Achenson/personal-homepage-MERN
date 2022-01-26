@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 import App from "./App";
 
-import { AuthContext } from "./context/authContext";
+// import { AuthContext } from "./context/authContext";
+import {AuthProvider} from "./context/authContextTracked"
 
 import { AuthContextObj_i } from "./utils/interfaces";
 
@@ -29,9 +30,12 @@ function AppWrapper({}): JSX.Element {
   };
 
   return (
-    <AuthContext.Provider value={authValue}>
+//  <AuthContext.Provider value={authValue}>
+      // <App />
+    // </AuthContext.Provider>
+     <AuthProvider>
       <App />
-    </AuthContext.Provider>
+    </AuthProvider> 
   );
 }
 

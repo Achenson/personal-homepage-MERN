@@ -9,7 +9,8 @@ import Profile_input from "./Profile_input";
 // import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { useAuthContext } from "../../context/authContext";
+// import { useAuthContext } from "../../context/authContext";
+import { useTrackedAuth } from "../../context/authContextTracked";
 
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
@@ -38,7 +39,8 @@ function Profile({
   // const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
 
   const upperUiContext = useUpperUiContext();
-  const authContext = useAuthContext();
+  // const authContext = useAuthContext();
+  const [authContext, setAuthContext] = useTrackedAuth();
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
 
@@ -93,18 +95,19 @@ function Profile({
     console.log("name email provided");
 
     // diffent than in apollo!
-    loginMut({
-      email_or_name: email_or_name,
-      password: password,
-    }).then(
+    loginMut(
+      {
+        email_or_name: email_or_name,
+        password: password,
+      }
+    ).then(
       (res) => {
         console.log("RES DATA");
         console.log(res.data);
         console.log(res.data.loginMutation);
-        
-      
+
         if (res.data.loginMutation.token === "User does not exist!") {
-        // if (res.data.login.token === "User does not exist!") {
+          // if (res.data.login.token === "User does not exist!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
           console.log(res.data.token);
           setLoginErrorMessage(`${res.data.token}`);
@@ -112,13 +115,12 @@ function Profile({
         }
 
         if (res.data.loginMutation.token === "Password is incorrect!") {
-        // if (res.data.login.token === "Password is incorrect!") {
+          // if (res.data.login.token === "Password is incorrect!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
           console.log(res.data.token);
           setLoginErrorMessage(`${res.data.token}`);
           return;
         }
-
 
         if (!res) {
           return;
@@ -133,7 +135,7 @@ function Profile({
 
         setLoginErrorMessage(null);
 
-        authContext.updateAuthContext({
+   /*      authContext.updateAuthContext({
           ...authContext,
           isAuthenticated: true,
           authenticatedUserId: res.data.userId,
@@ -141,7 +143,18 @@ function Profile({
           accessToken: res.data.token,
           // accessToken: res.data.login.token,
           // token: res.data.login.token,
-        });
+        }); */
+
+        setAuthContext({
+          ...authContext,
+          isAuthenticated: true,
+          authenticatedUserId: res.data.userId,
+          // authenticatedUserId: res.data.login.userId,
+          accessToken: res.data.token,
+          // accessToken: res.data.login.token,
+          // token: res.data.login.token,
+        })
+
         // !!! display message that the login was successful
         // setLoginNotification(null);
 
@@ -150,14 +163,12 @@ function Profile({
         // !!! no react router will be implemented?
         // history.replace("/");
 
-
         upperUiContext.upperVisDispatch({
           type: "PROFILE_TOGGLE",
         });
         upperUiContext.upperVisDispatch({
           type: "MESSAGE_OPEN_LOGIN",
         });
-
       },
       (err) => {
         console.log(err);
@@ -281,8 +292,16 @@ function Profile({
                   <div className="mt-1 w-48">
                     <p>Password</p>
                     <Profile_input
-                      inputValue={loginOrRegister === "login"? password : passwordForRegister}
-                      setInputValue={loginOrRegister === "login" ?  setPassword : setPasswordForRegister}
+                      inputValue={
+                        loginOrRegister === "login"
+                          ? password
+                          : passwordForRegister
+                      }
+                      setInputValue={
+                        loginOrRegister === "login"
+                          ? setPassword
+                          : setPasswordForRegister
+                      }
                     />
                   </div>
 

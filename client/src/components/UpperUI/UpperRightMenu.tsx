@@ -20,9 +20,10 @@ import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { AuthContext, useAuthContext } from "../../context/authContext";
+// import { AuthContext, useAuthContext } from "../../context/authContext";
+import { useTrackedAuth } from "../../context/authContextTracked";
 
-import {LogoutMutation } from "../../graphql/graphqlMutations";
+import { LogoutMutation } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
@@ -43,7 +44,8 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   const setFocusedTabState = useTabs((state) => state.setFocusedTabState);
 
   const upperUiContext = useUpperUiContext();
-  const authContext = useAuthContext();
+  // const authContext = useAuthContext();
+  const [authContext, setAuthContext] = useTrackedAuth();
 
   const colLimit = globalSettings.limitColGrowth;
 
@@ -56,9 +58,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   let focusOnUpperRightUi_ref_7 = useRef<HTMLButtonElement>(null);
   let focusOnUpperRightUi_ref_8 = useRef<HTMLButtonElement>(null);
 
-  const [logoutMutResult, logoutMut] = useMutation<any, any>(
-    LogoutMutation
-  );
+  const [logoutMutResult, logoutMut] = useMutation<any, any>(LogoutMutation);
 
   useEffect(() => {
     if (
@@ -256,12 +256,21 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
               className="h-6 w-6 focus-2-inset-veryDark"
               onClick={() => {
                 // setLoggedInState(false);
-                logoutMut()
-                authContext.updateAuthContext({...authContext,
+                logoutMut();
+
+                /*   authContext.updateAuthContext({...authContext,
                 isAuthenticated: false,
                 authenticatedUserId: null,
                 accessToken: null
-                })
+                }) */
+
+                setAuthContext({
+                  ...authContext,
+                  isAuthenticated: false,
+                  authenticatedUserId: null,
+                  accessToken: null,
+                });
+ 
                 upperUiContext.upperVisDispatch({
                   type: "MESSAGE_OPEN_LOGOUT",
                 });

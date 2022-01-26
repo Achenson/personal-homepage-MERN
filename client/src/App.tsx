@@ -14,7 +14,8 @@ import { authExchange } from "@urql/exchange-auth";
 import { makeOperation } from "@urql/core";
 import jwtDecode from "jwt-decode";
 
-import { useAuthContext } from "./context/authContext";
+// import { useAuthContext } from "./context/authContext";
+import { useTrackedAuth } from "./context/authContextTracked";
 
 import MainWrapper from "./components/MainWrapper";
 
@@ -54,7 +55,8 @@ if (environment === "production") {
 const queryClient = new QueryClient();
 
 function App() {
-  const authContext = useAuthContext();
+  // const authContext = useAuthContext();
+  const [authContext, setAuthContext] = useTrackedAuth();
 
   const client = createClient({
     url: "http://localhost:4000/graphql",
@@ -131,7 +133,7 @@ function App() {
                 console.log(res);
 
                 // (if case of failure, this will be a logout logic)
-                authContext.updateAuthContext({
+    /*            authContext.updateAuthContext({
                   ...authContext,
                   isAuthenticated: res.ok,
                   accessToken: res.accessToken,
@@ -142,7 +144,15 @@ function App() {
                     loginNotification: authContext.loginNotification,
                     loginErrorMessage: authContext.loginErrorMessage
                      */
-                });
+                // });  */
+
+                setAuthContext({
+                  ...authContext,
+                  isAuthenticated: res.ok,
+                  accessToken: res.accessToken,
+                  authenticatedUserId: res.userId,
+                })
+
 
                 // accessToken will be an empty string in case of failure!!
                 return { accessToken: res.accessToken as string };

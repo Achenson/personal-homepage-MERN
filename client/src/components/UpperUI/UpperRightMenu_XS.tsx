@@ -17,7 +17,8 @@ import { ReactComponent as AddRssSVG } from "../../svgs/rss.svg";
 import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { AuthContext, useAuthContext } from "../../context/authContext";
+// import { AuthContext, useAuthContext } from "../../context/authContext";
+import { useTrackedAuth } from "../../context/authContextTracked";
 
 import {LogoutMutation } from "../../graphql/graphqlMutations";
 
@@ -40,7 +41,8 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   const colLimit = globalSettings.limitColGrowth;
 
   const upperUiContext = useUpperUiContext();
-  const authContext = useAuthContext();
+  // const authContext = useAuthContext();
+  const [authContext, setAuthContext] = useTrackedAuth();
 
   let focusOnUpperRightUi_xs_ref_1 = useRef<HTMLButtonElement>(null);
   let focusOnUpperRightUi_xs_ref_2 = useRef<HTMLButtonElement>(null);
@@ -239,11 +241,19 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                 onClick={() => {
                   // setLoggedInState(false);
                   logoutMut()
-                  authContext.updateAuthContext({...authContext,
+
+                  /* authContext.updateAuthContext({...authContext,
+                    isAuthenticated: false,
+                    authenticatedUserId: null,
+                    accessToken: null
+                    }) */
+                    setAuthContext({
+                      ...authContext,
                     isAuthenticated: false,
                     authenticatedUserId: null,
                     accessToken: null
                     })
+
                   upperUiContext.upperVisDispatch({
                     type: "MESSAGE_OPEN_LOGOUT",
                   });
