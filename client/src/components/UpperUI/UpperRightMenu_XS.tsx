@@ -42,7 +42,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
 
   const upperUiContext = useUpperUiContext();
   // const authContext = useAuthContext();
-  const [authContext, setAuthContext] = useTrackedAuth();
+  const [authContext, dispatchAuth] = useTrackedAuth();
 
   let focusOnUpperRightUi_xs_ref_1 = useRef<HTMLButtonElement>(null);
   let focusOnUpperRightUi_xs_ref_2 = useRef<HTMLButtonElement>(null);
@@ -247,12 +247,17 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                     authenticatedUserId: null,
                     accessToken: null
                     }) */
-                    setAuthContext({
+
+                /*     setAuthContext({
                       ...authContext,
                     isAuthenticated: false,
                     authenticatedUserId: null,
                     accessToken: null
-                    })
+                    }) */
+
+                    dispatchAuth({
+                      type: "logout",
+                    });
 
                   upperUiContext.upperVisDispatch({
                     type: "MESSAGE_OPEN_LOGOUT",

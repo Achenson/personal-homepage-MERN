@@ -45,7 +45,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
 
   const upperUiContext = useUpperUiContext();
   // const authContext = useAuthContext();
-  const [authContext, setAuthContext] = useTrackedAuth();
+  const [authContext, dispatchAuth] = useTrackedAuth();
 
   const colLimit = globalSettings.limitColGrowth;
 
@@ -264,11 +264,15 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                 accessToken: null
                 }) */
 
-                setAuthContext({
+              /*   setAuthContext({
                   ...authContext,
                   isAuthenticated: false,
                   authenticatedUserId: null,
                   accessToken: null,
+                }); */
+
+                dispatchAuth({
+                  type: "logout",
                 });
  
                 upperUiContext.upperVisDispatch({

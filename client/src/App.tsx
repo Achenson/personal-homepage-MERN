@@ -18,6 +18,7 @@ import jwtDecode from "jwt-decode";
 import { useTrackedAuth } from "./context/authContextTracked";
 
 import MainWrapper from "./components/MainWrapper";
+import { LoginMutation } from "./graphql/graphqlMutations";
 
 interface AuthState {
   // userId: string | null;
@@ -56,7 +57,7 @@ const queryClient = new QueryClient();
 
 function App() {
   // const authContext = useAuthContext();
-  const [authContext, setAuthContext] = useTrackedAuth();
+  const [authContext, dispatchAuth] = useTrackedAuth();
 
   const client = createClient({
     url: "http://localhost:4000/graphql",
@@ -133,7 +134,7 @@ function App() {
                 console.log(res);
 
                 // (if case of failure, this will be a logout logic)
-    /*            authContext.updateAuthContext({
+                /*            authContext.updateAuthContext({
                   ...authContext,
                   isAuthenticated: res.ok,
                   accessToken: res.accessToken,
@@ -146,13 +147,18 @@ function App() {
                      */
                 // });  */
 
-                setAuthContext({
+                /*     setAuthContext({
                   ...authContext,
                   isAuthenticated: res.ok,
                   accessToken: res.accessToken,
                   authenticatedUserId: res.userId,
-                })
-
+                }) */
+                dispatchAuth({
+                  type: "loginAttempt",
+                  isAuthenticated: res.ok,
+                  userId: res.userId,
+                  token: res.accessToken,
+                });
 
                 // accessToken will be an empty string in case of failure!!
                 return { accessToken: res.accessToken as string };

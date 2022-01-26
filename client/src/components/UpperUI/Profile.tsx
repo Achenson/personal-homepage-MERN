@@ -40,7 +40,7 @@ function Profile({
 
   const upperUiContext = useUpperUiContext();
   // const authContext = useAuthContext();
-  const [authContext, setAuthContext] = useTrackedAuth();
+  const [authContext, dispatchAuth] = useTrackedAuth();
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
 
@@ -145,7 +145,7 @@ function Profile({
           // token: res.data.login.token,
         }); */
 
-        setAuthContext({
+      /*   setAuthContext({
           ...authContext,
           isAuthenticated: true,
           authenticatedUserId: res.data.userId,
@@ -153,7 +153,14 @@ function Profile({
           accessToken: res.data.token,
           // accessToken: res.data.login.token,
           // token: res.data.login.token,
-        })
+        }) */
+
+        dispatchAuth({
+          type: "loginAttempt",
+          isAuthenticated: true,
+          userId: res.data.loginMutation.userId,
+          token: res.data.loginMutation.token,
+        });
 
         // !!! display message that the login was successful
         // setLoginNotification(null);
