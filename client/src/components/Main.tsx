@@ -24,7 +24,7 @@ import { useWindowSize } from "../utils/funcs and hooks/useWindowSize";
 import { UpperUiContext } from "../context/upperUiContext";
 import { DbContext } from "../context/dbContext";
 import { BackgroundImgContext } from "../context/backgroundImgContext";
-import { AuthContext } from "../context/authContext";
+// import { AuthContext } from "../context/authContext";
 
 import { SettingsDatabase_i } from "../../../schema/types/settingsType";
 import { TabsQuery, BookmarksQuery } from "../graphql/graphqlQueries";

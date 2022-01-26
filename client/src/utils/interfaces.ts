@@ -1,3 +1,4 @@
+import { State } from "zustand";
 import { BookmarkDatabase_i } from "../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../schema/types/tabType";
 
@@ -114,6 +115,15 @@ export interface AuthContextObj_i {
   accessToken: null | string;
   loginNotification: null | string;
   loginErrorMessage: null | string;
+}
+
+export interface AuthContextZustand_i extends AuthContextObj_i {
+  logout: () => void;
+  loginAttempt: (
+    isAuthenticated: boolean,
+    userId: string,
+    token: string
+  ) => void;
 }
 
 export interface AuthContext_i extends AuthContextObj_i {

@@ -14,7 +14,9 @@ import { authExchange } from "@urql/exchange-auth";
 import { makeOperation } from "@urql/core";
 import jwtDecode from "jwt-decode";
 
-import { useAuthContext } from "./context/authContext";
+import { useAuth } from "./state/hooks/useAuth";
+
+// import { useAuthContext } from "./context/authContext";
 
 import MainWrapper from "./components/MainWrapper";
 
@@ -54,7 +56,10 @@ if (environment === "production") {
 const queryClient = new QueryClient();
 
 function App() {
-  const authContext = useAuthContext();
+  // const authContext = useAuthContext();
+
+  const authState = useAuth();
+  const loginAttempt = useAuth((state) => state.loginAttempt);
 
   const client = createClient({
     url: "http://localhost:4000/graphql",
@@ -85,14 +90,15 @@ function App() {
             },
           });
         },
-        getAuth: async ({ authState, mutate }) => {
+        getAuth: async ({ authState: authStateUrql, mutate }) => {
           // for initial launch, fetch the auth state from central state (react context in AppWrapper)
 
           // "We check that the authState doesn't already exist (this indicates that it is the first time
           // this exchange is executed and not an auth failure) "
-          if (!authState) {
+          if (!authStateUrql) {
             // const accessToken = localStorage.getItem("token");
-            const accessToken = authContext.accessToken;
+            // const accessToken = authContext.accessToken;
+            const accessToken = authState.accessToken;
             // const refreshToken = localStorage.getItem("refreshToken");
             if (accessToken) {
               // ====== checking if accessToken is expired
@@ -131,18 +137,21 @@ function App() {
                 console.log(res);
 
                 // (if case of failure, this will be a logout logic)
-                authContext.updateAuthContext({
-                  ...authContext,
-                  isAuthenticated: res.ok,
-                  accessToken: res.accessToken,
-                  authenticatedUserId: res.userId,
-                  /* isAuthenticated: authContext.isAuthenticated,
-                    authenticatedUserId: authContext.authenticatedUserId,
-                    accessToken: authContext.accessToken,
-                    loginNotification: authContext.loginNotification,
-                    loginErrorMessage: authContext.loginErrorMessage
-                     */
-                });
+                // authContext.updateAuthContext({
+                //   ...authContext,
+                //   isAuthenticated: res.ok,
+                //   authenticatedUserId: res.userId,
+                //   accessToken: res.accessToken,
+                //   /* isAuthenticated: authContext.isAuthenticated,
+                //     authenticatedUserId: authContext.authenticatedUserId,
+                //     accessToken: authContext.accessToken,
+                //     loginNotification: authContext.loginNotification,
+                //     loginErrorMessage: authContext.loginErrorMessage
+                //      */
+                // });
+
+
+                loginAttempt(res.ok, res.userId, res.accessToken)
 
                 // accessToken will be an empty string in case of failure!!
                 return { accessToken: res.accessToken as string };

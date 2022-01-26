@@ -17,7 +17,8 @@ import { ReactComponent as AddRssSVG } from "../../svgs/rss.svg";
 import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { AuthContext, useAuthContext } from "../../context/authContext";
+// import { AuthContext, useAuthContext } from "../../context/authContext";
+import { useAuth } from "../../state/hooks/useAuth";
 
 import {LogoutMutation } from "../../graphql/graphqlMutations";
 
@@ -40,7 +41,9 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   const colLimit = globalSettings.limitColGrowth;
 
   const upperUiContext = useUpperUiContext();
-  const authContext = useAuthContext();
+  // const authContext = useAuthContext();
+  const authState = useAuth();
+  const logout = useAuth((state) => state.logout);
 
   let focusOnUpperRightUi_xs_ref_1 = useRef<HTMLButtonElement>(null);
   let focusOnUpperRightUi_xs_ref_2 = useRef<HTMLButtonElement>(null);
@@ -231,7 +234,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
             />
           </button>
           <div className="mr-0.5" style={{ width: "24px", height: "24px" }}>
-            {authContext.isAuthenticated ? (
+            {authState.isAuthenticated ? (
               <button
                 ref={focusOnUpperRightUi_xs_ref_8}
                 className="h-6 w-5 focus-2-veryDark"
@@ -239,11 +242,12 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                 onClick={() => {
                   // setLoggedInState(false);
                   logoutMut()
-                  authContext.updateAuthContext({...authContext,
-                    isAuthenticated: false,
-                    authenticatedUserId: null,
-                    accessToken: null
-                    })
+                  // authContext.updateAuthContext({...authContext,
+                  //   isAuthenticated: false,
+                  //   authenticatedUserId: null,
+                  //   accessToken: null
+                  //   })
+                  logout()
                   upperUiContext.upperVisDispatch({
                     type: "MESSAGE_OPEN_LOGOUT",
                   });
