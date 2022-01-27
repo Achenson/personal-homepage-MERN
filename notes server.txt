@@ -109,6 +109,9 @@ change everywhere!!
 79. is case of failure, accessToken will be an empty string - to change? compare with loginMutation
 80. get rid of all ts "any"s
 81. logout mutation: is refreshing site -why?
+82. uninstall react-tracked
+83. mainWrapper - too many or not enough?
+84. user exp not perfect when logging out? flickering
 
 JWT logic: 
 

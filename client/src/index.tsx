@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
+
 import "./assets/main.css";
 import "./custom.css";
 // import App from "./App";
@@ -9,7 +10,9 @@ import reportWebVitals from "./reportWebVitals";
 ReactDOM.render(
   <React.StrictMode>
     {/* <App /> */}
-    <AppWrapper />
+
+      <AppWrapper />
+  
   </React.StrictMode>,
   document.getElementById("root")
 );

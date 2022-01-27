@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "urql";
 
 import shallow from "zustand/shallow";
@@ -29,6 +30,7 @@ interface Props {
 }
 
 function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
+  let navigate = useNavigate();
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
@@ -244,9 +246,10 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                     authenticatedUserId: null,
                     accessToken: null
                     })
-                  upperUiContext.upperVisDispatch({
-                    type: "MESSAGE_OPEN_LOGOUT",
-                  });
+                  // upperUiContext.upperVisDispatch({
+                  //   type: "MESSAGE_OPEN_LOGOUT",
+                  // });
+                  navigate("/login-register")
                 }}
                 tabIndex={12}
                 aria-label={"Logout"}
@@ -262,7 +265,8 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                 className="h-6 w-5 focus-2-veryDark"
                 style={{ width: "18px" }}
                 onClick={() => {
-                  upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
+                  // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
+                  navigate("/login-register");
                 }}
                 tabIndex={12}
                 aria-label={"Login/register"}

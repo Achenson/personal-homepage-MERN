@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import FocusLock from "react-focus-lock";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "urql";
 
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
@@ -28,6 +29,9 @@ function Profile({
   scrollbarWidth,
   globalSettings,
 }: Props): JSX.Element {
+
+  let navigate = useNavigate()
+
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
 
@@ -92,6 +96,9 @@ function Profile({
 
     console.log("name email provided");
 
+
+    
+
     // diffent than in apollo!
     loginMut({
       email_or_name: email_or_name,
@@ -150,10 +157,17 @@ function Profile({
         // !!! no react router will be implemented?
         // history.replace("/");
 
+        // history.replace("/") equivalent in react-router-dom 6
+        navigate("/", {replace: true})
 
-        upperUiContext.upperVisDispatch({
-          type: "PROFILE_TOGGLE",
-        });
+
+        // upperUiContext.upperVisDispatch({
+        //   type: "PROFILE_TOGGLE",
+        // });
+
+
+
+
         upperUiContext.upperVisDispatch({
           type: "MESSAGE_OPEN_LOGIN",
         });
@@ -174,7 +188,8 @@ function Profile({
         className="flex flex-col z-50 fixed h-full w-screen items-center"
         style={{ backgroundColor: "rgba(90, 90, 90, 0.4)", paddingTop: "30vh" }}
         onClick={() => {
-          upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
+          // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
+          navigate("/")
         }}
       >
         <div
@@ -199,7 +214,10 @@ function Profile({
               <button
                 className="h-5 w-5 focus-2-offset-dark"
                 onClick={() => {
-                  upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
+                  // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
+
+                  navigate("/")
+
                   upperUiContext.upperVisDispatch({
                     type: "FOCUS_ON_UPPER_RIGHT_UI",
                     payload: 8,

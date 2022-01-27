@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "urql";
 
 import shallow from "zustand/shallow";
@@ -18,11 +19,12 @@ import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 // import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
+
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { AuthContext, useAuthContext } from "../../context/authContext";
 
-import {LogoutMutation } from "../../graphql/graphqlMutations";
+import { LogoutMutation } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
@@ -32,6 +34,8 @@ interface Props {
 }
 
 function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
+  let navigate = useNavigate();
+
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
@@ -56,9 +60,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   let focusOnUpperRightUi_ref_7 = useRef<HTMLButtonElement>(null);
   let focusOnUpperRightUi_ref_8 = useRef<HTMLButtonElement>(null);
 
-  const [logoutMutResult, logoutMut] = useMutation<any, any>(
-    LogoutMutation
-  );
+  const [logoutMutResult, logoutMut] = useMutation<any, any>(LogoutMutation);
 
   useEffect(() => {
     if (
@@ -256,15 +258,17 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
               className="h-6 w-6 focus-2-inset-veryDark"
               onClick={() => {
                 // setLoggedInState(false);
-                logoutMut()
-                authContext.updateAuthContext({...authContext,
-                isAuthenticated: false,
-                authenticatedUserId: null,
-                accessToken: null
-                })
-                upperUiContext.upperVisDispatch({
-                  type: "MESSAGE_OPEN_LOGOUT",
+                logoutMut();
+                authContext.updateAuthContext({
+                  ...authContext,
+                  isAuthenticated: false,
+                  authenticatedUserId: null,
+                  accessToken: null,
                 });
+                // upperUiContext.upperVisDispatch({
+                //   type: "MESSAGE_OPEN_LOGOUT",
+                // });
+                navigate("/login-register")
               }}
               tabIndex={14}
               aria-label={"Logout"}
@@ -279,7 +283,8 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
               ref={focusOnUpperRightUi_ref_8}
               className="h-6 w-5 focus-2-veryDark"
               onClick={() => {
-                upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
+                // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
+                navigate("/login-register");
               }}
               tabIndex={14}
               aria-label={"Login/register"}
