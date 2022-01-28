@@ -13,6 +13,7 @@ import ColorsSettings from "./UpperUI/ColorsSettings";
 import UpperUI from "./UpperUI/UpperUI";
 import BackgroundSettings from "./UpperUI/BackgroundSettings";
 import GlobalSettings from "./UpperUI/GlobalSettings";
+import LoginRegister from "../components/AuthRoutes/LoginRegister";
 import Profile from "./UpperUI/Profile";
 import ModalWrap from "./UpperUI/ModalWrap";
 
@@ -353,14 +354,14 @@ function Main({ globalSettings }: Props): JSX.Element {
                         />
                       </ModalWrap>
                     )}
-                    {upperVisState.profileVis && (
+                    {/* {upperVisState.profileVis && (
                       <ModalWrap globalSettings={globalSettings}>
                         <Profile
                           globalSettings={globalSettings}
                           {...paddingProps}
                         />
                       </ModalWrap>
-                    )}
+                     )} */}
                     <UpperUI />
                     <Grid
                       setTabType={setTabType}
@@ -375,7 +376,7 @@ function Main({ globalSettings }: Props): JSX.Element {
               <Route
                 path="login-register"
                 element={
-                  <Profile
+                  <LoginRegister
                     mainPaddingRight={paddingRight}
                     scrollbarWidth={scrollbarWidth}
                     globalSettings={globalSettings}

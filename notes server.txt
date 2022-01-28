@@ -112,6 +112,7 @@ change everywhere!!
 82. uninstall react-tracked
 83. mainWrapper - too many or not enough?
 84. user exp not perfect when logging out? flickering
+85. Profile & LoginRegister doubled components
 
 JWT logic: 
 
