@@ -94,6 +94,10 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
 
   let payload = null;
 
+  // console.log(payload);
+  // console.log("payload");
+  
+
   try {
     // payload = jwt.verify(token, "secretKeyForRefreshToken");
     payload = jwt.verify(token, process.env.REFRESH);
@@ -126,6 +130,8 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
   }
 
   sendRefreshToken(res, createRefreshToken(user));
+
+
 
   return res.send({
     ok: true,
@@ -314,7 +320,7 @@ app.get("/favicon/:faviconUrl", (req: Request, res: Response) => {
   let fetchFavicon = faviconFetch({
     uri: `${decodeURIComponent(req.params.faviconUrl)}`,
   });
-  console.log(fetchFavicon);
+  // console.log(fetchFavicon);
 
   if (fetchFavicon) {
     res.status(201).json({

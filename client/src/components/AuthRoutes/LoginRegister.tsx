@@ -143,9 +143,9 @@ function LoginRegister({
         authContext.updateAuthContext({
           ...authContext,
           isAuthenticated: true,
-          authenticatedUserId: res.data.userId,
+          authenticatedUserId: res.data.loginMutation.userId,
           // authenticatedUserId: res.data.login.userId,
-          accessToken: res.data.token,
+          accessToken: res.data.loginMutation.token,
           // accessToken: res.data.login.token,
           // token: res.data.login.token,
         });

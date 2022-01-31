@@ -69,6 +69,10 @@ export const loginMutationField = {
 
     const token = createAccessToken(user);
 
+    // console.log("token");
+    // console.log(token);
+    
+
     return { userId: user.id, token: token };
   },
 };

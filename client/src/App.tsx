@@ -61,8 +61,10 @@ function App() {
 
     console.log("authContext.isAuthenticated");
     console.log(authContext.isAuthenticated);
+    console.log(authContext.authenticatedUserId);
+    console.log(authContext.accessToken);
     
-  }, [authContext.isAuthenticated])
+  }, [authContext])
 
   const client = createClient({
     url: "http://localhost:4000/graphql",
