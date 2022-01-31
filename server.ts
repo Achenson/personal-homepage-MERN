@@ -104,7 +104,8 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
   } catch (err) {
     console.log(err);
     console.log("refresh token error2");
-    return res.send({ ok: false, accessToken: "" });
+    // return res.send({ ok: false, accessToken: "" });
+    return res.send({ ok: false, accessToken: null, userId: null });
   }
 
   // token is valid
@@ -114,7 +115,8 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
 
   if (!user) {
     console.log("refresh token error3");
-    return res.send({ ok: false, accessToken: "" });
+    // return res.send({ ok: false, accessToken: "" });
+    return res.send({ ok: false, accessToken: null, userId: null });
   }
 
   // revoking tokens: tokenVersion == 0 when creating user
@@ -126,7 +128,8 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
   if (user.tokenVersion !== payload.tokenVersion) {
     console.log("invalid tokenVersion");
 
-    return res.send({ ok: false, accessToken: "", userId: "" });
+    // return res.send({ ok: false, accessToken: "", userId: "" });
+    return res.send({ ok: false, accessToken: null, userId: null });
   }
 
   sendRefreshToken(res, createRefreshToken(user));

@@ -131,8 +131,8 @@ function App() {
 
           refreshToken();
 
-          function refreshToken() {
-            fetch(`${refreshTokenUri}`, {
+         async function refreshToken() {
+           return fetch(`${refreshTokenUri}`, {
               method: "POST",
               credentials: "include",
             })
@@ -155,6 +155,7 @@ function App() {
                 });
 
                 // accessToken will be an empty string in case of failure!!
+                
                 return { accessToken: res.accessToken as string };
               });
           }

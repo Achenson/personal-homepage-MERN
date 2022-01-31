@@ -269,6 +269,7 @@ export const LoginMutation = `
     loginMutation(email_or_name: $email_or_name, password: $password) {
       userId
       token
+      error
     }
   }
 `;

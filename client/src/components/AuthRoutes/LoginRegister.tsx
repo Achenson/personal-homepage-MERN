@@ -110,19 +110,19 @@ function LoginRegister({
         console.log(res.data.loginMutation);
         
       
-        if (res.data.loginMutation.token === "User does not exist!") {
+        if (res.data.loginMutation.error === "User does not exist!") {
         // if (res.data.login.token === "User does not exist!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
-          console.log(res.data.token);
-          setLoginErrorMessage(`${res.data.token}`);
+          console.log(res.data.loginMutation.error);
+          setLoginErrorMessage(`${res.data.loginMutation.error}`);
           return;
         }
 
-        if (res.data.loginMutation.token === "Password is incorrect!") {
+        if (res.data.loginMutation.error === "Password is incorrect!") {
         // if (res.data.login.token === "Password is incorrect!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
-          console.log(res.data.token);
-          setLoginErrorMessage(`${res.data.token}`);
+          console.log(res.data.loginMutation.error);
+          setLoginErrorMessage(`${res.data.loginMutation.error}`);
           return;
         }
 

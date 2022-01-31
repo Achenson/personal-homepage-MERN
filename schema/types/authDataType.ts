@@ -12,7 +12,8 @@ export interface AuthData_i {
 
 export const AuthDataField = {
   userId: { type: GraphQLID },
-  token: { type: GraphQLString },
+  token: { type: GraphQLString},
+  error: {type: GraphQLString}
 };
 
 export const AuthDataType = new GraphQLObjectType({
