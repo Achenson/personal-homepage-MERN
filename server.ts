@@ -89,7 +89,7 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
   const token = req.cookies.jid;
 
   if (!token) {
-    return res.send({ ok: false, accessToken: "" });
+    return res.send({ ok: false, accessToken: null, userId: null });
   }
 
   let payload = null;
