@@ -17,8 +17,8 @@ import LoginRegister from "../components/AuthRoutes/LoginRegister";
 import Profile from "./UpperUI/Profile";
 import ModalWrap from "./UpperUI/ModalWrap";
 
-import Login from "./AuthRoutes/Login";
-import Register from "./AuthRoutes/Register";
+import Login from "./AuthRoutes/Login_TO_CANCEL";
+import Register from "./AuthRoutes/Register_TO_CANCEL";
 
 // import { useGlobalSettings } from "../state/hooks/defaultSettingsHooks";
 // import { useBackgroundColor } from "../state/hooks/colorHooks";
@@ -29,7 +29,7 @@ import { useWindowSize } from "../utils/funcs and hooks/useWindowSize";
 import { UpperUiContext } from "../context/upperUiContext";
 import { DbContext } from "../context/dbContext";
 import { BackgroundImgContext } from "../context/backgroundImgContext";
-import { AuthContext } from "../context/authContext";
+import { useAuthContext } from "../context/authContext";
 
 import { SettingsDatabase_i } from "../../../schema/types/settingsType";
 import { TabsQuery, BookmarksQuery } from "../graphql/graphqlQueries";
@@ -46,12 +46,15 @@ import {
 } from "../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../schema/types/tabType";
+import PublicRoute from "./AuthRoutes/PublicRoute";
 
 interface Props {
   globalSettings: SettingsDatabase_i;
 }
 
 function Main({ globalSettings }: Props): JSX.Element {
+  const authContext = useAuthContext();
+
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
   const backgroundColor = globalSettings.backgroundColor;
@@ -373,16 +376,38 @@ function Main({ globalSettings }: Props): JSX.Element {
                   </main>
                 }
               />
+              {/* <CustomRoute
+                isAuthenticated={authContext.isAuthenticated}
+                path="/login-register"
+                component={LoginRegister}
+              /> */}
+
               <Route
-                path="login-register"
+                // isAuthenticated={authContext.isAuthenticated}
+                path="/login-register"
                 element={
-                  <LoginRegister
-                    mainPaddingRight={paddingRight}
-                    scrollbarWidth={scrollbarWidth}
-                    globalSettings={globalSettings}
-                  />
+                  // not possible to access if logged in!
+                  <PublicRoute isAuthenticated={authContext.isAuthenticated}>
+                    <LoginRegister
+                      mainPaddingRight={paddingRight}
+                      scrollbarWidth={scrollbarWidth}
+                      globalSettings={globalSettings}
+                    />
+                  </PublicRoute>
                 }
               />
+
+              {/* <Route
+                  path="login-register"
+                  element={
+                    <LoginRegister
+                      mainPaddingRight={paddingRight}
+                      scrollbarWidth={scrollbarWidth}
+                      globalSettings={globalSettings}
+                    />
+                  }
+                /> */}
+
               {/* <Route path="invoices" element={<Invoices />} /> */}
               {/* </Route> */}
             </Routes>

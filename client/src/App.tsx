@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import { DndProvider } from "react-dnd";
 import { DndProvider } from "react-dnd-multi-backend";
 import HTML5toTouch from "react-dnd-multi-backend/dist/esm/HTML5toTouch";
@@ -55,6 +55,14 @@ const queryClient = new QueryClient();
 
 function App() {
   const authContext = useAuthContext();
+
+  useEffect( () => {
+
+
+    console.log("authContext.isAuthenticated");
+    console.log(authContext.isAuthenticated);
+    
+  }, [authContext.isAuthenticated])
 
   const client = createClient({
     url: "http://localhost:4000/graphql",
