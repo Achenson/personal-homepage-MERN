@@ -210,6 +210,7 @@ function Main({ globalSettings }: Props): JSX.Element {
 
   const [tabResults, reexecuteTabs] = useQuery({
     query: TabsQuery,
+    // variables: { userId: authContext.isAuthenticated ? authContext.authenticatedUserId : testUserId },
     variables: { userId: testUserId },
     // requestPolicy: 'cache-and-network',
   });

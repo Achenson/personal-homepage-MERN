@@ -117,7 +117,7 @@ function App() {
               } catch {
                 refreshToken();
               }
-
+              // returning an authState
               return { accessToken };
             }
             return null;
@@ -125,9 +125,13 @@ function App() {
 
           /**
            * the following code gets executed when an auth error has occurred
+           * (in case the authState is true but an error occurred in didAuthError  ??? check)
            * we should refresh the token if possible and return a new auth state
            * If refresh fails, we should log out
            **/
+
+          console.log("possible auth error has occurred?");
+          
 
           refreshToken();
 
@@ -154,11 +158,15 @@ function App() {
                      */
                 });
 
-                // accessToken will be an empty string in case of failure!!
+                // accessToken will be an empty string in case of failure!! ,- still true?
                 
                 return { accessToken: res.accessToken as string };
               });
           }
+
+          console.log("authContextaccessToken");
+          console.log(authContext.accessToken);
+          
 
           return null;
         },

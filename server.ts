@@ -18,6 +18,7 @@ import User = require('./mongoModels/userSchema')
 const createAccessToken = require("./schema/middleware/accessToken");
 const createRefreshToken = require("./schema/middleware/refreshToken");
 const sendRefreshToken = require("./schema/middleware/sendRefreshToken");
+const isAuth = require("./schema/middleware/isAuth");
 
 
 // const BackgroundImgSchema = require("../../mongoModels/BackgroundImgSchema");
@@ -41,6 +42,7 @@ const app = express();
 const port = 4000;
 
 import { NextFunction, Request, Response } from "express";
+import { addPath } from "graphql/jsutils/Path";
 
 // favicon test
 /* let fetchTest1 = faviconFetch({ hostname: "wikipedia.org" });
@@ -75,8 +77,13 @@ app.use(
   })
 );
 
+app.use(isAuth);
+
+
 //  parsing cookie only in the context of that particular route
 app.use("/refresh_token", cookieParser())
+
+
 
 app.post("/refresh_token", async (req: Request, res: Response) => {
   // 1. testing sending test cookie in request using postman
@@ -379,10 +386,6 @@ app.post(site url) {
 
 
 }
-
-
-
-
 
 */
 

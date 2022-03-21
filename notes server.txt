@@ -115,6 +115,8 @@ change everywhere!!
 85. Profile & LoginRegister doubled components
 86. change initial load to localhost3000/ !
 87. auth error - no user or no password - shouln't be separate errors!
+88. isAuth -> ts errors
+89. deleting all data when a user is deleted! done already? check
 
 JWT logic: 
 
