@@ -243,6 +243,10 @@ app.post(
   // upload.single("backgroundImg"),
   (req: any, res: Response) => {
 
+    console.log("req.isAuth post");
+    console.log(req.isAuth);
+    
+
 
     backgroundImgUpload(req, res, function (multerErr) {
       if (multerErr) {

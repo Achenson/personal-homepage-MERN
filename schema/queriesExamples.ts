@@ -119,7 +119,7 @@ mutation {
 
 // not returning anything??
 mutation {
-  addUser(name: "John3", email: "test@test", password: "test") {
+  addUser(name: "test", email: "test@test", password: "test") {
     id
     name
     email

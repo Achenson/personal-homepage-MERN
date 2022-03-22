@@ -18,6 +18,8 @@ import Message from "../UpperUI/Message";
 // import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { useDbContext } from "../../context/dbContext";
+import { useAuthContext } from "../../context/authContext";
+
 import { TabsQuery } from "../../graphql/graphqlQueries";
 import { SettingsQuery } from "../../graphql/graphqlQueries";
 
@@ -39,20 +41,28 @@ function Column({
   colNumber,
   setTabType,
   breakpoint,
-  // tabs,
-}: Props): JSX.Element {
+}: // tabs,
+Props): JSX.Element {
   // const columnsColors = useColumnsColors((state) => state, shallow);
   // const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);
 
   // const tabs = useTabs((store) => store.tabs);
   // const globalSettings = useGlobalSettings((state) => state, shallow);
+
   const tabs = useDbContext().tabs;
 
   const upperUiContext = useUpperUiContext();
+  const authContext = useAuthContext();
+
+  let userIdOrDemoId: string;
+  userIdOrDemoId =
+    authContext.authenticatedUserId && authContext.isAuthenticated
+      ? authContext.authenticatedUserId
+      : testUserId;
 
   const [settingsResults] = useQuery({
     query: SettingsQuery,
-    variables: { userId: testUserId },
+    variables: { userId: userIdOrDemoId},
   });
 
   const { data, fetching, error } = settingsResults;

@@ -117,6 +117,10 @@ change everywhere!!
 87. auth error - no user or no password - shouln't be separate errors!
 88. isAuth -> ts errors
 89. deleting all data when a user is deleted! done already? check
+90. delete account option?
+91. some img should be created as a custom image in the moment new user is created?
+
+6239ceb924aee400c5bc84ce"
 
 JWT logic: 
 

@@ -8,6 +8,8 @@ import Bookmark_newAndEdit from "../Shared/Bookmark_newAndEdit";
 import { ReactComponent as PencilSmallSVG } from "../../svgs/pencilSmall.svg";
 import { ReactComponent as TrashSmallSVG } from "../../svgs/trashSmall.svg";
 
+import { useAuthContext } from "../../context/authContext";
+
 import { testUserId } from "../../state/data/testUserId";
 
 // import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
@@ -82,11 +84,11 @@ function SingleBookmark({
 Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
-  
   const bookmarks = useDbContext().bookmarks;
   const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
   const tabs = useDbContext().tabs;
 
+  const authContext = useAuthContext();
   const tabContext = useTabContext();
 
   const setFocusedTabState = useTabs((state) => state.setFocusedTabState);
@@ -113,6 +115,12 @@ Props): JSX.Element {
   const [testMutationResult, testMutation] = useMutation<any, any>(
     TestMutation
   );
+
+  let userIdOrDemoId: string;
+  userIdOrDemoId =
+    authContext.authenticatedUserId && authContext.isAuthenticated
+      ? authContext.authenticatedUserId
+      : testUserId;
 
   // const [isFaviconDefault, setIsFaviconDefault] = useState(false);
 
@@ -178,11 +186,10 @@ Props): JSX.Element {
                     // setIsFaviconDefault(b=>!b)
                     console.log("clicked");
                     console.log(singleBookmarkData.defaultFaviconFallback);
-                    
-                    
+
                     changeBookmark({
                       ...singleBookmarkData,
-                      userId: testUserId,
+                      userId: userIdOrDemoId,
                       defaultFaviconFallback:
                         !singleBookmarkData.defaultFaviconFallback,
                     });
@@ -211,7 +218,7 @@ Props): JSX.Element {
                     console.log(singleBookmarkData.defaultFaviconFallback);
                     changeBookmark({
                       ...singleBookmarkData,
-                      userId: testUserId,
+                      userId: userIdOrDemoId,
                       defaultFaviconFallback:
                         !singleBookmarkData.defaultFaviconFallback,
                     });

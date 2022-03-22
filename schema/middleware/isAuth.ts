@@ -8,18 +8,22 @@ interface ExpressReqResNext {
     next: NextFunction
   }
 
-module.exports = ({req, res, next}: ExpressReqResNext) => {
+module.exports = (req: Request, res: Response, next: NextFunction) => {
   // headers are being set in indes.js on the client side!!!
   // and in there the access token is being taken from the redux store
+
+  // console.log("req isAuth");
+  // console.log(req);
+  
 
   if(req) {
     
   const authHeader = req.get("Authorization");
-  console.log(req.headers);
+  // console.log(req.headers);
   // const authHeader = req.headers.authorisation;
 
-  console.log("authHeader");
-  console.log(authHeader);
+  // console.log("authHeader");
+  // console.log(authHeader);
 
   // checking it there is in authorisation field in the incoming request
   if (!authHeader) {
@@ -54,11 +58,18 @@ module.exports = ({req, res, next}: ExpressReqResNext) => {
   req.isAuth = true;
   // @ts-ignore
   req.userId = decodedToken.userId;
+
+  console.log("req.isAuth");
   // @ts-ignore
   console.log(req.isAuth);
 
-  next();
+  return next();
   }
+
+  //  console.log("req.isAuth");
+  // // @ts-ignore
+  // console.log(req.isAuth);
+  
 
   next()
 };

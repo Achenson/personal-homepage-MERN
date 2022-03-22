@@ -55,6 +55,12 @@ interface Props {
 function Main({ globalSettings }: Props): JSX.Element {
   const authContext = useAuthContext();
 
+  let userIdOrDemoId: string;
+  userIdOrDemoId =
+    authContext.authenticatedUserId && authContext.isAuthenticated
+      ? authContext.authenticatedUserId
+      : testUserId;
+
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
   const backgroundColor = globalSettings.backgroundColor;
@@ -175,7 +181,7 @@ function Main({ globalSettings }: Props): JSX.Element {
   };
 
   const { data, status } = useReactQuery(
-    [`backgroundImg_${testUserId}`, backgroundImgKey],
+    [`backgroundImg_${userIdOrDemoId}`, backgroundImgKey],
     fetchBackgroundImg,
     {
       // staleTime: 2000,
@@ -189,7 +195,7 @@ function Main({ globalSettings }: Props): JSX.Element {
 
   async function fetchBackgroundImg() {
     let response = await fetch(
-      "http://localhost:4000/background_img/" + testUserId
+      "http://localhost:4000/background_img/" + userIdOrDemoId
     );
 
     if (!response.ok) {
@@ -211,7 +217,7 @@ function Main({ globalSettings }: Props): JSX.Element {
   const [tabResults, reexecuteTabs] = useQuery({
     query: TabsQuery,
     // variables: { userId: authContext.isAuthenticated ? authContext.authenticatedUserId : testUserId },
-    variables: { userId: testUserId },
+    variables: { userId: userIdOrDemoId },
     // requestPolicy: 'cache-and-network',
   });
 
@@ -223,7 +229,7 @@ function Main({ globalSettings }: Props): JSX.Element {
 
   const [bookmarkResults, reexecuteBookmarks] = useQuery({
     query: BookmarksQuery,
-    variables: { userId: testUserId },
+    variables: { userId: userIdOrDemoId },
     // requestPolicy: 'cache-and-network',
   });
 
