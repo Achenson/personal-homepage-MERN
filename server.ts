@@ -43,6 +43,7 @@ const port = 4000;
 
 import { NextFunction, Request, Response } from "express";
 import { addPath } from "graphql/jsutils/Path";
+import { stripIgnoredCharacters } from "graphql";
 
 // favicon test
 /* let fetchTest1 = faviconFetch({ hostname: "wikipedia.org" });
@@ -169,9 +170,16 @@ app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
 
 let newBackgroundImageName: string;
 
+
+let userIdOrDemoId: string;
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    let dest = "backgroundImgs/" + testUserId + "/";
+
+    // @ts-ignore
+    userIdOrDemoId = req.isAuth ? req.userId : testUserId 
+
+    let dest = "backgroundImgs/" + userIdOrDemoId + "/";
     // mkdirp.sync(dest);
     cb(null, dest);
   },
@@ -234,6 +242,8 @@ app.post(
   "/background_img",
   // upload.single("backgroundImg"),
   (req: any, res: Response) => {
+
+
     backgroundImgUpload(req, res, function (multerErr) {
       if (multerErr) {
         if (multerErr instanceof multer.MulterError) {
@@ -248,12 +258,12 @@ app.post(
       }
 
       let newBackgroundImg = {
-        userId: testUserId,
+        userId: userIdOrDemoId,
         backgroundImg: req.file.path,
       };
 
       BackgroundImgSchema.replaceOne(
-        { userId: testUserId },
+        { userId: userIdOrDemoId },
         newBackgroundImg,
         { upsert: true },
         (err: Error, backgroundImgProduct: BackgroundImg) => {
@@ -267,7 +277,7 @@ app.post(
             return;
           }
 
-          let dest = "backgroundImgs/" + testUserId + "/";
+          let dest = "backgroundImgs/" + userIdOrDemoId + "/";
 
           fs.readdirSync(dest).forEach((file: string) => {
             // console.log(file);
@@ -391,7 +401,7 @@ app.post(site url) {
 
 function removeBackgroundImg(fileName: string) {
   fs.unlink(
-    path.join("backgroundImgs/" + testUserId + "/", fileName),
+    path.join("backgroundImgs/" + userIdOrDemoId + "/", fileName),
     (err: any) => {
       if (err) console.error(err);
     }
