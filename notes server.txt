@@ -119,6 +119,7 @@ change everywhere!!
 89. deleting all data when a user is deleted! done already? check
 90. delete account option?
 91. some img should be created as a custom image in the moment new user is created?
+92. currently -> not authenticated -> test user from db is used -> change it to client only demo
 
 6239ceb924aee400c5bc84ce"
 

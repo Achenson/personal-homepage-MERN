@@ -238,9 +238,9 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                 ref={focusOnUpperRightUi_xs_ref_8}
                 className="h-6 w-5 focus-2-veryDark"
                 style={{ width: "22px" }}
-                onClick={() => {
+                onClick={async() => {
                   // setLoggedInState(false);
-                  logoutMut()
+                  await logoutMut()
                   authContext.updateAuthContext({...authContext,
                     isAuthenticated: false,
                     authenticatedUserId: null,

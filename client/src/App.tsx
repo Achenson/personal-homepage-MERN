@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
+import { useMutation } from "urql";
 // import { DndProvider } from "react-dnd";
 import { DndProvider } from "react-dnd-multi-backend";
 import HTML5toTouch from "react-dnd-multi-backend/dist/esm/HTML5toTouch";
@@ -15,6 +16,8 @@ import { makeOperation } from "@urql/core";
 import jwtDecode from "jwt-decode";
 
 import { useAuthContext } from "./context/authContext";
+
+import { LogoutMutation } from "./graphql/graphqlMutations";
 
 import MainWrapper from "./components/MainWrapper";
 
@@ -55,8 +58,9 @@ const queryClient = new QueryClient();
 
 function App() {
   const authContext = useAuthContext();
+  const [logoutMutResult, logoutMut] = useMutation<any, any>(LogoutMutation);
 
-  useEffect( () => {
+  /*   useEffect( () => {
 
 
     console.log("authContext.isAuthenticated");
@@ -65,10 +69,26 @@ function App() {
     console.log(authContext.accessToken);
     
   }, [authContext])
+ */
 
-  const client = createClient({
-    url: "http://localhost:4000/graphql",
-    exchanges: [
+  const client = useMemo(() => {
+
+   refreshToken()
+
+  //  !!!! later -> implement logic to show demo version if
+  // not authenticated -> do it more like wiki-speed-typing app
+   /*  if (!authContext.isAuthenticated) {
+      // return null;
+    logoutMut()
+    } */
+
+    console.log("authContext.isAuthenticated");
+    console.log(authContext.isAuthenticated);
+    
+
+    return createClient({ 
+      url: "http://localhost:4000/graphql",
+      exchanges: [
       dedupExchange,
       cacheExchange,
       authExchange({
@@ -135,34 +155,7 @@ function App() {
 
           refreshToken();
 
-         async function refreshToken() {
-           return fetch(`${refreshTokenUri}`, {
-              method: "POST",
-              credentials: "include",
-            })
-              .then((res) => res.json())
-              .then((res) => {
-                console.log(res);
-
-                // (if case of failure, this will be a logout logic)
-                authContext.updateAuthContext({
-                  ...authContext,
-                  isAuthenticated: res.ok,
-                  accessToken: res.accessToken,
-                  authenticatedUserId: res.userId,
-                  /* isAuthenticated: authContext.isAuthenticated,
-                    authenticatedUserId: authContext.authenticatedUserId,
-                    accessToken: authContext.accessToken,
-                    loginNotification: authContext.loginNotification,
-                    loginErrorMessage: authContext.loginErrorMessage
-                     */
-                });
-
-                // accessToken will be an empty string in case of failure!! ,- still true?
-                
-                return { accessToken: res.accessToken as string };
-              });
-          }
+  
 
           console.log("authContextaccessToken");
           console.log(authContext.accessToken);
@@ -177,8 +170,52 @@ function App() {
       // !!!! whitout this line cookie will not be set clientside
       credentials: "include",
     },
-  });
+    });
 
+
+
+   async function refreshToken() {
+      return fetch(`${refreshTokenUri}`, {
+         method: "POST",
+         credentials: "include",
+       })
+         .then((res) => res.json())
+         .then((res) => {
+           console.log(res);
+
+           // (if case of failure, this will be a logout logic)
+           authContext.updateAuthContext({
+             ...authContext,
+             isAuthenticated: res.ok,
+             accessToken: res.accessToken,
+             authenticatedUserId: res.userId,
+             /* isAuthenticated: authContext.isAuthenticated,
+               authenticatedUserId: authContext.authenticatedUserId,
+               accessToken: authContext.accessToken,
+               loginNotification: authContext.loginNotification,
+               loginErrorMessage: authContext.loginErrorMessage
+                */
+           });
+
+           // accessToken will be an empty string in case of failure!! ,- still true?
+           
+           return { accessToken: res.accessToken as string };
+         });
+     }
+
+
+
+
+  }, [authContext.isAuthenticated]);
+
+  // check if needed!!!!
+ /*  if (!client) {
+    console.log("no client");
+    return null;
+  }
+ */
+ 
+ 
   return (
     <Provider value={client}>
       <QueryClientProvider client={queryClient}>

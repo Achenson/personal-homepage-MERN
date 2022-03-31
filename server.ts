@@ -78,7 +78,7 @@ app.use(
   })
 );
 
-app.use(isAuth);
+// app.use(isAuth);
 
 
 //  parsing cookie only in the context of that particular route
@@ -91,6 +91,8 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
   // cookies -> add domain: localhost -> coookie name: jid
   // console.log(req.headers);
 
+  console.log("refresh token app.post");
+  
   // testing sending cookie after cookie-parser is applied
   console.log(req.cookies);
 
@@ -176,6 +178,13 @@ let userIdOrDemoId: string;
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
 
+    const authHeader = req.get("Authorization");
+    // console.log(req.headers);
+    // const authHeader = req.headers.authorisation;
+  
+    console.log("authHeader storage");
+    console.log(authHeader);
+
     // @ts-ignore
     userIdOrDemoId = req.isAuth ? req.userId : testUserId 
 
@@ -245,6 +254,16 @@ app.post(
 
     console.log("req.isAuth post");
     console.log(req.isAuth);
+
+    const authHeader = req.get("Authorization");
+    // console.log(req.headers);
+    // const authHeader = req.headers.authorisation;
+  
+    console.log("authHeader post");
+    console.log(authHeader);
+    console.log("req.headers backgroundImg");
+    console.log(req.headers);
+  // const authHeader = req.headers.authorisation;
     
 
 

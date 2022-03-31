@@ -186,7 +186,7 @@ function Grid({
   useEffect(() => {
     deleteEmptyTabs();
     async function deleteEmptyTabs() {
-      console.log(tabDeletingPause);
+      // console.log(tabDeletingPause);
 
       if (tabDeletingPause) {
         return;
