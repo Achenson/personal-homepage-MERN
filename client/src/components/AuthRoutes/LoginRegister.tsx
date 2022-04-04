@@ -10,7 +10,8 @@ import LoginRegister_input from "./LoginRegister_input";
 // import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { useAuthContext } from "../../context/authContext";
+// import { useAuthContext } from "../../context/authContext";
+import { useAuth } from "../../state/hooks/useAuth";
 
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
@@ -42,7 +43,7 @@ function LoginRegister({
   // const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
 
   const upperUiContext = useUpperUiContext();
-  const authContext = useAuthContext();
+  const authContext = useAuth();
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
 
@@ -140,6 +141,8 @@ function LoginRegister({
 
         setLoginErrorMessage(null);
 
+        
+
         authContext.updateAuthContext({
           ...authContext,
           isAuthenticated: true,
@@ -149,6 +152,10 @@ function LoginRegister({
           // accessToken: res.data.login.token,
           // token: res.data.login.token,
         });
+
+
+
+
         // !!! display message that the login was successful
         // setLoginNotification(null);
 

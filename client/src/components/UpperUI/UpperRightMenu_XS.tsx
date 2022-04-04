@@ -31,6 +31,7 @@ interface Props {
 }
 
 function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
+  const logout = useAuth((state) => state.logout);
   let navigate = useNavigate();
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -243,12 +244,12 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                   // setLoggedInState(false);
                   await logoutMut()
 
-
-                  authContext.updateAuthContext({...authContext,
-                    isAuthenticated: false,
-                    authenticatedUserId: null,
-                    accessToken: null
-                    })
+                  logout()
+                  // authContext.updateAuthContext({...authContext,
+                  //   isAuthenticated: false,
+                  //   authenticatedUserId: null,
+                  //   accessToken: null
+                  //   })
 
 
                     

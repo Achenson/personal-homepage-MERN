@@ -22,7 +22,8 @@ import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { AuthContext, useAuthContext } from "../../context/authContext";
+// import { AuthContext, useAuthContext } from "../../context/authContext";
+import { useAuth } from "../../state/hooks/useAuth";
 
 import { LogoutMutation } from "../../graphql/graphqlMutations";
 
@@ -35,6 +36,7 @@ interface Props {
 
 function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   let navigate = useNavigate();
+  const logout = useAuth((state) => state.logout);
 
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -47,7 +49,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   const setFocusedTabState = useTabs((state) => state.setFocusedTabState);
 
   const upperUiContext = useUpperUiContext();
-  const authContext = useAuthContext();
+  const authContext = useAuth();
 
   const colLimit = globalSettings.limitColGrowth;
 
@@ -259,12 +261,15 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
               onClick={async () => {
                 // setLoggedInState(false);
                 await logoutMut();
-                authContext.updateAuthContext({
-                  ...authContext,
-                  isAuthenticated: false,
-                  authenticatedUserId: null,
-                  accessToken: null,
-                });
+                
+                logout()
+
+                // authContext.updateAuthContext({
+                //   ...authContext,
+                //   isAuthenticated: false,
+                //   authenticatedUserId: null,
+                //   accessToken: null,
+                // });
                 // upperUiContext.upperVisDispatch({
                 //   type: "MESSAGE_OPEN_LOGOUT",
                 // });
