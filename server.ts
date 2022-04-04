@@ -78,7 +78,7 @@ app.use(
   })
 );
 
-// app.use(isAuth);
+app.use(isAuth);
 
 
 //  parsing cookie only in the context of that particular route
@@ -182,7 +182,7 @@ const storage = multer.diskStorage({
     // console.log(req.headers);
     // const authHeader = req.headers.authorisation;
   
-    console.log("authHeader storage");
+    console.log("POST authHeader storage POST");
     console.log(authHeader);
 
     // @ts-ignore
@@ -252,17 +252,17 @@ app.post(
   // upload.single("backgroundImg"),
   (req: any, res: Response) => {
 
-    console.log("req.isAuth post");
+    console.log("POST req.isAuth POST");
     console.log(req.isAuth);
 
     const authHeader = req.get("Authorization");
     // console.log(req.headers);
     // const authHeader = req.headers.authorisation;
   
-    console.log("authHeader post");
+    console.log("POST authHeader POST");
     console.log(authHeader);
-    console.log("req.headers backgroundImg");
-    console.log(req.headers);
+    // console.log("req.headers backgroundImg");
+    // console.log(req.headers);
   // const authHeader = req.headers.authorisation;
     
 

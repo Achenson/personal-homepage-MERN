@@ -13,7 +13,7 @@ module.exports = (req: Request, res: Response, next: NextFunction) => {
   // and in there the access token is being taken from the redux store
 
   // console.log("req isAuth");
-  // console.log(req);
+  // console.log(req.headers);
   
 
   if(req) {
@@ -21,8 +21,8 @@ module.exports = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.get("Authorization");
   // console.log(req.headers);
   // const authHeader = req.headers.authorisation;
-  console.log("req.headers isAuth");
-    console.log(req.headers);
+  // console.log("req.headers isAuth");
+    // console.log(req.headers);
 
   console.log("authHeader isAuth");
   console.log(authHeader);
@@ -37,6 +37,7 @@ module.exports = (req: Request, res: Response, next: NextFunction) => {
     // exiting function but the request continues
     return next();
   }
+
   // signalling which type of authentication we are using
   const token = authHeader.split(" ")[1]; // [[Authorization]]: Bearer faksldfasdf[tokenvalue]
   if (!token || token === "") {
@@ -67,13 +68,14 @@ module.exports = (req: Request, res: Response, next: NextFunction) => {
   // @ts-ignore
   console.log(req.isAuth);
 
-  return next();
+  next();
   }
 
   //  console.log("req.isAuth");
   // // @ts-ignore
   // console.log(req.isAuth);
   
-
-  next()
+  if (!req) {
+    next()
+  }
 };

@@ -60,7 +60,7 @@ function App() {
   const authContext = useAuthContext();
   const [logoutMutResult, logoutMut] = useMutation<any, any>(LogoutMutation);
 
-  /*   useEffect( () => {
+  useEffect( () => {
 
 
     console.log("authContext.isAuthenticated");
@@ -68,8 +68,8 @@ function App() {
     console.log(authContext.authenticatedUserId);
     console.log(authContext.accessToken);
     
-  }, [authContext])
- */
+  }, [authContext.isAuthenticated, authContext.authenticatedUserId, authContext.accessToken])
+ 
 
   const client = useMemo(() => {
 
@@ -95,8 +95,14 @@ function App() {
         addAuthToOperation: ({ authState, operation }: AuthToOperation) => {
           //if the token isn't in the auth state, return the operation without changes
           if (!authState || !authState.accessToken) {
+            console.log("urql RETURN empty OPERATION");
+            
             return operation;
           }
+
+          console.log("urql RETURN HEADERS with Authorization");
+          console.log("authState.accessToken");
+          
 
           const fetchOptions =
             typeof operation.context.fetchOptions === "function"
@@ -120,6 +126,8 @@ function App() {
 
           // "We check that the authState doesn't already exist (this indicates that it is the first time
           // this exchange is executed and not an auth failure) "
+          console.log("getAuth runs");
+          
           if (!authState) {
             // const accessToken = localStorage.getItem("token");
             const accessToken = authContext.accessToken;
@@ -153,7 +161,7 @@ function App() {
           console.log("possible auth error has occurred?");
           
 
-          refreshToken();
+         refreshToken();
 
   
 
@@ -181,6 +189,8 @@ function App() {
        })
          .then((res) => res.json())
          .then((res) => {
+           console.log("refreshToken run");
+           
            console.log(res);
 
            // (if case of failure, this will be a logout logic)
