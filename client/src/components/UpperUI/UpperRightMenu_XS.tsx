@@ -18,7 +18,8 @@ import { ReactComponent as AddRssSVG } from "../../svgs/rss.svg";
 import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { AuthContext, useAuthContext } from "../../context/authContext";
+// import { AuthContext, useAuthContext } from "../../context/authContext";
+import { useAuth } from "../../state/hooks/useAuth";
 
 import {LogoutMutation } from "../../graphql/graphqlMutations";
 
@@ -42,7 +43,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   const colLimit = globalSettings.limitColGrowth;
 
   const upperUiContext = useUpperUiContext();
-  const authContext = useAuthContext();
+  const authContext = useAuth();
 
   let focusOnUpperRightUi_xs_ref_1 = useRef<HTMLButtonElement>(null);
   let focusOnUpperRightUi_xs_ref_2 = useRef<HTMLButtonElement>(null);
@@ -241,11 +242,16 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                 onClick={async() => {
                   // setLoggedInState(false);
                   await logoutMut()
+
+
                   authContext.updateAuthContext({...authContext,
                     isAuthenticated: false,
                     authenticatedUserId: null,
                     accessToken: null
                     })
+
+
+                    
                   // upperUiContext.upperVisDispatch({
                   //   type: "MESSAGE_OPEN_LOGOUT",
                   // });

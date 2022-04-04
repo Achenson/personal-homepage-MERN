@@ -44,6 +44,7 @@ function Profile({
 
   const upperUiContext = useUpperUiContext();
   const authContext = useAuth();
+  const loginAttempt = useAuth((state) => state.loginAttempt);
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
 
@@ -142,16 +143,24 @@ function Profile({
         setLoginErrorMessage(null);
 
         
+        
+        loginAttempt(
+          true,
+          res.data.loginMutation.userId,
+          res.data.loginMutation.token
+        );
 
-        authContext.updateAuthContext({
-          ...authContext,
-          isAuthenticated: true,
-          authenticatedUserId: res.data.userId,
-          // authenticatedUserId: res.data.login.userId,
-          accessToken: res.data.token,
-          // accessToken: res.data.login.token,
-          // token: res.data.login.token,
-        });
+        // authContext.updateAuthContext({
+        //   ...authContext,
+        //   isAuthenticated: true,
+        //   authenticatedUserId: res.data.userId,
+        //   // authenticatedUserId: res.data.login.userId,
+        //   accessToken: res.data.token,
+        //   // accessToken: res.data.login.token,
+        //   // token: res.data.login.token,
+        // });
+
+
         // !!! display message that the login was successful
         // setLoginNotification(null);
 
