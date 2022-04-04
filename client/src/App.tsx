@@ -59,6 +59,8 @@ const queryClient = new QueryClient();
 
 function App() {
   const authContext = useAuth();
+
+
   const [logoutMutResult, logoutMut] = useMutation<any, any>(LogoutMutation);
 
   useEffect( () => {
@@ -195,18 +197,25 @@ function App() {
            console.log(res);
 
            // (if case of failure, this will be a logout logic)
-           authContext.updateAuthContext({
-             ...authContext,
-             isAuthenticated: res.ok,
-             accessToken: res.accessToken,
-             authenticatedUserId: res.userId,
-             /* isAuthenticated: authContext.isAuthenticated,
-               authenticatedUserId: authContext.authenticatedUserId,
-               accessToken: authContext.accessToken,
-               loginNotification: authContext.loginNotification,
-               loginErrorMessage: authContext.loginErrorMessage
-                */
-           });
+          //  authContext.updateAuthContext({
+          //    ...authContext,
+          //    isAuthenticated: res.ok,
+          //    accessToken: res.accessToken,
+          //    authenticatedUserId: res.userId,
+          //    /* isAuthenticated: authContext.isAuthenticated,
+          //      authenticatedUserId: authContext.authenticatedUserId,
+          //      accessToken: authContext.accessToken,
+          //      loginNotification: authContext.loginNotification,
+          //      loginErrorMessage: authContext.loginErrorMessage
+          //       */
+          //  });
+
+
+
+           loginAttempt(res.ok, res.userId, res.accessToken)
+
+           // accessToken will be an empty string in case of failure!!
+           return { accessToken: res.accessToken as string };
 
            // accessToken will be an empty string in case of failure!! ,- still true?
            
