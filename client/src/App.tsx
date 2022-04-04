@@ -59,6 +59,7 @@ const queryClient = new QueryClient();
 
 function App() {
   const authContext = useAuth();
+  const loginAttempt = useAuth((state) => state.loginAttempt);
 
 
   const [logoutMutResult, logoutMut] = useMutation<any, any>(LogoutMutation);

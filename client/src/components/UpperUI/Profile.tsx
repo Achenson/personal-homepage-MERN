@@ -10,7 +10,8 @@ import Profile_input from "./Profile_input";
 // import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { useAuthContext } from "../../context/authContext";
+// import { useAuthContext } from "../../context/authContext";
+import { useAuth } from "../../state/hooks/useAuth";
 
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
@@ -42,7 +43,7 @@ function Profile({
   // const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
 
   const upperUiContext = useUpperUiContext();
-  const authContext = useAuthContext();
+  const authContext = useAuth();
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
 
@@ -139,6 +140,8 @@ function Profile({
         // console.log(res);
 
         setLoginErrorMessage(null);
+
+        
 
         authContext.updateAuthContext({
           ...authContext,
