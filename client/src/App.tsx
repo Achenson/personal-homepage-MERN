@@ -15,7 +15,8 @@ import { authExchange } from "@urql/exchange-auth";
 import { makeOperation } from "@urql/core";
 import jwtDecode from "jwt-decode";
 
-import { useAuthContext } from "./context/authContext";
+// import { useAuthContext } from "./context/authContext";
+import { useAuth } from "./state/hooks/useAuth";
 
 import { LogoutMutation } from "./graphql/graphqlMutations";
 
@@ -57,7 +58,7 @@ if (environment === "production") {
 const queryClient = new QueryClient();
 
 function App() {
-  const authContext = useAuthContext();
+  const authContext = useAuth();
   const [logoutMutResult, logoutMut] = useMutation<any, any>(LogoutMutation);
 
   useEffect( () => {

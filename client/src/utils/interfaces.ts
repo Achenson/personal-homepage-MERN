@@ -120,6 +120,15 @@ export interface AuthContext_i extends AuthContextObj_i {
   updateAuthContext: React.Dispatch<React.SetStateAction<AuthContextObj_i>>;
 }
 
+export interface AuthContextZustand_i extends AuthContextObj_i {
+  logout: () => void;
+  loginAttempt: (
+    isAuthenticated: boolean,
+    userId: string,
+    token: string
+  ) => void;
+}
+
 // for Tab
 export interface TabVisState {
   editTabVis: boolean;
