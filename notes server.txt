@@ -171,3 +171,23 @@ urql auth:
 
 login mutation: code from willAuthError won't run!
 central state should be updated after jwt logic is handled??
+
+
+
+
+export interface AuthContextObj_i {
+  isAuthenticated: boolean;
+  authenticatedUserId: null | string;
+  accessToken: null | string;
+  loginNotification: null | string;
+  loginErrorMessage: null | string;
+}
+
+export interface AuthContextZustand_i extends AuthContextObj_i {
+  logout: () => void;
+  loginAttempt: (
+    isAuthenticated: boolean,
+    userId: string,
+    token: string
+  ) => void;
+}
