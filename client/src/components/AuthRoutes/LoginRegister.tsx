@@ -30,8 +30,8 @@ function LoginRegister({
   scrollbarWidth,
   globalSettings,
 }: Props): JSX.Element {
-
   let navigate = useNavigate()
+  const loginAttempt = useAuth((state) => state.loginAttempt);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
@@ -142,16 +142,17 @@ function LoginRegister({
         setLoginErrorMessage(null);
 
         
+        loginAttempt(res.data.ok, res.data.loginMutation.userId, res.data.loginMutation.token)
 
-        authContext.updateAuthContext({
-          ...authContext,
-          isAuthenticated: true,
-          authenticatedUserId: res.data.loginMutation.userId,
-          // authenticatedUserId: res.data.login.userId,
-          accessToken: res.data.loginMutation.token,
-          // accessToken: res.data.login.token,
-          // token: res.data.login.token,
-        });
+        // authContext.updateAuthContext({
+        //   ...authContext,
+        //   isAuthenticated: true,
+        //   authenticatedUserId: res.data.loginMutation.userId,
+        //   // authenticatedUserId: res.data.login.userId,
+        //   accessToken: res.data.loginMutation.token,
+        //   // accessToken: res.data.login.token,
+        //   // token: res.data.login.token,
+        // });
 
 
 

@@ -18,7 +18,8 @@ import Message from "../UpperUI/Message";
 // import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { useDbContext } from "../../context/dbContext";
-import { useAuthContext } from "../../context/authContext";
+// import { useAuthContext } from "../../context/authContext";
+import { useAuth } from "../../state/hooks/useAuth";
 
 import { TabsQuery } from "../../graphql/graphqlQueries";
 import { SettingsQuery } from "../../graphql/graphqlQueries";
@@ -52,7 +53,7 @@ Props): JSX.Element {
   const tabs = useDbContext().tabs;
 
   const upperUiContext = useUpperUiContext();
-  const authContext = useAuthContext();
+  const authContext = useAuth();
 
   let userIdOrDemoId: string;
   userIdOrDemoId =

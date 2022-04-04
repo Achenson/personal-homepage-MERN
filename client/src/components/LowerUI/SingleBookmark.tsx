@@ -8,7 +8,8 @@ import Bookmark_newAndEdit from "../Shared/Bookmark_newAndEdit";
 import { ReactComponent as PencilSmallSVG } from "../../svgs/pencilSmall.svg";
 import { ReactComponent as TrashSmallSVG } from "../../svgs/trashSmall.svg";
 
-import { useAuthContext } from "../../context/authContext";
+// import { useAuthContext } from "../../context/authContext";
+import { useAuth } from "../../state/hooks/useAuth";
 
 import { testUserId } from "../../state/data/testUserId";
 
@@ -88,7 +89,7 @@ Props): JSX.Element {
   const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
   const tabs = useDbContext().tabs;
 
-  const authContext = useAuthContext();
+  const authContext = useAuth();
   const tabContext = useTabContext();
 
   const setFocusedTabState = useTabs((state) => state.setFocusedTabState);

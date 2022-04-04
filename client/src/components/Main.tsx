@@ -29,7 +29,8 @@ import { useWindowSize } from "../utils/funcs and hooks/useWindowSize";
 import { UpperUiContext } from "../context/upperUiContext";
 import { DbContext } from "../context/dbContext";
 import { BackgroundImgContext } from "../context/backgroundImgContext";
-import { useAuthContext } from "../context/authContext";
+// import { useAuthContext } from "../context/authContext";
+import { useAuth } from "../state/hooks/useAuth";
 
 import { SettingsDatabase_i } from "../../../schema/types/settingsType";
 import { TabsQuery, BookmarksQuery } from "../graphql/graphqlQueries";
@@ -53,7 +54,7 @@ interface Props {
 }
 
 function Main({ globalSettings }: Props): JSX.Element {
-  const authContext = useAuthContext();
+  const authContext = useAuth();
 
   let userIdOrDemoId: string;
   userIdOrDemoId =
