@@ -58,3 +58,10 @@ export const SettingsQuery = `query ($userId: ID) {
     colColorImg_4
     }
   }`;
+
+
+  export const BackgroundImgQuery =`query ($userId: ID) {
+    backgroundImg (userId: $userId) {
+      backgroundImg
+    }
+  }`

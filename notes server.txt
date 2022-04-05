@@ -120,6 +120,10 @@ change everywhere!!
 90. delete account option?
 91. some img should be created as a custom image in the moment new user is created?
 92. currently -> not authenticated -> test user from db is used -> change it to client only demo
+93. notes on queries/schema/mongo etc.
+94. Main -> backgroundImgKey -> not needed anymore?
+95. node fetch -> change to v3 -> ESM modules??
+
 
 6239ceb924aee400c5bc84ce"
 

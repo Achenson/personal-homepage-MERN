@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
 // import shallow from "zustand/shallow";
-import { useQuery } from "react-query";
+import { useQuery as useReactQuery } from "react-query";
+// import { useQuery } from "urql";
 
 import SingleRssNews from "./SingleRssNews";
 
@@ -66,7 +67,7 @@ function ReactQuery({
 
   const [pageNumber, setPageNumber] = useState(0);
 
-  const { data, status } = useQuery(`${tabID}`, fetchFeed, {
+  const { data, status } = useReactQuery(`${tabID}`, fetchFeed, {
     // staleTime: 2000,
     // cacheTime: 10,
     onSuccess: () => {

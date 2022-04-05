@@ -1,7 +1,7 @@
 import React, { useState, useReducer, useEffect, Children } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useQuery } from "urql";
-import { useQuery as useReactQuery } from "react-query";
+// import { useQuery as useReactQuery } from "react-query";
 import path from "path";
 
 // import shallow from "zustand/shallow";
@@ -33,7 +33,7 @@ import { BackgroundImgContext } from "../context/backgroundImgContext";
 import { useAuth } from "../state/hooks/useAuth";
 
 import { SettingsDatabase_i } from "../../../schema/types/settingsType";
-import { TabsQuery, BookmarksQuery } from "../graphql/graphqlQueries";
+import { TabsQuery, BookmarksQuery, BackgroundImgQuery } from "../graphql/graphqlQueries";
 
 import { testUserId } from "../state/data/testUserId";
 
@@ -181,39 +181,65 @@ function Main({ globalSettings }: Props): JSX.Element {
     updateCurrentBackgroundImgKey: setBackgroundImgKey,
   };
 
-  const { data, status } = useReactQuery(
-    [`backgroundImg_${userIdOrDemoId}`, backgroundImgKey],
-    fetchBackgroundImg,
-    {
-      // staleTime: 2000,
-      // cacheTime: 10,
-      onSuccess: () => {
-        console.log("data fetched with no problems");
-        // console.log(data);
-      },
-    }
-  );
+  // const { data, status } = useReactQuery(
+  //   [`backgroundImg_${userIdOrDemoId}`, backgroundImgKey],
+  //   fetchBackgroundImg,
+  //   {
+  //     // staleTime: 2000,
+  //     // cacheTime: 10,
+  //     onSuccess: () => {
+  //       console.log("data fetched with no problems");
+  //       // console.log(data);
+  //     },
+  //   }
+  // );
 
-  async function fetchBackgroundImg() {
-    let response = await fetch(
-      "http://localhost:4000/background_img/" + userIdOrDemoId
-    );
+  
+  const [backgroundImgResults, reexecuteBackgroundImg] = useQuery({
+    query: BackgroundImgQuery,
+    // variables: { userId: authContext.isAuthenticated ? authContext.authenticatedUserId : testUserId },
+    variables: { userId: userIdOrDemoId },
+    // requestPolicy: 'cache-and-network',
+  });
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
 
-    return response.json();
-  }
+  const {
+    data: data_backgroundImg,
+    fetching: fetching_backgroundImg,
+    error: error_backgroundImg,
+  } = backgroundImgResults;
+
+  
+
+  // async function fetchBackgroundImg() {
+  //   let response = await fetch(
+  //     "http://localhost:4000/background_img/" + userIdOrDemoId
+  //   );
+
+  //   if (!response.ok) {
+  //     throw new Error("Network response was not ok");
+  //   }
+
+  //   return response.json();
+  // }
 
   let backgroundImgUrl: string;
 
-  if (status === "success") {
-    /* console.log("data");
-    console.log(data); */
+  // if (status === "success") {
+  //   /* console.log("data");
+  //   console.log(data); */
 
-    backgroundImgUrl = data.backgroundImgUrl;
+  //   backgroundImgUrl = data.backgroundImgUrl;
+  // }
+
+  if (data_backgroundImg) {
+    console.log("data_background")
+    console.log(data_backgroundImg)
+    console.log(data_backgroundImg.backgroundImg)
+    backgroundImgUrl = data_backgroundImg.backgroundImg;
+
   }
+
 
   const [tabResults, reexecuteTabs] = useQuery({
     query: TabsQuery,

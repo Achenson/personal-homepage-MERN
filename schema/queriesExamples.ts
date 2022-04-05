@@ -15,6 +15,11 @@
 }    */
 
 /* {
+  backgroundImg(userId: "61b21a61cc1846bfa9ca8a8e") {
+  backgroundImg
+ } */
+
+/* {
   tabs(userId: "6154708145808b7678b78762") {
    id
     userId

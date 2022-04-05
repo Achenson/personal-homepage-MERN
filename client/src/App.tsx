@@ -106,6 +106,7 @@ function App() {
 
           console.log("urql RETURN HEADERS with Authorization");
           console.log("authState.accessToken");
+          console.log(authState.accessToken);
           
 
           const fetchOptions =
