@@ -24,13 +24,13 @@ module.exports = (req: Request, res: Response, next: NextFunction) => {
   // console.log("req.headers isAuth");
     // console.log(req.headers);
 
-  // console.log("authHeader isAuth");
-  // console.log(authHeader);
+  console.log("authHeader isAuth");
+  console.log(authHeader);
 
   // checking it there is in authorisation field in the incoming request
   if (!authHeader) {
     // request will travel through API, but with attached info that the user is not authorised
-    // console.log("no authHeader isAuth error");
+    console.log("no authHeader isAuth error");
     
     // @ts-ignore
     req.isAuth = false;
