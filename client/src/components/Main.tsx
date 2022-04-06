@@ -236,10 +236,9 @@ function Main({ globalSettings }: Props): JSX.Element {
     console.log("data_background")
     console.log(data_backgroundImg)
     console.log(data_backgroundImg.backgroundImg)
-    backgroundImgUrl = data_backgroundImg.backgroundImg;
+    backgroundImgUrl = data_backgroundImg.backgroundImg.backgroundImgUrl;
 
   }
-
 
   const [tabResults, reexecuteTabs] = useQuery({
     query: TabsQuery,

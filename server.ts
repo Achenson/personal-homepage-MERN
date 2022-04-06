@@ -78,7 +78,7 @@ app.use(
   })
 );
 
-app.use(isAuth);
+// app.use(isAuth);
 
 
 //  parsing cookie only in the context of that particular route

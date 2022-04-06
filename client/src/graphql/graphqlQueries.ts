@@ -62,6 +62,6 @@ export const SettingsQuery = `query ($userId: ID) {
 
   export const BackgroundImgQuery =`query ($userId: ID) {
     backgroundImg (userId: $userId) {
-      backgroundImg
+      backgroundImgUrl
     }
   }`

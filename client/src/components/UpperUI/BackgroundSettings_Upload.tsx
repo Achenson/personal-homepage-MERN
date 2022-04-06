@@ -140,6 +140,10 @@ function BackgroundSettings_Upload({
           style={{ height: "26px" }}
           className={`border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
+          onClick={() => {
+            console.log("click");
+            
+          }}
         >
           {" "}
           Upload image

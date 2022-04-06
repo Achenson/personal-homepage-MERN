@@ -27,8 +27,8 @@ export const backgroundImgQueryField = {
         "http://localhost:4000/background_img/" + userId
       );
 
-      console.log("response");
-      console.log(response);
+      // console.log("response");
+      // console.log(response);
       
 
       if (!response.ok) {

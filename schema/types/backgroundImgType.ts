@@ -15,9 +15,8 @@ export interface BackgroundImg {
 }
 
 export const BackgroundImgFields = {
-  
-  userId: { type: GraphQLID },
-  backgroundImg: { type: GraphQLString },
+  // userId: { type: GraphQLID },
+  backgroundImgUrl: { type: GraphQLString },
 };
 
 
