@@ -10,6 +10,7 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 interface Props {
   xsScreen: boolean;
   globalSettings: SettingsDatabase_i;
+  reexecuteBackgroundImg: any
 }
 
 enum DbFileErrors {
@@ -20,6 +21,7 @@ enum DbFileErrors {
 function BackgroundSettings_Upload({
   xsScreen,
   globalSettings,
+  reexecuteBackgroundImg
 }: Props): JSX.Element {
   const uiColor = globalSettings.uiColor;
 
@@ -43,14 +45,14 @@ function BackgroundSettings_Upload({
   let setCurrentBackgroundImgKey =
     useBackgroundImgContext().updateCurrentBackgroundImgKey;
 
-  function submitForm(event: any) {
+ async function submitForm(event: any) {
     event.preventDefault();
 
     let dataArray = new FormData();
     // dataArray.append("uploadFile", uploadFile as Blob);
     dataArray.append("backgroundImg", uploadFile as Blob);
 
-    fetch("http://localhost:4000/background_img/", {
+   await fetch("http://localhost:4000/background_img/", {
       method: "POST",
       /*  headers: {
         "Content-Type": "multipart/form-data",
@@ -85,6 +87,9 @@ function BackgroundSettings_Upload({
       .catch((error) => {
         console.log(error);
       });
+
+
+      reexecuteBackgroundImg({requestPolicy: 'network-only'})
   }
 
   return (
