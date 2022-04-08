@@ -65,3 +65,13 @@ export const SettingsQuery = `query ($userId: ID) {
       backgroundImgUrl
     }
   }`
+
+
+  
+  export const RssFetchQuery =`query ($rssLink: String) {
+    rssFetch (rssLink: $rssLink) {
+      rssFetchUrl
+    }`
+  
+
+

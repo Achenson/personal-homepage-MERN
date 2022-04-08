@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 
 // import shallow from "zustand/shallow";
-import { useQuery as useReactQuery } from "react-query";
-// import { useQuery } from "urql";
+// import { useQuery as useReactQuery } from "react-query";
+import { useQuery } from "urql";
 
 import SingleRssNews from "./SingleRssNews";
 
 import { ReactComponent as ArrowLeft } from "../../svgs/arrowLeft.svg";
 import { ReactComponent as ArrowRight } from "../../svgs/arrowRight.svg";
+
+import { RssFetchQuery } from "../../graphql/graphqlQueries";
+
+
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
@@ -67,46 +71,61 @@ function ReactQuery({
 
   const [pageNumber, setPageNumber] = useState(0);
 
-  const { data, status } = useReactQuery(`${tabID}`, fetchFeed, {
-    // staleTime: 2000,
-    // cacheTime: 10,
-    onSuccess: () => {
-      console.log("data fetched with no problems");
-      // console.log(data);
-    },
+  // const { data, status } = useReactQuery(`${tabID}`, fetchFeed, {
+  //   // staleTime: 2000,
+  //   // cacheTime: 10,
+  //   onSuccess: () => {
+  //     console.log("data fetched with no problems");
+  //     // console.log(data);
+  //   },
+  // });
+
+
+  const [rssFetchResults, reexecuteRssFetch] = useQuery({
+    query: RssFetchQuery,
+    // variables: { userId: authContext.isAuthenticated ? authContext.authenticatedUserId : testUserId },
+    variables: { rssLink: currentTab.rssLink },
+    // requestPolicy: 'cache-and-network',
   });
 
-  async function fetchFeed() {
+  const {
+    data,
+    fetching,
+    error,
+  } = rssFetchResults;
 
-    let baseFetchUrl = "http://localhost:4000/fetch_rss/";
-    let extendedRSSurl = `${currentTab.rssLink}?format=xml`;
 
-    try {
-      // let response = await parser.parseURL(currentTab?.rssLink);
-      // return response;
-      let toSendUrl = encodeURIComponent(`${currentTab.rssLink}`);
+  // async function fetchFeed() {
+
+  //   let baseFetchUrl = "http://localhost:4000/fetch_rss/";
+  //   let extendedRSSurl = `${currentTab.rssLink}?format=xml`;
+
+  //   try {
+  //     // let response = await parser.parseURL(currentTab?.rssLink);
+  //     // return response;
+  //     let toSendUrl = encodeURIComponent(`${currentTab.rssLink}`);
     
-      let response = await fetch(baseFetchUrl + toSendUrl);
+  //     let response = await fetch(baseFetchUrl + toSendUrl);
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
 
-      return response.json();
-    } catch (err) {
-      // let newResponse = await parser.parseURL(extendedRSSurl);
-      // return newResponse;
-      let newToSendUrl = encodeURIComponent(extendedRSSurl);
+  //     return response.json();
+  //   } catch (err) {
+  //     // let newResponse = await parser.parseURL(extendedRSSurl);
+  //     // return newResponse;
+  //     let newToSendUrl = encodeURIComponent(extendedRSSurl);
    
-      let newResponse = await fetch(baseFetchUrl + newToSendUrl);
+  //     let newResponse = await fetch(baseFetchUrl + newToSendUrl);
 
-      if (!newResponse.ok) {
-        throw new Error("Network response was not ok");
-      }
+  //     if (!newResponse.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
 
-      return newResponse.json();
-    }
-  }
+  //     return newResponse.json();
+  //   }
+  // }
 
     function mapData() {
     let arrOfObj = [];
@@ -174,7 +193,8 @@ function ReactQuery({
   }
 
   function lastPageNumber() {
-    if (status !== "success") {
+    // if (status !== "success") {
+    if (!data) {
       return 1;
     }
 
@@ -237,12 +257,12 @@ function ReactQuery({
         : "border-r border-l border-black border-opacity-10"
     }`}
       >
-        {status === "loading" && <div>Loading data...</div>}
+        {fetching && <div>Loading data...</div>}
 
-        {status === "error" && <div>Error fetching data</div>}
+        {error && <div>Error fetching data</div>}
       </div>
 
-      {status === "success" && <div>{mapData()}</div>}
+      {data && <div>{mapData()}</div>}
     </div>
   );
 }

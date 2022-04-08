@@ -122,7 +122,9 @@ change everywhere!!
 92. currently -> not authenticated -> test user from db is used -> change it to client only demo
 93. notes on queries/schema/mongo etc.
 94. Main, BackgroundSettings_Upload -> backgroundImgKey -> code not used anymore -> delete?
-
+95. unify rssFetch & backgroundFetch serverside -> errors etc.
+96.server.js unify -> different reponses, sometimes they are objects - not needed
+97. graphql queries - proper types? ! or not
 
 6239ceb924aee400c5bc84ce"
 

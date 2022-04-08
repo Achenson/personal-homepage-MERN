@@ -1,5 +1,5 @@
 const graphql = require("graphql");
-const fetch = require('node-fetch');
+const fetch = require("node-fetch");
 
 const { GraphQLObjectType, GraphQLID } = graphql;
 
@@ -29,19 +29,15 @@ export const backgroundImgQueryField = {
 
       // console.log("response");
       // console.log(response);
-      
 
       if (!response.ok) {
-          console.log("response not ok");
+        console.log("response not ok");
         throw new Error("Network response was not ok");
-        
       }
 
-      if(response.ok) {
+      if (response.ok) {
         console.log("response ok");
       }
-
-
 
       let fetchedImgResponse = await response.json();
 

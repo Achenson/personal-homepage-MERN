@@ -164,10 +164,18 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
 ); */
 
 // fetching rss server-side
-app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
+/* app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
   let response = await rssParser.parseURL(req.params.rsslink);
   // console.log(response);
   res.send(response);
+}); */
+
+app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
+  let response = await rssParser.parseURL(req.params.rsslink);
+  // console.log(response);
+  res.send({
+    rssFetchUrl: response
+  });
 });
 
 let newBackgroundImageName: string;

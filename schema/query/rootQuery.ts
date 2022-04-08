@@ -4,6 +4,7 @@ import { settingsQueryField } from "./settingsQuery";
 import { bookmarksQueryField } from "./bookmarksQuery";
 import { tabsQueryField } from "./tabsQuery";
 import { backgroundImgQueryField } from "./backgroundImgQuery";
+import {rssFetchQueryField} from "./rssFetchQuery"
 
 const { GraphQLObjectType, GraphQLID } = graphql;
 
@@ -13,6 +14,7 @@ export const RootQuery = new GraphQLObjectType({
     settings: settingsQueryField,
     bookmarks: bookmarksQueryField,
     tabs: tabsQueryField,
-    backgroundImg: backgroundImgQueryField
+    backgroundImg: backgroundImgQueryField,
+    rssFetch: rssFetchQueryField
   },
 });
