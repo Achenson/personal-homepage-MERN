@@ -10,6 +10,7 @@ import { ReactComponent as ArrowLeft } from "../../svgs/arrowLeft.svg";
 import { ReactComponent as ArrowRight } from "../../svgs/arrowRight.svg";
 
 import { RssFetchQuery } from "../../graphql/graphqlQueries";
+import {rssExample} from "../../utils/data/rssExample"
 
 
 
@@ -95,6 +96,21 @@ function ReactQuery({
   } = rssFetchResults;
 
 
+  console.log(currentTab.rssLink);
+  console.log(data);
+
+  let rssData: any;
+
+  if(data) {
+    rssData = data.rssFetch.rssFetchData;
+  } else {
+    rssData = rssExample.data.rssFetch.rssFetchData;
+  }
+  
+
+ 
+
+
   // async function fetchFeed() {
 
   //   let baseFetchUrl = "http://localhost:4000/fetch_rss/";
@@ -130,7 +146,7 @@ function ReactQuery({
     function mapData() {
     let arrOfObj = [];
 
-    let howManyNews = data.items.length;
+    let howManyNews = rssData.items.length;
 
     for (
       let i = pageNumber * itemsPerPage;
@@ -141,8 +157,8 @@ function ReactQuery({
         break;
       }
 
-      if (data.items[i]) {
-        arrOfObj.push(data.items[i]);
+      if (rssData.items[i]) {
+        arrOfObj.push(rssData.items[i]);
         continue;
       }
       break;
@@ -198,7 +214,7 @@ function ReactQuery({
       return 1;
     }
 
-    let howManyNews = data.items.length;
+    let howManyNews = rssData.items.length;
 
     let maxNumber = howManyNews < 50 ? howManyNews : 50;
 
@@ -262,7 +278,7 @@ function ReactQuery({
         {error && <div>Error fetching data</div>}
       </div>
 
-      {data && <div>{mapData()}</div>}
+      {rssData && <div>{mapData()}</div>}
     </div>
   );
 }

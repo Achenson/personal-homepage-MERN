@@ -59,19 +59,14 @@ export const SettingsQuery = `query ($userId: ID) {
     }
   }`;
 
-
-  export const BackgroundImgQuery =`query ($userId: ID) {
+export const BackgroundImgQuery = `query ($userId: ID) {
     backgroundImg (userId: $userId) {
       backgroundImgUrl
     }
-  }`
+  }`;
 
-
-  
-  export const RssFetchQuery =`query ($rssLink: String) {
+export const RssFetchQuery = `query ($rssLink: String) {
     rssFetch (rssLink: $rssLink) {
-      rssFetchUrl
-    }`
-  
-
-
+      rssFetchData
+    }
+    }`;

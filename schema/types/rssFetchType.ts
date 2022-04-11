@@ -1,16 +1,19 @@
 
 const graphql = require("graphql");
+const { GraphQLJSON, GraphQLJSONObject } = require('graphql-type-json');
+
 
 const {
   GraphQLObjectType,
   GraphQLString,
+
 } = graphql;
 
 
 export const RssFetchFields = {
   // userId: { type: GraphQLID },
 //   rssLink: { type: GraphQLString },
-  rssFetchUrl: { type: GraphQLString },
+  rssFetchData: { type: GraphQLJSONObject},
 };
 
 
