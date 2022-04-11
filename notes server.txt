@@ -125,6 +125,7 @@ change everywhere!!
 95. unify rssFetch & backgroundFetch serverside -> errors etc.
 96.server.js unify -> different reponses, sometimes they are objects - not needed
 97. graphql queries - proper types? ! or not
+98. delete data -> rssExample
 
 6239ceb924aee400c5bc84ce"
 
