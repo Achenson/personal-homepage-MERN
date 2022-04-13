@@ -2,7 +2,7 @@ import jwt = require("jsonwebtoken")
 import { User } from "../../generatedTypes/graphql";
 
 module.exports = (user: User) => {
-  console.log("refresshhhhh");
+  console.log("refresshhhhh token");
   
   return jwt.sign(
     // { userId: user.id, tokenVersion: user.tokenVersion },

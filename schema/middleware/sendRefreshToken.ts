@@ -1,7 +1,7 @@
 import {Request, Response} from "express"
 
 module.exports = (res: Response, token: String) => {
-  console.log("REFRESHhh222");
+  console.log("sending refresh token");
   
     res.cookie("jid", token, {
       httpOnly: true,

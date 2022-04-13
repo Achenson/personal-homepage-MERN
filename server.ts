@@ -78,7 +78,8 @@ app.use(
   })
 );
 
-app.use(isAuth);
+
+// app.use(isAuth);
 
 
 //  parsing cookie only in the context of that particular route
@@ -142,7 +143,7 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
     return res.send({ ok: false, accessToken: null, userId: null });
   }
 
-  sendRefreshToken(res, createRefreshToken(user));
+  await sendRefreshToken(res, createRefreshToken(user));
 
 
 
@@ -171,6 +172,9 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
 }); */
 
 app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
+
+  console.log("fetching rss server");
+  
   let response = await rssParser.parseURL(req.params.rsslink);
   // console.log(response);
   res.send({
@@ -190,11 +194,12 @@ const storage = multer.diskStorage({
     // console.log(req.headers);
     // const authHeader = req.headers.authorisation;
   
-    console.log("POST authHeader storage POST");
+    console.log("Storage multer");
     console.log(authHeader);
 
     // @ts-ignore
-    userIdOrDemoId = req.isAuth ? req.userId : testUserId 
+    // userIdOrDemoId = req.isAuth ? req.userId : testUserId 
+    userIdOrDemoId = req.userId ? req.userId : testUserId 
 
     let dest = "backgroundImgs/" + userIdOrDemoId + "/";
     // mkdirp.sync(dest);
@@ -259,6 +264,13 @@ app.post(
   "/background_img",
   // upload.single("backgroundImg"),
   (req: any, res: Response) => {
+
+
+
+
+
+
+    
 
     console.log("POST req.isAuth POST");
     console.log(req.isAuth);
@@ -344,6 +356,9 @@ app.post(
 console.log(backgroundImgFiles[0]); */
 
 app.get("/background_img/:userId", (req: Request, res: Response) => {
+
+  console.log("getting background img");
+  
   let backgroundImgFiles = fs.readdirSync(
     "backgroundImgs/" + req.params.userId
   );
@@ -368,6 +383,8 @@ app.get("/background_img/:userId", (req: Request, res: Response) => {
 });
 
 app.get("/favicon/:faviconUrl", (req: Request, res: Response) => {
+  console.log("getting favicon");
+  
   let fetchFavicon = faviconFetch({
     uri: `${decodeURIComponent(req.params.faviconUrl)}`,
   });

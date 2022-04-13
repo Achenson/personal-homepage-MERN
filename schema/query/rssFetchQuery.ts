@@ -13,8 +13,8 @@ export const rssFetchQueryField = {
     console.log("fetching RSS serverside starded");
 
     let fetchedRss = await fetchRssUrl();
-    console.log("fetchedRss");
-    console.log(fetchedRss);
+    // console.log("fetchedRss");
+    // console.log(fetchedRss);
 
     return fetchedRss;
 
@@ -35,8 +35,8 @@ export const rssFetchQueryField = {
 
         let fetchedRssResponse = await response.json();
 
-        console.log("fetched rss/*  */ response");
-        console.log(fetchedRssResponse);
+        // console.log("fetched rss/*  */ response");
+        // console.log(fetchedRssResponse);
         return fetchedRssResponse;
       } catch (err) {
         // let newResponse = await parser.parseURL(extendedRSSurl);

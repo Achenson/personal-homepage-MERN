@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 interface ExpressReqResNext {
     req: Request;
     res: Response;
-    next: NextFunction
+    next: NextFunction;
   }
 
 module.exports = (req: Request, res: Response, next: NextFunction) => {
