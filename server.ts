@@ -11,15 +11,14 @@ const mkdirp = require("mkdirp");
 const fs = require("fs");
 const path = require("path");
 const faviconFetch = require("favicon-fetch");
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
-import User = require('./mongoModels/userSchema')
+import User = require("./mongoModels/userSchema");
 const createAccessToken = require("./schema/middleware/accessToken");
 const createRefreshToken = require("./schema/middleware/refreshToken");
 const sendRefreshToken = require("./schema/middleware/sendRefreshToken");
 const isAuth = require("./schema/middleware/isAuth");
-
 
 // const BackgroundImgSchema = require("../../mongoModels/BackgroundImgSchema");
 const BackgroundImgSchema = require("./mongoModels/backgroundImgSchema");
@@ -78,14 +77,10 @@ app.use(
   })
 );
 
-
 // app.use(isAuth);
 
-
 //  parsing cookie only in the context of that particular route
-app.use("/refresh_token", cookieParser())
-
-
+app.use("/refresh_token", cookieParser());
 
 app.post("/refresh_token", async (req: Request, res: Response) => {
   // 1. testing sending test cookie in request using postman
@@ -93,7 +88,7 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
   // console.log(req.headers);
 
   console.log("refresh token app.post");
-  
+
   // testing sending cookie after cookie-parser is applied
   console.log(req.cookies);
 
@@ -107,7 +102,6 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
 
   // console.log(payload);
   // console.log("payload");
-  
 
   try {
     // payload = jwt.verify(token, "secretKeyForRefreshToken");
@@ -145,8 +139,6 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
 
   await sendRefreshToken(res, createRefreshToken(user));
 
-
-
   return res.send({
     ok: true,
     accessToken: createAccessToken(user),
@@ -156,7 +148,6 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
   //  testing: send login mutation in graphql, get accessToken
   // testin2: take refresh cookie from res (sieć)
 });
-
 
 /* app.use(
   cors({
@@ -172,36 +163,35 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
 }); */
 
 app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
-
   console.log("fetching rss server");
-  
+
   let response = await rssParser.parseURL(req.params.rsslink);
   // console.log(response);
   res.send({
-    rssFetchData: response
+    rssFetchData: response,
   });
 });
 
 let newBackgroundImageName: string;
 
-
-let userIdOrDemoId: string;
+// let userIdOrDemoId: string;
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-
+  destination: function (req: any, file, cb) {
     const authHeader = req.get("Authorization");
     // console.log(req.headers);
     // const authHeader = req.headers.authorisation;
-  
+
     console.log("Storage multer");
     console.log(authHeader);
 
     // @ts-ignore
-    // userIdOrDemoId = req.isAuth ? req.userId : testUserId 
-    userIdOrDemoId = req.userId ? req.userId : testUserId 
+    // userIdOrDemoId = req.isAuth ? req.userId : testUserId
 
-    let dest = "backgroundImgs/" + userIdOrDemoId + "/";
+    // userIdOrDemoId = req.userId ? req.userId : testUserId
+
+    // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
+    let dest = "backgroundImgs/" + req.params.userId + "/";
     // mkdirp.sync(dest);
     cb(null, dest);
   },
@@ -261,31 +251,21 @@ app.use("/background_img", express.static("backgroundImgs"));
 let backgroundImgUpload = upload.single("backgroundImg");
 
 app.post(
-  "/background_img",
+  "/background_img/:userId",
   // upload.single("backgroundImg"),
   (req: any, res: Response) => {
-
-
-
-
-
-
-    
-
-    console.log("POST req.isAuth POST");
-    console.log(req.isAuth);
+    // console.log("POST req.isAuth POST");
+    // console.log(req.isAuth);
 
     const authHeader = req.get("Authorization");
     // console.log(req.headers);
     // const authHeader = req.headers.authorisation;
-  
+
     console.log("POST authHeader POST");
     console.log(authHeader);
     // console.log("req.headers backgroundImg");
     // console.log(req.headers);
-  // const authHeader = req.headers.authorisation;
-    
-
+    // const authHeader = req.headers.authorisation;
 
     backgroundImgUpload(req, res, function (multerErr) {
       if (multerErr) {
@@ -301,12 +281,14 @@ app.post(
       }
 
       let newBackgroundImg = {
-        userId: userIdOrDemoId,
+        // userId: userIdOrDemoId,
+        userId: req.params.userId,
         backgroundImg: req.file.path,
       };
 
       BackgroundImgSchema.replaceOne(
-        { userId: userIdOrDemoId },
+        // { userId: userIdOrDemoId },
+        { userId: req.params.userId },
         newBackgroundImg,
         { upsert: true },
         (err: Error, backgroundImgProduct: BackgroundImg) => {
@@ -316,17 +298,18 @@ app.post(
               error: err,
             });
 
-            removeBackgroundImg(newBackgroundImageName);
+            removeBackgroundImg(newBackgroundImageName, req.params.userId);
             return;
           }
 
-          let dest = "backgroundImgs/" + userIdOrDemoId + "/";
+          // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
+          let dest = "backgroundImgs/" + req.params.userId + "/";
 
           fs.readdirSync(dest).forEach((file: string) => {
             // console.log(file);
 
             if (file !== newBackgroundImageName) {
-              removeBackgroundImg(file);
+              removeBackgroundImg(file, req.params.userId);
             }
           });
 
@@ -356,9 +339,8 @@ app.post(
 console.log(backgroundImgFiles[0]); */
 
 app.get("/background_img/:userId", (req: Request, res: Response) => {
-
   console.log("getting background img");
-  
+
   let backgroundImgFiles = fs.readdirSync(
     "backgroundImgs/" + req.params.userId
   );
@@ -384,7 +366,7 @@ app.get("/background_img/:userId", (req: Request, res: Response) => {
 
 app.get("/favicon/:faviconUrl", (req: Request, res: Response) => {
   console.log("getting favicon");
-  
+
   let fetchFavicon = faviconFetch({
     uri: `${decodeURIComponent(req.params.faviconUrl)}`,
   });
@@ -447,7 +429,7 @@ app.post(site url) {
 
 */
 
-function removeBackgroundImg(fileName: string) {
+function removeBackgroundImg(fileName: string, userIdOrDemoId: string) {
   fs.unlink(
     path.join("backgroundImgs/" + userIdOrDemoId + "/", fileName),
     (err: any) => {

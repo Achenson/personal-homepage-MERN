@@ -2,15 +2,17 @@ import React, { useRef, useState } from "react";
 import { useMutation } from "urql";
 
 import { useBackgroundImgContext } from "../../context/backgroundImgContext";
+import { useAuth } from "../../state/hooks/useAuth";
 
 import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { testUserId } from "../../state/data/testUserId";
 
 interface Props {
   xsScreen: boolean;
   globalSettings: SettingsDatabase_i;
-  reexecuteBackgroundImg: any
+  reexecuteBackgroundImg: any;
 }
 
 enum DbFileErrors {
@@ -21,8 +23,10 @@ enum DbFileErrors {
 function BackgroundSettings_Upload({
   xsScreen,
   globalSettings,
-  reexecuteBackgroundImg
+  reexecuteBackgroundImg,
 }: Props): JSX.Element {
+  const authContext = useAuth();
+
   const uiColor = globalSettings.uiColor;
 
   const [uploadFile, setUploadFile] = React.useState<Blob>();
@@ -31,7 +35,6 @@ function BackgroundSettings_Upload({
     any,
     SettingsDatabase_i
   >(ChangeSettingsMutation);
-
 
   const [dbFilesError, setDbFilesError] = useState<null | string>(null);
 
@@ -45,14 +48,20 @@ function BackgroundSettings_Upload({
   let setCurrentBackgroundImgKey =
     useBackgroundImgContext().updateCurrentBackgroundImgKey;
 
- async function submitForm(event: any) {
+  async function submitForm(event: any) {
     event.preventDefault();
 
     let dataArray = new FormData();
     // dataArray.append("uploadFile", uploadFile as Blob);
     dataArray.append("backgroundImg", uploadFile as Blob);
 
-   await fetch("http://localhost:4000/background_img/", {
+    let testOrUserId: string;
+
+    authContext.authenticatedUserId && authContext.isAuthenticated
+      ? (testOrUserId = authContext.authenticatedUserId)
+      : (testOrUserId = testUserId);
+
+    await fetch(`http://localhost:4000/background_img/${testOrUserId}`, {
       method: "POST",
       /*  headers: {
         "Content-Type": "multipart/form-data",
@@ -88,17 +97,16 @@ function BackgroundSettings_Upload({
         console.log(error);
       });
 
-
-      reexecuteBackgroundImg({requestPolicy: 'network-only'})
+    reexecuteBackgroundImg({ requestPolicy: "network-only" });
   }
 
   return (
     <div>
       {/* {dbFilesError ? <p>{dbFilesError}</p> : <p className="invisible"></p>} */}
       {/* {dbFilesError ? <p>{dbFilesError}</p> : <p className="invisible"></p>} */}
-     {/* <p className={ dbFilesError ? "invisible" : "visible" }>{dbFilesError}</p> */}
+      {/* <p className={ dbFilesError ? "invisible" : "visible" }>{dbFilesError}</p> */}
       <div className="h-6 mt-0.5 mb-1 text-red-600 text-center text-sm">
-          {dbFilesError }
+        {dbFilesError}
       </div>
       <form
         onSubmit={submitForm}
@@ -147,7 +155,6 @@ function BackgroundSettings_Upload({
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
           onClick={() => {
             console.log("click");
-            
           }}
         >
           {" "}
