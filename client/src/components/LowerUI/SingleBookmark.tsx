@@ -111,7 +111,7 @@ Props): JSX.Element {
     BookmarkDatabase_i
   >(ChangeBookmarkMutation);
 
-  const [favicon, setFavicon] = useState<string | null>(null);
+  // const [favicon, setFavicon] = useState<string | null>(null);
 
   const [testMutationResult, testMutation] = useMutation<any, any>(
     TestMutation
@@ -125,19 +125,19 @@ Props): JSX.Element {
 
   // const [isFaviconDefault, setIsFaviconDefault] = useState(false);
 
-  useEffect(() => {
-    fetch(
-      "http://localhost:4000/favicon/" +
-        encodeURIComponent(singleBookmarkData.URL),
-      {
-        method: "GET",
-      }
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setFavicon(res);
-      });
-  }, [singleBookmarkData.URL]);
+  // useEffect(() => {
+  //   fetch(
+  //     "http://localhost:4000/favicon/" +
+  //       encodeURIComponent(singleBookmarkData.URL),
+  //     {
+  //       method: "GET",
+  //     }
+  //   )
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       setFavicon(res);
+  //     });
+  // }, [singleBookmarkData.URL]);
 
   let urlParse = new URL(singleBookmarkData.URL);
   // will replace only the first occurence of www.
