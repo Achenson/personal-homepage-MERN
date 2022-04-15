@@ -77,7 +77,7 @@ app.use(
   })
 );
 
-// app.use(isAuth);
+app.use(isAuth);
 
 //  parsing cookie only in the context of that particular route
 app.use("/refresh_token", cookieParser());
@@ -163,7 +163,12 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
 }); */
 
 app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
-  console.log("fetching rss server");
+
+
+  console.log("fetching rss server rest");
+  // @ts-ignore
+  console.log(req.isAuth);
+  
 
   let response = await rssParser.parseURL(req.params.rsslink);
   // console.log(response);
@@ -397,11 +402,11 @@ next()
 
 app.use(
   "/graphql",
-  graphqlHTTP((req) => {
+  graphqlHTTP((req, res) => {
     return {
       schema: schema,
       graphiql: true,
-      rootValue: { request: req },
+      rootValue: { request: req, response: res },
     };
   })
 );

@@ -94,7 +94,7 @@ function ReactQuery({
   let rssData: any;
   // let rssData = data.rssFetch.rssFetchData;
 
-  if (data) {
+  if (data && data.rssFetch) {
     rssData = data.rssFetch.rssFetchData;
   } 
   

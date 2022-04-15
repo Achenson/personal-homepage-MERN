@@ -1,6 +1,14 @@
 const graphql = require("graphql");
 const fetch = require("node-fetch");
 
+import { NextFunction, Request, Response } from "express";
+
+interface ExpressReqRes {
+  req: Request;
+  res: Response;
+}
+
+
 const { GraphQLObjectType, GraphQLID, GraphQLString } = graphql;
 
 import { RssFetchType } from "../types/rssFetchType";
@@ -9,8 +17,21 @@ import { User_i } from "../types/userType";
 export const rssFetchQueryField = {
   type: RssFetchType,
   args: { rssLink: { type: GraphQLString } },
-  async resolve(parent: User_i, { rssLink }: { rssLink: string }) {
-    console.log("fetching RSS serverside starded");
+  async resolve(parent: User_i, { rssLink }: { rssLink: string }, request: any) {
+  // async resolve(parent: User_i, { rssLink }: { rssLink: string }) {
+    console.log("fetching RSS serverside starded graphql");
+    // @ts-ignore
+  //  console.log(req.isAuth);
+
+  // console.log("reqest")
+  // console.log(request)
+  console.log("request.isAuth")
+  console.log(request.isAuth)
+   
+  console.log("res")
+  // console.log(res)
+   
+    
 
     let fetchedRss = await fetchRssUrl();
     // console.log("fetchedRss");
