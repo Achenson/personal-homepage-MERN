@@ -10,6 +10,7 @@ import {
   cacheExchange,
   fetchExchange,
 } from "urql";
+import { multipartFetchExchange } from '@urql/exchange-multipart-fetch';
 // import { QueryClientProvider, QueryClient } from "react-query";
 import { authExchange } from "@urql/exchange-auth";
 import { makeOperation } from "@urql/core";
@@ -177,7 +178,8 @@ function App() {
           return null;
         },
       }),
-      fetchExchange,
+      // fetchExchange,
+      multipartFetchExchange
     ],
     fetchOptions: {
       // !!!! whitout this line cookie will not be set clientside

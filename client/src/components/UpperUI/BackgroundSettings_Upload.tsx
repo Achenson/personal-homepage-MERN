@@ -4,7 +4,7 @@ import { useMutation } from "urql";
 import { useBackgroundImgContext } from "../../context/backgroundImgContext";
 import { useAuth } from "../../state/hooks/useAuth";
 
-import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
+import { ChangeSettingsMutation, BackgroundImgMutation } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { testUserId } from "../../state/data/testUserId";
@@ -30,11 +30,18 @@ function BackgroundSettings_Upload({
   const uiColor = globalSettings.uiColor;
 
   const [uploadFile, setUploadFile] = React.useState<Blob>();
+  // const [uploadFile, setUploadFile] = React.useState<Object>();
 
   const [changeSettingsResult, changeSettings] = useMutation<
     any,
     SettingsDatabase_i
   >(ChangeSettingsMutation);
+
+
+  const [, changeBackgroundImg] = useMutation(BackgroundImgMutation);
+
+
+
 
   const [dbFilesError, setDbFilesError] = useState<null | string>(null);
 
@@ -48,56 +55,75 @@ function BackgroundSettings_Upload({
   let setCurrentBackgroundImgKey =
     useBackgroundImgContext().updateCurrentBackgroundImgKey;
 
+
+
+
   async function submitForm(event: any) {
     event.preventDefault();
 
-    let dataArray = new FormData();
-    // dataArray.append("uploadFile", uploadFile as Blob);
-    dataArray.append("backgroundImg", uploadFile as Blob);
+    console.log("uploadFile garphql try");
+    
+    console.log("typeof uploadFile");
+    console.log(typeof uploadFile);
+    console.log(uploadFile);
 
-    let testOrUserId: string;
+    
 
-    authContext.authenticatedUserId && authContext.isAuthenticated
-      ? (testOrUserId = authContext.authenticatedUserId)
-      : (testOrUserId = testUserId);
+    changeBackgroundImg(uploadFile as Blob);
 
-    await fetch(`http://localhost:4000/background_img/${testOrUserId}`, {
-      method: "POST",
-      /*  headers: {
-        "Content-Type": "multipart/form-data",
-      }, */
-      body: dataArray,
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        // console.log(response.error);
-        let errMsg = response.error;
 
-        if (errMsg) {
-          if (errMsg === DbFileErrors.size) {
-            setDbFilesError("Please upload a file smaller than 10MB");
-          }
 
-          if (errMsg === DbFileErrors.type) {
-            setDbFilesError(errMsg);
-          }
+    // let dataArray = new FormData();
+    // // dataArray.append("uploadFile", uploadFile as Blob);
+    // dataArray.append("backgroundImg", uploadFile as Blob);
 
-          return;
-        }
+    // let testOrUserId: string;
 
-        setDbFilesError(null);
+    // authContext.authenticatedUserId && authContext.isAuthenticated
+    //   ? (testOrUserId = authContext.authenticatedUserId)
+    //   : (testOrUserId = testUserId);
 
-        changeSettings({
-          ...globalSettings,
-          defaultImage: "customBackground",
-        });
-        setCurrentBackgroundImgKey(Date.now().toString());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // await fetch(`http://localhost:4000/background_img/${testOrUserId}`, {
+    //   method: "POST",
+    //   /*  headers: {
+    //     "Content-Type": "multipart/form-data",
+    //   }, */
+    //   body: dataArray,
+    // })
+    //   .then((res) => res.json())
+    //   .then((response) => {
+    //     // console.log(response.error);
+    //     let errMsg = response.error;
 
-    reexecuteBackgroundImg({ requestPolicy: "network-only" });
+    //     if (errMsg) {
+    //       if (errMsg === DbFileErrors.size) {
+    //         setDbFilesError("Please upload a file smaller than 10MB");
+    //       }
+
+    //       if (errMsg === DbFileErrors.type) {
+    //         setDbFilesError(errMsg);
+    //       }
+
+    //       return;
+    //     }
+
+    //     setDbFilesError(null);
+
+    //     changeSettings({
+    //       ...globalSettings,
+    //       defaultImage: "customBackground",
+    //     });
+    //     setCurrentBackgroundImgKey(Date.now().toString());
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    // reexecuteBackgroundImg({ requestPolicy: "network-only" });
+
+
+
+    
   }
 
   return (

@@ -291,3 +291,16 @@ export const TestMutation = `
     }
   }
 `;
+
+export const BackgroundImgMutation = `
+  mutation ($image: Upload!) {
+    backgroundImgMutation(image: $image)
+  }
+`;
+
+
+/* export const BackgroundImgMutation = `
+  mutation ($file: Upload!) {
+    backgroundImgMutation(file: $file)
+  }
+`; */

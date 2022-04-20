@@ -127,6 +127,8 @@ change everywhere!!
 97. graphql queries - proper types? ! or not
 98. delete data -> rssExample
 99. server.ts -> make separate files
+100. server.txs -> rootValue -> is it needed?
+101. graphql-tag -> check library!
 
 6239ceb924aee400c5bc84ce"
 

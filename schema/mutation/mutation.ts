@@ -13,6 +13,7 @@ import { changeBookmarkMutationField } from "./changeBookmarkMutation";
 import { testMutationField } from "./testMutation";
 import {loginMutationField} from "./loginMutation"
 import { logoutMutationField } from "./logoutMutation";
+import { backgroundImgMutationField } from "./backgroundImgMutation";
 
 
 const { GraphQLObjectType } = graphql;
@@ -32,6 +33,8 @@ export const Mutation = new GraphQLObjectType({
     deleteTab: deleteTabMutationField,
     testMutation: testMutationField,
     loginMutation: loginMutationField,
-    logoutMutation: logoutMutationField
+    logoutMutation: logoutMutationField,
+    backgroundImgMutation: backgroundImgMutationField
+
   },
 });

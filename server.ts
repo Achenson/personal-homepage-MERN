@@ -3,6 +3,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 import { graphqlHTTP } from "express-graphql";
 // const { graphqlHTTP } = require("express-graphql");
+const { graphqlUploadExpress } = require("graphql-upload");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const Parser = require("rss-parser");
@@ -402,11 +403,12 @@ next()
 
 app.use(
   "/graphql",
+  graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   graphqlHTTP((req, res) => {
     return {
       schema: schema,
       graphiql: true,
-      rootValue: { request: req, response: res },
+      rootValue: { request: req },
     };
   })
 );
