@@ -25,17 +25,36 @@ export const backgroundImgMutationField = {
       type: GraphQLUpload,
     },
   },
-  async resolve(parent: unknown, { image }: { image: any }) {
+  // async resolve(parent: unknown, { image }: { image: any }) {
+  async resolve(rootValue: any) {
 
-  
-    const { filename, mimetype, createReadStream } = await image;
-    const stream = createReadStream();
-    // Promisify the stream and store the file, then…
+    let file= await rootValue.request.body.variables?.file?.file;
 
-    console.log("filename");
-    console.log(filename);
+    console.log(file);
+    
+    
+    // console.log("image");
+    // console.log(image);
+    
+    
+    // const { filename, mimetype, createReadStream } = await file;
 
+    // console.log(filename);
+    
+
+    
+    // // console.log("step 2");
+    
+
+    // const stream = createReadStream();
+    // // // Promisify the stream and store the file, then…
+
+    // // console.log("filename");
+    // // console.log(filename);
+    // console.log(stream);
     return true;
+
+    // return file;
   },
   // resolve(rootValue: any) {
   //   // return rootValue.request.file;
@@ -44,4 +63,6 @@ export const backgroundImgMutationField = {
   //   console.log(rootValue);
   //   console.log(rootValue.request.file);
   // },
+
+  
 };

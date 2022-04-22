@@ -40,7 +40,15 @@ function BackgroundSettings_Upload({
 
   const [, changeBackgroundImg] = useMutation(BackgroundImgMutation);
 
-
+  const handleChange = React.useCallback(
+    ({
+      target: {
+        validity,
+        files: [file]
+      }
+    }) => validity.valid && changeBackgroundImg({ file }),
+    [changeBackgroundImg]
+  );
 
 
   const [dbFilesError, setDbFilesError] = useState<null | string>(null);
@@ -58,73 +66,73 @@ function BackgroundSettings_Upload({
 
 
 
-  async function submitForm(event: any) {
-    event.preventDefault();
+  // async function submitForm(event: any) {
+  //   event.preventDefault();
 
-    console.log("uploadFile garphql try");
+  //   console.log("uploadFile garphql try");
     
-    console.log("typeof uploadFile");
-    console.log(typeof uploadFile);
-    console.log(uploadFile);
-
-    
-
-    changeBackgroundImg(uploadFile as Blob);
-
-
-
-    // let dataArray = new FormData();
-    // // dataArray.append("uploadFile", uploadFile as Blob);
-    // dataArray.append("backgroundImg", uploadFile as Blob);
-
-    // let testOrUserId: string;
-
-    // authContext.authenticatedUserId && authContext.isAuthenticated
-    //   ? (testOrUserId = authContext.authenticatedUserId)
-    //   : (testOrUserId = testUserId);
-
-    // await fetch(`http://localhost:4000/background_img/${testOrUserId}`, {
-    //   method: "POST",
-    //   /*  headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   }, */
-    //   body: dataArray,
-    // })
-    //   .then((res) => res.json())
-    //   .then((response) => {
-    //     // console.log(response.error);
-    //     let errMsg = response.error;
-
-    //     if (errMsg) {
-    //       if (errMsg === DbFileErrors.size) {
-    //         setDbFilesError("Please upload a file smaller than 10MB");
-    //       }
-
-    //       if (errMsg === DbFileErrors.type) {
-    //         setDbFilesError(errMsg);
-    //       }
-
-    //       return;
-    //     }
-
-    //     setDbFilesError(null);
-
-    //     changeSettings({
-    //       ...globalSettings,
-    //       defaultImage: "customBackground",
-    //     });
-    //     setCurrentBackgroundImgKey(Date.now().toString());
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-
-    // reexecuteBackgroundImg({ requestPolicy: "network-only" });
-
-
+  //   console.log("typeof uploadFile");
+  //   console.log(typeof uploadFile);
+  //   console.log(uploadFile);
 
     
-  }
+
+  //   changeBackgroundImg(uploadFile as Blob);
+
+
+
+  //   // let dataArray = new FormData();
+  //   // // dataArray.append("uploadFile", uploadFile as Blob);
+  //   // dataArray.append("backgroundImg", uploadFile as Blob);
+
+  //   // let testOrUserId: string;
+
+  //   // authContext.authenticatedUserId && authContext.isAuthenticated
+  //   //   ? (testOrUserId = authContext.authenticatedUserId)
+  //   //   : (testOrUserId = testUserId);
+
+  //   // await fetch(`http://localhost:4000/background_img/${testOrUserId}`, {
+  //   //   method: "POST",
+  //   //   /*  headers: {
+  //   //     "Content-Type": "multipart/form-data",
+  //   //   }, */
+  //   //   body: dataArray,
+  //   // })
+  //   //   .then((res) => res.json())
+  //   //   .then((response) => {
+  //   //     // console.log(response.error);
+  //   //     let errMsg = response.error;
+
+  //   //     if (errMsg) {
+  //   //       if (errMsg === DbFileErrors.size) {
+  //   //         setDbFilesError("Please upload a file smaller than 10MB");
+  //   //       }
+
+  //   //       if (errMsg === DbFileErrors.type) {
+  //   //         setDbFilesError(errMsg);
+  //   //       }
+
+  //   //       return;
+  //   //     }
+
+  //   //     setDbFilesError(null);
+
+  //   //     changeSettings({
+  //   //       ...globalSettings,
+  //   //       defaultImage: "customBackground",
+  //   //     });
+  //   //     setCurrentBackgroundImgKey(Date.now().toString());
+  //   //   })
+  //   //   .catch((error) => {
+  //   //     console.log(error);
+  //   //   });
+
+  //   // reexecuteBackgroundImg({ requestPolicy: "network-only" });
+
+
+
+    
+  // }
 
   return (
     <div>
@@ -135,7 +143,7 @@ function BackgroundSettings_Upload({
         {dbFilesError}
       </div>
       <form
-        onSubmit={submitForm}
+        // onSubmit={submitForm}
         className={`flex justify-between items-center ${
           globalSettings.picBackground ? "" : "hidden"
         }`}
@@ -167,10 +175,12 @@ function BackgroundSettings_Upload({
           /*     className={`bg-blueGray-50 h-6 ${
               xsScreen ? "w-48" : "w-60"
             } border border-gray-300`} */
-          onChange={(e: any) => {
-            setUploadFile(e.target.files[0]);
-            console.log(e.target.files[0]);
-          }}
+          // onChange={(e: any) => {
+          //   setUploadFile(e.target.files[0]);
+          //   console.log(e.target.files[0]);
+          // }}
+          required
+          onChange={handleChange}
           style={{ display: "none" }}
           ref={hiddenFileInput}
         />

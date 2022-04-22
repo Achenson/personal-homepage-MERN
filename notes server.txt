@@ -130,6 +130,19 @@ change everywhere!!
 100. server.txs -> rootValue -> is it needed?
 101. graphql-tag -> check library!
 
+"urql": "^2.0.5"
+
+
+firecamp upload mutation: 
+variables should be like that:
+{
+  "image": ""
+}
+
+mutation ($image: Upload!) {
+    backgroundImgMutation(image: $image)
+  }
+
 6239ceb924aee400c5bc84ce"
 
 JWT logic: 

@@ -405,6 +405,16 @@ app.use(
   "/graphql",
   graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   graphqlHTTP((req, res) => {
+
+    // console.log(req.headers);
+    // console.log("req.body");
+    // @ts-ignore
+    // console.log(req.body);
+    // @ts-ignore
+    // console.log(req.body.variables?.file);
+    
+    
+
     return {
       schema: schema,
       graphiql: true,
