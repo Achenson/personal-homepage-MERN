@@ -294,10 +294,11 @@ export const TestMutation = `
 
 export const BackgroundImgMutation = `
   mutation ($image: Upload) {
-    backgroundImgMutation(image: $image)
+    backgroundImgMutation(image: $image) {
+      filename
+    }
   }
 `;
-
 
 /* export const BackgroundImgMutation = `
   mutation ($file: Upload!) {

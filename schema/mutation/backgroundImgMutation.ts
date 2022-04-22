@@ -16,9 +16,21 @@ import {
 //   },
 // });
 
+const UploadedFileType = new GraphQLObjectType({
+  name: 'UploadedFile',
+  fields: {
+    filename: { type: GraphQLString },
+    mimetype: { type: GraphQLString },
+    enconding: {type: GraphQLString}
+    // createReadStream: {type: GraphQLObjectType}
+
+  }
+})
+
 export const backgroundImgMutationField = {
   description: "Uploads an image.",
-  type: GraphQLBoolean,
+  // type: GraphQLBoolean,
+  type: UploadedFileType,
   args: {
     image: {
       description: "Image file.",
@@ -52,9 +64,12 @@ export const backgroundImgMutationField = {
     // // console.log("filename");
     // // console.log(filename);
     // console.log(stream);
-    return true;
 
-    // return file;
+
+
+    // return true;
+
+    return file;
   },
   // resolve(rootValue: any) {
   //   // return rootValue.request.file;

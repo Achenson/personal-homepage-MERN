@@ -130,6 +130,17 @@ change everywhere!!
 100. server.txs -> rootValue -> is it needed?
 101. graphql-tag -> check library!
 
+
+
+{
+  filename: 'nature-3082832_1920.jpg',
+  mimetype: 'image/jpeg',
+  encoding: '7bit',
+  createReadStream: [Function: createReadStream]      
+}
+
+
+
 "urql": "^2.0.5"
 
 
