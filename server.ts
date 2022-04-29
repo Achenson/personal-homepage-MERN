@@ -418,7 +418,7 @@ app.use(
     return {
       schema: schema,
       graphiql: true,
-      rootValue: { request: req },
+      rootValue: { request: req, response: res },
     };
   })
 );
