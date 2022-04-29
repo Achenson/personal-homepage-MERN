@@ -33,59 +33,10 @@ const UploadedFileType = new GraphQLObjectType({
   },
 });
 
-let newBackgroundImageName: string;
-
-const storage = multer.diskStorage({
-  destination: function (req: any, file, cb) {
-    const authHeader = req.get("Authorization");
-    // console.log(req.headers);
-    // const authHeader = req.headers.authorisation;
-
-    console.log("Storage multer");
-    console.log(authHeader);
-
-    // @ts-ignore
-    // userIdOrDemoId = req.isAuth ? req.userId : testUserId
-
-    // userIdOrDemoId = req.userId ? req.userId : testUserId
-
-    // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
-
-    // let dest = "/../../backgroundImgs/" + req.userId + "/";
-    let dest = path.join(__dirname, "..", "..", "backgroundImgs", req.userId);
-    // mkdirp.sync(dest);
-    cb(null, dest);
-  },
-  filename: function (req: any, file: any, cb: any) {
-    let newFileName = Date.now() + "_" + file.originalname;
-    cb(null, newFileName);
-    newBackgroundImageName = newFileName;
-  },
-});
-
-function fileFilter(
-  req: any,
-  file: Express.Multer.File,
-  cb: multer.FileFilterCallback
-) {
-  if (file.mimetype !== "image/jpeg" && file.mimetype !== "image/png") {
-    // cb(new Error("Only .jpg and .png files are accepted"));
-    cb(new Error("Only .jpg and .png files are accepted"));
-    return;
-  }
-
-  cb(null, true);
-}
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 10,
-  },
-  fileFilter: fileFilter,
-});
-
 function removeBackgroundImg(fileName: string, userIdOrDemoId: string) {
+  console.log("removing background IMg");
+  return;
+
   fs.unlink(
     path.join(
       __dirname,
@@ -101,8 +52,6 @@ function removeBackgroundImg(fileName: string, userIdOrDemoId: string) {
   );
 }
 
-let backgroundImgUpload = upload.single("backgroundImg");
-
 export const backgroundImgMutationField = {
   description: "Uploads an image.",
   // type: GraphQLBoolean,
@@ -115,6 +64,70 @@ export const backgroundImgMutationField = {
   },
   // async resolve(parent: unknown, { image }: { image: any }) {
   async resolve(rootValue: any) {
+    let newBackgroundImageName: string;
+
+    let storage = multer.diskStorage({
+      destination: function (req: any, file, cb) {
+        const authHeader = req.get("Authorization");
+        // console.log(req.headers);
+        // const authHeader = req.headers.authorisation;
+
+        console.log("Storage multer");
+        console.log(authHeader);
+
+        // @ts-ignore
+        // userIdOrDemoId = req.isAuth ? req.userId : testUserId
+
+        // userIdOrDemoId = req.userId ? req.userId : testUserId
+
+        // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
+
+        // let dest = "/../../backgroundImgs/" + req.userId + "/";
+        let dest = path.join(
+          __dirname,
+          "..",
+          "..",
+          "backgroundImgs",
+          req.userId
+        );
+        // mkdirp.sync(dest);
+        cb(null, dest);
+      },
+      filename: function (req: any, file: any, cb: any) {
+        console.log("FILE filename");
+        console.log(file);
+
+        // let newFileName = Date.now() + "_" + file.originalname;
+        let newFileName = Date.now() + "_" + file.filename;
+        cb(null, newFileName);
+        newBackgroundImageName = newFileName;
+      },
+    });
+
+    function fileFilter(
+      req: any,
+      file: Express.Multer.File,
+      cb: multer.FileFilterCallback
+    ) {
+      if (file.mimetype !== "image/jpeg" && file.mimetype !== "image/png") {
+        // cb(new Error("Only .jpg and .png files are accepted"));
+        cb(new Error("Only .jpg and .png files are accepted"));
+        return;
+      }
+
+      cb(null, true);
+    }
+
+    const upload = multer({
+      storage: storage,
+      limits: {
+        fileSize: 1024 * 1024 * 10,
+      },
+      fileFilter: fileFilter,
+    });
+
+    let backgroundImgUpload = upload.single("backgroundImg");
+
     let file = await rootValue.request.body.variables?.file?.file;
 
     console.log(file);
@@ -122,8 +135,17 @@ export const backgroundImgMutationField = {
     let req = rootValue.request;
     let res = rootValue.response;
 
+    console.log("req.userId");
+    console.log(req.userId);
+
     backgroundImgUpload(req, res, function (multerErr) {
+
+
+      console.log("background img upload started");
+      
       if (multerErr) {
+        console.log("MULTER ERROR");
+
         if (multerErr instanceof multer.MulterError) {
           // res.send({ error: multerErr.message });
           return { error: multerErr.message };
@@ -138,7 +160,8 @@ export const backgroundImgMutationField = {
       let newBackgroundImg = {
         // userId: userIdOrDemoId,
         userId: req.userId,
-        backgroundImg: file,
+        // backgroundImg: file,
+        backgroundImg: file.filename,
       };
 
       BackgroundImgSchema.replaceOne(
@@ -154,13 +177,11 @@ export const backgroundImgMutationField = {
             //   error: err,
             // });
 
-
             removeBackgroundImg(newBackgroundImageName, req.userId);
 
             return {
               error: err,
             };
-          
           }
 
           // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
@@ -176,6 +197,9 @@ export const backgroundImgMutationField = {
 
           fs.readdirSync(dest).forEach((file: string) => {
             // console.log(file);
+            console.log(file);
+
+            console.log(newBackgroundImageName);
 
             if (file !== newBackgroundImageName) {
               removeBackgroundImg(file, req.userId);
@@ -190,7 +214,7 @@ export const backgroundImgMutationField = {
           return {
             message: "Created product successfully",
             createdProduct: backgroundImgProduct,
-          }
+          };
           // res.send(backgroundImgProduct)
           // res.send({message: "done"})
           // res.statusMessage = backgroundImgProduct.backgroundImg
