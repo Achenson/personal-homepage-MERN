@@ -125,14 +125,14 @@ export const backgroundImgMutationField = {
     backgroundImgUpload(req, res, function (multerErr) {
       if (multerErr) {
         if (multerErr instanceof multer.MulterError) {
-          res.send({ error: multerErr.message });
-          return;
+          // res.send({ error: multerErr.message });
+          return { error: multerErr.message };
         }
         // res.status(500).send({error: multerErr})
         // res.send(multerErr);
-        res.send({ error: "Only .jpg and .png files are accepted" });
+        // res.send({ error: "Only .jpg and .png files are accepted" });
 
-        return;
+        return { error: "Only .jpg and .png files are accepted" };
       }
 
       let newBackgroundImg = {
@@ -149,12 +149,18 @@ export const backgroundImgMutationField = {
         (err: Error, backgroundImgProduct: BackgroundImg) => {
           if (err) {
             console.log(err);
-            res.status(500).json({
-              error: err,
-            });
+
+            // res.status(500).json({
+            //   error: err,
+            // });
+
 
             removeBackgroundImg(newBackgroundImageName, req.userId);
-            return;
+
+            return {
+              error: err,
+            };
+          
           }
 
           // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
@@ -176,10 +182,15 @@ export const backgroundImgMutationField = {
             }
           });
 
-          res.status(201).json({
+          // res.status(201).json({
+          //   message: "Created product successfully",
+          //   createdProduct: backgroundImgProduct,
+          // });
+
+          return {
             message: "Created product successfully",
             createdProduct: backgroundImgProduct,
-          });
+          }
           // res.send(backgroundImgProduct)
           // res.send({message: "done"})
           // res.statusMessage = backgroundImgProduct.backgroundImg
