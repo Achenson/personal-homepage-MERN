@@ -64,16 +64,19 @@ export const backgroundImgMutationField = {
   },
   // async resolve(parent: unknown, { image }: { image: any }) {
   async resolve(rootValue: any) {
-    let newBackgroundImageName: string;
 
-    let storage = multer.diskStorage({
-      destination: function (req: any, file, cb) {
-        const authHeader = req.get("Authorization");
-        // console.log(req.headers);
-        // const authHeader = req.headers.authorisation;
 
-        console.log("Storage multer");
-        console.log(authHeader);
+
+    // let newBackgroundImageName: string;
+
+    // let storage = multer.diskStorage({
+    //   destination: function (req: any, file, cb) {
+    //     const authHeader = req.get("Authorization");
+    //     // console.log(req.headers);
+    //     // const authHeader = req.headers.authorisation;
+
+    //     console.log("Storage multer");
+    //     console.log(authHeader);
 
         // @ts-ignore
         // userIdOrDemoId = req.isAuth ? req.userId : testUserId
@@ -81,7 +84,7 @@ export const backgroundImgMutationField = {
         // userIdOrDemoId = req.userId ? req.userId : testUserId
 
         // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
-
+/* 
         // let dest = "/../../backgroundImgs/" + req.userId + "/";
         let dest = path.join(
           __dirname,
@@ -126,7 +129,7 @@ export const backgroundImgMutationField = {
       fileFilter: fileFilter,
     });
 
-    let backgroundImgUpload = upload.single("backgroundImg");
+    let backgroundImgUpload = upload.single("backgroundImg"); */
 
     let file = await rootValue.request.body.variables?.file?.file;
 
@@ -138,98 +141,98 @@ export const backgroundImgMutationField = {
     console.log("req.userId");
     console.log(req.userId);
 
-    backgroundImgUpload(req, res, function (multerErr) {
+    // backgroundImgUpload(req, res, function (multerErr) {
 
 
-      console.log("background img upload started");
+    //   console.log("background img upload started");
       
-      if (multerErr) {
-        console.log("MULTER ERROR");
+    //   if (multerErr) {
+    //     console.log("MULTER ERROR");
 
-        if (multerErr instanceof multer.MulterError) {
-          // res.send({ error: multerErr.message });
-          return { error: multerErr.message };
-        }
-        // res.status(500).send({error: multerErr})
-        // res.send(multerErr);
-        // res.send({ error: "Only .jpg and .png files are accepted" });
+    //     if (multerErr instanceof multer.MulterError) {
+    //       // res.send({ error: multerErr.message });
+    //       return { error: multerErr.message };
+    //     }
+    //     // res.status(500).send({error: multerErr})
+    //     // res.send(multerErr);
+    //     // res.send({ error: "Only .jpg and .png files are accepted" });
 
-        return { error: "Only .jpg and .png files are accepted" };
-      }
+    //     return { error: "Only .jpg and .png files are accepted" };
+    //   }
 
-      let newBackgroundImg = {
-        // userId: userIdOrDemoId,
-        userId: req.userId,
-        // backgroundImg: file,
-        backgroundImg: file.filename,
-      };
+    //   let newBackgroundImg = {
+    //     // userId: userIdOrDemoId,
+    //     userId: req.userId,
+    //     // backgroundImg: file,
+    //     backgroundImg: file.filename,
+    //   };
 
-      BackgroundImgSchema.replaceOne(
-        // { userId: userIdOrDemoId },
-        { userId: req.userId },
-        newBackgroundImg,
-        { upsert: true },
-        (err: Error, backgroundImgProduct: BackgroundImg) => {
-          if (err) {
-            console.log(err);
+    //   BackgroundImgSchema.replaceOne(
+    //     // { userId: userIdOrDemoId },
+    //     { userId: req.userId },
+    //     newBackgroundImg,
+    //     { upsert: true },
+    //     (err: Error, backgroundImgProduct: BackgroundImg) => {
+    //       if (err) {
+    //         console.log(err);
 
-            // res.status(500).json({
-            //   error: err,
-            // });
+    //         // res.status(500).json({
+    //         //   error: err,
+    //         // });
 
-            removeBackgroundImg(newBackgroundImageName, req.userId);
+    //         removeBackgroundImg(newBackgroundImageName, req.userId);
 
-            return {
-              error: err,
-            };
-          }
+    //         return {
+    //           error: err,
+    //         };
+    //       }
 
-          // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
+    //       // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
 
-          // let dest = "/../../backgroundImgs/" + req.userId + "/";
-          let dest = path.join(
-            __dirname,
-            "..",
-            "..",
-            "backgroundImgs",
-            req.userId
-          );
+    //       // let dest = "/../../backgroundImgs/" + req.userId + "/";
+    //       let dest = path.join(
+    //         __dirname,
+    //         "..",
+    //         "..",
+    //         "backgroundImgs",
+    //         req.userId
+    //       );
 
-          fs.readdirSync(dest).forEach((file: string) => {
-            // console.log(file);
-            console.log(file);
+    //       fs.readdirSync(dest).forEach((file: string) => {
+    //         // console.log(file);
+    //         console.log(file);
 
-            console.log(newBackgroundImageName);
+    //         console.log(newBackgroundImageName);
 
-            if (file !== newBackgroundImageName) {
-              removeBackgroundImg(file, req.userId);
-            }
-          });
+    //         if (file !== newBackgroundImageName) {
+    //           removeBackgroundImg(file, req.userId);
+    //         }
+    //       });
 
-          // res.status(201).json({
-          //   message: "Created product successfully",
-          //   createdProduct: backgroundImgProduct,
-          // });
+    //       // res.status(201).json({
+    //       //   message: "Created product successfully",
+    //       //   createdProduct: backgroundImgProduct,
+    //       // });
 
-          return {
-            message: "Created product successfully",
-            createdProduct: backgroundImgProduct,
-          };
-          // res.send(backgroundImgProduct)
-          // res.send({message: "done"})
-          // res.statusMessage = backgroundImgProduct.backgroundImg
-          // res.send("aaaaaaaaaaaaaaaaaaaaa");
-        }
-      );
+    //       return {
+    //         message: "Created product successfully",
+    //         createdProduct: backgroundImgProduct,
+    //       };
+    //       // res.send(backgroundImgProduct)
+    //       // res.send({message: "done"})
+    //       // res.statusMessage = backgroundImgProduct.backgroundImg
+    //       // res.send("aaaaaaaaaaaaaaaaaaaaa");
+    //     }
+    //   );
 
-      // console.log(req);
-      // console.log(req.file.path);
+    //   // console.log(req);
+    //   // console.log(req.file.path);
 
-      /* let newBackgroundImg = new BackgroundImg({
-      userId: testUserId,
-      backgroundImg: req.file.path,
-    }); */
-    });
+    //   /* let newBackgroundImg = new BackgroundImg({
+    //   userId: testUserId,
+    //   backgroundImg: req.file.path,
+    // }); */
+    // });
     // console.log("image");
     // console.log(image);
 
@@ -248,6 +251,7 @@ export const backgroundImgMutationField = {
 
     // return true;
 
+    
     return file;
   },
   // resolve(rootValue: any) {

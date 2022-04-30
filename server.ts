@@ -57,6 +57,10 @@ console.log(fetchTest2); */
 // ============
 
 // app.use(helmet());
+
+
+
+
 app.use(
   helmet({
     // to enable express-graphql playground
@@ -73,10 +77,13 @@ app.use(
       "http://localhost:4000/graphql",
       "http://localhost:4000/fetch_rss",
       "http://localhost:4000/background_img",
+      "http://localhost:4000/refresh_token",
     ],
     credentials: true,
   })
 );
+
+
 
 app.use(isAuth);
 
@@ -188,6 +195,16 @@ const storage = multer.diskStorage({
     // console.log(req.headers);
     // const authHeader = req.headers.authorisation;
 
+    console.log("req is  Auth multer");
+
+    console.log(req.isAuth);
+    
+    
+
+    console.log("req user id storage multer")
+    console.log(req.userId);
+    
+    
     console.log("Storage multer");
     console.log(authHeader);
 
@@ -197,7 +214,7 @@ const storage = multer.diskStorage({
     // userIdOrDemoId = req.userId ? req.userId : testUserId
 
     // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
-    let dest = "backgroundImgs/" + req.params.userId + "/";
+    let dest = "backgroundImgs/" + req.userId + "/";
     // mkdirp.sync(dest);
     cb(null, dest);
   },
@@ -254,92 +271,93 @@ const upload = multer({
 
 app.use("/background_img", express.static("backgroundImgs"));
 
-let backgroundImgUpload = upload.single("backgroundImg");
+// let backgroundImgUpload = upload.single("file");
+let backgroundImgUpload = upload.any();
 
-app.post(
-  "/background_img/:userId",
-  // upload.single("backgroundImg"),
-  (req: any, res: Response) => {
-    // console.log("POST req.isAuth POST");
-    // console.log(req.isAuth);
+// app.post(
+//   "/background_img/:userId",
+//   // upload.single("backgroundImg"),
+//   (req: any, res: Response) => {
+//     // console.log("POST req.isAuth POST");
+//     // console.log(req.isAuth);
 
-    const authHeader = req.get("Authorization");
-    // console.log(req.headers);
-    // const authHeader = req.headers.authorisation;
+//     const authHeader = req.get("Authorization");
+//     // console.log(req.headers);
+//     // const authHeader = req.headers.authorisation;
 
-    console.log("POST authHeader POST");
-    console.log(authHeader);
-    // console.log("req.headers backgroundImg");
-    // console.log(req.headers);
-    // const authHeader = req.headers.authorisation;
+//     console.log("POST authHeader POST");
+//     console.log(authHeader);
+//     // console.log("req.headers backgroundImg");
+//     // console.log(req.headers);
+//     // const authHeader = req.headers.authorisation;
 
-    backgroundImgUpload(req, res, function (multerErr) {
-      if (multerErr) {
-        if (multerErr instanceof multer.MulterError) {
-          res.send({ error: multerErr.message });
-          return;
-        }
-        // res.status(500).send({error: multerErr})
-        // res.send(multerErr);
-        res.send({ error: "Only .jpg and .png files are accepted" });
+//     backgroundImgUpload(req, res, function (multerErr) {
+//       if (multerErr) {
+//         if (multerErr instanceof multer.MulterError) {
+//           res.send({ error: multerErr.message });
+//           return;
+//         }
+//         // res.status(500).send({error: multerErr})
+//         // res.send(multerErr);
+//         res.send({ error: "Only .jpg and .png files are accepted" });
 
-        return;
-      }
+//         return;
+//       }
 
-      let newBackgroundImg = {
-        // userId: userIdOrDemoId,
-        userId: req.params.userId,
-        backgroundImg: req.file.path,
-      };
+//       let newBackgroundImg = {
+//         // userId: userIdOrDemoId,
+//         userId: req.params.userId,
+//         backgroundImg: req.file.path,
+//       };
 
-      BackgroundImgSchema.replaceOne(
-        // { userId: userIdOrDemoId },
-        { userId: req.params.userId },
-        newBackgroundImg,
-        { upsert: true },
-        (err: Error, backgroundImgProduct: BackgroundImg) => {
-          if (err) {
-            console.log(err);
-            res.status(500).json({
-              error: err,
-            });
+//       BackgroundImgSchema.replaceOne(
+//         // { userId: userIdOrDemoId },
+//         { userId: req.params.userId },
+//         newBackgroundImg,
+//         { upsert: true },
+//         (err: Error, backgroundImgProduct: BackgroundImg) => {
+//           if (err) {
+//             console.log(err);
+//             res.status(500).json({
+//               error: err,
+//             });
 
-            removeBackgroundImg(newBackgroundImageName, req.params.userId);
-            return;
-          }
+//             removeBackgroundImg(newBackgroundImageName, req.params.userId);
+//             return;
+//           }
 
-          // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
-          let dest = "backgroundImgs/" + req.params.userId + "/";
+//           // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
+//           let dest = "backgroundImgs/" + req.params.userId + "/";
 
-          fs.readdirSync(dest).forEach((file: string) => {
-            // console.log(file);
+//           fs.readdirSync(dest).forEach((file: string) => {
+//             // console.log(file);
 
-            if (file !== newBackgroundImageName) {
-              removeBackgroundImg(file, req.params.userId);
-            }
-          });
+//             if (file !== newBackgroundImageName) {
+//               removeBackgroundImg(file, req.params.userId);
+//             }
+//           });
 
-          res.status(201).json({
-            message: "Created product successfully",
-            createdProduct: backgroundImgProduct,
-          });
-          // res.send(backgroundImgProduct)
-          // res.send({message: "done"})
-          // res.statusMessage = backgroundImgProduct.backgroundImg
-          // res.send("aaaaaaaaaaaaaaaaaaaaa");
-        }
-      );
+//           res.status(201).json({
+//             message: "Created product successfully",
+//             createdProduct: backgroundImgProduct,
+//           });
+//           // res.send(backgroundImgProduct)
+//           // res.send({message: "done"})
+//           // res.statusMessage = backgroundImgProduct.backgroundImg
+//           // res.send("aaaaaaaaaaaaaaaaaaaaa");
+//         }
+//       );
 
-      // console.log(req);
-      // console.log(req.file.path);
+//       // console.log(req);
+//       // console.log(req.file.path);
 
-      /* let newBackgroundImg = new BackgroundImg({
-      userId: testUserId,
-      backgroundImg: req.file.path,
-    }); */
-    });
-  }
-);
+//       /* let newBackgroundImg = new BackgroundImg({
+//       userId: testUserId,
+//       backgroundImg: req.file.path,
+//     }); */
+//     });
+//   }
+// );
 
 /* let backgroundImgFiles = fs.readdirSync("backgroundImgs/" + testUserId);
 console.log(backgroundImgFiles[0]); */
@@ -401,9 +419,12 @@ next()
 
 }) */
 
+
+app.use("/graphql", backgroundImgUpload)
+
 app.use(
   "/graphql",
-  graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
+  // graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   graphqlHTTP((req, res) => {
 
     // console.log(req.headers);
