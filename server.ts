@@ -420,7 +420,17 @@ next()
 }) */
 
 
-app.use("/graphql", backgroundImgUpload)
+app.use("/graphql", backgroundImgUpload, (err: Error, req: Request, res: Response, next: NextFunction) => {
+    if(err) {
+      console.log("err");
+      console.log(err);
+      
+    }
+  
+  console.log("req.file");
+    console.log(req.body);
+    
+})
 
 app.use(
   "/graphql",

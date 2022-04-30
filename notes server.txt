@@ -129,6 +129,11 @@ change everywhere!!
 99. server.ts -> make separate files
 100. server.txs -> rootValue -> is it needed?
 101. graphql-tag -> check library!
+102. react keys -> they should by indices ! change to id
+103. unify callback functions -> function declaration instead of () => { }everywherw?
+104. multer.any() <- change to single("name") somehow
+
+
 
 
 
