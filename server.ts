@@ -58,9 +58,6 @@ console.log(fetchTest2); */
 
 // app.use(helmet());
 
-
-
-
 app.use(
   helmet({
     // to enable express-graphql playground
@@ -82,8 +79,6 @@ app.use(
     credentials: true,
   })
 );
-
-
 
 app.use(isAuth);
 
@@ -171,12 +166,9 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
 }); */
 
 app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
-
-
   console.log("fetching rss server rest");
   // @ts-ignore
   console.log(req.isAuth);
-  
 
   let response = await rssParser.parseURL(req.params.rsslink);
   // console.log(response);
@@ -198,13 +190,10 @@ const storage = multer.diskStorage({
     console.log("req is  Auth multer");
 
     console.log(req.isAuth);
-    
-    
 
-    console.log("req user id storage multer")
+    console.log("req user id storage multer");
     console.log(req.userId);
-    
-    
+
     console.log("Storage multer");
     console.log(authHeader);
 
@@ -419,32 +408,37 @@ next()
 
 }) */
 
+app.use("/graphql", (req: Request, res: Response, next: NextFunction) => {
 
-app.use("/graphql", backgroundImgUpload, (err: Error, req: Request, res: Response, next: NextFunction) => {
-    if(err) {
-      console.log("err");
-      console.log(err);
-      
+  // if(!req.body){
+  //   next()
+  // }
+
+  console.log("req.body /graphql");
+  console.log(req.body);
+
+  backgroundImgUpload(req, res, function (multerErr) {
+    if (multerErr) {
+      console.log("multerErr");
+      console.log(multerErr);
     }
-  
-  console.log("req.file");
-    console.log(req.body);
-    
-})
+  });
+
+  // console.log("req.file");
+  //   console.log(req.body);
+});
 
 app.use(
   "/graphql",
   // graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   graphqlHTTP((req, res) => {
-
     // console.log(req.headers);
-    // console.log("req.body");
+    console.log("req.body /graphql 2");
+
     // @ts-ignore
-    // console.log(req.body);
+    console.log(req.body);
     // @ts-ignore
-    // console.log(req.body.variables?.file);
-    
-    
+    console.log(req.body?.variables?.file);
 
     return {
       schema: schema,

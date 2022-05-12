@@ -132,7 +132,8 @@ change everywhere!!
 102. react keys -> they should by indices ! change to id
 103. unify callback functions -> function declaration instead of () => { }everywherw?
 104. multer.any() <- change to single("name") somehow
-
+105. delete the other background image
+106. make it possible to changle background img when not logged in, again
 
 
 
