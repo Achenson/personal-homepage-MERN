@@ -66,6 +66,8 @@ export const backgroundImgMutationField = {
   async resolve(rootValue: any) {
 
 
+    console.log("background img mutation runs");
+    
 
     // let newBackgroundImageName: string;
 
@@ -131,15 +133,20 @@ export const backgroundImgMutationField = {
 
     let backgroundImgUpload = upload.single("backgroundImg"); */
 
-    let file = await rootValue.request.body.variables?.file?.file;
 
-    console.log(file);
+
+    // let file = await rootValue.request.body.variables?.file?.file;
+
+    // console.log(file);
 
     let req = rootValue.request;
     let res = rootValue.response;
 
     console.log("req.userId");
     console.log(req.userId);
+
+
+    let operations = await req.operations;
 
     // backgroundImgUpload(req, res, function (multerErr) {
 
@@ -252,7 +259,8 @@ export const backgroundImgMutationField = {
     // return true;
 
     
-    return file;
+    // return file;
+    return operations;
   },
   // resolve(rootValue: any) {
   //   // return rootValue.request.file;

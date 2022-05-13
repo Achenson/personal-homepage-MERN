@@ -134,7 +134,7 @@ change everywhere!!
 104. multer.any() <- change to single("name") somehow
 105. delete the other background image
 106. make it possible to changle background img when not logged in, again
-
+107. write notes for file upload system!
 
 
 
