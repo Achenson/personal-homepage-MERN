@@ -135,8 +135,12 @@ change everywhere!!
 105. delete the other background image
 106. make it possible to changle background img when not logged in, again
 107. write notes for file upload system!
-
-
+108. not possible to write even a console.log in backgroundImgMutation even while is working?
+109. backgroundImgUpload funcion -> for !req.body is next() needed?
+110. demo id or test id naming
+111. rootValue -> not needed?? check multer express graphql tut. change backgroundImgMutaion
+112. test user Id server.ts check import
+113. getting background img automatically
 
 {
   filename: 'nature-3082832_1920.jpg',
@@ -263,3 +267,7 @@ export const useAuth = create<AuthContextZustand_i>((set) => ({
 
 
 }));
+
+
+
+    

@@ -32,7 +32,7 @@ import {
 } from "multer";
 import { schema } from "./schema/schema";
 
-import { testUserId } from "../personal-homepage-MERN/client/src/state/data/testUserId";
+import { testUserId } from "./client/src/state/data/testUserId";
 import { BackgroundImg } from "./schema/types/backgroundImgType";
 let rssParser = new Parser();
 // let upload = multer({dest: "uploads/"})

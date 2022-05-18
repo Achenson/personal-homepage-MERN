@@ -236,7 +236,14 @@ function Main({ globalSettings }: Props): JSX.Element {
     console.log("data_background")
     console.log(data_backgroundImg)
     console.log(data_backgroundImg.backgroundImg)
-    backgroundImgUrl = data_backgroundImg.backgroundImg.backgroundImgUrl;
+
+    // if(data_backgroundImg.backgroundImg.backgroundImgUrl) {
+      backgroundImgUrl = data_backgroundImg.backgroundImg.backgroundImgUrl;
+
+    // } else {
+    //   backgroundImgUrl = "fsfsgsdg"
+    // }
+
 
   }
 
