@@ -4,7 +4,10 @@ import { useMutation } from "urql";
 import { useBackgroundImgContext } from "../../context/backgroundImgContext";
 import { useAuth } from "../../state/hooks/useAuth";
 
-import { ChangeSettingsMutation, BackgroundImgMutation } from "../../graphql/graphqlMutations";
+import {
+  ChangeSettingsMutation,
+  BackgroundImgMutation,
+} from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { testUserId } from "../../state/data/testUserId";
@@ -37,19 +40,32 @@ function BackgroundSettings_Upload({
     SettingsDatabase_i
   >(ChangeSettingsMutation);
 
-
   const [, changeBackgroundImg] = useMutation(BackgroundImgMutation);
 
-  const handleChange = React.useCallback(
-    ({
-      target: {
-        validity,
-        files: [file]
-      }
-    }) => validity.valid && changeBackgroundImg({ file }),
-    [changeBackgroundImg]
-  );
+  // const handleChange = React.useCallback(
+  //   ({
+  //     target: {
+  //       validity,
+  //       files: [file]
+  //     }
+  //   }) => validity.valid && changeBackgroundImg({ file }),
+  //   [changeBackgroundImg]
+  // );
 
+
+  async function handleChange({
+    target: {
+      // @ts-ignore
+      validity,
+      // @ts-ignore
+      files: [file],
+    },
+  }) {
+    if (validity.valid) {
+     await changeBackgroundImg({ file });
+    reexecuteBackgroundImg({ requestPolicy: "network-only" });
+    }
+  }
 
   const [dbFilesError, setDbFilesError] = useState<null | string>(null);
 
@@ -63,23 +79,16 @@ function BackgroundSettings_Upload({
   let setCurrentBackgroundImgKey =
     useBackgroundImgContext().updateCurrentBackgroundImgKey;
 
-
-
-
   // async function submitForm(event: any) {
   //   event.preventDefault();
 
   //   console.log("uploadFile garphql try");
-    
+
   //   console.log("typeof uploadFile");
   //   console.log(typeof uploadFile);
   //   console.log(uploadFile);
 
-    
-
   //   changeBackgroundImg(uploadFile as Blob);
-
-
 
   //   // let dataArray = new FormData();
   //   // // dataArray.append("uploadFile", uploadFile as Blob);
@@ -129,9 +138,6 @@ function BackgroundSettings_Upload({
 
   //   // reexecuteBackgroundImg({ requestPolicy: "network-only" });
 
-
-
-    
   // }
 
   return (

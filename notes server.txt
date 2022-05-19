@@ -143,6 +143,10 @@ change everywhere!!
 113. getting background img automatically
 114. fallback if no backgroundImg available? or test it if it is not broking the app at least
 115. backgroundImgQuery -> no variable needed? check after implementing unlogged version
+116. useCallback -> is it really needed for uploads? no callback used right now
+117. backgroundSettings_Upload -> reexecute query works after introducint async function!
+118. change background upload UI!
+119. BackgroudnSettings_Upload typescript issues
 
 {
   filename: 'nature-3082832_1920.jpg',
