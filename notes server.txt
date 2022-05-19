@@ -141,6 +141,8 @@ change everywhere!!
 111. rootValue -> not needed?? check multer express graphql tut. change backgroundImgMutaion
 112. test user Id server.ts check import
 113. getting background img automatically
+114. fallback if no backgroundImg available? or test it if it is not broking the app at least
+115. backgroundImgQuery -> no variable needed? check after implementing unlogged version
 
 {
   filename: 'nature-3082832_1920.jpg',
