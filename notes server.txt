@@ -147,6 +147,9 @@ change everywhere!!
 117. backgroundSettings_Upload -> reexecute query works after introducint async function!
 118. change background upload UI!
 119. BackgroudnSettings_Upload typescript issues
+120. urql query from rss -> archive
+121. get favicon server.ts -> archive
+
 
 {
   filename: 'nature-3082832_1920.jpg',

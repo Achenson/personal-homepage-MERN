@@ -150,12 +150,12 @@ function BackgroundSettings_Upload({
       </div>
       <form
         // onSubmit={submitForm}
-        className={`flex justify-between items-center ${
+        className={`flex justify-start items-center ${
           globalSettings.picBackground ? "" : "hidden"
         }`}
       >
         <button
-          className={`border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
+          className={`border border-${uiColor} rounded-md px-1 pb-px mr-1 hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
           focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
           style={{ height: "26px" }}
           onClick={(e) => {
@@ -168,7 +168,8 @@ function BackgroundSettings_Upload({
         </button>
         <div
           className={`bg-blueGray-50 pl-px ${
-            xsScreen ? "w-32" : "w-44"
+            // xsScreen ? "w-32" : "w-44"
+            xsScreen ? "w-full" : "w-full"
           } border border-gray-300 align-text-bottom`}
           style={{ height: "26px" }}
         >
@@ -191,7 +192,7 @@ function BackgroundSettings_Upload({
           style={{ display: "none" }}
           ref={hiddenFileInput}
         />
-        <button
+        {/* <button
           type="submit"
           style={{ height: "26px" }}
           className={`border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
@@ -202,7 +203,7 @@ function BackgroundSettings_Upload({
         >
           {" "}
           Upload image
-        </button>
+        </button> */}
       </form>
     </div>
   );
