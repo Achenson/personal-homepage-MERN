@@ -186,6 +186,7 @@ function BackgroundSettings_Upload({
           //   console.log(e.target.files[0]);
           // }}
           required
+          // @ts-ignore
           onChange={handleChange}
           style={{ display: "none" }}
           ref={hiddenFileInput}

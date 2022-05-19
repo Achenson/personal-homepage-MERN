@@ -11,7 +11,7 @@ import {
   fetchExchange,
 } from "urql";
 import { multipartFetchExchange } from '@urql/exchange-multipart-fetch';
-// import { QueryClientProvider, QueryClient } from "react-query";
+import { QueryClientProvider, QueryClient } from "react-query";
 import { authExchange } from "@urql/exchange-auth";
 import { makeOperation } from "@urql/core";
 import jwtDecode from "jwt-decode";
@@ -56,7 +56,7 @@ if (environment === "production") {
 
 // import { ReactQueryDevtools} from "react-query-devtools";
 
-// const queryClient = new QueryClient();
+const queryClient = new QueryClient();
 
 function App() {
   const authContext = useAuth();
@@ -242,7 +242,7 @@ function App() {
  
   return (
     <Provider value={client}>
-      {/* <QueryClientProvider client={queryClient}> */}
+      <QueryClientProvider client={queryClient}>
         <div className="App">
           {/* <DndProvider backend={HTML5Backend}> */}
           <DndProvider options={HTML5toTouch}>
@@ -250,7 +250,7 @@ function App() {
           </DndProvider>
         </div>
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-      {/* </QueryClientProvider> */}
+      </QueryClientProvider>
     </Provider>
   );
 }

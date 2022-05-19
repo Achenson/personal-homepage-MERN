@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // import shallow from "zustand/shallow";
-// import { useQuery as useReactQuery } from "react-query";
+import { useQuery as useReactQuery } from "react-query";
 import { useQuery } from "urql";
 
 import SingleRssNews from "./SingleRssNews";
@@ -70,74 +70,74 @@ function ReactQuery({
 
   const [pageNumber, setPageNumber] = useState(0);
 
-  // const { data, status } = useReactQuery(`${tabID}`, fetchFeed, {
-  //   // staleTime: 2000,
-  //   // cacheTime: 10,
-  //   onSuccess: () => {
-  //     console.log("data fetched with no problems");
-  //     // console.log(data);
-  //   },
-  // });
-
-  const [rssFetchResults, reexecuteRssFetch] = useQuery({
-    query: RssFetchQuery,
-    // variables: { userId: authContext.isAuthenticated ? authContext.authenticatedUserId : testUserId },
-    variables: { rssLink: currentTab.rssLink },
-    // requestPolicy: 'cache-and-network',
+  const { data, status } = useReactQuery(`${tabID}`, fetchFeed, {
+    // staleTime: 2000,
+    // cacheTime: 10,
+    onSuccess: () => {
+      console.log("data fetched with no problems");
+      // console.log(data);
+    },
   });
 
-  const { data, fetching, error } = rssFetchResults;
+  // const [rssFetchResults, reexecuteRssFetch] = useQuery({
+  //   query: RssFetchQuery,
+  //   // variables: { userId: authContext.isAuthenticated ? authContext.authenticatedUserId : testUserId },
+  //   variables: { rssLink: currentTab.rssLink },
+  //   // requestPolicy: 'cache-and-network',
+  // });
+
+  // const { data, fetching, error } = rssFetchResults;
 
   console.log(currentTab.rssLink);
-  console.log(data);
 
-  let rssData: any;
-  // let rssData = data.rssFetch.rssFetchData;
 
-  if (data && data.rssFetch) {
-    rssData = data.rssFetch.rssFetchData;
-  } 
+  // let rssData: any;
+
+  // if (data && data.rssFetch) {
+  //   rssData = data.rssFetch.rssFetchData;
+  // } 
   
   // else {
   //   rssData = rssExample.data.rssFetch.rssFetchData;
   // }
 
-  // async function fetchFeed() {
+  async function fetchFeed() {
 
-  //   let baseFetchUrl = "http://localhost:4000/fetch_rss/";
-  //   let extendedRSSurl = `${currentTab.rssLink}?format=xml`;
+    let baseFetchUrl = "http://localhost:4000/fetch_rss/";
+    let extendedRSSurl = `${currentTab.rssLink}?format=xml`;
 
-  //   try {
-  //     // let response = await parser.parseURL(currentTab?.rssLink);
-  //     // return response;
-  //     let toSendUrl = encodeURIComponent(`${currentTab.rssLink}`);
+    try {
+      // let response = await parser.parseURL(currentTab?.rssLink);
+      // return response;
+      let toSendUrl = encodeURIComponent(`${currentTab.rssLink}`);
 
-  //     let response = await fetch(baseFetchUrl + toSendUrl);
+      let response = await fetch(baseFetchUrl + toSendUrl);
 
-  //     if (!response.ok) {
-  //       throw new Error("Network response was not ok");
-  //     }
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-  //     return response.json();
-  //   } catch (err) {
-  //     // let newResponse = await parser.parseURL(extendedRSSurl);
-  //     // return newResponse;
-  //     let newToSendUrl = encodeURIComponent(extendedRSSurl);
+      return response.json();
+    } catch (err) {
+      // let newResponse = await parser.parseURL(extendedRSSurl);
+      // return newResponse;
+      let newToSendUrl = encodeURIComponent(extendedRSSurl);
 
-  //     let newResponse = await fetch(baseFetchUrl + newToSendUrl);
+      let newResponse = await fetch(baseFetchUrl + newToSendUrl);
 
-  //     if (!newResponse.ok) {
-  //       throw new Error("Network response was not ok");
-  //     }
+      if (!newResponse.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-  //     return newResponse.json();
-  //   }
-  // }
+      return newResponse.json();
+    }
+  }
 
   function mapData() {
     let arrOfObj = [];
 
-    let howManyNews = rssData.items.length;
+    // let howManyNews = rssData.items.length;
+    let howManyNews = data.rssFetchData.items.length;
 
     for (
       let i = pageNumber * itemsPerPage;
@@ -148,8 +148,10 @@ function ReactQuery({
         break;
       }
 
-      if (rssData.items[i]) {
-        arrOfObj.push(rssData.items[i]);
+      // if (rssData.items[i]) {
+      if (data.rssFetchData.items[i]) {
+        // arrOfObj.push(rssData.items[i]);
+        arrOfObj.push(data.rssFetchData.items[i]);
         continue;
       }
       break;
@@ -200,12 +202,19 @@ function ReactQuery({
   }
 
   function lastPageNumber() {
-    // if (status !== "success") {
-    if (!rssData) {
+    if (status !== "success") {
+    // if (!rssData) {
       return 1;
     }
 
-    let howManyNews = rssData.items.length;
+    // console.log("data last page number");
+    // console.log(data);
+    
+    // console.log(JSON.stringify(data, null, 2));
+    
+
+    // let howManyNews = rssData.items.length;
+    let howManyNews = data.rssFetchData.items.length;
 
     let maxNumber = howManyNews < 50 ? howManyNews : 50;
 
@@ -264,12 +273,14 @@ function ReactQuery({
         : "border-r border-l border-black border-opacity-10"
     }`}
       >
-        {fetching && <div>Loading data...</div>}
+        {/* {fetching && <div>Loading data...</div>} */}
+        {status === "loading" && <div>Loading data...</div>}
 
-        {error && <div>Error fetching data</div>}
+        {status === "error" && <div>Error fetching data</div>}
       </div>
 
-      {rssData && <div>{mapData()}</div>}
+      {/* {rssData && <div>{mapData()}</div>} */}
+      {status === "success" && <div>{mapData()}</div>}
     </div>
   );
 }
