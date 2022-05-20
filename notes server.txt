@@ -149,6 +149,8 @@ change everywhere!!
 119. BackgroudnSettings_Upload typescript issues
 120. urql query from rss -> archive
 121. get favicon server.ts -> archive
+122. ts -> less any types
+123. custom background img -> should work if there is no file in the beginning?
 
 
 {

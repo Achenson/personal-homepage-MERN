@@ -377,6 +377,7 @@ function Main({ globalSettings }: Props): JSX.Element {
                       <ModalWrap globalSettings={globalSettings}>
                         <BackgroundSettings
                           globalSettings={globalSettings}
+                          backgroundImgResults={backgroundImgResults}
                           reexecuteBackgroundImg={reexecuteBackgroundImg}
                           {...paddingProps}
                         />

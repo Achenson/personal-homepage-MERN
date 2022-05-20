@@ -22,6 +22,7 @@ interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   globalSettings: SettingsDatabase_i;
+  backgroundImgResults: any;
   reexecuteBackgroundImg: any
 }
 
@@ -29,6 +30,7 @@ function BackgroundSettings({
   mainPaddingRight,
   scrollbarWidth,
   globalSettings,
+  backgroundImgResults,
   reexecuteBackgroundImg
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
@@ -303,7 +305,7 @@ function BackgroundSettings({
                   globalSettings.picBackground ? "" : "hidden"
                 }`}
               > */}
-                <BackgroundSettings_Upload xsScreen={xsScreen} globalSettings={globalSettings}  reexecuteBackgroundImg={reexecuteBackgroundImg}/>
+                <BackgroundSettings_Upload xsScreen={xsScreen} globalSettings={globalSettings} backgroundImgResults={backgroundImgResults} reexecuteBackgroundImg={reexecuteBackgroundImg}/>
           {/*       <div
                   className={`bg-blueGray-50 h-6 ${
                     xsScreen ? "w-48" : "w-60"

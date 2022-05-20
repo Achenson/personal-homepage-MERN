@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useMutation } from "urql";
 
 import { useBackgroundImgContext } from "../../context/backgroundImgContext";
@@ -15,6 +15,7 @@ import { testUserId } from "../../state/data/testUserId";
 interface Props {
   xsScreen: boolean;
   globalSettings: SettingsDatabase_i;
+  backgroundImgResults: any;
   reexecuteBackgroundImg: any;
 }
 
@@ -26,13 +27,15 @@ enum DbFileErrors {
 function BackgroundSettings_Upload({
   xsScreen,
   globalSettings,
+  backgroundImgResults,
   reexecuteBackgroundImg,
 }: Props): JSX.Element {
   const authContext = useAuth();
 
   const uiColor = globalSettings.uiColor;
 
-  const [uploadFile, setUploadFile] = React.useState<Blob>();
+  const [uploadFile, setUploadFile] = React.useState("");
+  // const [uploadFile, setUploadFile] = React.useState<Blob>();
   // const [uploadFile, setUploadFile] = React.useState<Object>();
 
   const [changeSettingsResult, changeSettings] = useMutation<
@@ -52,6 +55,13 @@ function BackgroundSettings_Upload({
   //   [changeBackgroundImg]
   // );
 
+  useEffect( () => {
+    
+    if(backgroundImgResults) {
+      setUploadFile(backgroundImgResults.data.backgroundImg.backgroundImgUrl)
+    }
+  }, [backgroundImgResults])
+
 
   async function handleChange({
     target: {
@@ -69,9 +79,9 @@ function BackgroundSettings_Upload({
 
   const [dbFilesError, setDbFilesError] = useState<null | string>(null);
 
-  let uploadFileName;
+  // let uploadFileName;
   // @ts-ignore
-  if (uploadFile) uploadFileName = uploadFile.name;
+  // if (uploadFile) uploadFileName = uploadFile.name;
 
   const hiddenFileInput = useRef<HTMLInputElement>(null);
 
@@ -169,11 +179,12 @@ function BackgroundSettings_Upload({
         <div
           className={`bg-blueGray-50 pl-px ${
             // xsScreen ? "w-32" : "w-44"
-            xsScreen ? "w-full" : "w-full"
+            xsScreen ? "w-60" : "w-72"
           } border border-gray-300 align-text-bottom`}
           style={{ height: "26px" }}
         >
-          <p className="overflow-hidden whitespace-nowrap">{uploadFileName}</p>
+          {/* <p className="overflow-hidden whitespace-nowrap">{uploadFileName}</p> */}
+          <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">{uploadFile}</p>
         </div>
         <input
           type="file"
