@@ -55,12 +55,18 @@ function BackgroundSettings_Upload({
   //   [changeBackgroundImg]
   // );
 
+
   useEffect( () => {
+
+
+    // let backgroundImgUrl_cut = backgroundImgResults.data.backgroundImg.backgroundImgUrl.replace(/background_img\/\w+\/\d+_/, "")
+    let backgroundImgUrl_cut = backgroundImgResults.data.backgroundImg.backgroundImgUrl.replace(/background_img\/\w+\/\d+_/, "")
+    let backgroundImgUrl_cut2 = backgroundImgUrl_cut.replace(/\.\w+$/, "")
     
     if(backgroundImgResults) {
-      setUploadFile(backgroundImgResults.data.backgroundImg.backgroundImgUrl)
+      setUploadFile(backgroundImgUrl_cut2)
     }
-  }, [backgroundImgResults])
+  }, [backgroundImgResults.data.backgroundImg.backgroundImgUrl])
 
 
   async function handleChange({
