@@ -23,7 +23,7 @@ interface Props {
   scrollbarWidth: number;
   globalSettings: SettingsDatabase_i;
   backgroundImgResults: any;
-  reexecuteBackgroundImg: any
+  reexecuteBackgroundImg: any;
 }
 
 function BackgroundSettings({
@@ -31,7 +31,7 @@ function BackgroundSettings({
   scrollbarWidth,
   globalSettings,
   backgroundImgResults,
-  reexecuteBackgroundImg
+  reexecuteBackgroundImg,
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   /*  const setGlobalSettings = useGlobalSettings(
@@ -46,6 +46,8 @@ function BackgroundSettings({
   const [xsScreen, setXsScreen] = useState(
     () => upperUiContext.upperVisState.xsSizing_initial
   );
+
+  const [wasCustomClicked, setWasCustomClicked] = useState(false);
 
   useEffect(() => {
     if (windowSize.width) {
@@ -64,9 +66,10 @@ function BackgroundSettings({
     };
   });
 
-  const [changeSettingsResult, changeSettings] = useMutation<any, SettingsDatabase_i>(
-    ChangeSettingsMutation
-  );
+  const [changeSettingsResult, changeSettings] = useMutation<
+    any,
+    SettingsDatabase_i
+  >(ChangeSettingsMutation);
 
   // let globalSettings: SettingsDatabase_i = data.settings;
 
@@ -207,28 +210,35 @@ function BackgroundSettings({
                 <div className="text-center">
                   <p className={`mb-2 xs:mb-0`}>{imgDescription_1}</p>
                   <div className={`mb-0`}>
-                    <p className="block xs:inline-block">{imgDescription_2a}
-                    <button
-                      onClick={() => {
-                        /*   setGlobalSettings({
+                    <p className="block xs:inline-block">
+                      {imgDescription_2a}
+                      <button
+                        onClick={() => {
+                          /*   setGlobalSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground",
                         }); */
-                        changeSettings({
-                          ...globalSettings,
-                          defaultImage: "customBackground",
-                        });
-                      }}
-                      className="focus-1-offset"
-                      aria-label={"Default Background image"}
-                    >
-                      <span
-                        className={`text-${uiColor} cursor-pointer hover:underline`}
+
+                          if (!wasCustomClicked) {
+                            setWasCustomClicked(true);
+                          }
+
+                          changeSettings({
+                            ...globalSettings,
+                            defaultImage: "customBackground",
+                          });
+                        }}
+                        className="focus-1-offset"
+                        aria-label={"Default Background image"}
                       >
-                        custom image
-                      </span>
-                    </button>
-                    {imgDescription_2b}</p>
+                        <span
+                          className={`text-${uiColor} cursor-pointer hover:underline`}
+                        >
+                          custom image
+                        </span>
+                      </button>
+                      {imgDescription_2b}
+                    </p>
                     <span> </span>
                     <button
                       onClick={() => {
@@ -236,6 +246,7 @@ function BackgroundSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground",
                         }); */
+                        if (wasCustomClicked) setWasCustomClicked(false);
                         changeSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground",
@@ -258,6 +269,7 @@ function BackgroundSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground_2",
                         }); */
+                        if (wasCustomClicked) setWasCustomClicked(false);
                         changeSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground_2",
@@ -281,6 +293,7 @@ function BackgroundSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground_3",
                         }); */
+                        if (wasCustomClicked) setWasCustomClicked(false);
                         changeSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground_3",
@@ -305,8 +318,14 @@ function BackgroundSettings({
                   globalSettings.picBackground ? "" : "hidden"
                 }`}
               > */}
-                <BackgroundSettings_Upload xsScreen={xsScreen} globalSettings={globalSettings} backgroundImgResults={backgroundImgResults} reexecuteBackgroundImg={reexecuteBackgroundImg}/>
-          {/*       <div
+              <BackgroundSettings_Upload
+                xsScreen={xsScreen}
+                globalSettings={globalSettings}
+                backgroundImgResults={backgroundImgResults}
+                reexecuteBackgroundImg={reexecuteBackgroundImg}
+                wasCustomClicked={wasCustomClicked}
+              />
+              {/*       <div
                   className={`bg-blueGray-50 h-6 ${
                     xsScreen ? "w-48" : "w-60"
                   } border border-gray-300`}

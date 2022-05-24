@@ -17,6 +17,7 @@ interface Props {
   globalSettings: SettingsDatabase_i;
   backgroundImgResults: any;
   reexecuteBackgroundImg: any;
+  wasCustomClicked: boolean;
 }
 
 enum DbFileErrors {
@@ -29,14 +30,17 @@ function BackgroundSettings_Upload({
   globalSettings,
   backgroundImgResults,
   reexecuteBackgroundImg,
+  wasCustomClicked
 }: Props): JSX.Element {
   const authContext = useAuth();
 
   const uiColor = globalSettings.uiColor;
 
-  const [uploadFile, setUploadFile] = React.useState("");
+  const [uploadFile, setUploadFile] = useState("");
   // const [uploadFile, setUploadFile] = React.useState<Blob>();
   // const [uploadFile, setUploadFile] = React.useState<Object>();
+
+  
 
   const [changeSettingsResult, changeSettings] = useMutation<
     any,
@@ -58,6 +62,13 @@ function BackgroundSettings_Upload({
 
   useEffect( () => {
 
+    console.log("wasCustomClicked");
+    console.log(wasCustomClicked);
+    
+    if(!wasCustomClicked) {
+      setUploadFile("")
+      return;
+    }
 
     // let backgroundImgUrl_cut = backgroundImgResults.data.backgroundImg.backgroundImgUrl.replace(/background_img\/\w+\/\d+_/, "")
     let backgroundImgUrl_cut = backgroundImgResults.data.backgroundImg.backgroundImgUrl.replace(/background_img\/\w+\/\d+_/, "")
@@ -66,7 +77,7 @@ function BackgroundSettings_Upload({
     if(backgroundImgResults) {
       setUploadFile(backgroundImgUrl_cut2)
     }
-  }, [backgroundImgResults.data.backgroundImg.backgroundImgUrl])
+  }, [backgroundImgResults.data.backgroundImg.backgroundImgUrl, wasCustomClicked])
 
 
   async function handleChange({
