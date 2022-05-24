@@ -11,6 +11,7 @@ import {
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { testUserId } from "../../state/data/testUserId";
+import { is } from "immer/dist/internal";
 
 interface Props {
   xsScreen: boolean;
@@ -18,6 +19,7 @@ interface Props {
   backgroundImgResults: any;
   reexecuteBackgroundImg: any;
   wasCustomClicked: boolean;
+  setWasCustomClicked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 enum DbFileErrors {
@@ -30,7 +32,8 @@ function BackgroundSettings_Upload({
   globalSettings,
   backgroundImgResults,
   reexecuteBackgroundImg,
-  wasCustomClicked
+  wasCustomClicked,
+  setWasCustomClicked,
 }: Props): JSX.Element {
   const authContext = useAuth();
 
@@ -39,8 +42,6 @@ function BackgroundSettings_Upload({
   const [uploadFile, setUploadFile] = useState("");
   // const [uploadFile, setUploadFile] = React.useState<Blob>();
   // const [uploadFile, setUploadFile] = React.useState<Object>();
-
-  
 
   const [changeSettingsResult, changeSettings] = useMutation<
     any,
@@ -59,26 +60,30 @@ function BackgroundSettings_Upload({
   //   [changeBackgroundImg]
   // );
 
+  useEffect(() => {
+    // console.log("wasCustomClicked");
+    // console.log(wasCustomClicked);
 
-  useEffect( () => {
-
-    console.log("wasCustomClicked");
-    console.log(wasCustomClicked);
-    
-    if(!wasCustomClicked) {
-      setUploadFile("")
-      return;
-    }
+    // if (!wasCustomClicked) {
+    //   setUploadFile("");
+    //   return;
+    // }
 
     // let backgroundImgUrl_cut = backgroundImgResults.data.backgroundImg.backgroundImgUrl.replace(/background_img\/\w+\/\d+_/, "")
-    let backgroundImgUrl_cut = backgroundImgResults.data.backgroundImg.backgroundImgUrl.replace(/background_img\/\w+\/\d+_/, "")
-    let backgroundImgUrl_cut2 = backgroundImgUrl_cut.replace(/\.\w+$/, "")
-    
-    if(backgroundImgResults) {
-      setUploadFile(backgroundImgUrl_cut2)
-    }
-  }, [backgroundImgResults.data.backgroundImg.backgroundImgUrl, wasCustomClicked])
+    let backgroundImgUrl_cut =
+      backgroundImgResults.data.backgroundImg.backgroundImgUrl.replace(
+        /background_img\/\w+\/\d+_/,
+        ""
+      );
+    let backgroundImgUrl_cut2 = backgroundImgUrl_cut.replace(/\.\w+$/, "");
 
+    if (backgroundImgResults) {
+      setUploadFile(backgroundImgUrl_cut2);
+    }
+  }, [
+    backgroundImgResults.data.backgroundImg.backgroundImgUrl,
+    // wasCustomClicked,
+  ]);
 
   async function handleChange({
     target: {
@@ -89,8 +94,15 @@ function BackgroundSettings_Upload({
     },
   }) {
     if (validity.valid) {
-     await changeBackgroundImg({ file });
-    reexecuteBackgroundImg({ requestPolicy: "network-only" });
+      await changeBackgroundImg({ file });
+      reexecuteBackgroundImg({ requestPolicy: "network-only" });
+      await changeSettings({
+        ...globalSettings,
+        defaultImage: "customBackground",
+      });
+      if (!wasCustomClicked) {
+        setWasCustomClicked(true);
+      }
     }
   }
 
@@ -201,7 +213,9 @@ function BackgroundSettings_Upload({
           style={{ height: "26px" }}
         >
           {/* <p className="overflow-hidden whitespace-nowrap">{uploadFileName}</p> */}
-          <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">{uploadFile}</p>
+          <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">
+            {wasCustomClicked ? uploadFile : null}
+          </p>
         </div>
         <input
           type="file"

@@ -324,6 +324,7 @@ function BackgroundSettings({
                 backgroundImgResults={backgroundImgResults}
                 reexecuteBackgroundImg={reexecuteBackgroundImg}
                 wasCustomClicked={wasCustomClicked}
+                setWasCustomClicked={setWasCustomClicked}
               />
               {/*       <div
                   className={`bg-blueGray-50 h-6 ${
