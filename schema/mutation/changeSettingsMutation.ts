@@ -1,5 +1,7 @@
 const graphql = require("graphql");
 const Settings = require("../../mongoModels/settingsSchema");
+import { GraphQLError } from "graphql";
+import { testUserId } from "../../client/src/state/data/testUserId";
 
 import {
   SettingsFields,
@@ -13,7 +15,12 @@ export const changeSettingsMutationField = {
     // userId: { type: new GraphQLNonNull(GraphQLString) },
     ...SettingsFields,
   },
-  resolve(_source: unknown, args: SettingsDatabase_i) {
+  resolve(_source: unknown, args: SettingsDatabase_i, request: any) {
+
+    // if (!request.isAuth && request.userId !== testUserId) {
+    //   return new GraphQLError("Auth error");
+    // }
+
     let update = {
       picBackground: args.picBackground,
       defaultImage: args.defaultImage,

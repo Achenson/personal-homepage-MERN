@@ -31,6 +31,7 @@ DONE 46. bookmark /tabs database interfaces everywhere! (now both from context) 
 DONE 47. promise.all -> no need for new Promise everywhere? mutation return promises (change in Bookmark_lowerUI, no promise.all in Grids now, ) DONE
 DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
  
+
  1. livereload npm
  
  6. userSchema gets ref to settingsSchema, should it be also the other war around?
@@ -151,7 +152,11 @@ change everywhere!!
 121. get favicon server.ts -> archive
 122. ts -> less any types
 123. custom background img -> should work if there is no file in the beginning?
-
+124. AppWrapper -> delete, zustand hooks -> delete or implent when logged out?
+125. should refreshToken() return null in case of failure in App.ts??
+126. didAuthError not needed? since there will be (!isAuth) logic in qraphql mutation/queries.
+instead, willAuthError is needed? even if it does not trigger error (logic for refreshing is not needed in getAuth?), 
+it will trigger refresh in getAuth
 
 {
   filename: 'nature-3082832_1920.jpg',
