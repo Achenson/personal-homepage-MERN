@@ -16,6 +16,8 @@ import GlobalSettings from "./UpperUI/GlobalSettings";
 import LoginRegister from "../components/AuthRoutes/LoginRegister";
 import Profile from "./UpperUI/Profile";
 import ModalWrap from "./UpperUI/ModalWrap";
+import PublicRoute from "./AuthRoutes/PublicRoute";
+import PrivateRoute from "./AuthRoutes/PrivateRoute";
 
 import Login from "./AuthRoutes/Login_TO_CANCEL";
 import Register from "./AuthRoutes/Register_TO_CANCEL";
@@ -33,7 +35,11 @@ import { BackgroundImgContext } from "../context/backgroundImgContext";
 import { useAuth } from "../state/hooks/useAuth";
 
 import { SettingsDatabase_i } from "../../../schema/types/settingsType";
-import { TabsQuery, BookmarksQuery, BackgroundImgQuery } from "../graphql/graphqlQueries";
+import {
+  TabsQuery,
+  BookmarksQuery,
+  BackgroundImgQuery,
+} from "../graphql/graphqlQueries";
 
 import { testUserId } from "../state/data/testUserId";
 
@@ -47,7 +53,7 @@ import {
 } from "../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../schema/types/tabType";
-import PublicRoute from "./AuthRoutes/PublicRoute";
+import UserProfile from "./AuthRoutes/UserProfile";
 
 interface Props {
   globalSettings: SettingsDatabase_i;
@@ -194,7 +200,6 @@ function Main({ globalSettings }: Props): JSX.Element {
   //   }
   // );
 
-  
   const [backgroundImgResults, reexecuteBackgroundImg] = useQuery({
     query: BackgroundImgQuery,
     // variables: { userId: authContext.isAuthenticated ? authContext.authenticatedUserId : testUserId },
@@ -202,14 +207,11 @@ function Main({ globalSettings }: Props): JSX.Element {
     // requestPolicy: 'cache-and-network',
   });
 
-
   const {
     data: data_backgroundImg,
     fetching: fetching_backgroundImg,
     error: error_backgroundImg,
   } = backgroundImgResults;
-
-  
 
   // async function fetchBackgroundImg() {
   //   let response = await fetch(
@@ -233,18 +235,16 @@ function Main({ globalSettings }: Props): JSX.Element {
   // }
 
   if (data_backgroundImg) {
-    console.log("data_background")
-    console.log(data_backgroundImg)
-    console.log(data_backgroundImg.backgroundImg)
+    console.log("data_background");
+    console.log(data_backgroundImg);
+    console.log(data_backgroundImg.backgroundImg);
 
     // if(data_backgroundImg.backgroundImg.backgroundImgUrl) {
-      backgroundImgUrl = data_backgroundImg.backgroundImg.backgroundImgUrl;
+    backgroundImgUrl = data_backgroundImg.backgroundImg.backgroundImgUrl;
 
     // } else {
     //   backgroundImgUrl = "fsfsgsdg"
     // }
-
-
   }
 
   const [tabResults, reexecuteTabs] = useQuery({
@@ -436,6 +436,21 @@ function Main({ globalSettings }: Props): JSX.Element {
                       globalSettings={globalSettings}
                     />
                   </PublicRoute>
+                }
+              />
+
+              <Route
+                // isAuthenticated={authContext.isAuthenticated}
+                path="/user-profile"
+                element={
+                  // not possible to access if logged in!
+                  <PrivateRoute isAuthenticated={authContext.isAuthenticated}>
+                    <UserProfile
+                      mainPaddingRight={paddingRight}
+                      scrollbarWidth={scrollbarWidth}
+                      globalSettings={globalSettings}
+                    />
+                  </PrivateRoute>
                 }
               />
 
