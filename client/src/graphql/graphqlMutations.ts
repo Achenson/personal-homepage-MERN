@@ -300,6 +300,9 @@ export const BackgroundImgMutation = `
   }
 `;
 
+
+
+
 /* export const BackgroundImgMutation = `
   mutation ($file: Upload!) {
     backgroundImgMutation(file: $file)

@@ -157,6 +157,13 @@ change everywhere!!
 126. didAuthError not needed? since there will be (!isAuth) logic in qraphql mutation/queries.
 instead, willAuthError is needed? even if it does not trigger error (logic for refreshing is not needed in getAuth?), 
 it will trigger refresh in getAuth
+127. implement token revoking !!!!
+128. update token notes (refreshing tokens -> always two tokens are being refreshed, that is by design? probably)
+129. implement willAuthError for better performance
+130. improve getAuth -> it should not include refresh token logic in the first run?
+131. revokingToken -> anybody can do it?? how to secure this?
+132. implement Registration !!!
+133. revokingToken -> "query was already executed:" mixing promises with callback??
 
 {
   filename: 'nature-3082832_1920.jpg',

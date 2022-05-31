@@ -184,6 +184,14 @@ mutation {
   }
   
   
+
+  // not used clientside! for admin only in graphql playground?
+  mutation {
+      revokeRefreshToken(userId: "") {
+      userId
+      tokenVersion
+    }
+  }
   
   
   

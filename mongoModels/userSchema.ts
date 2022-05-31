@@ -8,6 +8,7 @@ const UserSchema = new Schema<User_i>({
   name: String,
   email: String,
   password: String,
+  tokenVersion: Number
  /*  settings: { type: Schema.Types.ObjectId, ref: 'Settings' },
   tabs: [{type: Schema.Types.ObjectId, ref: 'Tab' }],
   bookmarks: [{type: Schema.Types.ObjectId, ref: 'Bookmark' }] */

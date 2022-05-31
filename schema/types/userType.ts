@@ -19,6 +19,7 @@ export interface User_i {
   name: string;
   email: string;
   password: string;
+  tokenVersion: number;
   /*   settings: Settings_i;
   tabs: Tab_i[];
   bookmarks: Bookmark_i[]; */

@@ -67,8 +67,7 @@ export const addUserMutationField = {
           name: args.name,
           email: args.email,
           password: hashedPassword,
-          // !!! implement later
-          // token version: 0
+          tokenVersion: 0
         });
 
         return user.save(async (err: Error, userProduct: User_i) => {
