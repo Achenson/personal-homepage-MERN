@@ -263,7 +263,7 @@ function UserProfile({
           <div className="h-44">
             {renderPasswordCurrent("deleteAccount")}
             <p className="mt-1 text-red-500">
-              Please confirm. All account information will be irreversibly lost.
+              Enter password and confirm. All account information will be irreversibly lost.
             </p>
           </div>
         );
@@ -352,8 +352,20 @@ function UserProfile({
                 </div>
 
                 <div className="mb-5 flex flex-col items-center">
+                <button
+                    className={`w-24 mb-3 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark ${
+                      inputMode === "initial" ? "hidden" : ""
+                    }`}
+                    onClick={() => {
+                      setInputMode("editProfile");
+                    }}
+                  >
+                    {inputMode === "deleteAccount" ? "CONFIRM" : "UPDATE"}
+                  </button>
                   <button
-                    className={`w-24 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark`}
+                    className={`w-24 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark ${
+                      inputMode === "editProfile" ? "hidden" : ""
+                    }`}
                     onClick={() => {
                       setInputMode("editProfile");
                     }}
@@ -361,7 +373,9 @@ function UserProfile({
                     Edit profile
                   </button>
                   <button
-                    className={`w-36 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark`}
+                    className={`w-36 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark ${
+                      inputMode === "changePassword" ? "hidden" : ""
+                    }`}
                     onClick={() => {
                       setInputMode("changePassword");
                     }}
@@ -369,7 +383,9 @@ function UserProfile({
                     Change password
                   </button>
                   <button
-                    className={`w-32 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark`}
+                    className={`w-32 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark ${
+                      inputMode === "deleteAccount" ? "hidden" : ""
+                    }`}
                     onClick={() => {
                       setInputMode("deleteAccount");
                     }}
@@ -435,14 +451,13 @@ function UserProfile({
                 <button
                   className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-                   onClick={async () => {
+                  onClick={async () => {
                     await logoutMut();
-                
-                    logout()
-  
-                    navigate("/login-register")
-                  }} 
-                  
+
+                    logout();
+
+                    navigate("/login-register");
+                  }}
                 >
                   Logout
                 </button>
