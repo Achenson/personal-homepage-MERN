@@ -10,6 +10,7 @@ import { ReactComponent as BookmarkSVG } from "../../svgs/bookmarkAlt.svg";
 import { ReactComponent as NoteSVG } from "../../svgs/note_UXwing.svg";
 import { ReactComponent as CogSVG } from "../../svgs/cog.svg";
 import { ReactComponent as UserSVG } from "../../svgs/user.svg";
+import { ReactComponent as LoginSVG } from "../../svgs/login.svg";
 import { ReactComponent as LogoutSVG } from "../../svgs/logout.svg";
 import { ReactComponent as AddRssSVG } from "../../svgs/rss.svg";
 
@@ -240,11 +241,15 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                 ref={focusOnUpperRightUi_xs_ref_8}
                 className="h-6 w-5 focus-2-veryDark"
                 style={{ width: "22px" }}
-                onClick={async() => {
+                onClick={
+                  // async() => {
+                  () => {
                   // setLoggedInState(false);
-                  await logoutMut()
+
+                  logoutMut()
 
                   logout()
+
                   // authContext.updateAuthContext({...authContext,
                   //   isAuthenticated: false,
                   //   authenticatedUserId: null,
@@ -256,12 +261,12 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                   // upperUiContext.upperVisDispatch({
                   //   type: "MESSAGE_OPEN_LOGOUT",
                   // });
-                  navigate("/login-register")
+                  navigate("/user-profile")
                 }}
                 tabIndex={12}
-                aria-label={"Logout"}
+                aria-label={"User profile"}
               >
-                <LogoutSVG
+                <UserSVG
                   className={`h-6 w-6 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
                   style={{ marginLeft: "-1px" }}
                 />
@@ -278,7 +283,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                 tabIndex={12}
                 aria-label={"Login/register"}
               >
-                <UserSVG
+                <LoginSVG
                   className={`h-6 w-6 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
                   style={{ marginLeft: "-3px", marginBottom: "0px" }}
                 />

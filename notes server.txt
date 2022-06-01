@@ -165,6 +165,7 @@ it will trigger refresh in getAuth
 132. implement Registration !!!
 133. revokingToken -> "query was already executed:" mixing promises with callback??
 134. Profile -> used for demo version? change name, clashes with UserProfile
+135. LoginSVG -> move to the left?
 
 {
   filename: 'nature-3082832_1920.jpg',

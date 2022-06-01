@@ -12,6 +12,7 @@ import { ReactComponent as NoteSVG } from "../../svgs/note_UXwing.svg";
 import { ReactComponent as SettingsSVG } from "../../svgs/settingsAlt.svg";
 import { ReactComponent as UserSVG } from "../../svgs/user.svg";
 import { ReactComponent as LogoutSVG } from "../../svgs/logout.svg";
+import { ReactComponent as LoginSVG } from "../../svgs/login.svg";
 import { ReactComponent as ColorSVG } from "../../svgs/beaker.svg";
 import { ReactComponent as AddRssSVG } from "../../svgs/rss.svg";
 import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
@@ -258,11 +259,14 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
             <button
               ref={focusOnUpperRightUi_ref_8}
               className="h-6 w-6 focus-2-inset-veryDark"
-              onClick={async () => {
+              onClick={
+                () => {
+                // async () => {
                 // setLoggedInState(false);
-                await logoutMut();
                 
-                logout()
+                // await logoutMut();
+                
+                // logout()
 
                 // authContext.updateAuthContext({
                 //   ...authContext,
@@ -273,12 +277,13 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                 // upperUiContext.upperVisDispatch({
                 //   type: "MESSAGE_OPEN_LOGOUT",
                 // });
-                navigate("/login-register")
+                // navigate("/login-register")
+                navigate("/user-profile")
               }}
               tabIndex={14}
-              aria-label={"Logout"}
+              aria-label={"User profile"}
             >
-              <LogoutSVG
+              <UserSVG
                 className={`h-6 w-6 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
                 style={{ marginLeft: "0px" }}
               />
@@ -294,7 +299,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
               tabIndex={14}
               aria-label={"Login/register"}
             >
-              <UserSVG
+              <LoginSVG
                 className={`h-6 w-6 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
                 style={{ marginLeft: "-2px", marginBottom: "0px" }}
               />

@@ -15,7 +15,7 @@ import { useAuth } from "../../state/hooks/useAuth";
 
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
-import { LoginMutation } from "../../graphql/graphqlMutations";
+import { LoginMutation, LogoutMutation } from "../../graphql/graphqlMutations";
 
 import { UserQuery } from "../../graphql/graphqlQueries";
 
@@ -47,6 +47,7 @@ function UserProfile({
 
   const upperUiContext = useUpperUiContext();
   const authContext = useAuth();
+  const logout = useAuth((state) => state.logout);
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
 
@@ -64,6 +65,8 @@ function UserProfile({
   const [loginMutResult, loginMut] = useMutation<any, AuthDataInput_i>(
     LoginMutation
   );
+
+  const [logoutMutResult, logoutMut] = useMutation<any, any>(LogoutMutation);
 
   const [inputMode, setInputMode] = useState<
     "initial" | "editProfile" | "changePassword" | "deleteAccount"
@@ -432,9 +435,14 @@ function UserProfile({
                 <button
                   className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-                  /*  onClick={() => {
-                    loginValidation();
-                  }} */
+                   onClick={async () => {
+                    await logoutMut();
+                
+                    logout()
+  
+                    navigate("/login-register")
+                  }} 
+                  
                 >
                   Logout
                 </button>
