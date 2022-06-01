@@ -32,9 +32,9 @@ function UserProfile({
   scrollbarWidth,
   globalSettings,
 }: Props): JSX.Element {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   const loginAttempt = useAuth((state) => state.loginAttempt);
-  const userId = useAuth( (state) =>state.authenticatedUserId )
+  const userId = useAuth((state) => state.authenticatedUserId);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
@@ -53,10 +53,11 @@ function UserProfile({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [email_or_name, setEmail_or_name] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordForRegister, setPasswordForRegister] = useState("");
-  const [passwordForRegisterConfirm, setPasswordForRegisterConfirm] =
-    useState("");
+  const [passwordCurrent, setPasswordCurrent] = useState("");
+  const [passwordNew, setPasswordNew] = useState("");
+  const [passwordNewConfirm, setPasswordNewConfirm] = useState("");
+
+  
   const [loginErrorMessage, setLoginErrorMessage] = useState<null | string>(
     null
   );
@@ -64,8 +65,6 @@ function UserProfile({
   const [loginMutResult, loginMut] = useMutation<any, AuthDataInput_i>(
     LoginMutation
   );
-
-
 
   useEffect(() => {
     if (firstFieldRef.current !== null) {
@@ -88,7 +87,7 @@ function UserProfile({
 
   const [userResults] = useQuery({
     query: UserQuery,
-    variables: { userId: userId},
+    variables: { userId: userId },
   });
 
   const { data, fetching, error } = userResults;
@@ -96,16 +95,13 @@ function UserProfile({
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
- console.log(data.user);
- 
-
- 
+  console.log(data.user);
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);
   }
 
-  function loginValidation() {
+ /*  function loginValidation() {
     console.log("sth");
 
     if (email_or_name === "" || password === "") {
@@ -117,9 +113,6 @@ function UserProfile({
 
     console.log("name email provided");
 
-
-    
-
     // diffent than in apollo!
     loginMut({
       email_or_name: email_or_name,
@@ -129,10 +122,9 @@ function UserProfile({
         console.log("RES DATA");
         console.log(res.data);
         console.log(res.data.loginMutation);
-        
-      
+
         if (res.data.loginMutation.error === "User does not exist!") {
-        // if (res.data.login.token === "User does not exist!") {
+          // if (res.data.login.token === "User does not exist!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
           console.log(res.data.loginMutation.error);
           setLoginErrorMessage(`${res.data.loginMutation.error}`);
@@ -140,13 +132,12 @@ function UserProfile({
         }
 
         if (res.data.loginMutation.error === "Password is incorrect!") {
-        // if (res.data.login.token === "Password is incorrect!") {
+          // if (res.data.login.token === "Password is incorrect!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
           console.log(res.data.loginMutation.error);
           setLoginErrorMessage(`${res.data.loginMutation.error}`);
           return;
         }
-
 
         if (!res) {
           return;
@@ -161,8 +152,11 @@ function UserProfile({
 
         setLoginErrorMessage(null);
 
-        
-        loginAttempt(res.data.ok, res.data.loginMutation.userId, res.data.loginMutation.token)
+        loginAttempt(
+          res.data.ok,
+          res.data.loginMutation.userId,
+          res.data.loginMutation.token
+        );
 
         // authContext.updateAuthContext({
         //   ...authContext,
@@ -174,9 +168,6 @@ function UserProfile({
         //   // token: res.data.login.token,
         // });
 
-
-
-
         // !!! display message that the login was successful
         // setLoginNotification(null);
 
@@ -186,20 +177,15 @@ function UserProfile({
         // history.replace("/");
 
         // history.replace("/") equivalent in react-router-dom 6
-        navigate("/", {replace: true})
-
+        navigate("/", { replace: true });
 
         // upperUiContext.upperVisDispatch({
         //   type: "PROFILE_TOGGLE",
         // });
 
-
-
-
         upperUiContext.upperVisDispatch({
           type: "MESSAGE_OPEN_LOGIN",
         });
-
       },
       (err) => {
         console.log(err);
@@ -207,7 +193,7 @@ function UserProfile({
         return;
       }
     );
-  }
+  } */
 
   return (
     <FocusLock>
@@ -217,7 +203,7 @@ function UserProfile({
         style={{ backgroundColor: "rgba(90, 90, 90, 0.4)", paddingTop: "30vh" }}
         onClick={() => {
           // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
-          navigate("/")
+          navigate("/");
         }}
       >
         <div
@@ -244,7 +230,7 @@ function UserProfile({
                 onClick={() => {
                   // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
 
-                  navigate("/")
+                  navigate("/");
 
                   upperUiContext.upperVisDispatch({
                     type: "FOCUS_ON_UPPER_RIGHT_UI",
@@ -260,7 +246,44 @@ function UserProfile({
             <div className="">
               <p className="text-center">Logged in as {data.user.name}</p>
 
-            {/*   <div className="mt-3 mb-5 flex flex-col items-center">
+              <div className="mt-3 mb-3">
+                <div className="flex flex-col items-center mb-1">
+                  <div className="w-48">
+                  <div>
+                      <p>Current password</p>
+                      <LoginRegister_input
+                        inputValue={passwordCurrent}
+                        setInputValue={setPasswordCurrent}
+                      />
+                    </div>
+                    <div className="mt-1">
+                      <p>Username</p>
+                      <LoginRegister_input
+                        inputValue={name}
+                        setInputValue={setName}
+                      />
+                    </div>
+                    <div className="mt-1">
+                      <p>Email address</p>
+                      <LoginRegister_input
+                        inputValue={email}
+                        setInputValue={setEmail}
+                      />
+                    </div>
+                  </div>
+
+
+
+
+
+
+                </div>
+                <p className="text-center">Edit profile</p>
+                <p className="text-center">Change password</p>
+                <p className="text-center">Delete account</p>
+              </div>
+
+              {/*   <div className="mt-3 mb-5 flex flex-col items-center">
                 {loginOrRegister === "login" ? (
                   <div className="w-48">
                     <p>Email address / username</p>
@@ -313,17 +336,15 @@ function UserProfile({
               </div> */}
 
               <div className="flex justify-center">
-                
-                  <button
-                    className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
+                <button
+                  className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-                    onClick={() => {
-                      loginValidation();
-                    }}
-                  >
-                    Logout
-                  </button>
-                
+                 /*  onClick={() => {
+                    loginValidation();
+                  }} */
+                >
+                  Logout
+                </button>
               </div>
             </div>
           </div>
