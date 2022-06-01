@@ -316,7 +316,9 @@ function UserProfile({
             </div>
 
             <div className="">
-              <p className="text-center">Logged in as {data.user.name}</p>
+              <p className="text-center">
+                Logged in as <span className="font-bold">{data.user.name}</span>
+              </p>
 
               <div className="mt-3 mb-3">
                 <div className="flex flex-col items-center mb-1">
@@ -346,31 +348,31 @@ function UserProfile({
                   </div>
                 </div>
 
-                <div className="mb-5">
-                  <p
-                    className="text-center"
+                <div className="mb-5 flex flex-col items-center">
+                  <button
+                    className={`w-24 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark`}
                     onClick={() => {
                       setInputMode("editProfile");
                     }}
                   >
                     Edit profile
-                  </p>
-                  <p
-                    className="text-center"
+                  </button>
+                  <button
+                    className={`w-36 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark`}
                     onClick={() => {
                       setInputMode("changePassword");
                     }}
                   >
                     Change password
-                  </p>
-                  <p
-                    className="text-center"
+                  </button>
+                  <button
+                    className={`w-32 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark`}
                     onClick={() => {
                       setInputMode("deleteAccount");
                     }}
                   >
                     Delete account
-                  </p>
+                  </button>
                 </div>
               </div>
 
