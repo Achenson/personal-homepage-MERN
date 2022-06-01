@@ -70,3 +70,11 @@ export const RssFetchQuery = `query ($rssLink: String) {
       rssFetchData
     }
     }`;
+
+export const UserQuery = `query ($userId: ID) {
+      user (userId: $userId) {
+        name
+        email
+       
+      }
+    }`;

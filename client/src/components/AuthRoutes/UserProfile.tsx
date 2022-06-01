@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import FocusLock from "react-focus-lock";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
 
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
@@ -16,6 +16,8 @@ import { useAuth } from "../../state/hooks/useAuth";
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { LoginMutation } from "../../graphql/graphqlMutations";
+
+import { UserQuery } from "../../graphql/graphqlQueries";
 
 import { AuthDataInput_i } from "../../../../schema/types/authDataType";
 
@@ -32,6 +34,7 @@ function UserProfile({
 }: Props): JSX.Element {
   let navigate = useNavigate()
   const loginAttempt = useAuth((state) => state.loginAttempt);
+  const userId = useAuth( (state) =>state.authenticatedUserId )
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
@@ -62,6 +65,8 @@ function UserProfile({
     LoginMutation
   );
 
+
+
   useEffect(() => {
     if (firstFieldRef.current !== null) {
       firstFieldRef.current.focus();
@@ -80,6 +85,21 @@ function UserProfile({
       document.removeEventListener("keydown", handleKeyDown);
     };
   });
+
+  const [userResults] = useQuery({
+    query: UserQuery,
+    variables: { userId: userId},
+  });
+
+  const { data, fetching, error } = userResults;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+ console.log(data.user);
+ 
+
+ 
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);
@@ -238,41 +258,9 @@ function UserProfile({
             </div>
 
             <div className="">
-              <div className="mx-auto w-32 flex justify-between">
-                <button
-                  onClick={() => {
-                    setLoginOrRegister("login");
-                  }}
-                  className={`${
-                    loginOrRegister === "login"
-                      ? "cursor-default" +
-                        " " +
-                        "text-" +
-                        finalColorForImgBackgroundMode
-                      : "hover:text-opacity-50 cursor-pointer text-gray-400"
-                  } text-lg  focus-1-offset`}
-                >
-                  <span>Login</span>
-                </button>
+              <p className="text-center">Logged in as {data.user.name}</p>
 
-                <button
-                  className={`${
-                    loginOrRegister === "login"
-                      ? "hover:text-opacity-50 cursor-pointer text-gray-400"
-                      : "cursor-default" +
-                        " " +
-                        "text-" +
-                        finalColorForImgBackgroundMode
-                  } text-lg focus-1-offset`}
-                  onClick={() => {
-                    setLoginOrRegister("register");
-                  }}
-                >
-                  Register
-                </button>
-              </div>
-
-              <div className="mt-3 mb-5 flex flex-col items-center">
+            {/*   <div className="mt-3 mb-5 flex flex-col items-center">
                 {loginOrRegister === "login" ? (
                   <div className="w-48">
                     <p>Email address / username</p>
@@ -322,10 +310,10 @@ function UserProfile({
                     </div>
                   )}
                 </div>
-              </div>
+              </div> */}
 
               <div className="flex justify-center">
-                {loginOrRegister === "login" ? (
+                
                   <button
                     className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
@@ -335,15 +323,7 @@ function UserProfile({
                   >
                     Logout
                   </button>
-                ) : (
-                  <button
-                    className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
-                  focus:outline-none focus-visible:ring-1 ring-${uiColor}
-                  `}
-                  >
-                    Register
-                  </button>
-                )}
+                
               </div>
             </div>
           </div>

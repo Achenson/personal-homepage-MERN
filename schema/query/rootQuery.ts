@@ -5,6 +5,7 @@ import { bookmarksQueryField } from "./bookmarksQuery";
 import { tabsQueryField } from "./tabsQuery";
 import { backgroundImgQueryField } from "./backgroundImgQuery";
 import {rssFetchQueryField} from "./rssFetchQuery"
+import { userQueryField } from "./userQuery";
 
 const { GraphQLObjectType, GraphQLID } = graphql;
 
@@ -15,6 +16,7 @@ export const RootQuery = new GraphQLObjectType({
     bookmarks: bookmarksQueryField,
     tabs: tabsQueryField,
     backgroundImg: backgroundImgQueryField,
-    rssFetch: rssFetchQueryField
+    rssFetch: rssFetchQueryField,
+    user: userQueryField
   },
 });
