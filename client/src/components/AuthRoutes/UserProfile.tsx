@@ -57,7 +57,6 @@ function UserProfile({
   const [passwordNew, setPasswordNew] = useState("");
   const [passwordNewConfirm, setPasswordNewConfirm] = useState("");
 
-  
   const [loginErrorMessage, setLoginErrorMessage] = useState<null | string>(
     null
   );
@@ -65,6 +64,10 @@ function UserProfile({
   const [loginMutResult, loginMut] = useMutation<any, AuthDataInput_i>(
     LoginMutation
   );
+
+  const [inputMode, setInputMode] = useState<
+    "initial" | "editProfile" | "changePassword" | "deleteAccount"
+  >("initial");
 
   useEffect(() => {
     if (firstFieldRef.current !== null) {
@@ -101,7 +104,7 @@ function UserProfile({
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);
   }
 
- /*  function loginValidation() {
+  /*  function loginValidation() {
     console.log("sth");
 
     if (email_or_name === "" || password === "") {
@@ -195,6 +198,75 @@ function UserProfile({
     );
   } */
 
+  const renderPasswordCurrent = (
+    inputModeOn: "editProfile" | "changePassword" | "deleteAccount"
+  ) => (
+    <div>
+      <p>{inputModeOn === "changePassword" ? "Current " : "Enter "}password</p>
+      <LoginRegister_input
+        inputValue={passwordCurrent}
+        setInputValue={setPasswordCurrent}
+      />
+    </div>
+  );
+
+  function renderInputs(
+    inputMode: "initial" | "editProfile" | "changePassword" | "deleteAccount"
+  ) {
+    switch (inputMode) {
+      case "initial":
+        return <div className=""></div>;
+      case "editProfile":
+        return (
+          <div className="h-44">
+            {renderPasswordCurrent("editProfile")}
+            <div className="mt-1">
+              <p>Username</p>
+              <LoginRegister_input inputValue={name} setInputValue={setName} />
+            </div>
+            <div className="mt-1">
+              <p>Email address</p>
+              <LoginRegister_input
+                inputValue={email}
+                setInputValue={setEmail}
+              />
+            </div>
+          </div>
+        );
+
+      case "changePassword":
+        return (
+          <div className="h-44">
+            {renderPasswordCurrent("changePassword")}
+            <div className="mt-1">
+              <p>New password</p>
+              <LoginRegister_input
+                inputValue={passwordNew}
+                setInputValue={setPasswordNew}
+              />
+            </div>
+            <div className="mt-1">
+              <p>Confirm password</p>
+              <LoginRegister_input
+                inputValue={passwordNewConfirm}
+                setInputValue={setPasswordNewConfirm}
+              />
+            </div>
+          </div>
+        );
+
+      case "deleteAccount":
+        return (
+          <div className="h-44">
+            {renderPasswordCurrent("deleteAccount")}
+            <p className="mt-1 text-red-500">
+              Please confirm. All account information will be irreversibly lost.
+            </p>
+          </div>
+        );
+    }
+  }
+
   return (
     <FocusLock>
       <div
@@ -249,7 +321,8 @@ function UserProfile({
               <div className="mt-3 mb-3">
                 <div className="flex flex-col items-center mb-1">
                   <div className="w-48">
-                  <div>
+                    {renderInputs(inputMode)}
+                    {/*     <div>
                       <p>Current password</p>
                       <LoginRegister_input
                         inputValue={passwordCurrent}
@@ -269,18 +342,36 @@ function UserProfile({
                         inputValue={email}
                         setInputValue={setEmail}
                       />
-                    </div>
+                    </div> */}
                   </div>
-
-
-
-
-
-
                 </div>
-                <p className="text-center">Edit profile</p>
-                <p className="text-center">Change password</p>
-                <p className="text-center">Delete account</p>
+
+                <div className="mb-5">
+                  <p
+                    className="text-center"
+                    onClick={() => {
+                      setInputMode("editProfile");
+                    }}
+                  >
+                    Edit profile
+                  </p>
+                  <p
+                    className="text-center"
+                    onClick={() => {
+                      setInputMode("changePassword");
+                    }}
+                  >
+                    Change password
+                  </p>
+                  <p
+                    className="text-center"
+                    onClick={() => {
+                      setInputMode("deleteAccount");
+                    }}
+                  >
+                    Delete account
+                  </p>
+                </div>
               </div>
 
               {/*   <div className="mt-3 mb-5 flex flex-col items-center">
@@ -339,7 +430,7 @@ function UserProfile({
                 <button
                   className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-                 /*  onClick={() => {
+                  /*  onClick={() => {
                     loginValidation();
                   }} */
                 >
