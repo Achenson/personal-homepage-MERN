@@ -51,9 +51,6 @@ function UserProfile({
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [email_or_name, setEmail_or_name] = useState("");
   const [passwordCurrent, setPasswordCurrent] = useState("");
   const [passwordNew, setPasswordNew] = useState("");
   const [passwordNewConfirm, setPasswordNewConfirm] = useState("");
@@ -97,6 +94,30 @@ function UserProfile({
   });
 
   const { data, fetching, error } = userResults;
+  /* 
+  if (data) {
+    setName(data.user.name);
+    setEmail(data.user.email);
+  } */
+
+  /* useEffect( () => {
+
+    
+    setName(data.user.name)
+    setEmail(data.user.email)
+  }, [data]) */
+
+  const [name, setName] = useState("");
+  // const [name, setName] = useState(data ? data.user.name : "");
+  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState(data ? data.user.email : "");
+
+  useEffect(() => {
+    if (data) {
+      setName(data.user.name);
+      setEmail(data.user.email);
+    }
+  }, [data]);
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
@@ -263,7 +284,8 @@ function UserProfile({
           <div className="h-44">
             {renderPasswordCurrent("deleteAccount")}
             <p className="mt-1 text-red-500">
-              Enter password and confirm. All account information will be irreversibly lost.
+              Enter password and confirm. All account information will be
+              irreversibly lost.
             </p>
           </div>
         );
@@ -352,7 +374,7 @@ function UserProfile({
                 </div>
 
                 <div className="mb-5 flex flex-col items-center">
-                <button
+                  <button
                     className={`w-24 mb-3 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark ${
                       inputMode === "initial" ? "hidden" : ""
                     }`}
