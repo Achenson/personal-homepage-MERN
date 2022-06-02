@@ -308,3 +308,15 @@ export const BackgroundImgMutation = `
     backgroundImgMutation(file: $file)
   }
 `; */
+
+export const AddUserMutaton = `
+  mutation ($name: String, $email: String, $password: String) {
+    addUser(name: $name, email: $email, password: $password){
+      id
+      name
+      email
+      password
+    }
+  }
+`
+

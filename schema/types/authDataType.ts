@@ -5,6 +5,12 @@ export interface AuthDataInput_i {
   password: string
 }
 
+export interface AuthDataInputRegister_i {
+  name: string
+  email: string
+  password: string
+}
+
 export interface AuthData_i {
   userId: string
   token: string

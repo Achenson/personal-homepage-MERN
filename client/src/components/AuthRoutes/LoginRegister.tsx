@@ -15,9 +15,13 @@ import { useAuth } from "../../state/hooks/useAuth";
 
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
-import { LoginMutation } from "../../graphql/graphqlMutations";
+import { LoginMutation, AddUserMutaton } from "../../graphql/graphqlMutations";
 
-import { AuthDataInput_i } from "../../../../schema/types/authDataType";
+import {
+  AuthDataInput_i,
+  AuthDataInputRegister_i,
+} from "../../../../schema/types/authDataType";
+import AuthNotification from "./AuthNotification";
 
 interface Props {
   mainPaddingRight: boolean;
@@ -30,7 +34,7 @@ function LoginRegister({
   scrollbarWidth,
   globalSettings,
 }: Props): JSX.Element {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   const loginAttempt = useAuth((state) => state.loginAttempt);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
@@ -47,20 +51,29 @@ function LoginRegister({
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
 
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [email_or_name, setEmail_or_name] = useState("");
   const [password, setPassword] = useState("");
   const [passwordForRegister, setPasswordForRegister] = useState("");
   const [passwordForRegisterConfirm, setPasswordForRegisterConfirm] =
     useState("");
+
   const [loginErrorMessage, setLoginErrorMessage] = useState<null | string>(
     null
   );
+  const [registerErrorMessage, setRegisterErrorMessage] = useState<
+    null | string
+  >(null);
 
   const [loginMutResult, loginMut] = useMutation<any, AuthDataInput_i>(
     LoginMutation
   );
+
+  const [addUserMutResult, addUserMut] = useMutation<
+    any,
+    AuthDataInputRegister_i
+  >(AddUserMutaton);
 
   useEffect(() => {
     if (firstFieldRef.current !== null) {
@@ -97,9 +110,6 @@ function LoginRegister({
 
     console.log("name email provided");
 
-
-    
-
     // diffent than in apollo!
     loginMut({
       email_or_name: email_or_name,
@@ -109,24 +119,22 @@ function LoginRegister({
         console.log("RES DATA");
         console.log(res.data);
         console.log(res.data.loginMutation);
-        
-      
-        if (res.data.loginMutation.error === "User does not exist!") {
-        // if (res.data.login.token === "User does not exist!") {
+
+        if (res.data.loginMutation.error === "User does not exist") {
+          // if (res.data.login.token === "User does not exist!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
           console.log(res.data.loginMutation.error);
           setLoginErrorMessage(`${res.data.loginMutation.error}`);
           return;
         }
 
-        if (res.data.loginMutation.error === "Password is incorrect!") {
-        // if (res.data.login.token === "Password is incorrect!") {
+        if (res.data.loginMutation.error === "Password is incorrect") {
+          // if (res.data.login.token === "Password is incorrect!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
           console.log(res.data.loginMutation.error);
           setLoginErrorMessage(`${res.data.loginMutation.error}`);
           return;
         }
-
 
         if (!res) {
           return;
@@ -141,8 +149,11 @@ function LoginRegister({
 
         setLoginErrorMessage(null);
 
-        
-        loginAttempt(res.data.ok, res.data.loginMutation.userId, res.data.loginMutation.token)
+        loginAttempt(
+          res.data.ok,
+          res.data.loginMutation.userId,
+          res.data.loginMutation.token
+        );
 
         // authContext.updateAuthContext({
         //   ...authContext,
@@ -154,9 +165,6 @@ function LoginRegister({
         //   // token: res.data.login.token,
         // });
 
-
-
-
         // !!! display message that the login was successful
         // setLoginNotification(null);
 
@@ -166,24 +174,81 @@ function LoginRegister({
         // history.replace("/");
 
         // history.replace("/") equivalent in react-router-dom 6
-        navigate("/", {replace: true})
-
+        navigate("/", { replace: true });
 
         // upperUiContext.upperVisDispatch({
         //   type: "PROFILE_TOGGLE",
         // });
 
-
-
-
         upperUiContext.upperVisDispatch({
           type: "MESSAGE_OPEN_LOGIN",
         });
-
       },
       (err) => {
         console.log(err);
         setLoginErrorMessage("Server connection Error");
+        return;
+      }
+    );
+  }
+
+  function registerValidation() {
+    if (username === "") {
+      setRegisterErrorMessage("Invalid username");
+      return;
+    }
+
+    if (username.indexOf("@") > -1) {
+      setRegisterErrorMessage("Invalid username - @ symbol is not allowed");
+      return;
+    }
+
+    if (email === "" || email.indexOf("@") === -1) {
+      setRegisterErrorMessage("Invalid email");
+      return;
+    }
+
+    if (passwordForRegister === "") {
+      setRegisterErrorMessage("Invalid password");
+      return;
+    }
+
+    if (passwordForRegister.length < 8) {
+      setRegisterErrorMessage("Password must contain at least 8 characters");
+      return;
+    }
+
+    if (passwordForRegister !== passwordForRegisterConfirm) {
+      setRegisterErrorMessage("Password confirmation does not match");
+      return;
+    }
+
+    addUserMut({
+      name: username,
+      email: email,
+      password: passwordForRegister,
+      // refetchQueries: [{ query: getStatsQuery }],
+      // useMutation mutate function does not call `onCompleted`!
+      // so onCompleted can only be passed to initial hook
+      // workaround: useMutation returns a Promise
+    }).then(
+      (res) => {
+        console.log("ADD USER RES");
+        console.log(res);
+
+        if (res.data?.addUser) {
+          setRegisterErrorMessage(null);
+          // navigate("/login");
+          setLoginOrRegister("login");
+          return;
+        } else {
+          setRegisterErrorMessage("Username or email is already in use");
+          return;
+        }
+      },
+      (err) => {
+        console.log(err);
+        setRegisterErrorMessage("Server connection Error");
         return;
       }
     );
@@ -197,7 +262,7 @@ function LoginRegister({
         style={{ backgroundColor: "rgba(90, 90, 90, 0.4)", paddingTop: "30vh" }}
         onClick={() => {
           // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
-          navigate("/")
+          navigate("/");
         }}
       >
         <div
@@ -224,7 +289,7 @@ function LoginRegister({
                 onClick={() => {
                   // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
 
-                  navigate("/")
+                  navigate("/");
 
                   upperUiContext.upperVisDispatch({
                     type: "FOCUS_ON_UPPER_RIGHT_UI",
@@ -287,8 +352,8 @@ function LoginRegister({
                     <div className="w-48">
                       <p>Username</p>
                       <LoginRegister_input
-                        inputValue={name}
-                        setInputValue={setName}
+                        inputValue={username}
+                        setInputValue={setUsername}
                       />
                     </div>
                     <div className="mt-1 w-48">
@@ -307,8 +372,16 @@ function LoginRegister({
                   <div className="mt-1 w-48">
                     <p>Password</p>
                     <LoginRegister_input
-                      inputValue={loginOrRegister === "login"? password : passwordForRegister}
-                      setInputValue={loginOrRegister === "login" ?  setPassword : setPasswordForRegister}
+                      inputValue={
+                        loginOrRegister === "login"
+                          ? password
+                          : passwordForRegister
+                      }
+                      setInputValue={
+                        loginOrRegister === "login"
+                          ? setPassword
+                          : setPasswordForRegister
+                      }
                     />
                   </div>
 
@@ -322,6 +395,19 @@ function LoginRegister({
                     </div>
                   )}
                 </div>
+
+                {loginOrRegister === "login" && loginErrorMessage && (
+                  <AuthNotification
+                    colorClass="red-500"
+                    notification={loginErrorMessage}
+                  />
+                )}
+                {loginOrRegister === "register" && registerErrorMessage && (
+                  <AuthNotification
+                    colorClass="red-500"
+                    notification={registerErrorMessage}
+                  />
+                )}
               </div>
 
               <div className="flex justify-center">
@@ -340,7 +426,10 @@ function LoginRegister({
                     className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}
                   `}
-                  >
+                  onClick={() => {
+                   registerValidation();
+                  }}
+                >
                     Register
                   </button>
                 )}
