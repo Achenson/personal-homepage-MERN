@@ -168,8 +168,10 @@ it will trigger refresh in getAuth
 135. LoginSVG -> move to the left?
 136. change name to username everywhere?
 137. changing between 2 differen users, check user queries!!!
-138. registering user with same name/email -> still make db entry!!! even though the err is displayed
+DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE
 139. wiki-speed-typing, take care of 138 issue!
+140. hide/unhide password
+
 {
   filename: 'nature-3082832_1920.jpg',
   mimetype: 'image/jpeg',
