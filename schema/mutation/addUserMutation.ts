@@ -60,6 +60,7 @@ export const addUserMutationField = {
       // if user with this name & email is found
       if (!arrOfBooleans[0] || !arrOfBooleans[1]) {
         resolve(null);
+        return;
       }
 
       bcrypt.hash(args.password, 12).then((hashedPassword: string) => {
