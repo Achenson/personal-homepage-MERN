@@ -9,6 +9,6 @@ export const userQueryField = {
   type: UserType,
   args: { userId: { type: GraphQLID } },
   resolve(parent: User_i, { userId }: { userId: string }) {
-    return User.findOne({ userId: userId });
+    return User.findById(userId);
   },
 };

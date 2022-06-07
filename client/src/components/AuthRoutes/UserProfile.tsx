@@ -108,21 +108,23 @@ function UserProfile({
   }, [data]) */
 
   const [name, setName] = useState("");
-  // const [name, setName] = useState(data ? data.user.name : "");
+  // const [name, setName] = useState(data?.user?.name ? data.user.name : "");
   const [email, setEmail] = useState("");
-  // const [email, setEmail] = useState(data ? data.user.email : "");
+  // const [email, setEmail] = useState(data?.user?.email ? data.user.email : "");
 
   useEffect(() => {
-    if (data) {
+    if (data?.user) {
       setName(data.user.name);
       setEmail(data.user.email);
     }
   }, [data]);
 
+
+
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  console.log(data.user);
+  // console.log(data.user);
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);
