@@ -15,6 +15,7 @@ import {loginMutationField} from "./loginMutation"
 import { logoutMutationField } from "./logoutMutation";
 import { backgroundImgMutationField } from "./backgroundImgMutation";
 import { revokeRefreshTokenMutationField } from "./revokeRefreshTokenMutation";
+import { deleteAccountByUserMutationField } from "./deleteAccountByUserMutation";
 
 
 const { GraphQLObjectType } = graphql;
@@ -36,6 +37,7 @@ export const Mutation = new GraphQLObjectType({
     loginMutation: loginMutationField,
     logoutMutation: logoutMutationField,
     backgroundImgMutation: backgroundImgMutationField,
-    revokeRefreshToken: revokeRefreshTokenMutationField
+    revokeRefreshToken: revokeRefreshTokenMutationField,
+    deleteAccountByUser: deleteAccountByUserMutationField
   },
 });

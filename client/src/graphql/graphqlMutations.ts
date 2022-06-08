@@ -320,3 +320,13 @@ export const AddUserMutaton = `
   }
 `
 
+export const DeleteAccountByUserMutation = `
+  mutation ($id: ID, $password: String) {
+    deleteAccountByUser(id: $id, password: $password) {
+      name
+      error
+    }
+  }
+`;
+
+

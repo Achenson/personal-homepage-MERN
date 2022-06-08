@@ -1,5 +1,6 @@
 import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
-import { UserType } from "../types/userType";
+// import { UserType } from "../types/userType";
+import { DeleteAccountByUserType } from "../types/deleteAccountByUserType";
 
 const fs = require("fs");
 const path = require("path");
@@ -16,28 +17,39 @@ interface AuthData_i {
 }
 
 export const deleteAccountByUserMutationField = {
-  type: UserType,
+  type: DeleteAccountByUserType,
   args: {
     id: { type: GraphQLID },
-    password: { type: new GraphQLNonNull(GraphQLString) },
+    // password: { type: new GraphQLNonNull(GraphQLString) },
+    password: { type: GraphQLString },
   },
   async resolve(_source: unknown, { id, password }: AuthData_i) {
     // @ts-ignore
-    const user = await User.findOneById(id);
+    const user = await User.findById(id);
     if (!user) {
       // throw new Error("User does not exist!");
+      console.log("NO USER");
+
       return {
-        error: "User does not exist!",
+        name: null,
+        error: "User does not exist",
       };
     }
+
+    console.log("USER EXISTS");
 
     const isEqual = await bcrypt.compare(password, user.password);
     if (!isEqual) {
       // throw new Error("Password is incorrect!");
+      console.log("PASSWORD INCORRECT");
+
       return {
-        error: "Password is incorrect!",
+        name: null,
+        error: "Password is incorrect",
       };
     }
+
+    console.log("PASSWORD CORRECT");
 
     //  return { userId: user.id, token: token, error: null };
 
@@ -52,7 +64,7 @@ export const deleteAccountByUserMutationField = {
     await Bookmark.deleteMany({ userId: args.id });
     await Tab.deleteMany({ userId: args.id }); */
 
-    return User.findByIdAndDelete(id, (err: Error) => {
+    let deletedUser = await User.findByIdAndDelete(id, (err: Error) => {
       if (err) {
         console.log(err);
         return;
@@ -61,6 +73,17 @@ export const deleteAccountByUserMutationField = {
       fs.rmdir(path.join("backgroundImgs/" + id + "/"), (err: any) => {
         if (err) console.error(err);
       });
+
+
+
     });
+
+    
+
+    return {
+      name: deletedUser.name,
+      error: null
+    }
+
   },
 };

@@ -116,6 +116,12 @@ function LoginRegister({
       password: password,
     }).then(
       (res) => {
+
+        if (!res) {
+          setLoginErrorMessage("Server connection Error")
+          return;
+        }
+
         console.log("RES DATA");
         console.log(res.data);
         console.log(res.data.loginMutation);
@@ -124,7 +130,7 @@ function LoginRegister({
           // if (res.data.login.token === "User does not exist!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
           console.log(res.data.loginMutation.error);
-          setLoginErrorMessage(`${res.data.loginMutation.error}`);
+          setLoginErrorMessage(res.data.loginMutation.error);
           return;
         }
 
@@ -132,13 +138,11 @@ function LoginRegister({
           // if (res.data.login.token === "Password is incorrect!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
           console.log(res.data.loginMutation.error);
-          setLoginErrorMessage(`${res.data.loginMutation.error}`);
+          setLoginErrorMessage(res.data.loginMutation.error);
           return;
         }
 
-        if (!res) {
-          return;
-        }
+       
 
         // if (loggedInState === false) {
         //   setLoggedInState(true);
@@ -233,6 +237,12 @@ function LoginRegister({
       // workaround: useMutation returns a Promise
     }).then(
       (res) => {
+
+        if (!res) {
+          setRegisterErrorMessage("Server connection Error")
+          return;
+        }
+
         console.log("ADD USER RES");
         console.log(res);
 

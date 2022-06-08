@@ -52,7 +52,7 @@ export const loginMutationField = {
       return {
         userId: null,
         token: null,
-        error: "User does not exist!",
+        error: "User does not exist",
       };
     }
 
@@ -63,7 +63,7 @@ export const loginMutationField = {
       return {
         userId: null,
         token: null,
-        error: "Password is incorrect!",
+        error: "Password is incorrect",
       };
     }
 

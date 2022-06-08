@@ -15,7 +15,11 @@ import { useAuth } from "../../state/hooks/useAuth";
 
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
-import { LoginMutation, LogoutMutation } from "../../graphql/graphqlMutations";
+import {
+  LoginMutation,
+  LogoutMutation,
+  DeleteAccountByUserMutation,
+} from "../../graphql/graphqlMutations";
 
 import { UserQuery } from "../../graphql/graphqlQueries";
 
@@ -34,6 +38,7 @@ function UserProfile({
 }: Props): JSX.Element {
   let navigate = useNavigate();
   const loginAttempt = useAuth((state) => state.loginAttempt);
+  const logout = useAuth((state) => state.logout);
   const userId = useAuth((state) => state.authenticatedUserId);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
@@ -47,7 +52,6 @@ function UserProfile({
 
   const upperUiContext = useUpperUiContext();
   const authContext = useAuth();
-  const logout = useAuth((state) => state.logout);
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
 
@@ -55,9 +59,15 @@ function UserProfile({
   const [passwordNew, setPasswordNew] = useState("");
   const [passwordNewConfirm, setPasswordNewConfirm] = useState("");
 
-  const [loginErrorMessage, setLoginErrorMessage] = useState<null | string>(
-    null
-  );
+  const [errorMessage, setErrorMessage] = useState<null | string>(null);
+
+  // const [changePasswordErrorMessage, setChangePasswordErrorMessage] = useState<
+  //   null | string
+  // >(null);
+
+  // const [deleteErrorMessage, setDeleteErrorMessage] = useState<null | string>(
+  //   null
+  // );
 
   const [loginMutResult, loginMut] = useMutation<any, AuthDataInput_i>(
     LoginMutation
@@ -87,6 +97,7 @@ function UserProfile({
       document.removeEventListener("keydown", handleKeyDown);
     };
   });
+
 
   const [userResults] = useQuery({
     query: UserQuery,
@@ -119,7 +130,10 @@ function UserProfile({
     }
   }, [data]);
 
-
+  const [deleteAccountByUserResult, deleteAccountByUser] = useMutation<
+    any,
+    any
+  >(DeleteAccountByUserMutation);
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
@@ -285,7 +299,7 @@ function UserProfile({
         return (
           <div className="h-44">
             {renderPasswordCurrent("deleteAccount")}
-            <p className="mt-1 text-red-500">
+            <p className="mt-1 text-red-700">
               Enter password and confirm. All account information will be
               irreversibly lost.
             </p>
@@ -351,6 +365,8 @@ function UserProfile({
                 <div className="flex flex-col items-center mb-1">
                   <div className="w-48">
                     {renderInputs(inputMode)}
+                    <p className="text-red-500 mb-1 text-center">{errorMessage}</p>
+
                     {/*     <div>
                       <p>Current password</p>
                       <LoginRegister_input
@@ -381,7 +397,97 @@ function UserProfile({
                       inputMode === "initial" ? "hidden" : ""
                     }`}
                     onClick={() => {
-                      setInputMode("editProfile");
+                      if (passwordCurrent === "") {
+                        setErrorMessage("Password not provided");
+                        return;
+                      }
+
+                      switch (inputMode) {
+                        case "editProfile":
+                          console.log("editProfile");
+                          return;
+                        case "changePassword":
+                          console.log("changePassword");
+                          return;
+                        case "deleteAccount":
+
+                          console.log("userId");
+                          console.log(userId);
+                          console.log("passwordCurrent");
+                          console.log(passwordCurrent);
+                          
+                          
+
+
+                          deleteAccountByUser({
+                            id: userId,
+                            password: passwordCurrent,
+                          }).then(
+                            async (res) => {
+                              if (!res) {
+                                setErrorMessage("Server connection Error");
+                                return;
+                              }
+
+                              console.log("USER_PROFILE data");
+                              console.log(res.data);
+
+                              // ??? !!! delete
+
+                              if (
+                                res.data?.deleteAccountByUser?.error ===
+                                "User does not exist"
+                              ) {
+
+                                console.log("USED DOES NOT EXIST");
+                                
+
+                                setErrorMessage(
+                                  res.data?.deleteAccountByUser?.error
+                                );
+                                return;
+                              }
+
+                              if (
+                                res.data?.deleteAccountByUser?.error ===
+                                "Password is incorrect"
+                              ) {
+                                console.log("INCORRECT PASSWORD");
+                                setErrorMessage(
+                                  res.data?.deleteAccountByUser?.error
+                                );
+                                return;
+                              }
+
+                              // if (loggedInState === false) {
+                              //   setLoggedInState(true);
+                              // }
+
+                              // console.log("loginMut res");
+                              // console.log(res);
+
+                              setErrorMessage(null);
+
+                              await logoutMut();
+                              logout();
+                              navigate("/login-register", { replace: true });
+
+                              upperUiContext.upperVisDispatch({
+                                type: "MESSAGE_OPEN_LOGIN",
+                              });
+                            },
+                            (err) => {
+                              console.log(err);
+                              setErrorMessage("Server connection Error");
+                              return;
+                            }
+                          );
+
+                          console.log("deleteAccount");
+                          return;
+                        default:
+                          return;
+                      }
                     }}
                   >
                     {inputMode === "deleteAccount" ? "CONFIRM" : "UPDATE"}
@@ -392,6 +498,8 @@ function UserProfile({
                     }`}
                     onClick={() => {
                       setInputMode("editProfile");
+                      setPasswordCurrent("");
+                      setErrorMessage(null);
                     }}
                   >
                     Edit profile
@@ -402,6 +510,8 @@ function UserProfile({
                     }`}
                     onClick={() => {
                       setInputMode("changePassword");
+                      setPasswordCurrent("");
+                      setErrorMessage(null);
                     }}
                   >
                     Change password
@@ -412,6 +522,8 @@ function UserProfile({
                     }`}
                     onClick={() => {
                       setInputMode("deleteAccount");
+                      setPasswordCurrent("");
+                      setErrorMessage(null);
                     }}
                   >
                     Delete account
@@ -480,7 +592,7 @@ function UserProfile({
 
                     logout();
 
-                    navigate("/login-register");
+                    navigate("/login-register", { replace: true });
                   }}
                 >
                   Logout
