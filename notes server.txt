@@ -180,6 +180,12 @@ UserProfile/LoginRegister -> check upperUiContext dispatches
 unify across other mutations!
 146. backgroundImgs -> are they being saved to db?
 147. darker default background img?
+148. after registering -> automatically fill up username field in Login?
+149. more rigid password checking?
+150. change naming to ByUser & ByAdmin
+151. check if changeUSer "by admin" works
+152. mutations-> change args from manual to Fields
+
 
 {
   filename: 'nature-3082832_1920.jpg',
