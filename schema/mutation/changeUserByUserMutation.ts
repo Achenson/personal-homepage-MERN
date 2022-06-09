@@ -2,7 +2,7 @@ const User = require("../../mongoModels/userSchema");
 import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 
 // import { UserFields, UserType, User_i } from "../types/userType";
-import { ChangeUserByUserType } from "../types/changeUserByUserType";
+import { ChangeUserByUserType, ChangeUserByUser_i } from "../types/changeUserByUserType";
 
 const bcrypt = require("bcrypt");
 
@@ -10,7 +10,7 @@ interface ChangeUserData_i {
   id: string;
   name: string;
   email: string;
-  currentPassword: string;
+  passwordCurrent: string;
 }
 
 export const changeUserByUserMutationField = {
@@ -20,11 +20,11 @@ export const changeUserByUserMutationField = {
     name: { type: GraphQLString },
     email: { type: GraphQLString },
     // password: { type: new GraphQLNonNull(GraphQLString) },
-    currentPassword: { type: GraphQLString },
+    passwordCurrent: { type: GraphQLString },
   },
   async resolve(
     _source: unknown,
-    { id, name, email, currentPassword }: ChangeUserData_i
+    { id, name, email, passwordCurrent }: ChangeUserByUser_i
   ) {
     const user = await User.findById(id);
     if (!user) {
@@ -37,7 +37,7 @@ export const changeUserByUserMutationField = {
       };
     }
 
-    const isEqual = await bcrypt.compare(currentPassword, user.password);
+    const isEqual = await bcrypt.compare(passwordCurrent, user.password);
     if (!isEqual) {
       console.log("PASSWORD INCORRECT");
 

@@ -15,15 +15,19 @@ import { useAuth } from "../../state/hooks/useAuth";
 
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { DeleteAccountByUser_i } from "../../../../schema/types/deleteAccountByUserType";
+
 import {
   LoginMutation,
   LogoutMutation,
   DeleteAccountByUserMutation,
+  ChangeUserByUserMutation,
 } from "../../graphql/graphqlMutations";
 
 import { UserQuery } from "../../graphql/graphqlQueries";
 
 import { AuthDataInput_i } from "../../../../schema/types/authDataType";
+import { ChangeUserByUser_i } from "../../../../schema/types/changeUserByUserType";
 
 interface Props {
   mainPaddingRight: boolean;
@@ -60,6 +64,7 @@ function UserProfile({
   const [passwordNewConfirm, setPasswordNewConfirm] = useState("");
 
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
+  const [notification, setNotification] = useState<null | string>(null);
 
   // const [changePasswordErrorMessage, setChangePasswordErrorMessage] = useState<
   //   null | string
@@ -98,8 +103,7 @@ function UserProfile({
     };
   });
 
-
-  const [userResults] = useQuery({
+  const [userResults, reexecuteUserResults] = useQuery({
     query: UserQuery,
     variables: { userId: userId },
   });
@@ -132,8 +136,13 @@ function UserProfile({
 
   const [deleteAccountByUserResult, deleteAccountByUser] = useMutation<
     any,
-    any
+    DeleteAccountByUser_i
   >(DeleteAccountByUserMutation);
+
+  const [changeUserByUserResult, changeUserByUser] = useMutation<
+    any,
+    ChangeUserByUser_i
+  >(ChangeUserByUserMutation);
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
@@ -365,7 +374,12 @@ function UserProfile({
                 <div className="flex flex-col items-center mb-1">
                   <div className="w-48">
                     {renderInputs(inputMode)}
-                    <p className="text-red-500 mb-1 text-center">{errorMessage}</p>
+                    <p className="text-red-500 mb-1 text-center">
+                      {errorMessage}
+                    </p>
+                    <p className="text-green-500 mb-1 text-center">
+                      {notification}
+                    </p>
 
                     {/*     <div>
                       <p>Current password</p>
@@ -399,28 +413,101 @@ function UserProfile({
                     onClick={() => {
                       if (passwordCurrent === "") {
                         setErrorMessage("Password not provided");
+                        setNotification(null);
+                        return;
+                      }
+
+                      if (name === "") {
+                        setErrorMessage("Username cannot be empty");
+                        setNotification(null);
+                        return;
+                      }
+
+                      if (email === "") {
+                        setErrorMessage("Email cannot be empty");
+                        setNotification(null);
+                        return;
+                      }
+
+                      if (email.indexOf("@") === -1) {
+                        setErrorMessage("Please enter valid email address");
+                        setNotification(null);
                         return;
                       }
 
                       switch (inputMode) {
                         case "editProfile":
                           console.log("editProfile");
+                          changeUserByUser({
+                            id: userId as string,
+                            name: name,
+                            email: email,
+                            passwordCurrent: passwordCurrent,
+                          }).then(
+                            async (res) => {
+                              if (!res) {
+                                setErrorMessage("Server connection Error");
+                                setNotification(null);
+                                return;
+                              }
+
+                              if (
+                                res.data?.changeUserByUser?.error ===
+                                "User does not exist"
+                              ) {
+                                console.log("USED DOES NOT EXIST");
+
+                                setErrorMessage(
+                                  res.data?.changeUserByUser?.error
+                                );
+                                setNotification(null);
+                                return;
+                              }
+
+                              if (
+                                res.data?.changeUserByUser?.error ===
+                                "Password is incorrect"
+                              ) {
+                                console.log("INCORRECT PASSWORD");
+                                setErrorMessage(
+                                  res.data?.changeUserByUser?.error
+                                );
+                                setNotification(null);
+                                return;
+                              }
+
+                              if (!res.data?.changeUserByUser?.name) {
+                                setErrorMessage("Unknown error");
+                                setNotification(null);
+                                return;
+                              }
+
+                              reexecuteUserResults({
+                                requestPolicy: "network-only",
+                              });
+
+                              setErrorMessage(null);
+                              setNotification("User data successfully updated");
+                            },
+                            (err) => {
+                              console.log(err);
+                              setErrorMessage("Server connection Error");
+                              return;
+                            }
+                          );
+
                           return;
                         case "changePassword":
                           console.log("changePassword");
                           return;
                         case "deleteAccount":
-
                           console.log("userId");
                           console.log(userId);
                           console.log("passwordCurrent");
                           console.log(passwordCurrent);
-                          
-                          
-
 
                           deleteAccountByUser({
-                            id: userId,
+                            id: userId as string,
                             password: passwordCurrent,
                           }).then(
                             async (res) => {
@@ -438,9 +525,7 @@ function UserProfile({
                                 res.data?.deleteAccountByUser?.error ===
                                 "User does not exist"
                               ) {
-
                                 console.log("USED DOES NOT EXIST");
-                                
 
                                 setErrorMessage(
                                   res.data?.deleteAccountByUser?.error
@@ -467,6 +552,7 @@ function UserProfile({
                               // console.log(res);
 
                               setErrorMessage(null);
+                              setNotification("");
 
                               await logoutMut();
                               logout();
@@ -500,6 +586,7 @@ function UserProfile({
                       setInputMode("editProfile");
                       setPasswordCurrent("");
                       setErrorMessage(null);
+                      setNotification(null);
                     }}
                   >
                     Edit profile
@@ -512,6 +599,7 @@ function UserProfile({
                       setInputMode("changePassword");
                       setPasswordCurrent("");
                       setErrorMessage(null);
+                      setNotification(null);
                     }}
                   >
                     Change password
@@ -524,6 +612,7 @@ function UserProfile({
                       setInputMode("deleteAccount");
                       setPasswordCurrent("");
                       setErrorMessage(null);
+                      setNotification(null);
                     }}
                   >
                     Delete account

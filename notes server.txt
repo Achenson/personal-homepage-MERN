@@ -185,7 +185,9 @@ unify across other mutations!
 150. change naming to ByUser & ByAdmin
 151. check if changeUSer "by admin" works
 152. mutations-> change args from manual to Fields
-
+153. serverside interfaces are in types files, better interfaces sharing between client and server?
+154. UserProfile -> mutations should succeed if there is proper field being send back
+155. better email validation
 
 {
   filename: 'nature-3082832_1920.jpg',

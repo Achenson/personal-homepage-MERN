@@ -300,9 +300,6 @@ export const BackgroundImgMutation = `
   }
 `;
 
-
-
-
 /* export const BackgroundImgMutation = `
   mutation ($file: Upload!) {
     backgroundImgMutation(file: $file)
@@ -318,7 +315,7 @@ export const AddUserMutaton = `
       password
     }
   }
-`
+`;
 
 export const DeleteAccountByUserMutation = `
   mutation ($id: ID, $password: String) {
@@ -329,4 +326,12 @@ export const DeleteAccountByUserMutation = `
   }
 `;
 
-
+export const ChangeUserByUserMutation = `
+  mutation ($id: ID, $name: String, $email: String, $passwordCurrent: String) {
+    changeUserByUser (id: $id, name: $name, email: $email, passwordCurrent: $passwordCurrent) {
+      name
+      email
+      error
+    }
+  }
+`;
