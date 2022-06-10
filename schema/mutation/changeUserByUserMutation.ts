@@ -2,16 +2,12 @@ const User = require("../../mongoModels/userSchema");
 import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 
 // import { UserFields, UserType, User_i } from "../types/userType";
-import { ChangeUserByUserType, ChangeUserByUser_i } from "../types/changeUserByUserType";
+import {
+  ChangeUserByUserType,
+  ChangeUserByUser_i,
+} from "../types/changeUserByUserType";
 
 const bcrypt = require("bcrypt");
-
-interface ChangeUserData_i {
-  id: string;
-  name: string;
-  email: string;
-  passwordCurrent: string;
-}
 
 export const changeUserByUserMutationField = {
   type: ChangeUserByUserType,
@@ -48,10 +44,80 @@ export const changeUserByUserMutationField = {
       };
     }
 
-    let update = {
-      name: name,
-      email: email,
-    };
+    if (!name && !email) {
+      return {
+        name: null,
+        email: null,
+        error: "No new data to update",
+      };
+    }
+
+    let arrOfBooleans = await Promise.all([
+      new Promise((resolve, reject) => {
+        // no name provided means it is the same as it was initially
+        if (!name) {
+          resolve(true);
+        }
+
+        User.findOne({ name: name }, (err: Error, res: any) => {
+          if (err) console.log(err);
+
+          if (res != null) {
+            console.log("name is already present in DB");
+            resolve(false);
+          } else {
+            resolve(true);
+          }
+        });
+      }),
+
+      new Promise((resolve, reject) => {
+        // no email provided means it is the same as it was initially
+        if (!email) {
+          resolve(true);
+        }
+
+        User.findOne({ email: email }, (err: Error, res: any) => {
+          if (err) console.log(err);
+
+          if (res != null) {
+            console.log("email is already present in DB");
+            resolve(false);
+          } else {
+            resolve(true);
+          }
+        });
+      }),
+    ]);
+
+    if (!arrOfBooleans[0]) {
+      return {
+        name: null,
+        email: null,
+        error: "Username already in use",
+      };
+    }
+
+    if (!arrOfBooleans[1]) {
+      return {
+        name: null,
+        email: null,
+        error: "Email already in use",
+      };
+    }
+
+    let update = {};
+
+    let updateName = { name: name };
+    let updateEmail = { email: email };
+
+    if (name) {
+      Object.assign(update, updateName);
+    }
+
+    if (email) {
+      Object.assign(update, updateEmail);
+    }
 
     let changedUser = await User.findByIdAndUpdate(id, update, {
       // to return updated object

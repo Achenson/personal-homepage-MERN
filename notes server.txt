@@ -188,6 +188,12 @@ unify across other mutations!
 153. serverside interfaces are in types files, better interfaces sharing between client and server?
 154. UserProfile -> mutations should succeed if there is proper field being send back
 155. better email validation
+156. UserProfile -> no server connection error -> !res may be not the right kind of logic for it?
+DONE 157. UserProfile -> simplify error logic! less ifs, errors received serverside if no proper data returned DONE
+158. addUserMutation -> change so it distinguish between username and email already present in DB
+159. all or almost all mutations should have error fields? 
+160. editUser -> update causes flickering due to reexectuing query?
+161. successful register message && successful user deletion- when?
 
 {
   filename: 'nature-3082832_1920.jpg',

@@ -123,14 +123,20 @@ function UserProfile({
   }, [data]) */
 
   const [name, setName] = useState("");
+  // doesn't get changed by user input
+  const [nameInitial, setNameInitial] = useState("");
   // const [name, setName] = useState(data?.user?.name ? data.user.name : "");
   const [email, setEmail] = useState("");
+  // doesn't get changed by user input
+  const [emailInitial, setEmailInitial] = useState("");
   // const [email, setEmail] = useState(data?.user?.email ? data.user.email : "");
 
   useEffect(() => {
     if (data?.user) {
       setName(data.user.name);
+      setNameInitial(data.user.name);
       setEmail(data.user.email);
+      setEmailInitial(data.user.email);
     }
   }, [data]);
 
@@ -429,6 +435,12 @@ function UserProfile({
                         return;
                       }
 
+                      // if (name === nameInitial && email === emailInitial) {
+                      //   setErrorMessage("No new data to update");
+                      //   setNotification(null);
+                      //   return;
+                      // }
+
                       if (email.indexOf("@") === -1) {
                         setErrorMessage("Please enter valid email address");
                         setNotification(null);
@@ -440,8 +452,9 @@ function UserProfile({
                           console.log("editProfile");
                           changeUserByUser({
                             id: userId as string,
-                            name: name,
-                            email: email,
+                            // preventing from trying to update fields without changes
+                            name: name === nameInitial ? null : name,
+                            email: email === emailInitial ? null : email,
                             passwordCurrent: passwordCurrent,
                           }).then(
                             async (res) => {
@@ -451,36 +464,28 @@ function UserProfile({
                                 return;
                               }
 
-                              if (
-                                res.data?.changeUserByUser?.error ===
-                                "User does not exist"
-                              ) {
-                                console.log("USED DOES NOT EXIST");
-
-                                setErrorMessage(
-                                  res.data?.changeUserByUser?.error
-                                );
-                                setNotification(null);
-                                return;
-                              }
-
-                              if (
-                                res.data?.changeUserByUser?.error ===
-                                "Password is incorrect"
-                              ) {
-                                console.log("INCORRECT PASSWORD");
-                                setErrorMessage(
-                                  res.data?.changeUserByUser?.error
-                                );
-                                setNotification(null);
-                                return;
-                              }
-
                               if (!res.data?.changeUserByUser?.name) {
-                                setErrorMessage("Unknown error");
+                                // if no specific error is received from the server
+                                if (!res.data?.changeUserByUser?.error) {
+                                  setErrorMessage(
+                                    "An unknown error has occured"
+                                  );
+                                  setNotification(null);
+                                  return;
+                                }
+
+                                setErrorMessage(
+                                  res.data?.changeUserByUser?.error
+                                );
                                 setNotification(null);
                                 return;
                               }
+
+                              // if (!res.data?.changeUserByUser?.name) {
+                              //   setErrorMessage("Unknown error");
+                              //   setNotification(null);
+                              //   return;
+                              // }
 
                               reexecuteUserResults({
                                 requestPolicy: "network-only",
@@ -516,43 +521,26 @@ function UserProfile({
                                 return;
                               }
 
-                              console.log("USER_PROFILE data");
-                              console.log(res.data);
-
-                              // ??? !!! delete
-
-                              if (
-                                res.data?.deleteAccountByUser?.error ===
-                                "User does not exist"
-                              ) {
-                                console.log("USED DOES NOT EXIST");
+                              if (!res.data?.deleteAccountByUser?.name) {
+                                // if no specific error is received from the server
+                                if (!res.data?.deleteAccountByUser?.error) {
+                                  setErrorMessage(
+                                    "An unknown error has occured"
+                                  );
+                                  setNotification(null);
+                                  return;
+                                }
 
                                 setErrorMessage(
                                   res.data?.deleteAccountByUser?.error
                                 );
+                                setNotification(null);
                                 return;
                               }
 
-                              if (
-                                res.data?.deleteAccountByUser?.error ===
-                                "Password is incorrect"
-                              ) {
-                                console.log("INCORRECT PASSWORD");
-                                setErrorMessage(
-                                  res.data?.deleteAccountByUser?.error
-                                );
-                                return;
-                              }
-
-                              // if (loggedInState === false) {
-                              //   setLoggedInState(true);
-                              // }
-
-                              // console.log("loginMut res");
-                              // console.log(res);
 
                               setErrorMessage(null);
-                              setNotification("");
+                              setNotification(null);
 
                               await logoutMut();
                               logout();

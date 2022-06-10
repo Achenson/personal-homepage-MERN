@@ -2,8 +2,8 @@ import { GraphQLString, GraphQLObjectType, GraphQLID } from "graphql";
 
 export interface ChangeUserByUser_i {
   id: string
-  name: string
-  email: string
+  name: string | null
+  email: string | null
   passwordCurrent: string
 }
 

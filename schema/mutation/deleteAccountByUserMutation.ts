@@ -64,19 +64,22 @@ export const deleteAccountByUserMutationField = {
     await Bookmark.deleteMany({ userId: args.id });
     await Tab.deleteMany({ userId: args.id }); */
 
-    let deletedUser = await User.findByIdAndDelete(id, (err: Error) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
+    let deletedUser = await User.findByIdAndDelete(id);
 
-      fs.rmdir(path.join("backgroundImgs/" + id + "/"), (err: any) => {
-        if (err) console.error(err);
-      });
-
-
-
+    fs.rmdir(path.join("backgroundImgs/" + id + "/"), (err: any) => {
+      if (err) console.error(err);
     });
+
+    // let deletedUser = await User.findByIdAndDelete(id, (err: Error) => {
+    //   if (err) {
+    //     console.log(err);
+    //     return;
+    //   }
+    //   fs.rmdir(path.join("backgroundImgs/" + id + "/"), (err: any) => {
+    //     if (err) console.error(err);
+    //   });
+
+    // });
 
     
 
