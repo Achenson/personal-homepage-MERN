@@ -194,6 +194,7 @@ DONE 157. UserProfile -> simplify error logic! less ifs, errors received servers
 159. all or almost all mutations should have error fields? 
 160. editUser -> update causes flickering due to reexectuing query?
 161. successful register message && successful user deletion- when?
+162. whenever returning to editUser, name & email should be filled again
 
 {
   filename: 'nature-3082832_1920.jpg',

@@ -423,33 +423,34 @@ function UserProfile({
                         return;
                       }
 
-                      if (name === "") {
-                        setErrorMessage("Username cannot be empty");
-                        setNotification(null);
-                        return;
-                      }
-
-                      if (email === "") {
-                        setErrorMessage("Email cannot be empty");
-                        setNotification(null);
-                        return;
-                      }
-
                       // if (name === nameInitial && email === emailInitial) {
                       //   setErrorMessage("No new data to update");
                       //   setNotification(null);
                       //   return;
                       // }
 
-                      if (email.indexOf("@") === -1) {
-                        setErrorMessage("Please enter valid email address");
-                        setNotification(null);
-                        return;
-                      }
-
                       switch (inputMode) {
                         case "editProfile":
                           console.log("editProfile");
+
+                          if (name === "") {
+                            setErrorMessage("Username cannot be empty");
+                            setNotification(null);
+                            return;
+                          }
+
+                          if (email === "") {
+                            setErrorMessage("Email cannot be empty");
+                            setNotification(null);
+                            return;
+                          }
+
+                          if (email.indexOf("@") === -1) {
+                            setErrorMessage("Please enter valid email address");
+                            setNotification(null);
+                            return;
+                          }
+
                           changeUserByUser({
                             id: userId as string,
                             // preventing from trying to update fields without changes
@@ -504,6 +505,7 @@ function UserProfile({
                           return;
                         case "changePassword":
                           console.log("changePassword");
+
                           return;
                         case "deleteAccount":
                           console.log("userId");
@@ -537,7 +539,6 @@ function UserProfile({
                                 setNotification(null);
                                 return;
                               }
-
 
                               setErrorMessage(null);
                               setNotification(null);

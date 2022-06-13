@@ -335,3 +335,12 @@ export const ChangeUserByUserMutation = `
     }
   }
 `;
+
+export const ChangePasswordByUserMutation = `
+  mutation ($id: ID, $passwordCurrent: String, $passwordNew: String) {
+    changePasswordByUser (id: $id, passwordCurrent: $passwordCurrent, passwordNew: $passwordNew) {
+      name
+      error
+    }
+  }
+`;
