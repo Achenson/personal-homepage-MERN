@@ -17,6 +17,7 @@ import { backgroundImgMutationField } from "./backgroundImgMutation";
 import { revokeRefreshTokenMutationField } from "./revokeRefreshTokenMutation";
 import { deleteAccountByUserMutationField } from "./deleteAccountByUserMutation";
 import { changeUserByUserMutationField } from "./changeUserByUserMutation";
+import { changePasswordByUserMutationField } from "./changePasswordByUserMutation";
 
 
 const { GraphQLObjectType } = graphql;
@@ -27,6 +28,7 @@ export const Mutation = new GraphQLObjectType({
     changeBookmark: changeBookmarkMutationField,
     changeSettings: changeSettingsMutationField,
     changeTab: changeTabMutationField,
+    changePasswordByUser: changePasswordByUserMutationField,
     changeUser: changeUserMutationField,
     changeUserByUser: changeUserByUserMutationField,
     addBookmark: addBookmarkMutationField,
