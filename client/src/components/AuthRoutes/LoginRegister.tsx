@@ -355,6 +355,7 @@ function LoginRegister({
                       ref={firstFieldRef}
                       inputValue={email_or_name}
                       setInputValue={setEmail_or_name}
+                      preventCopyPaste={false}
                     />
                   </div>
                 ) : (
@@ -364,6 +365,7 @@ function LoginRegister({
                       <LoginRegister_input
                         inputValue={username}
                         setInputValue={setUsername}
+                        preventCopyPaste={false}
                       />
                     </div>
                     <div className="mt-1 w-48">
@@ -371,6 +373,7 @@ function LoginRegister({
                       <LoginRegister_input
                         inputValue={email}
                         setInputValue={setEmail}
+                        preventCopyPaste={false}
                       />
                     </div>
                   </>
@@ -392,6 +395,7 @@ function LoginRegister({
                           ? setPassword
                           : setPasswordForRegister
                       }
+                      preventCopyPaste={true}
                     />
                   </div>
 
@@ -401,6 +405,7 @@ function LoginRegister({
                       <LoginRegister_input
                         inputValue={passwordForRegisterConfirm}
                         setInputValue={setPasswordForRegisterConfirm}
+                        preventCopyPaste={true}
                       />
                     </div>
                   )}

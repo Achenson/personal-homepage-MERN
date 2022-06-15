@@ -268,6 +268,7 @@ function UserProfile({
       <LoginRegister_input
         inputValue={passwordCurrent}
         setInputValue={setPasswordCurrent}
+        preventCopyPaste={true}
       />
     </div>
   );
@@ -284,13 +285,14 @@ function UserProfile({
             {renderPasswordCurrent("editProfile")}
             <div className="mt-1">
               <p>Username</p>
-              <LoginRegister_input inputValue={name} setInputValue={setName} />
+              <LoginRegister_input inputValue={name} setInputValue={setName} preventCopyPaste={false} />
             </div>
             <div className="mt-1">
               <p>Email address</p>
               <LoginRegister_input
                 inputValue={email}
                 setInputValue={setEmail}
+                preventCopyPaste={false} 
               />
             </div>
           </div>
@@ -305,6 +307,7 @@ function UserProfile({
               <LoginRegister_input
                 inputValue={passwordNew}
                 setInputValue={setPasswordNew}
+                preventCopyPaste={true} 
               />
             </div>
             <div className="mt-1">
@@ -312,6 +315,7 @@ function UserProfile({
               <LoginRegister_input
                 inputValue={passwordNewConfirm}
                 setInputValue={setPasswordNewConfirm}
+                preventCopyPaste={true}
               />
             </div>
           </div>

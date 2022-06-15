@@ -8,10 +8,11 @@ interface Props {
   password?: string; */
   inputValue: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  preventCopyPaste: boolean;
 }
 
 function LoginRegister_input(
-  { inputValue, setInputValue }: Props,
+  { inputValue, setInputValue, preventCopyPaste }: Props,
   passedRef: React.LegacyRef<HTMLInputElement> | undefined
 ): JSX.Element {
   const [inputHover, setInputHover] = useState(false);
@@ -67,6 +68,18 @@ function LoginRegister_input(
       }}
       onChange={(e) => {
         setInputValue(e.target.value);
+      }}
+      onCopy={(e) => {
+        if (preventCopyPaste) {
+          e.preventDefault();
+          return;
+        }
+      }}
+      onPaste={(e) => {
+        if (preventCopyPaste) {
+          e.preventDefault();
+          return;
+        }
       }}
       value={inputValue}
     />
