@@ -32,6 +32,7 @@ DONE 47. promise.all -> no need for new Promise everywhere? mutation return prom
 DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
+DONE 140. x hide/unhide password x password input type instead DONE
 DONE 157. UserProfile -> simplify error logic! less ifs, errors received serverside if no proper data returned DONE
 DONE 164. prevent copying new password & pastying in password confirmation  DONE
 DONE 165. LoginRegister_input naming change (component also used elsewhere) DONE
@@ -172,7 +173,6 @@ it will trigger refresh in getAuth
 135. LoginSVG -> move to the left?
 136. change name to username everywhere?
 139. wiki-speed-typing, take care of 138 issue!
-140. hide/unhide password
 141. deleteUserMutation -> keep it! proper way to delete user by admin
 142. mutation.ts -> naming: some with Mutation at the end some not - unify!
 143. upperUiContext -> logic for demo/unlogged version mixed with ui focus logic (does it work?)

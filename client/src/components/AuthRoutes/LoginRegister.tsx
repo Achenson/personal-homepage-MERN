@@ -116,9 +116,8 @@ function LoginRegister({
       password: password,
     }).then(
       (res) => {
-
         if (!res) {
-          setLoginErrorMessage("Server connection Error")
+          setLoginErrorMessage("Server connection Error");
           return;
         }
 
@@ -141,8 +140,6 @@ function LoginRegister({
           setLoginErrorMessage(res.data.loginMutation.error);
           return;
         }
-
-       
 
         // if (loggedInState === false) {
         //   setLoggedInState(true);
@@ -237,9 +234,8 @@ function LoginRegister({
       // workaround: useMutation returns a Promise
     }).then(
       (res) => {
-
         if (!res) {
-          setRegisterErrorMessage("Server connection Error")
+          setRegisterErrorMessage("Server connection Error");
           return;
         }
 
@@ -356,6 +352,7 @@ function LoginRegister({
                       inputValue={email_or_name}
                       setInputValue={setEmail_or_name}
                       preventCopyPaste={false}
+                      passwordInputType={false}
                     />
                   </div>
                 ) : (
@@ -366,6 +363,7 @@ function LoginRegister({
                         inputValue={username}
                         setInputValue={setUsername}
                         preventCopyPaste={false}
+                        passwordInputType={false}
                       />
                     </div>
                     <div className="mt-1 w-48">
@@ -374,6 +372,7 @@ function LoginRegister({
                         inputValue={email}
                         setInputValue={setEmail}
                         preventCopyPaste={false}
+                        passwordInputType={false}
                       />
                     </div>
                   </>
@@ -396,6 +395,7 @@ function LoginRegister({
                           : setPasswordForRegister
                       }
                       preventCopyPaste={true}
+                      passwordInputType={true}
                     />
                   </div>
 
@@ -406,6 +406,7 @@ function LoginRegister({
                         inputValue={passwordForRegisterConfirm}
                         setInputValue={setPasswordForRegisterConfirm}
                         preventCopyPaste={true}
+                        passwordInputType={true}
                       />
                     </div>
                   )}
@@ -441,10 +442,10 @@ function LoginRegister({
                     className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}
                   `}
-                  onClick={() => {
-                   registerValidation();
-                  }}
-                >
+                    onClick={() => {
+                      registerValidation();
+                    }}
+                  >
                     Register
                   </button>
                 )}

@@ -269,6 +269,7 @@ function UserProfile({
         inputValue={passwordCurrent}
         setInputValue={setPasswordCurrent}
         preventCopyPaste={true}
+        passwordInputType={true}
       />
     </div>
   );
@@ -285,14 +286,20 @@ function UserProfile({
             {renderPasswordCurrent("editProfile")}
             <div className="mt-1">
               <p>Username</p>
-              <LogRegProfile_input inputValue={name} setInputValue={setName} preventCopyPaste={false} />
+              <LogRegProfile_input
+                inputValue={name}
+                setInputValue={setName}
+                preventCopyPaste={false}
+                passwordInputType={false}
+              />
             </div>
             <div className="mt-1">
               <p>Email address</p>
               <LogRegProfile_input
                 inputValue={email}
                 setInputValue={setEmail}
-                preventCopyPaste={false} 
+                preventCopyPaste={false}
+                passwordInputType={false}
               />
             </div>
           </div>
@@ -307,7 +314,8 @@ function UserProfile({
               <LogRegProfile_input
                 inputValue={passwordNew}
                 setInputValue={setPasswordNew}
-                preventCopyPaste={true} 
+                preventCopyPaste={true}
+                passwordInputType={true}
               />
             </div>
             <div className="mt-1">
@@ -316,6 +324,7 @@ function UserProfile({
                 inputValue={passwordNewConfirm}
                 setInputValue={setPasswordNewConfirm}
                 preventCopyPaste={true}
+                passwordInputType={true}
               />
             </div>
           </div>
@@ -524,7 +533,9 @@ function UserProfile({
                           }
 
                           if (passwordNew.length < 8) {
-                            setErrorMessage("Password must contain at least 8 characters");
+                            setErrorMessage(
+                              "Password must contain at least 8 characters"
+                            );
                             setNotification(null);
                             return;
                           }
@@ -663,7 +674,7 @@ function UserProfile({
                       setInputMode("changePassword");
                       setPasswordCurrent("");
                       setPasswordNew("");
-                      setPasswordNewConfirm("")
+                      setPasswordNewConfirm("");
                       setErrorMessage(null);
                       setNotification(null);
                     }}

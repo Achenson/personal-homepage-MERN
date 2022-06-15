@@ -9,10 +9,11 @@ interface Props {
   inputValue: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   preventCopyPaste: boolean;
+  passwordInputType: boolean;
 }
 
 function LogRegProfile_input(
-  { inputValue, setInputValue, preventCopyPaste }: Props,
+  { inputValue, setInputValue, preventCopyPaste, passwordInputType }: Props,
   passedRef: React.LegacyRef<HTMLInputElement> | undefined
 ): JSX.Element {
   const [inputHover, setInputHover] = useState(false);
@@ -50,7 +51,7 @@ function LogRegProfile_input(
   return (
     <input
       ref={passedRef}
-      type="text"
+      type={passwordInputType ? "password" : "text"}
       className="w-full pl-px border border-gray-200 h-7 hover:border-gray-300 transition-colors duration-150
        focus-1"
       style={{
@@ -82,6 +83,7 @@ function LogRegProfile_input(
         }
       }}
       value={inputValue}
+      
     />
   );
 }
