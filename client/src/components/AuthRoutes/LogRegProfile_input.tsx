@@ -11,7 +11,7 @@ interface Props {
   preventCopyPaste: boolean;
 }
 
-function LoginRegister_input(
+function LogRegProfile_input(
   { inputValue, setInputValue, preventCopyPaste }: Props,
   passedRef: React.LegacyRef<HTMLInputElement> | undefined
 ): JSX.Element {
@@ -86,4 +86,4 @@ function LoginRegister_input(
   );
 }
 
-export default React.forwardRef(LoginRegister_input);
+export default React.forwardRef(LogRegProfile_input);

@@ -34,6 +34,7 @@ DONE 137. changing between 2 differen users, check user queries DONE !!! User.fi
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
 DONE 157. UserProfile -> simplify error logic! less ifs, errors received serverside if no proper data returned DONE
 DONE 164. prevent copying new password & pastying in password confirmation  DONE
+DONE 165. LoginRegister_input naming change (component also used elsewhere) DONE
 
  1. livereload npm
  
@@ -196,6 +197,11 @@ unify across other mutations!
 161. successful register message && successful user deletion- when?
 162. whenever returning to editUser, name & email should be filled again
 163. UserProfile -> setNotification(null) everywhere not needed?
+
+166.
+
+
+
 
 {
   filename: 'nature-3082832_1920.jpg',

@@ -5,7 +5,7 @@ import { useMutation } from "urql";
 
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
-import LoginRegister_input from "./LoginRegister_input";
+import LogRegProfile_input from "./LogRegProfile_input";
 
 // import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
@@ -351,7 +351,7 @@ function LoginRegister({
                 {loginOrRegister === "login" ? (
                   <div className="w-48">
                     <p>Email address / username</p>
-                    <LoginRegister_input
+                    <LogRegProfile_input
                       ref={firstFieldRef}
                       inputValue={email_or_name}
                       setInputValue={setEmail_or_name}
@@ -362,7 +362,7 @@ function LoginRegister({
                   <>
                     <div className="w-48">
                       <p>Username</p>
-                      <LoginRegister_input
+                      <LogRegProfile_input
                         inputValue={username}
                         setInputValue={setUsername}
                         preventCopyPaste={false}
@@ -370,7 +370,7 @@ function LoginRegister({
                     </div>
                     <div className="mt-1 w-48">
                       <p>Email address</p>
-                      <LoginRegister_input
+                      <LogRegProfile_input
                         inputValue={email}
                         setInputValue={setEmail}
                         preventCopyPaste={false}
@@ -384,7 +384,7 @@ function LoginRegister({
                 >
                   <div className="mt-1 w-48">
                     <p>Password</p>
-                    <LoginRegister_input
+                    <LogRegProfile_input
                       inputValue={
                         loginOrRegister === "login"
                           ? password
@@ -402,7 +402,7 @@ function LoginRegister({
                   {loginOrRegister === "register" && (
                     <div className="mt-1 w-48">
                       <p>Confirm password</p>
-                      <LoginRegister_input
+                      <LogRegProfile_input
                         inputValue={passwordForRegisterConfirm}
                         setInputValue={setPasswordForRegisterConfirm}
                         preventCopyPaste={true}

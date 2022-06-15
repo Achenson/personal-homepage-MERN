@@ -5,7 +5,7 @@ import { useMutation, useQuery } from "urql";
 
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
-import LoginRegister_input from "./LoginRegister_input";
+import LogRegProfile_input from "./LogRegProfile_input";
 
 // import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
@@ -265,7 +265,7 @@ function UserProfile({
   ) => (
     <div>
       <p>{inputModeOn === "changePassword" ? "Current " : "Enter "}password</p>
-      <LoginRegister_input
+      <LogRegProfile_input
         inputValue={passwordCurrent}
         setInputValue={setPasswordCurrent}
         preventCopyPaste={true}
@@ -285,11 +285,11 @@ function UserProfile({
             {renderPasswordCurrent("editProfile")}
             <div className="mt-1">
               <p>Username</p>
-              <LoginRegister_input inputValue={name} setInputValue={setName} preventCopyPaste={false} />
+              <LogRegProfile_input inputValue={name} setInputValue={setName} preventCopyPaste={false} />
             </div>
             <div className="mt-1">
               <p>Email address</p>
-              <LoginRegister_input
+              <LogRegProfile_input
                 inputValue={email}
                 setInputValue={setEmail}
                 preventCopyPaste={false} 
@@ -304,7 +304,7 @@ function UserProfile({
             {renderPasswordCurrent("changePassword")}
             <div className="mt-1">
               <p>New password</p>
-              <LoginRegister_input
+              <LogRegProfile_input
                 inputValue={passwordNew}
                 setInputValue={setPasswordNew}
                 preventCopyPaste={true} 
@@ -312,7 +312,7 @@ function UserProfile({
             </div>
             <div className="mt-1">
               <p>Confirm password</p>
-              <LoginRegister_input
+              <LogRegProfile_input
                 inputValue={passwordNewConfirm}
                 setInputValue={setPasswordNewConfirm}
                 preventCopyPaste={true}
@@ -400,21 +400,21 @@ function UserProfile({
 
                     {/*     <div>
                       <p>Current password</p>
-                      <LoginRegister_input
+                      <LogRegProfile_input
                         inputValue={passwordCurrent}
                         setInputValue={setPasswordCurrent}
                       />
                     </div>
                     <div className="mt-1">
                       <p>Username</p>
-                      <LoginRegister_input
+                      <LogRegProfile_input
                         inputValue={name}
                         setInputValue={setName}
                       />
                     </div>
                     <div className="mt-1">
                       <p>Email address</p>
-                      <LoginRegister_input
+                      <LogRegProfile_input
                         inputValue={email}
                         setInputValue={setEmail}
                       />
@@ -690,7 +690,7 @@ function UserProfile({
                 {loginOrRegister === "login" ? (
                   <div className="w-48">
                     <p>Email address / username</p>
-                    <LoginRegister_input
+                    <LogRegProfile_input
                       ref={firstFieldRef}
                       inputValue={email_or_name}
                       setInputValue={setEmail_or_name}
@@ -700,14 +700,14 @@ function UserProfile({
                   <>
                     <div className="w-48">
                       <p>Username</p>
-                      <LoginRegister_input
+                      <LogRegProfile_input
                         inputValue={name}
                         setInputValue={setName}
                       />
                     </div>
                     <div className="mt-1 w-48">
                       <p>Email address</p>
-                      <LoginRegister_input
+                      <LogRegProfile_input
                         inputValue={email}
                         setInputValue={setEmail}
                       />
@@ -720,7 +720,7 @@ function UserProfile({
                 >
                   <div className="mt-1 w-48">
                     <p>Password</p>
-                    <LoginRegister_input
+                    <LogRegProfile_input
                       inputValue={loginOrRegister === "login"? password : passwordForRegister}
                       setInputValue={loginOrRegister === "login" ?  setPassword : setPasswordForRegister}
                     />
@@ -729,7 +729,7 @@ function UserProfile({
                   {loginOrRegister === "register" && (
                     <div className="mt-1 w-48">
                       <p>Confirm password</p>
-                      <LoginRegister_input
+                      <LogRegProfile_input
                         inputValue={passwordForRegisterConfirm}
                         setInputValue={setPasswordForRegisterConfirm}
                       />
