@@ -195,6 +195,8 @@ DONE 157. UserProfile -> simplify error logic! less ifs, errors received servers
 160. editUser -> update causes flickering due to reexectuing query?
 161. successful register message && successful user deletion- when?
 162. whenever returning to editUser, name & email should be filled again
+163. UserProfile -> setNotification(null) everywhere not needed?
+164. prevent copying of password confirmation 
 
 {
   filename: 'nature-3082832_1920.jpg',

@@ -22,12 +22,14 @@ import {
   LogoutMutation,
   DeleteAccountByUserMutation,
   ChangeUserByUserMutation,
+  ChangePasswordByUserMutation,
 } from "../../graphql/graphqlMutations";
 
 import { UserQuery } from "../../graphql/graphqlQueries";
 
 import { AuthDataInput_i } from "../../../../schema/types/authDataType";
 import { ChangeUserByUser_i } from "../../../../schema/types/changeUserByUserType";
+import { ChangePasswordByUser_i } from "../../../../schema/types/changePasswordByUserType";
 
 interface Props {
   mainPaddingRight: boolean;
@@ -149,6 +151,11 @@ function UserProfile({
     any,
     ChangeUserByUser_i
   >(ChangeUserByUserMutation);
+
+  const [changePasswordByUserResult, changePasswordByUser] = useMutation<
+    any,
+    ChangePasswordByUser_i
+  >(ChangePasswordByUserMutation);
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
@@ -506,6 +513,70 @@ function UserProfile({
                         case "changePassword":
                           console.log("changePassword");
 
+                          if (passwordNew === "") {
+                            setErrorMessage("New password not provided");
+                            setNotification(null);
+                            return;
+                          }
+
+                          if (passwordNew.length < 8) {
+                            setErrorMessage("Password must contain at least 8 characters");
+                            setNotification(null);
+                            return;
+                          }
+
+                          if (passwordNewConfirm === "") {
+                            setErrorMessage(
+                              "Password confirmation not provided"
+                            );
+                            setNotification(null);
+                            return;
+                          }
+
+                          if (passwordNew !== passwordNewConfirm) {
+                            setErrorMessage("Invalid password confirmation");
+                            setNotification(null);
+                            return;
+                          }
+
+                          changePasswordByUser({
+                            id: userId as string,
+                            passwordCurrent: passwordCurrent,
+                            passwordNew: passwordNew,
+                          }).then(
+                            async (res) => {
+                              if (!res) {
+                                setErrorMessage("Server connection Error");
+                                return;
+                              }
+
+                              if (!res.data?.changePasswordByUser?.name) {
+                                // if no specific error is received from the server
+                                if (!res.data?.changePasswordByUser?.error) {
+                                  setErrorMessage(
+                                    "An unknown error has occured"
+                                  );
+                                  setNotification(null);
+                                  return;
+                                }
+
+                                setErrorMessage(
+                                  res.data?.changePasswordByUser?.error
+                                );
+                                setNotification(null);
+                                return;
+                              }
+
+                              setErrorMessage(null);
+                              setNotification("Password successfully changed");
+                            },
+                            (err) => {
+                              console.log(err);
+                              setErrorMessage("Server connection Error");
+                              return;
+                            }
+                          );
+
                           return;
                         case "deleteAccount":
                           console.log("userId");
@@ -587,6 +658,8 @@ function UserProfile({
                     onClick={() => {
                       setInputMode("changePassword");
                       setPasswordCurrent("");
+                      setPasswordNew("");
+                      setPasswordNewConfirm("")
                       setErrorMessage(null);
                       setNotification(null);
                     }}
