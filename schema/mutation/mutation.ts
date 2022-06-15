@@ -2,12 +2,12 @@ const graphql = require("graphql");
 
 import { changeSettingsMutationField } from "./changeSettingsMutation";
 import { addUserMutationField } from "./addUserMutation";
-import { deleteUserMutationField } from "./deleteUserMutation";
+import { deleteUserByAdminMutationField } from "./deleteUserByAdminMutation";
 import { deleteBookmarkMutationField } from "./deleteBookmarkMutation";
 import { deleteTabMutationField } from "./deleteTabMutation";
 import { addTabMutationField } from "./addTabMutation";
 import { addBookmarkMutationField } from "./addBookmarkMutation";
-import { changeUserMutationField } from "./changeUserMutation";
+import { changeUserByAdminMutationField } from "./changeUserByAdminMutation";
 import { changeTabMutationField } from "./changeTabMutation";
 import { changeBookmarkMutationField } from "./changeBookmarkMutation";
 import { testMutationField } from "./testMutation";
@@ -29,12 +29,12 @@ export const Mutation = new GraphQLObjectType({
     changeSettings: changeSettingsMutationField,
     changeTab: changeTabMutationField,
     changePasswordByUser: changePasswordByUserMutationField,
-    changeUser: changeUserMutationField,
+    changeUserByAdmin: changeUserByAdminMutationField,
     changeUserByUser: changeUserByUserMutationField,
     addBookmark: addBookmarkMutationField,
     addTab: addTabMutationField,
     addUser: addUserMutationField,
-    deleteUser: deleteUserMutationField,
+    deleteUserByAdmin: deleteUserByAdminMutationField,
     deleteBookmark: deleteBookmarkMutationField,
     deleteTab: deleteTabMutationField,
     testMutation: testMutationField,

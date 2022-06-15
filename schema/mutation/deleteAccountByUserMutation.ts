@@ -66,10 +66,21 @@ export const deleteAccountByUserMutationField = {
 
     let deletedUser = await User.findByIdAndDelete(id);
 
-    fs.rmdir(path.join("backgroundImgs/" + id + "/"), (err: any) => {
-      if (err) console.error(err);
-    });
+    if (deletedUser) {
+      fs.rmdir(path.join("backgroundImgs/" + id + "/"), (err: any) => {
+        if (err) console.error(err);
+      });
 
+      return {
+        name: deletedUser.name,
+        error: null,
+      };
+    }
+
+    return {
+      name: null,
+      error: "Account deletion not successful",
+    };
     // let deletedUser = await User.findByIdAndDelete(id, (err: Error) => {
     //   if (err) {
     //     console.log(err);
@@ -80,13 +91,5 @@ export const deleteAccountByUserMutationField = {
     //   });
 
     // });
-
-    
-
-    return {
-      name: deletedUser.name,
-      error: null
-    }
-
   },
 };

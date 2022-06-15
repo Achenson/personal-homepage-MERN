@@ -25,6 +25,15 @@ export interface User_i {
   bookmarks: Bookmark_i[]; */
 }
 
+export interface UserToChangeByAdmin_i {
+  id: string;
+  name: string | null;
+  email: string | null;
+  password: string | null;
+  tokenVersion: number | null;
+}
+
+
 export const UserFields = {
   id: { type: GraphQLID },
   name: { type: GraphQLString },

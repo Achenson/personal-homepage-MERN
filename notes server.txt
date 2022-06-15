@@ -33,6 +33,8 @@ DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
 DONE 140. x hide/unhide password x password input type instead DONE
+DONE 150. change naming to ByUser & ByAdmin DONE
+DONE 151. check if changeUSer "by admin" works DONE (reworked)
 DONE 157. UserProfile -> simplify error logic! less ifs, errors received serverside if no proper data returned DONE
 DONE 164. prevent copying new password & pastying in password confirmation  DONE
 DONE 165. LoginRegister_input naming change (component also used elsewhere) DONE
@@ -184,8 +186,6 @@ unify across other mutations!
 147. darker default background img?
 148. after registering -> automatically fill up username field in Login?
 149. more rigid password checking?
-150. change naming to ByUser & ByAdmin
-151. check if changeUSer "by admin" works
 152. mutations-> change args from manual to Fields
 153. serverside interfaces are in types files, better interfaces sharing between client and server?
 154. UserProfile -> mutations should succeed if there is proper field being send back
@@ -198,9 +198,11 @@ unify across other mutations!
 162. whenever returning to editUser, name & email should be filled again
 163. UserProfile -> setNotification(null) everywhere not needed?
 
-166.
 
-
+166. after implementing forgot password logic -> make sure that it won't work when token is revoked?
+167. changeUserByAdmin -> can it remain in production??
+168. objectAssign -> convert to function?
+169. changeUserByAdmin -> changing password - should it be left out?
 
 
 {

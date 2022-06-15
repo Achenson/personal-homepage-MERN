@@ -9,7 +9,7 @@ const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
 const Bookmark = require("../../mongoModels/bookmarkSchema");
 
-export const deleteUserMutationField = {
+export const deleteUserByAdminMutationField = {
   type: UserType,
   args: {
     id: { type: GraphQLID },
@@ -26,17 +26,31 @@ export const deleteUserMutationField = {
     await Bookmark.deleteMany({ userId: args.id });
     await Tab.deleteMany({ userId: args.id }); */
 
-    return User.findByIdAndDelete(args.id, (err: Error) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
+    let deletedUser = await User.findByIdAndDelete(args.id);
 
+    if (deletedUser) {
       fs.rmdir(path.join("backgroundImgs/" + args.id + "/"), (err: any) => {
         if (err) console.error(err);
       });
 
-      
-    });
+      return deletedUser;
+    }
+
+    return {
+      name: null,
+      error: "Account deletion not successful",
+    };
+
+    // return User.findByIdAndDelete(args.id, (err: Error) => {
+    //   if (err) {
+    //     console.log(err);
+    //     return;
+    //   }
+
+    //   fs.rmdir(path.join("backgroundImgs/" + args.id + "/"), (err: any) => {
+    //     if (err) console.error(err);
+    //   });
+
+    // });
   },
 };
