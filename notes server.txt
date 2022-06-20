@@ -194,7 +194,9 @@ unify across other mutations!
 158. addUserMutation -> change so it distinguish between username and email already present in DB
 159. all or almost all mutations should have error fields? 
 160. editUser -> update causes flickering due to reexectuing query?
+
 161. successful register message && successful user deletion- when?
+
 162. whenever returning to editUser, name & email should be filled again
 163. UserProfile -> setNotification(null) everywhere not needed?
 
@@ -203,6 +205,7 @@ unify across other mutations!
 167. changeUserByAdmin -> can it remain in production??
 168. objectAssign -> convert to function?
 169. changeUserByAdmin -> changing password - should it be left out?
+170. AuthNotification components -> implement in UserProfile
 
 
 {

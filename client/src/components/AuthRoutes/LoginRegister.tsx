@@ -27,12 +27,16 @@ interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   globalSettings: SettingsDatabase_i;
+  loginNotification: string | null;
+  setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 function LoginRegister({
   mainPaddingRight,
   scrollbarWidth,
   globalSettings,
+  loginNotification,
+  setLoginNotification
 }: Props): JSX.Element {
   let navigate = useNavigate();
   const loginAttempt = useAuth((state) => state.loginAttempt);
@@ -62,6 +66,7 @@ function LoginRegister({
   const [loginErrorMessage, setLoginErrorMessage] = useState<null | string>(
     null
   );
+
   const [registerErrorMessage, setRegisterErrorMessage] = useState<
     null | string
   >(null);
@@ -100,6 +105,7 @@ function LoginRegister({
 
   function loginValidation() {
     console.log("sth");
+    setLoginNotification(null);
 
     if (email_or_name === "" || password === "") {
       // !!! change
@@ -116,6 +122,7 @@ function LoginRegister({
       password: password,
     }).then(
       (res) => {
+
         if (!res) {
           setLoginErrorMessage("Server connection Error");
           return;
@@ -244,6 +251,7 @@ function LoginRegister({
 
         if (res.data?.addUser) {
           setRegisterErrorMessage(null);
+          setLoginNotification("User successfully registered")
           // navigate("/login");
           setLoginOrRegister("login");
           return;
@@ -268,6 +276,7 @@ function LoginRegister({
         style={{ backgroundColor: "rgba(90, 90, 90, 0.4)", paddingTop: "30vh" }}
         onClick={() => {
           // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
+          setLoginNotification(null);
           navigate("/");
         }}
       >
@@ -294,7 +303,7 @@ function LoginRegister({
                 className="h-5 w-5 focus-2-offset-dark"
                 onClick={() => {
                   // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
-
+                  setLoginNotification(null);
                   navigate("/");
 
                   upperUiContext.upperVisDispatch({
@@ -313,6 +322,7 @@ function LoginRegister({
                 <button
                   onClick={() => {
                     setLoginOrRegister("login");
+                    setLoginNotification(null);
                   }}
                   className={`${
                     loginOrRegister === "login"
@@ -337,6 +347,7 @@ function LoginRegister({
                   } text-lg focus-1-offset`}
                   onClick={() => {
                     setLoginOrRegister("register");
+                    setLoginNotification(null);
                   }}
                 >
                   Register
@@ -422,6 +433,12 @@ function LoginRegister({
                   <AuthNotification
                     colorClass="red-500"
                     notification={registerErrorMessage}
+                  />
+                )}
+                {loginOrRegister === "login" && loginNotification && (
+                  <AuthNotification
+                    colorClass="green-500"
+                    notification={loginNotification}
                   />
                 )}
               </div>

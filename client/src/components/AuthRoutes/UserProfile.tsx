@@ -35,12 +35,16 @@ interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   globalSettings: SettingsDatabase_i;
+  loginNotification: string | null;
+  setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 function UserProfile({
   mainPaddingRight,
   scrollbarWidth,
   globalSettings,
+  loginNotification,
+  setLoginNotification
 }: Props): JSX.Element {
   let navigate = useNavigate();
   const loginAttempt = useAuth((state) => state.loginAttempt);

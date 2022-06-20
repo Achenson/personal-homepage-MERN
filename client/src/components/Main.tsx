@@ -106,6 +106,11 @@ function Main({ globalSettings }: Props): JSX.Element {
 
   const [backgroundImgKey, setBackgroundImgKey] = useState("initial");
 
+  // after successful register, after successful account deletion
+  const [loginNotification, setLoginNotification] = useState<string | null>(
+    null
+  );
+
   /*   useEffect( () => {
 
     console.log("backgroundImgKey");
@@ -434,6 +439,8 @@ function Main({ globalSettings }: Props): JSX.Element {
                       mainPaddingRight={paddingRight}
                       scrollbarWidth={scrollbarWidth}
                       globalSettings={globalSettings}
+                      loginNotification={loginNotification}
+                      setLoginNotification={setLoginNotification}
                     />
                   </PublicRoute>
                 }
@@ -449,6 +456,8 @@ function Main({ globalSettings }: Props): JSX.Element {
                       mainPaddingRight={paddingRight}
                       scrollbarWidth={scrollbarWidth}
                       globalSettings={globalSettings}
+                      loginNotification={loginNotification}
+                      setLoginNotification={setLoginNotification}
                     />
                   </PrivateRoute>
                 }
