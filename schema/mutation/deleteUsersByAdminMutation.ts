@@ -55,10 +55,14 @@ export const deleteUsersByAdminMutationField = {
     });
 
   
-    console.log("deletedUsers");
-    console.log(deletedUsers);
+    let awaitedDeletedUsers = await Promise.all(deletedUsers)
 
-    return deletedUsers;
+    // console.log("deletedUsers");
+    // console.log(deletedUsers);
+    console.log("awaitedDeletedUsers");
+    console.log(awaitedDeletedUsers);
+
+    return awaitedDeletedUsers;
 
     // return User.findByIdAndDelete(args.id, (err: Error) => {
     //   if (err) {
