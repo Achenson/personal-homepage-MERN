@@ -16,7 +16,8 @@ import {
 const IsIdDeleted = new GraphQLObjectType({
   name: "IsIdDeleted",
   fields: () => ({
-    id: { type: GraphQLBoolean },
+    userId: { type: GraphQLID },
+    wasDeleted: { type: GraphQLBoolean },
   }),
 });
 

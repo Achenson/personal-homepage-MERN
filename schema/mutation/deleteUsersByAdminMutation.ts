@@ -39,13 +39,18 @@ export const deleteUsersByAdminMutationField = {
           if (err) console.error(err);
         });
 
-        // return deletedUser;
-        return { [deletedUser.id]: true };
-        // deletedUsers.push({ [deletedUser.id]: true });
+        // return { [deletedUser.id]: true };
+        return {
+          userId: deletedUser.id,
+          wasDeleted: true,
+        };
       }
       if (!deletedUser) {
-        return { [id]: false };
-        // deletedUsers.push({ id: false });
+        // return { [id]: false };
+        return {
+          userId: id,
+          wasDeleted: false,
+        };
       }
 
       // return {
@@ -54,8 +59,7 @@ export const deleteUsersByAdminMutationField = {
       // };
     });
 
-  
-    let awaitedDeletedUsers = await Promise.all(deletedUsers)
+    let awaitedDeletedUsers = await Promise.all(deletedUsers);
 
     // console.log("deletedUsers");
     // console.log(deletedUsers);

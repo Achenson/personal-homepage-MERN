@@ -38,6 +38,7 @@ DONE 151. check if changeUSer "by admin" works DONE (reworked)
 DONE 157. UserProfile -> simplify error logic! less ifs, errors received serverside if no proper data returned DONE
 DONE 164. prevent copying new password & pastying in password confirmation  DONE
 DONE 165. LoginRegister_input naming change (component also used elsewhere) DONE
+DONE 171. deleteUserByAdminMutation -> change so it is possible to delete many users DONE
 
  1. livereload npm
  
@@ -206,10 +207,10 @@ unify across other mutations!
 168. objectAssign -> convert to function?
 169. changeUserByAdmin -> changing password - should it be left out?
 170. AuthNotification components -> implement in UserProfile
-171. deleteUserByAdminMutation -> change so it is possible to delete many users
 
 
-
+172. deleteUserByAdminMutation -> not getting proper returned data from graphql
+173. deleteUserByAdminMutation -> delete user first, only then settings etc.
 
 {
   filename: 'nature-3082832_1920.jpg',
