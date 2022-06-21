@@ -1,5 +1,6 @@
 import { GraphQLID, GraphQLList } from "graphql";
-import { UserType } from "../types/userType";
+// import { UserType } from "../types/userType";
+import { DeleteUsersByAdminType } from "../types/deleteUsersByAdminType";
 
 const fs = require("fs");
 const path = require("path");
@@ -10,13 +11,13 @@ const Tab = require("../../mongoModels/tabSchema");
 const Bookmark = require("../../mongoModels/bookmarkSchema");
 
 export const deleteUsersByAdminMutationField = {
-  type: UserType,
+  type: DeleteUsersByAdminType,
   args: {
     // id: { type: GraphQLID },
     ids: { type: new GraphQLList(GraphQLID) },
   },
   // async resolve(_source: unknown, args: { id: string }) {
-  resolve(_source: unknown, args: { ids: [string] }) {
+  async resolve(_source: unknown, args: { ids: [string] }) {
     // let deletedUsers = [];
 
     let deletedUsers = args.ids.map(async (id) => {
@@ -43,7 +44,7 @@ export const deleteUsersByAdminMutationField = {
         // deletedUsers.push({ [deletedUser.id]: true });
       }
       if (!deletedUser) {
-        return { id: false };
+        return { [id]: false };
         // deletedUsers.push({ id: false });
       }
 
@@ -52,6 +53,10 @@ export const deleteUsersByAdminMutationField = {
       //   error: "Account deletion not successful",
       // };
     });
+
+  
+    console.log("deletedUsers");
+    console.log(deletedUsers);
 
     return deletedUsers;
 
