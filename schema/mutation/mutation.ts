@@ -2,7 +2,7 @@ const graphql = require("graphql");
 
 import { changeSettingsMutationField } from "./changeSettingsMutation";
 import { addUserMutationField } from "./addUserMutation";
-import { deleteUserByAdminMutationField } from "./deleteUserByAdminMutation";
+import { deleteUsersByAdminMutationField } from "./deleteUsersByAdminMutation";
 import { deleteBookmarkMutationField } from "./deleteBookmarkMutation";
 import { deleteTabMutationField } from "./deleteTabMutation";
 import { addTabMutationField } from "./addTabMutation";
@@ -34,7 +34,7 @@ export const Mutation = new GraphQLObjectType({
     addBookmark: addBookmarkMutationField,
     addTab: addTabMutationField,
     addUser: addUserMutationField,
-    deleteUserByAdmin: deleteUserByAdminMutationField,
+    deleteUsersByAdmin: deleteUsersByAdminMutationField,
     deleteBookmark: deleteBookmarkMutationField,
     deleteTab: deleteTabMutationField,
     testMutation: testMutationField,

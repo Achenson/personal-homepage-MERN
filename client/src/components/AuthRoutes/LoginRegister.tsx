@@ -36,7 +36,7 @@ function LoginRegister({
   scrollbarWidth,
   globalSettings,
   loginNotification,
-  setLoginNotification
+  setLoginNotification,
 }: Props): JSX.Element {
   let navigate = useNavigate();
   const loginAttempt = useAuth((state) => state.loginAttempt);
@@ -99,6 +99,13 @@ function LoginRegister({
     };
   });
 
+  useEffect(() => {
+    setLoginNotification(null);
+    // return () => {
+    //   setLoginNotification(null);
+    // };
+  }, []);
+
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);
   }
@@ -122,7 +129,6 @@ function LoginRegister({
       password: password,
     }).then(
       (res) => {
-
         if (!res) {
           setLoginErrorMessage("Server connection Error");
           return;
@@ -251,7 +257,7 @@ function LoginRegister({
 
         if (res.data?.addUser) {
           setRegisterErrorMessage(null);
-          setLoginNotification("User successfully registered")
+          setLoginNotification("User successfully registered");
           // navigate("/login");
           setLoginOrRegister("login");
           return;
@@ -276,7 +282,7 @@ function LoginRegister({
         style={{ backgroundColor: "rgba(90, 90, 90, 0.4)", paddingTop: "30vh" }}
         onClick={() => {
           // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
-          setLoginNotification(null);
+          // setLoginNotification(null);
           navigate("/");
         }}
       >
@@ -303,7 +309,7 @@ function LoginRegister({
                 className="h-5 w-5 focus-2-offset-dark"
                 onClick={() => {
                   // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
-                  setLoginNotification(null);
+                  // setLoginNotification(null);
                   navigate("/");
 
                   upperUiContext.upperVisDispatch({

@@ -206,6 +206,9 @@ unify across other mutations!
 168. objectAssign -> convert to function?
 169. changeUserByAdmin -> changing password - should it be left out?
 170. AuthNotification components -> implement in UserProfile
+171. deleteUserByAdminMutation -> change so it is possible to delete many users
+
+
 
 
 {
