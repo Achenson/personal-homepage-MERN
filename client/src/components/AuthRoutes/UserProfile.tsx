@@ -35,16 +35,16 @@ interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   globalSettings: SettingsDatabase_i;
-  loginNotification: string | null;
-  setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>;
+  // loginNotification: string | null;
+  // setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 function UserProfile({
   mainPaddingRight,
   scrollbarWidth,
   globalSettings,
-  loginNotification,
-  setLoginNotification
+  // loginNotification,
+  // setLoginNotification,
 }: Props): JSX.Element {
   let navigate = useNavigate();
   const loginAttempt = useAuth((state) => state.loginAttempt);
@@ -632,9 +632,10 @@ function UserProfile({
 
                               setErrorMessage(null);
                               setNotification(null);
+                              // setLoginNotification("Account successfully deleted");
 
                               await logoutMut();
-                              logout();
+                              logout("Account successfully deleted");
                               navigate("/login-register", { replace: true });
 
                               upperUiContext.upperVisDispatch({
@@ -760,7 +761,7 @@ function UserProfile({
                   onClick={async () => {
                     await logoutMut();
 
-                    logout();
+                    logout(null);
 
                     navigate("/login-register", { replace: true });
                   }}

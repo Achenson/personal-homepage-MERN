@@ -121,12 +121,13 @@ export interface AuthContext_i extends AuthContextObj_i {
 }
 
 export interface AuthContextZustand_i extends AuthContextObj_i {
-  logout: () => void;
+  logout: (loginNotification: string|null) => void;
   loginAttempt: (
     isAuthenticated: boolean,
     userId: string,
     token: string
   ) => void;
+  setLoginNotification: (loginNotification: string|null) => void;
 }
 
 // for Tab

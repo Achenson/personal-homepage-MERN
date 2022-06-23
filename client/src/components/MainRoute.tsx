@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useQuery } from "urql";
 
@@ -12,6 +12,8 @@ import UpperUI from "./UpperUI/UpperUI";
 import BackgroundSettings from "./UpperUI/BackgroundSettings";
 import GlobalSettings from "./UpperUI/GlobalSettings";
 import ModalWrap from "./UpperUI/ModalWrap";
+
+import { useAuth } from "../state/hooks/useAuth";
 
 import { SettingsDatabase_i } from "../../../schema/types/settingsType";
 
@@ -44,6 +46,7 @@ interface Props {
   backgroundImgUrl: string;
   backgroundImgResults: any;
   reexecuteBackgroundImg: any;
+  // setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>
 }
 
 function MainRoute({
@@ -58,8 +61,14 @@ function MainRoute({
   backgroundImgUrl,
   backgroundImgResults,
   reexecuteBackgroundImg,
+  // setLoginNotification
 }: Props): JSX.Element {
   const backgroundColor = globalSettings.backgroundColor;
+  const setLoginNotification = useAuth((state) => state.setLoginNotification);
+
+  useEffect( () => {
+    setLoginNotification(null);
+  }, [])
 
   function renderBackgroundImg(picBackground: boolean, defaultImage: string) {
     if (

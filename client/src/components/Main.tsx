@@ -107,12 +107,10 @@ function Main({ globalSettings }: Props): JSX.Element {
 
   const [backgroundImgKey, setBackgroundImgKey] = useState("initial");
 
-  
-
   // after successful register, after successful account deletion
-  const [loginNotification, setLoginNotification] = useState<string | null>(
-    null
-  );
+  // const [loginNotification, setLoginNotification] = useState<string | null>(
+  //   null
+  // );
 
   /*   useEffect( () => {
 
@@ -190,14 +188,9 @@ function Main({ globalSettings }: Props): JSX.Element {
     globalSettings.picBackground,
   ]);
 
-
-
   // useEffect( () => {
   //   setLoginNotification(null)
   // }, [])
-
-
-
 
   let backgroundImgValue: BackgroundImgContext_i = {
     currentBackgroundImgKey: backgroundImgKey,
@@ -350,16 +343,17 @@ function Main({ globalSettings }: Props): JSX.Element {
                 path="/"
                 element={
                   <MainRoute
-                  backgroundImgUrl={backgroundImgUrl}
-                  backgroundImgResults={backgroundImgResults}
-                  globalSettings={globalSettings}
-                  paddingRight={paddingRight}
-                  setTabType={setTabType}
-                  tabType={tabType}
-                  reexecuteBackgroundImg={reexecuteBackgroundImg}
-                  upperVisState={upperVisState}
-                  userIdOrDemoId={userIdOrDemoId}
-                  {...paddingProps}
+                    backgroundImgUrl={backgroundImgUrl}
+                    backgroundImgResults={backgroundImgResults}
+                    globalSettings={globalSettings}
+                    paddingRight={paddingRight}
+                    setTabType={setTabType}
+                    tabType={tabType}
+                    reexecuteBackgroundImg={reexecuteBackgroundImg}
+                    upperVisState={upperVisState}
+                    userIdOrDemoId={userIdOrDemoId}
+                    // setLoginNotification={setLoginNotification}
+                    {...paddingProps}
                   />
                 }
               />
@@ -379,8 +373,8 @@ function Main({ globalSettings }: Props): JSX.Element {
                       mainPaddingRight={paddingRight}
                       scrollbarWidth={scrollbarWidth}
                       globalSettings={globalSettings}
-                      loginNotification={loginNotification}
-                      setLoginNotification={setLoginNotification}
+                      // loginNotification={loginNotification}
+                      // setLoginNotification={setLoginNotification}
                     />
                   </PublicRoute>
                 }
@@ -396,8 +390,8 @@ function Main({ globalSettings }: Props): JSX.Element {
                       mainPaddingRight={paddingRight}
                       scrollbarWidth={scrollbarWidth}
                       globalSettings={globalSettings}
-                      loginNotification={loginNotification}
-                      setLoginNotification={setLoginNotification}
+                      // loginNotification={loginNotification}
+                      // setLoginNotification={setLoginNotification}
                     />
                   </PrivateRoute>
                 }

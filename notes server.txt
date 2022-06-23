@@ -36,6 +36,7 @@ DONE 140. x hide/unhide password x password input type instead DONE
 DONE 150. change naming to ByUser & ByAdmin DONE
 DONE 151. check if changeUSer "by admin" works DONE (reworked)
 DONE 157. UserProfile -> simplify error logic! less ifs, errors received serverside if no proper data returned DONE
+DONE 161. successful register message && successful user deletion- when? DONE (in useAuth zustand hook)
 DONE 164. prevent copying new password & pastying in password confirmation  DONE
 DONE 165. LoginRegister_input naming change (component also used elsewhere) DONE
 DONE 171. deleteUserByAdminMutation -> change so it is possible to delete many users DONE
@@ -198,7 +199,6 @@ unify across other mutations!
 159. all or almost all mutations should have error fields? 
 160. editUser -> update causes flickering due to reexectuing query?
 
-161. successful register message && successful user deletion- when?
 
 162. whenever returning to editUser, name & email should be filled again
 163. UserProfile -> setNotification(null) everywhere not needed?
@@ -215,7 +215,10 @@ unify across other mutations!
 173. deleteUserByAdminMutation -> delete user first, only then settings etc.
 
 174. development mode -> should work also when offline?
-175. delete AppWrapper
+175. delete AppWrapper & authContext also?
+175.5 auth -> zustand, other central state -> context. unify?
+176. objects as props in more places? like paddingProps in Main
+177. useAuth zustand hook -> loginErrorMessage -> delete or implement?
 
 {
   filename: 'nature-3082832_1920.jpg',

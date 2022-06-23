@@ -248,7 +248,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
 
                   logoutMut()
 
-                  logout()
+                  logout(null)
 
                   // authContext.updateAuthContext({...authContext,
                   //   isAuthenticated: false,

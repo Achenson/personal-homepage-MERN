@@ -27,19 +27,21 @@ interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   globalSettings: SettingsDatabase_i;
-  loginNotification: string | null;
-  setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>;
+  // loginNotification: string | null;
+  // setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 function LoginRegister({
   mainPaddingRight,
   scrollbarWidth,
   globalSettings,
-  loginNotification,
-  setLoginNotification,
+  // loginNotification,
+  // setLoginNotification,
 }: Props): JSX.Element {
   let navigate = useNavigate();
   const loginAttempt = useAuth((state) => state.loginAttempt);
+  const loginNotification = useAuth((state) => state.loginNotification);
+  const setLoginNotification = useAuth((state) => state.setLoginNotification);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
