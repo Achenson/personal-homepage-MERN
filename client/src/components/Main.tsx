@@ -18,6 +18,7 @@ import Profile from "./UpperUI/Profile";
 import ModalWrap from "./UpperUI/ModalWrap";
 import PublicRoute from "./AuthRoutes/PublicRoute";
 import PrivateRoute from "./AuthRoutes/PrivateRoute";
+import MainRoute from "./MainRoute";
 
 import Login from "./AuthRoutes/Login_TO_CANCEL";
 import Register from "./AuthRoutes/Register_TO_CANCEL";
@@ -106,6 +107,8 @@ function Main({ globalSettings }: Props): JSX.Element {
 
   const [backgroundImgKey, setBackgroundImgKey] = useState("initial");
 
+  
+
   // after successful register, after successful account deletion
   const [loginNotification, setLoginNotification] = useState<string | null>(
     null
@@ -187,6 +190,15 @@ function Main({ globalSettings }: Props): JSX.Element {
     globalSettings.picBackground,
   ]);
 
+
+
+  // useEffect( () => {
+  //   setLoginNotification(null)
+  // }, [])
+
+
+
+
   let backgroundImgValue: BackgroundImgContext_i = {
     currentBackgroundImgKey: backgroundImgKey,
     updateCurrentBackgroundImgKey: setBackgroundImgKey,
@@ -230,7 +242,8 @@ function Main({ globalSettings }: Props): JSX.Element {
   //   return response.json();
   // }
 
-  let backgroundImgUrl: string;
+  // something has to be assigned, otherwise -> ts error in MainRoute component
+  let backgroundImgUrl: string = "";
 
   // if (status === "success") {
   //   /* console.log("data");
@@ -306,24 +319,24 @@ function Main({ globalSettings }: Props): JSX.Element {
     scrollbarWidth,
   };
 
-  function renderBackgroundImg(picBackground: boolean, defaultImage: string) {
-    if (
-      picBackground &&
-      defaultImage === "customBackground" &&
-      backgroundImgUrl
-    ) {
-      // return `url(http://localhost:4000/background_img/618bc0f9518920c0f6296748/1637157771955_testWallpaper.jpg)`;
+  // function renderBackgroundImg(picBackground: boolean, defaultImage: string) {
+  //   if (
+  //     picBackground &&
+  //     defaultImage === "customBackground" &&
+  //     backgroundImgUrl
+  //   ) {
+  //     // return `url(http://localhost:4000/background_img/618bc0f9518920c0f6296748/1637157771955_testWallpaper.jpg)`;
 
-      // let parsedUrl = path.join("http://localhost:4000/" + backgroundImgUrl)
-      let parsedUrl = "http://localhost:4000/" + backgroundImgUrl;
-      // console.log(parsedUrl);
+  //     // let parsedUrl = path.join("http://localhost:4000/" + backgroundImgUrl)
+  //     let parsedUrl = "http://localhost:4000/" + backgroundImgUrl;
+  //     // console.log(parsedUrl);
 
-      // return `url(http://localhost:4000/${backgroundImgUrl})`;
-      // return `url(${parsedUrl})`;
-      return `url(${parsedUrl})`;
-    }
-    return undefined;
-  }
+  //     // return `url(http://localhost:4000/${backgroundImgUrl})`;
+  //     // return `url(${parsedUrl})`;
+  //     return `url(${parsedUrl})`;
+  //   }
+  //   return undefined;
+  // }
 
   return (
     // <AuthContext.Provider value={authValue}>
@@ -336,91 +349,18 @@ function Main({ globalSettings }: Props): JSX.Element {
               <Route
                 path="/"
                 element={
-                  <main
-                    className={`relative min-h-screen
-                       ${
-                         globalSettings.picBackground
-                           ? `bg-${globalSettings.defaultImage}`
-                           : `bg-${backgroundColor}`
-                       }
-                        bg-cover bg-fixed`}
-                    style={{
-                      paddingRight: `${
-                        paddingRight && !globalSettings.picBackground
-                          ? `${scrollbarWidth}px`
-                          : ""
-                      }`,
-                      backgroundImage: renderBackgroundImg(
-                        globalSettings.picBackground,
-                        globalSettings.defaultImage
-                      ),
-                    }}
-                  >
-                    {upperVisState.newTabVis && (
-                      <ModalWrap globalSettings={globalSettings}>
-                        <NewTab
-                          tabType={tabType}
-                          // tabs={tabs}
-                          // bookmarks={bookmarks}
-                          globalSettings={globalSettings}
-                          {...paddingProps}
-                        />
-                      </ModalWrap>
-                    )}
-                    {upperVisState.newBookmarkVis && (
-                      <ModalWrap globalSettings={globalSettings}>
-                        <Bookmark_newAndEdit
-                          bookmarkComponentType={"new_upperUI"}
-                          // tabs={tabs}
-                          // bookmarks={bookmarks}
-                          globalSettings={globalSettings}
-                          {...paddingProps}
-                        />
-                      </ModalWrap>
-                    )}
-                    {upperVisState.backgroundSettingsVis && (
-                      <ModalWrap globalSettings={globalSettings}>
-                        <BackgroundSettings
-                          globalSettings={globalSettings}
-                          backgroundImgResults={backgroundImgResults}
-                          reexecuteBackgroundImg={reexecuteBackgroundImg}
-                          {...paddingProps}
-                        />
-                      </ModalWrap>
-                    )}
-                    {upperVisState.settingsVis && (
-                      <ModalWrap globalSettings={globalSettings}>
-                        <GlobalSettings
-                          globalSettings={globalSettings}
-                          {...paddingProps}
-                        />
-                      </ModalWrap>
-                    )}
-                    {upperVisState.colorsSettingsVis && (
-                      <ModalWrap globalSettings={globalSettings}>
-                        <ColorsSettings
-                          globalSettings={globalSettings}
-                          {...paddingProps}
-                        />
-                      </ModalWrap>
-                    )}
-                    {/* {upperVisState.profileVis && (
-                      <ModalWrap globalSettings={globalSettings}>
-                        <Profile
-                          globalSettings={globalSettings}
-                          {...paddingProps}
-                        />
-                      </ModalWrap>
-                     )} */}
-                    <UpperUI />
-                    <Grid
-                      setTabType={setTabType}
-                      globalSettings={globalSettings}
-                      // bookmarks={bookmarks}
-                      // tabs={tabs}
-                      // staleBookmarks={stale_bookmarks}
-                    />
-                  </main>
+                  <MainRoute
+                  backgroundImgUrl={backgroundImgUrl}
+                  backgroundImgResults={backgroundImgResults}
+                  globalSettings={globalSettings}
+                  paddingRight={paddingRight}
+                  setTabType={setTabType}
+                  tabType={tabType}
+                  reexecuteBackgroundImg={reexecuteBackgroundImg}
+                  upperVisState={upperVisState}
+                  userIdOrDemoId={userIdOrDemoId}
+                  {...paddingProps}
+                  />
                 }
               />
               {/* <CustomRoute

@@ -99,12 +99,12 @@ function LoginRegister({
     };
   });
 
-  useEffect(() => {
-    setLoginNotification(null);
-    // return () => {
-    //   setLoginNotification(null);
-    // };
-  }, []);
+  // useEffect(() => {
+  //   // setLoginNotification(null);
+  //   return () => {
+  //     setLoginNotification(null);
+  //   };
+  // });
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);

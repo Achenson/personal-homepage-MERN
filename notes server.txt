@@ -180,7 +180,9 @@ it will trigger refresh in getAuth
 142. mutation.ts -> naming: some with Mutation at the end some not - unify!
 143. upperUiContext -> logic for demo/unlogged version mixed with ui focus logic (does it work?)
 UserProfile/LoginRegister -> check upperUiContext dispatches
+
 144. clientSide -> change some rendering function to be anonymous inline funcions?? IIFS!
+
 145. deleteAccountByUserMutation ->  // password: { type: new GraphQLNonNull(GraphQLString) }, 
 unify across other mutations!
 146. backgroundImgs -> are they being saved to db?
@@ -211,6 +213,9 @@ unify across other mutations!
 
 172. deleteUserByAdminMutation -> not getting proper returned data from graphql
 173. deleteUserByAdminMutation -> delete user first, only then settings etc.
+
+174. development mode -> should work also when offline?
+175. delete AppWrapper
 
 {
   filename: 'nature-3082832_1920.jpg',
