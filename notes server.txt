@@ -33,6 +33,7 @@ DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
 DONE 140. x hide/unhide password x password input type instead DONE
+DONE 148. after registering -> automatically fill up username field in Login? DONE
 DONE 150. change naming to ByUser & ByAdmin DONE
 DONE 151. check if changeUSer "by admin" works DONE (reworked)
 DONE 157. UserProfile -> simplify error logic! less ifs, errors received serverside if no proper data returned DONE
@@ -188,7 +189,7 @@ UserProfile/LoginRegister -> check upperUiContext dispatches
 unify across other mutations!
 146. backgroundImgs -> are they being saved to db?
 147. darker default background img?
-148. after registering -> automatically fill up username field in Login?
+
 149. more rigid password checking?
 152. mutations-> change args from manual to Fields
 153. serverside interfaces are in types files, better interfaces sharing between client and server?
@@ -199,10 +200,8 @@ unify across other mutations!
 159. all or almost all mutations should have error fields? 
 160. editUser -> update causes flickering due to reexectuing query?
 
-
 162. whenever returning to editUser, name & email should be filled again
 163. UserProfile -> setNotification(null) everywhere not needed?
-
 
 166. after implementing forgot password logic -> make sure that it won't work when token is revoked?
 167. changeUserByAdmin -> can it remain in production??
@@ -210,15 +209,14 @@ unify across other mutations!
 169. changeUserByAdmin -> changing password - should it be left out?
 170. AuthNotification components -> implement in UserProfile
 
-
 172. deleteUserByAdminMutation -> not getting proper returned data from graphql
-173. deleteUserByAdminMutation -> delete user first, only then settings etc.
-
+173. deleteUserByAdminMutation -> put delete user first, only then settings etc.
 174. development mode -> should work also when offline?
 175. delete AppWrapper & authContext also?
 175.5 auth -> zustand, other central state -> context. unify?
 176. objects as props in more places? like paddingProps in Main
 177. useAuth zustand hook -> loginErrorMessage -> delete or implement?
+178. after registering & redirecting to login -> focus should be set on password
 
 {
   filename: 'nature-3082832_1920.jpg',

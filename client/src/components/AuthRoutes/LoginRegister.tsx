@@ -260,6 +260,7 @@ function LoginRegister({
         if (res.data?.addUser) {
           setRegisterErrorMessage(null);
           setLoginNotification("User successfully registered");
+          setEmail_or_name(username)
           // navigate("/login");
           setLoginOrRegister("login");
           return;
