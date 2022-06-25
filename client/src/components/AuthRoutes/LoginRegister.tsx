@@ -56,6 +56,7 @@ function LoginRegister({
   const authContext = useAuth();
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
+  let secondFieldRef = useRef<HTMLInputElement>(null);
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -87,6 +88,13 @@ function LoginRegister({
       firstFieldRef.current.focus();
     }
   }, []);
+
+  useEffect(() => {
+    if (secondFieldRef.current !== null && loginNotification === "User successfully registered") {
+      secondFieldRef.current.focus();
+    }
+  }, [loginNotification]);
+
 
   let finalColorForImgBackgroundMode = uiColor;
 
@@ -408,6 +416,7 @@ function LoginRegister({
                   <div className="mt-1 w-48">
                     <p>Password</p>
                     <LogRegProfile_input
+                    ref={secondFieldRef}
                       inputValue={
                         loginOrRegister === "login"
                           ? password
