@@ -217,6 +217,7 @@ unify across other mutations!
 176. objects as props in more places? like paddingProps in Main
 177. useAuth zustand hook -> loginErrorMessage -> delete or implement?
 178. after registering & redirecting to login -> focus should be set on password
+179. after registering -> register fields should be emptied
 
 {
   filename: 'nature-3082832_1920.jpg',
