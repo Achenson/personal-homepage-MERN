@@ -25,6 +25,12 @@ export const backgroundImgQueryField = {
     console.log("backgroundImgFiles");
     console.log(backgroundImgFiles);
 
+    if (backgroundImgFiles.length === 0) {
+      return {
+        backgroundImgUrl: null,
+      };
+    }
+
     let backgroundImgUrl =
       "background_img/" + userIdOrTestId + "/" + backgroundImgFiles[0];
 

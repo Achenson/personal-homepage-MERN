@@ -20,6 +20,7 @@ interface Props {
   reexecuteBackgroundImg: any;
   wasCustomClicked: boolean;
   setWasCustomClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  hiddenFileInput: React.RefObject<HTMLInputElement>;
 }
 
 enum DbFileErrors {
@@ -34,6 +35,7 @@ function BackgroundSettings_Upload({
   reexecuteBackgroundImg,
   wasCustomClicked,
   setWasCustomClicked,
+  hiddenFileInput,
 }: Props): JSX.Element {
   const authContext = useAuth();
 
@@ -67,21 +69,22 @@ function BackgroundSettings_Upload({
     // if (!wasCustomClicked) {
     //   setUploadFile("");
     //   return;
+    if (!backgroundImgResults) return;
     // }
+    if (!backgroundImgResults?.data?.backgroundImg?.backgroundImgUrl) return;
 
     // let backgroundImgUrl_cut = backgroundImgResults.data.backgroundImg.backgroundImgUrl.replace(/background_img\/\w+\/\d+_/, "")
     let backgroundImgUrl_cut =
-      backgroundImgResults.data.backgroundImg.backgroundImgUrl.replace(
+      backgroundImgResults?.data?.backgroundImg?.backgroundImgUrl?.replace(
         /background_img\/\w+\/\d+_/,
         ""
       );
-    let backgroundImgUrl_cut2 = backgroundImgUrl_cut.replace(/\.\w+$/, "");
+    let backgroundImgUrl_cut2 = backgroundImgUrl_cut?.replace(/\.\w+$/, "");
 
-    if (backgroundImgResults) {
-      setUploadFile(backgroundImgUrl_cut2);
-    }
+    setUploadFile(backgroundImgUrl_cut2);
   }, [
-    backgroundImgResults.data.backgroundImg.backgroundImgUrl,
+    // backgroundImgResults.data.backgroundImg.backgroundImgUrl,
+    backgroundImgResults,
     // wasCustomClicked,
   ]);
 
@@ -112,7 +115,7 @@ function BackgroundSettings_Upload({
   // @ts-ignore
   // if (uploadFile) uploadFileName = uploadFile.name;
 
-  const hiddenFileInput = useRef<HTMLInputElement>(null);
+  // const hiddenFileInput = useRef<HTMLInputElement>(null);
 
   // let keyForUseReactQuery = useBackgroundImgContext().currentBackgroundImg;
   let setCurrentBackgroundImgKey =

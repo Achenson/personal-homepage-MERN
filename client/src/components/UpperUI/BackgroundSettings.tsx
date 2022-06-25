@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // import shallow from "zustand/shallow";
 import FocusLock from "react-focus-lock";
@@ -48,6 +48,8 @@ function BackgroundSettings({
   );
 
   const [wasCustomClicked, setWasCustomClicked] = useState(false);
+
+  const hiddenFileInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (windowSize.width) {
@@ -219,6 +221,17 @@ function BackgroundSettings({
                           defaultImage: "defaultBackground",
                         }); */
 
+                          if (!backgroundImgResults?.data?.backgroundImg?.backgroundImgUrl) {
+                            console.log("no BACKGROUND IMG RESULTS");
+                            
+                            hiddenFileInput.current?.click();
+                            return;
+                          }
+
+                          console.log("BACKGROUND IMG RESULTS exist")
+                          console.log(backgroundImgResults);
+                          
+
                           if (!wasCustomClicked) {
                             setWasCustomClicked(true);
                           }
@@ -325,6 +338,7 @@ function BackgroundSettings({
                 reexecuteBackgroundImg={reexecuteBackgroundImg}
                 wasCustomClicked={wasCustomClicked}
                 setWasCustomClicked={setWasCustomClicked}
+                hiddenFileInput={hiddenFileInput}
               />
               {/*       <div
                   className={`bg-blueGray-50 h-6 ${

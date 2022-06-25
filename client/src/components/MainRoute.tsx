@@ -43,7 +43,7 @@ interface Props {
   upperVisState: UpperVisState;
   paddingRight: boolean;
   userIdOrDemoId: string;
-  backgroundImgUrl: string;
+  backgroundImgUrl: string | null;
   backgroundImgResults: any;
   reexecuteBackgroundImg: any;
   // setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>
@@ -61,14 +61,14 @@ function MainRoute({
   backgroundImgUrl,
   backgroundImgResults,
   reexecuteBackgroundImg,
-  // setLoginNotification
-}: Props): JSX.Element {
+}: // setLoginNotification
+Props): JSX.Element {
   const backgroundColor = globalSettings.backgroundColor;
   const setLoginNotification = useAuth((state) => state.setLoginNotification);
 
-  useEffect( () => {
+  useEffect(() => {
     setLoginNotification(null);
-  }, [])
+  }, []);
 
   function renderBackgroundImg(picBackground: boolean, defaultImage: string) {
     if (

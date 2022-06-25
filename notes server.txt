@@ -30,6 +30,7 @@ DONE 45. logic for tab deletion in Grid work only thanks to setTimeout() [in Boo
 DONE 46. bookmark /tabs database interfaces everywhere! (now both from context) DONE
 DONE 47. promise.all -> no need for new Promise everywhere? mutation return promises (change in Bookmark_lowerUI, no promise.all in Grids now, ) DONE
 DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
+DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
 DONE 140. x hide/unhide password x password input type instead DONE
@@ -153,7 +154,8 @@ change everywhere!!
 110. demo id or test id naming
 111. rootValue -> not needed?? check multer express graphql tut. change backgroundImgMutaion
 112. test user Id server.ts check import
-113. getting background img automatically
+
+
 114. fallback if no backgroundImg available? or test it if it is not broking the app at least
 115. backgroundImgQuery -> no variable needed? check after implementing unlogged version
 116. useCallback -> is it really needed for uploads? no callback used right now
@@ -218,7 +220,9 @@ unify across other mutations!
 175.5 auth -> zustand, other central state -> context. unify?
 176. objects as props in more places? like paddingProps in Main
 177. useAuth zustand hook -> loginErrorMessage -> delete or implement?
+
 180. focus should be on first field after clicking Login or Register
+181. clean db in the end
 
 {
   filename: 'nature-3082832_1920.jpg',

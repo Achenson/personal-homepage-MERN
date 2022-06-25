@@ -236,7 +236,7 @@ function Main({ globalSettings }: Props): JSX.Element {
   // }
 
   // something has to be assigned, otherwise -> ts error in MainRoute component
-  let backgroundImgUrl: string = "";
+  let backgroundImgUrl: string | null = "";
 
   // if (status === "success") {
   //   /* console.log("data");
@@ -251,7 +251,7 @@ function Main({ globalSettings }: Props): JSX.Element {
     console.log(data_backgroundImg.backgroundImg);
 
     // if(data_backgroundImg.backgroundImg.backgroundImgUrl) {
-    backgroundImgUrl = data_backgroundImg.backgroundImg.backgroundImgUrl;
+    backgroundImgUrl = data_backgroundImg?.backgroundImg?.backgroundImgUrl;
 
     // } else {
     //   backgroundImgUrl = "fsfsgsdg"
