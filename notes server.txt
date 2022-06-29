@@ -223,6 +223,10 @@ unify across other mutations!
 
 180. focus should be on first field after clicking Login or Register
 181. clean db in the end
+182. wiki-speed-typing - better login/register looks?
+183. login/register modals -> name of the app should be visible somewhere?
+184. Profile_Input passedRef -> check agains BackgroudnSettings_Upload
+185. common upper component for login-register, passwordforgotten & passwordChange
 
 {
   filename: 'nature-3082832_1920.jpg',

@@ -55,6 +55,7 @@ import {
 import { BookmarkDatabase_i } from "../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../schema/types/tabType";
 import UserProfile from "./AuthRoutes/UserProfile";
+import PasswordForgotten from "./AuthRoutes/PasswordForgotten";
 
 interface Props {
   globalSettings: SettingsDatabase_i;
@@ -394,6 +395,23 @@ function Main({ globalSettings }: Props): JSX.Element {
                       // setLoginNotification={setLoginNotification}
                     />
                   </PrivateRoute>
+                }
+              />
+
+              <Route
+                // isAuthenticated={authContext.isAuthenticated}
+                path="/pass-forgot"
+                element={
+                  // not possible to access if logged in!
+                  <PublicRoute isAuthenticated={authContext.isAuthenticated}>
+                    <PasswordForgotten
+                      mainPaddingRight={paddingRight}
+                      scrollbarWidth={scrollbarWidth}
+                      globalSettings={globalSettings}
+                      // loginNotification={loginNotification}
+                      // setLoginNotification={setLoginNotification}
+                    />
+                  </PublicRoute>
                 }
               />
 
