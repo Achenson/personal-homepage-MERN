@@ -41,6 +41,17 @@ function PassordForgotten({
     }
   }, []);
 
+  function sendPasswordChangeLink() {
+    if (email === "" || email.indexOf("@") === -1) {
+      setErrorMessage("Invalid email");
+      setNotificationMessage(null);
+      return;
+    }
+
+    setErrorMessage(null)
+    setNotificationMessage("Email successfully sent");
+  }
+
   return (
     <FocusLock>
       <div
@@ -92,10 +103,11 @@ function PassordForgotten({
 
             <div className="mt-3 mb-5 flex flex-col items-center">
               <div className="w-48">
-              <p className="text-xl">Password Retrieval</p>
-              <p className="text-sky-600 text-sm mb-2">
-              A password change link will be sent to the provided email address.
-            </p>
+                {/* <p className="text-xl">Password Retrieval</p> */}
+                <p className="text-sky-600 text-sm mb-2">
+                  A password change link will be sent to the provided email
+                  address.
+                </p>
 
                 <p>Email address</p>
                 <LogRegProfile_input
@@ -107,19 +119,18 @@ function PassordForgotten({
                 />
               </div>
 
-              
-                { errorMessage && (
-                  <AuthNotification
-                    colorClass="red-500"
-                    notification={errorMessage}
-                  />
-                )}
-                { notificationMessage && (
-                  <AuthNotification
-                    colorClass="green-500"
-                    notification={notificationMessage}
-                  />
-                )}
+              {errorMessage && (
+                <AuthNotification
+                  colorClass="red-500"
+                  notification={errorMessage}
+                />
+              )}
+              {notificationMessage && (
+                <AuthNotification
+                  colorClass="green-500"
+                  notification={notificationMessage}
+                />
+              )}
             </div>
 
             <div className="flex justify-center">
@@ -127,7 +138,8 @@ function PassordForgotten({
                 className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
                 onClick={() => {
-                  console.log("password send");
+                  // console.log("password send")
+                  sendPasswordChangeLink();
                 }}
               >
                 Send link
