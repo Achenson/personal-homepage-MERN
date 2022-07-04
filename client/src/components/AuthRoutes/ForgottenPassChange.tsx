@@ -17,7 +17,7 @@ interface Props {
   // setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-function PassordForgotten({
+function ForgottenPassChange({
   mainPaddingRight,
   scrollbarWidth,
   globalSettings,
@@ -173,4 +173,4 @@ function PassordForgotten({
   );
 }
 
-export default PassordForgotten;
+export default ForgottenPassChange;

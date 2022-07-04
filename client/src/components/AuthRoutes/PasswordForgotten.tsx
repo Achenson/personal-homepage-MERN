@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import FocusLock from "react-focus-lock";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "urql";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { useUpperUiContext } from "../../context/upperUiContext";
@@ -8,6 +9,10 @@ import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
 import AuthNotification from "./AuthNotification";
 import LogRegProfile_input from "./LogRegProfile_input";
+
+import { ForgotPasswordMutation } from "../../graphql/graphqlMutations";
+
+import { AuthDataForgotPassword_i } from "../../../../schema/types/authDataType";
 
 interface Props {
   mainPaddingRight: boolean;
@@ -35,6 +40,11 @@ function PassordForgotten({
     null
   );
 
+  const [forgotPasswordMutResult, forgotPasswordMut] = useMutation<
+    any,
+    AuthDataForgotPassword_i
+  >(ForgotPasswordMutation);
+
   useEffect(() => {
     if (firstFieldRef.current !== null) {
       firstFieldRef.current.focus();
@@ -48,8 +58,24 @@ function PassordForgotten({
       return;
     }
 
-    setErrorMessage(null);
-    setNotificationMessage("Email successfully sent");
+    forgotPasswordMut({
+      email,
+    }).then(
+      (res) => {
+        if (!res) {
+          setErrorMessage("Server connection Error");
+          return;
+        }
+
+        setErrorMessage(null);
+        setNotificationMessage("Email successfully sent");
+      },
+      (err) => {
+        console.log(err);
+        setErrorMessage("Server connection Error");
+        return;
+      }
+    );
   }
 
   return (

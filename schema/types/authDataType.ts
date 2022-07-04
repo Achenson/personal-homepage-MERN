@@ -1,5 +1,9 @@
 import { GraphQLString, GraphQLObjectType, GraphQLID } from "graphql";
 
+export interface AuthDataForgotPassword_i {
+  email: string
+}
+
 export interface AuthDataInput_i {
   email_or_name: string
   password: string

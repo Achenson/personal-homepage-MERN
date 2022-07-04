@@ -344,3 +344,11 @@ export const ChangePasswordByUserMutation = `
     }
   }
 `;
+
+export const ForgotPasswordMutation = `
+mutation ($email: String) {
+  forgotPassword (email: $email)
+}
+`;
+
+// export const
