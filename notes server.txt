@@ -233,6 +233,13 @@ unify across other mutations!
 189. email with pass change ends in span -> put warning to check spam??
 190. PasswordForgotten  / forgotPasswordMutation -> more consistent naming?
 191. PasswordForgotten -> forgotPasswordMutation should return false sometimes and it should be handled?
+{
+  "data": {
+    "forgotPassword": true
+  }
+}
+192. email with all .env codes
+
 
 
 {
