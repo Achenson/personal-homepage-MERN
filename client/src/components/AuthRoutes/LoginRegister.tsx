@@ -35,9 +35,9 @@ function LoginRegister({
   mainPaddingRight,
   scrollbarWidth,
   globalSettings,
-  // loginNotification,
-  // setLoginNotification,
-}: Props): JSX.Element {
+}: // loginNotification,
+// setLoginNotification,
+Props): JSX.Element {
   let navigate = useNavigate();
   const loginAttempt = useAuth((state) => state.loginAttempt);
   const loginNotification = useAuth((state) => state.loginNotification);
@@ -90,11 +90,13 @@ function LoginRegister({
   }, []);
 
   useEffect(() => {
-    if (secondFieldRef.current !== null && loginNotification === "User successfully registered") {
+    if (
+      secondFieldRef.current !== null &&
+      loginNotification === "User successfully registered"
+    ) {
       secondFieldRef.current.focus();
     }
   }, [loginNotification]);
-
 
   let finalColorForImgBackgroundMode = uiColor;
 
@@ -268,11 +270,11 @@ function LoginRegister({
         if (res.data?.addUser) {
           setRegisterErrorMessage(null);
           setLoginNotification("User successfully registered");
-          setUsername("")
-          setEmail("")
-          setPasswordForRegister("")
-          setPasswordForRegisterConfirm("")
-          setEmail_or_name(username)
+          setUsername("");
+          setEmail("");
+          setPasswordForRegister("");
+          setPasswordForRegisterConfirm("");
+          setEmail_or_name(username);
           // navigate("/login");
           setLoginOrRegister("login");
           return;
@@ -416,7 +418,7 @@ function LoginRegister({
                   <div className="mt-1 w-48">
                     <p>Password</p>
                     <LogRegProfile_input
-                    ref={secondFieldRef}
+                      ref={secondFieldRef}
                       inputValue={
                         loginOrRegister === "login"
                           ? password
@@ -444,6 +446,21 @@ function LoginRegister({
                     </div>
                   )}
                 </div>
+                {loginOrRegister === "login" && (
+                  <button
+                 
+                  className={
+                   `mt-1 text-sm text-gray-400 hover:text-opacity-50 cursor-pointer  focus-1-offset`}
+
+                   onClick={ () => {
+                    navigate("/passforgot")
+                   }}
+                  >
+                    <span >
+                      Forgot password?
+                    </span>
+                  </button>
+                )}
 
                 {loginOrRegister === "login" && loginErrorMessage && (
                   <AuthNotification
