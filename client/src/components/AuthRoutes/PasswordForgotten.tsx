@@ -48,7 +48,7 @@ function PassordForgotten({
       return;
     }
 
-    setErrorMessage(null)
+    setErrorMessage(null);
     setNotificationMessage("Email successfully sent");
   }
 
@@ -118,6 +118,15 @@ function PassordForgotten({
                   passwordInputType={false}
                 />
               </div>
+
+              <button
+                className={`mt-1 text-${uiColor} hover:text-opacity-50 cursor-pointer  focus-1-offset`}
+                onClick={() => {
+                  navigate("/login-register");
+                }}
+              >
+                <span>Back</span>
+              </button>
 
               {errorMessage && (
                 <AuthNotification
