@@ -228,6 +228,9 @@ unify across other mutations!
 184. Profile_Input passedRef -> check agains BackgroudnSettings_Upload
 185. common upper component for login-register, passwordforgotten & passwordChange
 186. forgotPasswordMutation -> returning true when no user. ??
+187. option to make passwords visible!
+188. wiki-speed-typing -> check if password retrival is available still
+189.
 
 
 {
@@ -302,6 +305,24 @@ urql auth:
 
 login mutation: code from willAuthError won't run!
 central state should be updated after jwt logic is handled??
+
+
+
+
+setting nodemailer -> 2 step authentication in gmail -> setting app password
+https://stackoverflow.com/questions/59188483/error-invalid-login-535-5-7-8-username-and-password-not-accepted?answertab=trending#tab-top
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

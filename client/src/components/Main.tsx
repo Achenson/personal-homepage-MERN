@@ -418,7 +418,7 @@ function Main({ globalSettings }: Props): JSX.Element {
 
 <Route
                 // isAuthenticated={authContext.isAuthenticated}
-                path="/passforgot-change"
+                path="/passforgot-change/:token"
                 element={
                   // not possible to access if logged in!
                   <PublicRoute isAuthenticated={authContext.isAuthenticated}>

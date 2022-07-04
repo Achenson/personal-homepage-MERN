@@ -194,6 +194,11 @@ mutation {
   }
   
   
+
+  mutation {
+  forgotPassword(email: "ach.01.mail@gmail.com")
+}
+
   
 
 

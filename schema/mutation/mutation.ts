@@ -11,14 +11,14 @@ import { changeUserByAdminMutationField } from "./changeUserByAdminMutation";
 import { changeTabMutationField } from "./changeTabMutation";
 import { changeBookmarkMutationField } from "./changeBookmarkMutation";
 import { testMutationField } from "./testMutation";
-import {loginMutationField} from "./loginMutation"
+import { loginMutationField } from "./loginMutation";
 import { logoutMutationField } from "./logoutMutation";
 import { backgroundImgMutationField } from "./backgroundImgMutation";
 import { revokeRefreshTokenMutationField } from "./revokeRefreshTokenMutation";
 import { deleteAccountByUserMutationField } from "./deleteAccountByUserMutation";
 import { changeUserByUserMutationField } from "./changeUserByUserMutation";
 import { changePasswordByUserMutationField } from "./changePasswordByUserMutation";
-
+import { forgotPasswordMutationField } from "./forgotPasswordMutation";
 
 const { GraphQLObjectType } = graphql;
 
@@ -42,6 +42,7 @@ export const Mutation = new GraphQLObjectType({
     logoutMutation: logoutMutationField,
     backgroundImgMutation: backgroundImgMutationField,
     revokeRefreshToken: revokeRefreshTokenMutationField,
-    deleteAccountByUser: deleteAccountByUserMutationField
+    deleteAccountByUser: deleteAccountByUserMutationField,
+    forgotPassword: forgotPasswordMutationField,
   },
 });
