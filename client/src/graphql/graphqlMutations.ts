@@ -351,4 +351,16 @@ mutation ($email: String) {
 }
 `;
 
+
+
+export const ChangePasswordAfterForgotMutation = `
+  mutation ChangePasswordAfterForgot($token: String, $newPassword: String) {
+    changePasswordAfterForgot(token: $token, newPassword: $newPassword) {
+      userId
+      token
+      error
+    }
+  }
+`;
+
 // export const

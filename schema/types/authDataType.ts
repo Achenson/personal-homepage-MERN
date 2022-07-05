@@ -4,6 +4,11 @@ export interface AuthDataForgotPassword_i {
   email: string
 }
 
+export interface AuthDataPasswordChangeAfterForgot_i {
+  token: string
+  newPassword: string
+}
+
 export interface AuthDataInput_i {
   email_or_name: string
   password: string
