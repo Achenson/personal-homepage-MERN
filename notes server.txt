@@ -245,6 +245,10 @@ to get info clientside that there is no regisered user
 195. displaying res.error.message for graphql errors if it is present? [no but sth should be display clientside accordingly?]
 196. test changePasswordAfterForgot mutation by deleting user in the meantime
 197. ForgottenPassChange should display user name??
+198. Login pass forgot -> should be below Login btn?
+
+
+
 
 
 
