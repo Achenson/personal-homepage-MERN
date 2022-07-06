@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "urql";
+import shallow from "zustand/shallow";
 
 import Main from "./Main";
 
@@ -7,6 +8,8 @@ import { SettingsQuery } from "../graphql/graphqlQueries";
 import { testUserId } from "../state/data/testUserId";
 // import { useAuthContext } from "../context/authContext";
 import { useAuth } from "../state/hooks/useAuth";
+import { useGlobalSettings } from "../state/hooks/defaultSettingsHooks";
+
 
 import { SettingsDatabase_i } from "../../../schema/types/settingsType";
 
@@ -14,17 +17,19 @@ import { SettingsDatabase_i } from "../../../schema/types/settingsType";
 // in Main a useEffect depends on it - globalSettins needs to be defined right away
 function MainWrapper(): JSX.Element {
   const authContext = useAuth();
+  const globalSettingsNotAuth = useGlobalSettings((state) => state, shallow);
 
-  let userIdOrDemoId: string;
+  let userIdOrNoId: string | null;
 
-  userIdOrDemoId =
+  userIdOrNoId =
     authContext.isAuthenticated && authContext.authenticatedUserId
       ? authContext.authenticatedUserId
-      : testUserId;
+      : null;
 
   const [settingsResults] = useQuery({
     query: SettingsQuery,
-    variables: { userId: userIdOrDemoId},
+    variables: { userId: userIdOrNoId},
+    pause: !userIdOrNoId
   });
 
   const { data, fetching, error } = settingsResults;
@@ -32,7 +37,10 @@ function MainWrapper(): JSX.Element {
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  let globalSettings: SettingsDatabase_i = data.settings;
+  // let globalSettings: SettingsDatabase_i = data.settings;
+  let globalSettings: SettingsDatabase_i;
+
+  globalSettings = userIdOrNoId ? data.setting : globalSettingsNotAuth
 
   return <Main globalSettings={globalSettings} />;
 }
