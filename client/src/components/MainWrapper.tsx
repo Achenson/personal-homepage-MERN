@@ -40,7 +40,7 @@ function MainWrapper(): JSX.Element {
   // let globalSettings: SettingsDatabase_i = data.settings;
   let globalSettings: SettingsDatabase_i;
 
-  globalSettings = userIdOrNoId ? data.setting : globalSettingsNotAuth
+  globalSettings = userIdOrNoId ? data.settings : globalSettingsNotAuth
 
   return <Main globalSettings={globalSettings} />;
 }
