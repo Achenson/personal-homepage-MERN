@@ -35,6 +35,9 @@ import { BackgroundImgContext } from "../context/backgroundImgContext";
 // import { useAuthContext } from "../context/authContext";
 import { useAuth } from "../state/hooks/useAuth";
 
+import { useTabs } from "../state/hooks/useTabs";
+import { useBookmarks } from "../state/hooks/useBookmarks";
+
 import { SettingsDatabase_i } from "../../../schema/types/settingsType";
 import {
   TabsQuery,
@@ -64,12 +67,14 @@ interface Props {
 
 function Main({ globalSettings }: Props): JSX.Element {
   const authContext = useAuth();
+  const tabsNotAuth = useTabs((state) => state.tabs);
+  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
 
-  let userIdOrDemoId: string;
-  userIdOrDemoId =
+  let userIdOrNoId: string | null;
+  userIdOrNoId =
     authContext.authenticatedUserId && authContext.isAuthenticated
       ? authContext.authenticatedUserId
-      : testUserId;
+      : null;
 
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
@@ -215,7 +220,8 @@ function Main({ globalSettings }: Props): JSX.Element {
   const [backgroundImgResults, reexecuteBackgroundImg] = useQuery({
     query: BackgroundImgQuery,
     // variables: { userId: authContext.isAuthenticated ? authContext.authenticatedUserId : testUserId },
-    variables: { userId: userIdOrDemoId },
+    variables: { userId: userIdOrNoId },
+    pause: !userIdOrNoId,
     // requestPolicy: 'cache-and-network',
   });
 
@@ -238,7 +244,8 @@ function Main({ globalSettings }: Props): JSX.Element {
   // }
 
   // something has to be assigned, otherwise -> ts error in MainRoute component
-  let backgroundImgUrl: string | null = "";
+  // let backgroundImgUrl: string | null = "";
+  let backgroundImgUrl: string | null = null;
 
   // if (status === "success") {
   //   /* console.log("data");
@@ -263,7 +270,8 @@ function Main({ globalSettings }: Props): JSX.Element {
   const [tabResults, reexecuteTabs] = useQuery({
     query: TabsQuery,
     // variables: { userId: authContext.isAuthenticated ? authContext.authenticatedUserId : testUserId },
-    variables: { userId: userIdOrDemoId },
+    variables: { userId: userIdOrNoId },
+    pause: !userIdOrNoId,
     // requestPolicy: 'cache-and-network',
   });
 
@@ -275,7 +283,8 @@ function Main({ globalSettings }: Props): JSX.Element {
 
   const [bookmarkResults, reexecuteBookmarks] = useQuery({
     query: BookmarksQuery,
-    variables: { userId: userIdOrDemoId },
+    variables: { userId: userIdOrNoId },
+    pause: !userIdOrNoId,
     // requestPolicy: 'cache-and-network',
   });
 
@@ -290,7 +299,10 @@ function Main({ globalSettings }: Props): JSX.Element {
   if (error_tabs) return <p>Oh no... {error_tabs.message}</p>;
 
   // let tabs: SingleTabData[] = data_tabs.tabs;
-  let tabs: TabDatabase_i[] = data_tabs.tabs;
+  // let tabs: TabDatabase_i[] = data_tabs.tabs;
+  let tabs: TabDatabase_i[] | SingleTabData[];
+
+  tabs = userIdOrNoId ? data_tabs.tabs : tabsNotAuth;
 
   if (fetching_bookmarks) return <p>Loading...</p>;
   /* setTimeout(() => {
@@ -299,15 +311,27 @@ function Main({ globalSettings }: Props): JSX.Element {
   if (error_bookmarks) return <p>Oh no... {error_bookmarks.message}</p>;
 
   // let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
-  let bookmarks: BookmarkDatabase_i[] = data_bookmarks.bookmarks;
+  // let bookmarks: BookmarkDatabase_i[] = data_bookmarks.bookmarks;
+  let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
+  bookmarks = userIdOrNoId ? data_bookmarks.bookmarks : bookmarksNotAuth;
 
-  let dbValue: DbContext_i = {
-    bookmarks,
-    tabs,
+  // let dbValue: DbContext_i = {
+  //   bookmarks,
+  //   tabs,
+  //   stale_bookmarks,
+  //   reexecuteBookmarks,
+  //   reexecuteTabs,
+  // };
+
+  let dbValue: DbContext_i | undefined;
+
+  dbValue = userIdOrNoId ? {
+    bookmarks: bookmarks as BookmarkDatabase_i[],
+    tabs: tabs as TabDatabase_i[],
     stale_bookmarks,
     reexecuteBookmarks,
     reexecuteTabs,
-  };
+  } : undefined
 
   let paddingProps = {
     mainPaddingRight: paddingRight,
@@ -353,7 +377,8 @@ function Main({ globalSettings }: Props): JSX.Element {
                     tabType={tabType}
                     reexecuteBackgroundImg={reexecuteBackgroundImg}
                     upperVisState={upperVisState}
-                    userIdOrDemoId={userIdOrDemoId}
+                    userIdOrNoId={userIdOrNoId}
+                    // userIdOrNoId={userIdOrNoId}
                     // setLoginNotification={setLoginNotification}
                     {...paddingProps}
                   />
@@ -416,7 +441,7 @@ function Main({ globalSettings }: Props): JSX.Element {
                 }
               />
 
-<Route
+              <Route
                 // isAuthenticated={authContext.isAuthenticated}
                 path="/passforgot-change/:token"
                 element={

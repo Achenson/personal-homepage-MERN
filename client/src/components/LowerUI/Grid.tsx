@@ -9,6 +9,7 @@ import Column from "./Column";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useResetColors } from "../../state/hooks/colorHooks";
 import { useReset } from "../../state/hooks/useReset";
+import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { useDbContext } from "../../context/dbContext";
@@ -20,6 +21,7 @@ import {
 } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 
@@ -30,6 +32,7 @@ interface TabId {
 interface Props {
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
   globalSettings: SettingsDatabase_i;
+  userIdOrNoId: string | null;
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
   // tabs: TabDatabase_i[];
@@ -39,6 +42,7 @@ interface Props {
 function Grid({
   setTabType,
   globalSettings,
+  userIdOrNoId
   // bookmarks,
   // tabs,
   // staleBookmarks,
@@ -46,13 +50,24 @@ function Grid({
   // const tabs = useTabs((store) => store.tabs);
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
 
+  const tabsNotAuth = useTabs((state) => state.tabs);
+  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+
   const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
   const tabDeletingPause = useTabs((store) => store.tabDeletingPause);
 
-  const bookmarks = useDbContext().bookmarks;
-  const staleBookmarks = useDbContext().stale_bookmarks;
-  const tabs = useDbContext().tabs;
+  
+  let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
+  let tabs: TabDatabase_i[] | SingleTabData[];
+
+  const bookmarksDb = useDbContext()?.bookmarks;
+  // only used in authenticated version of the app
+  const staleBookmarks = useDbContext()?.stale_bookmarks;
+  const tabsDb = useDbContext()?.tabs;
   // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
+
+  bookmarks = userIdOrNoId ? bookmarksDb as SingleBookmarkData[] : bookmarksNotAuth;
+  tabs = userIdOrNoId ? tabsDb as TabDatabase_i[] : tabsNotAuth;
 
   // const deleteEmptyTab = useTabs((store) => store.deleteEmptyTab);
   const [deleteTabResult, deleteTab] = useMutation<any, TabId>(

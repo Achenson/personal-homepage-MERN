@@ -42,7 +42,7 @@ interface Props {
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
   upperVisState: UpperVisState;
   paddingRight: boolean;
-  userIdOrDemoId: string;
+  userIdOrNoId: string | null;
   backgroundImgUrl: string | null;
   backgroundImgResults: any;
   reexecuteBackgroundImg: any;
@@ -57,7 +57,7 @@ function MainRoute({
   setTabType,
   upperVisState,
   paddingRight,
-  userIdOrDemoId,
+  userIdOrNoId,
   backgroundImgUrl,
   backgroundImgResults,
   reexecuteBackgroundImg,
@@ -178,6 +178,7 @@ Props): JSX.Element {
       <Grid
         setTabType={setTabType}
         globalSettings={globalSettings}
+        userIdOrNoId={userIdOrNoId}
         // bookmarks={bookmarks}
         // tabs={tabs}
         // staleBookmarks={stale_bookmarks}
