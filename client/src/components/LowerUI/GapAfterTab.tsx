@@ -17,6 +17,8 @@ import { ChangeTabMutation } from "../../graphql/graphqlMutations";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
+import { SingleTabData } from "../../utils/interfaces";
+
 interface Item {
   type: string;
   tabID: string;
@@ -32,6 +34,7 @@ interface Props {
   // for proper top border display
   isThisTheOnlyGap: boolean;
   globalSettings: SettingsDatabase_i;
+  userIdOrNoId: string | null;
 }
 
 function GapAfterTab({
@@ -40,9 +43,19 @@ function GapAfterTab({
   isThisLastGap,
   isThisTheOnlyGap,
   globalSettings,
+  userIdOrNoId
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
-  const tabs = useDbContext().tabs;
+
+  const tabsNotAuth = useTabs((state) => state.tabs);
+ 
+  const bookmarksDb = useDbContext()?.bookmarks;
+  const tabsDb = useDbContext()?.tabs;
+
+  let tabs: TabDatabase_i[] | SingleTabData[];
+
+  tabs = userIdOrNoId ? tabsDb as TabDatabase_i[] : tabsNotAuth;
+
 
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
     ChangeTabMutation

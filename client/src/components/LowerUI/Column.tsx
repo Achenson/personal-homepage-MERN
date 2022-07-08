@@ -20,6 +20,7 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 import { useDbContext } from "../../context/dbContext";
 // import { useAuthContext } from "../../context/authContext";
 import { useAuth } from "../../state/hooks/useAuth";
+import { useTabs } from "../../state/hooks/useTabs";
 
 import { TabsQuery } from "../../graphql/graphqlQueries";
 import { SettingsQuery } from "../../graphql/graphqlQueries";
@@ -36,12 +37,14 @@ interface Props {
   breakpoint: 0 | 1 | 2 | 3 | 4 | null;
   // tabs: SingleTabData[];
   // tabs: TabDatabase_i[];
+  userIdOrNoId: string | null;
 }
 
 function Column({
   colNumber,
   setTabType,
   breakpoint,
+  userIdOrNoId,
 }: // tabs,
 Props): JSX.Element {
   // const columnsColors = useColumnsColors((state) => state, shallow);
@@ -50,7 +53,13 @@ Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
-  const tabs = useDbContext().tabs;
+  const tabsDb = useDbContext()?.tabs;
+
+  const tabsNotAuth = useTabs((state) => state.tabs);
+
+  let tabs: TabDatabase_i[] | SingleTabData[];
+
+  tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   const upperUiContext = useUpperUiContext();
   const authContext = useAuth();
@@ -63,7 +72,7 @@ Props): JSX.Element {
 
   const [settingsResults] = useQuery({
     query: SettingsQuery,
-    variables: { userId: userIdOrDemoId},
+    variables: { userId: userIdOrDemoId },
   });
 
   const { data, fetching, error } = settingsResults;
@@ -229,6 +238,7 @@ Props): JSX.Element {
                 globalSettings={globalSettings}
                 // tabs={tabs}
                 currentTab={el}
+                userIdOrNoId={userIdOrNoId}
               />
               {/* <div className="flex-grow"> */}
               <GapAfterTab

@@ -46,6 +46,7 @@ import { useTabContext } from "../../context/tabContext";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { useDbContext } from "../../context/dbContext";
+import { useBookmarks } from "../../state/hooks/useBookmarks";
 
 import {
   ChangeBookmarkMutation,
@@ -56,6 +57,8 @@ import {
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
+import { TabDatabase_i } from "../../../../schema/types/tabType";
+
 
 interface Props {
   singleBookmarkData: SingleBookmarkData;
@@ -65,6 +68,7 @@ interface Props {
   tabID: string;
   isTabDraggedOver: boolean;
   globalSettings: SettingsDatabase_i;
+  userIdOrNoId: string | null
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
 }
@@ -80,14 +84,37 @@ function SingleBookmark({
   colNumber,
   isTabDraggedOver,
   globalSettings,
+  userIdOrNoId
 }: // bookmarks,
 // tabs,
 Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
-  const bookmarks = useDbContext().bookmarks;
-  const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
-  const tabs = useDbContext().tabs;
+
+
+
+  const tabsNotAuth = useTabs((state) => state.tabs);
+  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+
+  const bookmarksDb = useDbContext()?.bookmarks;
+  const tabsDb = useDbContext()?.tabs;
+
+
+  let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
+  let tabs: TabDatabase_i[] | SingleTabData[];
+
+  bookmarks = userIdOrNoId ? bookmarksDb as SingleBookmarkData[] : bookmarksNotAuth;
+  tabs = userIdOrNoId ? tabsDb as TabDatabase_i[] : tabsNotAuth;
+
+
+ 
+  const reexecuteBookmarks = useDbContext()?.reexecuteBookmarks;
+
+
+
+
+
+
 
   const authContext = useAuth();
   const tabContext = useTabContext();

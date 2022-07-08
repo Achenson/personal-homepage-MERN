@@ -45,6 +45,8 @@ DONE 171. deleteUserByAdminMutation -> change so it is possible to delete many u
 DONE 178. after registering & redirecting to login -> focus should be set on password DONE
 DONE 179. after registering -> register fields should be emptied DONE
 
+
+
  1. livereload npm
  
  6. userSchema gets ref to settingsSchema, should it be also the other war around?
@@ -246,6 +248,7 @@ to get info clientside that there is no regisered user
 196. test changePasswordAfterForgot mutation by deleting user in the meantime
 197. ForgottenPassChange should display user name??
 198. Login pass forgot -> should be below Login btn?
+199. tabsDb and tabsNotAuth etc -> should be in props instead of taken out of Context every time? less code
 
 
 

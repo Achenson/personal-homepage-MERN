@@ -25,10 +25,12 @@ import {
   // useDefaultColors,
 } from "../../state/hooks/colorHooks";
 import { useTabs } from "../../state/hooks/useTabs";
+import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabReducer } from "../../context/useTabReducer";
 import { TabContext } from "../../context/tabContext";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { useDbContext } from "../../context/dbContext";
+
 
 import {dragTabDb} from "../../utils/funcs and hooks/dragTabDb"
 // import { BookmarksQuery, SettingsQuery } from "../../graphql/graphqlQueries";
@@ -42,6 +44,7 @@ import { ItemTypes } from "../../utils/data/itemsDnd";
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 // import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
@@ -64,6 +67,7 @@ interface Props {
   globalSettings: SettingsDatabase_i;
   // tabs: TabDatabase_i[];
   currentTab: TabDatabase_i;
+  userIdOrNoId: string | null
   // tabs: SingleTabData[];
 }
 
@@ -78,7 +82,8 @@ function Tab({
   tabIsDeletable,
   globalSettings,
   // tabs,
-  currentTab
+  currentTab,
+  userIdOrNoId
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -93,8 +98,22 @@ function Tab({
   const setReset = useReset((state) => state.setReset);
   const resetEnabled = useReset((state) => state.enabled);
   // const bookmarks = useBookmarks((state) => state.bookmarks);
-  const bookmarks = useDbContext().bookmarks;
-  const tabs = useDbContext().tabs;
+
+  const tabsNotAuth = useTabs((state) => state.tabs);
+  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+
+  const bookmarksDb = useDbContext()?.bookmarks;
+  const tabsDb = useDbContext()?.tabs;
+
+
+
+  let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
+  let tabs: TabDatabase_i[] | SingleTabData[];
+
+  bookmarks = userIdOrNoId ? bookmarksDb as SingleBookmarkData[] : bookmarksNotAuth;
+  tabs = userIdOrNoId ? tabsDb as TabDatabase_i[] : tabsNotAuth;
+
+
 
   // const tabs = useTabs((store) => store.tabs);
   const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
@@ -546,6 +565,7 @@ function Tab({
                     tabID={tabID}
                     isTabDraggedOver={isTabDraggedOver}
                     globalSettings={globalSettings}
+                    userIdOrNoId={userIdOrNoId}
                     // bookmarks={bookmarks}
                     // tabs={tabs}
                   />

@@ -296,6 +296,7 @@ function Grid({
       setTabType,
       breakpoint,
       tabs,
+      userIdOrNoId
     };
 
     switch (numberOfCols) {
