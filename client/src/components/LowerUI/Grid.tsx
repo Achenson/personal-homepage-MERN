@@ -42,11 +42,11 @@ interface Props {
 function Grid({
   setTabType,
   globalSettings,
-  userIdOrNoId
-  // bookmarks,
-  // tabs,
-  // staleBookmarks,
-}: Props): JSX.Element {
+  userIdOrNoId,
+}: // bookmarks,
+// tabs,
+// staleBookmarks,
+Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
 
@@ -56,7 +56,6 @@ function Grid({
   const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
   const tabDeletingPause = useTabs((store) => store.tabDeletingPause);
 
-  
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
 
@@ -66,10 +65,11 @@ function Grid({
   const tabsDb = useDbContext()?.tabs;
   // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
 
-  bookmarks = userIdOrNoId ? bookmarksDb as SingleBookmarkData[] : bookmarksNotAuth;
-  tabs = userIdOrNoId ? tabsDb as TabDatabase_i[] : tabsNotAuth;
+  bookmarks = userIdOrNoId
+    ? (bookmarksDb as SingleBookmarkData[])
+    : bookmarksNotAuth;
+  tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
-  // const deleteEmptyTab = useTabs((store) => store.deleteEmptyTab);
   const [deleteTabResult, deleteTab] = useMutation<any, TabId>(
     DeleteTabMutation
   );
@@ -84,6 +84,8 @@ function Grid({
 
   const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
   const setCloseAllTabsState = useTabs((store) => store.setCloseAllTabsState);
+  const resetAllTabColors = useTabs((store) => store.resetAllTabColors);
+  const deleteEmptyTabsNotAuth = useTabs((store) => store.deleteEmptyTab);
 
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -156,15 +158,17 @@ function Grid({
 
   useEffect(() => {
     if (closeAllTabsState) {
-      tabs.forEach((obj) => {
-        editTab({ ...obj, opened: obj.openedByDefault });
-      });
+      if (userIdOrNoId) {
+        (tabs as TabDatabase_i[]).forEach((obj) => {
+          editTab({ ...obj, opened: obj.openedByDefault });
+        });
+      }
 
       setTimeout(() => {
         setCloseAllTabsState(false);
       }, 500);
     }
-  }, [closeAllTabsState, setCloseAllTabsState]);
+  }, [closeAllTabsState, setCloseAllTabsState, userIdOrNoId]);
 
   /*   useEffect(() => {
     if (resetColors) {
@@ -175,12 +179,17 @@ function Grid({
 
   useEffect(() => {
     if (resetColors) {
-      tabs.forEach((obj) => {
-        editTab({ ...obj, color: null });
-      });
+      if (userIdOrNoId) {
+        (tabs as TabDatabase_i[]).forEach((obj) => {
+          editTab({ ...obj, color: null });
+        });
+      } else {
+        resetAllTabColors();
+      }
+
       setResetColors(false);
     }
-  }, [resetColors, setResetColors]);
+  }, [resetColors, setResetColors, userIdOrNoId]);
 
   /* useEffect(() => {
     deleteEmptyTab(bookmarksAllTags);
@@ -207,7 +216,7 @@ function Grid({
         return;
       }
 
-      if (staleBookmarks) {
+      if (staleBookmarks && userIdOrNoId) {
         return;
       }
 
@@ -223,21 +232,22 @@ function Grid({
 
       // console.log(bookmarksAllTags);
 
-
-      tabs
-        .filter((obj) => obj.type === "folder" && obj.deletable)
-        .forEach((obj) => {
-          if (!bookmarksAllTags.includes(obj.id) && !tabDeletingPause) {
-            deleteTab({ id: obj.id }).then((result) => {
-              if (result.error) {
-                console.log(result.error);
-                return;
-              }
-              // console.log(result.data.deleteTab.id);
-            });
-            // console.log(obj.id);
-          }
-        });
+      if (userIdOrNoId) {
+        tabs
+          .filter((obj) => obj.type === "folder" && obj.deletable)
+          .forEach((obj) => {
+            if (!bookmarksAllTags.includes(obj.id) && !tabDeletingPause) {
+              deleteTab({ id: obj.id }).then((result) => {
+                if (result.error) {
+                  console.log(result.error);
+                  return;
+                }
+              });
+            }
+          });
+      } else {
+        deleteEmptyTabsNotAuth(bookmarksAllTags);
+      }
 
       // let arrOfPromises: Promise<string>[] = [];
 
@@ -279,7 +289,7 @@ function Grid({
           }
         }); */
     }
-  }, [bookmarks, tabs, tabDeletingPause]);
+  }, [bookmarks, tabs, tabDeletingPause, userIdOrNoId]);
 
   // client-side legacy code, now handled by GlobalSettings
   /*   useEffect(() => {
@@ -296,7 +306,7 @@ function Grid({
       setTabType,
       breakpoint,
       tabs,
-      userIdOrNoId
+      userIdOrNoId,
     };
 
     switch (numberOfCols) {

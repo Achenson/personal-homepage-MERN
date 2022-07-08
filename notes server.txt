@@ -249,11 +249,11 @@ to get info clientside that there is no regisered user
 197. ForgottenPassChange should display user name??
 198. Login pass forgot -> should be below Login btn?
 199. tabsDb and tabsNotAuth etc -> should be in props instead of taken out of Context every time? less code
-
-
-
-
-
+200. tabs reset to default: in auth version happens in Grid, in non-auth in Tab -> unify?
+(should be done for TAB_CONTENT_DEFAULT at least?)
+201. bookmarkAllTags -> MERN -> created every time in one of Grid's useEffect
+old not-auth -> placed in central bookmarks state. check if it works properly, unify?
+202. tabDeletingPause introduced in MERN version -> can/should it be implemented for non-auth version also?
 
 
 
