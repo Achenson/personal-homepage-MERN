@@ -44,19 +44,18 @@ function GapAfterTab({
   isThisLastGap,
   isThisTheOnlyGap,
   globalSettings,
-  userIdOrNoId
+  userIdOrNoId,
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   const tabsNotAuth = useTabs((state) => state.tabs);
- 
+
   const bookmarksDb = useDbContext()?.bookmarks;
   const tabsDb = useDbContext()?.tabs;
 
   let tabs: TabDatabase_i[] | SingleTabData[];
 
-  tabs = userIdOrNoId ? tabsDb as TabDatabase_i[] : tabsNotAuth;
-
+  tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
     ChangeTabMutation
@@ -71,17 +70,21 @@ function GapAfterTab({
   const [{ isOver }, drop] = useDrop({
     //    required property
     accept: ItemTypes.BOOKMARK,
-    drop: (item: Item, monitor) =>
-      // dragTab(item.tabID, item.colNumber, colNumber, tabID_orNull, false),
-      dragTabDb(
-        item.tabID,
-        item.colNumber,
-        colNumber,
-        tabID_orNull,
-        false,
-        tabs,
-        editTab
-      ),
+    drop: (item: Item, monitor) => {
+      if (userIdOrNoId) {
+        dragTabDb(
+          item.tabID,
+          item.colNumber,
+          colNumber,
+          tabID_orNull,
+          false,
+          tabs as TabDatabase_i[],
+          editTab
+        );
+      } else {
+        dragTab(item.tabID, item.colNumber, colNumber, tabID_orNull, false);
+      }
+    },
     // drop: (item, monitor) => console.log(item.tabID),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
