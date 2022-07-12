@@ -30,9 +30,11 @@ import { LogoutMutation } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+
 interface Props {
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
 }
 
 function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {

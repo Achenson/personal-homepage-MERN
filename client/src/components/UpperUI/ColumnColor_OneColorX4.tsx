@@ -11,6 +11,7 @@ import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 interface Props {
   setDefaultColorsFor: React.Dispatch<
@@ -22,7 +23,7 @@ interface Props {
   setFocusOnColumnColor: React.Dispatch<
     React.SetStateAction<null | 1 | 2 | 3 | 4>
   >;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
 }
 
 function ColumnColor_OneColorX4({

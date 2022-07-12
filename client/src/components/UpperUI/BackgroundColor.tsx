@@ -13,10 +13,12 @@ import { backgroundColorsUpperUiFocus } from "../../utils/data/colors_background
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+
 interface Props {
   focusOnBackgroundColor: boolean;
   setFocusOnBackgroundColor: React.Dispatch<React.SetStateAction<boolean>>;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
 }
 
 function BackgroundColor({

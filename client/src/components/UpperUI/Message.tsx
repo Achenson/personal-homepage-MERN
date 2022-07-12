@@ -11,8 +11,10 @@ import "../../utils/fade.css";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+
 interface Props {
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
 }
 
 function Message({ globalSettings }: Props): JSX.Element {

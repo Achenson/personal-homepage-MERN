@@ -1,5 +1,7 @@
 import React from "react";
 
+import shallow from "zustand/shallow";
+
 // import shallow from "zustand/shallow";
 import { useQuery } from "urql";
 
@@ -21,6 +23,7 @@ import { useDbContext } from "../../context/dbContext";
 // import { useAuthContext } from "../../context/authContext";
 import { useAuth } from "../../state/hooks/useAuth";
 import { useTabs } from "../../state/hooks/useTabs";
+import { useGlobalSettings, UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 import { TabsQuery } from "../../graphql/graphqlQueries";
 import { SettingsQuery } from "../../graphql/graphqlQueries";
@@ -57,6 +60,8 @@ Props): JSX.Element {
 
   const tabsNotAuth = useTabs((state) => state.tabs);
 
+  const globalSettingsNotAuth = useGlobalSettings((state) => state, shallow);
+
   let tabs: TabDatabase_i[] | SingleTabData[];
 
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
@@ -64,15 +69,15 @@ Props): JSX.Element {
   const upperUiContext = useUpperUiContext();
   const authContext = useAuth();
 
-  let userIdOrDemoId: string;
-  userIdOrDemoId =
+  userIdOrNoId =
     authContext.authenticatedUserId && authContext.isAuthenticated
       ? authContext.authenticatedUserId
-      : testUserId;
+      : null;
 
   const [settingsResults] = useQuery({
     query: SettingsQuery,
-    variables: { userId: userIdOrDemoId },
+    variables: { userId: userIdOrNoId },
+    pause: !userIdOrNoId
   });
 
   const { data, fetching, error } = settingsResults;
@@ -80,7 +85,18 @@ Props): JSX.Element {
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  let globalSettings: SettingsDatabase_i = data.settings;
+  // let globalSettings: SettingsDatabase_i = data.settings;
+  let globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+
+
+  globalSettings = userIdOrNoId
+  ? (data.settings as SettingsDatabase_i)
+  : globalSettingsNotAuth;
+
+
+tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
+
+
 
   function calcColumnColor_picBackground(
     colNumber: number,
@@ -248,6 +264,8 @@ Props): JSX.Element {
                 isThisLastGap={isThisLastGap(lastTabId, el.id)}
                 isThisTheOnlyGap={false}
                 globalSettings={globalSettings}
+                userIdOrNoId={userIdOrNoId}
+                
               />
               {/* </div> */}
             </div>
@@ -263,6 +281,7 @@ Props): JSX.Element {
             isThisLastGap={true}
             isThisTheOnlyGap={true}
             globalSettings={globalSettings}
+            userIdOrNoId={userIdOrNoId}
           />
         </div>
       ) : null}

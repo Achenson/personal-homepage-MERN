@@ -11,6 +11,7 @@ import shallow from "zustand/shallow";
 import { useTabs } from "../../state/hooks/useTabs";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 interface Props {
   colNumber: number;
@@ -32,7 +33,7 @@ interface Props {
   setFocusOnColumnColor: React.Dispatch<
     React.SetStateAction<null | 1 | 2 | 3 | 4>
   >;
-  globalSettings: SettingsDatabase_i
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll
 }
 
 function ColumnColor({

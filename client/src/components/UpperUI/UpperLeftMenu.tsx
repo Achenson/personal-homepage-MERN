@@ -12,9 +12,10 @@ import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 interface Props {
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
 }
 
 function UpperLeftMenu({ globalSettings }: Props): JSX.Element {

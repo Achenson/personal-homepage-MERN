@@ -14,6 +14,8 @@ import { tabColorsLightFocus } from "../../utils/data/colors_tab";
 import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+
 interface Props {
   color: string;
   defaultColorsFor:
@@ -30,7 +32,7 @@ interface Props {
   colorNumber: number;
   setSelectedNumber: React.Dispatch<React.SetStateAction<number>>;
   colorArrLength: number;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
 }
 
 function SingleColor_DefaultAndColumn({

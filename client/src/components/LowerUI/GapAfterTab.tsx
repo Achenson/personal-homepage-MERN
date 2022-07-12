@@ -18,6 +18,7 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 import { SingleTabData } from "../../utils/interfaces";
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 interface Item {
   type: string;
@@ -33,7 +34,7 @@ interface Props {
   isThisLastGap: boolean;
   // for proper top border display
   isThisTheOnlyGap: boolean;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
   userIdOrNoId: string | null;
 }
 

@@ -42,6 +42,7 @@ import {
 
 import { ItemTypes } from "../../utils/data/itemsDnd";
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
@@ -64,7 +65,7 @@ interface Props {
   tabOpened: boolean;
   tabOpenedByDefault: boolean;
   tabIsDeletable: boolean;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
   // tabs: TabDatabase_i[];
   currentTab: TabDatabase_i;
   userIdOrNoId: string | null

@@ -13,9 +13,11 @@ import {
 } from "../../utils/data/colors_background";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+
 interface Props {
   setFocusOnBackgroundColor: React.Dispatch<React.SetStateAction<boolean>>;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
 }
 
 function ColorsToChoose_Background({
