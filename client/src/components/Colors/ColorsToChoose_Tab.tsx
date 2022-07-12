@@ -12,12 +12,14 @@ import { tabColors, tabColorsConcat } from "../../utils/data/colors_tab";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+
 interface Props {
   setIconsVis: (value: React.SetStateAction<boolean>) => void;
   tabID: string;
   tabColor: string | null;
   tabType: "folder" | "note" | "rss";
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
   currentTab: TabDatabase_i;
 }
 

@@ -10,6 +10,7 @@ import { useDbContext } from "../../context/dbContext";
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 interface Props {
   bookmarkComponentType: "new_upperUI" | "new_lowerUI" | "edit";
@@ -24,7 +25,7 @@ interface Props {
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
   // bookmarks: SingleBookmarkData[];
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
 }
 
 const errorsAllFalse = {

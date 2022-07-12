@@ -29,6 +29,8 @@ import {
   ChangeTabMutation,
 } from "../../graphql/graphqlMutations";
 
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
@@ -49,7 +51,7 @@ interface Props {
   // currentTab: SingleTabData;
   currentTab: TabDatabase_i;
   setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
   // tabs: SingleTabData[];
   // bookmarks: SingleBookmarkData[];
   // bookmarks: BookmarkDatabase_i[];

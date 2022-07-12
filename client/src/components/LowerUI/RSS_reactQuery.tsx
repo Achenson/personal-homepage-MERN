@@ -18,6 +18,8 @@ import { rssExample } from "../../utils/data/rssExample";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { SingleTabData } from "../../utils/interfaces";
 
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+
 let Parser = require("rss-parser");
 let parser = new Parser();
 
@@ -25,7 +27,7 @@ interface Props {
   tabID: string;
   currentTab: SingleTabData;
   isTabDraggedOver: boolean;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
 }
 
 function ReactQuery({

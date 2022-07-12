@@ -31,12 +31,9 @@ import { TabContext } from "../../context/tabContext";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { useDbContext } from "../../context/dbContext";
 
-
-import {dragTabDb} from "../../utils/funcs and hooks/dragTabDb"
+import { dragTabDb } from "../../utils/funcs and hooks/dragTabDb";
 // import { BookmarksQuery, SettingsQuery } from "../../graphql/graphqlQueries";
-import {
-  ChangeTabMutation,
-} from "../../graphql/graphqlMutations";
+import { ChangeTabMutation } from "../../graphql/graphqlMutations";
 
 // import { testUserId } from "../../state/data/testUserId";
 
@@ -68,7 +65,7 @@ interface Props {
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
   // tabs: TabDatabase_i[];
   currentTab: TabDatabase_i;
-  userIdOrNoId: string | null
+  userIdOrNoId: string | null;
   // tabs: SingleTabData[];
 }
 
@@ -84,7 +81,7 @@ function Tab({
   globalSettings,
   // tabs,
   currentTab,
-  userIdOrNoId
+  userIdOrNoId,
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -106,15 +103,13 @@ function Tab({
   const bookmarksDb = useDbContext()?.bookmarks;
   const tabsDb = useDbContext()?.tabs;
 
-
-
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
 
-  bookmarks = userIdOrNoId ? bookmarksDb as SingleBookmarkData[] : bookmarksNotAuth;
-  tabs = userIdOrNoId ? tabsDb as TabDatabase_i[] : tabsNotAuth;
-
-
+  bookmarks = userIdOrNoId
+    ? (bookmarksDb as SingleBookmarkData[])
+    : bookmarksNotAuth;
+  tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   // const tabs = useTabs((store) => store.tabs);
   const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
@@ -240,8 +235,19 @@ function Tab({
     accept: ItemTypes.BOOKMARK,
     drop: (item: Item, monitor) => {
       if (draggedItem && tabID !== draggedItem.tabID) {
-        // dragTab(item.tabID, item.colNumber, colNumber, tabID, true);
-        dragTabDb(item.tabID, item.colNumber, colNumber, tabID, true, tabs, editTab);
+        if (userIdOrNoId) {
+          dragTabDb(
+            item.tabID,
+            item.colNumber,
+            colNumber,
+            tabID,
+            true,
+            tabs as TabDatabase_i[],
+            editTab
+          );
+        } else {
+          dragTab(item.tabID, item.colNumber, colNumber, tabID, true);
+        }
       }
     },
     // drop: (item: Item, monitor) => console.log(item.tabID),
@@ -392,10 +398,16 @@ function Tab({
               className="pl-1 w-full h-7 truncate cursor-pointer"
               onClick={() => {
                 // tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
-                tabVisDispatch({ type: "TAB_CONTENT_TOGGLE_DB", payload: {
-                  editTab: editTab,
-                  changedTab: {...currentTab as TabDatabase_i, opened: !tabOpened}
-                }});
+                tabVisDispatch({
+                  type: "TAB_CONTENT_TOGGLE_DB",
+                  payload: {
+                    editTab: editTab,
+                    changedTab: {
+                      ...(currentTab as TabDatabase_i),
+                      opened: !tabOpened,
+                    },
+                  },
+                });
                 upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                 if (!resetEnabled) setReset(true);
               }}

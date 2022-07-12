@@ -58,6 +58,7 @@ import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 
 interface Props {
@@ -67,7 +68,7 @@ interface Props {
   colNumber: number;
   tabID: string;
   isTabDraggedOver: boolean;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
   userIdOrNoId: string | null
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];

@@ -31,6 +31,8 @@ import {
   AddTabMutation,
 } from "../../graphql/graphqlMutations";
 
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+
 import {
   BookmarkErrors,
   SetBookmarkErrors,
@@ -62,7 +64,8 @@ interface Props {
   scrollbarWidth: number;
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+
 }
 
 function NewBookmark_UpperUI({

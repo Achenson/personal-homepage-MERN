@@ -8,11 +8,12 @@ import { SingleTabData } from "../../utils/interfaces";
 import { useTabContext } from "../../context/tabContext";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 interface Props {
   currentTab: SingleTabData;
   isTabDraggedOver: boolean;
-  globalSettings: SettingsDatabase_i
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll
 }
 
 function NoteInput({ currentTab, isTabDraggedOver, globalSettings }: Props): JSX.Element {
