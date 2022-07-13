@@ -9,6 +9,8 @@ import { useTabs } from "../../state/hooks/useTabs";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+
 interface Props {
   setWasAnythingClicked: React.Dispatch<React.SetStateAction<boolean>>;
   descriptionCheckbox: boolean;
@@ -22,7 +24,7 @@ interface Props {
   tabID: string;
   rssLinkInput: string;
   setRssLinkInput: React.Dispatch<React.SetStateAction<string>>;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
 }
 
 function EditTab_RSS({

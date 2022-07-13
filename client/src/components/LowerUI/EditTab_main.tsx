@@ -52,6 +52,7 @@ interface Props {
   currentTab: TabDatabase_i;
   setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>;
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  userIdOrNoId: string | null;
   // tabs: SingleTabData[];
   // bookmarks: SingleBookmarkData[];
   // bookmarks: BookmarkDatabase_i[];
@@ -63,13 +64,35 @@ function EditTab({
   currentTab,
   setTabOpened_local,
   globalSettings,
+  userIdOrNoId,
 }: // tabs,
 // bookmarks,
 Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   // const editTab = useTabs((store) => store.editTab);
-  const bookmarks = useDbContext().bookmarks;
-  const tabs = useDbContext().tabs;
+
+  const editTabNotAuth = useTabs((store) => store.editTab);
+
+  let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
+  let tabs: TabDatabase_i[] | SingleTabData[];
+
+  const tabsNotAuth = useTabs((state) => state.tabs);
+  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+
+  const bookmarksDb = useDbContext()?.bookmarks;
+  // only used in authenticated version of the app
+  const staleBookmarks = useDbContext()?.stale_bookmarks;
+  const tabsDb = useDbContext()?.tabs;
+  // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
+
+  bookmarks = userIdOrNoId
+    ? (bookmarksDb as SingleBookmarkData[])
+    : bookmarksNotAuth;
+  tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
+
+  // const bookmarks = useDbContext().bookmarks;
+  // const tabs = useDbContext().tabs;
+
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
     ChangeTabMutation
   );
@@ -211,6 +234,32 @@ Props): JSX.Element {
   }
 
   function editTabWrapper() {
+    if (!userIdOrNoId) {
+      editTabNotAuth(
+        tabID,
+        tabTitleInput,
+        textAreaValue,
+        rssLinkInput,
+        dateCheckbox,
+        descriptionCheckbox,
+        rssItemsPerPage,
+        wasTabOpenClicked,
+        wasCheckboxClicked,
+        wasItemsPerPageClicked,
+        tabType,
+        tabOpen,
+        setTabOpened_local
+      );
+
+      // LEFT OUT because see note #201 (check)
+      // if (tabType === "folder") {
+      //   // changing a tag in bookmarks
+      //   editTag(tabID, arrOfBookmarksNames, bookmarksInputArr);
+      // }
+
+      return;
+    }
+
     if (tabType === "folder") {
       editTab({
         ...currentTab,
@@ -220,7 +269,7 @@ Props): JSX.Element {
 
       console.log(bookmarksInputArr);
 
-      let finalBookmarks = bookmarks.filter((obj) =>
+      let finalBookmarks = (bookmarks as BookmarkDatabase_i[]).filter((obj) =>
         bookmarksInputArr.includes(obj.title)
       );
 
@@ -235,7 +284,7 @@ Props): JSX.Element {
 
       // deleting =======
       // initial bookmarks
-      let initialBookmarks = bookmarks.filter((obj) =>
+      let initialBookmarks = (bookmarks as BookmarkDatabase_i[]).filter((obj) =>
         arrOfBookmarksNames.includes(obj.title)
       );
 
@@ -440,7 +489,7 @@ Props): JSX.Element {
                     return;
                   }
 
-                  let filteredBookmarks = bookmarks.filter(
+                  let filteredBookmarks = (bookmarks as BookmarkDatabase_i[]).filter(
                     (obj) => obj.tags.indexOf(result.data.deleteTab.id) > -1
                   );
 

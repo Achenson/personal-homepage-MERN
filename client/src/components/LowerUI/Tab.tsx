@@ -558,6 +558,7 @@ function Tab({
               currentTab={currentTab as TabDatabase_i}
               setTabOpened_local={setTabOpened_local}
               globalSettings={globalSettings}
+              userIdOrNoId={userIdOrNoId}
               // tabs={tabs}
             />
           )}
