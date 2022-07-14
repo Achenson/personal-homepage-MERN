@@ -397,17 +397,19 @@ function Tab({
             <div
               className="pl-1 w-full h-7 truncate cursor-pointer"
               onClick={() => {
-                // tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
-                tabVisDispatch({
-                  type: "TAB_CONTENT_TOGGLE_DB",
-                  payload: {
-                    editTab: editTab,
-                    changedTab: {
-                      ...(currentTab as TabDatabase_i),
-                      opened: !tabOpened,
-                    },
-                  },
-                });
+                userIdOrNoId
+                  ? tabVisDispatch({
+                      type: "TAB_CONTENT_TOGGLE_DB",
+                      payload: {
+                        editTab: editTab,
+                        changedTab: {
+                          ...(currentTab as TabDatabase_i),
+                          opened: !tabOpened,
+                        },
+                      },
+                    })
+                  : tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
+
                 upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                 if (!resetEnabled) setReset(true);
               }}
@@ -532,6 +534,7 @@ function Tab({
               tabType={tabType}
               globalSettings={globalSettings}
               currentTab={currentTab}
+              userIdOrNoId={userIdOrNoId}
             />
           )}
 

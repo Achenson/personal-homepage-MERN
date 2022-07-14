@@ -13,6 +13,7 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { testUserId } from "../../state/data/testUserId";
 
 interface Props {
   setIconsVis: (value: React.SetStateAction<boolean>) => void;
@@ -21,6 +22,7 @@ interface Props {
   tabType: "folder" | "note" | "rss";
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
   currentTab: TabDatabase_i;
+  userIdOrNoId: string | null;
 }
 
 function ColorsToChoose_Tab({
@@ -29,7 +31,8 @@ function ColorsToChoose_Tab({
   tabColor,
   tabType,
   globalSettings,
-  currentTab
+  currentTab,
+  userIdOrNoId
 }: Props): JSX.Element {
   // const defaultColors = useDefaultColors((state) => state, shallow);
   const [selectedNumber, setSelectedNumber] = useState(calcSelectedNumber());
@@ -100,6 +103,7 @@ function ColorsToChoose_Tab({
                 setSelectedNumber={setSelectedNumber}
                 colorArrLength={tabColorsConcat.length}
                 currentTab={currentTab}
+                userIdOrNoId={userIdOrNoId}
               />
             );
           })}

@@ -1,5 +1,6 @@
 import React from "react";
 import { useMutation } from "urql";
+import { useTabs } from "../../state/hooks/useTabs";
 
 import { tabColorsLightFocus } from "../../utils/data/colors_tab";
 // import { useTabs } from "../../state/hooks/useTabs";
@@ -17,6 +18,7 @@ interface Props {
   setSelectedNumber: React.Dispatch<React.SetStateAction<number>>;
   colorArrLength: number;
   currentTab: TabDatabase_i;
+  userIdOrNoId: string | null;
 }
 
 function SingleColor_Tab({
@@ -26,9 +28,10 @@ function SingleColor_Tab({
   colorNumber,
   setSelectedNumber,
   colorArrLength,
-  currentTab
+  currentTab,
+  userIdOrNoId,
 }: Props): JSX.Element {
-  // const setTabColor = useTabs((state) => state.setTabColor);
+  const setTabColor = useTabs((state) => state.setTabColor);
 
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
     ChangeTabMutation
@@ -65,7 +68,11 @@ function SingleColor_Tab({
       `}
       onClick={() => {
         // setTabColor(color, tabID);
-        editTab({...currentTab, color: color})
+
+        userIdOrNoId
+          ? editTab({ ...currentTab, color: color })
+          : setTabColor(color, tabID);
+
         setSelectedNumber(colorNumber);
       }}
       tabIndex={tabIndex}

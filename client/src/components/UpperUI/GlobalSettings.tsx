@@ -10,7 +10,8 @@ import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { useDbContext } from "../../context/dbContext";
@@ -26,26 +27,39 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { objectTraps } from "immer/dist/internal";
 
+import { SingleTabData } from "../../utils/interfaces";
+
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   globalSettings: SettingsDatabase_i;
+  userIdOrNoId: string | null;
 }
 
 function GlobalSettings({
   mainPaddingRight,
   scrollbarWidth,
   globalSettings,
+  userIdOrNoId,
 }: Props): JSX.Element {
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
 
   // shallow option enables updates when any of the object keys changes!
   // const globalSettings = useGlobalSettings((state) => state, shallow);
-  /*  const setGlobalSettings = useGlobalSettings(
+  const setGlobalSettings = useGlobalSettings(
     (state) => state.setGlobalSettings
-  ); */
-  const tabs = useDbContext().tabs;
+  );
+
+  // const tabs = useDbContext().tabs;
+
+  const tabsNotAuth = useTabs((state) => state.tabs);
+
+  const tabsDb = useDbContext()?.tabs;
+
+  let tabs: TabDatabase_i[] | SingleTabData[];
+
+  tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   const setTabOpenedState = useTabs((state) => state.setTabOpenedState);
 
@@ -102,7 +116,7 @@ function GlobalSettings({
   }
 
   function renderColsNumberControls() {
-    const arrOfColsNumbers: ( 1 | 2 | 3 | 4 )[] = [1, 2, 3, 4];
+    const arrOfColsNumbers: (1 | 2 | 3 | 4)[] = [1, 2, 3, 4];
 
     let colsNumbering = {
       1: "one",
@@ -116,13 +130,18 @@ function GlobalSettings({
         <div className="flex items-center ml-2" key={i}>
           <button
             onClick={() => {
-              /* setGlobalSettings({
-                ...globalSettings,
-                numberOfCols: el,
-              }); */
+              if (!userIdOrNoId) {
+                setGlobalSettings({
+                  ...globalSettings,
+                  numberOfCols: el,
+                });
+
+                return;
+              }
+
               changeSettings({ ...globalSettings, numberOfCols: el });
 
-              tabs
+              (tabs as TabDatabase_i[])
                 // .filter((obj) => obj.column >= globalSettings.numberOfCols)
                 .filter((obj) => obj.column >= el)
                 .sort((a, b) => {
