@@ -48,6 +48,7 @@ interface Props {
   // bookmarks: SingleBookmarkData[];
   // bookmarks: BookmarkDatabase_i[];
   globalSettings: SettingsDatabase_i;
+  userIdOrNoId: string | null;
 }
 
 function NewTab({
@@ -57,18 +58,24 @@ function NewTab({
   // tabs,
   // bookmarks,
   globalSettings,
+  userIdOrNoId,
 }: Props): JSX.Element {
   // const tabs = useTabs((state) => state.tabs);
-  // const addTabs = useTabs((state) => state.addTabs);
+  const addTabsNonAuth = useTabs((state) => state.addTabs);
 
   const tabsNotAuth = useTabs((state) => state.tabs);
   const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
 
+  const bookmarksDb = useDbContext()?.bookmarks;
+  const tabsDb = useDbContext()?.tabs;
+
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
 
-  const bookmarksDb = useDbContext()?.bookmarks;
-  const tabsDb = useDbContext()?.tabs;
+  bookmarks = userIdOrNoId
+    ? (bookmarksDb as SingleBookmarkData[])
+    : bookmarksNotAuth;
+  tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   // const bookmarks = useDbContext().bookmarks;
   // const tabs = useDbContext().tabs;
@@ -83,12 +90,12 @@ function NewTab({
   >(ChangeBookmarkMutation);
 
   // const bookmarks = useBookmarks((state) => state.bookmarks);
-  // const addTag = useBookmarks((state) => state.addTag);
-  // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
+  const addTag = useBookmarks((state) => state.addTag);
+  const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   // const bookmarksAllTags: string[] = bookmarks.map((obj) => obj.id);
-  // const setBookmarksAllTags = useBookmarks(
-  //   (store) => store.setBookmarksAllTags
-  // );
+  const setBookmarksAllTags = useBookmarks(
+    (store) => store.setBookmarksAllTags
+  );
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
 
@@ -258,82 +265,90 @@ function NewTab({
     }
 
     if (tabType === "note") {
-      /*    addTabs([
-        {
-          ...createNote(
+      if (userIdOrNoId) {
+        addTab(
+          createNoteDb(
+            globalSettings.userId,
             tabTitleInput,
             tabColumnInput,
             newTabPriority,
             textAreaValue
-          ),
-        },
-      ]); */
-      addTab(
-        createNoteDb(
-          globalSettings.userId,
-          tabTitleInput,
-          tabColumnInput,
-          newTabPriority,
-          textAreaValue
-        )
-      ).then((result) => console.log(result));
+          )
+        ).then((result) => console.log(result));
+      } else {
+        addTabsNonAuth([
+          {
+            ...createNote(
+              tabTitleInput,
+              tabColumnInput,
+              newTabPriority,
+              textAreaValue
+            ),
+          },
+        ]);
+      }
     }
 
     if (tabType === "folder") {
-      /*   let newFolderTab = createFolderTab(
-        tabTitleInput,
-        tabColumnInput,
-        newTabPriority
-      ); */
-
-      addTab(
-        createFolderTabDb(
-          globalSettings.userId,
+      if (userIdOrNoId) {
+        addTab(
+          createFolderTabDb(
+            globalSettings.userId,
+            tabTitleInput,
+            tabColumnInput,
+            newTabPriority
+          )
+        ).then((result) => {
+          let filteredBookmarks = (bookmarks as BookmarkDatabase_i[]).filter(
+            (obj) => bookmarksInputArr.indexOf(obj.title) > -1
+          );
+          filteredBookmarks.forEach((obj) => {
+            let changedBookmark = { ...obj };
+            changedBookmark.tags.push(result.data.addTab.id);
+            //  console.log(JSON.stringify(changedBookmark, null, 2));
+            changeBookmark(changedBookmark);
+          });
+        });
+      } else {
+        let newFolderTab = createFolderTab(
           tabTitleInput,
           tabColumnInput,
           newTabPriority
-        )
-      ).then((result) => {
-        let filteredBookmarks = (bookmarks as BookmarkDatabase_i[]).filter(
-          (obj) => bookmarksInputArr.indexOf(obj.title) > -1
         );
-        filteredBookmarks.forEach((obj) => {
-          let changedBookmark = { ...obj };
-          changedBookmark.tags.push(result.data.addTab.id);
-          //  console.log(JSON.stringify(changedBookmark, null, 2));
-          changeBookmark(changedBookmark);
-        });
-      });
 
-      /* let newBookmarksAllTagsData = [...bookmarksAllTags];
-      newBookmarksAllTagsData.push(newFolderTab.id); */
-      // setBookmarksAllTags([...newBookmarksAllTagsData]);
+        let newBookmarksAllTagsData = [...bookmarksAllTags];
+        newBookmarksAllTagsData.push(newFolderTab.id);
+        setBookmarksAllTags([...newBookmarksAllTagsData]);
 
-      // addTab(newFolderTab);
-      // updating links data (tags array)
-      // addTag(newFolderTab.id, bookmarksInputArr);
+        addTabsNonAuth([newFolderTab]);
+        // updating links data (tags array)
+        addTag(newFolderTab.id, bookmarksInputArr);
+      }
     }
 
     if (tabType === "rss") {
-      /*      addTabs([
-        {
-          ...createRSS(
+      if (userIdOrNoId) {
+        addTab(
+          createRSSDb(
+            globalSettings.userId,
             tabTitleInput,
             tabColumnInput,
             newTabPriority,
             rssLinkInput
-          ),
-        },
-      ]); */
-      addTab(
-        createRSSDb(
-          globalSettings.userId,
-          tabTitleInput,
-          tabColumnInput,
-          newTabPriority,
-          rssLinkInput
-        )
-      );
+          )
+        );
+      } else {
+        addTabsNonAuth([
+          {
+            ...createRSS(
+              tabTitleInput,
+              tabColumnInput,
+              newTabPriority,
+              rssLinkInput
+            ),
+          },
+        ]);
+      }
     }
   }
 

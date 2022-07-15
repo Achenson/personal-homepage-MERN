@@ -128,13 +128,13 @@ function Bookmark_lowerUI({
   const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
 
   // const bookmarks = useBookmarks((store) => store.bookmarks);
-  // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
+  const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   // DB: bookmarksAllTags in Grid only
-  /*   const setBookmarksAllTags = useBookmarks(
+   const setBookmarksAllTags = useBookmarks(
     (store) => store.setBookmarksAllTags
-  ); */
+  ); 
 
-  // const addTabs = useTabs((store) => store.addTabs);
+  const addTabsNonAuth = useTabs((store) => store.addTabs);
 
   // const tabs = useTabs((store) => store.tabs);
 
@@ -205,7 +205,7 @@ function Bookmark_lowerUI({
     // let newTabsToAdd: SingleTabData[] = [];
     let newTabsToAdd: TabDatabase_i[] = [];
 
-    // let newBookmarksAllTagsData = [...bookmarksAllTags];
+    let newBookmarksAllTagsData = [...bookmarksAllTags];
 
     // getting higher priority for each subsequent tab that is being added at the same time
     let counterForIndices = 0;
@@ -251,47 +251,55 @@ function Bookmark_lowerUI({
     });
 
     if (newTabsToAdd.length > 0) {
-      // setBookmarksAllTags([...newBookmarksAllTagsData]);
-      // addTabs(newTabsToAdd);
+    
+
+      if(userIdOrNoId) {
+
+        let arrOfPromises =  newTabsToAdd.map(obj => addTab(obj))
+
+        /*    let arrOfPromises: Promise<string>[] = [];
+     
+           newTabsToAdd.forEach((obj) => {
+             let newPromise = new Promise<string>((resolve, reject) => {
+               addTab(obj).then((result) => {
+                 if (result.error) {
+                   reject(result.error);
+                   return;
+                 }
+                 resolve(result.data.addTab.id);
+               });
+             });
+     
+             arrOfPromises.push(newPromise);
+           }); */
+     
+           let arrOfNewFolderObjs = await Promise.all(arrOfPromises);
+           // let arrOfNewFolderIds = await Promise.all(arrOfPromises);
+     
+           arrOfNewFolderObjs.forEach((obj) => {
+             tagsInputArr_ToIds.push(obj.data.addTab.id);
+     
+           });
+     
+     
+           console.log(tagsInputArr_ToIds);
+           
+           /*   newTabsToAdd.forEach((obj) => {
+             console.log(obj.title);
+     
+             addTab(obj).then((result) => {
+               console.log(result);
+               tagsInputArr_ToIds.push(result.data.addTab.id);
+             });
+           }); */
+
+      } else {
+          setBookmarksAllTags([...newBookmarksAllTagsData]);
+        addTabsNonAuth(newTabsToAdd);
+      }
 
 
-      let arrOfPromises =  newTabsToAdd.map(obj => addTab(obj))
-
-   /*    let arrOfPromises: Promise<string>[] = [];
-
-      newTabsToAdd.forEach((obj) => {
-        let newPromise = new Promise<string>((resolve, reject) => {
-          addTab(obj).then((result) => {
-            if (result.error) {
-              reject(result.error);
-              return;
-            }
-            resolve(result.data.addTab.id);
-          });
-        });
-
-        arrOfPromises.push(newPromise);
-      }); */
-
-      let arrOfNewFolderObjs = await Promise.all(arrOfPromises);
-      // let arrOfNewFolderIds = await Promise.all(arrOfPromises);
-
-      arrOfNewFolderObjs.forEach((obj) => {
-        tagsInputArr_ToIds.push(obj.data.addTab.id);
-
-      });
-
-
-      console.log(tagsInputArr_ToIds);
-      
-      /*   newTabsToAdd.forEach((obj) => {
-        console.log(obj.title);
-
-        addTab(obj).then((result) => {
-          console.log(result);
-          tagsInputArr_ToIds.push(result.data.addTab.id);
-        });
-      }); */
+   
     }
 
     let bookmarkPromise = new Promise((resolve, reject) => {
