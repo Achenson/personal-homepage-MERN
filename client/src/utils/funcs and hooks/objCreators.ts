@@ -135,7 +135,7 @@ export function createRSSDb(
   };
 }
 
-export function createBookmark(
+export function createBookmarkNonAuth(
   title: string,
   URL: string,
   tags: string[],
@@ -158,7 +158,7 @@ export function createBookmarkDb(
   defaultFaviconFallback = false
 ): BookmarkDatabase_i {
   return {
-    ...createBookmark(title, URL, tags),
+    ...createBookmarkNonAuth(title, URL, tags),
     userId: userId,
   };
 }

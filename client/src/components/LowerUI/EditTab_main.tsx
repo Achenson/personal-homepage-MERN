@@ -97,7 +97,7 @@ Props): JSX.Element {
     ChangeTabMutation
   );
 
-  // const deleteTab = useTabs((store) => store.deleteTab);
+  const deleteTabNonAuth = useTabs((store) => store.deleteTab);
   const [deleteTabResult, deleteTab] = useMutation<any, TabId>(
     DeleteTabMutation
   );
@@ -251,11 +251,11 @@ Props): JSX.Element {
         setTabOpened_local
       );
 
-      // LEFT OUT because see note #201 (check)
-      // if (tabType === "folder") {
-      //   // changing a tag in bookmarks
-      //   editTag(tabID, arrOfBookmarksNames, bookmarksInputArr);
-      // }
+      // to be LEFT OUT?? see note #201 (check)
+      if (tabType === "folder") {
+        // changing a tag in bookmarks
+        editTag(tabID, arrOfBookmarksNames, bookmarksInputArr);
+      }
 
       return;
     }
@@ -484,31 +484,40 @@ Props): JSX.Element {
                   return;
                 }
 
-                deleteTab({ id: tabID }).then((result) => {
-                  if (tabType === "note" || tabType === "rss") {
-                    return;
-                  }
+                if (userIdOrNoId) {
 
-                  let filteredBookmarks = (bookmarks as BookmarkDatabase_i[]).filter(
-                    (obj) => obj.tags.indexOf(result.data.deleteTab.id) > -1
-                  );
-
-                  filteredBookmarks.forEach((obj) => {
-                    let changedBookmark = { ...obj };
-                    // console.log(JSON.stringify(changedBookmark, null, 2));
-                    let indexOfDeletedTab = changedBookmark.tags.indexOf(
-                      result.data.deleteTab.id
+                  deleteTab({ id: tabID }).then((result) => {
+                    if (tabType === "note" || tabType === "rss") {
+                      return;
+                    }
+  
+                    let filteredBookmarks = (bookmarks as BookmarkDatabase_i[]).filter(
+                      (obj) => obj.tags.indexOf(result.data.deleteTab.id) > -1
                     );
-                    changedBookmark.tags.splice(indexOfDeletedTab, 1);
-                    // console.log(JSON.stringify(changedBookmark, null, 2));
-                    changeBookmark(changedBookmark);
+  
+                    filteredBookmarks.forEach((obj) => {
+                      let changedBookmark = { ...obj };
+                      // console.log(JSON.stringify(changedBookmark, null, 2));
+                      let indexOfDeletedTab = changedBookmark.tags.indexOf(
+                        result.data.deleteTab.id
+                      );
+                      changedBookmark.tags.splice(indexOfDeletedTab, 1);
+                      // console.log(JSON.stringify(changedBookmark, null, 2));
+                      changeBookmark(changedBookmark);
+                    });
                   });
-                });
+                } else {
+                  deleteTabNonAuth(tabID);
+                }
+
+       
 
                 tabContext.tabVisDispatch({ type: "EDIT_TOGGLE" });
 
                 // removing deleted tab(tag) from bookmarks
-                // deleteTag(tabTitle);
+                if(!userIdOrNoId) {
+                  deleteTag(tabTitle);
+                }
               }}
               aria-label={"Delete tab"}
             >

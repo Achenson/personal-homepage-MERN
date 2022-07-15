@@ -4,14 +4,14 @@ import { useMutation } from "urql";
 import Bookmark_lowerUI_edit from "./Bookmark_lowerUI_edit";
 import Bookmark_lowerUI_new from "./Bookmark_lowerUI_new";
 
-// import { useBookmarks } from "../../state/hooks/useBookmarks";
+import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
 
 import { useTabContext } from "../../context/tabContext";
 import {useDbContext } from "../../context/dbContext";
 
 import {
-  // createBookmark,
+  createBookmarkNonAuth,
   createBookmarkDb,
   createFolderTab,
   createFolderTabDb,
@@ -30,6 +30,10 @@ import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { responsePathAsArray } from "graphql";
+
+
+import { DbContext_i } from "../../utils/interfaces";
+
 
 interface Props {
   titleInput: string;
@@ -55,6 +59,7 @@ interface Props {
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
   globalSettings: SettingsDatabase_i;
+  userIdOrNoId: string | null;
 }
 
 function Bookmark_lowerUI({
@@ -79,14 +84,33 @@ function Bookmark_lowerUI({
   // bookmarks,
   // tabs,
   globalSettings,
+  userIdOrNoId
 }: Props): JSX.Element {
-  // const addBookmark = useBookmarks((store) => store.addBookmark);
-  // const editBookmark = useBookmarks((store) => store.editBookmark);
-  const bookmarks = useDbContext().bookmarks;
-  const staleBookmarks = useDbContext().stale_bookmarks;
-  const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
+  const addBookmarkNonAuth = useBookmarks((store) => store.addBookmark);
+  const editBookmarkNonAuth = useBookmarks((store) => store.editBookmark);
 
-  const tabs = useDbContext().tabs;
+  const tabsNotAuth = useTabs((state) => state.tabs);
+  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+
+  let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
+  let tabs: TabDatabase_i[] | SingleTabData[];
+
+  const bookmarksDb = useDbContext()?.bookmarks;
+  // only used in authenticated version of the app
+  const staleBookmarks = useDbContext()?.stale_bookmarks;
+  const tabsDb = useDbContext()?.tabs;
+  // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
+
+  bookmarks = userIdOrNoId
+    ? (bookmarksDb as SingleBookmarkData[])
+    : bookmarksNotAuth;
+  tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
+
+
+  // const bookmarks = useDbContext().bookmarks;
+  // const staleBookmarks = useDbContext().stale_bookmarks;
+  const reexecuteBookmarks = (useDbContext() as DbContext_i)?.reexecuteBookmarks;
+  // const tabs = useDbContext().tabs;
 
   const [addBookmarkResult, addBookmark] = useMutation<any, BookmarkDatabase_i>(
     AddBookmarkMutation
@@ -272,21 +296,29 @@ function Bookmark_lowerUI({
 
     let bookmarkPromise = new Promise((resolve, reject) => {
       if (bookmarkComponentType === "edit") {
-        // editBookmark(bookmarkId, titleInput, urlInput, tagsInputArr_ToIds);
-        editBookmark({
-          id: bookmarkId,
-          userId: globalSettings.userId,
-          title: titleInput,
-          URL: urlInput,
-          tags: tagsInputArr_ToIds,
-          defaultFaviconFallback: currentBookmark.defaultFaviconFallback
-        }).then((result) => {
-          if (result.error) {
-            reject(result.error);
-            return;
-          }
-          resolve(result.data.editBookmark);
-        });
+        
+
+        if(userIdOrNoId) {
+          editBookmark({
+            id: bookmarkId,
+            userId: globalSettings.userId,
+            title: titleInput,
+            URL: urlInput,
+            tags: tagsInputArr_ToIds,
+            defaultFaviconFallback: currentBookmark.defaultFaviconFallback
+          }).then((result) => {
+            if (result.error) {
+              reject(result.error);
+              return;
+            }
+            resolve(result.data.editBookmark);
+          });
+        } else {
+
+          editBookmarkNonAuth(bookmarkId, titleInput, urlInput, tagsInputArr_ToIds);
+        }
+
+    
 
         // for deleting empty folder
         let tagsIdsToDelete: string[] = [];
@@ -332,9 +364,15 @@ function Bookmark_lowerUI({
       } else {
         // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
 
-        console.log("tagsInputArr_ToIds");
-        console.log(tagsInputArr_ToIds);
 
+        if(!userIdOrNoId) {
+
+          addBookmarkNonAuth(createBookmarkNonAuth(titleInput, urlInput, tagsInputArr_ToIds));
+          return
+        }
+
+
+   
         addBookmark(
           createBookmarkDb(
             globalSettings.userId,
@@ -357,7 +395,7 @@ function Bookmark_lowerUI({
     /* console.log("bookmarkPromise");
     console.log(bookmarkPromise); */
     
-    if(bookmarks.length === 0) {
+    if(bookmarks.length === 0 && userIdOrNoId) {
       reexecuteBookmarks({ requestPolicy: 'network-only' });
     }
     

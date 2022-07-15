@@ -128,7 +128,7 @@ Props): JSX.Element {
 
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   // const tabs = useTabs((state) => state.tabs);
-  // const deleteBookmark = useBookmarks((state) => state.deleteBookmark);
+  const deleteBookmarkNonAuth = useBookmarks((state) => state.deleteBookmark);
 
   const [deleteBookmarkResult, deleteBookmark] = useMutation<any, BookmarkId>(
     DeleteBookmarkMutation
@@ -312,6 +312,19 @@ Props): JSX.Element {
                     tabs.find((obj) => !obj.deletable)?.id as string
                   );
                 } */
+
+                if(!userIdOrDemoId) {
+                  let bookmarkToDelete = bookmarks.find(
+                    (obj) => obj.id === bookmarkId
+                  );
+  
+                  if (bookmarkToDelete) {
+                    deleteBookmarkNonAuth(bookmarkId, singleBookmarkData);
+                  }
+
+                  return;
+
+                }
 
                 console.log(singleBookmarkData.title);
                 console.log(bookmarkId);

@@ -256,6 +256,9 @@ old not-auth -> placed in central bookmarks state. check if it works properly, u
 202. tabDeletingPause introduced in MERN version -> can/should it be implemented for non-auth version also?
 203. settings interfaces db & demo-> unify, clear (all interfaces shoul be moved out of client?)
 204. all userIdOrNoId logic -> convert to ? :
+205. Grid tabDeletingPause -> only used in MERN code, is this okay?
+206. useBookmark -> string types for id in MERN version number|string in old client only ver. -> no clashes
+!!!!! 207. SingleBookmark -> implement icon fallback for nonAuth Version!
 
 {
   filename: 'nature-3082832_1920.jpg',

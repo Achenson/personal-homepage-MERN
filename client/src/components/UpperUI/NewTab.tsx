@@ -15,8 +15,8 @@ import { ReactComponent as ChevronUpSVG } from "../../svgs/chevron-up.svg";
 
 import { useDbContext } from "../../context/dbContext";
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
-// import { useBookmarks } from "../../state/hooks/useBookmarks";
-// import { useTabs } from "../../state/hooks/useTabs";
+import { useBookmarks } from "../../state/hooks/useBookmarks";
+import { useTabs } from "../../state/hooks/useTabs";
 
 import {
   createFolderTab,
@@ -60,8 +60,18 @@ function NewTab({
 }: Props): JSX.Element {
   // const tabs = useTabs((state) => state.tabs);
   // const addTabs = useTabs((state) => state.addTabs);
-  const bookmarks = useDbContext().bookmarks;
-  const tabs = useDbContext().tabs;
+
+  const tabsNotAuth = useTabs((state) => state.tabs);
+  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+
+  let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
+  let tabs: TabDatabase_i[] | SingleTabData[];
+
+  const bookmarksDb = useDbContext()?.bookmarks;
+  const tabsDb = useDbContext()?.tabs;
+
+  // const bookmarks = useDbContext().bookmarks;
+  // const tabs = useDbContext().tabs;
 
   const [addTabResult, addTab] = useMutation<any, TabDatabase_i>(
     AddTabMutation
@@ -284,7 +294,7 @@ function NewTab({
           newTabPriority
         )
       ).then((result) => {
-        let filteredBookmarks = bookmarks.filter(
+        let filteredBookmarks = (bookmarks as BookmarkDatabase_i[]).filter(
           (obj) => bookmarksInputArr.indexOf(obj.title) > -1
         );
         filteredBookmarks.forEach((obj) => {

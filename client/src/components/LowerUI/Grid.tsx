@@ -48,6 +48,7 @@ function Grid({
 // staleBookmarks,
 Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
+  const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
 
   const tabsNotAuth = useTabs((state) => state.tabs);
@@ -208,6 +209,11 @@ Props): JSX.Element {
   }, [tabs, bookmarksAllTags]); */
 
   useEffect(() => {
+    if (!userIdOrNoId) {
+      deleteEmptyTabsNotAuth(bookmarksAllTags);
+      return;
+    }
+
     deleteEmptyTabs();
     async function deleteEmptyTabs() {
       // console.log(tabDeletingPause);
@@ -216,7 +222,7 @@ Props): JSX.Element {
         return;
       }
 
-      if (staleBookmarks && userIdOrNoId) {
+      if (staleBookmarks) {
         return;
       }
 
@@ -289,7 +295,15 @@ Props): JSX.Element {
           }
         }); */
     }
-  }, [bookmarks, tabs, tabDeletingPause, userIdOrNoId]);
+    // }, [bookmarks, tabs, tabDeletingPause, userIdOrNoId]);
+  }, [
+    bookmarks,
+    tabs,
+    tabDeletingPause,
+    userIdOrNoId,
+    bookmarksAllTags,
+    deleteEmptyTabsNotAuth,
+  ]);
 
   // client-side legacy code, now handled by GlobalSettings
   /*   useEffect(() => {
