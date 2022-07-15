@@ -258,7 +258,9 @@ old not-auth -> placed in central bookmarks state. check if it works properly, u
 204. all userIdOrNoId logic -> convert to ? :
 205. Grid tabDeletingPause -> only used in MERN code, is this okay?
 206. useBookmark -> string types for id in MERN version number|string in old client only ver. -> no clashes
+change ids in the starting data for nonAuth to strings?
 !!!!! 207. SingleBookmark -> implement icon fallback for nonAuth Version!
+207. NewBookmark_UpperUI -> ts-ignore had to be user 2x -> why??
 
 {
   filename: 'nature-3082832_1920.jpg',

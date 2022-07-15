@@ -19,9 +19,10 @@ import { useDbContext } from "../../context/dbContext";
 
 import {
   // createBookmark,
-  // createFolderTab,
+  createFolderTab,
   createBookmarkDb,
   createFolderTabDb,
+  createBookmarkNonAuth,
 } from "../../utils/funcs and hooks/objCreators";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { bookmarkErrorHandling } from "../../utils/funcs and hooks/bookmarkErrorHandling";
@@ -65,7 +66,7 @@ interface Props {
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
-
+  userIdOrNoId: string | null;
 }
 
 function NewBookmark_UpperUI({
@@ -88,12 +89,28 @@ function NewBookmark_UpperUI({
   // bookmarks,
   // tabs,
   globalSettings,
+  userIdOrNoId,
 }: Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
-  const bookmarks = useDbContext().bookmarks;
-  const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
-  const tabs = useDbContext().tabs;
-  // const addTabs = useTabs((store) => store.addTabs);
+
+  const tabsNotAuth = useTabs((state) => state.tabs);
+  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+
+  const bookmarksDb = useDbContext()?.bookmarks;
+  const tabsDb = useDbContext()?.tabs;
+
+  let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
+  let tabs: TabDatabase_i[] | SingleTabData[];
+
+  bookmarks = userIdOrNoId
+    ? (bookmarksDb as SingleBookmarkData[])
+    : bookmarksNotAuth;
+  tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
+
+  // const bookmarks = useDbContext().bookmarks;
+  const reexecuteBookmarks = useDbContext()?.reexecuteBookmarks;
+  // const tabs = useDbContext().tabs;
+  const addTabsNonAuth = useTabs((store) => store.addTabs);
   const [addTabResult, addTab] = useMutation<any, TabDatabase_i>(
     AddTabMutation
   );
@@ -103,12 +120,12 @@ function NewBookmark_UpperUI({
   );
 
   // const bookmarks = useBookmarks((store) => store.bookmarks);
-  // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
+  const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   // const bookmarksAllTags: string[] = bookmarks.map((obj) => obj.id);
-  /*   const setBookmarksAllTags = useBookmarks(
+  const setBookmarksAllTags = useBookmarks(
     (store) => store.setBookmarksAllTags
-  ); */
-  // const addBookmark = useBookmarks((store) => store.addBookmark);
+  );
+  const addBookmarkNonAuth = useBookmarks((store) => store.addBookmark);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
@@ -152,8 +169,10 @@ function NewBookmark_UpperUI({
     ];
 
     // let newTabsToAdd: SingleTabData[] = [];
-    let newTabsToAdd: TabDatabase_i[] = [];
-    // let newBookmarksAllTagsData = [...bookmarksAllTags];
+    let newTabsToAdd: TabDatabase_i[] | SingleTabData[] = [];
+
+    // nonAuth
+    let newBookmarksAllTagsData = [...bookmarksAllTags];
 
     // getting higher priority for each subsequent tab that is being added at the same time
     let counterForIndices = 0;
@@ -172,17 +191,25 @@ function NewBookmark_UpperUI({
 
       // if folder with title corresponding to tag doesn't exist create it...
       if (!tabCorrespondingToTag && selectablesInputStr !== "") {
+        let newTab: TabDatabase_i | SingleTabData;
         // let newTab = createFolderTab(el, 1, newTabPriority);
-        let newTab = createFolderTabDb(
-          globalSettings.userId,
-          el,
-          1,
-          newTabPriority
-        );
+
+        newTab = userIdOrNoId
+          ? createFolderTabDb(
+              (globalSettings as SettingsDatabase_i).userId,
+              el,
+              1,
+              newTabPriority
+            )
+          : createFolderTab(el, 1, newTabPriority);
+
         tagsInputArr_ToIds.push(newTab.id);
 
         //... and add new folder tab to the main tags list
-        // newBookmarksAllTagsData.push(newTab.id);
+
+        if (!userIdOrNoId) newBookmarksAllTagsData.push(newTab.id);
+
+        // @ts-ignore
         newTabsToAdd.push(newTab);
 
         counterForIndices++;
@@ -197,20 +224,35 @@ function NewBookmark_UpperUI({
     if (newTabsToAdd.length > 0) {
       // setBookmarksAllTags([...newBookmarksAllTagsData]);
       // addTabs(newTabsToAdd);
-      let arrOfPromises = newTabsToAdd.map((obj) => addTab(obj));
 
-      let arrOfNewFolderObjs = await Promise.all(arrOfPromises);
-      // let arrOfNewFolderIds = await Promise.all(arrOfPromises);
+      if (userIdOrNoId) {
+        let arrOfPromises = (newTabsToAdd as TabDatabase_i[]).map((obj) =>
+          addTab(obj)
+        );
 
-      arrOfNewFolderObjs.forEach((obj) => {
-        tagsInputArr_ToIds.push(obj.data.addTab.id);
-      });
+        let arrOfNewFolderObjs = await Promise.all(arrOfPromises);
+        // let arrOfNewFolderIds = await Promise.all(arrOfPromises);
+
+        arrOfNewFolderObjs.forEach((obj) => {
+          tagsInputArr_ToIds.push(obj.data.addTab.id);
+        });
+      } else {
+        setBookmarksAllTags([...newBookmarksAllTagsData]);
+        addTabsNonAuth(newTabsToAdd);
+      }
+    }
+
+    if (!userIdOrNoId) {
+      addBookmarkNonAuth(
+        createBookmarkNonAuth(titleInput, urlInput, tagsInputArr_ToIds)
+      );
+      return;
     }
 
     let bookmarkPromise = new Promise((resolve, reject) => {
       addBookmark(
         createBookmarkDb(
-          globalSettings.userId,
+          (globalSettings as SettingsDatabase_i).userId,
           titleInput,
           urlInput,
           tagsInputArr_ToIds
@@ -226,10 +268,10 @@ function NewBookmark_UpperUI({
 
     await bookmarkPromise;
     // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
-    if(bookmarks.length === 0) {
-      reexecuteBookmarks({ requestPolicy: 'network-only' });
+    if (bookmarks.length === 0 && userIdOrNoId) {
+      // @ts-ignore
+      reexecuteBookmarks({ requestPolicy: "network-only" });
     }
-    
   }
 
   function handleKeyDown(event: KeyboardEvent) {
