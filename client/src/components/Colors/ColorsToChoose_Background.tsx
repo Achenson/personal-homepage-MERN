@@ -14,15 +14,18 @@ import {
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { testUserId } from "../../state/data/testUserId";
 
 interface Props {
   setFocusOnBackgroundColor: React.Dispatch<React.SetStateAction<boolean>>;
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  userIdOrNoId: string|null;
 }
 
 function ColorsToChoose_Background({
   setFocusOnBackgroundColor,
   globalSettings,
+  userIdOrNoId
 }: Props): JSX.Element {
   // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
   const backgroundColor = globalSettings.backgroundColor;
@@ -86,6 +89,7 @@ function ColorsToChoose_Background({
                 selectedNumber={selectedNumber}
                 setSelectedNumber={setSelectedNumber}
                 globalSettings={globalSettings}
+                userIdOrNoId={userIdOrNoId}
               />
             );
           })}

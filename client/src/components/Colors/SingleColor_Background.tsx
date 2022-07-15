@@ -9,7 +9,9 @@ import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { useGlobalSettings, UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+
+
 
 interface Props {
   color: string;
@@ -19,6 +21,7 @@ interface Props {
   setSelectedNumber: React.Dispatch<React.SetStateAction<number>>;
   colorArrLength: number;
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  userIdOrNoId: string |null
 }
 
 function SingleColor_Background({
@@ -29,10 +32,15 @@ function SingleColor_Background({
   setSelectedNumber,
   colorArrLength,
   globalSettings,
+  userIdOrNoId
 }: Props): JSX.Element {
   /*   const setBackgroundColor = useBackgroundColor(
     (state) => state.setBackgroundColor
   ); */
+
+  const setGlobalSettings = useGlobalSettings(
+    (state) => state.setGlobalSettings
+  );
 
   const [changeSettingsResult, changeSettings] = useMutation<
     any,
@@ -77,7 +85,14 @@ function SingleColor_Background({
       `}
       onClick={() => {
         // setBackgroundColor(color);
-        changeSettings({ ...globalSettings, backgroundColor: color });
+        if (userIdOrNoId) {
+
+          changeSettings({ ...globalSettings as SettingsDatabase_i, backgroundColor: color });
+
+        } else {
+          setGlobalSettings({ ...globalSettings as UseGlobalSettingsAll, backgroundColor: color });
+        }
+
         setSelectedNumber(colorNumber);
       }}
       tabIndex={tabIndex}

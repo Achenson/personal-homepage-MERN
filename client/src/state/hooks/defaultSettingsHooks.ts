@@ -16,19 +16,6 @@ import { tabColors } from "../../utils/data/colors_tab";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
 export interface UseGlobalSettingsAll extends GlobalSettingsState {
-  backgroundColor: string;
-  folderColor: string;
-  noteColor: string;
-  rssColor: string;
-  uiColor: string;
-  colColor_1: string;
-  colColor_2: string;
-  colColor_3: string;
-  colColor_4: string;
-  colColorImg_1: string;
-  colColorImg_2: string;
-  colColorImg_3: string;
-  colColorImg_4: string;
   setGlobalSettings: (globalSettings: GlobalSettingsState) => void;
 }
 
