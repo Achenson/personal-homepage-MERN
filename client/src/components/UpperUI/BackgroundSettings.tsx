@@ -165,10 +165,12 @@ function BackgroundSettings({
                       if (userIdOrNoId) {
                         changeSettings({
                           ...(globalSettings as SettingsDatabase_i),
+                          picBackground: true,
                         });
                       } else {
                         setGlobalSettings({
                           ...(globalSettings as UseGlobalSettingsAll),
+                          picBackground: true,
                         });
                       }
 
@@ -205,10 +207,12 @@ function BackgroundSettings({
                       if (userIdOrNoId) {
                         changeSettings({
                           ...(globalSettings as SettingsDatabase_i),
+                          picBackground: false,
                         });
                       } else {
                         setGlobalSettings({
                           ...(globalSettings as UseGlobalSettingsAll),
+                          picBackground: false,
                         });
                       }
 
@@ -300,10 +304,12 @@ function BackgroundSettings({
                         if (userIdOrNoId) {
                           changeSettings({
                             ...(globalSettings as SettingsDatabase_i),
+                              defaultImage: "defaultBackground",
                           });
                         } else {
                           setGlobalSettings({
                             ...(globalSettings as UseGlobalSettingsAll),
+                            defaultImage: "defaultBackground",
                           });
                         }
 
@@ -338,10 +344,12 @@ function BackgroundSettings({
                         if (userIdOrNoId) {
                           changeSettings({
                             ...(globalSettings as SettingsDatabase_i),
+                                defaultImage: "defaultBackground_2",
                           });
                         } else {
                           setGlobalSettings({
                             ...(globalSettings as UseGlobalSettingsAll),
+                            defaultImage: "defaultBackground_2",
                           });
                         }
                       }}
@@ -368,10 +376,12 @@ function BackgroundSettings({
                         if (userIdOrNoId) {
                           changeSettings({
                             ...(globalSettings as SettingsDatabase_i),
+                            defaultImage: "defaultBackground_3",
                           });
                         } else {
                           setGlobalSettings({
                             ...(globalSettings as UseGlobalSettingsAll),
+                            defaultImage: "defaultBackground_3",
                           });
                         }
 
