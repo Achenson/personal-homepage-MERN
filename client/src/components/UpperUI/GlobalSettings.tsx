@@ -239,6 +239,15 @@ function GlobalSettings({
                     ...globalSettings,
                     oneColorForAllCols: !globalSettings.oneColorForAllCols,
                   }); */
+
+                  if (!userIdOrNoId) {
+                    setGlobalSettings({
+                      ...globalSettings,
+                      oneColorForAllCols: !globalSettings.oneColorForAllCols,
+                    });
+                    return;
+                  }
+
                   changeSettings({
                     ...globalSettings,
                     oneColorForAllCols: !globalSettings.oneColorForAllCols,
@@ -260,6 +269,15 @@ function GlobalSettings({
                     ...globalSettings,
                     limitColGrowth: !globalSettings.limitColGrowth,
                   }); */
+
+                  if (!userIdOrNoId) {
+                    setGlobalSettings({
+                      ...globalSettings,
+                      limitColGrowth: !globalSettings.limitColGrowth,
+                    });
+                    return;
+                  }
+
                   changeSettings({
                     ...globalSettings,
                     limitColGrowth: !globalSettings.limitColGrowth,
@@ -282,6 +300,15 @@ function GlobalSettings({
                     ...globalSettings,
                     hideNonDeletable: !globalSettings.hideNonDeletable,
                   }); */
+
+                  if (!userIdOrNoId) {
+                    setGlobalSettings({
+                      ...globalSettings,
+                      hideNonDeletable: !globalSettings.hideNonDeletable,
+                    });
+                    return;
+                  }
+
                   changeSettings({
                     ...globalSettings,
                     hideNonDeletable: !globalSettings.hideNonDeletable,
@@ -303,6 +330,15 @@ function GlobalSettings({
                     ...globalSettings,
                     disableDrag: !globalSettings.disableDrag,
                   }); */
+
+                  if (!userIdOrNoId) {
+                    setGlobalSettings({
+                      ...globalSettings,
+                      disableDrag: !globalSettings.disableDrag,
+                    });
+                    return;
+                  }
+
                   changeSettings({
                     ...globalSettings,
                     disableDrag: !globalSettings.disableDrag,
@@ -332,10 +368,18 @@ function GlobalSettings({
                           ...globalSettings,
                           description: !globalSettings.description,
                         }); */
-                        changeSettings({
-                          ...globalSettings,
-                          description: !globalSettings.description,
-                        });
+
+                        if (userIdOrNoId) {
+                          changeSettings({
+                            ...globalSettings,
+                            description: !globalSettings.description,
+                          });
+                        } else {
+                          setGlobalSettings({
+                            ...globalSettings,
+                            description: !globalSettings.description,
+                          });
+                        }
 
                         setTabOpenedState(null);
                       }}
@@ -358,10 +402,18 @@ function GlobalSettings({
                           date: !globalSettings.date,
                         });
                          */
-                        changeSettings({
-                          ...globalSettings,
-                          date: !globalSettings.date,
-                        });
+
+                        if (userIdOrNoId) {
+                          changeSettings({
+                            ...globalSettings,
+                            date: !globalSettings.date,
+                          });
+                        } else {
+                          setGlobalSettings({
+                            ...globalSettings,
+                            date: !globalSettings.date,
+                          });
+                        }
 
                         setTabOpenedState(null);
                       }}
@@ -390,10 +442,23 @@ function GlobalSettings({
                       ...globalSettings,
                       itemsPerPage: parseInt(e.target.value),
                     }); */
-                    changeSettings({
-                      ...globalSettings,
-                      itemsPerPage: parseInt(e.target.value),
-                    });
+
+                    if (userIdOrNoId) {
+                      changeSettings({
+                        ...globalSettings,
+                        itemsPerPage: parseInt(e.target.value),
+                      });
+                    } else {
+                      setGlobalSettings({
+                        ...globalSettings,
+                        itemsPerPage: parseInt(e.target.value),
+                      });
+                    }
+
+                    // changeSettings({
+                    //   ...globalSettings,
+                    //   itemsPerPage: parseInt(e.target.value),
+                    // });
 
                     setTabOpenedState(null);
                   }}

@@ -7,7 +7,10 @@ import { useQuery, useMutation } from "urql";
 import Settings_inner_xs from "./Settings_inner_xs";
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+import {
+  useGlobalSettings,
+  UseGlobalSettingsAll,
+} from "../../state/hooks/defaultSettingsHooks";
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
@@ -21,9 +24,10 @@ import BackgroundSettings_Upload from "./BackgroundSettings_Upload";
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
   backgroundImgResults: any;
   reexecuteBackgroundImg: any;
+  userIdOrNoId: string | null;
 }
 
 function BackgroundSettings({
@@ -32,11 +36,12 @@ function BackgroundSettings({
   globalSettings,
   backgroundImgResults,
   reexecuteBackgroundImg,
+  userIdOrNoId,
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
-  /*  const setGlobalSettings = useGlobalSettings(
+  const setGlobalSettings = useGlobalSettings(
     (state) => state.setGlobalSettings
-  ); */
+  );
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
 
@@ -156,10 +161,21 @@ function BackgroundSettings({
                         ...globalSettings,
                         picBackground: true,
                       }); */
-                      changeSettings({
-                        ...globalSettings,
-                        picBackground: true,
-                      });
+
+                      if (userIdOrNoId) {
+                        changeSettings({
+                          ...(globalSettings as SettingsDatabase_i),
+                        });
+                      } else {
+                        setGlobalSettings({
+                          ...(globalSettings as UseGlobalSettingsAll),
+                        });
+                      }
+
+                      // changeSettings({
+                      //   ...globalSettings,
+                      //   picBackground: true,
+                      // });
                     }
                   }}
                   aria-label={"Background image on"}
@@ -185,10 +201,21 @@ function BackgroundSettings({
                         ...globalSettings,
                         picBackground: false,
                       }); */
-                      changeSettings({
-                        ...globalSettings,
-                        picBackground: false,
-                      });
+
+                      if (userIdOrNoId) {
+                        changeSettings({
+                          ...(globalSettings as SettingsDatabase_i),
+                        });
+                      } else {
+                        setGlobalSettings({
+                          ...(globalSettings as UseGlobalSettingsAll),
+                        });
+                      }
+
+                      // changeSettings({
+                      //   ...globalSettings,
+                      //   picBackground: false,
+                      // });
                     }
                   }}
                   aria-label={"Background image off"}
@@ -221,23 +248,32 @@ function BackgroundSettings({
                           defaultImage: "defaultBackground",
                         }); */
 
-                          if (!backgroundImgResults?.data?.backgroundImg?.backgroundImgUrl) {
+                          if (!userIdOrNoId) {
+                            console.log(
+                              "authentication needed to access custom"
+                            );
+                            return;
+                          }
+
+                          if (
+                            !backgroundImgResults?.data?.backgroundImg
+                              ?.backgroundImgUrl
+                          ) {
                             console.log("no BACKGROUND IMG RESULTS");
-                            
+
                             hiddenFileInput.current?.click();
                             return;
                           }
 
-                          console.log("BACKGROUND IMG RESULTS exist")
+                          console.log("BACKGROUND IMG RESULTS exist");
                           console.log(backgroundImgResults);
-                          
 
                           if (!wasCustomClicked) {
                             setWasCustomClicked(true);
                           }
 
                           changeSettings({
-                            ...globalSettings,
+                            ...(globalSettings as SettingsDatabase_i),
                             defaultImage: "customBackground",
                           });
                         }}
@@ -260,10 +296,21 @@ function BackgroundSettings({
                           defaultImage: "defaultBackground",
                         }); */
                         if (wasCustomClicked) setWasCustomClicked(false);
-                        changeSettings({
-                          ...globalSettings,
-                          defaultImage: "defaultBackground",
-                        });
+
+                        if (userIdOrNoId) {
+                          changeSettings({
+                            ...(globalSettings as SettingsDatabase_i),
+                          });
+                        } else {
+                          setGlobalSettings({
+                            ...(globalSettings as UseGlobalSettingsAll),
+                          });
+                        }
+
+                        // changeSettings({
+                        //   ...globalSettings,
+                        //   defaultImage: "defaultBackground",
+                        // });
                       }}
                       className="focus-1-offset"
                       aria-label={"Background image one"}
@@ -283,10 +330,20 @@ function BackgroundSettings({
                           defaultImage: "defaultBackground_2",
                         }); */
                         if (wasCustomClicked) setWasCustomClicked(false);
-                        changeSettings({
-                          ...globalSettings,
-                          defaultImage: "defaultBackground_2",
-                        });
+                        // changeSettings({
+                        //   ...globalSettings,
+                        //   defaultImage: "defaultBackground_2",
+                        // });
+
+                        if (userIdOrNoId) {
+                          changeSettings({
+                            ...(globalSettings as SettingsDatabase_i),
+                          });
+                        } else {
+                          setGlobalSettings({
+                            ...(globalSettings as UseGlobalSettingsAll),
+                          });
+                        }
                       }}
                       className="focus-1-offset"
                       aria-label={"Background image two"}
@@ -307,10 +364,21 @@ function BackgroundSettings({
                           defaultImage: "defaultBackground_3",
                         }); */
                         if (wasCustomClicked) setWasCustomClicked(false);
-                        changeSettings({
-                          ...globalSettings,
-                          defaultImage: "defaultBackground_3",
-                        });
+
+                        if (userIdOrNoId) {
+                          changeSettings({
+                            ...(globalSettings as SettingsDatabase_i),
+                          });
+                        } else {
+                          setGlobalSettings({
+                            ...(globalSettings as UseGlobalSettingsAll),
+                          });
+                        }
+
+                        // changeSettings({
+                        //   ...globalSettings,
+                        //   defaultImage: "defaultBackground_3",
+                        // });
                       }}
                       aria-label={"Background image three"}
                     >

@@ -14,7 +14,10 @@ import { tabColorsLightFocus } from "../../utils/data/colors_tab";
 import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import {
+  UseGlobalSettingsAll,
+  useGlobalSettings,
+} from "../../state/hooks/defaultSettingsHooks";
 
 interface Props {
   color: string;
@@ -33,6 +36,7 @@ interface Props {
   setSelectedNumber: React.Dispatch<React.SetStateAction<number>>;
   colorArrLength: number;
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  userIdOrNoId: string | null;
 }
 
 function SingleColor_DefaultAndColumn({
@@ -44,6 +48,7 @@ function SingleColor_DefaultAndColumn({
   setSelectedNumber,
   colorArrLength,
   globalSettings,
+  userIdOrNoId,
 }: Props): JSX.Element {
   // const setDefaultColors = useDefaultColors((state) => state.setDefaultColors);
   /*  const setColumnsColors = useColumnsColors((state) => state.setColumnsColors);
@@ -55,6 +60,10 @@ function SingleColor_DefaultAndColumn({
     any,
     SettingsDatabase_i
   >(ChangeSettingsMutation);
+
+  const setGlobalSettings = useGlobalSettings(
+    (state) => state.setGlobalSettings
+  );
 
   let defaultColorsForImg =
     defaultColorsFor.slice(0, defaultColorsFor.length - 2) +
@@ -144,28 +153,60 @@ function SingleColor_DefaultAndColumn({
       // for columns with background img only
       style={{ backgroundColor: `${colsForBackgroundImg ? color : ""}` }}
       onClick={() => {
-        
         if (defaultColorsFor === "folders") {
           // setDefaultColors({ key: "folderColor", color: color });
           // setDefaultColors({
           //   key: "uiColor",
           //   color: setComplementaryUiColor(color),
           // });
-          changeSettings({
-            ...globalSettings,
-            folderColor: color,
-            uiColor: setComplementaryUiColor(color),
-          });
+
+          if (userIdOrNoId) {
+            changeSettings({
+              ...(globalSettings as SettingsDatabase_i),
+              folderColor: color,
+              uiColor: setComplementaryUiColor(color),
+            });
+          } else {
+            setGlobalSettings({
+              ...(globalSettings as UseGlobalSettingsAll),
+              folderColor: color,
+              uiColor: setComplementaryUiColor(color),
+            });
+          }
         }
 
         if (defaultColorsFor === "notes") {
           // setDefaultColors({ key: "noteColor", color: color });
-          changeSettings({ ...globalSettings, noteColor: color });
+          // changeSettings({ ...globalSettings, noteColor: color });
+
+          if (userIdOrNoId) {
+            changeSettings({
+              ...(globalSettings as SettingsDatabase_i),
+              noteColor: color,
+            });
+          } else {
+            setGlobalSettings({
+              ...(globalSettings as UseGlobalSettingsAll),
+              noteColor: color,
+            });
+          }
         }
 
         if (defaultColorsFor === "rss") {
           // setDefaultColors({ key: "rssColor", color: color });
-          changeSettings({ ...globalSettings, rssColor: color });
+          // changeSettings({ ...globalSettings, rssColor: color });
+
+          if (userIdOrNoId) {
+            changeSettings({
+              ...(globalSettings as SettingsDatabase_i),
+              rssColor: color,
+            });
+          } else {
+            setGlobalSettings({
+              ...(globalSettings as UseGlobalSettingsAll),
+              rssColor: color,
+            });
+          }
         }
 
         if (/colColor/.test(defaultColorsFor) && !colsForBackgroundImg) {
@@ -177,9 +218,22 @@ function SingleColor_DefaultAndColumn({
               | "colColor_4",
             color: color,
           }); */
-          changeSettings({ ...globalSettings, [defaultColorsFor]: color }).then(
-            (results) => console.log(results)
-          );
+
+          if (userIdOrNoId) {
+            changeSettings({
+              ...(globalSettings as SettingsDatabase_i),
+              [defaultColorsFor]: color,
+            });
+          } else {
+            setGlobalSettings({
+              ...(globalSettings as UseGlobalSettingsAll),
+              [defaultColorsFor]: color,
+            });
+          }
+
+          // changeSettings({ ...globalSettings, [defaultColorsFor]: color }).then(
+          //   (results) => console.log(results)
+          // );
         }
 
         if (/colColor/.test(defaultColorsFor) && colsForBackgroundImg) {
@@ -191,7 +245,19 @@ function SingleColor_DefaultAndColumn({
               | "colColor_4",
             color: color,
           }); */
-          changeSettings({ ...globalSettings, [defaultColorsForImg]: color });
+          // changeSettings({ ...globalSettings, [defaultColorsForImg]: color });
+
+          if (userIdOrNoId) {
+            changeSettings({
+              ...(globalSettings as SettingsDatabase_i),
+              [defaultColorsForImg]: color,
+            });
+          } else {
+            setGlobalSettings({
+              ...(globalSettings as UseGlobalSettingsAll),
+              [defaultColorsForImg]: color,
+            });
+          }
         }
 
         setSelectedNumber(colorNumber);

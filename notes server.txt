@@ -261,6 +261,10 @@ old not-auth -> placed in central bookmarks state. check if it works properly, u
 change ids in the starting data for nonAuth to strings?
 !!!!! 207. SingleBookmark -> implement icon fallback for nonAuth Version!
 207. NewBookmark_UpperUI -> ts-ignore had to be user 2x -> why??
+208. BackgroundSettings-> if no userId -> implement logic to suggest creating an account
+BackgroundSettings_Upload doesn't have to be touched though? code won't be executed
+209. settings should be unified? add null userId and null to non-auth version?
+
 
 {
   filename: 'nature-3082832_1920.jpg',

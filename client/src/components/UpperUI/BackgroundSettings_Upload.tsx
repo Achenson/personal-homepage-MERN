@@ -13,9 +13,14 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { testUserId } from "../../state/data/testUserId";
 import { is } from "immer/dist/internal";
 
+import {
+  UseGlobalSettingsAll,
+  useGlobalSettings,
+} from "../../state/hooks/defaultSettingsHooks";
+
 interface Props {
   xsScreen: boolean;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
   backgroundImgResults: any;
   reexecuteBackgroundImg: any;
   wasCustomClicked: boolean;
@@ -100,7 +105,7 @@ function BackgroundSettings_Upload({
       await changeBackgroundImg({ file });
       reexecuteBackgroundImg({ requestPolicy: "network-only" });
       await changeSettings({
-        ...globalSettings,
+        ...globalSettings as SettingsDatabase_i,
         defaultImage: "customBackground",
       });
       if (!wasCustomClicked) {
