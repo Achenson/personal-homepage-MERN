@@ -44,6 +44,8 @@ DONE 165. LoginRegister_input naming change (component also used elsewhere) DONE
 DONE 171. deleteUserByAdminMutation -> change so it is possible to delete many users DONE
 DONE 178. after registering & redirecting to login -> focus should be set on password DONE
 DONE 179. after registering -> register fields should be emptied DONE
+DONE 208. BackgroundSettings-> if no userId -> implement logic to suggest creating an account
+BackgroundSettings_Upload doesn't have to be touched though? code won't be executed DONE
 
 
 
@@ -236,6 +238,7 @@ unify across other mutations!
 190. PasswordForgotten  / forgotPasswordMutation -> more consistent naming?
 191. PasswordForgotten -> forgotPasswordMutation should return false sometimes and it should be handled?
 to get info clientside that there is no regisered user
+
 {
   "data": {
     "forgotPassword": true
@@ -261,9 +264,9 @@ old not-auth -> placed in central bookmarks state. check if it works properly, u
 change ids in the starting data for nonAuth to strings?
 !!!!! 207. SingleBookmark -> implement icon fallback for nonAuth Version!
 207. NewBookmark_UpperUI -> ts-ignore had to be user 2x -> why??
-208. BackgroundSettings-> if no userId -> implement logic to suggest creating an account
-BackgroundSettings_Upload doesn't have to be touched though? code won't be executed
 209. settings should be unified? add null userId and null to non-auth version?
+210. BackgroundSettings_Upload -> instead of hidden class - do not render in in BackgroundSettings render function
+
 
 
 {

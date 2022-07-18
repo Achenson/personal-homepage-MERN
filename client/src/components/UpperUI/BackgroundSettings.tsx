@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 // import shallow from "zustand/shallow";
 import FocusLock from "react-focus-lock";
@@ -38,6 +39,7 @@ function BackgroundSettings({
   reexecuteBackgroundImg,
   userIdOrNoId,
 }: Props): JSX.Element {
+  const navigate = useNavigate();
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   const setGlobalSettings = useGlobalSettings(
     (state) => state.setGlobalSettings
@@ -93,8 +95,101 @@ function BackgroundSettings({
   const imgDescription_1 = "Transparent colors for columns";
   const imgDescription_2a = "Use ";
   const imgDescription_2b = " or choose default:";
+  const imgDescription_3 = "Choose default image:";
   // const imgDescription_2 = "Upload background image or use default:";
   const noImgDescription = "Full colors for background and columns";
+
+  const renderChoseImage = (userIdOrNoId: string | null) => {
+    if (!userIdOrNoId) {
+      return <p className="block xs:inline-block">{imgDescription_3}</p>;
+    }
+
+    return (
+      <p className="block xs:inline-block">
+        {imgDescription_2a}
+        <button
+          onClick={() => {
+            /*   setGlobalSettings({
+          ...globalSettings,
+          defaultImage: "defaultBackground",
+        }); */
+
+            if (!userIdOrNoId) {
+              console.log("authentication needed to access custom");
+              return;
+            }
+
+            if (!backgroundImgResults?.data?.backgroundImg?.backgroundImgUrl) {
+              console.log("no BACKGROUND IMG RESULTS");
+
+              hiddenFileInput.current?.click();
+              return;
+            }
+
+            console.log("BACKGROUND IMG RESULTS exist");
+            console.log(backgroundImgResults);
+
+            if (!wasCustomClicked) {
+              setWasCustomClicked(true);
+            }
+
+            changeSettings({
+              ...(globalSettings as SettingsDatabase_i),
+              defaultImage: "customBackground",
+            });
+          }}
+          className="focus-1-offset"
+          aria-label={"Default Background image"}
+        >
+          <span className={`text-${uiColor} cursor-pointer hover:underline`}>
+            custom image
+          </span>
+        </button>
+        {imgDescription_2b}
+      </p>
+    );
+  };
+
+  const renderBrowseFiles = (
+    userIdOrNoId: string | null,
+    picBackground: boolean
+  ) => {
+    if (userIdOrNoId) {
+      return (
+        <BackgroundSettings_Upload
+          xsScreen={xsScreen}
+          globalSettings={globalSettings}
+          backgroundImgResults={backgroundImgResults}
+          reexecuteBackgroundImg={reexecuteBackgroundImg}
+          wasCustomClicked={wasCustomClicked}
+          setWasCustomClicked={setWasCustomClicked}
+          hiddenFileInput={hiddenFileInput}
+        />
+      );
+    } else {
+      if (!picBackground) {
+        return null;
+      }
+
+      return (
+        <p className="text-center">
+          <button
+            onClick={() => {
+              navigate("/login-register");
+            }}
+            className="focus-1-offset"
+            aria-label={"Authenticate"}
+          >
+            <span className={`text-${uiColor} cursor-pointer hover:underline`}>
+              Authenticate
+            </span>
+          </button>
+          <span> </span>
+          to upload custom images
+        </p>
+      );
+    }
+  };
 
   return (
     <FocusLock>
@@ -243,55 +338,9 @@ function BackgroundSettings({
                 <div className="text-center">
                   <p className={`mb-2 xs:mb-0`}>{imgDescription_1}</p>
                   <div className={`mb-0`}>
-                    <p className="block xs:inline-block">
-                      {imgDescription_2a}
-                      <button
-                        onClick={() => {
-                          /*   setGlobalSettings({
-                          ...globalSettings,
-                          defaultImage: "defaultBackground",
-                        }); */
+                    {renderChoseImage(userIdOrNoId)}
+                    {/* INSERT HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
 
-                          if (!userIdOrNoId) {
-                            console.log(
-                              "authentication needed to access custom"
-                            );
-                            return;
-                          }
-
-                          if (
-                            !backgroundImgResults?.data?.backgroundImg
-                              ?.backgroundImgUrl
-                          ) {
-                            console.log("no BACKGROUND IMG RESULTS");
-
-                            hiddenFileInput.current?.click();
-                            return;
-                          }
-
-                          console.log("BACKGROUND IMG RESULTS exist");
-                          console.log(backgroundImgResults);
-
-                          if (!wasCustomClicked) {
-                            setWasCustomClicked(true);
-                          }
-
-                          changeSettings({
-                            ...(globalSettings as SettingsDatabase_i),
-                            defaultImage: "customBackground",
-                          });
-                        }}
-                        className="focus-1-offset"
-                        aria-label={"Default Background image"}
-                      >
-                        <span
-                          className={`text-${uiColor} cursor-pointer hover:underline`}
-                        >
-                          custom image
-                        </span>
-                      </button>
-                      {imgDescription_2b}
-                    </p>
                     <span> </span>
                     <button
                       onClick={() => {
@@ -304,7 +353,7 @@ function BackgroundSettings({
                         if (userIdOrNoId) {
                           changeSettings({
                             ...(globalSettings as SettingsDatabase_i),
-                              defaultImage: "defaultBackground",
+                            defaultImage: "defaultBackground",
                           });
                         } else {
                           setGlobalSettings({
@@ -344,7 +393,7 @@ function BackgroundSettings({
                         if (userIdOrNoId) {
                           changeSettings({
                             ...(globalSettings as SettingsDatabase_i),
-                                defaultImage: "defaultBackground_2",
+                            defaultImage: "defaultBackground_2",
                           });
                         } else {
                           setGlobalSettings({
@@ -404,20 +453,25 @@ function BackgroundSettings({
                 <p className="text-center mb-3">{noImgDescription}</p>
               )}
 
+              {renderBrowseFiles(userIdOrNoId, globalSettings.picBackground)}
+
               {/* <div
                 className={`flex justify-between items-center ${
                   globalSettings.picBackground ? "" : "hidden"
                 }`}
               > */}
-              <BackgroundSettings_Upload
-                xsScreen={xsScreen}
-                globalSettings={globalSettings}
-                backgroundImgResults={backgroundImgResults}
-                reexecuteBackgroundImg={reexecuteBackgroundImg}
-                wasCustomClicked={wasCustomClicked}
-                setWasCustomClicked={setWasCustomClicked}
-                hiddenFileInput={hiddenFileInput}
-              />
+
+              {/* 
+<BackgroundSettings_Upload
+                  xsScreen={xsScreen}
+                  globalSettings={globalSettings}
+                  backgroundImgResults={backgroundImgResults}
+                  reexecuteBackgroundImg={reexecuteBackgroundImg}
+                  wasCustomClicked={wasCustomClicked}
+                  setWasCustomClicked={setWasCustomClicked}
+                  hiddenFileInput={hiddenFileInput}
+                /> */}
+
               {/*       <div
                   className={`bg-blueGray-50 h-6 ${
                     xsScreen ? "w-48" : "w-60"
