@@ -8,7 +8,7 @@ import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
 
 import { useTabContext } from "../../context/tabContext";
-import {useDbContext } from "../../context/dbContext";
+import { useDbContext } from "../../context/dbContext";
 
 import {
   createBookmarkNonAuth,
@@ -31,9 +31,7 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { responsePathAsArray } from "graphql";
 
-
 import { DbContext_i } from "../../utils/interfaces";
-
 
 interface Props {
   titleInput: string;
@@ -52,7 +50,7 @@ interface Props {
   bookmarkComponentType: "new_upperUI" | "new_lowerUI" | "edit";
   bookmarkId: string;
   // currentBookmark: SingleBookmarkData | undefined;
-  currentBookmark: BookmarkDatabase_i;
+  currentBookmark: BookmarkDatabase_i | SingleBookmarkData;
   colNumber: number;
   errors: BookmarkErrors;
   setErrors: SetBookmarkErrors;
@@ -84,7 +82,7 @@ function Bookmark_lowerUI({
   // bookmarks,
   // tabs,
   globalSettings,
-  userIdOrNoId
+  userIdOrNoId,
 }: Props): JSX.Element {
   const addBookmarkNonAuth = useBookmarks((store) => store.addBookmark);
   const editBookmarkNonAuth = useBookmarks((store) => store.editBookmark);
@@ -106,10 +104,10 @@ function Bookmark_lowerUI({
     : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
-
   // const bookmarks = useDbContext().bookmarks;
   // const staleBookmarks = useDbContext().stale_bookmarks;
-  const reexecuteBookmarks = (useDbContext() as DbContext_i)?.reexecuteBookmarks;
+  const reexecuteBookmarks = (useDbContext() as DbContext_i)
+    ?.reexecuteBookmarks;
   // const tabs = useDbContext().tabs;
 
   const [addBookmarkResult, addBookmark] = useMutation<any, BookmarkDatabase_i>(
@@ -130,9 +128,9 @@ function Bookmark_lowerUI({
   // const bookmarks = useBookmarks((store) => store.bookmarks);
   const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   // DB: bookmarksAllTags in Grid only
-   const setBookmarksAllTags = useBookmarks(
+  const setBookmarksAllTags = useBookmarks(
     (store) => store.setBookmarksAllTags
-  ); 
+  );
 
   const addTabsNonAuth = useTabs((store) => store.addTabs);
 
@@ -251,11 +249,8 @@ function Bookmark_lowerUI({
     });
 
     if (newTabsToAdd.length > 0) {
-    
-
-      if(userIdOrNoId) {
-
-        let arrOfPromises =  newTabsToAdd.map(obj => addTab(obj))
+      if (userIdOrNoId) {
+        let arrOfPromises = newTabsToAdd.map((obj) => addTab(obj));
 
         /*    let arrOfPromises: Promise<string>[] = [];
      
@@ -272,19 +267,17 @@ function Bookmark_lowerUI({
      
              arrOfPromises.push(newPromise);
            }); */
-     
-           let arrOfNewFolderObjs = await Promise.all(arrOfPromises);
-           // let arrOfNewFolderIds = await Promise.all(arrOfPromises);
-     
-           arrOfNewFolderObjs.forEach((obj) => {
-             tagsInputArr_ToIds.push(obj.data.addTab.id);
-     
-           });
-     
-     
-           console.log(tagsInputArr_ToIds);
-           
-           /*   newTabsToAdd.forEach((obj) => {
+
+        let arrOfNewFolderObjs = await Promise.all(arrOfPromises);
+        // let arrOfNewFolderIds = await Promise.all(arrOfPromises);
+
+        arrOfNewFolderObjs.forEach((obj) => {
+          tagsInputArr_ToIds.push(obj.data.addTab.id);
+        });
+
+        console.log(tagsInputArr_ToIds);
+
+        /*   newTabsToAdd.forEach((obj) => {
              console.log(obj.title);
      
              addTab(obj).then((result) => {
@@ -292,28 +285,22 @@ function Bookmark_lowerUI({
                tagsInputArr_ToIds.push(result.data.addTab.id);
              });
            }); */
-
       } else {
-          setBookmarksAllTags([...newBookmarksAllTagsData]);
+        setBookmarksAllTags([...newBookmarksAllTagsData]);
         addTabsNonAuth(newTabsToAdd);
       }
-
-
-   
     }
 
     let bookmarkPromise = new Promise((resolve, reject) => {
       if (bookmarkComponentType === "edit") {
-        
-
-        if(userIdOrNoId) {
+        if (userIdOrNoId) {
           editBookmark({
             id: bookmarkId,
             userId: globalSettings.userId,
             title: titleInput,
             URL: urlInput,
             tags: tagsInputArr_ToIds,
-            defaultFaviconFallback: currentBookmark.defaultFaviconFallback
+            defaultFaviconFallback: currentBookmark.defaultFaviconFallback,
           }).then((result) => {
             if (result.error) {
               reject(result.error);
@@ -322,11 +309,14 @@ function Bookmark_lowerUI({
             resolve(result.data.editBookmark);
           });
         } else {
-
-          editBookmarkNonAuth(bookmarkId, titleInput, urlInput, tagsInputArr_ToIds);
+          editBookmarkNonAuth(
+            bookmarkId,
+            titleInput,
+            urlInput,
+            tagsInputArr_ToIds,
+            currentBookmark.defaultFaviconFallback
+          );
         }
-
-    
 
         // for deleting empty folder
         let tagsIdsToDelete: string[] = [];
@@ -372,15 +362,13 @@ function Bookmark_lowerUI({
       } else {
         // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
 
-
-        if(!userIdOrNoId) {
-
-          addBookmarkNonAuth(createBookmarkNonAuth(titleInput, urlInput, tagsInputArr_ToIds));
-          return
+        if (!userIdOrNoId) {
+          addBookmarkNonAuth(
+            createBookmarkNonAuth(titleInput, urlInput, tagsInputArr_ToIds)
+          );
+          return;
         }
 
-
-   
         addBookmark(
           createBookmarkDb(
             globalSettings.userId,
@@ -402,11 +390,11 @@ function Bookmark_lowerUI({
 
     /* console.log("bookmarkPromise");
     console.log(bookmarkPromise); */
-    
-    if(bookmarks.length === 0 && userIdOrNoId) {
-      reexecuteBookmarks({ requestPolicy: 'network-only' });
+
+    if (bookmarks.length === 0 && userIdOrNoId) {
+      reexecuteBookmarks({ requestPolicy: "network-only" });
     }
-    
+
     // setTimeout(() => setTabDeletingPause(false), 500);
     if (bookmarkComponentType === "edit") {
       setTabDeletingPause(false);

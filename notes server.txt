@@ -266,7 +266,10 @@ change ids in the starting data for nonAuth to strings?
 207. NewBookmark_UpperUI -> ts-ignore had to be user 2x -> why??
 209. settings should be unified? add null userId and null to non-auth version?
 210. BackgroundSettings_Upload -> instead of hidden class - do not render in in BackgroundSettings render function
-
+211. make non-auth data persist in local storage
+212. Bookmark_local tab_indices - is it needed?
+213. SingleBookmark -> interface for nonAuth is being used also for auth?? the one for auth being not used
+214. delete userIdOrDemoId
 
 
 {

@@ -11,7 +11,8 @@ interface UseBookmarks {
     editId: string,
     title: string,
     URL: string,
-    tags: string[]
+    tags: string[],
+    defaultFaviconFallback: boolean
   ) => void;
   deleteBookmark: (
     bookmarkID: string,
@@ -42,7 +43,7 @@ export const useBookmarks = create<UseBookmarks>(
         })
       );
     },
-    editBookmark: (editId, title, URL, tags) => {
+    editBookmark: (editId, title, URL, tags, defaultFaviconFallback) => {
       set(
         produce((state: UseBookmarks) => {
           let bookmarkToUpdate = state.bookmarks.find(
@@ -53,6 +54,7 @@ export const useBookmarks = create<UseBookmarks>(
             bookmarkToUpdate.title = title;
             bookmarkToUpdate.URL = URL;
             bookmarkToUpdate.tags = [...tags];
+            bookmarkToUpdate.defaultFaviconFallback = defaultFaviconFallback
           }
         })
       );

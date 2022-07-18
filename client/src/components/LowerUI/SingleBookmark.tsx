@@ -59,6 +59,7 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import e from "express";
 
 
 interface Props {
@@ -96,6 +97,7 @@ Props): JSX.Element {
 
   const tabsNotAuth = useTabs((state) => state.tabs);
   const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+  const editBookmarkNonAuth = useBookmarks((store) => store.editBookmark);
 
   const bookmarksDb = useDbContext()?.bookmarks;
   const tabsDb = useDbContext()?.tabs;
@@ -110,12 +112,6 @@ Props): JSX.Element {
 
  
   const reexecuteBookmarks = useDbContext()?.reexecuteBookmarks;
-
-
-
-
-
-
 
   const authContext = useAuth();
   const tabContext = useTabContext();
@@ -216,12 +212,40 @@ Props): JSX.Element {
                     console.log("clicked");
                     console.log(singleBookmarkData.defaultFaviconFallback);
 
-                    changeBookmark({
-                      ...singleBookmarkData,
-                      userId: userIdOrDemoId,
-                      defaultFaviconFallback:
-                        !singleBookmarkData.defaultFaviconFallback,
-                    });
+
+                    if(userIdOrNoId) {
+                      changeBookmark({
+                        ...singleBookmarkData,
+                        userId: authContext.authenticatedUserId as string,
+                        defaultFaviconFallback:
+                          !singleBookmarkData.defaultFaviconFallback,
+                      });
+                    } else {
+
+                      // editBookmarkNonAuth(
+                      //   bookmarkId,
+                      //   titleInput,
+                      //   urlInput,
+                      //   tagsInputArr_ToIds,
+                      //   currentBookmark.defaultFaviconFallback
+                      // );
+
+
+
+                      editBookmarkNonAuth(
+                        ...singleBookmarkData,
+                        // userId: userIdOrDemoId,
+                        // defaultFaviconFallback
+                        //  !singleBookmarkData.defaultFaviconFallback,
+                      )
+                      
+                    }
+
+               
+
+
+
+
                   }}
                   /* style={{
                     height: "15px",
