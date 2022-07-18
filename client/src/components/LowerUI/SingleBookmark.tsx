@@ -61,7 +61,6 @@ import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import e from "express";
 
-
 interface Props {
   singleBookmarkData: SingleBookmarkData;
   bookmarkId: string;
@@ -70,7 +69,7 @@ interface Props {
   tabID: string;
   isTabDraggedOver: boolean;
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
-  userIdOrNoId: string | null
+  userIdOrNoId: string | null;
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
 }
@@ -86,14 +85,11 @@ function SingleBookmark({
   colNumber,
   isTabDraggedOver,
   globalSettings,
-  userIdOrNoId
+  userIdOrNoId,
 }: // bookmarks,
 // tabs,
 Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
-
-
-
 
   const tabsNotAuth = useTabs((state) => state.tabs);
   const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
@@ -102,15 +98,14 @@ Props): JSX.Element {
   const bookmarksDb = useDbContext()?.bookmarks;
   const tabsDb = useDbContext()?.tabs;
 
-
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
 
-  bookmarks = userIdOrNoId ? bookmarksDb as SingleBookmarkData[] : bookmarksNotAuth;
-  tabs = userIdOrNoId ? tabsDb as TabDatabase_i[] : tabsNotAuth;
+  bookmarks = userIdOrNoId
+    ? (bookmarksDb as SingleBookmarkData[])
+    : bookmarksNotAuth;
+  tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
-
- 
   const reexecuteBookmarks = useDbContext()?.reexecuteBookmarks;
 
   const authContext = useAuth();
@@ -212,8 +207,7 @@ Props): JSX.Element {
                     console.log("clicked");
                     console.log(singleBookmarkData.defaultFaviconFallback);
 
-
-                    if(userIdOrNoId) {
+                    if (userIdOrNoId) {
                       changeBookmark({
                         ...singleBookmarkData,
                         userId: authContext.authenticatedUserId as string,
@@ -221,31 +215,14 @@ Props): JSX.Element {
                           !singleBookmarkData.defaultFaviconFallback,
                       });
                     } else {
-
-                      // editBookmarkNonAuth(
-                      //   bookmarkId,
-                      //   titleInput,
-                      //   urlInput,
-                      //   tagsInputArr_ToIds,
-                      //   currentBookmark.defaultFaviconFallback
-                      // );
-
-
-
                       editBookmarkNonAuth(
-                        ...singleBookmarkData,
-                        // userId: userIdOrDemoId,
-                        // defaultFaviconFallback
-                        //  !singleBookmarkData.defaultFaviconFallback,
-                      )
-                      
+                        singleBookmarkData.id,
+                        singleBookmarkData.title,
+                        singleBookmarkData.URL,
+                        singleBookmarkData.tags,
+                        !singleBookmarkData.defaultFaviconFallback
+                      );
                     }
-
-               
-
-
-
-
                   }}
                   /* style={{
                     height: "15px",
@@ -269,12 +246,30 @@ Props): JSX.Element {
                     // setIsFaviconDefault(b=>!b)
                     console.log("clicked2");
                     console.log(singleBookmarkData.defaultFaviconFallback);
-                    changeBookmark({
-                      ...singleBookmarkData,
-                      userId: userIdOrDemoId,
-                      defaultFaviconFallback:
-                        !singleBookmarkData.defaultFaviconFallback,
-                    });
+
+                    if (userIdOrNoId) {
+                      changeBookmark({
+                        ...singleBookmarkData,
+                        userId: authContext.authenticatedUserId as string,
+                        defaultFaviconFallback:
+                          !singleBookmarkData.defaultFaviconFallback,
+                      });
+                    } else {
+                      editBookmarkNonAuth(
+                        singleBookmarkData.id,
+                        singleBookmarkData.title,
+                        singleBookmarkData.URL,
+                        singleBookmarkData.tags,
+                        !singleBookmarkData.defaultFaviconFallback
+                      );
+                    }
+
+                    // changeBookmark({
+                    //   ...singleBookmarkData,
+                    //   userId: userIdOrDemoId,
+                    //   defaultFaviconFallback:
+                    //     !singleBookmarkData.defaultFaviconFallback,
+                    // });
                   }}
                 />
               )}
@@ -337,17 +332,16 @@ Props): JSX.Element {
                   );
                 } */
 
-                if(!userIdOrDemoId) {
+                if (!userIdOrDemoId) {
                   let bookmarkToDelete = bookmarks.find(
                     (obj) => obj.id === bookmarkId
                   );
-  
+
                   if (bookmarkToDelete) {
                     deleteBookmarkNonAuth(bookmarkId, singleBookmarkData);
                   }
 
                   return;
-
                 }
 
                 console.log(singleBookmarkData.title);
