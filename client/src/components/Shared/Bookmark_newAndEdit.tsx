@@ -3,14 +3,15 @@ import React, { useState, useEffect } from "react";
 import NewBookmark_UpperUI from "../UpperUI/NewBookmark_UpperUI";
 import Bookmark_lowerUI from "../LowerUI/Bookmark_lowerUI";
 
-// import { useBookmarks } from "../../state/hooks/useBookmarks";
-// import { useTabs } from "../../state/hooks/useTabs";
+import { useBookmarks } from "../../state/hooks/useBookmarks";
+import { useTabs } from "../../state/hooks/useTabs";
 import { useDbContext } from "../../context/dbContext";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 interface Props {
   bookmarkComponentType: "new_upperUI" | "new_lowerUI" | "edit";
@@ -26,6 +27,7 @@ interface Props {
   // tabs: SingleTabData[];
   // bookmarks: SingleBookmarkData[];
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  userIdOrNoId: string | null;
 }
 
 const errorsAllFalse = {
@@ -48,12 +50,28 @@ function Bookmark_newAndEdit({
   // bookmarks,
   // tabs,
   globalSettings,
+  userIdOrNoId
 }: Props): JSX.Element {
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   // const tabs = useTabs((state) => state.tabs);
 
-  const bookmarks = useDbContext().bookmarks;
-  const tabs = useDbContext().tabs;
+  // const bookmarks = useDbContext().bookmarks;
+  // const tabs = useDbContext().tabs;
+
+  const tabsNotAuth = useTabs((state) => state.tabs);
+  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+
+  let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
+  let tabs: TabDatabase_i[] | SingleTabData[];
+
+  const bookmarksDb = useDbContext()?.bookmarks;
+  const tabsDb = useDbContext()?.tabs;
+  // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
+
+  bookmarks = userIdOrNoId
+    ? (bookmarksDb as SingleBookmarkData[])
+    : bookmarksNotAuth;
+  tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   let currentBookmark: SingleBookmarkData | undefined;
 
@@ -220,6 +238,7 @@ function Bookmark_newAndEdit({
           // bookmarks={bookmarks}
           // tabs={tabs}
           globalSettings={globalSettings}
+          userIdOrNoId={userIdOrNoId}
         />
       ) : (
         <Bookmark_lowerUI
@@ -230,6 +249,7 @@ function Bookmark_newAndEdit({
           // bookmarks={bookmarks}
           // tabs={tabs}
           globalSettings={globalSettings}
+          userIdOrNoId={userIdOrNoId}
         />
       )}
     </>

@@ -9,6 +9,7 @@ import { useTabs } from "../../state/hooks/useTabs";
 
 import { useTabContext } from "../../context/tabContext";
 import { useDbContext } from "../../context/dbContext";
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 import {
   createBookmarkNonAuth,
@@ -56,7 +57,7 @@ interface Props {
   setErrors: SetBookmarkErrors;
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
-  globalSettings: SettingsDatabase_i;
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
   userIdOrNoId: string | null;
 }
 
@@ -225,7 +226,7 @@ function Bookmark_lowerUI({
       if (!tabForCurrentTag && selectablesInputStr !== "") {
         // let newTab = createFolderTab(el, colNumber, newTabPriority);
         let newTab = createFolderTabDb(
-          globalSettings.userId,
+          (globalSettings as SettingsDatabase_i).userId,
           el,
           colNumber,
           newTabPriority
@@ -296,7 +297,7 @@ function Bookmark_lowerUI({
         if (userIdOrNoId) {
           editBookmark({
             id: bookmarkId,
-            userId: globalSettings.userId,
+            userId: (globalSettings as SettingsDatabase_i).userId,
             title: titleInput,
             URL: urlInput,
             tags: tagsInputArr_ToIds,
@@ -371,7 +372,7 @@ function Bookmark_lowerUI({
 
         addBookmark(
           createBookmarkDb(
-            globalSettings.userId,
+            (globalSettings as SettingsDatabase_i).userId,
             titleInput,
             urlInput,
             tagsInputArr_ToIds

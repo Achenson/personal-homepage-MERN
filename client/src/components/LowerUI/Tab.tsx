@@ -548,6 +548,7 @@ function Tab({
               // bookmarks={bookmarks}
               // tabs={tabs}
               globalSettings={globalSettings}
+              userIdOrNoId={userIdOrNoId}
             />
           )}
 
