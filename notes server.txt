@@ -270,7 +270,8 @@ change ids in the starting data for nonAuth to strings?
 212. Bookmark_local tab_indices - is it needed?
 213. SingleBookmark -> interface for nonAuth is being used also for auth?? the one for auth being not used
 214. delete userIdOrDemoId
-215. DONE new bookmark DONE, DONE resetToDefaul DONE , allTags when hidden problem, cannot edit tab, cannot delete bookmars
+215. DONE new bookmark DONE, DONE resetToDefaul DONE , allTags when hidden problem, DONE cannot edit tab DONE, cannot delete bookmars
+216. allTags when hidden problem -> taking too much space!? check in auth and non-auth versions
 
 
 {
