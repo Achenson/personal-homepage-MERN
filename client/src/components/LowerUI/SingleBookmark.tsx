@@ -332,7 +332,7 @@ Props): JSX.Element {
                   );
                 } */
 
-                if (!userIdOrDemoId) {
+                if (!userIdOrNoId) {
                   let bookmarkToDelete = bookmarks.find(
                     (obj) => obj.id === bookmarkId
                   );
@@ -374,6 +374,7 @@ Props): JSX.Element {
           // bookmarks={bookmarks}
           // tabs={tabs}
           globalSettings={globalSettings}
+          userIdOrNoId={userIdOrNoId}
         />
       )}
     </div>

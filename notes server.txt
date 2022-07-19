@@ -272,7 +272,7 @@ change ids in the starting data for nonAuth to strings?
 214. delete userIdOrDemoId
 215. DONE new bookmark DONE, DONE resetToDefaul DONE , allTags when hidden problem, DONE cannot edit tab DONE, cannot delete bookmars
 216. allTags when hidden problem -> taking too much space!? check in auth and non-auth versions
-
+217. tab deletion confirmation -> implement?
 
 {
   filename: 'nature-3082832_1920.jpg',
