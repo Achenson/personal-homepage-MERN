@@ -176,9 +176,9 @@ function Tab({
 
   const [crossVis, setCrossVis] = useState<boolean>(true);
 
-  // client-side
+  // client-side (ONLY??)
   useEffect(() => {
-    if (closeAllTabsState && userIdOrNoId) {
+    if (closeAllTabsState && !userIdOrNoId) {
       tabVisDispatch({ type: "TAB_CONTENT_DEFAULT" });
     }
   }, [closeAllTabsState, tabVisDispatch, userIdOrNoId]);
