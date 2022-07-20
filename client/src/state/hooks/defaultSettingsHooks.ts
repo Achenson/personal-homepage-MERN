@@ -1,5 +1,5 @@
 import create from "zustand";
-// import { persist } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 
 // import {
 //   columnColors,
@@ -20,7 +20,7 @@ export interface UseGlobalSettingsAll extends GlobalSettingsState {
 }
 
 export const useGlobalSettings = create<UseGlobalSettingsAll>(
-  // persist(
+  persist(
   (set) => ({
     picBackground: false,
     defaultImage: "defaultBackground",
@@ -49,11 +49,11 @@ export const useGlobalSettings = create<UseGlobalSettingsAll>(
       set((state) => ({
         ...globalSettings,
       })),
-  })
-  //   {
-  //     name: "globalSettings-storage",
-  //   }
-  // )
+  }),
+    {
+      name: "globalSettings-storage",
+    }
+  )
 );
 
 /* interface RssSettingsData {
