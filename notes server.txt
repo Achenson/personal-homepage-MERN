@@ -46,6 +46,7 @@ DONE 178. after registering & redirecting to login -> focus should be set on pas
 DONE 179. after registering -> register fields should be emptied DONE
 DONE 208. BackgroundSettings-> if no userId -> implement logic to suggest creating an account
 BackgroundSettings_Upload doesn't have to be touched though? code won't be executed DONE
+DONE 215. (first bug fixes for nonAuth version)  DONE new bookmark DONE, DONE resetToDefaul DONE , allTags when hidden problem, DONE cannot edit tab DONE, DONE cannot delete bookmars DONE 
 
 
 
@@ -270,7 +271,6 @@ change ids in the starting data for nonAuth to strings?
 212. Bookmark_local tab_indices - is it needed?
 213. SingleBookmark -> interface for nonAuth is being used also for auth?? the one for auth being not used
 214. delete userIdOrDemoId
-215. DONE new bookmark DONE, DONE resetToDefaul DONE , allTags when hidden problem, DONE cannot edit tab DONE, cannot delete bookmars
 216. allTags when hidden problem -> taking too much space!? check in auth and non-auth versions
 217. tab deletion confirmation -> implement?
 
