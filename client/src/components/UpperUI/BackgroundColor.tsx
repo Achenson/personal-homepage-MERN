@@ -19,12 +19,14 @@ interface Props {
   focusOnBackgroundColor: boolean;
   setFocusOnBackgroundColor: React.Dispatch<React.SetStateAction<boolean>>;
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  userIdOrNoId: string | null;
 }
 
 function BackgroundColor({
   focusOnBackgroundColor,
   setFocusOnBackgroundColor,
-  globalSettings
+  globalSettings,
+  userIdOrNoId
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
@@ -94,6 +96,7 @@ function BackgroundColor({
           <ColorsToChoose_Background
             setFocusOnBackgroundColor={setFocusOnBackgroundColor}
             globalSettings={globalSettings}
+            userIdOrNoId={userIdOrNoId}
           />
         </div>
       )}

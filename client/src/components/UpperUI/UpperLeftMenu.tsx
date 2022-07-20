@@ -16,9 +16,10 @@ import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 interface Props {
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  userIdOrNoId: string | null;
 }
 
-function UpperLeftMenu({ globalSettings }: Props): JSX.Element {
+function UpperLeftMenu({ globalSettings, userIdOrNoId }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   const [defaultColorsFor, setDefaultColorsFor] = useState<
@@ -103,6 +104,7 @@ function UpperLeftMenu({ globalSettings }: Props): JSX.Element {
             focusOnBackgroundColor={focusOnBackgroundColor}
             setFocusOnBackgroundColor={setFocusOnBackgroundColor}
             globalSettings={globalSettings}
+            userIdOrNoId={userIdOrNoId}
           />
         )}
         <Reset

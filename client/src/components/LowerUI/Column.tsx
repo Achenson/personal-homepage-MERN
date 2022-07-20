@@ -23,7 +23,10 @@ import { useDbContext } from "../../context/dbContext";
 // import { useAuthContext } from "../../context/authContext";
 import { useAuth } from "../../state/hooks/useAuth";
 import { useTabs } from "../../state/hooks/useTabs";
-import { useGlobalSettings, UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import {
+  useGlobalSettings,
+  UseGlobalSettingsAll,
+} from "../../state/hooks/defaultSettingsHooks";
 
 import { TabsQuery } from "../../graphql/graphqlQueries";
 import { SettingsQuery } from "../../graphql/graphqlQueries";
@@ -77,7 +80,7 @@ Props): JSX.Element {
   const [settingsResults] = useQuery({
     query: SettingsQuery,
     variables: { userId: userIdOrNoId },
-    pause: !userIdOrNoId
+    pause: !userIdOrNoId,
   });
 
   const { data, fetching, error } = settingsResults;
@@ -88,15 +91,11 @@ Props): JSX.Element {
   // let globalSettings: SettingsDatabase_i = data.settings;
   let globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
 
-
   globalSettings = userIdOrNoId
-  ? (data.settings as SettingsDatabase_i)
-  : globalSettingsNotAuth;
+    ? (data.settings as SettingsDatabase_i)
+    : globalSettingsNotAuth;
 
-
-tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
-
-
+  tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   function calcColumnColor_picBackground(
     colNumber: number,
@@ -265,7 +264,6 @@ tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
                 isThisTheOnlyGap={false}
                 globalSettings={globalSettings}
                 userIdOrNoId={userIdOrNoId}
-                
               />
               {/* </div> */}
             </div>
@@ -294,7 +292,10 @@ tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
             top: "-32px",
           }}
         >
-          <UpperLeftMenu globalSettings={globalSettings} />
+          <UpperLeftMenu
+            globalSettings={globalSettings}
+            userIdOrNoId={userIdOrNoId}
+          />
         </div>
       )}
 

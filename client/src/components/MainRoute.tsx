@@ -120,6 +120,7 @@ Props): JSX.Element {
             //   {...paddingProps}
             mainPaddingRight={mainPaddingRight}
             scrollbarWidth={scrollbarWidth}
+            userIdOrNoId={userIdOrNoId}
           />
         </ModalWrap>
       )}
@@ -130,6 +131,7 @@ Props): JSX.Element {
             // tabs={tabs}
             // bookmarks={bookmarks}
             globalSettings={globalSettings}
+            userIdOrNoId={userIdOrNoId}
             //   {...paddingProps}
           />
         </ModalWrap>
@@ -143,6 +145,7 @@ Props): JSX.Element {
             //   {...paddingProps}
             mainPaddingRight={mainPaddingRight}
             scrollbarWidth={scrollbarWidth}
+            userIdOrNoId={userIdOrNoId}
           />
         </ModalWrap>
       )}
@@ -153,6 +156,7 @@ Props): JSX.Element {
             //   {...paddingProps}
             mainPaddingRight={mainPaddingRight}
             scrollbarWidth={scrollbarWidth}
+            userIdOrNoId={userIdOrNoId}
           />
         </ModalWrap>
       )}

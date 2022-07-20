@@ -230,6 +230,7 @@ function ColorsToChoose_DefaultAndColumns({
                 setSelectedNumber={setSelectedNumber}
                 colorArrLength={tabColorsConcat.length}
                 globalSettings={globalSettings}
+                userIdOrNoId={userIdOrNoId}
               />
             );
           })}
@@ -264,6 +265,7 @@ function ColorsToChoose_DefaultAndColumns({
                     : columnColorsConcat.length
                 }
                 globalSettings={globalSettings}
+                userIdOrNoId={userIdOrNoId}
               />
             );
           })}

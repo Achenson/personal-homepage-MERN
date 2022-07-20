@@ -293,18 +293,31 @@ function BackgroundSettings({
                 <button
                   className="ml-1.5 focus-1-offset"
                   onClick={() => {
+
+
+                    console.log("backgroundSettings clicked");
+                    
                     if (globalSettings.picBackground) {
                       /*   setGlobalSettings({
                         ...globalSettings,
                         picBackground: false,
                       }); */
 
+                      console.log("backgroundSettings clicked 2");
+
                       if (userIdOrNoId) {
+
+                        console.log("backgroundSettings clicked 3");
                         changeSettings({
                           ...(globalSettings as SettingsDatabase_i),
                           picBackground: false,
                         });
                       } else {
+
+                        console.log("backgroundSettings clicked 4");
+                        console.log(userIdOrNoId);
+                        
+
                         setGlobalSettings({
                           ...(globalSettings as UseGlobalSettingsAll),
                           picBackground: false,

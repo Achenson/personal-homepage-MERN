@@ -273,7 +273,23 @@ change ids in the starting data for nonAuth to strings?
 214. delete userIdOrDemoId
 216. allTags when hidden problem -> taking too much space!? check in auth and non-auth versions
 217. tab deletion confirmation -> implement?
+218. check localStorage for auth version
 
+219. notes -> should be reworked, so they can be edited in place?
+220. auth version problems after implementing, non auth version:
+-not poss to change col colors
+
+DONe
+-n p to change to normal background
+- not poss to add bookmark, tabs itp for the top menu
+- not possible to change settings
+DONE
+
+But possible to edit bookmarks, delete, drag
+& possible to add bookmarks, tabs in the lower Ui,
+& possible to edit folders
+
+background Color possible now in no pic mode
 {
   filename: 'nature-3082832_1920.jpg',
   mimetype: 'image/jpeg',
