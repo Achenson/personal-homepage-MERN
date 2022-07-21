@@ -40,14 +40,16 @@ interface Props {
   setFocusOnColumnColor?: React.Dispatch<
     React.SetStateAction<null | 1 | 2 | 3 | 4>
   >;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll
+  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  userIdOrNoId: string | null;
 }
 
 function ColorsToChoose_DefaultAndColumns({
   defaultColorsFor,
   setColorsToChooseVis,
   setFocusOnColumnColor,
-  globalSettings
+  globalSettings,
+  userIdOrNoId
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 

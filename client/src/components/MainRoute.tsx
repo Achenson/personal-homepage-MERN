@@ -167,6 +167,7 @@ Props): JSX.Element {
             //   +{...paddingProps}
             mainPaddingRight={mainPaddingRight}
             scrollbarWidth={scrollbarWidth}
+            userIdOrNoId={userIdOrNoId}
           />
         </ModalWrap>
       )}

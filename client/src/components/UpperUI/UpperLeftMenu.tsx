@@ -120,6 +120,7 @@ function UpperLeftMenu({ globalSettings, userIdOrNoId }: Props): JSX.Element {
               defaultColorsFor={defaultColorsFor}
               setFocusOnColumnColor={setFocusOnColumnColor}
               globalSettings={globalSettings}
+              userIdOrNoId={userIdOrNoId}
             />
           </div>
         )}
