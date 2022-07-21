@@ -30,10 +30,13 @@ XXX 22. use zustand state conditionally if the user is not authenticated. no, zu
 DONE 24. client: rss settings merges with global settings -> test -> delete all commented out code DONE
 DONE 32. clientside: hooks for store -> sometimes it's state.tabs, sometimes store.tabs -> unify -> unified as store DONE
  DONE 34. mutations -> proper typescript types! DONE
+??? 37. way to use urql as a central state? ???
+DONE 38. editBookmark doesn't work on the client! ?DONe
 DONE 45. logic for tab deletion in Grid work only thanks to setTimeout() [in Boomark_lowerUI] -> make it better!!! DONE (result.stale used!!!)
 DONE 46. bookmark /tabs database interfaces everywhere! (now both from context) DONE
 DONE 47. promise.all -> no need for new Promise everywhere? mutation return promises (change in Bookmark_lowerUI, no promise.all in Grids now, ) DONE
 DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
+x 65. add qpl`` ... package to graphql schema. too troublesome (no easy to setup extensions), apoll-boost is too much x
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
@@ -94,10 +97,12 @@ DONE background Color possible now in no pic mode
 33. take care of state other that settings, tabs & bookmarks (use of existings queries should be enough?)
 35. client-side: unify column_1 naming with server-side naming (colColor_1 itp) when the client-side code
  will be working again for nonauthorised user!
+
 36. addBookmark -> tabQueries should be refetched?
-37. way to use urql as a central state?
-38. editBookmark doesn't work on the client!
+
+
 39. objCreators: too much repetition in db tab creators?
+
 40. bookmarksAllTags -> change it (it should be a list of all tabs ids that are bookmarks tags) or use mongoose query!!!!
 41. newTab -> no color as argument, should be null
 42. editing Tab -> bookmarks are not sorted alphabetically!
@@ -123,7 +128,8 @@ DONE background Color possible now in no pic mode
 63. cannot upload image if there are spaces in the file name?
 64. npm modules should be imported like: import multer = require("multer"). with const types are not working!!
 change everywhere!!
-65. add qpl`` ... package to graphql schema
+
+
 66. background img - remove it once the user is deleted? implemented already -test it!
 67. delete all test mutation code in the end
 68. list all links to free svgs in notes
@@ -292,7 +298,7 @@ change ids in the starting data for nonAuth to strings?
 222. update App structure - routes!
 223. rssSettings problem -> value lower than 5 and 15 can be entered! no easy way to increase/decrese value??
 224. globalSettings rss items number-> hover field, implement is alse elsewhere??
-
+225. Disable drag & drop -> should be sth like disable drag & drop for tabs??
 
 
 
