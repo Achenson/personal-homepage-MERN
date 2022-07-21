@@ -35,7 +35,7 @@ interface Props {
 
 
 function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
-  const logout = useAuth((state) => state.logout);
+  const logout = useAuth((store) => store.logout);
   let navigate = useNavigate();
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 

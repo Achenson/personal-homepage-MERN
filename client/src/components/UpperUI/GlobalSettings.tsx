@@ -48,12 +48,12 @@ function GlobalSettings({
   // shallow option enables updates when any of the object keys changes!
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   const setGlobalSettings = useGlobalSettings(
-    (state) => state.setGlobalSettings
+    (store) => store.setGlobalSettings
   );
 
   // const tabs = useDbContext().tabs;
 
-  const tabsNotAuth = useTabs((state) => state.tabs);
+  const tabsNotAuth = useTabs((store) => store.tabs);
 
   const tabsDb = useDbContext()?.tabs;
 
@@ -61,7 +61,7 @@ function GlobalSettings({
 
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
-  const setTabOpenedState = useTabs((state) => state.setTabOpenedState);
+  const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
 
   /*  const rssSettingsState = useRssSettings((state) => state, shallow);
   const setRssSettingsState = useRssSettings((state) => state.setRssSettings); */

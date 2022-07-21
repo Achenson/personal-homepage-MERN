@@ -42,7 +42,7 @@ function BackgroundSettings({
   const navigate = useNavigate();
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   const setGlobalSettings = useGlobalSettings(
-    (state) => state.setGlobalSettings
+    (store) => store.setGlobalSettings
   );
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;

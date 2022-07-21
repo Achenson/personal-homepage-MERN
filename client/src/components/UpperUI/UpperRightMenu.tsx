@@ -39,7 +39,7 @@ interface Props {
 
 function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   let navigate = useNavigate();
-  const logout = useAuth((state) => state.logout);
+  const logout = useAuth((store) => store.logout);
 
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -49,7 +49,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   // const loggedInState = useLoggedInState((state) => state.loggedInState);
   // const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
 
-  const setFocusedTabState = useTabs((state) => state.setFocusedTabState);
+  const setFocusedTabState = useTabs((store) => store.setFocusedTabState);
 
   const upperUiContext = useUpperUiContext();
   const authContext = useAuth();

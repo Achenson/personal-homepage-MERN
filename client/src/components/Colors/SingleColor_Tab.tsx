@@ -31,7 +31,7 @@ function SingleColor_Tab({
   currentTab,
   userIdOrNoId,
 }: Props): JSX.Element {
-  const setTabColor = useTabs((state) => state.setTabColor);
+  const setTabColor = useTabs((store) => store.setTabColor);
 
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
     ChangeTabMutation

@@ -67,8 +67,8 @@ interface Props {
 
 function Main({ globalSettings }: Props): JSX.Element {
   const authContext = useAuth();
-  const tabsNotAuth = useTabs((state) => state.tabs);
-  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+  const tabsNotAuth = useTabs((store) => store.tabs);
+  const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
   let userIdOrNoId: string | null;
   userIdOrNoId =

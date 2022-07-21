@@ -62,7 +62,7 @@ function SingleColor_DefaultAndColumn({
   >(ChangeSettingsMutation);
 
   const setGlobalSettings = useGlobalSettings(
-    (state) => state.setGlobalSettings
+    (store) => store.setGlobalSettings
   );
 
   let defaultColorsForImg =

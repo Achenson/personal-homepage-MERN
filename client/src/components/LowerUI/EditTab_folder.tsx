@@ -41,7 +41,7 @@ function EditTab_folder({
 }: // bookmarks
 Props): JSX.Element {
   // const tabsNotAuth = useTabs((state) => state.tabs);
-  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+  const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
   const bookmarksDb = useDbContext()?.bookmarks;
   // const tabsDb = useDbContext()?.tabs;

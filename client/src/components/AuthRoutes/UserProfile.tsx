@@ -47,9 +47,9 @@ function UserProfile({
   // setLoginNotification,
 }: Props): JSX.Element {
   let navigate = useNavigate();
-  const loginAttempt = useAuth((state) => state.loginAttempt);
-  const logout = useAuth((state) => state.logout);
-  const userId = useAuth((state) => state.authenticatedUserId);
+  const loginAttempt = useAuth((store) => store.loginAttempt);
+  const logout = useAuth((store) => store.logout);
+  const userId = useAuth((store) => store.authenticatedUserId);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;

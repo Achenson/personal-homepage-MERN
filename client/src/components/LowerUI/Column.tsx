@@ -61,7 +61,7 @@ Props): JSX.Element {
 
   const tabsDb = useDbContext()?.tabs;
 
-  const tabsNotAuth = useTabs((state) => state.tabs);
+  const tabsNotAuth = useTabs((store) => store.tabs);
 
   const globalSettingsNotAuth = useGlobalSettings((state) => state, shallow);
 

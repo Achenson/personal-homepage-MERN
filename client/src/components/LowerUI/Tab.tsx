@@ -86,19 +86,19 @@ function Tab({
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   const setTabBeingDraggedColor = useTabBeingDraggedColor(
-    (state) => state.setTabBeingDraggedColor
+    (store) => store.setTabBeingDraggedColor
   );
 
   // const defaultColors = useDefaultColors((state) => state, shallow);
 
   // needed for immediate tab content opening/closing after locking/unlocking
   const [tabOpened_local, setTabOpened_local] = useState(tabOpened);
-  const setReset = useReset((state) => state.setReset);
-  const resetEnabled = useReset((state) => state.enabled);
+  const setReset = useReset((store) => store.setReset);
+  const resetEnabled = useReset((store) => store.enabled);
   // const bookmarks = useBookmarks((state) => state.bookmarks);
 
-  const tabsNotAuth = useTabs((state) => state.tabs);
-  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+  const tabsNotAuth = useTabs((store) => store.tabs);
+  const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
   const bookmarksDb = useDbContext()?.bookmarks;
   const tabsDb = useDbContext()?.tabs;

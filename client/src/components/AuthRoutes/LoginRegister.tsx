@@ -39,9 +39,9 @@ function LoginRegister({
 // setLoginNotification,
 Props): JSX.Element {
   let navigate = useNavigate();
-  const loginAttempt = useAuth((state) => state.loginAttempt);
-  const loginNotification = useAuth((state) => state.loginNotification);
-  const setLoginNotification = useAuth((state) => state.setLoginNotification);
+  const loginAttempt = useAuth((store) => store.loginAttempt);
+  const loginNotification = useAuth((store) => store.loginNotification);
+  const setLoginNotification = useAuth((store) => store.setLoginNotification);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;

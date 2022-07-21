@@ -51,7 +51,7 @@ function ColumnColor({
  /*  const columnsColors = useColumnsColors((state) => state, shallow);
   const columnsColorsImg = useColumnsColorsImg((state) => state, shallow); */
 
-  const setTabOpenedState = useTabs((state) => state.setTabOpenedState);
+  const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
 
   const upperUiContext = useUpperUiContext();
 

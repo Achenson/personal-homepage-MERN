@@ -39,7 +39,7 @@ function SingleColor_Background({
   ); */
 
   const setGlobalSettings = useGlobalSettings(
-    (state) => state.setGlobalSettings
+    (store) => store.setGlobalSettings
   );
 
   const [changeSettingsResult, changeSettings] = useMutation<

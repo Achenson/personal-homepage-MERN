@@ -76,8 +76,8 @@ Props): JSX.Element {
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
 
-  const tabsNotAuth = useTabs((state) => state.tabs);
-  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+  const tabsNotAuth = useTabs((store) => store.tabs);
+  const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
   const bookmarksDb = useDbContext()?.bookmarks;
   // only used in authenticated version of the app
@@ -127,8 +127,8 @@ Props): JSX.Element {
   }
 
   // const bookmarks = useBookmarks((state) => state.bookmarks);
-  const editTag = useBookmarks((state) => state.editTag);
-  const deleteTag = useBookmarks((state) => state.deleteTag);
+  const editTag = useBookmarks((store) => store.editTag);
+  const deleteTag = useBookmarks((store) => store.deleteTag);
 
   // for note only
   const [textAreaValue, setTextAreaValue] = useState<string | null>(

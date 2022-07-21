@@ -88,8 +88,8 @@ function Bookmark_lowerUI({
   const addBookmarkNonAuth = useBookmarks((store) => store.addBookmark);
   const editBookmarkNonAuth = useBookmarks((store) => store.editBookmark);
 
-  const tabsNotAuth = useTabs((state) => state.tabs);
-  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+  const tabsNotAuth = useTabs((store) => store.tabs);
+  const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
