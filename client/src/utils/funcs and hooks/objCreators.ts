@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { SingleTabData, SingleBookmarkData } from "../interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
+import NoteInput from "../../components/LowerUI/NoteInput";
 
 export function createBasicTab(
   title: string,
@@ -32,6 +33,31 @@ export function createFolderTab_partial(
   };
 }
 
+export function createFolderTab(
+  title: string,
+  column: number,
+  priority: number
+): SingleTabData {
+  return {
+    ...createBasicTab(title, column, priority),
+    ...createFolderTab_partial(),
+  };
+}
+
+export function createFolderTabDb(
+  userId: string,
+  title: string,
+  column: number,
+  priority: number
+): TabDatabase_i {
+  return {
+    userId: userId,
+    ...createFolderTab(title, column, priority)
+    // ...createBasicTab(title, column, priority),
+    // ...createFolderTab_partial(),
+  };
+}
+
 export function createNote_partial(
   noteInput: string | null,
   type: "folder" | "note" | "rss" = "note"
@@ -39,6 +65,33 @@ export function createNote_partial(
   return {
     noteInput,
     type,
+  };
+}
+
+export function createNote(
+  title: string,
+  column: number,
+  priority: number,
+  noteInput: string | null
+): SingleTabData {
+  return {
+    ...createBasicTab(title, column, priority),
+    ...createNote_partial(noteInput),
+  };
+}
+
+export function createNoteDb(
+  userId: string,
+  title: string,
+  column: number,
+  priority: number,
+  noteInput: string | null
+): TabDatabase_i {
+  return {
+    userId: userId,
+    ...createNote(title, column, priority, noteInput)
+    // ...createBasicTab(title, column, priority),
+    // ...createNote_partial(noteInput),
   };
 }
 
@@ -59,29 +112,6 @@ export function createRSS_partial(
   };
 }
 
-export function createFolderTab(
-  title: string,
-  column: number,
-  priority: number
-): SingleTabData {
-  return {
-    ...createBasicTab(title, column, priority),
-    ...createFolderTab_partial(),
-  };
-}
-
-export function createNote(
-  title: string,
-  column: number,
-  priority: number,
-  noteInput: string | null
-): SingleTabData {
-  return {
-    ...createBasicTab(title, column, priority),
-    ...createNote_partial(noteInput),
-  };
-}
-
 export function createRSS(
   title: string,
   column: number,
@@ -94,33 +124,6 @@ export function createRSS(
   };
 }
 
-export function createFolderTabDb(
-  userId: string,
-  title: string,
-  column: number,
-  priority: number
-): TabDatabase_i {
-  return {
-    userId: userId,
-    ...createBasicTab(title, column, priority),
-    ...createFolderTab_partial(),
-  };
-}
-
-export function createNoteDb(
-  userId: string,
-  title: string,
-  column: number,
-  priority: number,
-  noteInput: string | null
-): TabDatabase_i {
-  return {
-    userId: userId,
-    ...createBasicTab(title, column, priority),
-    ...createNote_partial(noteInput),
-  };
-}
-
 export function createRSSDb(
   userId: string,
   title: string,
@@ -130,8 +133,9 @@ export function createRSSDb(
 ): TabDatabase_i {
   return {
     userId: userId,
-    ...createBasicTab(title, column, priority),
-    ...createRSS_partial(rssLink),
+    ...createRSS(title, column, priority, rssLink)
+    // ...createBasicTab(title, column, priority),
+    // ...createRSS_partial(rssLink),
   };
 }
 
@@ -146,7 +150,7 @@ export function createBookmarkNonAuth(
     title,
     URL,
     tags,
-    defaultFaviconFallback
+    defaultFaviconFallback,
   };
 }
 

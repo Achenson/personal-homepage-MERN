@@ -26,6 +26,7 @@ notes:
  DONE 16. upserts in changeMutations -> should be false mostly? (all false )DONE
  DONE 18. client: comment out useStorage (zustand's perist commented out) DONE
  DONE 34. mutations -> proper typescript types! DONE
+DONE 39. objCreators: too much repetition in db tab creators? DONE
 DONE 45. logic for tab deletion in Grid work only thanks to setTimeout() [in Boomark_lowerUI] -> make it better!!! DONE (result.stale used!!!)
 DONE 46. bookmark /tabs database interfaces everywhere! (now both from context) DONE
 DONE 47. promise.all -> no need for new Promise everywhere? mutation return promises (change in Bookmark_lowerUI, no promise.all in Grids now, ) DONE
@@ -85,7 +86,8 @@ DONE 215. (first bug fixes for nonAuth version)  DONE new bookmark DONE, DONE re
 36. addBookmark -> tabQueries should be refetched?
 37. way to use urql as a central state?
 38. editBookmark doesn't work on the client!
-39. objCreators: too much repetition in db tab creators?
+
+
 40. bookmarksAllTags -> change it (it should be a list of all tabs ids that are bookmarks tags) or use mongoose query!!!!
 41. newTab -> no color as argument, should be null
 42. editing Tab -> bookmarks are not sorted alphabetically!
@@ -290,6 +292,12 @@ But possible to edit bookmarks, delete, drag
 & possible to edit folders
 
 background Color possible now in no pic mode
+
+221. objCreators -> bookmarkNonAuth done wrong? id not needed in db version?
+
+
+
+
 {
   filename: 'nature-3082832_1920.jpg',
   mimetype: 'image/jpeg',
