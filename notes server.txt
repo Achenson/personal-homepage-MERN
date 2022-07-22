@@ -51,7 +51,17 @@ DONE 208. BackgroundSettings-> if no userId -> implement logic to suggest creati
 BackgroundSettings_Upload doesn't have to be touched though? code won't be executed DONE
 DONE 211. make non-auth data persist in local storage DONE
 DONE 215. (first bug fixes for nonAuth version)  DONE new bookmark DONE, DONE resetToDefaul DONE , allTags when hidden problem, DONE cannot edit tab DONE, DONE cannot delete bookmars DONE 
-
+DONE 220. auth version problems after implementing, non auth version: DONE
+DONE -not poss to change col colors
+DONe
+-n p to change to normal background
+- not poss to add bookmark, tabs itp for the top menu
+- not possible to change settings
+DONE
+But possible to edit bookmarks, delete, drag
+& possible to add bookmarks, tabs in the lower Ui,
+& possible to edit folders
+DONE background Color possible now in no pic mode
 
 
  1. livereload npm
@@ -281,18 +291,11 @@ change ids in the starting data for nonAuth to strings?
 218. check localStorage for auth version
 
 219. notes -> should be reworked, so they can be edited in place?
-220. auth version problems after implementing, non auth version:
--not poss to change col colors
+221. color hooks - to be partially deleted?
+222. update App structure - routes!
 
-DONe
--n p to change to normal background
-- not poss to add bookmark, tabs itp for the top menu
-- not possible to change settings
-DONE
 
-But possible to edit bookmarks, delete, drag
-& possible to add bookmarks, tabs in the lower Ui,
-& possible to edit folders
+
 
 background Color possible now in no pic mode
 
@@ -308,7 +311,6 @@ background Color possible now in no pic mode
   encoding: '7bit',
   createReadStream: [Function: createReadStream]      
 }
-
 
 
 "urql": "^2.0.5"

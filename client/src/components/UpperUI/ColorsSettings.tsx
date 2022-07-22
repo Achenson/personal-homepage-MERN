@@ -20,12 +20,14 @@ interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   globalSettings: SettingsDatabase_i;
+  userIdOrNoId: string | null;
 }
 
 function ColorsSettings({
   mainPaddingRight,
   scrollbarWidth,
   globalSettings,
+  userIdOrNoId
 }: Props): JSX.Element {
   const [defaultColorsFor, setDefaultColorsFor] = useState<
     "folders" | "notes" | "rss" | "unselected"
@@ -249,6 +251,7 @@ function ColorsSettings({
                   defaultColorsFor={defaultColorsFor}
                   setColorsToChooseVis={setColorsToChooseVis}
                   globalSettings={globalSettings}
+                  userIdOrNoId={userIdOrNoId}
                 />
               </div>
             )}
