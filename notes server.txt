@@ -26,12 +26,15 @@ notes:
  DONE 16. upserts in changeMutations -> should be false mostly? (all false )DONE
  DONE 18. client: comment out useStorage (zustand's perist commented out) DONE
  DONE 34. mutations -> proper typescript types! DONE
+?? 37. way to use urql as a central state? ??
+DONE 38. editBookmark doesn't work on the client! DONE
 DONE 39. objCreators: too much repetition in db tab creators? DONE
 DONE 45. logic for tab deletion in Grid work only thanks to setTimeout() [in Boomark_lowerUI] -> make it better!!! DONE (result.stale used!!!)
 DONE 46. bookmark /tabs database interfaces everywhere! (now both from context) DONE
 DONE 47. promise.all -> no need for new Promise everywhere? mutation return promises (change in Bookmark_lowerUI, no promise.all in Grids now, ) DONE
 DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 DONE 53. change server file upload logic to graphql? DONE
+DONE 57. is path module needed? (server.js (yes)DONE
 DONE 66. background img - remove it once the user is deleted? implemented already -test it! {recursive: true} added DONE
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
@@ -96,8 +99,6 @@ DONE background Color possible now in no pic mode
 35. client-side: unify column_1 naming with server-side naming (colColor_1 itp) when the client-side code
  will be working again for nonauthorised user!
 36. addBookmark -> tabQueries should be refetched?
-37. way to use urql as a central state?
-38. editBookmark doesn't work on the client!
 
 
 40. bookmarksAllTags -> change it (it should be a list of all tabs ids that are bookmarks tags) or use mongoose query!!!!
@@ -107,15 +108,17 @@ DONE background Color possible now in no pic mode
 44. clientside: tab are set to default individually -> should be handle more centrally? (in Grid, as it is done server-side now),
 45. memory leaks? when adding bookmark
 46. bookmarks not up to date when adding newBookmark if there are none -> hacky solution only, reexectuing query which causes rerender - solve?
+
 47. useBookmarks & useTabs -> mark which methods are used server-side!
+
 48. explain somewhere to the user why disable drag & drop is there
 50. server.ts -> figure out which cors urls are actually needed
 51. fix any types (server.js multer?)
 52. change app.use to app.get / app.post?
+
 54. move backgroundImg logic from server.js?
-55. test which cors rules are actually needed
+
 56. clientside: make it possible to choose backgroundImg colors also from settings? or close the modal and open backgroundColors menu
-57. is path module needed? (server.js
 58. status 201
 59. graphql for file upload? use middleware which should detect if the file is attached to post req
 60. flickering when uploadin background img file
@@ -124,8 +127,6 @@ DONE background Color possible now in no pic mode
 63. cannot upload image if there are spaces in the file name?
 64. npm modules should be imported like: import multer = require("multer"). with const types are not working!!
 change everywhere!!
-
-
 
 
 67. delete all test mutation code in the end
