@@ -67,7 +67,7 @@ export const deleteAccountByUserMutationField = {
     let deletedUser = await User.findByIdAndDelete(id);
 
     if (deletedUser) {
-      fs.rmdir(path.join("backgroundImgs/" + id + "/"), (err: any) => {
+      fs.rmdir(path.join("backgroundImgs/" + id + "/"), {recursive: true}, (err: any) => {
         if (err) console.error(err);
       });
 

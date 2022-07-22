@@ -31,6 +31,8 @@ DONE 45. logic for tab deletion in Grid work only thanks to setTimeout() [in Boo
 DONE 46. bookmark /tabs database interfaces everywhere! (now both from context) DONE
 DONE 47. promise.all -> no need for new Promise everywhere? mutation return promises (change in Bookmark_lowerUI, no promise.all in Grids now, ) DONE
 DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
+DONE 53. change server file upload logic to graphql? DONE
+DONE 66. background img - remove it once the user is deleted? implemented already -test it! {recursive: true} added DONE
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
@@ -100,7 +102,6 @@ DONE 215. (first bug fixes for nonAuth version)  DONE new bookmark DONE, DONE re
 50. server.ts -> figure out which cors urls are actually needed
 51. fix any types (server.js multer?)
 52. change app.use to app.get / app.post?
-53. change server file upload logic to graphql?
 54. move backgroundImg logic from server.js?
 55. test which cors rules are actually needed
 56. clientside: make it possible to choose backgroundImg colors also from settings? or close the modal and open backgroundColors menu
@@ -113,8 +114,10 @@ DONE 215. (first bug fixes for nonAuth version)  DONE new bookmark DONE, DONE re
 63. cannot upload image if there are spaces in the file name?
 64. npm modules should be imported like: import multer = require("multer"). with const types are not working!!
 change everywhere!!
-65. add qpl`` ... package to graphql schema
-66. background img - remove it once the user is deleted? implemented already -test it!
+
+
+
+
 67. delete all test mutation code in the end
 68. list all links to free svgs in notes
 69. delete unused test_svgs, rename the chosen one
@@ -294,6 +297,7 @@ But possible to edit bookmarks, delete, drag
 background Color possible now in no pic mode
 
 221. objCreators -> bookmarkNonAuth done wrong? id not needed in db version?
+222. LoginSuccessfull notification -> blinking after user deletion! test it, remove it?
 
 
 
