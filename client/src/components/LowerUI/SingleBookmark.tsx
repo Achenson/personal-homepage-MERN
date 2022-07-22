@@ -91,8 +91,8 @@ function SingleBookmark({
 Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
-  const tabsNotAuth = useTabs((state) => state.tabs);
-  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+  const tabsNotAuth = useTabs((store) => store.tabs);
+  const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
   const editBookmarkNonAuth = useBookmarks((store) => store.editBookmark);
 
   const bookmarksDb = useDbContext()?.bookmarks;
@@ -111,7 +111,7 @@ Props): JSX.Element {
   const authContext = useAuth();
   const tabContext = useTabContext();
 
-  const setFocusedTabState = useTabs((state) => state.setFocusedTabState);
+  const setFocusedTabState = useTabs((store) => store.setFocusedTabState);
 
   const upperUiContext = useUpperUiContext();
 
@@ -119,7 +119,7 @@ Props): JSX.Element {
 
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   // const tabs = useTabs((state) => state.tabs);
-  const deleteBookmarkNonAuth = useBookmarks((state) => state.deleteBookmark);
+  const deleteBookmarkNonAuth = useBookmarks((store) => store.deleteBookmark);
 
   const [deleteBookmarkResult, deleteBookmark] = useMutation<any, BookmarkId>(
     DeleteBookmarkMutation

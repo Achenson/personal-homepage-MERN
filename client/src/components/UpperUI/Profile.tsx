@@ -44,7 +44,7 @@ function Profile({
 
   const upperUiContext = useUpperUiContext();
   const authContext = useAuth();
-  const loginAttempt = useAuth((state) => state.loginAttempt);
+  const loginAttempt = useAuth((store) => store.loginAttempt);
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
 

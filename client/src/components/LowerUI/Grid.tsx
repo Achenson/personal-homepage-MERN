@@ -51,8 +51,8 @@ Props): JSX.Element {
   const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
 
-  const tabsNotAuth = useTabs((state) => state.tabs);
-  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+  const tabsNotAuth = useTabs((store) => store.tabs);
+  const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
   const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
   const tabDeletingPause = useTabs((store) => store.tabDeletingPause);
@@ -90,10 +90,10 @@ Props): JSX.Element {
 
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
-  const resetColors = useResetColors((state) => state.resetColors);
-  const setResetColors = useResetColors((state) => state.setResetColors);
+  const resetColors = useResetColors((store) => store.resetColors);
+  const setResetColors = useResetColors((store) => store.setResetColors);
 
-  const setReset = useReset((state) => state.setReset);
+  const setReset = useReset((store) => store.setReset);
 
   const upperUiContext = useUpperUiContext();
 

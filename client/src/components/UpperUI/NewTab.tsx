@@ -61,10 +61,10 @@ function NewTab({
   userIdOrNoId,
 }: Props): JSX.Element {
   // const tabs = useTabs((state) => state.tabs);
-  const addTabsNonAuth = useTabs((state) => state.addTabs);
+  const addTabsNonAuth = useTabs((store) => store.addTabs);
 
-  const tabsNotAuth = useTabs((state) => state.tabs);
-  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+  const tabsNotAuth = useTabs((store) => store.tabs);
+  const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
   const bookmarksDb = useDbContext()?.bookmarks;
   const tabsDb = useDbContext()?.tabs;
@@ -90,7 +90,7 @@ function NewTab({
   >(ChangeBookmarkMutation);
 
   // const bookmarks = useBookmarks((state) => state.bookmarks);
-  const addTag = useBookmarks((state) => state.addTag);
+  const addTag = useBookmarks((store) => store.addTag);
   const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
   // const bookmarksAllTags: string[] = bookmarks.map((obj) => obj.id);
   const setBookmarksAllTags = useBookmarks(

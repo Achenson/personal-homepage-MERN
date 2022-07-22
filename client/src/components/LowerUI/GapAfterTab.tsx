@@ -48,7 +48,7 @@ function GapAfterTab({
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
-  const tabsNotAuth = useTabs((state) => state.tabs);
+  const tabsNotAuth = useTabs((store) => store.tabs);
 
   const bookmarksDb = useDbContext()?.bookmarks;
   const tabsDb = useDbContext()?.tabs;
@@ -62,7 +62,7 @@ function GapAfterTab({
   );
 
   const tabBeingDraggedColor = useTabBeingDraggedColor(
-    (state) => state.tabBeingDraggedColor
+    (store) => store.tabBeingDraggedColor
   );
 
   const dragTab = useTabs((store) => store.dragTab);

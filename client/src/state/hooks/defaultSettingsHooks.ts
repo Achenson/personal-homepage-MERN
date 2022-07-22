@@ -55,31 +55,3 @@ export const useGlobalSettings = create<UseGlobalSettingsAll>(
     }
   )
 );
-
-/* interface RssSettingsData {
-  date: boolean;
-  description: boolean;
-  itemsPerPage: number;
-}
-
-interface RssSettingsAll extends RssSettingsData {
-  setRssSettings: (rssSettings: RssSettingsData) => void;
-} */
-
-// moved to useGlobalSettings
-/* export const useRssSettings = create<RssSettingsAll>(
-  // persist(
-    (set) => ({
-      date: true,
-      description: false,
-      itemsPerPage: 7,
-      setRssSettings: (rssSettingsData) =>
-        set((state) => ({
-          ...rssSettingsData,
-        })),
-    }),
-  //   {
-  //     name: "rssSettings-storage",
-  //   }
-  // )
-); */

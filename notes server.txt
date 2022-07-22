@@ -23,8 +23,12 @@ notes:
    <- not being used actually in the client? (items deleted from rss clientside) DONE
  DONE 8. client: ALL_TAGS should not be an id but rather deletable property should be used! ids will be added automatically be database DONE
  DONE 9. deleteUser -> promise.all should be used instead of individual promises? for performance DONE
+XXX 11. deleteTabMutation -> should it also delete related Bookmark automatically? NO -> bookmarks still remain in All folderXX
  DONE 16. upserts in changeMutations -> should be false mostly? (all false )DONE
  DONE 18. client: comment out useStorage (zustand's perist commented out) DONE
+XXX 22. use zustand state conditionally if the user is not authenticated. no, zustand state is always on, even if user is authenticated, is just not used in that case XX
+DONE 24. client: rss settings merges with global settings -> test -> delete all commented out code DONE
+DONE 32. clientside: hooks for store -> sometimes it's state.tabs, sometimes store.tabs -> unify -> unified as store DONE
  DONE 34. mutations -> proper typescript types! DONE
 ?? 37. way to use urql as a central state? ??
 DONE 38. editBookmark doesn't work on the client! DONE
@@ -73,7 +77,6 @@ DONE background Color possible now in no pic mode
  
 10. typescript doesn't work for schemas?
 
-11. deleteTabMutation -> should it also delete related Bookmark automatically?
 14. non-null types: same everywhere!
 15. fields -> id can be an argument even if it is never used? delete it from fields?
 16. make npm run dev open 2 console instances
@@ -82,22 +85,22 @@ DONE background Color possible now in no pic mode
 18. Column: better error handling?
 19. bookmarks: better query -> finding the bookmarks matched to a particular tab right away
 21. unhandled promise rejections! addUser, handle it everywhere!
-22. use zustand state conditionally if the user is not authenticated
 
 23. delete testUserId in the end
-24. client: rss settings merges with global settings -> test -> delete all commented out code
 25. typescript: save eg. settingsType new Settings -> save() method does not exist
-26. all settings working with db init
+
 27. globalSettings make it impossible to enter a value other than 5-15!
+
 28. client: make + & - for rss itemsPerPage  
+
 29. Main -> fetching and date are after useEffects (globalSettings in a useEffect dep) but globalSettings is declared already?
 30. globalSettings taken either from props or from hooks (hooks cannot apply if useEffect uses globalSettings
 + it requires more code) -> unify? -> currently hook is in MainWrapper & Column
 31. interfaces: database vs client side: currently settings are from database but tabs from clientside...
-32. clientside: hooks for store -> sometimes it's state.tabs, sometimes store.tabs -> unify
 33. take care of state other that settings, tabs & bookmarks (use of existings queries should be enough?)
 35. client-side: unify column_1 naming with server-side naming (colColor_1 itp) when the client-side code
  will be working again for nonauthorised user!
+
 36. addBookmark -> tabQueries should be refetched?
 
 
@@ -294,7 +297,9 @@ change ids in the starting data for nonAuth to strings?
 219. notes -> should be reworked, so they can be edited in place?
 221. color hooks - to be partially deleted?
 222. update App structure - routes!
-
+223. rssSettings problem -> value lower than 5 and 15 can be entered! no easy way to increase/decrese value??
+224. globalSettings rss items number-> hover field, implement is alse elsewhere??
+225. Disable drag & drop -> should be sth like disable drag & drop for tabs??
 
 
 
@@ -378,24 +383,8 @@ urql auth:
 login mutation: code from willAuthError won't run!
 central state should be updated after jwt logic is handled??
 
-
-
-
 setting nodemailer -> 2 step authentication in gmail -> setting app password
 https://stackoverflow.com/questions/59188483/error-invalid-login-535-5-7-8-username-and-password-not-accepted?answertab=trending#tab-top
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -450,5 +439,10 @@ export const useAuth = create<AuthContextZustand_i>((set) => ({
 }));
 
 
+35 j etoh
 
-    
+
+100Et - 35 j
+
+35 - 33.6 jedn
+      35

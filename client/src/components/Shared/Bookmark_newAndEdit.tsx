@@ -58,8 +58,8 @@ function Bookmark_newAndEdit({
   // const bookmarks = useDbContext().bookmarks;
   // const tabs = useDbContext().tabs;
 
-  const tabsNotAuth = useTabs((state) => state.tabs);
-  const bookmarksNotAuth = useBookmarks((state) => state.bookmarks);
+  const tabsNotAuth = useTabs((store) => store.tabs);
+  const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];

@@ -33,10 +33,10 @@ function Reset({
   // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
   const backgroundColor = globalSettings.backgroundColor;
 
-  const setCloseAllTabsState = useTabs((state) => state.setCloseAllTabsState);
-  const setTabOpenedState = useTabs((state) => state.setTabOpenedState);
-  const resetEnabled = useReset((state) => state.enabled);
-  const setReset = useReset((state) => state.setReset);
+  const setCloseAllTabsState = useTabs((store) => store.setCloseAllTabsState);
+  const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
+  const resetEnabled = useReset((store) => store.enabled);
+  const setReset = useReset((store) => store.setReset);
 
   const upperUiContext = useUpperUiContext();
 

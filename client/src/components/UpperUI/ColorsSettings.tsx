@@ -39,11 +39,11 @@ function ColorsSettings({
   const [notesSelected, setNotesSelected] = useState<boolean>(false);
   const [rssSelected, setRssSelected] = useState<boolean>(false);
 
-  const setResetColors = useResetColors((state) => state.setResetColors);
+  const setResetColors = useResetColors((store) => store.setResetColors);
 
   // const defaultColors = useDefaultColors((state) => state, shallow);
 
-  const setTabOpenedState = useTabs((state) => state.setTabOpenedState);
+  const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
 
   const upperUiContext = useUpperUiContext();
 

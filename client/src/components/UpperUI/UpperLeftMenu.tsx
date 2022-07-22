@@ -28,7 +28,7 @@ function UpperLeftMenu({ globalSettings, userIdOrNoId }: Props): JSX.Element {
 
   const [isHoverOnAnyColumn, setIsHoverOnAnyColumn] = useState(false);
 
-  const setFocusedTabState = useTabs((state) => state.setFocusedTabState);
+  const setFocusedTabState = useTabs((store) => store.setFocusedTabState);
 
   const upperUiContext = useUpperUiContext();
 

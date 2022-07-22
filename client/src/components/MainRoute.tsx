@@ -64,7 +64,7 @@ function MainRoute({
 }: // setLoginNotification
 Props): JSX.Element {
   const backgroundColor = globalSettings.backgroundColor;
-  const setLoginNotification = useAuth((state) => state.setLoginNotification);
+  const setLoginNotification = useAuth((store) => store.setLoginNotification);
 
   useEffect(() => {
     setLoginNotification(null);

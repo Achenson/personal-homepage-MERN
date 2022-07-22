@@ -44,7 +44,7 @@ function EditTab_RSS({
 }: Props): JSX.Element {
   // const rssSettingsState = useRssSettings((state) => state, shallow);
   // const globalSettings = useGlobalSettings((state) => state, shallow);
-  const resetTabRssSettings = useTabs((state) => state.resetTabRssSettings);
+  const resetTabRssSettings = useTabs((store) => store.resetTabRssSettings);
 
   return (
     <div className="-mb-1">
