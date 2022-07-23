@@ -41,7 +41,9 @@ DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 DONE 53. change server file upload logic to graphql? DONE
 DONE 57. is path module needed? (server.js (yes)DONE
 DONE 66. background img - remove it once the user is deleted? implemented already -test it! {recursive: true} added DONE
+XX 76. AppWrapper, MainWrapper in different placec - chaos? no AppWrapper anymore XX
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
+DONE 127. implement token revoking !!!! DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
 DONE 140. x hide/unhide password x password input type instead DONE
@@ -53,6 +55,7 @@ DONE 161. successful register message && successful user deletion- when? DONE (i
 DONE 164. prevent copying new password & pastying in password confirmation  DONE
 DONE 165. LoginRegister_input naming change (component also used elsewhere) DONE
 DONE 171. deleteUserByAdminMutation -> change so it is possible to delete many users DONE
+DONE 175. delete AppWrapper DONE
 DONE 178. after registering & redirecting to login -> focus should be set on password DONE
 DONE 179. after registering -> register fields should be emptied DONE
 DONE 204. all userIdOrNoId logic -> convert to ? : DONE
@@ -143,7 +146,8 @@ change everywhere!!
 74. implement token versioning: refreshToken
 75. Main -> change context values obj, so it is taken from state directly
 75. fetchFavicon in server.js -> delete?
-76. AppWrapper, MainWrapper in different placec - chaos?
+
+
 77. UpperRightMenu: loggedInState -> change for it to be compatible with authContext
 78. middleware for token -> generated code for types is being used??
 79. is case of failure, accessToken will be an empty string - to change? compare with loginMutation
@@ -192,12 +196,13 @@ change everywhere!!
 121. get favicon server.ts -> archive
 122. ts -> less any types
 123. custom background img -> should work if there is no file in the beginning?
-124. AppWrapper -> delete, zustand hooks -> delete or implent when logged out?
+124. zustand hooks -> delete or implent when logged out?
 125. should refreshToken() return null in case of failure in App.ts??
 126. didAuthError not needed? since there will be (!isAuth) logic in qraphql mutation/queries.
 instead, willAuthError is needed? even if it does not trigger error (logic for refreshing is not needed in getAuth?), 
 it will trigger refresh in getAuth
-127. implement token revoking !!!!
+
+
 128. update token notes (refreshing tokens -> always two tokens are being refreshed, that is by design? probably)
 129. implement willAuthError for better performance
 130. improve getAuth -> it should not include refresh token logic in the first run?
@@ -242,8 +247,11 @@ unify across other mutations!
 172. deleteUserByAdminMutation -> not getting proper returned data from graphql
 173. deleteUserByAdminMutation -> put delete user first, only then settings etc.
 174. development mode -> should work also when offline?
-175. delete AppWrapper & authContext also?
-175.5 auth -> zustand, other central state -> context. unify?
+
+
+175.5 auth -> zustand, other central state -> context. unify? check downside of using context
+175.75 check if all contexts are used!!! backgroundImgContext adn authContext not being used
+
 176. objects as props in more places? like paddingProps in Main
 177. useAuth zustand hook -> loginErrorMessage -> delete or implement?
 
@@ -267,7 +275,7 @@ to get info clientside that there is no regisered user
   }
 }
 
-192. email with all .env codes
+!!! 192. email with all .env codes !!! uj
 
 193. change all urql components error handling to similar to UserProfile (LoginRegister for sure)
 194. changePasswordAfterForgot -> in case of token expiration -> link to forgotpass should be visible
