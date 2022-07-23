@@ -51,7 +51,6 @@ import { useBookmarks } from "../../state/hooks/useBookmarks";
 import {
   ChangeBookmarkMutation,
   DeleteBookmarkMutation,
-  TestMutation,
 } from "../../graphql/graphqlMutations";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
@@ -132,9 +131,6 @@ Props): JSX.Element {
 
   // const [favicon, setFavicon] = useState<string | null>(null);
 
-  const [testMutationResult, testMutation] = useMutation<any, any>(
-    TestMutation
-  );
 
   let userIdOrDemoId: string;
   userIdOrDemoId =
@@ -201,7 +197,7 @@ Props): JSX.Element {
                   className="fill-current text-blue-800 cursor-pointer"
                   // className="fill-current text-blueGray-500"
                   onClick={() => {
-                    // testMutation({stringToAdd: "string to add"})
+                   
 
                     // setIsFaviconDefault(b=>!b)
                     console.log("clicked");
@@ -269,12 +265,7 @@ Props): JSX.Element {
                   }}
                 />
               )}
-              {/*       <PhotographSVG
-                className="h-full"
-                onClick={() => {
-                  // testMutation({stringToAdd: "string to add"})
-                }}
-              /> */}
+            
 
               {/*  <div style={{
                 backgroundImage: faviconUrlApi,

@@ -280,17 +280,7 @@ export const LogoutMutation = `
   }
 `;
 
-export const TestMutation = `
-  mutation (
-    $stringToAdd: String,
-    ) {
-    testMutation (stringToAdd: $stringToAdd, 
-      
-        ) {
-         stringToAdd
-    }
-  }
-`;
+
 
 export const BackgroundImgMutation = `
   mutation ($image: Upload) {

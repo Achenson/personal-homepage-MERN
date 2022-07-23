@@ -37,3 +37,59 @@ function AppWrapper({}): JSX.Element {
 }
 
 export default AppWrapper;
+
+
+
+//testMutation
+
+const graphql = require("graphql");
+
+// const Bookmark = require("../../mongoModels/bookmarkSchema");
+
+/* import {
+  BookmarkFields,
+  BookmarkType,
+  BookmarkDatabase_i,
+} from "../types/bookmarkType"; */
+
+import { TestMutationField, TestMutationType } from "../types/testMutationType";
+
+export const testMutationField = {
+  type: TestMutationType,
+  args: {
+    ...TestMutationField,
+  },
+  //   resolve(_source: unknown, args: {stringToAdd: string}) {
+  resolve(rootValue: any) {
+    // see commented out middleware in server.js before /graphql endpoint
+    console.log(rootValue.request.customKey);
+  },
+};
+
+// client graphql
+export const TestMutation = `
+  mutation (
+    $stringToAdd: String,
+    ) {
+    testMutation (stringToAdd: $stringToAdd, 
+      
+        ) {
+         stringToAdd
+    }
+  }
+`;
+
+// testtMutationType
+
+import { GraphQLString, GraphQLObjectType } from "graphql";
+
+export const TestMutationField = {
+  stringToAdd: { type: GraphQLString },
+};
+
+export const TestMutationType = new GraphQLObjectType({
+  name: "testMutation",
+  fields: () => ({
+    ...TestMutationField,
+  }),
+});

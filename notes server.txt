@@ -41,6 +41,7 @@ DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 DONE 53. change server file upload logic to graphql? DONE
 DONE 57. is path module needed? (server.js (yes)DONE
 DONE 66. background img - remove it once the user is deleted? implemented already -test it! {recursive: true} added DONE
+DONE 67. delete all test mutation code in the end DONE
 XX 76. AppWrapper, MainWrapper in different placec - chaos? no AppWrapper anymore XX
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 127. implement token revoking !!!! DONE
@@ -136,7 +137,6 @@ DONE background Color possible now in no pic mode
 change everywhere!!
 
 
-67. delete all test mutation code in the end
 68. list all links to free svgs in notes
 69. delete unused test_svgs, rename the chosen one
 70. singleBookmarkData: change interface to BookmarkDatabase_i ?

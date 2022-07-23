@@ -10,7 +10,6 @@ import { addBookmarkMutationField } from "./addBookmarkMutation";
 import { changeUserByAdminMutationField } from "./changeUserByAdminMutation";
 import { changeTabMutationField } from "./changeTabMutation";
 import { changeBookmarkMutationField } from "./changeBookmarkMutation";
-import { testMutationField } from "./testMutation";
 import { loginMutationField } from "./loginMutation";
 import { logoutMutationField } from "./logoutMutation";
 import { backgroundImgMutationField } from "./backgroundImgMutation";
@@ -39,7 +38,6 @@ export const Mutation = new GraphQLObjectType({
     deleteUsersByAdmin: deleteUsersByAdminMutationField,
     deleteBookmark: deleteBookmarkMutationField,
     deleteTab: deleteTabMutationField,
-    testMutation: testMutationField,
     loginMutation: loginMutationField,
     logoutMutation: logoutMutationField,
     backgroundImgMutation: backgroundImgMutationField,
