@@ -434,6 +434,8 @@ app.use("/graphql", (req: Request, res: Response, next: NextFunction) => {
     // @ts-ignore
     console.log(req.isAuth);
 
+
+
     if (!req.body) {
       next();
       return;

@@ -33,7 +33,7 @@ import { testUserId } from "../../state/data/testUserId";
 // import { ReactComponent as GlobeSVG } from "../../svgs/photograph.svg";
 
 // ==== best
-import { ReactComponent as GlobeSVG } from "../../svgs/test_internet-web-browser-conv.svg";
+import { ReactComponent as GlobeSVG } from "../../svgs/internet-web-browser-conv.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-with-meridians.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-svgrepo-com.svg";
 // import { ReactComponent as GlobeSVG } from "../../svgs/test_globe-svgrepo-standard.svg";

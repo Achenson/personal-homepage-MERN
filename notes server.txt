@@ -40,11 +40,16 @@ DONE 47.5 useBookmarks & useTabs -> mark which methods are used server-side! DON
 DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 DONE 53. change server file upload logic to graphql? DONE
 DONE 57. is path module needed? (server.js (yes)DONE
+DONE 59. graphql for file upload? use middleware which should detect if the file is attached to post req DONE
+DONE 62. upload background img -> should use one btn only?? DONE
 DONE 63. cannot upload image if there are spaces in the file name? spaces replaced by "_" DONE
 DONE 66. background img - remove it once the user is deleted? implemented already -test it! {recursive: true} added DONE
 DONE 67. delete all test mutation code in the end DONE
+DONE 69. delete unused test_svgs (for alt links), rename the chosen one DONE
+XX 71. msg to user when clicking custom img and there is none present (file browser starts instead) XX
 XX 76. AppWrapper, MainWrapper in different placec - chaos? no AppWrapper anymore XX
 DONE 82. uninstall react-tracked DONE
+DONE 109. backgroundImgUpload funcion -> for !req.body is next() needed? (yes, following code is not executed if there is no body) DONE
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 127. implement token revoking !!!! DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
@@ -128,18 +133,15 @@ DONE background Color possible now in no pic mode
 54. move backgroundImg logic from server.js?
 56. clientside: make it possible to choose backgroundImg colors also from settings? or close the modal and open backgroundColors menu
 58. status 201
-59. graphql for file upload? use middleware which should detect if the file is attached to post req
 60. flickering when uploadin background img file
 61. background img -> currently there is no point in storing it in db, as it is get from server only??
-62. upload background img -> should use one btn only??
-
-
+BackgroundImg schema in server.ts - does it work??
 64. npm modules should be imported like: import multer = require("multer"). with const types are not working!!
 change everywhere!!
 68. list all links to free svgs in notes
-69. delete unused test_svgs, rename the chosen one
+
+
 70. singleBookmarkData: change interface to BookmarkDatabase_i ?
-71. msg to user when clicking custom img and there is none present
 72. graphql ID vd string type, they may be mixed
 73. user creation: check if user name or email already exists
 74. implement token versioning: refreshToken
@@ -180,7 +182,8 @@ change everywhere!!
 106. make it possible to changle background img when not logged in, again
 107. write notes for file upload system!
 108. not possible to write even a console.log in backgroundImgMutation even while is working?
-109. backgroundImgUpload funcion -> for !req.body is next() needed?
+
+
 110. demo id or test id naming
 111. rootValue -> not needed?? check multer express graphql tut. change backgroundImgMutaion
 112. test user Id server.ts check import
