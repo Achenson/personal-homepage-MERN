@@ -334,6 +334,7 @@ export const useTabs = create<UseTabs>(
             }
           })
         ),
+        // non-auth only
       toggleTab: (tabID, tabOpened) =>
         set(
           produce((state: UseTabs) => {
@@ -346,6 +347,7 @@ export const useTabs = create<UseTabs>(
           })
         ),
       tabs: [...tabsData],
+      // in both non-auth (Tab) & auth (Grid) ->
       closeAllTabsState: false,
       setCloseAllTabsState: (trueOrFalse) => {
         set((state: UseTabs) => ({
@@ -353,6 +355,7 @@ export const useTabs = create<UseTabs>(
           closeAllTabsState: trueOrFalse,
         }));
       },
+      // both non-auth and auth
       focusedTabState: null,
       setFocusedTabState: (nullOrID) => {
         set((state: UseTabs) => ({
@@ -360,6 +363,7 @@ export const useTabs = create<UseTabs>(
           focusedTabState: nullOrID,
         }));
       },
+       // both non-auth and auth
       tabOpenedState: null,
       setTabOpenedState: (nullOrID) => {
         set((state: UseTabs) => ({
@@ -367,6 +371,7 @@ export const useTabs = create<UseTabs>(
           tabOpenedState: nullOrID,
         }));
       },
+      // auth version only
       tabDeletingPause: true,
       setTabDeletingPause: (trueOrFalse) => {
         set((state: UseTabs) => ({

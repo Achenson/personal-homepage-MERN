@@ -33,6 +33,7 @@ interface UseBookmarks {
   bookmarks: SingleBookmarkData[];
 }
 
+// non-auth only
 export const useBookmarks = create<UseBookmarks>(
   persist(
     (set, get) => ({

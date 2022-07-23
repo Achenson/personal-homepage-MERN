@@ -36,6 +36,7 @@ DONE 39. objCreators: too much repetition in db tab creators? DONE
 DONE 45. logic for tab deletion in Grid work only thanks to setTimeout() [in Boomark_lowerUI] -> make it better!!! DONE (result.stale used!!!)
 DONE 46. bookmark /tabs database interfaces everywhere! (now both from context) DONE
 DONE 47. promise.all -> no need for new Promise everywhere? mutation return promises (change in Bookmark_lowerUI, no promise.all in Grids now, ) DONE
+DONE 47.5 useBookmarks & useTabs -> mark which methods are used server-side! DONE
 DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 DONE 53. change server file upload logic to graphql? DONE
 DONE 57. is path module needed? (server.js (yes)DONE
@@ -112,7 +113,6 @@ DONE background Color possible now in no pic mode
 45. memory leaks? when adding bookmark
 46. bookmarks not up to date when adding newBookmark if there are none -> hacky solution only, reexectuing query which causes rerender - solve?
 
-47. useBookmarks & useTabs -> mark which methods are used server-side!
 
 48. explain somewhere to the user why disable drag & drop is there
 50. server.ts -> figure out which cors urls are actually needed
@@ -265,7 +265,9 @@ to get info clientside that there is no regisered user
     "forgotPassword": true
   }
 }
+
 192. email with all .env codes
+
 193. change all urql components error handling to similar to UserProfile (LoginRegister for sure)
 194. changePasswordAfterForgot -> in case of token expiration -> link to forgotpass should be visible
 195. displaying res.error.message for graphql errors if it is present? [no but sth should be display clientside accordingly?]
@@ -277,10 +279,13 @@ to get info clientside that there is no regisered user
 (should be done for TAB_CONTENT_DEFAULT at least?)
 201. bookmarkAllTags -> MERN -> created every time in one of Grid's useEffect (check EditTab_main editTab wrapper also)
 old not-auth -> placed in central bookmarks state. check if it works properly, unify?
-202. tabDeletingPause introduced in MERN version -> can/should it be implemented for non-auth version also?
+
+202. Grid tabDeletingPause introduced in MERN version -> can/should it be implemented for non-auth version also?
+
 203. settings interfaces db & demo-> unify, clear (all interfaces shoul be moved out of client?)
+
 204. all userIdOrNoId logic -> convert to ? :
-205. Grid tabDeletingPause -> only used in MERN code, is this okay?
+
 206. useBookmark -> string types for id in MERN version number|string in old client only ver. -> no clashes
 change ids in the starting data for nonAuth to strings?
 !!!!! 207. SingleBookmark -> implement icon fallback for nonAuth Version!
@@ -307,7 +312,8 @@ background Color possible now in no pic mode
 
 221. objCreators -> bookmarkNonAuth done wrong? id not needed in db version?
 222. LoginSuccessfull notification -> blinking after user deletion! test it, remove it?
-
+223. closeAllTabsState -> in Grid or Tab if either non-auth or auth -> unify?
+224. tabDeletingPause in Grid -> hack? explain how it works
 
 
 
