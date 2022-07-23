@@ -40,9 +40,11 @@ DONE 47.5 useBookmarks & useTabs -> mark which methods are used server-side! DON
 DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 DONE 53. change server file upload logic to graphql? DONE
 DONE 57. is path module needed? (server.js (yes)DONE
+DONE 63. cannot upload image if there are spaces in the file name? spaces replaced by "_" DONE
 DONE 66. background img - remove it once the user is deleted? implemented already -test it! {recursive: true} added DONE
 DONE 67. delete all test mutation code in the end DONE
 XX 76. AppWrapper, MainWrapper in different placec - chaos? no AppWrapper anymore XX
+DONE 82. uninstall react-tracked DONE
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 127. implement token revoking !!!! DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
@@ -123,20 +125,17 @@ DONE background Color possible now in no pic mode
 50. server.ts -> figure out which cors urls are actually needed
 51. fix any types (server.js multer?)
 52. change app.use to app.get / app.post?
-
 54. move backgroundImg logic from server.js?
-
 56. clientside: make it possible to choose backgroundImg colors also from settings? or close the modal and open backgroundColors menu
 58. status 201
 59. graphql for file upload? use middleware which should detect if the file is attached to post req
 60. flickering when uploadin background img file
 61. background img -> currently there is no point in storing it in db, as it is get from server only??
 62. upload background img -> should use one btn only??
-63. cannot upload image if there are spaces in the file name?
+
+
 64. npm modules should be imported like: import multer = require("multer"). with const types are not working!!
 change everywhere!!
-
-
 68. list all links to free svgs in notes
 69. delete unused test_svgs, rename the chosen one
 70. singleBookmarkData: change interface to BookmarkDatabase_i ?
@@ -153,7 +152,8 @@ change everywhere!!
 79. is case of failure, accessToken will be an empty string - to change? compare with loginMutation
 80. get rid of all ts "any"s
 81. logout mutation: is refreshing site -why?
-82. uninstall react-tracked
+
+
 83. mainWrapper - too many or not enough?
 84. user exp not perfect when logging out? flickering
 85. Profile & LoginRegister doubled components
@@ -400,6 +400,21 @@ central state should be updated after jwt logic is handled??
 
 setting nodemailer -> 2 step authentication in gmail -> setting app password
 https://stackoverflow.com/questions/59188483/error-invalid-login-535-5-7-8-username-and-password-not-accepted?answertab=trending#tab-top
+
+
+
+
+
+react-tracked -> optimized rerender for zustand itp?
+
+
+
+
+
+
+
+
+
 
 
 

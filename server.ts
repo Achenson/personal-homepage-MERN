@@ -213,9 +213,17 @@ const storage = multer.diskStorage({
     cb(null, dest);
   },
   filename: function (req: any, file: any, cb: any) {
-    let newFileName = Date.now() + "_" + file.originalname;
+
+    let fileOriginalNameMod = file.originalname.replace(/\s/g, "_");
+
+    let newFileName = Date.now() + "_" + fileOriginalNameMod;
+    // let newFileName = Date.now() + "_" + file.originalname;
     cb(null, newFileName);
     newBackgroundImageName = newFileName;
+    console.log("NAMEEEE");
+    console.log(newBackgroundImageName);
+    
+    
   },
 });
 
@@ -444,13 +452,12 @@ app.use("/graphql", (req: Request, res: Response, next: NextFunction) => {
 
     // next()
     // @ts-ignore
-    let userIdOrTestId = req.isAuth ? req.userId : testUserId
-
+    let userIdOrTestId = req.isAuth ? req.userId : testUserId;
 
     let newBackgroundImg = {
       // userId: userIdOrDemoId,
       // userId: req.params.userId,
-       // @ts-ignore
+      // @ts-ignore
       userId: userIdOrTestId,
       // backgroundImg: req.file.path,
       backgroundImg: newBackgroundImageName,
@@ -476,7 +483,7 @@ app.use("/graphql", (req: Request, res: Response, next: NextFunction) => {
 
         // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
         // let dest = "backgroundImgs/" + req.params.userId + "/";
-         // @ts-ignore
+        // @ts-ignore
         // let dest = "backgroundImgs/" + req.userId + "/";
         let dest = "backgroundImgs/" + userIdOrTestId + "/";
 
@@ -499,10 +506,6 @@ app.use("/graphql", (req: Request, res: Response, next: NextFunction) => {
         // res.send("aaaaaaaaaaaaaaaaaaaaa");
       }
     );
-
-
-
-
   });
 
   // console.log("req.file");
