@@ -19,13 +19,13 @@ import { testUserId } from "../../state/data/testUserId";
 interface Props {
   setFocusOnBackgroundColor: React.Dispatch<React.SetStateAction<boolean>>;
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
-  userIdOrNoId: string|null;
+  userIdOrNoId: string | null;
 }
 
 function ColorsToChoose_Background({
   setFocusOnBackgroundColor,
   globalSettings,
-  userIdOrNoId
+  userIdOrNoId,
 }: Props): JSX.Element {
   // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
   const backgroundColor = globalSettings.backgroundColor;

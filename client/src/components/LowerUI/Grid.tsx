@@ -180,13 +180,11 @@ Props): JSX.Element {
 
   useEffect(() => {
     if (resetColors) {
-      if (userIdOrNoId) {
-        (tabs as TabDatabase_i[]).forEach((obj) => {
-          editTab({ ...obj, color: null });
-        });
-      } else {
-        resetAllTabColors();
-      }
+      userIdOrNoId
+        ? (tabs as TabDatabase_i[]).forEach((obj) => {
+            editTab({ ...obj, color: null });
+          })
+        : resetAllTabColors();
 
       setResetColors(false);
     }

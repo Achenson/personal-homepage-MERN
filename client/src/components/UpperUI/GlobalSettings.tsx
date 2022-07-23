@@ -369,17 +369,15 @@ function GlobalSettings({
                           description: !globalSettings.description,
                         }); */
 
-                        if (userIdOrNoId) {
-                          changeSettings({
-                            ...globalSettings,
-                            description: !globalSettings.description,
-                          });
-                        } else {
-                          setGlobalSettings({
-                            ...globalSettings,
-                            description: !globalSettings.description,
-                          });
-                        }
+                        userIdOrNoId
+                          ? changeSettings({
+                              ...globalSettings,
+                              description: !globalSettings.description,
+                            })
+                          : setGlobalSettings({
+                              ...globalSettings,
+                              description: !globalSettings.description,
+                            });
 
                         setTabOpenedState(null);
                       }}
@@ -403,17 +401,15 @@ function GlobalSettings({
                         });
                          */
 
-                        if (userIdOrNoId) {
-                          changeSettings({
-                            ...globalSettings,
-                            date: !globalSettings.date,
-                          });
-                        } else {
-                          setGlobalSettings({
-                            ...globalSettings,
-                            date: !globalSettings.date,
-                          });
-                        }
+                        userIdOrNoId
+                          ? changeSettings({
+                              ...globalSettings,
+                              date: !globalSettings.date,
+                            })
+                          : setGlobalSettings({
+                              ...globalSettings,
+                              date: !globalSettings.date,
+                            });
 
                         setTabOpenedState(null);
                       }}
@@ -443,17 +439,15 @@ function GlobalSettings({
                       itemsPerPage: parseInt(e.target.value),
                     }); */
 
-                    if (userIdOrNoId) {
-                      changeSettings({
-                        ...globalSettings,
-                        itemsPerPage: parseInt(e.target.value),
-                      });
-                    } else {
-                      setGlobalSettings({
-                        ...globalSettings,
-                        itemsPerPage: parseInt(e.target.value),
-                      });
-                    }
+                    userIdOrNoId
+                      ? changeSettings({
+                          ...globalSettings,
+                          itemsPerPage: parseInt(e.target.value),
+                        })
+                      : setGlobalSettings({
+                          ...globalSettings,
+                          itemsPerPage: parseInt(e.target.value),
+                        });
 
                     // changeSettings({
                     //   ...globalSettings,

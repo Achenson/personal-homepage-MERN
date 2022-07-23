@@ -160,53 +160,47 @@ function SingleColor_DefaultAndColumn({
           //   color: setComplementaryUiColor(color),
           // });
 
-          if (userIdOrNoId) {
-            changeSettings({
-              ...(globalSettings as SettingsDatabase_i),
-              folderColor: color,
-              uiColor: setComplementaryUiColor(color),
-            });
-          } else {
-            setGlobalSettings({
-              ...(globalSettings as UseGlobalSettingsAll),
-              folderColor: color,
-              uiColor: setComplementaryUiColor(color),
-            });
-          }
+          userIdOrNoId
+            ? changeSettings({
+                ...(globalSettings as SettingsDatabase_i),
+                folderColor: color,
+                uiColor: setComplementaryUiColor(color),
+              })
+            : setGlobalSettings({
+                ...(globalSettings as UseGlobalSettingsAll),
+                folderColor: color,
+                uiColor: setComplementaryUiColor(color),
+              });
         }
 
         if (defaultColorsFor === "notes") {
           // setDefaultColors({ key: "noteColor", color: color });
           // changeSettings({ ...globalSettings, noteColor: color });
 
-          if (userIdOrNoId) {
-            changeSettings({
-              ...(globalSettings as SettingsDatabase_i),
-              noteColor: color,
-            });
-          } else {
-            setGlobalSettings({
-              ...(globalSettings as UseGlobalSettingsAll),
-              noteColor: color,
-            });
-          }
+          userIdOrNoId
+            ? changeSettings({
+                ...(globalSettings as SettingsDatabase_i),
+                noteColor: color,
+              })
+            : setGlobalSettings({
+                ...(globalSettings as UseGlobalSettingsAll),
+                noteColor: color,
+              });
         }
 
         if (defaultColorsFor === "rss") {
           // setDefaultColors({ key: "rssColor", color: color });
           // changeSettings({ ...globalSettings, rssColor: color });
 
-          if (userIdOrNoId) {
-            changeSettings({
-              ...(globalSettings as SettingsDatabase_i),
-              rssColor: color,
-            });
-          } else {
-            setGlobalSettings({
-              ...(globalSettings as UseGlobalSettingsAll),
-              rssColor: color,
-            });
-          }
+          userIdOrNoId
+            ? changeSettings({
+                ...(globalSettings as SettingsDatabase_i),
+                rssColor: color,
+              })
+            : setGlobalSettings({
+                ...(globalSettings as UseGlobalSettingsAll),
+                rssColor: color,
+              });
         }
 
         if (/colColor/.test(defaultColorsFor) && !colsForBackgroundImg) {
@@ -219,17 +213,15 @@ function SingleColor_DefaultAndColumn({
             color: color,
           }); */
 
-          if (userIdOrNoId) {
-            changeSettings({
-              ...(globalSettings as SettingsDatabase_i),
-              [defaultColorsFor]: color,
-            });
-          } else {
-            setGlobalSettings({
-              ...(globalSettings as UseGlobalSettingsAll),
-              [defaultColorsFor]: color,
-            });
-          }
+          userIdOrNoId
+            ? changeSettings({
+                ...(globalSettings as SettingsDatabase_i),
+                [defaultColorsFor]: color,
+              })
+            : setGlobalSettings({
+                ...(globalSettings as UseGlobalSettingsAll),
+                [defaultColorsFor]: color,
+              });
 
           // changeSettings({ ...globalSettings, [defaultColorsFor]: color }).then(
           //   (results) => console.log(results)
@@ -247,17 +239,15 @@ function SingleColor_DefaultAndColumn({
           }); */
           // changeSettings({ ...globalSettings, [defaultColorsForImg]: color });
 
-          if (userIdOrNoId) {
-            changeSettings({
-              ...(globalSettings as SettingsDatabase_i),
-              [defaultColorsForImg]: color,
-            });
-          } else {
-            setGlobalSettings({
-              ...(globalSettings as UseGlobalSettingsAll),
-              [defaultColorsForImg]: color,
-            });
-          }
+          userIdOrNoId
+            ? changeSettings({
+                ...(globalSettings as SettingsDatabase_i),
+                [defaultColorsForImg]: color,
+              })
+            : setGlobalSettings({
+                ...(globalSettings as UseGlobalSettingsAll),
+                [defaultColorsForImg]: color,
+              });
         }
 
         setSelectedNumber(colorNumber);

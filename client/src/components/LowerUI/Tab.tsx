@@ -107,7 +107,7 @@ function Tab({
   let tabs: TabDatabase_i[] | SingleTabData[];
 
   bookmarks = userIdOrNoId
-    ? (bookmarksDb as  BookmarkDatabase_i[])
+    ? (bookmarksDb as BookmarkDatabase_i[])
     : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
@@ -235,19 +235,17 @@ function Tab({
     accept: ItemTypes.BOOKMARK,
     drop: (item: Item, monitor) => {
       if (draggedItem && tabID !== draggedItem.tabID) {
-        if (userIdOrNoId) {
-          dragTabDb(
-            item.tabID,
-            item.colNumber,
-            colNumber,
-            tabID,
-            true,
-            tabs as TabDatabase_i[],
-            editTab
-          );
-        } else {
-          dragTab(item.tabID, item.colNumber, colNumber, tabID, true);
-        }
+        userIdOrNoId
+          ? dragTabDb(
+              item.tabID,
+              item.colNumber,
+              colNumber,
+              tabID,
+              true,
+              tabs as TabDatabase_i[],
+              editTab
+            )
+          : dragTab(item.tabID, item.colNumber, colNumber, tabID, true);
       }
     },
     // drop: (item: Item, monitor) => console.log(item.tabID),

@@ -71,19 +71,17 @@ function GapAfterTab({
     //    required property
     accept: ItemTypes.BOOKMARK,
     drop: (item: Item, monitor) => {
-      if (userIdOrNoId) {
-        dragTabDb(
-          item.tabID,
-          item.colNumber,
-          colNumber,
-          tabID_orNull,
-          false,
-          tabs as TabDatabase_i[],
-          editTab
-        );
-      } else {
-        dragTab(item.tabID, item.colNumber, colNumber, tabID_orNull, false);
-      }
+      userIdOrNoId
+        ? dragTabDb(
+            item.tabID,
+            item.colNumber,
+            colNumber,
+            tabID_orNull,
+            false,
+            tabs as TabDatabase_i[],
+            editTab
+          )
+        : dragTab(item.tabID, item.colNumber, colNumber, tabID_orNull, false);
     },
     // drop: (item, monitor) => console.log(item.tabID),
     collect: (monitor) => ({

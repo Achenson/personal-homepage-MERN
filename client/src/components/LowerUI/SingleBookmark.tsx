@@ -207,22 +207,20 @@ Props): JSX.Element {
                     console.log("clicked");
                     console.log(singleBookmarkData.defaultFaviconFallback);
 
-                    if (userIdOrNoId) {
-                      changeBookmark({
-                        ...singleBookmarkData,
-                        userId: authContext.authenticatedUserId as string,
-                        defaultFaviconFallback:
-                          !singleBookmarkData.defaultFaviconFallback,
-                      });
-                    } else {
-                      editBookmarkNonAuth(
-                        singleBookmarkData.id,
-                        singleBookmarkData.title,
-                        singleBookmarkData.URL,
-                        singleBookmarkData.tags,
-                        !singleBookmarkData.defaultFaviconFallback
-                      );
-                    }
+                    userIdOrNoId
+                      ? changeBookmark({
+                          ...singleBookmarkData,
+                          userId: authContext.authenticatedUserId as string,
+                          defaultFaviconFallback:
+                            !singleBookmarkData.defaultFaviconFallback,
+                        })
+                      : editBookmarkNonAuth(
+                          singleBookmarkData.id,
+                          singleBookmarkData.title,
+                          singleBookmarkData.URL,
+                          singleBookmarkData.tags,
+                          !singleBookmarkData.defaultFaviconFallback
+                        );
                   }}
                   /* style={{
                     height: "15px",
@@ -247,22 +245,20 @@ Props): JSX.Element {
                     console.log("clicked2");
                     console.log(singleBookmarkData.defaultFaviconFallback);
 
-                    if (userIdOrNoId) {
-                      changeBookmark({
-                        ...singleBookmarkData,
-                        userId: authContext.authenticatedUserId as string,
-                        defaultFaviconFallback:
-                          !singleBookmarkData.defaultFaviconFallback,
-                      });
-                    } else {
-                      editBookmarkNonAuth(
-                        singleBookmarkData.id,
-                        singleBookmarkData.title,
-                        singleBookmarkData.URL,
-                        singleBookmarkData.tags,
-                        !singleBookmarkData.defaultFaviconFallback
-                      );
-                    }
+                    userIdOrNoId
+                      ? changeBookmark({
+                          ...singleBookmarkData,
+                          userId: authContext.authenticatedUserId as string,
+                          defaultFaviconFallback:
+                            !singleBookmarkData.defaultFaviconFallback,
+                        })
+                      : editBookmarkNonAuth(
+                          singleBookmarkData.id,
+                          singleBookmarkData.title,
+                          singleBookmarkData.URL,
+                          singleBookmarkData.tags,
+                          !singleBookmarkData.defaultFaviconFallback
+                        );
 
                     // changeBookmark({
                     //   ...singleBookmarkData,

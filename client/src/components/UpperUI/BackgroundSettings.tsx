@@ -257,17 +257,15 @@ function BackgroundSettings({
                         picBackground: true,
                       }); */
 
-                      if (userIdOrNoId) {
-                        changeSettings({
-                          ...(globalSettings as SettingsDatabase_i),
-                          picBackground: true,
-                        });
-                      } else {
-                        setGlobalSettings({
-                          ...(globalSettings as UseGlobalSettingsAll),
-                          picBackground: true,
-                        });
-                      }
+                      userIdOrNoId
+                        ? changeSettings({
+                            ...(globalSettings as SettingsDatabase_i),
+                            picBackground: true,
+                          })
+                        : setGlobalSettings({
+                            ...(globalSettings as UseGlobalSettingsAll),
+                            picBackground: true,
+                          });
 
                       // changeSettings({
                       //   ...globalSettings,
@@ -293,36 +291,21 @@ function BackgroundSettings({
                 <button
                   className="ml-1.5 focus-1-offset"
                   onClick={() => {
-
-
-                    console.log("backgroundSettings clicked");
-                    
                     if (globalSettings.picBackground) {
                       /*   setGlobalSettings({
                         ...globalSettings,
                         picBackground: false,
                       }); */
 
-                      console.log("backgroundSettings clicked 2");
-
-                      if (userIdOrNoId) {
-
-                        console.log("backgroundSettings clicked 3");
-                        changeSettings({
-                          ...(globalSettings as SettingsDatabase_i),
-                          picBackground: false,
-                        });
-                      } else {
-
-                        console.log("backgroundSettings clicked 4");
-                        console.log(userIdOrNoId);
-                        
-
-                        setGlobalSettings({
-                          ...(globalSettings as UseGlobalSettingsAll),
-                          picBackground: false,
-                        });
-                      }
+                      userIdOrNoId
+                        ? changeSettings({
+                            ...(globalSettings as SettingsDatabase_i),
+                            picBackground: false,
+                          })
+                        : setGlobalSettings({
+                            ...(globalSettings as UseGlobalSettingsAll),
+                            picBackground: false,
+                          });
 
                       // changeSettings({
                       //   ...globalSettings,
@@ -363,17 +346,15 @@ function BackgroundSettings({
                         }); */
                         if (wasCustomClicked) setWasCustomClicked(false);
 
-                        if (userIdOrNoId) {
-                          changeSettings({
-                            ...(globalSettings as SettingsDatabase_i),
-                            defaultImage: "defaultBackground",
-                          });
-                        } else {
-                          setGlobalSettings({
-                            ...(globalSettings as UseGlobalSettingsAll),
-                            defaultImage: "defaultBackground",
-                          });
-                        }
+                        userIdOrNoId
+                          ? changeSettings({
+                              ...(globalSettings as SettingsDatabase_i),
+                              defaultImage: "defaultBackground",
+                            })
+                          : setGlobalSettings({
+                              ...(globalSettings as UseGlobalSettingsAll),
+                              defaultImage: "defaultBackground",
+                            });
 
                         // changeSettings({
                         //   ...globalSettings,
@@ -403,17 +384,15 @@ function BackgroundSettings({
                         //   defaultImage: "defaultBackground_2",
                         // });
 
-                        if (userIdOrNoId) {
-                          changeSettings({
-                            ...(globalSettings as SettingsDatabase_i),
-                            defaultImage: "defaultBackground_2",
-                          });
-                        } else {
-                          setGlobalSettings({
-                            ...(globalSettings as UseGlobalSettingsAll),
-                            defaultImage: "defaultBackground_2",
-                          });
-                        }
+                        userIdOrNoId
+                          ? changeSettings({
+                              ...(globalSettings as SettingsDatabase_i),
+                              defaultImage: "defaultBackground_2",
+                            })
+                          : setGlobalSettings({
+                              ...(globalSettings as UseGlobalSettingsAll),
+                              defaultImage: "defaultBackground_2",
+                            });
                       }}
                       className="focus-1-offset"
                       aria-label={"Background image two"}
@@ -435,17 +414,15 @@ function BackgroundSettings({
                         }); */
                         if (wasCustomClicked) setWasCustomClicked(false);
 
-                        if (userIdOrNoId) {
-                          changeSettings({
-                            ...(globalSettings as SettingsDatabase_i),
-                            defaultImage: "defaultBackground_3",
-                          });
-                        } else {
-                          setGlobalSettings({
-                            ...(globalSettings as UseGlobalSettingsAll),
-                            defaultImage: "defaultBackground_3",
-                          });
-                        }
+                        userIdOrNoId
+                          ? changeSettings({
+                              ...(globalSettings as SettingsDatabase_i),
+                              defaultImage: "defaultBackground_3",
+                            })
+                          : setGlobalSettings({
+                              ...(globalSettings as UseGlobalSettingsAll),
+                              defaultImage: "defaultBackground_3",
+                            });
 
                         // changeSettings({
                         //   ...globalSettings,
