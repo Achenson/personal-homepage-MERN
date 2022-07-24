@@ -333,7 +333,7 @@ background Color possible now in no pic mode
 223. closeAllTabsState -> in Grid (in grid both auth and non-auth code is used? check!) or Tab if either non-auth or auth -> unify?
 224. tabDeletingPause in Grid -> hack? explain how it works
 225. is aria-label present in all btns?
-226. tabsData, bookmarkData, settignsData -> same as client but with userId? unify?
+226. tabsData, bookmarkData, settignsData -> same as client but with userId? unify? PROblem with changing of useTabs!
 
 
 
