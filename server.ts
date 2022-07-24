@@ -11,7 +11,6 @@ import multer = require("multer");
 const mkdirp = require("mkdirp");
 const fs = require("fs");
 const path = require("path");
-const faviconFetch = require("favicon-fetch");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
@@ -387,26 +386,6 @@ app.get("/background_img/:userId", (req: Request, res: Response) => {
 
   res.status(500).json({
     error: "No background image available",
-  });
-});
-
-app.get("/favicon/:faviconUrl", (req: Request, res: Response) => {
-  console.log("getting favicon");
-
-  let fetchFavicon = faviconFetch({
-    uri: `${decodeURIComponent(req.params.faviconUrl)}`,
-  });
-  // console.log(fetchFavicon);
-
-  if (fetchFavicon) {
-    res.status(201).json({
-      favicon: fetchFavicon,
-    });
-    return;
-  }
-
-  res.status(500).json({
-    error: "No favicon available",
   });
 });
 

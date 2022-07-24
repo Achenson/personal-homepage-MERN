@@ -93,3 +93,29 @@ export const TestMutationType = new GraphQLObjectType({
     ...TestMutationField,
   }),
 });
+
+
+// server.ts
+
+const faviconFetch = require("favicon-fetch");
+
+app.get("/favicon/:faviconUrl", (req: Request, res: Response) => {
+  console.log("getting favicon");
+
+  let fetchFavicon = faviconFetch({
+    uri: `${decodeURIComponent(req.params.faviconUrl)}`,
+  });
+  // console.log(fetchFavicon);
+
+  if (fetchFavicon) {
+    res.status(201).json({
+      favicon: fetchFavicon,
+    });
+    return;
+  }
+
+  res.status(500).json({
+    error: "No favicon available",
+  });
+});
+

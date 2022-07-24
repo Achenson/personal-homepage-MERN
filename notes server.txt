@@ -47,6 +47,7 @@ DONE 66. background img - remove it once the user is deleted? implemented alread
 DONE 67. delete all test mutation code in the end DONE
 DONE 69. delete unused test_svgs (for alt links), rename the chosen one DONE
 XX 71. msg to user when clicking custom img and there is none present (file browser starts instead) XX
+DONE 75. fetchFavicon in server.js -> delete & uninstall? (an API in SingleBookmark used instead) DONE
 XX 76. AppWrapper, MainWrapper in different placec - chaos? no AppWrapper anymore XX
 DONE 82. uninstall react-tracked DONE
 DONE !86. change initial load to localhost3000/ !  (client - package.json homepage changed to "/")DONE
@@ -83,6 +84,13 @@ But possible to edit bookmarks, delete, drag
 & possible to add bookmarks, tabs in the lower Ui,
 & possible to edit folders
 DONE background Color possible now in no pic mode
+
+
+GOOD enough?
+
+  84. user exp not perfect when logging out? flickering
+
+GOOD enough
 
 
  1. livereload npm
@@ -140,13 +148,12 @@ BackgroundImg schema in server.ts - does it work??
 64. npm modules should be imported like: import multer = require("multer"). with const types are not working!!
 change everywhere!!
 68. list all links to free svgs in notes
-
 70. singleBookmarkData: change interface to BookmarkDatabase_i ?
 72. graphql ID vd string type, they may be mixed
 73. user creation: check if user name or email already exists
 74. implement token versioning: refreshToken
 75. Main -> change context values obj, so it is taken from state directly
-75. fetchFavicon in server.js -> delete?
+
 
 77. UpperRightMenu: loggedInState -> change for it to be compatible with authContext
 78. middleware for token -> generated code for types is being used??
@@ -154,7 +161,6 @@ change everywhere!!
 80. get rid of all ts "any"s
 81. logout mutation: is refreshing site -why?
 
-84. user exp not perfect when logging out? flickering
 85. Profile & LoginRegister doubled components
 
 
