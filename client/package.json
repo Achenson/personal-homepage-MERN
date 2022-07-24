@@ -1,6 +1,6 @@
 {
   "name": "personal-homepage",
-  "homepage": "https://achenson.github.io/personal-homepage",
+  "homepage": "/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -49,6 +49,7 @@ DONE 69. delete unused test_svgs (for alt links), rename the chosen one DONE
 XX 71. msg to user when clicking custom img and there is none present (file browser starts instead) XX
 XX 76. AppWrapper, MainWrapper in different placec - chaos? no AppWrapper anymore XX
 DONE 82. uninstall react-tracked DONE
+DONE !86. change initial load to localhost3000/ !  (client - package.json homepage changed to "/")DONE
 DONE 109. backgroundImgUpload funcion -> for !req.body is next() needed? (yes, following code is not executed if there is no body) DONE
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 127. implement token revoking !!!! DONE
@@ -140,7 +141,6 @@ BackgroundImg schema in server.ts - does it work??
 change everywhere!!
 68. list all links to free svgs in notes
 
-
 70. singleBookmarkData: change interface to BookmarkDatabase_i ?
 72. graphql ID vd string type, they may be mixed
 73. user creation: check if user name or email already exists
@@ -148,18 +148,18 @@ change everywhere!!
 75. Main -> change context values obj, so it is taken from state directly
 75. fetchFavicon in server.js -> delete?
 
-
 77. UpperRightMenu: loggedInState -> change for it to be compatible with authContext
 78. middleware for token -> generated code for types is being used??
 79. is case of failure, accessToken will be an empty string - to change? compare with loginMutation
 80. get rid of all ts "any"s
 81. logout mutation: is refreshing site -why?
 
-
-83. mainWrapper - too many or not enough?
 84. user exp not perfect when logging out? flickering
 85. Profile & LoginRegister doubled components
-86. change initial load to localhost3000/ !
+
+
+
+
 87. auth error - no user or no password - shouln't be separate errors!
 88. isAuth -> ts errors
 89. deleting all data when a user is deleted! done already? check
