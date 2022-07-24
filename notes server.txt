@@ -50,6 +50,7 @@ XX 71. msg to user when clicking custom img and there is none present (file brow
 DONE 75. fetchFavicon in server.js -> delete & uninstall? (an API in SingleBookmark used instead) DONE
 XX 76. AppWrapper, MainWrapper in different placec - chaos? no AppWrapper anymore XX
 DONE 82. uninstall react-tracked DONE
+??  84. user exp not perfect when logging out? flickering (no longer the case)  ?? 
 DONE !86. change initial load to localhost3000/ !  (client - package.json homepage changed to "/")DONE
 DONE 109. backgroundImgUpload funcion -> for !req.body is next() needed? (yes, following code is not executed if there is no body) DONE
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
@@ -87,9 +88,7 @@ DONE background Color possible now in no pic mode
 
 
 GOOD enough?
-
-  84. user exp not perfect when logging out? flickering
-
+  60. flickering when uploadin background img file
 GOOD enough
 
 
@@ -142,7 +141,9 @@ GOOD enough
 54. move backgroundImg logic from server.js?
 56. clientside: make it possible to choose backgroundImg colors also from settings? or close the modal and open backgroundColors menu
 58. status 201
-60. flickering when uploadin background img file
+
+
+
 61. background img -> currently there is no point in storing it in db, as it is get from server only??
 BackgroundImg schema in server.ts - does it work??
 64. npm modules should be imported like: import multer = require("multer"). with const types are not working!!
@@ -163,9 +164,6 @@ change everywhere!!
 
 85. Profile & LoginRegister doubled components
 
-
-
-
 87. auth error - no user or no password - shouln't be separate errors!
 88. isAuth -> ts errors
 89. deleting all data when a user is deleted! done already? check
@@ -180,8 +178,11 @@ change everywhere!!
 98. delete data -> rssExample
 99. server.ts -> make separate files
 100. server.txs -> rootValue -> is it needed?
-101. graphql-tag -> check library!
+
+
 102. react keys -> they should by indices ! change to id
+
+
 103. unify callback functions -> function declaration instead of () => { }everywherw?
 104. multer.any() <- change to single("name") somehow
 105. delete the other background image
@@ -332,6 +333,7 @@ background Color possible now in no pic mode
 223. closeAllTabsState -> in Grid (in grid both auth and non-auth code is used? check!) or Tab if either non-auth or auth -> unify?
 224. tabDeletingPause in Grid -> hack? explain how it works
 225. is aria-label present in all btns?
+226. tabsData, bookmarkData, settignsData -> same as client but with userId? unify?
 
 
 
