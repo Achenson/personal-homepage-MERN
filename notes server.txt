@@ -20,6 +20,7 @@ notes:
  DONE 5. bookmarkSchema.ts: is <Array> type enough? [string] DONE 
  DONE 3. id: string | number or string only? unify with client (client: string only) DONE
  DONE 4. client: SingleTabData: [object] | never[] | [] ????
+ XX 6. userSchema gets ref to settingsSchema, should it be also the other war around? (ref to settingsSchema is no more there)XX
    <- not being used actually in the client? (items deleted from rss clientside) DONE
  DONE 8. client: ALL_TAGS should not be an id but rather deletable property should be used! ids will be added automatically be database DONE
  DONE 9. deleteUser -> promise.all should be used instead of individual promises? for performance DONE
@@ -89,14 +90,14 @@ DONE background Color possible now in no pic mode
 
 GOOD enough?
   60. flickering when uploadin background img file
+  1. livereload npm (to restart client if any changes in server is detected)
+  guide to implement, not tested:
+  https://stackoverflow.com/questions/62403571/hot-reloading-in-a-react-app-with-express-server
+  10. typescript doesn't work for schemas?
+  manaul static methods with mongoose model methods inside them should be used? use sth different than mongoose - papr?
+  
 GOOD enough
 
-
- 1. livereload npm
- 
- 6. userSchema gets ref to settingsSchema, should it be also the other war around?
- 
-10. typescript doesn't work for schemas?
 
 14. non-null types: same everywhere!
 15. fields -> id can be an argument even if it is never used? delete it from fields?
