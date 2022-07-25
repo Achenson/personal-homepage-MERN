@@ -27,8 +27,10 @@ export const loginMutationField = {
   // type: UserType,
   type: AuthDataType,
   args: {
-    email_or_name: { type: new GraphQLNonNull(GraphQLString) },
-    password: { type: new GraphQLNonNull(GraphQLString) },
+    // email_or_name: { type: new GraphQLNonNull(GraphQLString) },
+    email_or_name: { type: GraphQLString },
+    // password: { type: new GraphQLNonNull(GraphQLString) },
+    password: { type: GraphQLString },
   },
 
   async resolve(

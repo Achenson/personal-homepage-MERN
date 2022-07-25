@@ -25,6 +25,7 @@ notes:
  DONE 8. client: ALL_TAGS should not be an id but rather deletable property should be used! ids will be added automatically be database DONE
  DONE 9. deleteUser -> promise.all should be used instead of individual promises? for performance DONE
 XXX 11. deleteTabMutation -> should it also delete related Bookmark automatically? NO -> bookmarks still remain in All folderXX
+ DONE 14. non-null types: same everywhere! (nonnulles deleted for consitency - loginmut, revoketoken, probable should be implemented partially) DONE
  DONE 16. upserts in changeMutations -> should be false mostly? (all false )DONE
  DONE 18. client: comment out useStorage (zustand's perist commented out) DONE
 XXX 22. use zustand state conditionally if the user is not authenticated. no, zustand state is always on, even if user is authenticated, is just not used in that case XX
@@ -99,7 +100,7 @@ GOOD enough?
 GOOD enough
 
 
-14. non-null types: same everywhere!
+
 15. fields -> id can be an argument even if it is never used? delete it from fields?
 16. make npm run dev open 2 console instances
 17. bookmarkAllTags should be filled from db at the start
@@ -335,8 +336,8 @@ background Color possible now in no pic mode
 224. tabDeletingPause in Grid -> hack? explain how it works
 225. is aria-label present in all btns?
 226. tabsData, bookmarkData, settignsData -> same as client but with userId? unify? PROblem with changing of useTabs!
-
-
+227. mutations -> sometimes the graphql args are listed, Fields should be imported and spread instead
+Fields in userType & args -> should they always be the same? non-null for args?
 
 {
   filename: 'nature-3082832_1920.jpg',

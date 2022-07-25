@@ -265,7 +265,7 @@ export const ChangeTabMutation = `
 `;
 
 export const LoginMutation = `
-  mutation ($email_or_name: String!, $password: String!) {
+  mutation ($email_or_name: String, $password: String) {
     loginMutation(email_or_name: $email_or_name, password: $password) {
       userId
       token

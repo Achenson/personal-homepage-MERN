@@ -50,7 +50,8 @@ export const revokeRefreshTokenMutationField = {
   type: UserType,
   args: {
     // ...UserFields,
-    userId: { type: new GraphQLNonNull(GraphQLID) },
+    // userId: { type: new GraphQLNonNull(GraphQLID) },
+    userId: { type: GraphQLID },
   },
   resolve(_source: unknown, args: { userId: string }) {
     return User.findByIdAndUpdate(
