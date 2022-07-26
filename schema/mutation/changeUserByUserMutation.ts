@@ -60,7 +60,11 @@ export const changeUserByUserMutationField = {
         }
 
         User.findOne({ name: name }, (err: Error, res: any) => {
-          if (err) console.log(err);
+          if (err) {
+            console.log(err);
+            reject(err)
+          }
+           
 
           if (res != null) {
             console.log("name is already present in DB");
@@ -78,7 +82,10 @@ export const changeUserByUserMutationField = {
         }
 
         User.findOne({ email: email }, (err: Error, res: any) => {
-          if (err) console.log(err);
+          if (err) {
+            console.log(err);
+            reject(err)
+          }
 
           if (res != null) {
             console.log("email is already present in DB");

@@ -31,7 +31,10 @@ export const addUserMutationField = {
     let arrOfBooleans = await Promise.all([
       new Promise((resolve, reject) => {
         User.findOne({ name: args.name }, (err: Error, res: any) => {
-          if (err) console.log(err);
+          if (err) {
+            reject(err)
+            console.log(err);
+          } 
 
           if (res != null) {
             console.log("name is already present in DB");
@@ -44,7 +47,10 @@ export const addUserMutationField = {
 
       new Promise((resolve, reject) => {
         User.findOne({ email: args.email }, (err: Error, res: any) => {
-          if (err) console.log(err);
+          if (err) {
+            console.log(err);
+            reject(err)
+          } 
 
           if (res != null) {
             console.log("email is already present in DB");
@@ -126,7 +132,7 @@ export const addUserMutationField = {
               newTab.save((err: Error, folderProduct: TabDatabase_i) => {
                 if (err) {
                   console.log(err);
-                  reject();
+                  reject(err);
                 }
                 console.log(folderProduct.id);
                 resolve(folderProduct.id);

@@ -32,7 +32,11 @@ XXX 11. deleteTabMutation -> should it also delete related Bookmark automaticall
 DONE 16. make npm run dev open 2 console instances (no changes, npm-run-all worked once tested) DONE 
  DONE 18. client: comment out useStorage (zustand's perist commented out) DONE
 DONE 18. Column: better error handling? (plain error.message in COlumn & others)DONE
+X 19. bookmarks: better query -> finding the bookmarks matched to a particular tab right away (no point?) X
 XXX 22. use zustand state conditionally if the user is not authenticated. no, zustand state is always on, even if user is authenticated, is just not used in that case XX
+DONE 21. unhandled promise rejections! addUser, - not encountered it anymore
+  good practice-> calling reject with error -> done, returns after reject commented out
+  .catch after reject -> unhandled promise rejections should dissapear, tried but catch on undefined errors happened DONE
 DONE 24. client: rss settings merges with global settings -> test -> delete all commented out code DONE
 DONE 32. clientside: hooks for store -> sometimes it's state.tabs, sometimes store.tabs -> unify -> unified as store DONE
  DONE 34. mutations -> proper typescript types! DONE
@@ -101,12 +105,11 @@ GOOD enough?
   https://stackoverflow.com/questions/62403571/hot-reloading-in-a-react-app-with-express-server
   10. typescript doesn't work for schemas?
   manaul static methods with mongoose model methods inside them should be used? use sth different than mongoose - papr?
-  
+
 GOOD enough
 
 
-19. bookmarks: better query -> finding the bookmarks matched to a particular tab right away
-21. unhandled promise rejections! addUser, handle it everywhere!
+
 
 23. delete testUserId in the end
 25. typescript: save eg. settingsType new Settings -> save() method does not exist
@@ -337,6 +340,9 @@ background Color possible now in no pic mode
 227. mutations -> sometimes the graphql args are listed, Fields should be imported and spread instead
 Fields in userType & args -> should they always be the same? non-null for args?
 228. bookmarksAllTags -> unify?
+229. Browser error: Default Client: No client has been specified using urql's Provider.This means that urql will be falling back to defaults including making requests to `/graphql`.
+If that's not what you want, please create a client and add a Provider.
+
 {
   filename: 'nature-3082832_1920.jpg',
   mimetype: 'image/jpeg',

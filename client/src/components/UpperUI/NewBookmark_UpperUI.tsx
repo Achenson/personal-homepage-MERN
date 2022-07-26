@@ -260,7 +260,7 @@ function NewBookmark_UpperUI({
       ).then((result) => {
         if (result.error) {
           reject(result.error);
-          return;
+          // return;
         }
         resolve(result.data.addBookmark);
       });

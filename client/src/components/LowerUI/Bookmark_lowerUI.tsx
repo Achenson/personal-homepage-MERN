@@ -305,7 +305,7 @@ function Bookmark_lowerUI({
           }).then((result) => {
             if (result.error) {
               reject(result.error);
-              return;
+              // return;
             }
             resolve(result.data.editBookmark);
           });
@@ -380,7 +380,7 @@ function Bookmark_lowerUI({
         ).then((result) => {
           if (result.error) {
             reject(result.error);
-            return;
+            // return;
           }
           resolve(result.data.addBookmark);
         });
