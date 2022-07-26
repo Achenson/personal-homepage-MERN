@@ -31,6 +31,7 @@ XXX 11. deleteTabMutation -> should it also delete related Bookmark automaticall
  DONE 16. upserts in changeMutations -> should be false mostly? (all false )DONE
 DONE 16. make npm run dev open 2 console instances (no changes, npm-run-all worked once tested) DONE 
  DONE 18. client: comment out useStorage (zustand's perist commented out) DONE
+DONE 18. Column: better error handling? (plain error.message in COlumn & others)DONE
 XXX 22. use zustand state conditionally if the user is not authenticated. no, zustand state is always on, even if user is authenticated, is just not used in that case XX
 DONE 24. client: rss settings merges with global settings -> test -> delete all commented out code DONE
 DONE 32. clientside: hooks for store -> sometimes it's state.tabs, sometimes store.tabs -> unify -> unified as store DONE
@@ -74,6 +75,7 @@ DONE 171. deleteUserByAdminMutation -> change so it is possible to delete many u
 DONE 175. delete AppWrapper DONE
 DONE 178. after registering & redirecting to login -> focus should be set on password DONE
 DONE 179. after registering -> register fields should be emptied DONE
+DONE !!! 192. email with all .env codes !!! uj DONE
 DONE 204. all userIdOrNoId logic -> convert to ? : DONE
 DONE 208. BackgroundSettings-> if no userId -> implement logic to suggest creating an account
 BackgroundSettings_Upload doesn't have to be touched though? code won't be executed DONE
@@ -103,7 +105,6 @@ GOOD enough?
 GOOD enough
 
 
-18. Column: better error handling?
 19. bookmarks: better query -> finding the bookmarks matched to a particular tab right away
 21. unhandled promise rejections! addUser, handle it everywhere!
 
@@ -285,7 +286,6 @@ to get info clientside that there is no regisered user
   }
 }
 
-!!! 192. email with all .env codes !!! uj
 
 193. change all urql components error handling to similar to UserProfile (LoginRegister for sure)
 194. changePasswordAfterForgot -> in case of token expiration -> link to forgotpass should be visible

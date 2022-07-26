@@ -162,7 +162,7 @@ function UserProfile({
   >(ChangePasswordByUserMutation);
 
   if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
+  if (error) return <p>{error.message}</p>;
 
   // console.log(data.user);
 

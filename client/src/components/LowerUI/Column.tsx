@@ -86,7 +86,7 @@ Props): JSX.Element {
   const { data, fetching, error } = settingsResults;
 
   if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
+  if (error) return <p>{error.message}</p>;
 
   // let globalSettings: SettingsDatabase_i = data.settings;
   let globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
