@@ -11,7 +11,7 @@ import { ReactComponent as TrashSmallSVG } from "../../svgs/trashSmall.svg";
 // import { useAuthContext } from "../../context/authContext";
 import { useAuth } from "../../state/hooks/useAuth";
 
-import { testUserId } from "../../state/data/testUserId";
+// import { testUserId } from "../../state/data/testUserId";
 
 // import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 
@@ -132,11 +132,11 @@ Props): JSX.Element {
   // const [favicon, setFavicon] = useState<string | null>(null);
 
 
-  let userIdOrDemoId: string;
-  userIdOrDemoId =
-    authContext.authenticatedUserId && authContext.isAuthenticated
-      ? authContext.authenticatedUserId
-      : testUserId;
+  // let userIdOrDemoId: string;
+  // userIdOrDemoId =
+  //   authContext.authenticatedUserId && authContext.isAuthenticated
+  //     ? authContext.authenticatedUserId
+  //     : testUserId;
 
   // const [isFaviconDefault, setIsFaviconDefault] = useState(false);
 

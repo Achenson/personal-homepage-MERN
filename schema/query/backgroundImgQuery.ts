@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 const fs = require("fs");
 const path = require("path");
 
-import { testUserId } from "../../client/src/state/data/testUserId";
+// import { testUserId } from "../../client/src/state/data/testUserId";
 
 const { GraphQLObjectType, GraphQLID } = graphql;
 
@@ -16,10 +16,14 @@ export const backgroundImgQueryField = {
   async resolve(parent: User_i, { userId }: { userId: string }, request: any) {
     console.log("!!!backgroundImgQuery  started !!!!");
 
-    let userIdOrTestId = request.isAuth ? request.userId : testUserId;
+    if (!request.isAuth) return
+
+    // let userIdOrTestId = request.isAuth ? request.userId : testUserId;
+    // let userId = request.isAuth
 
     let backgroundImgFiles = fs.readdirSync(
-      path.join(__dirname, "..", "..", "backgroundImgs", userIdOrTestId)
+      // path.join(__dirname, "..", "..", "backgroundImgs", userIdOrTestId)
+      path.join(__dirname, "..", "..", "backgroundImgs", userId)
     );
 
     console.log("backgroundImgFiles");
@@ -32,7 +36,8 @@ export const backgroundImgQueryField = {
     }
 
     let backgroundImgUrl =
-      "background_img/" + userIdOrTestId + "/" + backgroundImgFiles[0];
+      "background_img/" + userId + "/" + backgroundImgFiles[0];
+      // "background_img/" + userIdOrTestId + "/" + backgroundImgFiles[0];
 
     console.log("backgroundImgUrl");
     console.log(backgroundImgUrl);

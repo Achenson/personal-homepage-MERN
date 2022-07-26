@@ -2,7 +2,7 @@ const Tab = require("../../mongoModels/tabSchema");
 import { TabDatabase_i, TabFields, TabType } from "../types/tabType";
 
 import { GraphQLError } from "graphql";
-import { testUserId } from "../../client/src/state/data/testUserId";
+// import { testUserId } from "../../client/src/state/data/testUserId";
 
 export const changeTabMutationField = {
   type: TabType,

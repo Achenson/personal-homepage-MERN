@@ -36,6 +36,7 @@ X 19. bookmarks: better query -> finding the bookmarks matched to a particular t
 XXX 22. use zustand state conditionally if the user is not authenticated. no, zustand state is always on, even if user is authenticated, is just not used in that case XX
 DONE 21. unhandled promise rejections! addUser, - not encountered it anymore
   good practice-> calling reject with error -> done, returns after reject commented out
+DONE 23. delete testUserId in the end DONE
   .catch after reject -> unhandled promise rejections should dissapear, tried but catch on undefined errors happened, see #230DONE
 DONE 24. client: rss settings merges with global settings -> test -> delete all commented out code DONE
 DONE 32. clientside: hooks for store -> sometimes it's state.tabs, sometimes store.tabs -> unify -> unified as store DONE
@@ -111,7 +112,6 @@ GOOD enough
 
 
 
-23. delete testUserId in the end
 25. typescript: save eg. settingsType new Settings -> save() method does not exist
 
 27. globalSettings make it impossible to enter a value other than 5-15!
@@ -343,6 +343,8 @@ Fields in userType & args -> should they always be the same? non-null for args?
 229. Browser error: Default Client: No client has been specified using urql's Provider.This means that urql will be falling back to defaults including making requests to `/graphql`.
 If that's not what you want, please create a client and add a Provider.
 230. promises should start only if an auth code is executed? ex. Bookmark_lowerUI. then maybe implement catching
+231. local development -> user has to be created on different pcs separetely or no backgroundImg??
+
 
 {
   filename: 'nature-3082832_1920.jpg',
@@ -426,7 +428,6 @@ https://stackoverflow.com/questions/59188483/error-invalid-login-535-5-7-8-usern
 react-tracked -> optimized rerender for zustand itp?
 
 bookmarkAllTags purpose -> delete a Tab if its last bookmark is deleted
-
 
 
 

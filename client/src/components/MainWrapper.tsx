@@ -5,7 +5,7 @@ import shallow from "zustand/shallow";
 import Main from "./Main";
 
 import { SettingsQuery } from "../graphql/graphqlQueries";
-import { testUserId } from "../state/data/testUserId";
+// import { testUserId } from "../state/data/testUserId";
 // import { useAuthContext } from "../context/authContext";
 import { useAuth } from "../state/hooks/useAuth";
 import { useGlobalSettings } from "../state/hooks/defaultSettingsHooks";

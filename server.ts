@@ -31,7 +31,7 @@ import {
 } from "multer";
 import { schema } from "./schema/schema";
 
-import { testUserId } from "./client/src/state/data/testUserId";
+// import { testUserId } from "./client/src/state/data/testUserId";
 import { BackgroundImg } from "./schema/types/backgroundImgType";
 let rssParser = new Parser();
 // let upload = multer({dest: "uploads/"})
@@ -189,6 +189,7 @@ const storage = multer.diskStorage({
     console.log("req is  Auth multer");
 
     console.log(req.isAuth);
+    if (!req.isAuth || !req.userId) return;
 
     // console.log("req user id storage multer");
     // console.log(req.userId);
@@ -198,21 +199,18 @@ const storage = multer.diskStorage({
 
     // @ts-ignore
     // userIdOrDemoId = req.isAuth ? req.userId : testUserId
-
     // userIdOrDemoId = req.userId ? req.userId : testUserId
-
     // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
 
-    let userIdOrTestId = req.isAuth ? req.userId : testUserId;
+    // let userIdOrTestId = req.isAuth ? req.userId : testUserId;
 
-    // let dest = "backgroundImgs/" + req.userId + "/";
-    let dest = "backgroundImgs/" + userIdOrTestId + "/";
+    let dest = "backgroundImgs/" + req.userId + "/";
+    // let dest = "backgroundImgs/" + userIdOrTestId + "/";
 
     // mkdirp.sync(dest);
     cb(null, dest);
   },
   filename: function (req: any, file: any, cb: any) {
-
     let fileOriginalNameMod = file.originalname.replace(/\s/g, "_");
 
     let newFileName = Date.now() + "_" + fileOriginalNameMod;
@@ -221,8 +219,6 @@ const storage = multer.diskStorage({
     newBackgroundImageName = newFileName;
     console.log("NAMEEEE");
     console.log(newBackgroundImageName);
-    
-    
   },
 });
 
@@ -413,8 +409,6 @@ app.use("/graphql", (req: Request, res: Response, next: NextFunction) => {
     // @ts-ignore
     console.log(req.isAuth);
 
-
-
     if (!req.body) {
       next();
       return;
@@ -431,15 +425,21 @@ app.use("/graphql", (req: Request, res: Response, next: NextFunction) => {
     console.log("req.body operations");
     console.log(req.body.operations);
 
+    // @ts-ignore
+    if (!req.isAuth || !req.userId) return;
+
     // next()
     // @ts-ignore
-    let userIdOrTestId = req.isAuth ? req.userId : testUserId;
+    // let userIdOrTestId = req.isAuth ? req.userId : testUserId;
+    // @ts-ignore
+    let userId = req.userId;
 
     let newBackgroundImg = {
       // userId: userIdOrDemoId,
       // userId: req.params.userId,
       // @ts-ignore
-      userId: userIdOrTestId,
+      userId: userId,
+      // userId: userIdOrTestId,
       // backgroundImg: req.file.path,
       backgroundImg: newBackgroundImageName,
     };
@@ -447,7 +447,8 @@ app.use("/graphql", (req: Request, res: Response, next: NextFunction) => {
     BackgroundImgSchema.replaceOne(
       // { userId: userIdOrDemoId },
       // { userId: req.params.userId },
-      { userId: userIdOrTestId },
+      { userId: userId },
+      // { userId: userIdOrTestId },
       newBackgroundImg,
       { upsert: true },
       (err: Error, backgroundImgProduct: BackgroundImg) => {
@@ -458,7 +459,8 @@ app.use("/graphql", (req: Request, res: Response, next: NextFunction) => {
           });
 
           // removeBackgroundImg(newBackgroundImageName, req.params.userId);
-          removeBackgroundImg(newBackgroundImageName, userIdOrTestId);
+          // removeBackgroundImg(newBackgroundImageName, userIdOrTestId);
+          removeBackgroundImg(newBackgroundImageName, userId);
           return;
         }
 
@@ -466,14 +468,16 @@ app.use("/graphql", (req: Request, res: Response, next: NextFunction) => {
         // let dest = "backgroundImgs/" + req.params.userId + "/";
         // @ts-ignore
         // let dest = "backgroundImgs/" + req.userId + "/";
-        let dest = "backgroundImgs/" + userIdOrTestId + "/";
+        // let dest = "backgroundImgs/" + userIdOrTestId + "/";
+        let dest = "backgroundImgs/" +userId + "/";
 
         fs.readdirSync(dest).forEach((file: string) => {
           // console.log(file);
 
           if (file !== newBackgroundImageName) {
             // removeBackgroundImg(file, req.params.userId);
-            removeBackgroundImg(file, userIdOrTestId);
+            // removeBackgroundImg(file, userIdOrTestId);
+            removeBackgroundImg(file, userId);
           }
         });
 
@@ -536,9 +540,11 @@ app.post(site url) {
 
 */
 
-function removeBackgroundImg(fileName: string, userIdOrDemoId: string) {
+// function removeBackgroundImg(fileName: string, userIdOrDemoId: string) {
+function removeBackgroundImg(fileName: string, userId: string) {
   fs.unlink(
-    path.join("backgroundImgs/" + userIdOrDemoId + "/", fileName),
+    path.join("backgroundImgs/" + userId+ "/", fileName),
+    // path.join("backgroundImgs/" + userIdOrDemoId + "/", fileName),
     (err: any) => {
       if (err) console.error(err);
     }

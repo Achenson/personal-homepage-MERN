@@ -1,7 +1,7 @@
 const graphql = require("graphql");
 const Settings = require("../../mongoModels/settingsSchema");
 import { GraphQLError } from "graphql";
-import { testUserId } from "../../client/src/state/data/testUserId";
+// import { testUserId } from "../../client/src/state/data/testUserId";
 
 import {
   SettingsFields,

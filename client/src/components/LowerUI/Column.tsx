@@ -31,7 +31,7 @@ import {
 import { TabsQuery } from "../../graphql/graphqlQueries";
 import { SettingsQuery } from "../../graphql/graphqlQueries";
 
-import { testUserId } from "../../state/data/testUserId";
+// import { testUserId } from "../../state/data/testUserId";
 
 import { SingleTabData } from "../../utils/interfaces";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";

@@ -13,7 +13,7 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
-import { testUserId } from "../../state/data/testUserId";
+// import { testUserId } from "../../state/data/testUserId";
 
 interface Props {
   setIconsVis: (value: React.SetStateAction<boolean>) => void;
