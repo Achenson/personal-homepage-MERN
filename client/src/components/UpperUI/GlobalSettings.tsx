@@ -527,12 +527,15 @@ function GlobalSettings({
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="flex justify-between items-center mb-2 mt-1">
+            <div className="flex justify-between items-center mb-2 mt-1">
             <p className="">Number of columns</p>
             <div className="flex">{renderColsNumberControls()}</div>
           </div>
+
+          </div>
+
+         
         </div>
       </div>
     </FocusLock>
