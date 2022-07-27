@@ -431,27 +431,56 @@ function GlobalSettings({
                   RSS Items per page (5-15)
                 </p>
 
-
                 <div className="flex items-center">
                   <div
                     // style={{ height: "60px", width: "60px", marginTop: "0px" }}
                     // className="flex"
                     className=""
                   >
-                    <div className={`bg-${uiColor}`} style={{height: "13px", width: "13px"}}>
+                    <div
+                      className={`bg-${uiColor}`}
+                      style={{ height: "13px", width: "13px" }}
+                    >
                       {/* <div className=" bg-gray-400" style={{height: "16px", width: "24px"}}> */}
                       <PlusSmSVG
                         className="cursor-pointer hover:text-blueGray-500 transition-colors duration-75"
                         onClick={() => {
-                          console.log("up");
+                          if (globalSettings.itemsPerPage > 14) {
+                            return;
+                          }
+
+                          userIdOrNoId
+                            ? changeSettings({
+                                ...globalSettings,
+                                itemsPerPage: globalSettings.itemsPerPage + 1,
+                              })
+                            : setGlobalSettings({
+                                ...globalSettings,
+                                itemsPerPage: globalSettings.itemsPerPage + 1,
+                              });
                         }}
                       />
                     </div>
-                    <div className={`bg-${uiColor}`} style={{height: "13px", width: "13px"}}>
+                    <div
+                      className={`bg-${uiColor}`}
+                      style={{ height: "13px", width: "13px" }}
+                    >
                       <MinusSmSVG
                         className="cursor-pointer hover:text-blueGray-500 transition-colors duration-75"
                         onClick={() => {
-                          console.log("up");
+                          if (globalSettings.itemsPerPage < 6) {
+                            return;
+                          }
+
+                          userIdOrNoId
+                            ? changeSettings({
+                                ...globalSettings,
+                                itemsPerPage: globalSettings.itemsPerPage - 1,
+                              })
+                            : setGlobalSettings({
+                                ...globalSettings,
+                                itemsPerPage: globalSettings.itemsPerPage - 1,
+                              });
                         }}
                       />
                     </div>
@@ -464,7 +493,7 @@ function GlobalSettings({
                     className="border w-8 text-center border-gray-300 bg-gray-50
                   focus-1
                   "
-                  // style={{height: "26px"}}
+                    // style={{height: "26px"}}
                     value={globalSettings.itemsPerPage}
                     onWheel={(event) => event.currentTarget.blur()}
                     onChange={(e) => {
@@ -496,9 +525,6 @@ function GlobalSettings({
                     }}
                   />
                 </div>
-
-
-
               </div>
             </div>
           </div>
