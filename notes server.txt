@@ -114,7 +114,7 @@ GOOD enough
 
 
 
-27. globalSettings make it impossible to enter a value other than 5-15!
+27. globalSettings & single rss settings make it impossible to enter a value other than 5-15!
 
 28. client: make + & - for rss itemsPerPage  
 
@@ -346,7 +346,8 @@ If that's not what you want, please create a client and add a Provider.
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
 232. rss local -> changing global rss settings is not being reflected immediately!!
 233. rrs itemsPerPage -> test on mobile! real one
-
+234. rss itemPerPage -> cannot be set by keyboard to more than 9 -> problem?
+235. non-auth version problem with less column settings-> missing content?
 
 {
   filename: 'nature-3082832_1920.jpg',
