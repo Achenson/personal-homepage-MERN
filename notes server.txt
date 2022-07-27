@@ -112,7 +112,7 @@ GOOD enough
 
 
 
-25. typescript: save eg. settingsType new Settings -> save() method does not exist
+
 
 27. globalSettings make it impossible to enter a value other than 5-15!
 
@@ -344,6 +344,8 @@ Fields in userType & args -> should they always be the same? non-null for args?
 If that's not what you want, please create a client and add a Provider.
 230. promises should start only if an auth code is executed? ex. Bookmark_lowerUI. then maybe implement catching
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
+232. rss local -> changing global rss settings is not being reflected immediately!!
+233. rrs itemsPerPage -> test on mobile! real one
 
 
 {

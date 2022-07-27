@@ -7,6 +7,10 @@ import { useMutation } from "urql";
 import Settings_inner_xs from "./Settings_inner_xs";
 
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
+import { ReactComponent as ChevronDownSVG } from "../../svgs/chevron-down.svg";
+import { ReactComponent as ChevronUpSVG } from "../../svgs/chevron-up.svg";
+import { ReactComponent as PlusSmSVG } from "../../svgs/plus-sm.svg";
+import { ReactComponent as MinusSmSVG } from "../../svgs/minus-sm.svg";
 
 // import { useDefaultColors } from "../../state/hooks/colorHooks";
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
@@ -423,47 +427,85 @@ function GlobalSettings({
               <div
                 className={`flex items-center mt-2 pb-1 justify-between border-${uiColor} border-b border-opacity-40`}
               >
-                <p className="whitespace-nowrap w-32">RSS Items per page</p>
-                <input
-                  type="number"
-                  min="5"
-                  max="15"
-                  className="border w-8 text-center border-gray-300 bg-gray-50
-                focus-1
-                "
-                  value={globalSettings.itemsPerPage}
-                  onWheel={(event) => event.currentTarget.blur()}
-                  onChange={(e) => {
-                    /*   setGlobalSettings({
-                      ...globalSettings,
-                      itemsPerPage: parseInt(e.target.value),
-                    }); */
+                <p className="whitespace-nowrap w-32">
+                  RSS Items per page (5-15)
+                </p>
 
-                    userIdOrNoId
-                      ? changeSettings({
-                          ...globalSettings,
-                          itemsPerPage: parseInt(e.target.value),
-                        })
-                      : setGlobalSettings({
-                          ...globalSettings,
-                          itemsPerPage: parseInt(e.target.value),
-                        });
 
-                    // changeSettings({
-                    //   ...globalSettings,
-                    //   itemsPerPage: parseInt(e.target.value),
-                    // });
+                <div className="flex items-center">
+                  <div
+                    // style={{ height: "60px", width: "60px", marginTop: "0px" }}
+                    // className="flex"
+                    className=""
+                  >
+                    <div className={`bg-${uiColor}`} style={{height: "13px", width: "13px"}}>
+                      {/* <div className=" bg-gray-400" style={{height: "16px", width: "24px"}}> */}
+                      <PlusSmSVG
+                        className="cursor-pointer hover:text-blueGray-500 transition-colors duration-75"
+                        onClick={() => {
+                          console.log("up");
+                        }}
+                      />
+                    </div>
+                    <div className={`bg-${uiColor}`} style={{height: "13px", width: "13px"}}>
+                      <MinusSmSVG
+                        className="cursor-pointer hover:text-blueGray-500 transition-colors duration-75"
+                        onClick={() => {
+                          console.log("up");
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <input
+                    type="number"
+                    placeholder="5-15"
+                    min="5"
+                    max="15"
+                    className="border w-8 text-center border-gray-300 bg-gray-50
+                  focus-1
+                  "
+                  // style={{height: "26px"}}
+                    value={globalSettings.itemsPerPage}
+                    onWheel={(event) => event.currentTarget.blur()}
+                    onChange={(e) => {
+                      /*   setGlobalSettings({
+                        ...globalSettings,
+                        itemsPerPage: parseInt(e.target.value),
+                      }); */
+                      if (
+                        parseInt(e.target.value) < 5 ||
+                        parseInt(e.target.value) > 15 ||
+                        e.target.value === ""
+                      ) {
+                        return;
+                      }
+                      userIdOrNoId
+                        ? changeSettings({
+                            ...globalSettings,
+                            itemsPerPage: parseInt(e.target.value),
+                          })
+                        : setGlobalSettings({
+                            ...globalSettings,
+                            itemsPerPage: parseInt(e.target.value),
+                          });
+                      // changeSettings({
+                      //   ...globalSettings,
+                      //   itemsPerPage: parseInt(e.target.value),
+                      // });
+                      setTabOpenedState(null);
+                    }}
+                  />
+                </div>
 
-                    setTabOpenedState(null);
-                  }}
-                />
+
+
               </div>
             </div>
+          </div>
 
-            <div className="flex justify-between items-center mb-2 mt-1">
-              <p className="">Number of columns</p>
-              <div className="flex">{renderColsNumberControls()}</div>
-            </div>
+          <div className="flex justify-between items-center mb-2 mt-1">
+            <p className="">Number of columns</p>
+            <div className="flex">{renderColsNumberControls()}</div>
           </div>
         </div>
       </div>
