@@ -65,16 +65,24 @@ app.use(
   })
 );
 
+
+// credentials: Configures the Access-Control-Allow-Credentials CORS header.
+//  Set to true to pass the header, otherwise it is omitted.
+// The Access-Control-Allow-Origin response header indicates whether
+//  the response can be shared with requesting code from the given origin.
+// origin: https://developer.mozilla.org/en-US/docs/Glossary/Origin
 app.use(
   cors({
     origin: [
       "http://localhost:3000",
       "http://localhost:4000",
-      "http://localhost:4000/graphql",
-      "http://localhost:4000/fetch_rss",
-      "http://localhost:4000/background_img",
-      "http://localhost:4000/refresh_token",
+      // below: not needed! http://localhost:4000" is an origin and everything after is allowed
+      // "http://localhost:4000/graphql",
+      // "http://localhost:4000/fetch_rss",
+      // "http://localhost:4000/background_img",
+      // "http://localhost:4000/refresh_token",
     ],
+  
     credentials: true,
   })
 );

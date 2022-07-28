@@ -64,7 +64,10 @@ DONE 45. logic for tab deletion in Grid work only thanks to setTimeout() [in Boo
 DONE 46. bookmark /tabs database interfaces everywhere! (now both from context) DONE
 DONE 47. promise.all -> no need for new Promise everywhere? mutation return promises (change in Bookmark_lowerUI, no promise.all in Grids now, ) DONE
 DONE 47.5 useBookmarks & useTabs -> mark which methods are used server-side! DONE
+XX 48. explain somewhere to the user why disable drag & drop is there (will be incluted in initial note) XX
 DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
+DONE 50. server.ts -> figure out which cors urls are actually needed
+ (no need to include every route - only origin - scheme (protocol), hostname (domain), and port) DONE
 DONE 53. change server file upload logic to graphql? DONE
 DONE 57. is path module needed? (server.js (yes)DONE
 DONE 59. graphql for file upload? use middleware which should detect if the file is attached to post req DONE
@@ -133,8 +136,7 @@ GOOD enough
  -> hacky solution only, reexectuing query in Bookmarks which causes rerender - solve?
 (possible solution to get rid of rerender at least -> no bookmarks in any of useeffect? diff way for calc. tabIdsUsedByBookmarks)
 
-48. explain somewhere to the user why disable drag & drop is there
-50. server.ts -> figure out which cors urls are actually needed
+
 51. fix any types (server.js multer?)
 52. change app.use to app.get / app.post?
 54. move backgroundImg logic from server.js?
@@ -347,6 +349,8 @@ If that's not what you want, please create a client and add a Provider.
 238. tabIdsUsedByBookmarks -> for deleting empty Tabs only? maybe it would be better to not render empty tabs && delete empty one?
 239. bookmarks itp -> in the end ts is chosing the type by itself, even if it should be split type
 240. bookmarks are rendered only after tab is open -> maybe they should be just hidden instead?
+241. browser warning: Default Client: No client has been specified using urql's Provider.This means that urql will be falling back to defaults including making requests to `/graphql`.
+If that's not what you want, please create a client and add a Provider.
 
 
 {
