@@ -41,6 +41,10 @@ DONE 23. delete testUserId in the end DONE
 DONE 24. client: rss settings merges with global settings -> test -> delete all commented out code DONE
 DONE 27. globalSettings & single rss settings make it impossible to enter a value other than 5-15! DONE
 DONE 28. client: make + & - for rss itemsPerPage  DONE
+XX 29. Main -> fetching and date are after useEffects (globalSettings in a useEffect dep) but globalSettings is declared already?
+(no img fetchcin in Main anymore, img taken from settings in MainWrapper)) XX
+DONE 30. globalSettings taken either from props or from hooks (hooks cannot apply if useEffect uses globalSettings
++ it requires more code) -> unify? -> currently hook is in MainWrapper & Column  (MainWrapper only now)DONE
 DONE 32. clientside: hooks for store -> sometimes it's state.tabs, sometimes store.tabs -> unify -> unified as store DONE
  DONE 34. mutations -> proper typescript types! DONE
 ?? 37. way to use urql as a central state? ??
@@ -114,9 +118,10 @@ GOOD enough
 
 
 
-29. Main -> fetching and date are after useEffects (globalSettings in a useEffect dep) but globalSettings is declared already?
-30. globalSettings taken either from props or from hooks (hooks cannot apply if useEffect uses globalSettings
-+ it requires more code) -> unify? -> currently hook is in MainWrapper & Column
+
+
+
+
 31. interfaces: database vs client side: currently settings are from database but tabs from clientside...
 33. take care of state other that settings, tabs & bookmarks (use of existings queries should be enough?)
 35. client-side: unify column_1 naming with server-side naming (colColor_1 itp) when the client-side code
@@ -344,6 +349,8 @@ If that's not what you want, please create a client and add a Provider.
 233. rrs itemsPerPage -> test on mobile! real one
 234. rss itemPerPage -> cannot be set by keyboard to more than 9 -> problem?
 235. non-auth version problem with less column settings-> missing content?
+236. globalSettings to globalSettignsDb rename everywhere? (currently in Column only)
+237. globalSettings interfaces - smtms different smtms from db?
 
 {
   filename: 'nature-3082832_1920.jpg',

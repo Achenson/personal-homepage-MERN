@@ -319,6 +319,7 @@ Props): JSX.Element {
       breakpoint,
       tabs,
       userIdOrNoId,
+      globalSettingsDb: globalSettings
     };
 
     switch (numberOfCols) {

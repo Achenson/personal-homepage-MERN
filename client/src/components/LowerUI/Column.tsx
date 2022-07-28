@@ -44,6 +44,7 @@ interface Props {
   // tabs: SingleTabData[];
   // tabs: TabDatabase_i[];
   userIdOrNoId: string | null;
+  globalSettingsDb: SettingsDatabase_i;
 }
 
 function Column({
@@ -51,6 +52,7 @@ function Column({
   setTabType,
   breakpoint,
   userIdOrNoId,
+  globalSettingsDb
 }: // tabs,
 Props): JSX.Element {
   // const columnsColors = useColumnsColors((state) => state, shallow);
@@ -77,22 +79,23 @@ Props): JSX.Element {
       ? authContext.authenticatedUserId
       : null;
 
-  const [settingsResults] = useQuery({
-    query: SettingsQuery,
-    variables: { userId: userIdOrNoId },
-    pause: !userIdOrNoId,
-  });
+  // const [settingsResults] = useQuery({
+  //   query: SettingsQuery,
+  //   variables: { userId: userIdOrNoId },
+  //   pause: !userIdOrNoId,
+  // });
 
-  const { data, fetching, error } = settingsResults;
+  // const { data, fetching, error } = settingsResults;
 
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>{error.message}</p>;
+  // if (fetching) return <p>Loading...</p>;
+  // if (error) return <p>{error.message}</p>;
 
   // let globalSettings: SettingsDatabase_i = data.settings;
   let globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
 
   globalSettings = userIdOrNoId
-    ? (data.settings as SettingsDatabase_i)
+    // ? (data.settings as SettingsDatabase_i)
+    ? globalSettingsDb
     : globalSettingsNotAuth;
 
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
