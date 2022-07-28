@@ -8,7 +8,15 @@ interface ExpressReqResNext {
     next: NextFunction;
   }
 
-module.exports = (req: Request, res: Response, next: NextFunction) => {
+
+
+ export interface RequestWithAuth extends Request {
+    isAuth: true | false;
+    userId: string | null;
+
+  }
+
+module.exports = (req: RequestWithAuth, res: Response, next: NextFunction) => {
   // headers are being set in indes.js on the client side!!!
   // and in there the access token is being taken from the redux store
 
@@ -32,7 +40,7 @@ module.exports = (req: Request, res: Response, next: NextFunction) => {
     // request will travel through API, but with attached info that the user is not authorised
     console.log("no authHeader isAuth error");
     
-    // @ts-ignore
+   
     req.isAuth = false;
     // exiting function but the request continues
     return next();
@@ -41,8 +49,9 @@ module.exports = (req: Request, res: Response, next: NextFunction) => {
   // signalling which type of authentication we are using
   const token = authHeader.split(" ")[1]; // [[Authorization]]: Bearer faksldfasdf[tokenvalue]
   if (!token || token === "") {
-   // @ts-ignore
+  
     req.isAuth = false;
+    req.userId = null;
     return next();
   }
   let decodedToken;
@@ -50,18 +59,19 @@ module.exports = (req: Request, res: Response, next: NextFunction) => {
     // decodedToken = jwt.verify(token, 'somesupersecretkey');
     decodedToken = jwt.verify(token, process.env.ACCESS);
   } catch (err) {
-    // @ts-ignore
+  
     req.isAuth = false;
+    req.userId = null;
     return next();
   }
   if (!decodedToken) {
-    // @ts-ignore
+   
     req.isAuth = false;
+    req.userId = null;
     return next();
   }
-  // @ts-ignore
+  
   req.isAuth = true;
-  // @ts-ignore
   req.userId = decodedToken.userId;
 
   console.log("req.isAuth");

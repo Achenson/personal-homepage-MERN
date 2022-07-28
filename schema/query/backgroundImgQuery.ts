@@ -7,13 +7,14 @@ const path = require("path");
 
 const { GraphQLObjectType, GraphQLID } = graphql;
 
+import { RequestWithAuth } from "../middleware/isAuth";
 import { BackgroundImgType } from "../types/backgroundImgType";
 import { User_i } from "../types/userType";
 
 export const backgroundImgQueryField = {
   type: BackgroundImgType,
   args: { userId: { type: GraphQLID } },
-  async resolve(parent: User_i, { userId }: { userId: string }, request: any) {
+  async resolve(parent: User_i, { userId }: { userId: string }, request: RequestWithAuth) {
     console.log("!!!backgroundImgQuery  started !!!!");
 
     if (!request.isAuth) return

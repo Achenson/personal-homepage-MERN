@@ -15,7 +15,7 @@ export const changeSettingsMutationField = {
     // userId: { type: new GraphQLNonNull(GraphQLString) },
     ...SettingsFields,
   },
-  resolve(_source: unknown, args: SettingsDatabase_i, request: any) {
+  resolve(_source: unknown, args: SettingsDatabase_i) {
 
     // if (!request.isAuth && request.userId !== testUserId) {
     //   return new GraphQLError("Auth error");

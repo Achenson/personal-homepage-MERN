@@ -40,9 +40,10 @@ const app = express();
 
 const port = 4000;
 
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import { addPath } from "graphql/jsutils/Path";
 import { stripIgnoredCharacters } from "graphql";
+import { RequestWithAuth } from "./schema/middleware/isAuth";
 
 // favicon test
 /* let fetchTest1 = faviconFetch({ hostname: "wikipedia.org" });
@@ -65,7 +66,6 @@ app.use(
   })
 );
 
-
 // credentials: Configures the Access-Control-Allow-Credentials CORS header.
 //  Set to true to pass the header, otherwise it is omitted.
 // The Access-Control-Allow-Origin response header indicates whether
@@ -82,7 +82,7 @@ app.use(
       // "http://localhost:4000/background_img",
       // "http://localhost:4000/refresh_token",
     ],
-  
+
     credentials: true,
   })
 );
@@ -92,7 +92,7 @@ app.use(isAuth);
 //  parsing cookie only in the context of that particular route
 app.use("/refresh_token", cookieParser());
 
-app.post("/refresh_token", async (req: Request, res: Response) => {
+app.post("/refresh_token", async (req: RequestWithAuth, res: Response) => {
   // 1. testing sending test cookie in request using postman
   // cookies -> add domain: localhost -> coookie name: jid
   // console.log(req.headers);
@@ -172,7 +172,7 @@ app.post("/refresh_token", async (req: Request, res: Response) => {
   res.send(response);
 }); */
 
-app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
+app.use("/fetch_rss/:rsslink", async (req: RequestWithAuth, res: Response) => {
   console.log("fetching rss server rest");
   // @ts-ignore
   console.log(req.isAuth);
@@ -189,14 +189,15 @@ let newBackgroundImageName: string;
 // let userIdOrDemoId: string;
 
 const storage = multer.diskStorage({
-  destination: function (req: any, file, cb) {
+  destination: function (req, file, cb) {
     const authHeader = req.get("Authorization");
     // console.log(req.headers);
     // const authHeader = req.headers.authorisation;
 
     console.log("req is  Auth multer");
-
+    // @ts-ignore
     console.log(req.isAuth);
+    // @ts-ignore
     if (!req.isAuth || !req.userId) return;
 
     // console.log("req user id storage multer");
@@ -367,7 +368,7 @@ let backgroundImgUpload = upload.any();
 /* let backgroundImgFiles = fs.readdirSync("backgroundImgs/" + testUserId);
 console.log(backgroundImgFiles[0]); */
 
-app.get("/background_img/:userId", (req: Request, res: Response) => {
+app.get("/background_img/:userId", (req: RequestWithAuth, res: Response) => {
   console.log("getting background img");
 
   let backgroundImgFiles = fs.readdirSync(
@@ -404,106 +405,109 @@ next()
 
 }) */
 
-app.use("/graphql", (req: Request, res: Response, next: NextFunction) => {
-  // if(!req.body){
-  //   next()
-  // }
+app.use(
+  "/graphql",
+  (req: RequestWithAuth, res: Response, next: NextFunction) => {
+    // if(!req.body){
+    //   next()
+    // }
 
-  console.log("req.body /graphql");
-  console.log(req.body);
-
-  backgroundImgUpload(req, res, function (multerErr) {
-    console.log("background img auth");
-    // @ts-ignore
-    console.log(req.isAuth);
-
-    if (!req.body) {
-      next();
-      return;
-    }
-
-    if (multerErr) {
-      console.log("multerErr");
-      console.log(multerErr);
-    }
-
-    console.log("req.body background img upload");
+    console.log("req.body /graphql");
     console.log(req.body);
 
-    console.log("req.body operations");
-    console.log(req.body.operations);
+    backgroundImgUpload(req, res, function (multerErr) {
+      console.log("background img auth");
 
-    // @ts-ignore
-    if (!req.isAuth || !req.userId) return;
+      console.log(req.isAuth);
 
-    // next()
-    // @ts-ignore
-    // let userIdOrTestId = req.isAuth ? req.userId : testUserId;
-    // @ts-ignore
-    let userId = req.userId;
+      if (!req.body) {
+        next();
+        return;
+      }
 
-    let newBackgroundImg = {
-      // userId: userIdOrDemoId,
-      // userId: req.params.userId,
+      if (multerErr) {
+        console.log("multerErr");
+        console.log(multerErr);
+      }
+
+      console.log("req.body background img upload");
+      console.log(req.body);
+
+      console.log("req.body operations");
+      console.log(req.body.operations);
+
       // @ts-ignore
-      userId: userId,
-      // userId: userIdOrTestId,
-      // backgroundImg: req.file.path,
-      backgroundImg: newBackgroundImageName,
-    };
+      if (!req.isAuth || !req.userId) return;
 
-    BackgroundImgSchema.replaceOne(
-      // { userId: userIdOrDemoId },
-      // { userId: req.params.userId },
-      { userId: userId },
-      // { userId: userIdOrTestId },
-      newBackgroundImg,
-      { upsert: true },
-      (err: Error, backgroundImgProduct: BackgroundImg) => {
-        if (err) {
-          console.log(err);
-          res.status(500).json({
-            error: err,
+      // next()
+      // @ts-ignore
+      // let userIdOrTestId = req.isAuth ? req.userId : testUserId;
+      // @ts-ignore
+      let userId = req.userId;
+
+      let newBackgroundImg = {
+        // userId: userIdOrDemoId,
+        // userId: req.params.userId,
+        // @ts-ignore
+        userId: userId,
+        // userId: userIdOrTestId,
+        // backgroundImg: req.file.path,
+        backgroundImg: newBackgroundImageName,
+      };
+
+      BackgroundImgSchema.replaceOne(
+        // { userId: userIdOrDemoId },
+        // { userId: req.params.userId },
+        { userId: userId },
+        // { userId: userIdOrTestId },
+        newBackgroundImg,
+        { upsert: true },
+        (err: Error, backgroundImgProduct: BackgroundImg) => {
+          if (err) {
+            console.log(err);
+            res.status(500).json({
+              error: err,
+            });
+
+            // removeBackgroundImg(newBackgroundImageName, req.params.userId);
+            // removeBackgroundImg(newBackgroundImageName, userIdOrTestId);
+            removeBackgroundImg(newBackgroundImageName, userId);
+            return;
+          }
+
+          // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
+          // let dest = "backgroundImgs/" + req.params.userId + "/";
+          // @ts-ignore
+          // let dest = "backgroundImgs/" + req.userId + "/";
+          // let dest = "backgroundImgs/" + userIdOrTestId + "/";
+          let dest = "backgroundImgs/" + userId + "/";
+
+          fs.readdirSync(dest).forEach((file: string) => {
+            // console.log(file);
+
+            if (file !== newBackgroundImageName) {
+              // removeBackgroundImg(file, req.params.userId);
+              // removeBackgroundImg(file, userIdOrTestId);
+              removeBackgroundImg(file, userId);
+            }
           });
 
-          // removeBackgroundImg(newBackgroundImageName, req.params.userId);
-          // removeBackgroundImg(newBackgroundImageName, userIdOrTestId);
-          removeBackgroundImg(newBackgroundImageName, userId);
-          return;
+          res.status(201).json({
+            message: "Created product successfully",
+            createdProduct: backgroundImgProduct,
+          });
+          // res.send(backgroundImgProduct)
+          // res.send({message: "done"})
+          // res.statusMessage = backgroundImgProduct.backgroundImg
+          // res.send("aaaaaaaaaaaaaaaaaaaaa");
         }
+      );
+    });
 
-        // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
-        // let dest = "backgroundImgs/" + req.params.userId + "/";
-        // @ts-ignore
-        // let dest = "backgroundImgs/" + req.userId + "/";
-        // let dest = "backgroundImgs/" + userIdOrTestId + "/";
-        let dest = "backgroundImgs/" +userId + "/";
-
-        fs.readdirSync(dest).forEach((file: string) => {
-          // console.log(file);
-
-          if (file !== newBackgroundImageName) {
-            // removeBackgroundImg(file, req.params.userId);
-            // removeBackgroundImg(file, userIdOrTestId);
-            removeBackgroundImg(file, userId);
-          }
-        });
-
-        res.status(201).json({
-          message: "Created product successfully",
-          createdProduct: backgroundImgProduct,
-        });
-        // res.send(backgroundImgProduct)
-        // res.send({message: "done"})
-        // res.statusMessage = backgroundImgProduct.backgroundImg
-        // res.send("aaaaaaaaaaaaaaaaaaaaa");
-      }
-    );
-  });
-
-  // console.log("req.file");
-  //   console.log(req.body);
-});
+    // console.log("req.file");
+    //   console.log(req.body);
+  }
+);
 
 app.use(
   "/graphql",
@@ -551,7 +555,7 @@ app.post(site url) {
 // function removeBackgroundImg(fileName: string, userIdOrDemoId: string) {
 function removeBackgroundImg(fileName: string, userId: string) {
   fs.unlink(
-    path.join("backgroundImgs/" + userId+ "/", fileName),
+    path.join("backgroundImgs/" + userId + "/", fileName),
     // path.join("backgroundImgs/" + userIdOrDemoId + "/", fileName),
     (err: any) => {
       if (err) console.error(err);

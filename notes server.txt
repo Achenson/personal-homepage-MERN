@@ -125,6 +125,7 @@ GOOD enough?
   https://stackoverflow.com/questions/62403571/hot-reloading-in-a-react-app-with-express-server
   10. typescript doesn't work for schemas?
   manaul static methods with mongoose model methods inside them should be used? use sth different than mongoose - papr?
+  done 51. fix any types (server.js multer?) (isAuth interface but not used in multer, backgroundImgResult types) done
 
 GOOD enough
 
@@ -137,8 +138,6 @@ GOOD enough
 (possible solution to get rid of rerender at least -> no bookmarks in any of useeffect? diff way for calc. tabIdsUsedByBookmarks)
 
 
-x 51. fix any types (server.js multer?) (good enough: any for req (isAuth & userId added)
- & for types that are defined in upper component but taken from some library)x 
 52. change app.use to app.get / app.post?
 54. move backgroundImg logic from server.js?
 56. clientside: make it possible to choose backgroundImg colors also from settings? or close the modal and open backgroundColors menu
