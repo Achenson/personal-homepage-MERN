@@ -46,10 +46,16 @@ XX 29. Main -> fetching and date are after useEffects (globalSettings in a useEf
 DONE 30. globalSettings taken either from props or from hooks (hooks cannot apply if useEffect uses globalSettings
 + it requires more code) -> unify? -> currently hook is in MainWrapper & Column  (MainWrapper only now)DONE
 DONE 32. clientside: hooks for store -> sometimes it's state.tabs, sometimes store.tabs -> unify -> unified as store DONE
+??? 33. take care of state other that settings, tabs & bookmarks (use of existings queries should be enough?) ???
  DONE 34. mutations -> proper typescript types! DONE
+ DONE? 35. client-side: unify column_1 naming with server-side naming (colColor_1 itp) when the client-side code
+ will be working again for nonauthorised user! (colColor everywhere?) ?DONE
+?? 36. addBookmark -> tabQueries should be refetched?
+ (no need? bookmarks are being filterd in Tab by tags instead, bookmarkAllTags is taking care of empty folders) ??
 ?? 37. way to use urql as a central state? ??
 DONE 38. editBookmark doesn't work on the client! DONE
 DONE 39. objCreators: too much repetition in db tab creators? DONE
+DONE 40. tabIdsUsedByBookmarks -> change it (it should be a list of all tabs ids that are bookmarks tags tabIdsUsedByBookmarks) or use mongoose query!!!! DONE
 DONE 45. logic for tab deletion in Grid work only thanks to setTimeout() [in Boomark_lowerUI] -> make it better!!! DONE (result.stale used!!!)
 DONE 46. bookmark /tabs database interfaces everywhere! (now both from context) DONE
 DONE 47. promise.all -> no need for new Promise everywhere? mutation return promises (change in Bookmark_lowerUI, no promise.all in Grids now, ) DONE
@@ -116,21 +122,6 @@ GOOD enough?
 GOOD enough
 
 
-
-
-
-
-
-
-31. interfaces: database vs client side: currently settings are from database but tabs from clientside...
-33. take care of state other that settings, tabs & bookmarks (use of existings queries should be enough?)
-35. client-side: unify column_1 naming with server-side naming (colColor_1 itp) when the client-side code
- will be working again for nonauthorised user!
-
-36. addBookmark -> tabQueries should be refetched?
-
-
-40. bookmarksAllTags -> change it (it should be a list of all tabs ids that are bookmarks tags) or use mongoose query!!!!
 41. newTab -> no color as argument, should be null
 42. editing Tab -> bookmarks are not sorted alphabetically!
 43. Tab (and other components further down?) should take tab data from Column (context??), not from db?
@@ -146,8 +137,6 @@ GOOD enough
 54. move backgroundImg logic from server.js?
 56. clientside: make it possible to choose backgroundImg colors also from settings? or close the modal and open backgroundColors menu
 58. status 201
-
-
 
 61. background img -> currently there is no point in storing it in db, as it is get from server only??
 BackgroundImg schema in server.ts - does it work??
@@ -300,7 +289,7 @@ to get info clientside that there is no regisered user
 199. tabsDb and tabsNotAuth etc -> should be in props instead of taken out of Context every time? less code
 200. tabs reset to default: in auth version happens in Grid, in non-auth in Tab -> unify?
 (should be done for TAB_CONTENT_DEFAULT at least?)
-201. bookmarksAllTags -> MERN -> created every time in one of Grid's useEffect (check EditTab_main editTab wrapper also)
+201. tabIdsUsedByBookmarks -> MERN -> created every time in one of Grid's useEffect (check EditTab_main editTab wrapper also)
 old not-auth -> placed in central bookmarks state. check if it works properly, unify?
 
 202. Grid tabDeletingPause introduced in MERN version -> can/should it be implemented for non-auth version also?
@@ -340,7 +329,7 @@ background Color possible now in no pic mode
 226. tabsData, bookmarkData, settignsData -> same as client but with userId? unify? PROblem with changing of useTabs!
 227. mutations -> sometimes the graphql args are listed, Fields should be imported and spread instead
 Fields in userType & args -> should they always be the same? non-null for args?
-228. bookmarksAllTags -> unify?
+228. tabIdsUsedByBookmarks -> unify?
 229. Browser error: Default Client: No client has been specified using urql's Provider.This means that urql will be falling back to defaults including making requests to `/graphql`.
 If that's not what you want, please create a client and add a Provider.
 230. promises should start only if an auth code is executed? ex. Bookmark_lowerUI. then maybe implement catching
@@ -351,6 +340,7 @@ If that's not what you want, please create a client and add a Provider.
 235. non-auth version problem with less column settings-> missing content?
 236. globalSettings to globalSettignsDb rename everywhere? (currently in Column only)
 237. globalSettings interfaces - smtms different smtms from db?
+238. tabIdsUsedByBookmarks -> for deleting empty Tabs only? maybe it would be better to not render empty tabs && delete empty one?
 
 {
   filename: 'nature-3082832_1920.jpg',

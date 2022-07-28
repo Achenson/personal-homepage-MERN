@@ -13,7 +13,7 @@ interface UseTabs {
   // reseting tab content (open/closed state) to default
   defaultTabContent: (tabID: string, tabOpenedByDefault: boolean) => void;
   // deleting tab if there are no bookmarks with this tag (tab's name)
-  deleteEmptyTab: (bookmarksAllTags: string[]) => void;
+  deleteEmptyTab: (tabIdsUsedByBookmarks: string[]) => void;
   deleteTab: (tabID: string) => void;
   dragTab: (
     itemID: string,
@@ -102,12 +102,12 @@ export const useTabs = create<UseTabs>(
           })
         ),
 
-      deleteEmptyTab: (bookmarksAllTags) =>
+      deleteEmptyTab: (tabIdsUsedByBookmarks) =>
         set(
           produce((state: UseTabs) => {
             state.tabs.forEach((obj, i) => {
               if (
-                bookmarksAllTags.indexOf(obj.id) === -1 &&
+                tabIdsUsedByBookmarks.indexOf(obj.id) === -1 &&
                 obj.type === "folder"
               ) {
                 state.tabs.splice(i, 1);

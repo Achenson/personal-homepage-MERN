@@ -127,10 +127,10 @@ function Bookmark_lowerUI({
   const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
 
   // const bookmarks = useBookmarks((store) => store.bookmarks);
-  const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
-  // DB: bookmarksAllTags in Grid only
-  const setBookmarksAllTags = useBookmarks(
-    (store) => store.setBookmarksAllTags
+  const tabIdsUsedByBookmarks = useBookmarks((store) => store.tabIdsUsedByBookmarks);
+  // DB: tabIdsUsedByBookmarks in Grid only
+  const setTabIdsUsedByBookmarks = useBookmarks(
+    (store) => store.setTabIdsUsedByBookmarks
   );
 
   const addTabsNonAuth = useTabs((store) => store.addTabs);
@@ -204,7 +204,7 @@ function Bookmark_lowerUI({
     // let newTabsToAdd: SingleTabData[] = [];
     let newTabsToAdd: TabDatabase_i[] = [];
 
-    let newBookmarksAllTagsData = [...bookmarksAllTags];
+    let newTabIdsUsedByBookmarksData = [...tabIdsUsedByBookmarks];
 
     // getting higher priority for each subsequent tab that is being added at the same time
     let counterForIndices = 0;
@@ -236,7 +236,7 @@ function Bookmark_lowerUI({
         // newTabId = newTab.id;
 
         //... and add new folder tab to the main tags list
-        // newBookmarksAllTagsData.push(newTab.id);
+        // newTabIdsUsedByBookmarksData.push(newTab.id);
         newTabsToAdd.push(newTab);
         console.log("newTabsToAdd");
         console.log(newTabsToAdd);
@@ -287,7 +287,7 @@ function Bookmark_lowerUI({
              });
            }); */
       } else {
-        setBookmarksAllTags([...newBookmarksAllTagsData]);
+        setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
         addTabsNonAuth(newTabsToAdd);
       }
     }
@@ -347,19 +347,19 @@ function Bookmark_lowerUI({
           }
         });
 
-        /*   let bookmarksAllTagsData_new: string[] = [];
+        /*   let tabIdsUsedByBookmarksData_new: string[] = [];
   
         if (newTabId) {
-          bookmarksAllTagsData_new.push(newTabId);
+          tabIdsUsedByBookmarksData_new.push(newTabId);
         }
    */
-        /*     bookmarksAllTags.forEach((el) => {
+        /*     tabIdsUsedByBookmarks.forEach((el) => {
           if (tagsIdsToDelete.indexOf(el) === -1) {
-            bookmarksAllTagsData_new.push(el);
+            tabIdsUsedByBookmarksData_new.push(el);
           }
         }); */
 
-        // setBookmarksAllTags([...bookmarksAllTagsData_new]);
+        // setTabIdsUsedByBookmarks([...tabIdsUsedByBookmarksData_new]);
       } else {
         // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
 
@@ -435,7 +435,7 @@ function Bookmark_lowerUI({
 
     // 1. adding or editing bookmark
     // 2. adding folder/s (also to the main state with array of tags) if some tags do not correspond to existing folders
-    // 3. (if editing bookmark) for deleting empty folder -> setting bookmarksAllTagsState
+    // 3. (if editing bookmark) for deleting empty folder -> setting tabIdsUsedByBookmarksState
     addOrEditBookmark();
 
     if (bookmarkComponentType === "edit") {

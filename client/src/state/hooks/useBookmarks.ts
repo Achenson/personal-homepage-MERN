@@ -28,8 +28,8 @@ interface UseBookmarks {
   ) => void;
   // delete tag in all bookmarks
   deleteTag: (tabTitle: string) => void;
-  setBookmarksAllTags: (newTags: string[]) => void;
-  bookmarksAllTags: string[];
+  setTabIdsUsedByBookmarks: (newTags: string[]) => void;
+  tabIdsUsedByBookmarks: string[];
   bookmarks: SingleBookmarkData[];
 }
 
@@ -87,18 +87,18 @@ export const useBookmarks = create<UseBookmarks>(
           // }
         });
 
-        let bookmarksAllTagsData_new: string[] = [];
+        let tabIdsUsedByBookmarksData_new: string[] = [];
 
-        get().bookmarksAllTags.forEach((el) => {
+        get().tabIdsUsedByBookmarks.forEach((el) => {
           if (tagsIdsToDelete.indexOf(el) === -1) {
-            bookmarksAllTagsData_new.push(el);
+            tabIdsUsedByBookmarksData_new.push(el);
           }
         });
 
         set((state) => ({
           ...state,
           bookmarks: state.bookmarks.filter(({ id }) => id !== bookmarkID),
-          bookmarksAllTags: [...bookmarksAllTagsData_new],
+          tabIdsUsedByBookmarks: [...tabIdsUsedByBookmarksData_new],
         }));
       },
 
@@ -164,13 +164,13 @@ export const useBookmarks = create<UseBookmarks>(
         );
       },
 
-      setBookmarksAllTags: (newTags) => {
+      setTabIdsUsedByBookmarks: (newTags) => {
         set((state) => ({
           ...state,
-          bookmarksAllTags: [...newTags],
+          tabIdsUsedByBookmarks: [...newTags],
         }));
       },
-      bookmarksAllTags: ["ALL_TAGS", "2", "3", "4", "5"],
+      tabIdsUsedByBookmarks: ["ALL_TAGS", "2", "3", "4", "5"],
       bookmarks: [...bookmarksData],
     }),
     {

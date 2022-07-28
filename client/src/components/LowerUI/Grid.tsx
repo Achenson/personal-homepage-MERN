@@ -48,7 +48,7 @@ function Grid({
 // staleBookmarks,
 Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
-  const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
+  const tabIdsUsedByBookmarks = useBookmarks((store) => store.tabIdsUsedByBookmarks);
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
 
   const tabsNotAuth = useTabs((store) => store.tabs);
@@ -81,7 +81,7 @@ Props): JSX.Element {
 
   // const resetAllTabColors = useTabs((store) => store.resetAllTabColors);
 
-  // const bookmarksAllTags = useBookmarks((store) => store.bookmarksAllTags);
+  // const tabIdsUsedByBookmarks = useBookmarks((store) => store.tabIdsUsedByBookmarks);
 
   const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
   const setCloseAllTabsState = useTabs((store) => store.setCloseAllTabsState);
@@ -191,24 +191,24 @@ Props): JSX.Element {
   }, [resetColors, setResetColors, userIdOrNoId]);
 
   /* useEffect(() => {
-    deleteEmptyTab(bookmarksAllTags);
-  }, [tabs, bookmarksAllTags, deleteEmptyTab]); */
+    deleteEmptyTab(tabIdsUsedByBookmarks);
+  }, [tabs, tabIdsUsedByBookmarks, deleteEmptyTab]); */
 
   /*   useEffect(() => {
-    console.log(bookmarksAllTags);
+    console.log(tabIdsUsedByBookmarks);
     tabs
       .filter((obj) => obj.type === "folder")
       .forEach((obj) => {
-        if (!bookmarksAllTags.includes(obj.id)) {
+        if (!tabIdsUsedByBookmarks.includes(obj.id)) {
           // deleteTab({ id: obj.id });
           console.log(obj.id);
         }
       });
-  }, [tabs, bookmarksAllTags]); */
+  }, [tabs, tabIdsUsedByBookmarks]); */
 
   useEffect(() => {
     if (!userIdOrNoId) {
-      deleteEmptyTabsNotAuth(bookmarksAllTags);
+      deleteEmptyTabsNotAuth(tabIdsUsedByBookmarks);
       return;
     }
 
@@ -224,23 +224,23 @@ Props): JSX.Element {
         return;
       }
 
-      let bookmarksAllTags: string[] = [];
+      let tabIdsUsedByBookmarks: string[] = [];
 
       bookmarks.forEach((obj) => {
         obj.tags.forEach((el) => {
-          if (!bookmarksAllTags.includes(el)) {
-            bookmarksAllTags.push(el);
+          if (!tabIdsUsedByBookmarks.includes(el)) {
+            tabIdsUsedByBookmarks.push(el);
           }
         });
       });
 
-      // console.log(bookmarksAllTags);
+      // console.log(tabIdsUsedByBookmarks);
 
       if (userIdOrNoId) {
         tabs
           .filter((obj) => obj.type === "folder" && obj.deletable)
           .forEach((obj) => {
-            if (!bookmarksAllTags.includes(obj.id) && !tabDeletingPause) {
+            if (!tabIdsUsedByBookmarks.includes(obj.id) && !tabDeletingPause) {
               deleteTab({ id: obj.id }).then((result) => {
                 if (result.error) {
                   console.log(result.error);
@@ -250,7 +250,7 @@ Props): JSX.Element {
             }
           });
       } else {
-        deleteEmptyTabsNotAuth(bookmarksAllTags);
+        deleteEmptyTabsNotAuth(tabIdsUsedByBookmarks);
       }
 
       // let arrOfPromises: Promise<string>[] = [];
@@ -259,7 +259,7 @@ Props): JSX.Element {
         .filter((obj) => obj.type === "folder")
         .forEach((obj) => {
           let newPromise = new Promise<string>((resolve, reject) => {
-            if (!bookmarksAllTags.includes(obj.id) && !tabDeletingPause) {
+            if (!tabIdsUsedByBookmarks.includes(obj.id) && !tabDeletingPause) {
               deleteTab({ id: obj.id }).then((result) => {
                 if (result.error) {
                   reject(result.error);
@@ -287,7 +287,7 @@ Props): JSX.Element {
       /*  tabs
         .filter((obj) => obj.type === "folder")
         .forEach((obj) => {
-          if (!bookmarksAllTags.includes(obj.id) && !tabDeletingPause) {
+          if (!tabIdsUsedByBookmarks.includes(obj.id) && !tabDeletingPause) {
             deleteTab({ id: obj.id });
             // console.log(obj.id);
           }
@@ -299,7 +299,7 @@ Props): JSX.Element {
     tabs,
     tabDeletingPause,
     userIdOrNoId,
-    bookmarksAllTags,
+    tabIdsUsedByBookmarks,
     deleteEmptyTabsNotAuth,
   ]);
 
