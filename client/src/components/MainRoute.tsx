@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { useQuery } from "urql";
+import { useQuery, UseQueryState, OperationContext } from "urql";
 
 import { BackgroundImgContext } from "../context/backgroundImgContext";
 
@@ -44,8 +44,15 @@ interface Props {
   paddingRight: boolean;
   userIdOrNoId: string | null;
   backgroundImgUrl: string | null;
-  backgroundImgResults: any;
-  reexecuteBackgroundImg: any;
+  backgroundImgResults: UseQueryState<
+    any,
+    {
+      userId: string | null;
+    }
+  >;
+  reexecuteBackgroundImg: (
+    opts?: Partial<OperationContext> | undefined
+  ) => void;
   // setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>
 }
 

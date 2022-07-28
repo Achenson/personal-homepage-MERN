@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 // import shallow from "zustand/shallow";
 import FocusLock from "react-focus-lock";
-import { useQuery, useMutation } from "urql";
+import { useQuery, useMutation, UseQueryState, OperationContext } from "urql";
 
 import Settings_inner_xs from "./Settings_inner_xs";
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
@@ -26,8 +26,15 @@ interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
-  backgroundImgResults: any;
-  reexecuteBackgroundImg: any;
+  backgroundImgResults: UseQueryState<
+    any,
+    {
+      userId: string | null;
+    }
+  >;
+  reexecuteBackgroundImg: (
+    opts?: Partial<OperationContext> | undefined
+  ) => void;
   userIdOrNoId: string | null;
 }
 

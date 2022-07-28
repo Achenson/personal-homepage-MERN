@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useMutation } from "urql";
+import { useMutation, UseQueryState, OperationContext } from "urql";
 
 import { useBackgroundImgContext } from "../../context/backgroundImgContext";
 import { useAuth } from "../../state/hooks/useAuth";
@@ -12,7 +12,6 @@ import {
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 // import { testUserId } from "../../state/data/testUserId";
 
-
 import {
   UseGlobalSettingsAll,
   useGlobalSettings,
@@ -21,8 +20,15 @@ import {
 interface Props {
   xsScreen: boolean;
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
-  backgroundImgResults: any;
-  reexecuteBackgroundImg: any;
+  backgroundImgResults: UseQueryState<
+    any,
+    {
+      userId: string | null;
+    }
+  >;
+  reexecuteBackgroundImg: (
+    opts?: Partial<OperationContext> | undefined
+  ) => void;
   wasCustomClicked: boolean;
   setWasCustomClicked: React.Dispatch<React.SetStateAction<boolean>>;
   hiddenFileInput: React.RefObject<HTMLInputElement>;
@@ -105,7 +111,7 @@ function BackgroundSettings_Upload({
       await changeBackgroundImg({ file });
       reexecuteBackgroundImg({ requestPolicy: "network-only" });
       await changeSettings({
-        ...globalSettings as SettingsDatabase_i,
+        ...(globalSettings as SettingsDatabase_i),
         defaultImage: "customBackground",
       });
       if (!wasCustomClicked) {

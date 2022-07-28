@@ -137,7 +137,8 @@ GOOD enough
 (possible solution to get rid of rerender at least -> no bookmarks in any of useeffect? diff way for calc. tabIdsUsedByBookmarks)
 
 
-51. fix any types (server.js multer?)
+x 51. fix any types (server.js multer?) (good enough: any for req (isAuth & userId added)
+ & for types that are defined in upper component but taken from some library)x 
 52. change app.use to app.get / app.post?
 54. move backgroundImg logic from server.js?
 56. clientside: make it possible to choose backgroundImg colors also from settings? or close the modal and open backgroundColors menu
