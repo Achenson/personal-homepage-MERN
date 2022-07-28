@@ -56,7 +56,11 @@ DONE 32. clientside: hooks for store -> sometimes it's state.tabs, sometimes sto
 DONE 38. editBookmark doesn't work on the client! DONE
 DONE 39. objCreators: too much repetition in db tab creators? DONE
 DONE 40. tabIdsUsedByBookmarks -> change it (it should be a list of all tabs ids that are bookmarks tags tabIdsUsedByBookmarks) or use mongoose query!!!! DONE
+?? 41. newTab -> no color as argument, should be null (createBasicTabs already provides color: null) ??
+?? 42. editing Tab -> bookmarks are not sorted alphabetically! (tested -> should be sorted just right)??
+DONE 43. Tab (and other components further down?) should take tab data from Column (context??), not from db? (data taken from dbContext)DONE
 DONE 45. logic for tab deletion in Grid work only thanks to setTimeout() [in Boomark_lowerUI] -> make it better!!! DONE (result.stale used!!!)
+??45. memory leaks? when adding bookmark (tested - not occured) ??
 DONE 46. bookmark /tabs database interfaces everywhere! (now both from context) DONE
 DONE 47. promise.all -> no need for new Promise everywhere? mutation return promises (change in Bookmark_lowerUI, no promise.all in Grids now, ) DONE
 DONE 47.5 useBookmarks & useTabs -> mark which methods are used server-side! DONE
@@ -122,13 +126,12 @@ GOOD enough?
 GOOD enough
 
 
-41. newTab -> no color as argument, should be null
-42. editing Tab -> bookmarks are not sorted alphabetically!
-43. Tab (and other components further down?) should take tab data from Column (context??), not from db?
-44. clientside: tab are set to default individually -> should be handle more centrally? (in Grid, as it is done server-side now),
-45. memory leaks? when adding bookmark
-46. bookmarks not up to date when adding newBookmark if there are none -> hacky solution only, reexectuing query which causes rerender - solve?
 
+
+
+!46. bookmarks not up to date when adding newBookmark if there are none (auth vers only)
+ -> hacky solution only, reexectuing query in Bookmarks which causes rerender - solve?
+(possible solution to get rid of rerender at least -> no bookmarks in any of useeffect? diff way for calc. tabIdsUsedByBookmarks)
 
 48. explain somewhere to the user why disable drag & drop is there
 50. server.ts -> figure out which cors urls are actually needed
@@ -335,12 +338,16 @@ If that's not what you want, please create a client and add a Provider.
 230. promises should start only if an auth code is executed? ex. Bookmark_lowerUI. then maybe implement catching
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
 232. rss local -> changing global rss settings is not being reflected immediately!!
+(same as?: 44. clientside: tab are set to default individually -> should be handle more centrally? (in Grid, as it is done server-side now),)
 233. rrs itemsPerPage -> test on mobile! real one
 234. rss itemPerPage -> cannot be set by keyboard to more than 9 -> problem?
 235. non-auth version problem with less column settings-> missing content?
 236. globalSettings to globalSettignsDb rename everywhere? (currently in Column only)
 237. globalSettings interfaces - smtms different smtms from db?
 238. tabIdsUsedByBookmarks -> for deleting empty Tabs only? maybe it would be better to not render empty tabs && delete empty one?
+239. bookmarks itp -> in the end ts is chosing the type by itself, even if it should be split type
+240. bookmarks are rendered only after tab is open -> maybe they should be just hidden instead?
+
 
 {
   filename: 'nature-3082832_1920.jpg',

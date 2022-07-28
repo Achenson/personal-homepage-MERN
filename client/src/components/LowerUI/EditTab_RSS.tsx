@@ -116,8 +116,7 @@ function EditTab_RSS({
         </div>
       </div>
       <div className="flex items-center mt-2 justify-between">
-        <p className="whitespace-nowrap w-32">Items per page</p>
-
+        <p className="whitespace-nowrap w-32">Items per page (5-15)</p>
         <div className="flex items-center">
           <div
             // style={{ height: "60px", width: "60px", marginTop: "0px" }}
