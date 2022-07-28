@@ -485,10 +485,9 @@ function GlobalSettings({
                   </div>
                   <input
                     type="number"
-                    placeholder="5-15"
                     min="5"
                     max="15"
-                    className="border w-8 text-center border-gray-300 bg-gray-50
+                    className="border-t border-r border-b w-8 text-center border-gray-300 bg-gray-50
                   focus-1
                   "
                     // style={{height: "26px"}}

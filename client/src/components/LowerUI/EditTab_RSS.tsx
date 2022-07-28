@@ -5,6 +5,9 @@ import shallow from "zustand/shallow";
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 
+import { ReactComponent as PlusSmSVG } from "../../svgs/plus-sm.svg";
+import { ReactComponent as MinusSmSVG } from "../../svgs/minus-sm.svg";
+
 import { useTabs } from "../../state/hooks/useTabs";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
@@ -40,11 +43,12 @@ function EditTab_RSS({
   tabID,
   rssLinkInput,
   setRssLinkInput,
-  globalSettings
+  globalSettings,
 }: Props): JSX.Element {
   // const rssSettingsState = useRssSettings((state) => state, shallow);
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   const resetTabRssSettings = useTabs((store) => store.resetTabRssSettings);
+  const uiColor = globalSettings.uiColor;
 
   return (
     <div className="-mb-1">
@@ -113,18 +117,69 @@ function EditTab_RSS({
       </div>
       <div className="flex items-center mt-2 justify-between">
         <p className="whitespace-nowrap w-32">Items per page</p>
-        <input
-          type="number"
-          min="5"
-          max="15"
-          className="border w-8 text-center border-gray-300 focus-1"
-          value={rssItemsPerPage}
-          onWheel={(event) => event.currentTarget.blur()}
-          onChange={(e) => {
-            setRssItemsPerPage(parseInt(e.target.value));
-            setWasItemsPerPageClicked(true);
-          }}
-        />
+
+        <div className="flex items-center">
+          <div
+            // style={{ height: "60px", width: "60px", marginTop: "0px" }}
+            // className="flex"
+            className=""
+          >
+            <div
+              // className={`bg-${uiColor}`}
+              className={`bg-blueGray-400`}
+              style={{ height: "13px", width: "13px" }}
+            >
+              {/* <div className=" bg-gray-400" style={{height: "16px", width: "24px"}}> */}
+              <PlusSmSVG
+                className="cursor-pointer hover:text-blueGray-500 transition-colors duration-75"
+                onClick={() => {
+                  if (rssItemsPerPage > 14) {
+                    return;
+                  }
+
+                  setRssItemsPerPage((itemsPerPage) => itemsPerPage + 1);
+                  setWasItemsPerPageClicked(true);
+                }}
+              />
+            </div>
+            <div
+              className={`bg-blueGray-400`}
+              // className={`bg-${uiColor}`}
+              style={{ height: "13px", width: "13px" }}
+            >
+              <MinusSmSVG
+                className="cursor-pointer hover:text-blueGray-500 transition-colors duration-75"
+                onClick={() => {
+                  if (rssItemsPerPage < 6) {
+                    return;
+                  }
+
+                  setRssItemsPerPage((itemsPerPage) => itemsPerPage - 1);
+                  setWasItemsPerPageClicked(true);
+                }}
+              />
+            </div>
+          </div>
+          <input
+            type="number"
+            min="5"
+            max="15"
+            className="border-t border-b border-r w-8 text-center border-gray-300 focus-1"
+            value={rssItemsPerPage}
+            onWheel={(event) => event.currentTarget.blur()}
+            onChange={(e) => {
+              if (
+                parseInt(e.target.value) < 5 ||
+                parseInt(e.target.value) > 15 ||
+                e.target.value === ""
+              ) {
+                return;
+              }
+              setRssItemsPerPage(parseInt(e.target.value));
+              setWasItemsPerPageClicked(true);
+            }}
+          />
+        </div>
       </div>
       <p className="text-center mt-1">
         {" "}
@@ -135,11 +190,9 @@ function EditTab_RSS({
             setDescriptionCheckbox(globalSettings.description);
             setDateCheckbox(globalSettings.date);
             setRssItemsPerPage(globalSettings.itemsPerPage);
-
             setWasAnythingClicked(true);
             setWasCheckboxClicked(true);
             setWasItemsPerPageClicked(true);
-
             resetTabRssSettings(tabID);
           }}
         >
