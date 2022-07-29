@@ -1,5 +1,3 @@
-const graphql = require("graphql");
-
 const Tab = require("../../mongoModels/tabSchema");
 
 import { TabDatabase_i, TabFields, TabType } from "../types/tabType";

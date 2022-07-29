@@ -39,7 +39,7 @@ main().catch(console.error); */
 
 // import nodemailer from "nodemailer";
 
-const nodemailer = require("nodemailer");
+import nodemailer = require("nodemailer");
 
 module.exports = async function sendEmail(email: string, url: string) {
   const nodemailerPass = process.env.NODEMAILER_PASS;

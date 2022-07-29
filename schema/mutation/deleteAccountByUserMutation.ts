@@ -2,9 +2,9 @@ import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 // import { UserType } from "../types/userType";
 import { DeleteAccountByUserType } from "../types/deleteAccountByUserType";
 
-const fs = require("fs");
-const path = require("path");
-const bcrypt = require("bcrypt");
+import fs = require("fs");
+import path = require("path");
+import bcrypt = require("bcrypt");
 
 const Settings = require("../../mongoModels/settingsSchema");
 const User = require("../../mongoModels/userSchema");

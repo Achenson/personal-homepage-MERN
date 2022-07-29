@@ -1,7 +1,5 @@
-const graphql = require("graphql");
-import multer = require("multer");
-const fs = require("fs");
-const path = require("path");
+import fs = require("fs");
+import path = require("path");
 
 const BackgroundImgSchema = require("../../mongoModels/backgroundImgSchema");
 

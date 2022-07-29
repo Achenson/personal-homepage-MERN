@@ -1,4 +1,4 @@
-const graphql = require("graphql");
+import graphql = require("graphql");
 const Tab= require("../../mongoModels/tabSchema");
 
 const { GraphQLObjectType, GraphQLID, GraphQLList } = graphql;

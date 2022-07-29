@@ -1,6 +1,5 @@
-const graphql = require("graphql");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+import bcrypt = require("bcrypt");
 
 import { Request, Response } from "express";
 
@@ -31,7 +30,7 @@ export const changePasswordAfterForgotMutationField = {
     args: { token: string; newPassword: string },
     { req, res }: ExpressReqRes
   ) {
-    let decodedToken = jwt.verify(args.token, process.env.FORGOT_PASSWORD);
+    let decodedToken = jwt.verify(args.token, process.env.FORGOT_PASSWORD as string);
 
     let userId = decodedToken?.userId;
 

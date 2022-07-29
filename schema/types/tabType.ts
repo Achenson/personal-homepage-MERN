@@ -1,4 +1,4 @@
-const graphql = require("graphql");
+import graphql = require("graphql");
 
 const Bookmark = require("../../mongoModels/bookmarkSchema");
 
@@ -9,7 +9,6 @@ const {
   GraphQLString,
   GraphQLBoolean,
   GraphQLList,
-  GraphQLNull,
 } = graphql;
 
 export interface TabLocal_i {

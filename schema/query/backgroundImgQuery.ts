@@ -1,7 +1,7 @@
-const graphql = require("graphql");
-const fetch = require("node-fetch");
-const fs = require("fs");
-const path = require("path");
+import graphql = require("graphql");
+// import fetch = require("node-fetch");
+import fs = require("fs");
+import path = require("path");
 
 // import { testUserId } from "../../client/src/state/data/testUserId";
 

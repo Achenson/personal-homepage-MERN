@@ -2,8 +2,8 @@ import { GraphQLID, GraphQLList } from "graphql";
 // import { UserType } from "../types/userType";
 import { DeleteUsersByAdminType } from "../types/deleteUsersByAdminType";
 
-const fs = require("fs");
-const path = require("path");
+import fs = require("fs");
+import path = require("path");
 
 const Settings = require("../../mongoModels/settingsSchema");
 const User = require("../../mongoModels/userSchema");

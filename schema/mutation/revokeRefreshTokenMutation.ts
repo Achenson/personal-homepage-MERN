@@ -35,7 +35,7 @@ export const revokeRefreshTokensForUserMutationField = {
 };
  */
 
-const graphql = require("graphql");
+import graphql = require("graphql");
 
 const {
   GraphQLID,

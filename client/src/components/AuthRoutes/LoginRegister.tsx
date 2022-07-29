@@ -146,11 +146,11 @@ Props): JSX.Element {
           return;
         }
 
-        console.log("RES DATA");
-        console.log(res.data);
-        console.log(res.data.loginMutation);
+        // console.log("RES DATA");
+        // console.log(res.data);
+        // console.log(res.data.loginMutation);
 
-        if (res.data.loginMutation.error === "User does not exist") {
+        if (res.data?.loginMutation?.error === "User does not exist") {
           // if (res.data.login.token === "User does not exist!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
           console.log(res.data.loginMutation.error);
@@ -158,7 +158,7 @@ Props): JSX.Element {
           return;
         }
 
-        if (res.data.loginMutation.error === "Password is incorrect") {
+        if (res.data?.loginMutation?.error === "Password is incorrect") {
           // if (res.data.login.token === "Password is incorrect!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
           console.log(res.data.loginMutation.error);
@@ -176,9 +176,9 @@ Props): JSX.Element {
         setLoginErrorMessage(null);
 
         loginAttempt(
-          res.data.ok,
-          res.data.loginMutation.userId,
-          res.data.loginMutation.token
+          res.data?.ok,
+          res.data?.loginMutation?.userId,
+          res.data?.loginMutation?.token
         );
 
         // authContext.updateAuthContext({

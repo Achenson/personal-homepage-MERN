@@ -1,5 +1,3 @@
-const graphql = require("graphql");
-
 // const Bookmark = require("../../mongoModels/bookmarkSchema");
 import Bookmark = require("../../mongoModels/bookmarkSchema");
 

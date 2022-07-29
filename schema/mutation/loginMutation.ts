@@ -1,5 +1,5 @@
-const graphql = require("graphql");
-const bcrypt = require("bcrypt");
+import graphql = require("graphql");
+import bcrypt = require("bcrypt");
 
 import { Request, Response } from "express";
 

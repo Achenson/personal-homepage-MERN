@@ -1,5 +1,5 @@
 
-const graphql = require("graphql");
+import graphql = require("graphql");
 
 const {
   GraphQLObjectType,

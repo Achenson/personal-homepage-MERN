@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+import bcrypt = require("bcrypt");
 const User = require("../../mongoModels/userSchema");
 
 import { UserFields, UserType, UserToChangeByAdmin_i } from "../types/userType";

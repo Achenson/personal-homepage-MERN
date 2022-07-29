@@ -1,4 +1,4 @@
-const graphql = require("graphql");
+import graphql = require("graphql");
 const fetch = require("node-fetch");
 
 import { NextFunction, Request, Response } from "express";

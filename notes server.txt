@@ -132,7 +132,8 @@ GOOD enough?
   10. typescript doesn't work for schemas?
   manaul static methods with mongoose model methods inside them should be used? use sth different than mongoose - papr?
   done 51. fix any types (server.js multer?) (isAuth interface but not used in multer, backgroundImgResult types) done
-
+  DONE 64. npm modules should be imported like: import multer = require("multer"). with const typescript types are not working!!
+  change everywhere!!  (change with exception of jsonwebtoken, some ts-ignores added in server.ts, problems with mutation & query root see #246)DONE
 GOOD enough
 
 
@@ -142,14 +143,14 @@ GOOD enough
 !46. bookmarks not up to date when adding newBookmark if there are none (auth vers only)
  -> hacky solution only, reexectuing query in Bookmarks which causes rerender - solve?
 (possible solution to get rid of rerender at least -> no bookmarks in any of useeffect? diff way for calc. tabIdsUsedByBookmarks)
-
-
-
-61. background img -> currently there is no point in storing it in db, as it is get from server only??
+? 61. background img -> currently there is no point in storing it in db, as it is get from server only??
 BackgroundImg schema in server.ts - does it work??
-64. npm modules should be imported like: import multer = require("multer"). with const types are not working!!
-change everywhere!!
-68. list all links to free svgs in notes
+  (BackgroundImgSchema in server.ts does work -should it be deleted?, because querying is done from server only )   ?
+68. list all links to free svgs in notes [one more svg may be implemented still]
+
+
+
+
 70. singleBookmarkData: change interface to BookmarkDatabase_i ?
 72. graphql ID vd string type, they may be mixed
 73. user creation: check if user name or email already exists
@@ -355,6 +356,9 @@ If that's not what you want, please create a client and add a Provider.
 If that's not what you want, please create a client and add a Provider.
 242. utils folder server code -> move up?
 243. background color no pic -> rectangle instead of doc svgs, should be filled with color?
+244. ts generated file -> get rid of it?
+245. fetch RSS query file & graphql -> to delete
+246. root mutation & query files -> fix types (after changin const to import) one of the mutation is done right - compare!
 
 {
   filename: 'nature-3082832_1920.jpg',

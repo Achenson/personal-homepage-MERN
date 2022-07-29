@@ -1,4 +1,4 @@
-const graphql = require("graphql");
+import graphql = require("graphql");
 
 import { RootQuery } from "./query/rootQuery";
 import { Mutation } from "./mutation/mutation";

@@ -7,7 +7,7 @@ import {
   ChangePasswordByUser_i,
 } from "../types/changePasswordByUserType";
 
-const bcrypt = require("bcrypt");
+import bcrypt = require("bcrypt");
 
 export const changePasswordByUserMutationField = {
   type: ChangePasswordByUserType,

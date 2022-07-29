@@ -1,4 +1,4 @@
-const graphql = require("graphql");
+import graphql = require("graphql");
 
 const Settings = require("../../mongoModels/settingsSchema");
 

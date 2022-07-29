@@ -1,16 +1,15 @@
-const cors = require("cors");
-const express = require("express");
-const dotenv = require("dotenv");
+import cors = require("cors");
+import express = require("express");
+import dotenv = require("dotenv");
 import { graphqlHTTP } from "express-graphql";
 // const { graphqlHTTP } = require("express-graphql");
-const { graphqlUploadExpress } = require("graphql-upload");
-const helmet = require("helmet");
+// import { graphqlUploadExpress } = require("graphql-upload");
+import helmet = require("helmet");
 const mongoose = require("mongoose");
-const Parser = require("rss-parser");
-const mkdirp = require("mkdirp");
-const fs = require("fs");
-const path = require("path");
-const cookieParser = require("cookie-parser");
+import Parser = require("rss-parser");
+import fs = require("fs");
+import path = require("path");
+import cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
 import User = require("./mongoModels/userSchema");
@@ -61,6 +60,7 @@ console.log(fetchTest2); */
 
 // app.use(helmet());
 
+
 app.use(
   helmet({
     // to enable express-graphql playground
@@ -95,6 +95,7 @@ app.use(isAuth);
 //  parsing cookie only in the context of that particular route
 app.use("/refresh_token", cookieParser());
 
+// @ts-ignore
 app.post("/refresh_token", async (req: RequestWithAuth, res: Response) => {
   // 1. testing sending test cookie in request using postman
   // cookies -> add domain: localhost -> coookie name: jid
@@ -118,7 +119,7 @@ app.post("/refresh_token", async (req: RequestWithAuth, res: Response) => {
 
   try {
     // payload = jwt.verify(token, "secretKeyForRefreshToken");
-    payload = jwt.verify(token, process.env.REFRESH);
+    payload = jwt.verify(token, process.env.REFRESH as string);
   } catch (err) {
     console.log(err);
     console.log("refresh token error2");
@@ -176,6 +177,7 @@ app.post("/refresh_token", async (req: RequestWithAuth, res: Response) => {
   res.send(response);
 }); */
 
+// @ts-ignore
 app.get("/fetch_rss/:rsslink", async (req: RequestWithAuth, res: Response) => {
   console.log("fetching rss server rest");
   // @ts-ignore
@@ -217,6 +219,7 @@ app.use("/background_img", express.static("backgroundImgs"));
 /* let backgroundImgFiles = fs.readdirSync("backgroundImgs/" + testUserId);
 console.log(backgroundImgFiles[0]); */
 
+// @ts-ignore
 app.get("/background_img/:userId", (req: RequestWithAuth, res: Response) => {
   console.log("getting background img");
 
@@ -256,6 +259,7 @@ next()
 
 app.use(
   "/graphql",
+  // @ts-ignore
   (req: RequestWithAuth, res: Response, next: NextFunction) => {
     // if(!req.body){
     //   next()
@@ -417,7 +421,7 @@ dotenv.config();
 const MONGODB_CONNECTION_STRING = process.env.DB;
 
 mongoose
-  .connect(MONGODB_CONNECTION_STRING, {
+  .connect(MONGODB_CONNECTION_STRING as string, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -425,6 +429,7 @@ mongoose
   // .catch((err: Mon) => console.log(err));
   .catch(() => console.log("err"));
 
+  // @ts-ignore
 app.get("/", (req: Request, res: Response) => {
   res.status(200).send("Hello World!4");
 });

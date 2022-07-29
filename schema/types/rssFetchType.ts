@@ -1,12 +1,11 @@
 
-const graphql = require("graphql");
+import graphql = require("graphql");
 const { GraphQLJSON, GraphQLJSONObject } = require('graphql-type-json');
 
 
 const {
   GraphQLObjectType,
   GraphQLString,
-
 } = graphql;
 
 
