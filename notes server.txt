@@ -68,6 +68,8 @@ XX 48. explain somewhere to the user why disable drag & drop is there (will be i
 DONE 49. rss -> still not working because of CORS, fetch them server side? DONE
 DONE 50. server.ts -> figure out which cors urls are actually needed
  (no need to include every route - only origin - scheme (protocol), hostname (domain), and port) DONE
+ DONE 52. change app.use to app.get / app.post?
+  (change in case of RSS. app.use is meant for binding middleware, get post etc. to handling a specific route ) DONE
 DONE 53. change server file upload logic to graphql? DONE
 DONE 57. is path module needed? (server.js (yes)DONE
 DONE 59. graphql for file upload? use middleware which should detect if the file is attached to post req DONE
@@ -138,7 +140,7 @@ GOOD enough
 (possible solution to get rid of rerender at least -> no bookmarks in any of useeffect? diff way for calc. tabIdsUsedByBookmarks)
 
 
-52. change app.use to app.get / app.post?
+
 54. move backgroundImg logic from server.js?
 56. clientside: make it possible to choose backgroundImg colors also from settings? or close the modal and open backgroundColors menu
 58. status 201

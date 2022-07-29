@@ -172,7 +172,7 @@ app.post("/refresh_token", async (req: RequestWithAuth, res: Response) => {
   res.send(response);
 }); */
 
-app.use("/fetch_rss/:rsslink", async (req: RequestWithAuth, res: Response) => {
+app.get("/fetch_rss/:rsslink", async (req: RequestWithAuth, res: Response) => {
   console.log("fetching rss server rest");
   // @ts-ignore
   console.log(req.isAuth);
