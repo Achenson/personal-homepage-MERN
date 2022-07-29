@@ -108,7 +108,7 @@ app.post("/refresh_token", async (req: RequestWithAuth, res: Response) => {
   const token = req.cookies.jid;
 
   if (!token) {
-    return res.send({ ok: false, accessToken: null, userId: null });
+    return res.status(400).send({ ok: false, accessToken: null, userId: null });
   }
 
   let payload = null;
@@ -123,7 +123,8 @@ app.post("/refresh_token", async (req: RequestWithAuth, res: Response) => {
     console.log(err);
     console.log("refresh token error2");
     // return res.send({ ok: false, accessToken: "" });
-    return res.send({ ok: false, accessToken: null, userId: null });
+    // unauthorised
+    return res.status(401).send({ ok: false, accessToken: null, userId: null });
   }
 
   // token is valid
@@ -134,7 +135,7 @@ app.post("/refresh_token", async (req: RequestWithAuth, res: Response) => {
   if (!user) {
     console.log("refresh token error3");
     // return res.send({ ok: false, accessToken: "" });
-    return res.send({ ok: false, accessToken: null, userId: null });
+    return res.status(500).send({ ok: false, accessToken: null, userId: null });
   }
 
   // revoking tokens: tokenVersion == 0 when creating user
@@ -147,12 +148,12 @@ app.post("/refresh_token", async (req: RequestWithAuth, res: Response) => {
     console.log("invalid tokenVersion");
 
     // return res.send({ ok: false, accessToken: "", userId: "" });
-    return res.send({ ok: false, accessToken: null, userId: null });
+    return res.status(401).send({ ok: false, accessToken: null, userId: null });
   }
 
   await sendRefreshToken(res, createRefreshToken(user));
 
-  return res.send({
+  return res.status(201).send({
     ok: true,
     accessToken: createAccessToken(user),
     userId: payload.userId,
@@ -182,7 +183,7 @@ app.get("/fetch_rss/:rsslink", async (req: RequestWithAuth, res: Response) => {
 
   let response = await rssParser.parseURL(req.params.rsslink);
   // console.log(response);
-  res.send({
+  res.status(201).send({
     rssFetchData: response,
   });
 });
@@ -425,7 +426,7 @@ mongoose
   .catch(() => console.log("err"));
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!4");
+  res.status(200).send("Hello World!4");
 });
 
 app.listen(port, () => {
