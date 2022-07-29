@@ -40,11 +40,11 @@ export default AppWrapper;
 
 
 
-//testMutation
+=================//testMutation
 
 const graphql = require("graphql");
 
-// const Bookmark = require("../../mongoModels/bookmarkSchema");
+===============// const Bookmark = require("../../mongoModels/bookmarkSchema");
 
 /* import {
   BookmarkFields,
@@ -66,7 +66,7 @@ export const testMutationField = {
   },
 };
 
-// client graphql
+=================// client graphql
 export const TestMutation = `
   mutation (
     $stringToAdd: String,
@@ -79,7 +79,7 @@ export const TestMutation = `
   }
 `;
 
-// testtMutationType
+====================// testtMutationType
 
 import { GraphQLString, GraphQLObjectType } from "graphql";
 
@@ -95,7 +95,7 @@ export const TestMutationType = new GraphQLObjectType({
 });
 
 
-// server.ts
+===================// server.ts
 
 const faviconFetch = require("favicon-fetch");
 
@@ -122,3 +122,91 @@ app.get("/favicon/:faviconUrl", (req: Request, res: Response) => {
 
 // for testing only
 export const testUserId = "61b21a61cc1846bfa9ca8a8e"
+
+
+==================//server.ts
+
+// app.post(
+//   "/background_img/:userId",
+//   // upload.single("backgroundImg"),
+//   (req: any, res: Response) => {
+//     // console.log("POST req.isAuth POST");
+//     // console.log(req.isAuth);
+
+//     const authHeader = req.get("Authorization");
+//     // console.log(req.headers);
+//     // const authHeader = req.headers.authorisation;
+
+//     console.log("POST authHeader POST");
+//     console.log(authHeader);
+//     // console.log("req.headers backgroundImg");
+//     // console.log(req.headers);
+//     // const authHeader = req.headers.authorisation;
+
+//     backgroundImgUpload(req, res, function (multerErr) {
+//       if (multerErr) {
+//         if (multerErr instanceof multer.MulterError) {
+//           res.send({ error: multerErr.message });
+//           return;
+//         }
+//         // res.status(500).send({error: multerErr})
+//         // res.send(multerErr);
+//         res.send({ error: "Only .jpg and .png files are accepted" });
+
+//         return;
+//       }
+
+//       let newBackgroundImg = {
+//         // userId: userIdOrDemoId,
+//         userId: req.params.userId,
+//         backgroundImg: req.file.path,
+//       };
+
+//       BackgroundImgSchema.replaceOne(
+//         // { userId: userIdOrDemoId },
+//         { userId: req.params.userId },
+//         newBackgroundImg,
+//         { upsert: true },
+//         (err: Error, backgroundImgProduct: BackgroundImg) => {
+//           if (err) {
+//             console.log(err);
+//             res.status(500).json({
+//               error: err,
+//             });
+
+//             removeBackgroundImg(newBackgroundImageName, req.params.userId);
+//             return;
+//           }
+
+//           // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
+//           let dest = "backgroundImgs/" + req.params.userId + "/";
+
+//           fs.readdirSync(dest).forEach((file: string) => {
+//             // console.log(file);
+
+//             if (file !== newBackgroundImageName) {
+//               removeBackgroundImg(file, req.params.userId);
+//             }
+//           });
+
+//           res.status(201).json({
+//             message: "Created product successfully",
+//             createdProduct: backgroundImgProduct,
+//           });
+//           // res.send(backgroundImgProduct)
+//           // res.send({message: "done"})
+//           // res.statusMessage = backgroundImgProduct.backgroundImg
+//           // res.send("aaaaaaaaaaaaaaaaaaaaa");
+//         }
+//       );
+
+//       // console.log(req);
+//       // console.log(req.file.path);
+
+//       /* let newBackgroundImg = new BackgroundImg({
+//       userId: testUserId,
+//       backgroundImg: req.file.path,
+//     }); */
+//     });
+//   }
+// );

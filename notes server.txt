@@ -71,6 +71,7 @@ DONE 50. server.ts -> figure out which cors urls are actually needed
  DONE 52. change app.use to app.get / app.post?
   (change in case of RSS. app.use is meant for binding middleware, get post etc. to handling a specific route ) DONE
 DONE 53. change server file upload logic to graphql? DONE
+DONE 54. move backgroundImg logic from server.js? (multer.ts created in utils) DONE
 DONE 57. is path module needed? (server.js (yes)DONE
 DONE 59. graphql for file upload? use middleware which should detect if the file is attached to post req DONE
 DONE 62. upload background img -> should use one btn only?? DONE
@@ -141,10 +142,9 @@ GOOD enough
 
 
 
-54. move backgroundImg logic from server.js?
+
 56. clientside: make it possible to choose backgroundImg colors also from settings? or close the modal and open backgroundColors menu
 58. status 201
-
 61. background img -> currently there is no point in storing it in db, as it is get from server only??
 BackgroundImg schema in server.ts - does it work??
 64. npm modules should be imported like: import multer = require("multer"). with const types are not working!!
@@ -353,7 +353,7 @@ If that's not what you want, please create a client and add a Provider.
 240. bookmarks are rendered only after tab is open -> maybe they should be just hidden instead?
 241. browser warning: Default Client: No client has been specified using urql's Provider.This means that urql will be falling back to defaults including making requests to `/graphql`.
 If that's not what you want, please create a client and add a Provider.
-
+242. utils folder server code -> move up?
 
 {
   filename: 'nature-3082832_1920.jpg',

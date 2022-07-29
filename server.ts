@@ -7,7 +7,6 @@ const { graphqlUploadExpress } = require("graphql-upload");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const Parser = require("rss-parser");
-import multer = require("multer");
 const mkdirp = require("mkdirp");
 const fs = require("fs");
 const path = require("path");
@@ -15,6 +14,10 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
 import User = require("./mongoModels/userSchema");
+import {
+  backgroundImgUpload,
+  newBackgroundImageName,
+} from "./schema/utils/multer";
 const createAccessToken = require("./schema/middleware/accessToken");
 const createRefreshToken = require("./schema/middleware/refreshToken");
 const sendRefreshToken = require("./schema/middleware/sendRefreshToken");
@@ -184,74 +187,7 @@ app.get("/fetch_rss/:rsslink", async (req: RequestWithAuth, res: Response) => {
   });
 });
 
-let newBackgroundImageName: string;
-
 // let userIdOrDemoId: string;
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const authHeader = req.get("Authorization");
-    // console.log(req.headers);
-    // const authHeader = req.headers.authorisation;
-
-    console.log("req is  Auth multer");
-    // @ts-ignore
-    console.log(req.isAuth);
-    // @ts-ignore
-    if (!req.isAuth || !req.userId) return;
-
-    // console.log("req user id storage multer");
-    // console.log(req.userId);
-
-    console.log("Storage multer");
-    console.log(authHeader);
-
-    // @ts-ignore
-    // userIdOrDemoId = req.isAuth ? req.userId : testUserId
-    // userIdOrDemoId = req.userId ? req.userId : testUserId
-    // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
-
-    // let userIdOrTestId = req.isAuth ? req.userId : testUserId;
-
-    let dest = "backgroundImgs/" + req.userId + "/";
-    // let dest = "backgroundImgs/" + userIdOrTestId + "/";
-
-    // mkdirp.sync(dest);
-    cb(null, dest);
-  },
-  filename: function (req: any, file: any, cb: any) {
-    let fileOriginalNameMod = file.originalname.replace(/\s/g, "_");
-
-    let newFileName = Date.now() + "_" + fileOriginalNameMod;
-    // let newFileName = Date.now() + "_" + file.originalname;
-    cb(null, newFileName);
-    newBackgroundImageName = newFileName;
-    console.log("NAMEEEE");
-    console.log(newBackgroundImageName);
-  },
-});
-
-function fileFilter(
-  req: any,
-  file: Express.Multer.File,
-  cb: multer.FileFilterCallback
-) {
-  if (file.mimetype !== "image/jpeg" && file.mimetype !== "image/png") {
-    // cb(new Error("Only .jpg and .png files are accepted"));
-    cb(new Error("Only .jpg and .png files are accepted"));
-    return;
-  }
-
-  cb(null, true);
-}
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 10,
-  },
-  fileFilter: fileFilter,
-});
 
 /* app.get("/background_img/:userId", (req: Request, res: Response) => {
   BackgroundImgSchema.findOne({ userId: testUserId }).then(
@@ -276,94 +212,6 @@ const upload = multer({
 // uploading background image
 
 app.use("/background_img", express.static("backgroundImgs"));
-
-// let backgroundImgUpload = upload.single("file");
-let backgroundImgUpload = upload.any();
-
-// app.post(
-//   "/background_img/:userId",
-//   // upload.single("backgroundImg"),
-//   (req: any, res: Response) => {
-//     // console.log("POST req.isAuth POST");
-//     // console.log(req.isAuth);
-
-//     const authHeader = req.get("Authorization");
-//     // console.log(req.headers);
-//     // const authHeader = req.headers.authorisation;
-
-//     console.log("POST authHeader POST");
-//     console.log(authHeader);
-//     // console.log("req.headers backgroundImg");
-//     // console.log(req.headers);
-//     // const authHeader = req.headers.authorisation;
-
-//     backgroundImgUpload(req, res, function (multerErr) {
-//       if (multerErr) {
-//         if (multerErr instanceof multer.MulterError) {
-//           res.send({ error: multerErr.message });
-//           return;
-//         }
-//         // res.status(500).send({error: multerErr})
-//         // res.send(multerErr);
-//         res.send({ error: "Only .jpg and .png files are accepted" });
-
-//         return;
-//       }
-
-//       let newBackgroundImg = {
-//         // userId: userIdOrDemoId,
-//         userId: req.params.userId,
-//         backgroundImg: req.file.path,
-//       };
-
-//       BackgroundImgSchema.replaceOne(
-//         // { userId: userIdOrDemoId },
-//         { userId: req.params.userId },
-//         newBackgroundImg,
-//         { upsert: true },
-//         (err: Error, backgroundImgProduct: BackgroundImg) => {
-//           if (err) {
-//             console.log(err);
-//             res.status(500).json({
-//               error: err,
-//             });
-
-//             removeBackgroundImg(newBackgroundImageName, req.params.userId);
-//             return;
-//           }
-
-//           // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
-//           let dest = "backgroundImgs/" + req.params.userId + "/";
-
-//           fs.readdirSync(dest).forEach((file: string) => {
-//             // console.log(file);
-
-//             if (file !== newBackgroundImageName) {
-//               removeBackgroundImg(file, req.params.userId);
-//             }
-//           });
-
-//           res.status(201).json({
-//             message: "Created product successfully",
-//             createdProduct: backgroundImgProduct,
-//           });
-//           // res.send(backgroundImgProduct)
-//           // res.send({message: "done"})
-//           // res.statusMessage = backgroundImgProduct.backgroundImg
-//           // res.send("aaaaaaaaaaaaaaaaaaaaa");
-//         }
-//       );
-
-//       // console.log(req);
-//       // console.log(req.file.path);
-
-//       /* let newBackgroundImg = new BackgroundImg({
-//       userId: testUserId,
-//       backgroundImg: req.file.path,
-//     }); */
-//     });
-//   }
-// );
 
 /* let backgroundImgFiles = fs.readdirSync("backgroundImgs/" + testUserId);
 console.log(backgroundImgFiles[0]); */
