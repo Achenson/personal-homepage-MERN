@@ -128,8 +128,8 @@ Props): JSX.Element {
 
     if (email_or_name === "" || password === "") {
       // !!! change
-      setLoginErrorMessage("Email or password not provided");
-      console.log("Email or password not provided");
+      setLoginErrorMessage("Please fill out all fields");
+      console.log("Email/username or password not provided");
       return;
     }
 
