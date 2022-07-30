@@ -14,7 +14,7 @@ import UpperUI from "./UpperUI/UpperUI";
 import BackgroundSettings from "./UpperUI/BackgroundSettings";
 import GlobalSettings from "./UpperUI/GlobalSettings";
 import LoginRegister from "../components/AuthRoutes/LoginRegister";
-import Profile from "./UpperUI/Profile";
+// import Profile from "./UpperUI/Profile";
 import ModalWrap from "./UpperUI/ModalWrap";
 import PublicRoute from "./AuthRoutes/PublicRoute";
 import PrivateRoute from "./AuthRoutes/PrivateRoute";

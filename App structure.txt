@@ -23,9 +23,9 @@
                 ?ModalWrap
                     GlobalSettings
                         ?Settings_inner_xs
-                ?ModalWrap
-                    Profile
-                        Profile_input
+                                        xx// ?ModalWrap
+                                                //Profile
+                                                    //Profile_inputxx
                 Grid
                     Column
                         UpperLeftMenu (most left column only)
@@ -64,8 +64,8 @@
                                             BookmarkErrors_render
                                             SelectableList
                         (GapAfterTab)
-
-                
+            LoginRegister
+                LogRegProfile_input     
 
             
         ? - togglable / optional

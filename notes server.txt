@@ -82,11 +82,23 @@ DONE 63. cannot upload image if there are spaces in the file name? spaces replac
 DONE 66. background img - remove it once the user is deleted? implemented already -test it! {recursive: true} added DONE
 DONE 67. delete all test mutation code in the end DONE
 DONE 69. delete unused test_svgs (for alt links), rename the chosen one DONE
+?? 70. singleBookmarkData: change interface to BookmarkDatabase_i ?
+ (interface for bookmarks is being changed but there maybe problems, see other notes) ??
 XX 71. msg to user when clicking custom img and there is none present (file browser starts instead) XX
+DONE 72. graphql ID vd string type, they may be mixed DONE
 DONE 75. fetchFavicon in server.js -> delete & uninstall? (an API in SingleBookmark used instead) DONE
+? 75. Main -> change context values obj, so it is taken from state directly (done already?) ?
+DONE 73. user creation: check if user name or email already exists DONE
+DONE 74. implement token versioning: refreshToken DONE
 XX 76. AppWrapper, MainWrapper in different placec - chaos? no AppWrapper anymore XX
+XXX 77. UpperRightMenu: loggedInState -> change for it to be compatible with authContext (auth is taken from zustand now) XX
+X78. middleware for token -> generated code for types is being used? (probably not - types taken from types package?)X
+DONE 79. is case of failure, accessToken will be an empty string
+ - to change? compare with loginMutation (only refresh token can be "") DONE
+DONE 81. logout mutation: is refreshing site -why? (not anymore, probably because is going to modal firs?) DONE
 DONE 82. uninstall react-tracked DONE
 ??  84. user exp not perfect when logging out? flickering (no longer the case)  ?? 
+DONE 85. Profile & LoginRegister doubled components (Profile & Profile_input deleted)DONE
 DONE !86. change initial load to localhost3000/ !  (client - package.json homepage changed to "/")DONE
 DONE 109. backgroundImgUpload funcion -> for !req.body is next() needed? (yes, following code is not executed if there is no body) DONE
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
@@ -150,21 +162,6 @@ BackgroundImg schema in server.ts - does it work??
 
 
 
-
-70. singleBookmarkData: change interface to BookmarkDatabase_i ?
-72. graphql ID vd string type, they may be mixed
-73. user creation: check if user name or email already exists
-74. implement token versioning: refreshToken
-75. Main -> change context values obj, so it is taken from state directly
-
-
-77. UpperRightMenu: loggedInState -> change for it to be compatible with authContext
-78. middleware for token -> generated code for types is being used??
-79. is case of failure, accessToken will be an empty string - to change? compare with loginMutation
-80. get rid of all ts "any"s
-81. logout mutation: is refreshing site -why?
-
-85. Profile & LoginRegister doubled components
 
 87. auth error - no user or no password - shouln't be separate errors!
 88. isAuth -> ts errors
@@ -359,6 +356,7 @@ If that's not what you want, please create a client and add a Provider.
 244. ts generated file -> get rid of it?
 245. fetch RSS query file & graphql -> to delete
 246. root mutation & query files -> fix types (after changin const to import) one of the mutation is done right - compare!
+247. haslo do gmaila wyslac
 
 {
   filename: 'nature-3082832_1920.jpg',
