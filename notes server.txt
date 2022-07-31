@@ -101,6 +101,14 @@ DONE 82. uninstall react-tracked DONE
 DONE 85. Profile & LoginRegister doubled components (Profile & Profile_input deleted)DONE
 DONE !86. change initial load to localhost3000/ !  (client - package.json homepage changed to "/")DONE
 ?? 87. auth error - no user or no password - shouln't be separate errors! (Message for login changed)??
+DONE 88. isAuth -> ts errors (RequestWithAuth interface added) DON
+DONE 89. deleting all data when a user is deleted! done already?
+ check (works except for the backgroundImg, see #61) DONE
+DONE 90. option to delete account? DONE
+xxx 91. some img should be created as a custom image in the moment new user is created?
+(instead clicking "custom image" opens window for file browsing)) xxx 
+DONE 92. currently -> not authenticated -> test user from db is used -> change it to client only demo DONE
+DONE 93. notes on queries/schema/mongo etc. DONE
 DONE 109. backgroundImgUpload funcion -> for !req.body is next() needed? (yes, following code is not executed if there is no body) DONE
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 127. implement token revoking !!!! DONE
@@ -155,19 +163,13 @@ GOOD enough
  -> hacky solution only, reexectuing query in Bookmarks which causes rerender - solve?
 (possible solution to get rid of rerender at least -> no bookmarks in any of useeffect? diff way for calc. tabIdsUsedByBookmarks)
 ? 61. background img -> currently there is no point in storing it in db, as it is get from server only??
-BackgroundImg schema in server.ts - does it work??
+BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutation (x2) -> currently it is not deleting images!)
   (BackgroundImgSchema in server.ts does work -should it be deleted?, because querying is done from server only )   ?
 68. list all links to free svgs in notes [one more svg may be implemented still]
 
 
 
 
-88. isAuth -> ts errors
-89. deleting all data when a user is deleted! done already? check
-90. delete account option?
-91. some img should be created as a custom image in the moment new user is created?
-92. currently -> not authenticated -> test user from db is used -> change it to client only demo
-93. notes on queries/schema/mongo etc.
 94. Main, BackgroundSettings_Upload -> backgroundImgKey -> code not used anymore -> delete?
 95. unify rssFetch & backgroundFetch serverside -> errors etc.
 96.server.js unify -> different reponses, sometimes they are objects - not needed
@@ -176,9 +178,7 @@ BackgroundImg schema in server.ts - does it work??
 99. server.ts -> make separate files
 100. server.txs -> rootValue -> is it needed?
 
-
 102. react keys -> they should by indices ! change to id
-
 
 103. unify callback functions -> function declaration instead of () => { }everywherw?
 104. multer.any() <- change to single("name") somehow
@@ -355,7 +355,9 @@ If that's not what you want, please create a client and add a Provider.
 245. fetch RSS query file & graphql -> to delete
 246. root mutation & query files -> fix types (after changin const to import) one of the mutation is done right - compare!
 247. haslo do gmaila wyslac
-248. 
+248. update queries mutation examples
+249. deleteUserByAdminMutation -> not returning anything in graphql playground?
+change "ids" naming?
 
 {
   filename: 'nature-3082832_1920.jpg',
@@ -380,6 +382,7 @@ mutation ($image: Upload!) {
 
 6239ceb924aee400c5bc84ce"
 
+======================================
 JWT logic: 
 
 0. Login component -> login Mutation (see below -> res from the server contains the refresh token in a cookie and is setting it on client),
@@ -434,6 +437,33 @@ https://stackoverflow.com/questions/59188483/error-invalid-login-535-5-7-8-usern
 
 
 
+===========
+mongo/schema etc .notes
+
+
+server.ts -> graphql server from express-graphql, that takes a schema
+schema -> root mutation & root query
+individual mutations & queries -> using models from mongoModels folder (root of the app)
+
+client -> graphql folder -> graphql queries for mutation & queries
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================
+other notes
 
 
 react-tracked -> optimized rerender for zustand itp?

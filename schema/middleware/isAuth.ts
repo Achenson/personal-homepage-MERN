@@ -66,7 +66,6 @@ module.exports = (req: RequestWithAuth, res: Response, next: NextFunction) => {
     req.userId = decodedToken.userId;
 
     console.log("req.isAuth");
-    // @ts-ignore
     console.log(req.isAuth);
 
     next();

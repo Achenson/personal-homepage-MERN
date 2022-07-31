@@ -119,12 +119,7 @@ function Main({ globalSettings }: Props): JSX.Element {
   //   null
   // );
 
-  /*   useEffect( () => {
 
-    console.log("backgroundImgKey");
-    console.log(backgroundImgKey);
-    
-  }, [backgroundImgKey]) */
 
   /*  const [customBackgroundImg, setCustomBackgroundImg] = useState(false);
 

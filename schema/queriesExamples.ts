@@ -118,10 +118,6 @@ mutation {
 
 
 
-
-
-
-
 // not returning anything??
 mutation {
   addUser(name: "test", email: "test@test", password: "test") {
@@ -135,12 +131,6 @@ mutation {
   }
 }
 
-
-mutation {
-  deleteUser(id: "6151a40ae708770664219b71") {
-    name
-  }
-}
 
 mutation {
  deleteBookmark(id: "6151ad9d50ce1ecf5f813f0b") {
@@ -202,6 +192,14 @@ mutation {
   
 
 
+mutation {
+  deleteUsersByAdmin (ids: ["62b1a1ca4c29c2e004161fe9", "62b1a2074c29c2e004162013"]) {
+   ids {
+    userId
+    wasDeleted
+  }
+  }
+}
 
 
 */
