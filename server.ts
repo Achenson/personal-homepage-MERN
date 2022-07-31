@@ -12,6 +12,7 @@ import path = require("path");
 import cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
+var test = require('./routes/test')
 import User = require("./mongoModels/userSchema");
 import {
   backgroundImgUpload,
@@ -325,6 +326,12 @@ mongoose
 app.get("/", (req: Request, res: Response) => {
   res.status(200).send("Hello World!4");
 });
+// @ts-ignore
+// app.get("/test", (req: Request, res: Response) => {
+//   res.status(200).send("testing routes");
+// });
+
+app.use('/test', test);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
