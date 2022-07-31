@@ -363,6 +363,7 @@ change "ids" naming?
 250. login after registering -> "user does not exiss" doen't clean, test all possibilities
 251. custom backgroundImg name is not displayed when going to backgroundImg options in case it is selected before
 252. clientSIde reaction to rss and background img query errors?
+253. backgroundImg folders not being deleted from the app after user deletion!
 
 {
   filename: 'nature-3082832_1920.jpg',

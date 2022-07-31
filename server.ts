@@ -24,13 +24,7 @@ const isAuth = require("./schema/middleware/isAuth");
 
 // const BackgroundImgSchema = require("../../mongoModels/BackgroundImgSchema");
 const BackgroundImgSchema = require("./mongoModels/backgroundImgSchema");
-import {
-  diskStorage,
-  FileFilterCallback,
-  MulterError,
-  Multer,
-  Options,
-} from "multer";
+
 import { schema } from "./schema/schema";
 
 // import { testUserId } from "./client/src/state/data/testUserId";
@@ -39,12 +33,9 @@ let rssParser = new Parser();
 // let upload = multer({dest: "uploads/"})
 
 const app = express();
-
 const port = 4000;
 
 import { NextFunction, Response } from "express";
-import { addPath } from "graphql/jsutils/Path";
-import { stripIgnoredCharacters } from "graphql";
 import { RequestWithAuth } from "./schema/middleware/isAuth";
 
 // favicon test
@@ -57,7 +48,6 @@ console.log(fetchTest2); */
 // console.log(fetchTest2);
 
 // ============
-
 // app.use(helmet());
 
 app.use(
@@ -73,16 +63,18 @@ app.use(
 // The Access-Control-Allow-Origin response header indicates whether
 //  the response can be shared with requesting code from the given origin.
 // origin: https://developer.mozilla.org/en-US/docs/Glossary/Origin
+
+/* app.use(
+  cors({
+    origin: "*"
+  })
+); */
 app.use(
   cors({
     origin: [
       "http://localhost:3000",
       "http://localhost:4000",
-      // below: not needed! http://localhost:4000" is an origin and everything after is allowed
-      // "http://localhost:4000/graphql",
-      // "http://localhost:4000/fetch_rss",
-      // "http://localhost:4000/background_img",
-      // "http://localhost:4000/refresh_token",
+      // more specific routes: not needed! http://localhost:4000" is an origin and everything after is allowed
     ],
 
     credentials: true,
@@ -163,19 +155,6 @@ app.post("/refresh_token", async (req: RequestWithAuth, res: Response) => {
   // testin2: take refresh cookie from res (sieć)
 });
 
-/* app.use(
-  cors({
-    origin: "*"
-  })
-); */
-
-// fetching rss server-side
-/* app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
-  let response = await rssParser.parseURL(req.params.rsslink);
-  // console.log(response);
-  res.send(response);
-}); */
-
 // @ts-ignore
 app.get("/fetch_rss/:rsslink", async (req: RequestWithAuth, res: Response) => {
   console.log("fetching rss server rest");
@@ -196,34 +175,7 @@ app.get("/fetch_rss/:rsslink", async (req: RequestWithAuth, res: Response) => {
   });
 });
 
-// let userIdOrDemoId: string;
-
-/* app.get("/background_img/:userId", (req: Request, res: Response) => {
-  BackgroundImgSchema.findOne({ userId: testUserId }).then(
-    (result: BackgroundImg) => {
-      let response = {
-        userId: result.userId,
-        backgroundImg: result.backgroundImg,
-      };
-
-      res.status(200).json(response);
-    }
-  );
-}); */
-
-/* app.use("/fetch_rss/:rsslink", async (req: Request, res: Response) => {
-  let response = await rssParser.parseURL(req.params.rsslink);
-  // console.log(response);
-  res.send(response);
-});
- */
-
-// uploading background image
-
 app.use("/background_img", express.static("backgroundImgs"));
-
-/* let backgroundImgFiles = fs.readdirSync("backgroundImgs/" + testUserId);
-console.log(backgroundImgFiles[0]); */
 
 // @ts-ignore
 app.get("/background_img/:userId", (req: RequestWithAuth, res: Response) => {
@@ -232,10 +184,6 @@ app.get("/background_img/:userId", (req: RequestWithAuth, res: Response) => {
   let backgroundImgFiles = fs.readdirSync(
     "backgroundImgs/" + req.params.userId
   );
-
-  /* let backgroundImgUrl = path.join(
-    "backgroundImgs/" + req.params.userId + "/" + backgroundImgFiles[0]
-  ); */
 
   let backgroundImgUrl =
     "background_img/" + req.params.userId + "/" + backgroundImgFiles[0];
@@ -252,30 +200,20 @@ app.get("/background_img/:userId", (req: RequestWithAuth, res: Response) => {
 });
 
 /*  app.use((req: Request, res: Response, next: any) => {
-
-
-// @ts-ignore
  req.customKey = "finally";
-// @ts-ignore
 // console.log(req.customKey);
 next()
-
 }) */
 
 app.use(
   "/graphql",
   // @ts-ignore
   (req: RequestWithAuth, res: Response, next: NextFunction) => {
-    // if(!req.body){
-    //   next()
-    // }
-
     console.log("req.body /graphql");
     console.log(req.body);
 
     backgroundImgUpload(req, res, function (multerErr) {
       console.log("background img auth");
-
       console.log(req.isAuth);
 
       if (!req.body) {
@@ -290,34 +228,21 @@ app.use(
 
       console.log("req.body background img upload");
       console.log(req.body);
-
       console.log("req.body operations");
       console.log(req.body.operations);
 
       // @ts-ignore
       if (!req.isAuth || !req.userId) return;
 
-      // next()
-      // @ts-ignore
-      // let userIdOrTestId = req.isAuth ? req.userId : testUserId;
-      // @ts-ignore
       let userId = req.userId;
 
       let newBackgroundImg = {
-        // userId: userIdOrDemoId,
-        // userId: req.params.userId,
-        // @ts-ignore
         userId: userId,
-        // userId: userIdOrTestId,
-        // backgroundImg: req.file.path,
         backgroundImg: newBackgroundImageName,
       };
 
       BackgroundImgSchema.replaceOne(
-        // { userId: userIdOrDemoId },
-        // { userId: req.params.userId },
         { userId: userId },
-        // { userId: userIdOrTestId },
         newBackgroundImg,
         { upsert: true },
         (err: Error, backgroundImgProduct: BackgroundImg) => {
@@ -327,17 +252,9 @@ app.use(
               error: err,
             });
 
-            // removeBackgroundImg(newBackgroundImageName, req.params.userId);
-            // removeBackgroundImg(newBackgroundImageName, userIdOrTestId);
             removeBackgroundImg(newBackgroundImageName, userId);
             return;
           }
-
-          // let dest = "backgroundImgs/" + userIdOrDemoId + "/";
-          // let dest = "backgroundImgs/" + req.params.userId + "/";
-          // @ts-ignore
-          // let dest = "backgroundImgs/" + req.userId + "/";
-          // let dest = "backgroundImgs/" + userIdOrTestId + "/";
           let dest = "backgroundImgs/" + userId + "/";
 
           fs.readdirSync(dest).forEach((file: string) => {
@@ -354,16 +271,9 @@ app.use(
             message: "Created product successfully",
             createdProduct: backgroundImgProduct,
           });
-          // res.send(backgroundImgProduct)
-          // res.send({message: "done"})
-          // res.statusMessage = backgroundImgProduct.backgroundImg
-          // res.send("aaaaaaaaaaaaaaaaaaaaa");
         }
       );
     });
-
-    // console.log("req.file");
-    //   console.log(req.body);
   }
 );
 
@@ -386,29 +296,6 @@ app.use(
     };
   })
 );
-
-/* 
-=creating new bookmark
-
-
-app.post(site url) {
-
- getting favicon using fetch-favicon
-
- fetch image using node js
-
-//  calling another route??
- save to folder(multer? or saving directly fs?)
-
- save to db
-
-
- respond wiht a url from the server
-
-
-}
-
-*/
 
 // function removeBackgroundImg(fileName: string, userIdOrDemoId: string) {
 function removeBackgroundImg(fileName: string, userId: string) {
