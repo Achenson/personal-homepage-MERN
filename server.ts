@@ -60,7 +60,6 @@ console.log(fetchTest2); */
 
 // app.use(helmet());
 
-
 app.use(
   helmet({
     // to enable express-graphql playground
@@ -180,11 +179,18 @@ app.post("/refresh_token", async (req: RequestWithAuth, res: Response) => {
 // @ts-ignore
 app.get("/fetch_rss/:rsslink", async (req: RequestWithAuth, res: Response) => {
   console.log("fetching rss server rest");
-  // @ts-ignore
+
   console.log(req.isAuth);
 
   let response = await rssParser.parseURL(req.params.rsslink);
   // console.log(response);
+  if (!response) {
+    res.status(500).send({
+      error: "No RSS data available",
+    });
+    return;
+  }
+
   res.status(201).send({
     rssFetchData: response,
   });
@@ -234,15 +240,14 @@ app.get("/background_img/:userId", (req: RequestWithAuth, res: Response) => {
   let backgroundImgUrl =
     "background_img/" + req.params.userId + "/" + backgroundImgFiles[0];
 
-  if (backgroundImgUrl) {
-    res.status(201).json({
-      backgroundImgUrl: backgroundImgUrl,
+  if (!backgroundImgUrl) {
+    res.status(500).json({
+      error: "No background image available",
     });
     return;
   }
-
-  res.status(500).json({
-    error: "No background image available",
+  res.status(201).json({
+    backgroundImgUrl: backgroundImgUrl,
   });
 });
 
@@ -429,7 +434,7 @@ mongoose
   // .catch((err: Mon) => console.log(err));
   .catch(() => console.log("err"));
 
-  // @ts-ignore
+// @ts-ignore
 app.get("/", (req: Request, res: Response) => {
   res.status(200).send("Hello World!4");
 });

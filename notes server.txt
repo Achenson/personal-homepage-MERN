@@ -111,6 +111,7 @@ DONE 92. currently -> not authenticated -> test user from db is used -> change i
 DONE 93. notes on queries/schema/mongo etc. DONE
 DONE 94. Main, BackgroundSettings_Upload -> backgroundImgKey -> code not used anymore -> delete?
 (backgroundImgKey was used for context, query from db instead of context now, contex deleted) DONE
+DONE 95. unify rssFetch & backgroundFetch serverside -> errors etc.  DONE
 DONE 109. backgroundImgUpload funcion -> for !req.body is next() needed? (yes, following code is not executed if there is no body) DONE
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 127. implement token revoking !!!! DONE
@@ -157,7 +158,10 @@ GOOD enough?
   done 51. fix any types (server.js multer?) (isAuth interface but not used in multer, backgroundImgResult types) done
   DONE 64. npm modules should be imported like: import multer = require("multer"). with const typescript types are not working!!
   change everywhere!!  (change with exception of jsonwebtoken, some ts-ignores added in server.ts, problems with mutation & query root see #246)DONE
+  ? 96.server.ts unify -> different reponses, sometimes they are objects - not needed
+  good enough? - rss & backgroundImg unified, token different but it is more complex ?
 GOOD enough
+
 
 
 
@@ -172,8 +176,6 @@ BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutatio
 
 
 
-95. unify rssFetch & backgroundFetch serverside -> errors etc.
-96.server.js unify -> different reponses, sometimes they are objects - not needed
 97. graphql queries - proper types? ! or not
 98. delete data -> rssExample
 99. server.ts -> make separate files
@@ -361,6 +363,7 @@ If that's not what you want, please create a client and add a Provider.
 change "ids" naming?
 250. login after registering -> "user does not exiss" doen't clean, test all possibilities
 251. custom backgroundImg name is not displayed when going to backgroundImg options in case it is selected before
+252. clientSIde reaction to rss and background img query errors?
 
 {
   filename: 'nature-3082832_1920.jpg',
