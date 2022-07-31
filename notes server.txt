@@ -112,6 +112,7 @@ DONE 93. notes on queries/schema/mongo etc. DONE
 DONE 94. Main, BackgroundSettings_Upload -> backgroundImgKey -> code not used anymore -> delete?
 (backgroundImgKey was used for context, query from db instead of context now, contex deleted) DONE
 DONE 95. unify rssFetch & backgroundFetch serverside -> errors etc.  DONE
+DONE 98. delete data -> rssExample DONE
 DONE 109. backgroundImgUpload funcion -> for !req.body is next() needed? (yes, following code is not executed if there is no body) DONE
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 127. implement token revoking !!!! DONE
@@ -149,6 +150,7 @@ DONE background Color possible now in no pic mode
 
 
 GOOD enough?
+  no GraphQLNonNull used, good enough this time
   60. flickering when uploadin background img file
   1. livereload npm (to restart client if any changes in server is detected)
   guide to implement, not tested:
@@ -175,9 +177,6 @@ BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutatio
 
 
 
-
-97. graphql queries - proper types? ! or not
-98. delete data -> rssExample
 99. server.ts -> make separate files
 100. server.txs -> rootValue -> is it needed?
 

@@ -10,7 +10,7 @@ import { ReactComponent as ArrowLeft } from "../../svgs/arrowLeft.svg";
 import { ReactComponent as ArrowRight } from "../../svgs/arrowRight.svg";
 
 import { RssFetchQuery } from "../../graphql/graphqlQueries";
-import { rssExample } from "../../utils/data/rssExample";
+// import { rssExample } from "../../utils/data/rssExample";
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";

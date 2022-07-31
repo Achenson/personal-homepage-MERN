@@ -31,7 +31,7 @@ import { upperVisReducer } from "../context/upperVisReducer";
 import { useWindowSize } from "../utils/funcs and hooks/useWindowSize";
 import { UpperUiContext } from "../context/upperUiContext";
 import { DbContext } from "../context/dbContext";
-import { BackgroundImgContext } from "../context/backgroundImgContext";
+// import { BackgroundImgContext } from "../context/backgroundImgContext";
 // import { useAuthContext } from "../context/authContext";
 import { useAuth } from "../state/hooks/useAuth";
 

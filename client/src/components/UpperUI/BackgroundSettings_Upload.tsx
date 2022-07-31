@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useMutation, UseQueryState, OperationContext } from "urql";
 
-import { useBackgroundImgContext } from "../../context/backgroundImgContext";
+// import { useBackgroundImgContext } from "../../context/backgroundImgContext";
 import { useAuth } from "../../state/hooks/useAuth";
 
 import {
