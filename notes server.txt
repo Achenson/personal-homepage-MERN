@@ -109,6 +109,8 @@ xxx 91. some img should be created as a custom image in the moment new user is c
 (instead clicking "custom image" opens window for file browsing)) xxx 
 DONE 92. currently -> not authenticated -> test user from db is used -> change it to client only demo DONE
 DONE 93. notes on queries/schema/mongo etc. DONE
+DONE 94. Main, BackgroundSettings_Upload -> backgroundImgKey -> code not used anymore -> delete?
+(backgroundImgKey was used for context, query from db instead of context now, contex deleted) DONE
 DONE 109. backgroundImgUpload funcion -> for !req.body is next() needed? (yes, following code is not executed if there is no body) DONE
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 127. implement token revoking !!!! DONE
@@ -170,7 +172,6 @@ BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutatio
 
 
 
-94. Main, BackgroundSettings_Upload -> backgroundImgKey -> code not used anymore -> delete?
 95. unify rssFetch & backgroundFetch serverside -> errors etc.
 96.server.js unify -> different reponses, sometimes they are objects - not needed
 97. graphql queries - proper types? ! or not
@@ -358,6 +359,8 @@ If that's not what you want, please create a client and add a Provider.
 248. update queries mutation examples
 249. deleteUserByAdminMutation -> not returning anything in graphql playground?
 change "ids" naming?
+250. login after registering -> "user does not exiss" doen't clean, test all possibilities
+251. custom backgroundImg name is not displayed when going to backgroundImg options in case it is selected before
 
 {
   filename: 'nature-3082832_1920.jpg',

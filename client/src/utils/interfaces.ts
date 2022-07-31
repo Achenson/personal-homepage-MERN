@@ -120,10 +120,10 @@ export interface DbContext_i {
   reexecuteTabs: (opts?: Partial<any> | undefined) => void;
 }
 
-export interface BackgroundImgContext_i {
-  currentBackgroundImgKey: string;
-  updateCurrentBackgroundImgKey: React.Dispatch<React.SetStateAction<string>>;
-}
+// export interface BackgroundImgContext_i {
+//   currentBackgroundImgKey: string;
+//   updateCurrentBackgroundImgKey: React.Dispatch<React.SetStateAction<string>>;
+// }
 
 export interface AuthContextObj_i {
   isAuthenticated: boolean;

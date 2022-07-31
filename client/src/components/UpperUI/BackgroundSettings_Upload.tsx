@@ -129,8 +129,9 @@ function BackgroundSettings_Upload({
   // const hiddenFileInput = useRef<HTMLInputElement>(null);
 
   // let keyForUseReactQuery = useBackgroundImgContext().currentBackgroundImg;
-  let setCurrentBackgroundImgKey =
-    useBackgroundImgContext().updateCurrentBackgroundImgKey;
+
+  // let setCurrentBackgroundImgKey =
+  //   useBackgroundImgContext().updateCurrentBackgroundImgKey;
 
   // async function submitForm(event: any) {
   //   event.preventDefault();
