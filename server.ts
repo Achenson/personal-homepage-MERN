@@ -13,6 +13,10 @@ import cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
 var test = require('./routes/test')
+var rss = require('./routes/rss')
+var backgroundImg = require('./routes/backgroundImg')
+
+
 import User = require("./mongoModels/userSchema");
 import {
   backgroundImgUpload,
@@ -157,48 +161,55 @@ app.post("/refresh_token", async (req: RequestWithAuth, res: Response) => {
 });
 
 // @ts-ignore
-app.get("/fetch_rss/:rsslink", async (req: RequestWithAuth, res: Response) => {
-  console.log("fetching rss server rest");
+// app.get("/fetch_rss/:rsslink", async (req: RequestWithAuth, res: Response) => {
+//   console.log("fetching rss server rest");
 
-  console.log(req.isAuth);
+//   console.log(req.isAuth);
 
-  let response = await rssParser.parseURL(req.params.rsslink);
-  // console.log(response);
-  if (!response) {
-    res.status(500).send({
-      error: "No RSS data available",
-    });
-    return;
-  }
+//   let response = await rssParser.parseURL(req.params.rsslink);
+//   // console.log(response);
+//   if (!response) {
+//     res.status(500).send({
+//       error: "No RSS data available",
+//     });
+//     return;
+//   }
 
-  res.status(201).send({
-    rssFetchData: response,
-  });
-});
+//   res.status(201).send({
+//     rssFetchData: response,
+//   });
+// });
+
+app.use("/fetch_rss", rss);
+
+
+
 
 app.use("/background_img", express.static("backgroundImgs"));
 
+// app.use('/background_img/:userId', backgroundImg);
+
 // @ts-ignore
-app.get("/background_img/:userId", (req: RequestWithAuth, res: Response) => {
-  console.log("getting background img");
+// app.get("/background_img/:userId", (req: RequestWithAuth, res: Response) => {
+//   console.log("getting background img");
 
-  let backgroundImgFiles = fs.readdirSync(
-    "backgroundImgs/" + req.params.userId
-  );
+//   let backgroundImgFiles = fs.readdirSync(
+//     "backgroundImgs/" + req.params.userId
+//   );
 
-  let backgroundImgUrl =
-    "background_img/" + req.params.userId + "/" + backgroundImgFiles[0];
+//   let backgroundImgUrl =
+//     "background_img/" + req.params.userId + "/" + backgroundImgFiles[0];
 
-  if (!backgroundImgUrl) {
-    res.status(500).json({
-      error: "No background image available",
-    });
-    return;
-  }
-  res.status(201).json({
-    backgroundImgUrl: backgroundImgUrl,
-  });
-});
+//   if (!backgroundImgUrl) {
+//     res.status(500).json({
+//       error: "No background image available",
+//     });
+//     return;
+//   }
+//   res.status(201).json({
+//     backgroundImgUrl: backgroundImgUrl,
+//   });
+// });
 
 /*  app.use((req: Request, res: Response, next: any) => {
  req.customKey = "finally";

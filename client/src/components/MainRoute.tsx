@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useQuery, UseQueryState, OperationContext } from "urql";
 
-import { BackgroundImgContext } from "../context/backgroundImgContext";
+// import { BackgroundImgContext } from "../context/backgroundImgContext";
 
 import Grid from "./LowerUI/Grid";
 import Bookmark_newAndEdit from "./Shared/Bookmark_newAndEdit";
@@ -28,7 +28,6 @@ import {
 import {
   AuthContextObj_i,
   AuthContext_i,
-  BackgroundImgContext_i,
   DbContext_i,
   SingleBookmarkData,
   SingleTabData,
