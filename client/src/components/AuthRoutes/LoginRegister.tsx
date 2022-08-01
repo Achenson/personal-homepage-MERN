@@ -448,17 +448,12 @@ Props): JSX.Element {
                 </div>
                 {loginOrRegister === "login" && (
                   <button
-                 
-                  className={
-                   `mt-1 text-sm text-gray-400 hover:text-opacity-50 cursor-pointer  focus-1-offset`}
-
-                   onClick={ () => {
-                    navigate("/passforgot")
-                   }}
+                    className={`mt-1 text-sm text-gray-400 hover:text-opacity-50 cursor-pointer  focus-1-offset`}
+                    onClick={() => {
+                      navigate("/passforgot");
+                    }}
                   >
-                    <span >
-                      Forgot password?
-                    </span>
+                    <span>Forgot password?</span>
                   </button>
                 )}
 
@@ -487,9 +482,7 @@ Props): JSX.Element {
                   <button
                     className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-                    onClick={() => {
-                      loginValidation();
-                    }}
+                    onClick={loginValidation}
                   >
                     Login
                   </button>
@@ -498,9 +491,7 @@ Props): JSX.Element {
                     className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}
                   `}
-                    onClick={() => {
-                      registerValidation();
-                    }}
+                    onClick={registerValidation}
                   >
                     Register
                   </button>

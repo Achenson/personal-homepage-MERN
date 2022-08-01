@@ -356,6 +356,49 @@ Props): JSX.Element {
     tabContext.tabVisDispatch({ type: "EDIT_TOGGLE" });
   }
 
+  function deleteTabLogic() {
+    if (!currentTab.deletable) {
+      // setNoDeletionErrorVis(true);
+      setErrors({
+        ...errorsAllFalse,
+        noDeletionErrorVis: true,
+      });
+      return;
+    }
+
+    if (userIdOrNoId) {
+      deleteTab({ id: tabID }).then((result) => {
+        if (tabType === "note" || tabType === "rss") {
+          return;
+        }
+
+        let filteredBookmarks = (bookmarks as BookmarkDatabase_i[]).filter(
+          (obj) => obj.tags.indexOf(result.data.deleteTab.id) > -1
+        );
+
+        filteredBookmarks.forEach((obj) => {
+          let changedBookmark = { ...obj };
+          // console.log(JSON.stringify(changedBookmark, null, 2));
+          let indexOfDeletedTab = changedBookmark.tags.indexOf(
+            result.data.deleteTab.id
+          );
+          changedBookmark.tags.splice(indexOfDeletedTab, 1);
+          // console.log(JSON.stringify(changedBookmark, null, 2));
+          changeBookmark(changedBookmark);
+        });
+      });
+    } else {
+      deleteTabNonAuth(tabID);
+    }
+
+    tabContext.tabVisDispatch({ type: "EDIT_TOGGLE" });
+
+    // removing deleted tab(tag) from bookmarks
+    if (!userIdOrNoId) {
+      deleteTag(tabTitle);
+    }
+  }
+
   return (
     <FocusLock>
       <div
@@ -475,51 +518,7 @@ Props): JSX.Element {
 
             <button
               className="h-6 w-6 focus-2"
-              onClick={() => {
-                if (!currentTab.deletable) {
-                  // setNoDeletionErrorVis(true);
-                  setErrors({
-                    ...errorsAllFalse,
-                    noDeletionErrorVis: true,
-                  });
-                  return;
-                }
-
-                if (userIdOrNoId) {
-
-                  deleteTab({ id: tabID }).then((result) => {
-                    if (tabType === "note" || tabType === "rss") {
-                      return;
-                    }
-  
-                    let filteredBookmarks = (bookmarks as BookmarkDatabase_i[]).filter(
-                      (obj) => obj.tags.indexOf(result.data.deleteTab.id) > -1
-                    );
-  
-                    filteredBookmarks.forEach((obj) => {
-                      let changedBookmark = { ...obj };
-                      // console.log(JSON.stringify(changedBookmark, null, 2));
-                      let indexOfDeletedTab = changedBookmark.tags.indexOf(
-                        result.data.deleteTab.id
-                      );
-                      changedBookmark.tags.splice(indexOfDeletedTab, 1);
-                      // console.log(JSON.stringify(changedBookmark, null, 2));
-                      changeBookmark(changedBookmark);
-                    });
-                  });
-                } else {
-                  deleteTabNonAuth(tabID);
-                }
-
-       
-
-                tabContext.tabVisDispatch({ type: "EDIT_TOGGLE" });
-
-                // removing deleted tab(tag) from bookmarks
-                if(!userIdOrNoId) {
-                  deleteTag(tabTitle);
-                }
-              }}
+              onClick={deleteTabLogic}
               aria-label={"Delete tab"}
             >
               <TrashSVG className="h-6 w-6 text-gray-500 transition-colors duration-75 hover:text-black cursor-pointer" />

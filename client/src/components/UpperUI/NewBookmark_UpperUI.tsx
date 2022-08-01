@@ -408,7 +408,7 @@ function NewBookmark_UpperUI({
                   >
                     <CheckSVG
                       className="h-full text-gray-500 cursor-pointer hover:text-opacity-60"
-                      onClick={() => saveFunc()}
+                      onClick={saveFunc}
                     />
                     <XsmallSVG
                       className="h-full text-gray-500 cursor-pointer hover:text-opacity-60"

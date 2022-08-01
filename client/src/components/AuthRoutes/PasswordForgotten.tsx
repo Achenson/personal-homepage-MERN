@@ -172,10 +172,10 @@ function PassordForgotten({
               <button
                 className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-                onClick={() => {
+                onClick={
                   // console.log("password send")
-                  sendPasswordChangeLink();
-                }}
+                  sendPasswordChangeLink
+                }
               >
                 Send link
               </button>

@@ -120,6 +120,9 @@ DONE 99. server.ts -> make separate files (params has to be in a route!,
     context: A value to pass as the context to the graphql() function from GraphQL.js/src/execute.js.
      If context is not provided, the request object is passed as the context.
      (deleted, was used only in backgroundImgMut, but see #258) DONE
+     
+!!! DONE 103. unify callback functions -> function declaration instead of () => { }everywherw in JSX?
+ (changed to function reference in few cases) DONE !!!
 DONE 109. backgroundImgUpload funcion -> for !req.body is next() needed? (yes, following code is not executed if there is no body) DONE
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 127. implement token revoking !!!! DONE
@@ -188,9 +191,8 @@ BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutatio
 
 
 
-102. react keys -> they should by indices ! change to id
 
-103. unify callback functions -> function declaration instead of () => { }everywherw?
+
 104. multer.any() <- change to single("name") somehow
 105. delete the other background image
 106. make it possible to changle background img when not logged in, again
@@ -377,6 +379,8 @@ change "ids" naming?
 256. backgroundImgMutation -> test if it is used at all, console.logs not working
 257. no authHeader isAuth error console log repeats to many times -> too many redners somewhere?
 258. where is res in login and logout coming from -> console.log it
+102 (pushed -> interfaces for tabs etc. should be unified first). react keys -> they should by indices ! change to id 
+
 
 {
   filename: 'nature-3082832_1920.jpg',
