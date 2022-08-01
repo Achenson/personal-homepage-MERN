@@ -18,7 +18,7 @@ export function useDbContext() {
     // throw new Error(
     //   "useUpperUiContext must be used within a UpperUiContext.Provider"
     // );
-    console.log("user not authenticated - no context");
+    // console.log("user not authenticated - no context");
     return
 
 

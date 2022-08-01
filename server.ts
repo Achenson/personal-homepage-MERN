@@ -12,8 +12,8 @@ import path = require("path");
 import cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
-var test = require('./routes/test')
-var rss = require('./routes/rss')
+const rssRoute = require('./routes/rss')
+const refreshTokenRoute = require ('./routes/refreshToken')
 var backgroundImg = require('./routes/backgroundImg')
 
 
@@ -89,127 +89,38 @@ app.use(
 app.use(isAuth);
 
 //  parsing cookie only in the context of that particular route
+// app.use("/refresh_token", cookieParser(), refreshTokenRoute);
 app.use("/refresh_token", cookieParser());
 
-// @ts-ignore
-app.post("/refresh_token", async (req: RequestWithAuth, res: Response) => {
-  // 1. testing sending test cookie in request using postman
-  // cookies -> add domain: localhost -> coookie name: jid
-  // console.log(req.headers);
+app.use("/refresh_token", refreshTokenRoute)
 
-  console.log("refresh token app.post");
-
-  // testing sending cookie after cookie-parser is applied
-  console.log(req.cookies);
-
-  const token = req.cookies.jid;
-
-  if (!token) {
-    return res.status(400).send({ ok: false, accessToken: null, userId: null });
-  }
-
-  let payload = null;
-
-  // console.log(payload);
-  // console.log("payload");
-
-  try {
-    // payload = jwt.verify(token, "secretKeyForRefreshToken");
-    payload = jwt.verify(token, process.env.REFRESH as string);
-  } catch (err) {
-    console.log(err);
-    console.log("refresh token error2");
-    // return res.send({ ok: false, accessToken: "" });
-    // unauthorised
-    return res.status(401).send({ ok: false, accessToken: null, userId: null });
-  }
-
-  // token is valid
-  // we can send access token
-  // @ts-ignore
-  const user = await User.findById(payload.userId);
-
-  if (!user) {
-    console.log("refresh token error3");
-    // return res.send({ ok: false, accessToken: "" });
-    return res.status(500).send({ ok: false, accessToken: null, userId: null });
-  }
-
-  // revoking tokens: tokenVersion == 0 when creating user
-  // refreshTokens' tokenVersion == user.tokenVerssion
-  // to invalidate user -> increment user's tokenVersion
-  // when the user tries to refresh tokens(refreshing or after accessToken runs out),
-  // his user.tokenVersion doesn't match the version from the refresh token in his cookies
-
-  if (user.tokenVersion !== payload.tokenVersion) {
-    console.log("invalid tokenVersion");
-
-    // return res.send({ ok: false, accessToken: "", userId: "" });
-    return res.status(401).send({ ok: false, accessToken: null, userId: null });
-  }
-
-  await sendRefreshToken(res, createRefreshToken(user));
-
-  return res.status(201).send({
-    ok: true,
-    accessToken: createAccessToken(user),
-    userId: payload.userId,
-  });
-
-  //  testing: send login mutation in graphql, get accessToken
-  // testin2: take refresh cookie from res (sieć)
-});
-
-// @ts-ignore
-// app.get("/fetch_rss/:rsslink", async (req: RequestWithAuth, res: Response) => {
-//   console.log("fetching rss server rest");
-
-//   console.log(req.isAuth);
-
-//   let response = await rssParser.parseURL(req.params.rsslink);
-//   // console.log(response);
-//   if (!response) {
-//     res.status(500).send({
-//       error: "No RSS data available",
-//     });
-//     return;
-//   }
-
-//   res.status(201).send({
-//     rssFetchData: response,
-//   });
-// });
-
-app.use("/fetch_rss", rss);
-
-
-
+app.use("/fetch_rss", rssRoute);
 
 app.use("/background_img", express.static("backgroundImgs"));
 
 // app.use('/background_img/:userId', backgroundImg);
 
 // @ts-ignore
-// app.get("/background_img/:userId", (req: RequestWithAuth, res: Response) => {
-//   console.log("getting background img");
+app.get("/background_img/:userId", (req: RequestWithAuth, res: Response) => {
+  console.log("getting background img");
 
-//   let backgroundImgFiles = fs.readdirSync(
-//     "backgroundImgs/" + req.params.userId
-//   );
+  let backgroundImgFiles = fs.readdirSync(
+    "backgroundImgs/" + req.params.userId
+  );
 
-//   let backgroundImgUrl =
-//     "background_img/" + req.params.userId + "/" + backgroundImgFiles[0];
+  let backgroundImgUrl =
+    "background_img/" + req.params.userId + "/" + backgroundImgFiles[0];
 
-//   if (!backgroundImgUrl) {
-//     res.status(500).json({
-//       error: "No background image available",
-//     });
-//     return;
-//   }
-//   res.status(201).json({
-//     backgroundImgUrl: backgroundImgUrl,
-//   });
-// });
+  if (!backgroundImgUrl) {
+    res.status(500).json({
+      error: "No background image available",
+    });
+    return;
+  }
+  res.status(201).json({
+    backgroundImgUrl: backgroundImgUrl,
+  });
+});
 
 /*  app.use((req: Request, res: Response, next: any) => {
  req.customKey = "finally";
@@ -337,12 +248,6 @@ mongoose
 app.get("/", (req: Request, res: Response) => {
   res.status(200).send("Hello World!4");
 });
-// @ts-ignore
-// app.get("/test", (req: Request, res: Response) => {
-//   res.status(200).send("testing routes");
-// });
-
-app.use('/test', test);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
