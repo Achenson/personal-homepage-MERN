@@ -60,8 +60,8 @@ export const backgroundImgMutationField = {
       type: GraphQLUpload,
     },
   },
-  // async resolve(parent: unknown, { image }: { image: any }) {
-  async resolve(rootValue: any) {
+  async resolve(parent: unknown, { image }: { image: any }, request: any) {
+  // async resolve(rootValue: any) {
 
 
     console.log("background img mutation runs");
@@ -137,14 +137,15 @@ export const backgroundImgMutationField = {
 
     // console.log(file);
 
-    let req = rootValue.request;
-    let res = rootValue.response;
+    // let req = rootValue.request;
+    // let res = rootValue.response;
 
-    console.log("req.userId");
-    console.log(req.userId);
+    // console.log("req.userId");
+    // console.log(req.userId);
 
 
-    let operations = await req.operations;
+    // let operations = await req.operations;
+    let operations = await request.operations;
 
     // backgroundImgUpload(req, res, function (multerErr) {
 
