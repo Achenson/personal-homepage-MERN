@@ -113,6 +113,8 @@ DONE 94. Main, BackgroundSettings_Upload -> backgroundImgKey -> code not used an
 (backgroundImgKey was used for context, query from db instead of context now, contex deleted) DONE
 DONE 95. unify rssFetch & backgroundFetch serverside -> errors etc.  DONE
 DONE 98. delete data -> rssExample DONE
+DONE 99. server.ts -> make separate files (params has to be in a route!,
+ for backgroundImg see #254, backgroundUpload - middleware, not a route) DONE
 DONE 109. backgroundImgUpload funcion -> for !req.body is next() needed? (yes, following code is not executed if there is no body) DONE
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 127. implement token revoking !!!! DONE
@@ -178,8 +180,11 @@ BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutatio
 
 
 
-99. server.ts -> make separate files (params has to be in a route!, for backgroundImg see #254)
+
 100. server.txs -> rootValue -> is it needed?
+    rootValue: A value to pass as the rootValue to the graphql() function from GraphQL.js/src/execute.js.
+    context: A value to pass as the context to the graphql() function from GraphQL.js/src/execute.js. If context is not provided, the request object is passed as the context.
+
 
 102. react keys -> they should by indices ! change to id
 
@@ -366,7 +371,8 @@ change "ids" naming?
 252. clientSIde reaction to rss and background img query errors?
 253. backgroundImg folders not being deleted from the app after user deletion!
 254. backgroundImg is not needed?? works without? (take care of its route if needed/not needed)
-
+255. request in mutation in queries -> unify type
+256. backgroundImgMutation -> test if it is used at all, console.logs not working
 
 
 {
