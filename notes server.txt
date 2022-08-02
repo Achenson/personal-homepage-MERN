@@ -123,6 +123,10 @@ DONE 99. server.ts -> make separate files (params has to be in a route!,
      
 !!! DONE 103. unify callback functions -> function declaration instead of () => { }everywherw in JSX?
  (changed to function reference in few cases) DONE !!!
+DONE 105. delete the other background image (post route? deleted ) DONE
+DONE 106. make it possible to changle background img when not logged in, again DONE
+DONE 108. not possible to write even a console.log in backgroundImgMutation even while is working? (backgroundImgMutation resolve
+is not being used - that is how UploadFileType work?) DONE
 DONE 109. backgroundImgUpload funcion -> for !req.body is next() needed? (yes, following code is not executed if there is no body) DONE
 DONE 113. xxgetting background img automaticallyxx - browse files if there is no user img instead DONE
 DONE 127. implement token revoking !!!! DONE
@@ -192,10 +196,7 @@ BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutatio
 
 
 
-105. delete the other background image
-106. make it possible to changle background img when not logged in, again
-107. write notes for file upload system!
-108. not possible to write even a console.log in backgroundImgMutation even while is working?
+
 
 
 110. demo id or test id naming
@@ -378,6 +379,7 @@ change "ids" naming?
 257. no authHeader isAuth error console log repeats to many times -> too many redners somewhere?
 258. where is res in login and logout coming from -> console.log it
 102 (pushed -> interfaces for tabs etc. should be unified first). react keys -> they should by indices ! change to id 
+107(pushed - see other notes about backgroundIMgMut first). write notes for file upload system!
 
 
 {
