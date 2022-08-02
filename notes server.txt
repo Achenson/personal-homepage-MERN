@@ -173,6 +173,10 @@ GOOD enough?
   const instead of import in express.Router(), problems with mutation & query root see #246)DONE
   ? 96.server.ts unify -> different reponses, sometimes they are objects - not needed
   good enough? - rss & backgroundImg unified, token different but it is more complex ?
+  x 104. multer.any() <- change to single("name") somehow 
+  seems there is no way to validate if multer is used as a callback,
+  it maybe possible if it was uses inside a graphql resolver
+  https://github.com/apollographql/apollo-server/issues/301 x
 GOOD enough
 
 
@@ -188,12 +192,6 @@ BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutatio
 
 
 
-
-
-
-
-
-104. multer.any() <- change to single("name") somehow
 105. delete the other background image
 106. make it possible to changle background img when not logged in, again
 107. write notes for file upload system!
