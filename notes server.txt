@@ -220,17 +220,13 @@ it will trigger refresh in getAuth
 128. update token notes (refreshing tokens -> always two tokens are being refreshed, that is by design? probably)
 129. implement willAuthError for better performance
 130. improve getAuth -> it should not include refresh token logic in the first run?
-131. revokingToken -> anybody can do it?? how to secure this?
-133. revokingToken -> "query was already executed:" mixing promises with callback??
 
-
-
+133. revokingToken -> "query was already executed: "mixing promises with callback??
 139. wiki-speed-typing, take care of 138 issue!
 142. mutation.ts -> naming: some with Mutation at the end some not - unify!
 143. upperUiContext -> logic for demo/unlogged version mixed with ui focus logic (does it work?)
 UserProfile/LoginRegister -> check upperUiContext dispatches
 149. more rigid password checking?
-152. mutations-> change args from manual to Fields
 153. serverside interfaces are in types files, better interfaces sharing between client and server?
 154. UserProfile -> mutations should succeed if there is proper field being send back
 155. better email validation
@@ -351,6 +347,10 @@ change "ids" naming?
 107(pushed - see other notes about backgroundIMgMut first). write notes for file upload system!
 124 (pushed after taking care of context). zustand hooks -> delete or implent when logged out?
 259. !!! UserProfile does not show on smaller browser window!!!
+152 (pushed, solve mutation type prolbem first). mutations-> change args from manual to Fields 
+
+
+
 
 {
   filename: 'nature-3082832_1920.jpg',
