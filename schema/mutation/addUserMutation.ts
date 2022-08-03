@@ -103,7 +103,7 @@ export const addUserMutationField = {
             date: true,
             description: false,
             itemsPerPage: 7,
-            backgroundColor: backgroundColors[0][1],
+            backgroundColor: backgroundColors[0][2],
             folderColor: tabColors[7][2],
             noteColor: tabColors[1][2],
             rssColor: tabColors[9][2],

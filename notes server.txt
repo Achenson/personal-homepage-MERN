@@ -150,6 +150,7 @@ DONE 137. changing between 2 differen users, check user queries DONE !!! User.fi
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
 DONE 140. x hide/unhide password x password input type instead DONE
 DONE 141. deleteUserMutation -> keep it! proper way to delete user by admin (deketeUsersByAdmin now)DONE
+DONE 147. darker default background img? (change to darker - slight blueGray) DONE
 DONE 148. after registering -> automatically fill up username field in Login? DONE
 DONE 150. change naming to ByUser & ByAdmin DONE
 DONE 151. check if changeUSer "by admin" works DONE (reworked)
@@ -223,17 +224,13 @@ it will trigger refresh in getAuth
 131. revokingToken -> anybody can do it?? how to secure this?
 133. revokingToken -> "query was already executed:" mixing promises with callback??
 135. LoginSVG -> move to the left?
-
-
 139. wiki-speed-typing, take care of 138 issue!
 142. mutation.ts -> naming: some with Mutation at the end some not - unify!
 143. upperUiContext -> logic for demo/unlogged version mixed with ui focus logic (does it work?)
 UserProfile/LoginRegister -> check upperUiContext dispatches
 144. clientSide -> change some rendering function to be anonymous inline funcions?? IIFS!
-145. deleteAccountByUserMutation ->  // password: { type: new GraphQLNonNull(GraphQLString) }, 
-unify across other mutations!
-146. backgroundImgs -> are they being saved to db?
-147. darker default background img?
+
+
 149. more rigid password checking?
 152. mutations-> change args from manual to Fields
 153. serverside interfaces are in types files, better interfaces sharing between client and server?
@@ -347,7 +344,7 @@ change "ids" naming?
 251. custom backgroundImg name is not displayed when going to backgroundImg options in case it is selected before
 252. clientSIde reaction to rss and background img query errors?
 253. backgroundImg folders not being deleted from the app after user deletion!
-254. backgroundImg is not needed?? works without? (take care of its route if needed/not needed)
+254. backgroundImg is not needed?? works without? (take care of its route if needed/not needed), maybe it shouldn't be saved in db?
 255. request in mutation in queries -> unify type
 256. backgroundImgMutation -> test if it is used at all, console.logs not working
 257. no authHeader isAuth error console log repeats to many times -> too many redners somewhere?
