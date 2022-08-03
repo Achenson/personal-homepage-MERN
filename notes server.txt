@@ -201,6 +201,7 @@ GOOD enough?
   seems there is no way to validate if multer is used as a callback,
   it maybe possible if it was uses inside a graphql resolver
   https://github.com/apollographql/apollo-server/issues/301 x
+  xx 174. development mode -> should work also when offline? (good enough)xx
 GOOD enough
 
 
@@ -241,9 +242,8 @@ UserProfile/LoginRegister -> check upperUiContext dispatches
 168. objectAssign -> convert to function?
 169. changeUserByAdmin -> changing password - should it be left out?
 170. AuthNotification components -> implement in UserProfile
-172. deleteUserByAdminMutation -> not getting proper returned data from graphql
-173. deleteUserByAdminMutation -> put delete user first, only then settings etc.
-174. development mode -> should work also when offline?
+172. deleteUsersByAdminMutation -> not getting proper returned data from graphql, change id naming?
+173. deleteUsersByAdminMutation -> put delete user first, only then settings etc.
 175.5 auth -> zustand, other central state -> context. unify? check downside of using context
 175.75 check if all contexts are used!!! backgroundImgContext adn authContext not being used
 176. objects as props in more places? like paddingProps in Main
@@ -332,8 +332,6 @@ If that's not what you want, please create a client and add a Provider.
 246. root mutation & query files -> fix types (after changin const to import) one of the mutation is done right - compare!
 247. haslo do gmaila wyslac
 248. update queries mutation examples
-249. deleteUserByAdminMutation -> not returning anything in graphql playground?
-change "ids" naming?
 250. login after registering -> "user does not exiss" doen't clean, test all possibilities
 251. custom backgroundImg name is not displayed when going to backgroundImg options in case it is selected before
 252. clientSIde reaction to rss and background img query errors?
