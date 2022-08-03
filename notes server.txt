@@ -141,10 +141,15 @@ DONE 119. BackgroudnSettings_Upload typescript issues (alse the code was modifie
 DONE 120. urql query from rss -> archive DONE
 DONE 121. get favicon server.ts -> archive (faviconFetch?)DONE
 DONE 122. ts -> less any types (multer any reduced, most remaining are from mongo models bus see #255)DONE
+DONE 123. custom background img -> should work if there is no file in the beginning? DONE
+? done 125. should refreshToken() return null in case of failure in App.ts?? (returning null now)done ?
 DONE 127. implement token revoking !!!! DONE
+DONE 132. implement Registration !!! DONE
+DONE 136. change name to username everywhere?  (name on the backend, username frontend - changed UserProfile for consistency)DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
 DONE 140. x hide/unhide password x password input type instead DONE
+DONE 141. deleteUserMutation -> keep it! proper way to delete user by admin (deketeUsersByAdmin now)DONE
 DONE 148. after registering -> automatically fill up username field in Login? DONE
 DONE 150. change naming to ByUser & ByAdmin DONE
 DONE 151. check if changeUSer "by admin" works DONE (reworked)
@@ -209,36 +214,26 @@ BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutatio
 
 
 
-123. custom background img -> should work if there is no file in the beginning?
-124. zustand hooks -> delete or implent when logged out?
-125. should refreshToken() return null in case of failure in App.ts??
 126. didAuthError not needed? since there will be (!isAuth) logic in qraphql mutation/queries.
 instead, willAuthError is needed? even if it does not trigger error (logic for refreshing is not needed in getAuth?), 
 it will trigger refresh in getAuth
-
-
 128. update token notes (refreshing tokens -> always two tokens are being refreshed, that is by design? probably)
 129. implement willAuthError for better performance
 130. improve getAuth -> it should not include refresh token logic in the first run?
 131. revokingToken -> anybody can do it?? how to secure this?
-132. implement Registration !!!
 133. revokingToken -> "query was already executed:" mixing promises with callback??
-134. Profile -> used for demo version? change name, clashes with UserProfile
 135. LoginSVG -> move to the left?
-136. change name to username everywhere?
+
+
 139. wiki-speed-typing, take care of 138 issue!
-141. deleteUserMutation -> keep it! proper way to delete user by admin
 142. mutation.ts -> naming: some with Mutation at the end some not - unify!
 143. upperUiContext -> logic for demo/unlogged version mixed with ui focus logic (does it work?)
 UserProfile/LoginRegister -> check upperUiContext dispatches
-
 144. clientSide -> change some rendering function to be anonymous inline funcions?? IIFS!
-
 145. deleteAccountByUserMutation ->  // password: { type: new GraphQLNonNull(GraphQLString) }, 
 unify across other mutations!
 146. backgroundImgs -> are they being saved to db?
 147. darker default background img?
-
 149. more rigid password checking?
 152. mutations-> change args from manual to Fields
 153. serverside interfaces are in types files, better interfaces sharing between client and server?
@@ -248,27 +243,20 @@ unify across other mutations!
 158. addUserMutation -> change so it distinguish between username and email already present in DB
 159. all or almost all mutations should have error fields? 
 160. editUser -> update causes flickering due to reexectuing query?
-
 162. whenever returning to editUser, name & email should be filled again
 163. UserProfile -> setNotification(null) everywhere not needed?
-
 166. after implementing forgot password logic -> make sure that it won't work when token is revoked?
 167. changeUserByAdmin -> can it remain in production??
 168. objectAssign -> convert to function?
 169. changeUserByAdmin -> changing password - should it be left out?
 170. AuthNotification components -> implement in UserProfile
-
 172. deleteUserByAdminMutation -> not getting proper returned data from graphql
 173. deleteUserByAdminMutation -> put delete user first, only then settings etc.
 174. development mode -> should work also when offline?
-
-
 175.5 auth -> zustand, other central state -> context. unify? check downside of using context
 175.75 check if all contexts are used!!! backgroundImgContext adn authContext not being used
-
 176. objects as props in more places? like paddingProps in Main
 177. useAuth zustand hook -> loginErrorMessage -> delete or implement?
-
 180. focus should be on first field after clicking Login or Register
 181. clean db in the end
 182. wiki-speed-typing - better login/register looks?
@@ -282,14 +270,11 @@ unify across other mutations!
 190. PasswordForgotten  / forgotPasswordMutation -> more consistent naming?
 191. PasswordForgotten -> forgotPasswordMutation should return false sometimes and it should be handled?
 to get info clientside that there is no regisered user
-
 {
   "data": {
     "forgotPassword": true
   }
 }
-
-
 193. change all urql components error handling to similar to UserProfile (LoginRegister for sure)
 194. changePasswordAfterForgot -> in case of token expiration -> link to forgotpass should be visible
 195. displaying res.error.message for graphql errors if it is present? [no but sth should be display clientside accordingly?]
@@ -301,12 +286,8 @@ to get info clientside that there is no regisered user
 (should be done for TAB_CONTENT_DEFAULT at least?)
 201. tabIdsUsedByBookmarks -> MERN -> created every time in one of Grid's useEffect (check EditTab_main editTab wrapper also)
 old not-auth -> placed in central bookmarks state. check if it works properly, unify?
-
 202. Grid tabDeletingPause introduced in MERN version -> can/should it be implemented for non-auth version also?
-
 203. settings interfaces db & demo-> unify, clear (all interfaces shoul be moved out of client?)
-
-
 206. useBookmark -> string types for id in MERN version number|string in old client only ver. -> no clashes
 change ids in the starting data for nonAuth to strings?
 !!!!! 207. SingleBookmark -> implement icon fallback for nonAuth Version!
@@ -319,15 +300,12 @@ change ids in the starting data for nonAuth to strings?
 216. allTags when hidden problem -> taking too much space!? check in auth and non-auth versions
 217. tab deletion confirmation -> implement?
 218. check localStorage for auth version
-
 219. notes -> should be reworked, so they can be edited in place?
 221. color hooks - to be partially deleted?
 222. update App structure - routes!
 223. rssSettings problem -> value lower than 5 and 15 can be entered! no easy way to increase/decrese value??
 224. globalSettings rss items number-> hover field, implement is alse elsewhere??
 225. Disable drag & drop -> should be sth like disable drag & drop for tabs??
-
-
 
 background Color possible now in no pic mode
 
@@ -376,7 +354,8 @@ change "ids" naming?
 258. where is res in login and logout coming from -> console.log it
 102 (pushed -> interfaces for tabs etc. should be unified first). react keys -> they should by indices ! change to id 
 107(pushed - see other notes about backgroundIMgMut first). write notes for file upload system!
-
+124 (pushed after taking care of context). zustand hooks -> delete or implent when logged out?
+259. !!! UserProfile does not show on smaller browser window!!!
 
 {
   filename: 'nature-3082832_1920.jpg',

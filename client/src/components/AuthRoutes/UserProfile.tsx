@@ -128,9 +128,9 @@ function UserProfile({
     setEmail(data.user.email)
   }, [data]) */
 
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   // doesn't get changed by user input
-  const [nameInitial, setNameInitial] = useState("");
+  const [usernameInitial, setUsernameInitial] = useState("");
   // const [name, setName] = useState(data?.user?.name ? data.user.name : "");
   const [email, setEmail] = useState("");
   // doesn't get changed by user input
@@ -139,8 +139,8 @@ function UserProfile({
 
   useEffect(() => {
     if (data?.user) {
-      setName(data.user.name);
-      setNameInitial(data.user.name);
+      setUsername(data.user.name);
+      setUsernameInitial(data.user.name);
       setEmail(data.user.email);
       setEmailInitial(data.user.email);
     }
@@ -291,8 +291,8 @@ function UserProfile({
             <div className="mt-1">
               <p>Username</p>
               <LogRegProfile_input
-                inputValue={name}
-                setInputValue={setName}
+                inputValue={username}
+                setInputValue={setUsername}
                 preventCopyPaste={false}
                 passwordInputType={false}
               />
@@ -457,7 +457,7 @@ function UserProfile({
                         case "editProfile":
                           console.log("editProfile");
 
-                          if (name === "") {
+                          if (username === "") {
                             setErrorMessage("Username cannot be empty");
                             setNotification(null);
                             return;
@@ -478,7 +478,7 @@ function UserProfile({
                           changeUserByUser({
                             id: userId as string,
                             // preventing from trying to update fields without changes
-                            name: name === nameInitial ? null : name,
+                            name: username === usernameInitial ? null : username,
                             email: email === emailInitial ? null : email,
                             passwordCurrent: passwordCurrent,
                           }).then(
