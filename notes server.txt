@@ -140,6 +140,7 @@ DONE 118. change background upload UI! DONE
 DONE 119. BackgroudnSettings_Upload typescript issues (alse the code was modified slightly)DONE
 DONE 120. urql query from rss -> archive DONE
 DONE 121. get favicon server.ts -> archive (faviconFetch?)DONE
+DONE 122. ts -> less any types (multer any reduced, most remaining are from mongo models bus see #255)DONE
 DONE 127. implement token revoking !!!! DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
@@ -208,7 +209,6 @@ BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutatio
 
 
 
-122. ts -> less any types
 123. custom background img -> should work if there is no file in the beginning?
 124. zustand hooks -> delete or implent when logged out?
 125. should refreshToken() return null in case of failure in App.ts??

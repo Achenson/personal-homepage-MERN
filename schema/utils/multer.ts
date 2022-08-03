@@ -33,7 +33,7 @@ const storage = multer.diskStorage({
     // mkdirp.sync(dest);
     cb(null, dest);
   },
-  filename: function (req: any, file: any, cb: any) {
+  filename: function (req, file, cb) {
     let fileOriginalNameMod = file.originalname.replace(/\s/g, "_");
 
     let newFileName = Date.now() + "_" + fileOriginalNameMod;
