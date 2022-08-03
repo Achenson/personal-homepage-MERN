@@ -134,6 +134,8 @@ DONE 114. fallback if no backgroundImg available?
  or test it if it is not broking the app at least (no app breaking, white background) DONE
  ?? 115. backgroundImgQuery -> no variable needed? 
 check after implementing unlogged version (? userId obviusly needed)???
+DONE 116. useCallback -> is it really needed for uploads? no callback used right now
+  (seems to be not needed, see useCallback notes below) DONE
 DONE 127. implement token revoking !!!! DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
@@ -206,7 +208,7 @@ BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutatio
 
 
 
-116. useCallback -> is it really needed for uploads? no callback used right now
+
 117. backgroundSettings_Upload -> reexecute query works after introducint async function!
 118. change background upload UI!
 119. BackgroudnSettings_Upload typescript issues
@@ -544,6 +546,25 @@ export const useAuth = create<AuthContextZustand_i>((set) => ({
 
 
 }));
+
+================
+https://kentcdodds.com/blog/usememo-and-usecallback
+
+useMemo - memoization
+useCallback - memoization of functions
+useCallback & useMemo (probably only!) usecases:
+
+1. useEffect depedency are objects or functions
+(if not, the useEffect will rerun every time the component rerenders, as even if the object is identical, it is not referentially equal)
+
+2a (useMemo). optimizing unnecessary rerenders - if rerendering parent component causes unnecessary rerender of child component,
+ex. if other child updates parent's state)
+ -> most time you should not bother (unless they are sth heavy like animation)
+
+2b (useCallback) optimizing unnecessary rerenders - if a function is passed from parent to child - it will cause child
+to rerender if parent rerenders as the function will be new
+
+3. (useMemo) computionally expensive calculations
 
 
 35 j etoh
