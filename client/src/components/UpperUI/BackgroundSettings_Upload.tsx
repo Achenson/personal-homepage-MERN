@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { ChangeEventHandler, useEffect, useRef, useState } from "react";
 import { useMutation, UseQueryState, OperationContext } from "urql";
 
 // import { useBackgroundImgContext } from "../../context/backgroundImgContext";
@@ -99,14 +99,9 @@ function BackgroundSettings_Upload({
     // wasCustomClicked,
   ]);
 
-  async function handleChange({
-    target: {
-      // @ts-ignore
-      validity,
-      // @ts-ignore
-      files: [file],
-    },
-  }) {
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = async ({
+    target: { validity, files: file },
+  }) => {
     if (validity.valid) {
       await changeBackgroundImg({ file });
       reexecuteBackgroundImg({ requestPolicy: "network-only" });
@@ -118,7 +113,7 @@ function BackgroundSettings_Upload({
         setWasCustomClicked(true);
       }
     }
-  }
+  };
 
   const [dbFilesError, setDbFilesError] = useState<null | string>(null);
 

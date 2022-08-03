@@ -136,6 +136,8 @@ DONE 114. fallback if no backgroundImg available?
 check after implementing unlogged version (? userId obviusly needed)???
 DONE 116. useCallback -> is it really needed for uploads? no callback used right now
   (seems to be not needed, see useCallback notes below) DONE
+DONE 118. change background upload UI! DONE
+DONE 119. BackgroudnSettings_Upload typescript issues (alse the code was modified slightly)DONE
 DONE 127. implement token revoking !!!! DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
@@ -204,14 +206,6 @@ BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutatio
 
 
 
-
-
-
-
-
-117. backgroundSettings_Upload -> reexecute query works after introducint async function!
-118. change background upload UI!
-119. BackgroudnSettings_Upload typescript issues
 120. urql query from rss -> archive
 121. get favicon server.ts -> archive
 122. ts -> less any types
@@ -490,6 +484,7 @@ client -> graphql folder -> graphql queries for mutation & queries
 ======================
 other notes
 
+backgroundSettings_Upload -> reexecute query works only after introducint async function!
 
 react-tracked -> optimized rerender for zustand itp?
 
@@ -547,7 +542,7 @@ export const useAuth = create<AuthContextZustand_i>((set) => ({
 
 }));
 
-================
+================  useCallback & useMemo
 https://kentcdodds.com/blog/usememo-and-usecallback
 
 useMemo - memoization
@@ -566,11 +561,3 @@ to rerender if parent rerenders as the function will be new
 
 3. (useMemo) computionally expensive calculations
 
-
-35 j etoh
-
-
-100Et - 35 j
-
-35 - 33.6 jedn
-      35
