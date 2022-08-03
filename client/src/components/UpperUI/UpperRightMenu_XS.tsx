@@ -151,6 +151,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
           >
             <FolderSVG
               className={`h-7 w-7 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
+              style={{ marginLeft: "-1px" }}
             />
           </button>
           <button
@@ -271,7 +272,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
               >
                 <UserSVG
                   className={`h-6 w-6 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
-                  style={{ marginLeft: "-1px" }}
+                  style={{ marginLeft: "-3px" }}
                 />
               </button>
             ) : (
@@ -288,7 +289,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
               >
                 <LoginSVG
                   className={`h-6 w-6 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
-                  style={{ marginLeft: "-3px", marginBottom: "0px" }}
+                  style={{ marginLeft: "-1px", marginBottom: "0px" }}
                 />
               </button>
             )}

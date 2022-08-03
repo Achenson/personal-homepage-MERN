@@ -166,7 +166,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
           aria-label={"New folder"}
         >
           <FolderSVG
-            className={`h-7 w-7 cursor-pointer transition-colors duration-75 hover:text-${uiColor} mr-1`}
+            className={`h-7 w-7 cursor-pointer transition-colors duration-75 hover:text-${uiColor} -ml-px`}
           />
         </button>
         <button
@@ -287,7 +287,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
             >
               <UserSVG
                 className={`h-6 w-6 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
-                style={{ marginLeft: "0px" }}
+                style={{ marginLeft: "-2px" }}
               />
             </button>
           ) : (
@@ -303,7 +303,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
             >
               <LoginSVG
                 className={`h-6 w-6 cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
-                style={{ marginLeft: "-2px", marginBottom: "0px" }}
+                style={{ marginLeft: "0px", marginBottom: "0px" }}
               />
             </button>
           )}

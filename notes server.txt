@@ -145,11 +145,13 @@ DONE 123. custom background img -> should work if there is no file in the beginn
 ? done 125. should refreshToken() return null in case of failure in App.ts?? (returning null now)done ?
 DONE 127. implement token revoking !!!! DONE
 DONE 132. implement Registration !!! DONE
+DONE 135. LoginSVG -> move to the left? (to the right actually, other svgs also moved) DONE
 DONE 136. change name to username everywhere?  (name on the backend, username frontend - changed UserProfile for consistency)DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
 DONE 140. x hide/unhide password x password input type instead DONE
 DONE 141. deleteUserMutation -> keep it! proper way to delete user by admin (deketeUsersByAdmin now)DONE
+xxx 144. clientSide -> change some rendering function to be anonymous inline funcions?? IIFS! (checked - no need)xxxx
 DONE 147. darker default background img? (change to darker - slight blueGray) DONE
 DONE 148. after registering -> automatically fill up username field in Login? DONE
 DONE 150. change naming to ByUser & ByAdmin DONE
@@ -212,9 +214,6 @@ BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutatio
   (BackgroundImgSchema in server.ts does work -should it be deleted?, because querying is done from server only )   ?
 68. list all links to free svgs in notes [one more svg may be implemented still]
 
-
-
-
 126. didAuthError not needed? since there will be (!isAuth) logic in qraphql mutation/queries.
 instead, willAuthError is needed? even if it does not trigger error (logic for refreshing is not needed in getAuth?), 
 it will trigger refresh in getAuth
@@ -223,14 +222,13 @@ it will trigger refresh in getAuth
 130. improve getAuth -> it should not include refresh token logic in the first run?
 131. revokingToken -> anybody can do it?? how to secure this?
 133. revokingToken -> "query was already executed:" mixing promises with callback??
-135. LoginSVG -> move to the left?
+
+
+
 139. wiki-speed-typing, take care of 138 issue!
 142. mutation.ts -> naming: some with Mutation at the end some not - unify!
 143. upperUiContext -> logic for demo/unlogged version mixed with ui focus logic (does it work?)
 UserProfile/LoginRegister -> check upperUiContext dispatches
-144. clientSide -> change some rendering function to be anonymous inline funcions?? IIFS!
-
-
 149. more rigid password checking?
 152. mutations-> change args from manual to Fields
 153. serverside interfaces are in types files, better interfaces sharing between client and server?
