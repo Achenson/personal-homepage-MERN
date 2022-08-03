@@ -43,14 +43,6 @@ const port = 4000;
 import { NextFunction, Response } from "express";
 import { RequestWithAuth } from "./schema/middleware/isAuth";
 
-// favicon test
-/* let fetchTest1 = faviconFetch({ hostname: "wikipedia.org" });
-console.log(fetchTest1);
-let fetchTest2 = faviconFetch({ uri: "https://en.wikipedia.org/wiki/1986" });
-console.log(fetchTest2); */
-
-// let fetchTest2 = faviconFetch({ uri: "https://www.facebook.com/" });
-// console.log(fetchTest2);
 
 // ============
 // app.use(helmet());
