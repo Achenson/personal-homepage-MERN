@@ -151,7 +151,7 @@ DONE 137. changing between 2 differen users, check user queries DONE !!! User.fi
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
 DONE 140. x hide/unhide password x password input type instead DONE
 DONE 141. deleteUserMutation -> keep it! proper way to delete user by admin (deketeUsersByAdmin now)DONE
-xxx 144. clientSide -> change some rendering function to be anonymous inline funcions?? IIFS! (checked - no need)xxxx
+DONE 144. clientSide -> change some rendering function to be anonymous inline funcions?? IIFS! (done in LogRegProfile_input) DONE
 DONE 147. darker default background img? (change to darker - slight blueGray) DONE
 DONE 148. after registering -> automatically fill up username field in Login? DONE
 DONE 150. change naming to ByUser & ByAdmin DONE
@@ -164,6 +164,7 @@ DONE 171. deleteUserByAdminMutation -> change so it is possible to delete many u
 DONE 175. delete AppWrapper DONE
 DONE 178. after registering & redirecting to login -> focus should be set on password DONE
 DONE 179. after registering -> register fields should be emptied DONE
+DONE 187. option to make passwords visible! DONE
 DONE !!! 192. email with all .env codes !!! uj DONE
 DONE 204. all userIdOrNoId logic -> convert to ? : DONE
 DONE 208. BackgroundSettings-> if no userId -> implement logic to suggest creating an account
@@ -255,7 +256,6 @@ UserProfile/LoginRegister -> check upperUiContext dispatches
 184. Profile_Input passedRef -> check agains BackgroudnSettings_Upload
 185. common upper component for login-register, passwordforgotten & passwordChange
 186. forgotPasswordMutation -> returning true when no user. ??
-187. option to make passwords visible!
 188. wiki-speed-typing -> check if password retrival is available still
 189. email with pass change ends in span -> put warning to check spam??
 190. PasswordForgotten  / forgotPasswordMutation -> more consistent naming?
@@ -346,7 +346,7 @@ If that's not what you want, please create a client and add a Provider.
 124 (pushed after taking care of context). zustand hooks -> delete or implent when logged out?
 259. !!! UserProfile does not show on smaller browser window!!!
 152 (pushed, solve mutation type prolbem first). mutations-> change args from manual to Fields 
-
+260. Upper_UI comp to delete?
 
 
 

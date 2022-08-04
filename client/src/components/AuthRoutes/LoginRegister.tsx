@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "urql";
 
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
+import { ReactComponent as EyeSVG } from "../../svgs/eye.svg";
+import { ReactComponent as EyeOffSVG } from "../../svgs/eye-off.svg";
 
 import LogRegProfile_input from "./LogRegProfile_input";
 
@@ -65,6 +67,8 @@ Props): JSX.Element {
   const [passwordForRegister, setPasswordForRegister] = useState("");
   const [passwordForRegisterConfirm, setPasswordForRegisterConfirm] =
     useState("");
+
+  const [passVisible, setPassVisible] = useState(false);
 
   const [loginErrorMessage, setLoginErrorMessage] = useState<null | string>(
     null
@@ -387,6 +391,7 @@ Props): JSX.Element {
                       setInputValue={setEmail_or_name}
                       preventCopyPaste={false}
                       passwordInputType={false}
+                      passVisible={undefined}
                     />
                   </div>
                 ) : (
@@ -398,6 +403,7 @@ Props): JSX.Element {
                         setInputValue={setUsername}
                         preventCopyPaste={false}
                         passwordInputType={false}
+                        passVisible={undefined}
                       />
                     </div>
                     <div className="mt-1 w-48">
@@ -407,6 +413,7 @@ Props): JSX.Element {
                         setInputValue={setEmail}
                         preventCopyPaste={false}
                         passwordInputType={false}
+                        passVisible={undefined}
                       />
                     </div>
                   </>
@@ -416,7 +423,32 @@ Props): JSX.Element {
                   className={`${loginOrRegister === "register" ? "mt-3" : ""}`}
                 >
                   <div className="mt-1 w-48">
-                    <p>Password</p>
+                    <div className="flex items-center justify-between">
+                      <p>Password</p>
+
+                      {/* <span>&nbsp;</span> */}
+
+                      <button
+                        className="focus-1-offset"
+                        onClick={() => {
+                          setPassVisible(!passVisible);
+                        }}
+                      >
+                        <span className={`text-sm text-${uiColor}`}>
+                          {passVisible ? "hide" : "show"}
+                        </span>
+                      </button>
+                      {/* <button
+                        className="h-5 w-5 focus-2-offset-dark"
+                        onClick={() => {
+                          console.log("eye clicked");
+                        }}
+                        aria-label={"Show Password"}
+                      >
+                        <EyeSVG className="h-4 w-4 cursor-pointer hover:text-blue-900" />
+                      </button> */}
+                    </div>
+
                     <LogRegProfile_input
                       ref={secondFieldRef}
                       inputValue={
@@ -431,6 +463,7 @@ Props): JSX.Element {
                       }
                       preventCopyPaste={true}
                       passwordInputType={true}
+                      passVisible={passVisible}
                     />
                   </div>
 
@@ -442,6 +475,7 @@ Props): JSX.Element {
                         setInputValue={setPasswordForRegisterConfirm}
                         preventCopyPaste={true}
                         passwordInputType={true}
+                        passVisible={passVisible}
                       />
                     </div>
                   )}

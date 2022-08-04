@@ -43,9 +43,9 @@ function UserProfile({
   mainPaddingRight,
   scrollbarWidth,
   globalSettings,
-  // loginNotification,
-  // setLoginNotification,
-}: Props): JSX.Element {
+}: // loginNotification,
+// setLoginNotification,
+Props): JSX.Element {
   let navigate = useNavigate();
   const loginAttempt = useAuth((store) => store.loginAttempt);
   const logout = useAuth((store) => store.logout);
@@ -71,6 +71,8 @@ function UserProfile({
 
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
   const [notification, setNotification] = useState<null | string>(null);
+
+  const [passVisible, setPassVisible] = useState(false);
 
   // const [changePasswordErrorMessage, setChangePasswordErrorMessage] = useState<
   //   null | string
@@ -268,12 +270,27 @@ function UserProfile({
     inputModeOn: "editProfile" | "changePassword" | "deleteAccount"
   ) => (
     <div>
-      <p>{inputModeOn === "changePassword" ? "Current " : "Enter "}password</p>
+      <div className="flex items-center justify-between">
+        <p>
+          {inputModeOn === "changePassword" ? "Current " : "Enter "}password
+        </p>
+        <button
+          className="focus-1-offset"
+          onClick={() => {
+            setPassVisible(!passVisible);
+          }}
+        >
+          <span className={`text-sm text-${uiColor}`}>
+            {passVisible ? "hide" : "show"}
+          </span>
+        </button>
+      </div>
       <LogRegProfile_input
         inputValue={passwordCurrent}
         setInputValue={setPasswordCurrent}
         preventCopyPaste={true}
         passwordInputType={true}
+        passVisible={passVisible}
       />
     </div>
   );
@@ -295,6 +312,7 @@ function UserProfile({
                 setInputValue={setUsername}
                 preventCopyPaste={false}
                 passwordInputType={false}
+                passVisible={undefined}
               />
             </div>
             <div className="mt-1">
@@ -304,6 +322,7 @@ function UserProfile({
                 setInputValue={setEmail}
                 preventCopyPaste={false}
                 passwordInputType={false}
+                passVisible={undefined}
               />
             </div>
           </div>
@@ -320,6 +339,7 @@ function UserProfile({
                 setInputValue={setPasswordNew}
                 preventCopyPaste={true}
                 passwordInputType={true}
+                passVisible={passVisible}
               />
             </div>
             <div className="mt-1">
@@ -329,6 +349,7 @@ function UserProfile({
                 setInputValue={setPasswordNewConfirm}
                 preventCopyPaste={true}
                 passwordInputType={true}
+                passVisible={passVisible}
               />
             </div>
           </div>
@@ -478,7 +499,8 @@ function UserProfile({
                           changeUserByUser({
                             id: userId as string,
                             // preventing from trying to update fields without changes
-                            name: username === usernameInitial ? null : username,
+                            name:
+                              username === usernameInitial ? null : username,
                             email: email === emailInitial ? null : email,
                             passwordCurrent: passwordCurrent,
                           }).then(
