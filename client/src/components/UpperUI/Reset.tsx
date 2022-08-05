@@ -40,28 +40,6 @@ function Reset({
 
   const upperUiContext = useUpperUiContext();
 
-  function calcIconBackground(pageBackgroundColor: string) {
-    if (pageBackgroundColor === "white") {
-      return `$bg-${pageBackgroundColor}`;
-    }
-
-    if (pageBackgroundColor === "black") {
-      return `bg-white text-${backgroundColor}`;
-    }
-
-    let whiteRegex = /[3456789]00$/;
-
-    if (globalSettings.picBackground) {
-      return "bg-white text-black";
-    }
-
-    if (whiteRegex.test(pageBackgroundColor)) {
-      return `bg-white text-${backgroundColor}`;
-    } else {
-      return `$bg-${pageBackgroundColor}`;
-    }
-  }
-
   function focusColor(): string {
     if (globalSettings.picBackground) {
       return "blueGray-400";
@@ -91,9 +69,9 @@ function Reset({
           setFocusOnColumnColor(globalSettings.numberOfCols);
         }
       }}
-      className={`h-7 w-7 flex justify-center items-center transition-colors duration-75 ${calcIconBackground(
-        backgroundColor
-      )} opacity-80 border border-black rounded-lg ${
+      className={`h-7 w-7 flex justify-center items-center transition-colors duration-75
+      bg-white
+      opacity-80 border border-black rounded-lg ${
         resetEnabled
           ? " hover:border-gray-500 cursor-pointer"
           : " border-gray-500 cursor-default"

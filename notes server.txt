@@ -172,6 +172,7 @@ BackgroundSettings_Upload doesn't have to be touched though? code won't be execu
 DONE 211. make non-auth data persist in local storage DONE
 DONE 215. (first bug fixes for nonAuth version)  DONE new bookmark DONE, DONE resetToDefaul DONE , allTags when hidden problem, DONE cannot edit tab DONE, DONE cannot delete bookmars DONE 
 DONE 220. auth version problems after implementing, non auth version: DONE
+DONE 243. background color no pic -> rectangle instead of doc svgs, should be filled with color? DONE
 DONE -not poss to change col colors
 DONe
 -n p to change to normal background
@@ -326,7 +327,6 @@ If that's not what you want, please create a client and add a Provider.
 241. browser warning: Default Client: No client has been specified using urql's Provider.This means that urql will be falling back to defaults including making requests to `/graphql`.
 If that's not what you want, please create a client and add a Provider.
 242. utils folder server code -> move up?
-243. background color no pic -> rectangle instead of doc svgs, should be filled with color?
 244. ts generated file -> get rid of it?
 245. fetch RSS query file & graphql -> to delete
 246. root mutation & query files -> fix types (after changin const to import) one of the mutation is done right - compare!

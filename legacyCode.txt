@@ -786,3 +786,23 @@ console.log(fetchTest2); */
 
 // let fetchTest2 = faviconFetch({ uri: "https://www.facebook.com/" });
 // console.log(fetchTest2);
+
+===== backgroundColor
+
+  function calcIconBackground(pageBackgroundColor: string) {
+    if (pageBackgroundColor === "white") {
+      return `$bg-${pageBackgroundColor}`;
+    }
+
+    if (pageBackgroundColor === "black") {
+      return `bg-white fill-current text-${backgroundColor}`;
+    }
+
+    let whiteRegex = /[3456789]00$/;
+
+    if (whiteRegex.test(pageBackgroundColor)) {
+      return `bg-white fill-current text-${backgroundColor}`;
+    } else {
+      return `$bg-${pageBackgroundColor}`;
+    }
+  }

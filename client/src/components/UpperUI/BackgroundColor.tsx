@@ -26,7 +26,7 @@ function BackgroundColor({
   focusOnBackgroundColor,
   setFocusOnBackgroundColor,
   globalSettings,
-  userIdOrNoId
+  userIdOrNoId,
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
@@ -45,23 +45,6 @@ function BackgroundColor({
     }
   }, [focusOnBackgroundColor, setFocusOnBackgroundColor]);
 
-  function calcIconBackground(pageBackgroundColor: string) {
-    if (pageBackgroundColor === "white") {
-      return `$bg-${pageBackgroundColor}`;
-    }
-
-    if (pageBackgroundColor === "black") {
-      return `bg-white fill-current text-${backgroundColor}`;
-    }
-
-    let whiteRegex = /[3456789]00$/;
-
-    if (whiteRegex.test(pageBackgroundColor)) {
-      return `bg-white fill-current text-${backgroundColor}`;
-    } else {
-      return `$bg-${pageBackgroundColor}`;
-    }
-  }
 
   function focusColor(): string {
     if (globalSettings.picBackground) {
@@ -79,9 +62,10 @@ function BackgroundColor({
     <>
       <button
         ref={focusOnBackgroundColor_ref}
-        className={`h-7 w-7 flex items-center relative transition-colors duration-75 ${calcIconBackground(
-          backgroundColor
-        )} opacity-80 border border-black rounded-lg cursor-pointer hover:border-gray-500 focus:outline-none focus-visible:ring-2 ring-${focusColor()}`}
+        className={`h-7 w-7 flex justify-center items-center relative
+        transition-colors duration-75 opacity-80 bg-white border
+        border-black rounded-lg cursor-pointer hover:border-gray-500
+        focus:outline-none focus-visible:ring-2 ring-${focusColor()}`}
         onClick={() => {
           setSelected((b) => !b);
           upperUiContext.upperVisDispatch({ type: "COLORS_BACKGROUND_TOGGLE" });
@@ -89,7 +73,8 @@ function BackgroundColor({
         tabIndex={5}
         aria-label={"Background color menu"}
       >
-        <DocumentSVG className={`h-7`} />
+        {/* <DocumentSVG className={`h-7`} /> */}
+        <div className={`h-5 w-4 border border-black rounded-sm bg-${backgroundColor}`}></div>
       </button>
       {upperUiContext.upperVisState.colorsBackgroundVis && (
         <div className="absolute">
