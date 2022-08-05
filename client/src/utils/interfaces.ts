@@ -207,7 +207,8 @@ interface TabVisAction_noPayload {
     | "TAB_EDITABLES_CLOSE"
     | "NEW_BOOKMARK_TOOGLE"
     | "EDIT_BOOKMARK_CLOSE"
-    | "TOUCH_SCREEN_MODE_ON";
+    | "TOUCH_SCREEN_MODE_ON"
+    | "EDIT_TOGGLE_NOTE_OPEN";
 }
 
 interface TabVisAction_EDIT_BOOKMARK_OPEN {
@@ -225,7 +226,14 @@ interface TabVisAction_TAB_CONTENT_TOGGLE_DB {
   payload: TabContentToggle_payload;
 }
 
+
+interface TabVisAction_EDIT_TOGGLE_NOTE_OPEN_DB {
+  type: "EDIT_TOGGLE_NOTE_OPEN_DB";
+  payload: TabContentToggle_payload;
+}
+
 export type TabVisAction =
   | TabVisAction_noPayload
   | TabVisAction_EDIT_BOOKMARK_OPEN
-  | TabVisAction_TAB_CONTENT_TOGGLE_DB;
+  | TabVisAction_TAB_CONTENT_TOGGLE_DB
+  | TabVisAction_EDIT_TOGGLE_NOTE_OPEN_DB

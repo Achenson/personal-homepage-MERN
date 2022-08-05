@@ -63,6 +63,43 @@ export function useTabReducer(
           editTabVis: !state.editTabVis,
         };
 
+      // for opening note tab along with edit window
+      case "EDIT_TOGGLE_NOTE_OPEN":
+        if (!state.editTabVis) {
+          setTimeout(() => {
+            setReset(true);
+            setTabOpenedState(tabID);
+          });
+          setTimeout(() => {
+            toggleTab(tabID, tabOpened);
+          });
+        }
+        return {
+          ...state,
+          colorsVis: false,
+          newBookmarkVis: false,
+          editBookmarkVis: null,
+          editTabVis: !state.editTabVis,
+        };
+
+      case "EDIT_TOGGLE_NOTE_OPEN_DB":
+        if (!state.editTabVis) {
+          setTimeout(() => {
+            setReset(true);
+            setTabOpenedState(tabID);
+          });
+          setTimeout(() => {
+            action.payload.editTab(action.payload.changedTab);
+          });
+        }
+        return {
+          ...state,
+          colorsVis: false,
+          newBookmarkVis: false,
+          editBookmarkVis: null,
+          editTabVis: !state.editTabVis,
+        };
+
       case "EDIT_CLOSE":
         return {
           ...state,
@@ -86,21 +123,21 @@ export function useTabReducer(
           newBookmarkVis: false,
           editBookmarkVis: null,
         };
-        case "TAB_CONTENT_TOGGLE_DB":
-          setTimeout(() => {
-            setTabOpenedState(tabID);
-          });
-          setTimeout(() => {
-            action.payload.editTab(action.payload.changedTab);
-          });
-  
-          return {
-            ...state,
-            colorsVis: false,
-            editTabVis: false,
-            newBookmarkVis: false,
-            editBookmarkVis: null,
-          };
+      case "TAB_CONTENT_TOGGLE_DB":
+        setTimeout(() => {
+          setTabOpenedState(tabID);
+        });
+        setTimeout(() => {
+          action.payload.editTab(action.payload.changedTab);
+        });
+
+        return {
+          ...state,
+          colorsVis: false,
+          editTabVis: false,
+          newBookmarkVis: false,
+          editBookmarkVis: null,
+        };
 
       case "TAB_CONTENT_DEFAULT":
         setTimeout(() => {
