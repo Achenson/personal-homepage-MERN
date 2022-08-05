@@ -349,6 +349,31 @@ If that's not what you want, please create a client and add a Provider.
 264. refreshToken bad request when not logged in -> works, but it should be without error
 265. note cannot be empty -> works only in auth version for now
 
+
+tabIdsToDel how to get rid off:
+   /* 
+        
+        In SingleBookmarks:
+        1. call useBookmark method, only used to return the array of tabs to be deleted:
+        loop across all single bookmark tags ->
+        identify the one that will no longer be present after bookmark deletion
+        -> return this tab's id
+        -> in SingleBookmark
+
+       2. wait/await 1.)
+
+        3. call deleteTab function from useTabs
+
+        4. await 3
+
+        5. deleteBoomkmark
+        
+        */
+        
+
+
+
+
 {
   filename: 'nature-3082832_1920.jpg',
   mimetype: 'image/jpeg',
