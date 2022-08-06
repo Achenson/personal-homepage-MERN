@@ -119,6 +119,8 @@ Props): JSX.Element {
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   // const tabs = useTabs((state) => state.tabs);
   const deleteBookmarkNonAuth = useBookmarks((store) => store.deleteBookmark);
+  const deleteTabNonAuth = useTabs((store) => store.deleteTab);
+  const getTabsToDelete = useBookmarks((store) => store.getTabsToDelete);
 
   const [deleteBookmarkResult, deleteBookmark] = useMutation<any, BookmarkId>(
     DeleteBookmarkMutation
@@ -130,7 +132,6 @@ Props): JSX.Element {
   >(ChangeBookmarkMutation);
 
   // const [favicon, setFavicon] = useState<string | null>(null);
-
 
   // let userIdOrDemoId: string;
   // userIdOrDemoId =
@@ -172,6 +173,43 @@ Props): JSX.Element {
 
     let faviconUrlApi = "https://icon.horse/icon?uri=" + singleBookmarkData.URL; */
 
+  function deleteTabsLogic(tabIDsToDelete: string[]) {
+    for (let tabID of tabIDsToDelete) {
+      if (tabID === "ALL_TAGS") {
+        continue;
+      }
+
+      deleteTabNonAuth(tabID);
+    }
+
+    // if (userIdOrNoId) {
+    //   deleteTab({ id: tabID }).then((result) => {
+    //     if (tabType === "note" || tabType === "rss") {
+    //       return;
+    //     }
+
+    //     let filteredBookmarks = (bookmarks as BookmarkDatabase_i[]).filter(
+    //       (obj) => obj.tags.indexOf(result.data.deleteTab.id) > -1
+    //     );
+
+    //     filteredBookmarks.forEach((obj) => {
+    //       let changedBookmark = { ...obj };
+    //       // console.log(JSON.stringify(changedBookmark, null, 2));
+    //       let indexOfDeletedTab = changedBookmark.tags.indexOf(
+    //         result.data.deleteTab.id
+    //       );
+    //       changedBookmark.tags.splice(indexOfDeletedTab, 1);
+    //       // console.log(JSON.stringify(changedBookmark, null, 2));
+    //       changeBookmark(changedBookmark);
+    //     });
+    //   });
+    // } else {
+    //   deleteTabNonAuth(tabID);
+    // }
+
+    // tabContext.tabVisDispatch({ type: "EDIT_TOGGLE" });
+  }
+
   return (
     <div
       onFocus={() => {
@@ -197,8 +235,6 @@ Props): JSX.Element {
                   className="fill-current text-blue-800 cursor-pointer"
                   // className="fill-current text-blueGray-500"
                   onClick={() => {
-                   
-
                     // setIsFaviconDefault(b=>!b)
                     console.log("clicked");
                     console.log(singleBookmarkData.defaultFaviconFallback);
@@ -265,7 +301,6 @@ Props): JSX.Element {
                   }}
                 />
               )}
-            
 
               {/*  <div style={{
                 backgroundImage: faviconUrlApi,
@@ -325,6 +360,11 @@ Props): JSX.Element {
                   );
 
                   if (bookmarkToDelete) {
+                    let tabIdsToDelete = getTabsToDelete(bookmarkToDelete.id);
+
+                    if (tabIdsToDelete.length === 0) return;
+
+                    deleteTabsLogic(tabIdsToDelete)
                     deleteBookmarkNonAuth(bookmarkId, singleBookmarkData);
                   }
 
