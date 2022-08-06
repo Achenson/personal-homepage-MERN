@@ -54,8 +54,8 @@ Props): JSX.Element {
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
-  const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
-  const tabDeletingPause = useTabs((store) => store.tabDeletingPause);
+  // const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
+  // const tabDeletingPause = useTabs((store) => store.tabDeletingPause);
 
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];

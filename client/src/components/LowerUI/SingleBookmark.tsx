@@ -51,6 +51,7 @@ import { useBookmarks } from "../../state/hooks/useBookmarks";
 import {
   ChangeBookmarkMutation,
   DeleteBookmarkMutation,
+  DeleteTabMutation,
 } from "../../graphql/graphqlMutations";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
@@ -74,6 +75,10 @@ interface Props {
 }
 
 interface BookmarkId {
+  id: string;
+}
+
+interface TabId {
   id: string;
 }
 
@@ -114,7 +119,7 @@ Props): JSX.Element {
 
   const upperUiContext = useUpperUiContext();
 
-  const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
+  // const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
 
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   // const tabs = useTabs((state) => state.tabs);
@@ -130,6 +135,10 @@ Props): JSX.Element {
     any,
     BookmarkDatabase_i
   >(ChangeBookmarkMutation);
+
+  const [deleteTabResult, deleteTab] = useMutation<any, TabId>(
+    DeleteTabMutation
+  );
 
   // const [favicon, setFavicon] = useState<string | null>(null);
 
@@ -173,13 +182,21 @@ Props): JSX.Element {
 
     let faviconUrlApi = "https://icon.horse/icon?uri=" + singleBookmarkData.URL; */
 
-  function deleteTabsLogic(tabIDsToDelete: string[]) {
+  async function deleteTabsLogic(tabIDsToDelete: string[]) {
     for (let tabID of tabIDsToDelete) {
       if (tabID === "ALL_TAGS") {
         continue;
       }
 
-      deleteTabNonAuth(tabID);
+      if (userIdOrNoId) {
+        await deleteTab({ id: tabID }).then((result) => {
+          console.log(result);
+        });
+        // no logic for deletings tags in other bookmarks this time,
+        // because other bookmars should not contain this tag anymore
+      } else {
+        deleteTabNonAuth(tabID);
+      }
     }
 
     // if (userIdOrNoId) {
@@ -365,17 +382,58 @@ Props): JSX.Element {
                     if (tabIdsToDelete.length === 0) {
                       deleteBookmarkNonAuth(bookmarkId, singleBookmarkData);
                       return;
-                    } 
+                    }
 
-                    deleteTabsLogic(tabIdsToDelete)
+                    deleteTabsLogic(tabIdsToDelete);
                     deleteBookmarkNonAuth(bookmarkId, singleBookmarkData);
                   }
 
                   return;
                 }
 
-                console.log(singleBookmarkData.title);
-                console.log(bookmarkId);
+                function getTabsToDeleteDb(bookmarkIdToDelete: string) {
+                  // should contain all tags, but without the tags present in bookmark to del
+                  let arrOfTags: string[] = [];
+
+                  let bmarksWithoutBkmarkToDel: BookmarkDatabase_i[] = (
+                    bookmarks as BookmarkDatabase_i[]
+                  ).filter((el) => el.id !== bookmarkIdToDelete);
+
+                  // pushing unique tags to arrOfAllTags
+                  for (let bmark of bmarksWithoutBkmarkToDel) {
+                    for (let tag of bmark.tags) {
+                      if (arrOfTags.indexOf(tag) === -1) {
+                        arrOfTags.push(tag);
+                      }
+                    }
+                  }
+                  // first item in the arr is bookmark to delete
+                  let bookmarkToDeleteArr: BookmarkDatabase_i[] = (
+                    bookmarks as BookmarkDatabase_i[]
+                  ).filter((el) => el.id === bookmarkIdToDelete);
+
+                  let tagsToDelete: string[] = [];
+
+                  // if one of the tag(tab) of bookmark to del is not present is all tags -> this tags (tabs) to delete
+                  for (let tag of bookmarkToDeleteArr[0].tags) {
+                    if (arrOfTags.indexOf(tag) === -1) {
+                      tagsToDelete.push(tag);
+                    }
+                  }
+
+                  return tagsToDelete;
+                }
+
+                let tabIdsToDelete = getTabsToDeleteDb(bookmarkId);
+
+                if (tabIdsToDelete.length === 0) {
+                  await deleteBookmark({ id: bookmarkId }).then((result) =>
+                    console.log(result)
+                  );
+                  return;
+                }
+
+                await deleteTabsLogic(tabIdsToDelete);
 
                 await deleteBookmark({ id: bookmarkId }).then((result) =>
                   console.log(result)
@@ -386,7 +444,7 @@ Props): JSX.Element {
                   setTabDeletingPause(false);
                 }, 500); */
 
-                setTabDeletingPause(false);
+                // setTabDeletingPause(false);
               }}
               aria-label={"Delete bookmark"}
             >

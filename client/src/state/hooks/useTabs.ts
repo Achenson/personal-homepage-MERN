@@ -52,8 +52,8 @@ interface UseTabs {
   tabOpenedState: null | string;
   setTabOpenedState: (nullOrID: null | string) => void;
   // deletion of empty tabs in Grid will be paused during editing/adding of bookmarks
-  tabDeletingPause: boolean;
-  setTabDeletingPause: (trueOrFalse: boolean) => void;
+  // tabDeletingPause: boolean;
+  // setTabDeletingPause: (trueOrFalse: boolean) => void;
 }
 
 // this can be used everywhere in your application
@@ -372,13 +372,13 @@ export const useTabs = create<UseTabs>(
         }));
       },
       // auth version only
-      tabDeletingPause: true,
-      setTabDeletingPause: (trueOrFalse) => {
-        set((state: UseTabs) => ({
-          ...state,
-          tabDeletingPause: trueOrFalse,
-        }));
-      },
+      // tabDeletingPause: true,
+      // setTabDeletingPause: (trueOrFalse) => {
+      //   set((state: UseTabs) => ({
+      //     ...state,
+      //     tabDeletingPause: trueOrFalse,
+      //   }));
+      // },
     }),
 
     {
