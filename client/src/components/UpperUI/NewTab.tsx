@@ -91,11 +91,11 @@ function NewTab({
 
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   const addTag = useBookmarks((store) => store.addTag);
-  const tabIdsUsedByBookmarks = useBookmarks((store) => store.tabIdsUsedByBookmarks);
+
   // const tabIdsUsedByBookmarks: string[] = bookmarks.map((obj) => obj.id);
-  const setTabIdsUsedByBookmarks = useBookmarks(
-    (store) => store.setTabIdsUsedByBookmarks
-  );
+  // const setTabIdsUsedByBookmarks = useBookmarks(
+  //   (store) => store.setTabIdsUsedByBookmarks
+  // );
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
 
@@ -316,9 +316,9 @@ function NewTab({
           newTabPriority
         );
 
-        let newTabIdsUsedByBookmarksData = [...tabIdsUsedByBookmarks];
-        newTabIdsUsedByBookmarksData.push(newFolderTab.id);
-        setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
+        // let newTabIdsUsedByBookmarksData = [...tabIdsUsedByBookmarks];
+        // newTabIdsUsedByBookmarksData.push(newFolderTab.id);
+        // setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
 
         addTabsNonAuth([newFolderTab]);
         // updating links data (tags array)

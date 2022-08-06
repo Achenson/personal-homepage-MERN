@@ -48,7 +48,7 @@ function Grid({
 // staleBookmarks,
 Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
-  const tabIdsUsedByBookmarks = useBookmarks((store) => store.tabIdsUsedByBookmarks);
+
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
 
   const tabsNotAuth = useTabs((store) => store.tabs);
@@ -86,7 +86,7 @@ Props): JSX.Element {
   const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
   const setCloseAllTabsState = useTabs((store) => store.setCloseAllTabsState);
   const resetAllTabColors = useTabs((store) => store.resetAllTabColors);
-  const deleteEmptyTabsNotAuth = useTabs((store) => store.deleteEmptyTab);
+  // const deleteEmptyTabsNotAuth = useTabs((store) => store.deleteEmptyTab);
 
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -206,102 +206,102 @@ Props): JSX.Element {
       });
   }, [tabs, tabIdsUsedByBookmarks]); */
 
-  useEffect(() => {
-    if (!userIdOrNoId) {
-      deleteEmptyTabsNotAuth(tabIdsUsedByBookmarks);
-      return;
-    }
+  // useEffect(() => {
+  //   if (!userIdOrNoId) {
+  //     deleteEmptyTabsNotAuth(tabIdsUsedByBookmarks);
+  //     return;
+  //   }
 
-    deleteEmptyTabs();
-    async function deleteEmptyTabs() {
-      // console.log(tabDeletingPause);
+  //   deleteEmptyTabs();
+  //   async function deleteEmptyTabs() {
+  //     // console.log(tabDeletingPause);
 
-      if (tabDeletingPause) {
-        return;
-      }
+  //     if (tabDeletingPause) {
+  //       return;
+  //     }
 
-      if (staleBookmarks) {
-        return;
-      }
+  //     if (staleBookmarks) {
+  //       return;
+  //     }
 
-      let tabIdsUsedByBookmarks: string[] = [];
+  //     let tabIdsUsedByBookmarks: string[] = [];
 
-      bookmarks.forEach((obj) => {
-        obj.tags.forEach((el) => {
-          if (!tabIdsUsedByBookmarks.includes(el)) {
-            tabIdsUsedByBookmarks.push(el);
-          }
-        });
-      });
+  //     bookmarks.forEach((obj) => {
+  //       obj.tags.forEach((el) => {
+  //         if (!tabIdsUsedByBookmarks.includes(el)) {
+  //           tabIdsUsedByBookmarks.push(el);
+  //         }
+  //       });
+  //     });
 
-      // console.log(tabIdsUsedByBookmarks);
+  //     // console.log(tabIdsUsedByBookmarks);
 
-      if (userIdOrNoId) {
-        tabs
-          .filter((obj) => obj.type === "folder" && obj.deletable)
-          .forEach((obj) => {
-            if (!tabIdsUsedByBookmarks.includes(obj.id) && !tabDeletingPause) {
-              deleteTab({ id: obj.id }).then((result) => {
-                if (result.error) {
-                  console.log(result.error);
-                  return;
-                }
-              });
-            }
-          });
-      } else {
-        deleteEmptyTabsNotAuth(tabIdsUsedByBookmarks);
-      }
+  //     if (userIdOrNoId) {
+  //       tabs
+  //         .filter((obj) => obj.type === "folder" && obj.deletable)
+  //         .forEach((obj) => {
+  //           if (!tabIdsUsedByBookmarks.includes(obj.id) && !tabDeletingPause) {
+  //             deleteTab({ id: obj.id }).then((result) => {
+  //               if (result.error) {
+  //                 console.log(result.error);
+  //                 return;
+  //               }
+  //             });
+  //           }
+  //         });
+  //     } else {
+  //       deleteEmptyTabsNotAuth(tabIdsUsedByBookmarks);
+  //     }
 
-      // let arrOfPromises: Promise<string>[] = [];
+  //     // let arrOfPromises: Promise<string>[] = [];
 
-      /*     tabs
-        .filter((obj) => obj.type === "folder")
-        .forEach((obj) => {
-          let newPromise = new Promise<string>((resolve, reject) => {
-            if (!tabIdsUsedByBookmarks.includes(obj.id) && !tabDeletingPause) {
-              deleteTab({ id: obj.id }).then((result) => {
-                if (result.error) {
-                  reject(result.error);
-                  return;
-                }
-                resolve(result.data.deleteTab.id);
-              });
-              // console.log(obj.id);
-            } else {
-              resolve("no ID");
-            }
-          });
+  //     /*     tabs
+  //       .filter((obj) => obj.type === "folder")
+  //       .forEach((obj) => {
+  //         let newPromise = new Promise<string>((resolve, reject) => {
+  //           if (!tabIdsUsedByBookmarks.includes(obj.id) && !tabDeletingPause) {
+  //             deleteTab({ id: obj.id }).then((result) => {
+  //               if (result.error) {
+  //                 reject(result.error);
+  //                 return;
+  //               }
+  //               resolve(result.data.deleteTab.id);
+  //             });
+  //             // console.log(obj.id);
+  //           } else {
+  //             resolve("no ID");
+  //           }
+  //         });
 
-          arrOfPromises.push(newPromise);
-        }); */
+  //         arrOfPromises.push(newPromise);
+  //       }); */
 
-      // let allPromises = "test"
+  //     // let allPromises = "test"
 
-      // await Promise.all(arrOfPromises);
+  //     // await Promise.all(arrOfPromises);
 
-      // console.log("sth");
+  //     // console.log("sth");
 
-      setTabDeletingPause(true);
+  //     setTabDeletingPause(true);
 
-      /*  tabs
-        .filter((obj) => obj.type === "folder")
-        .forEach((obj) => {
-          if (!tabIdsUsedByBookmarks.includes(obj.id) && !tabDeletingPause) {
-            deleteTab({ id: obj.id });
-            // console.log(obj.id);
-          }
-        }); */
-    }
-    // }, [bookmarks, tabs, tabDeletingPause, userIdOrNoId]);
-  }, [
-    bookmarks,
-    tabs,
-    tabDeletingPause,
-    userIdOrNoId,
-    tabIdsUsedByBookmarks,
-    deleteEmptyTabsNotAuth,
-  ]);
+  //     /*  tabs
+  //       .filter((obj) => obj.type === "folder")
+  //       .forEach((obj) => {
+  //         if (!tabIdsUsedByBookmarks.includes(obj.id) && !tabDeletingPause) {
+  //           deleteTab({ id: obj.id });
+  //           // console.log(obj.id);
+  //         }
+  //       }); */
+  //   }
+  //   // }, [bookmarks, tabs, tabDeletingPause, userIdOrNoId]);
+  // }, [
+  //   bookmarks,
+  //   tabs,
+  //   tabDeletingPause,
+  //   userIdOrNoId,
+  //   tabIdsUsedByBookmarks,
+  //   deleteEmptyTabsNotAuth,
+  // ]);
 
   // client-side legacy code, now handled by GlobalSettings
   /*   useEffect(() => {

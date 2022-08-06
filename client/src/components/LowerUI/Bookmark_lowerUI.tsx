@@ -127,11 +127,11 @@ function Bookmark_lowerUI({
   const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
 
   // const bookmarks = useBookmarks((store) => store.bookmarks);
-  const tabIdsUsedByBookmarks = useBookmarks((store) => store.tabIdsUsedByBookmarks);
+  // const tabIdsUsedByBookmarks = useBookmarks((store) => store.tabIdsUsedByBookmarks);
   // DB: tabIdsUsedByBookmarks in Grid only
-  const setTabIdsUsedByBookmarks = useBookmarks(
-    (store) => store.setTabIdsUsedByBookmarks
-  );
+  // const setTabIdsUsedByBookmarks = useBookmarks(
+  //   (store) => store.setTabIdsUsedByBookmarks
+  // );
 
   const addTabsNonAuth = useTabs((store) => store.addTabs);
 
@@ -204,7 +204,7 @@ function Bookmark_lowerUI({
     // let newTabsToAdd: SingleTabData[] = [];
     let newTabsToAdd: TabDatabase_i[] = [];
 
-    let newTabIdsUsedByBookmarksData = [...tabIdsUsedByBookmarks];
+    // let newTabIdsUsedByBookmarksData = [...tabIdsUsedByBookmarks];
 
     // getting higher priority for each subsequent tab that is being added at the same time
     let counterForIndices = 0;
@@ -287,7 +287,7 @@ function Bookmark_lowerUI({
              });
            }); */
       } else {
-        setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
+        // setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
         addTabsNonAuth(newTabsToAdd);
       }
     }

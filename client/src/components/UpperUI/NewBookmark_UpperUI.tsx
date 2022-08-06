@@ -120,11 +120,11 @@ function NewBookmark_UpperUI({
   );
 
   // const bookmarks = useBookmarks((store) => store.bookmarks);
-  const tabIdsUsedByBookmarks = useBookmarks((store) => store.tabIdsUsedByBookmarks);
+
   // const tabIdsUsedByBookmarks: string[] = bookmarks.map((obj) => obj.id);
-  const setTabIdsUsedByBookmarks = useBookmarks(
-    (store) => store.setTabIdsUsedByBookmarks
-  );
+  // const setTabIdsUsedByBookmarks = useBookmarks(
+  //   (store) => store.setTabIdsUsedByBookmarks
+  // );
   const addBookmarkNonAuth = useBookmarks((store) => store.addBookmark);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
@@ -171,8 +171,8 @@ function NewBookmark_UpperUI({
     // let newTabsToAdd: SingleTabData[] = [];
     let newTabsToAdd: TabDatabase_i[] | SingleTabData[] = [];
 
-    // nonAuth
-    let newTabIdsUsedByBookmarksData = [...tabIdsUsedByBookmarks];
+    // // nonAuth
+    // let newTabIdsUsedByBookmarksData = [...tabIdsUsedByBookmarks];
 
     // getting higher priority for each subsequent tab that is being added at the same time
     let counterForIndices = 0;
@@ -207,7 +207,7 @@ function NewBookmark_UpperUI({
 
         //... and add new folder tab to the main tags list
 
-        if (!userIdOrNoId) newTabIdsUsedByBookmarksData.push(newTab.id);
+        // if (!userIdOrNoId) newTabIdsUsedByBookmarksData.push(newTab.id);
 
         // @ts-ignore
         newTabsToAdd.push(newTab);
@@ -237,7 +237,7 @@ function NewBookmark_UpperUI({
           tagsInputArr_ToIds.push(obj.data.addTab.id);
         });
       } else {
-        setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
+        // setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
         addTabsNonAuth(newTabsToAdd);
       }
     }
