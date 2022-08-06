@@ -124,7 +124,7 @@ function Bookmark_lowerUI({
     AddTabMutation
   );
 
-  const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
+  // const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
 
   // const bookmarks = useBookmarks((store) => store.bookmarks);
   // const tabIdsUsedByBookmarks = useBookmarks((store) => store.tabIdsUsedByBookmarks);
@@ -397,9 +397,9 @@ function Bookmark_lowerUI({
     }
 
     // setTimeout(() => setTabDeletingPause(false), 500);
-    if (bookmarkComponentType === "edit") {
-      setTabDeletingPause(false);
-    }
+    // if (bookmarkComponentType === "edit") {
+    //   setTabDeletingPause(false);
+    // }
   }
 
   function handleKeyDown(event: KeyboardEvent) {

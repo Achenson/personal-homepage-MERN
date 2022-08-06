@@ -166,6 +166,8 @@ DONE 178. after registering & redirecting to login -> focus should be set on pas
 DONE 179. after registering -> register fields should be emptied DONE
 DONE 187. option to make passwords visible! DONE
 DONE !!! 192. email with all .env codes !!! uj DONE
+DONE 201. tabIdsUsedByBookmarks -> MERN -> created every time in one of Grid's useEffect (check EditTab_main editTab wrapper also)
+old not-auth -> placed in central bookmarks state. check if it works properly, unify? (auth and non auth logis now in SingleBookmark only) DONE
 DONE 204. all userIdOrNoId logic -> convert to ? : DONE
 DONE 208. BackgroundSettings-> if no userId -> implement logic to suggest creating an account
 BackgroundSettings_Upload doesn't have to be touched though? code won't be executed DONE
@@ -174,6 +176,8 @@ DONE 215. (first bug fixes for nonAuth version)  DONE new bookmark DONE, DONE re
 DONE 219. notes -> should be reworked, so they can be edited in place?
  (middleground solution -> tab is open when edit is clicked, this allows 8 rows instead of 4) DONE
 DONE 220. auth version problems after implementing, non auth version: DONE
+DONE 224. tabDeletingPause in Grid -> hack? explain how it works
+tabDeletingPause is no more -> it was used before to delete empty tab before deleting the last of its bookmark DONE
 DONE 243. background color no pic -> rectangle instead of doc svgs, should be filled with color? DONE
 xxx 262. after modifing note -> make the empty space below columns smaller? (no need - different solution - #219)xxx
 DONE -not poss to change col colors
@@ -215,6 +219,7 @@ GOOD enough
 !46. bookmarks not up to date when adding newBookmark if there are none (auth vers only)
  -> hacky solution only, reexectuing query in Bookmarks which causes rerender - solve?
 (possible solution to get rid of rerender at least -> no bookmarks in any of useeffect? diff way for calc. tabIdsUsedByBookmarks)
+no useeffect using bookmarks
 ? 61. background img -> currently there is no point in storing it in db, as it is get from server only??
 BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutation (x2) -> currently it is not deleting images!)
   (BackgroundImgSchema in server.ts does work -should it be deleted?, because querying is done from server only )   ?
@@ -277,8 +282,6 @@ to get info clientside that there is no regisered user
 199. tabsDb and tabsNotAuth etc -> should be in props instead of taken out of Context every time? less code
 200. tabs reset to default: in auth version happens in Grid, in non-auth in Tab -> unify?
 (should be done for TAB_CONTENT_DEFAULT at least?)
-201. tabIdsUsedByBookmarks -> MERN -> created every time in one of Grid's useEffect (check EditTab_main editTab wrapper also)
-old not-auth -> placed in central bookmarks state. check if it works properly, unify?
 202. Grid tabDeletingPause introduced in MERN version -> can/should it be implemented for non-auth version also?
 203. settings interfaces db & demo-> unify, clear (all interfaces shoul be moved out of client?)
 206. useBookmark -> string types for id in MERN version number|string in old client only ver. -> no clashes
@@ -302,12 +305,10 @@ background Color possible now in no pic mode
 221. objCreators -> bookmarkNonAuth done wrong? id not needed in db version?
 222. LoginSuccessfull notification -> blinking after user deletion! test it, remove it?
 223. closeAllTabsState -> in Grid (in grid both auth and non-auth code is used? check!) or Tab if either non-auth or auth -> unify?
-224. tabDeletingPause in Grid -> hack? explain how it works
 225. is aria-label present in all btns?
 226. tabsData, bookmarkData, settignsData -> same as client but with userId? unify? PROblem with changing of useTabs!
 227. mutations -> sometimes the graphql args are listed, Fields should be imported and spread instead
 Fields in userType & args -> should they always be the same? non-null for args?
-228. tabIdsUsedByBookmarks -> unify?
 229. Browser error: Default Client: No client has been specified using urql's Provider.This means that urql will be falling back to defaults including making requests to `/graphql`.
 If that's not what you want, please create a client and add a Provider.
 230. promises should start only if an auth code is executed? ex. Bookmark_lowerUI. then maybe implement catching
@@ -319,7 +320,6 @@ If that's not what you want, please create a client and add a Provider.
 235. non-auth version problem with less column settings-> missing content?
 236. globalSettings to globalSettignsDb rename everywhere? (currently in Column only)
 237. globalSettings interfaces - smtms different smtms from db?
-238. tabIdsUsedByBookmarks -> for deleting empty Tabs only? maybe it would be better to not render empty tabs && delete empty one?
 239. bookmarks itp -> in the end ts is chosing the type by itself, even if it should be split type
 240. bookmarks are rendered only after tab is open -> maybe they should be just hidden instead?
 241. browser warning: Default Client: No client has been specified using urql's Provider.This means that urql will be falling back to defaults including making requests to `/graphql`.
