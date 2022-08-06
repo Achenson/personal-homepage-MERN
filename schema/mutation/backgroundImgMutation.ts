@@ -50,7 +50,7 @@ function removeBackgroundImg(fileName: string, userIdOrDemoId: string) {
   );
 }
 
-export const backgroundImgMutationField = {
+export const backgroundImgUploadMutationField = {
   description: "Uploads an image.",
   // type: GraphQLBoolean,
   type: UploadedFileType,

@@ -167,7 +167,7 @@ mutation {
 
 
   mutation {
-      loginMutation(email_or_name: John3, password: testwrong) {
+      login(email_or_name: John3, password: testwrong) {
       userId
       token
     }

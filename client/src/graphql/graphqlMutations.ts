@@ -266,7 +266,7 @@ export const ChangeTabMutation = `
 
 export const LoginMutation = `
   mutation ($email_or_name: String, $password: String) {
-    loginMutation(email_or_name: $email_or_name, password: $password) {
+    login(email_or_name: $email_or_name, password: $password) {
       userId
       token
       error
@@ -276,15 +276,15 @@ export const LoginMutation = `
 
 export const LogoutMutation = `
   mutation {
-    logoutMutation 
+    logout 
   }
 `;
 
 
 
-export const BackgroundImgMutation = `
+export const BackgroundImgUploadMutation = `
   mutation ($image: Upload) {
-    backgroundImgMutation(image: $image) {
+    backgroundImgUpload(image: $image) {
       filename
     }
   }
@@ -292,7 +292,7 @@ export const BackgroundImgMutation = `
 
 /* export const BackgroundImgMutation = `
   mutation ($file: Upload!) {
-    backgroundImgMutation(file: $file)
+    backgroundImgUpload(file: $file)
   }
 `; */
 

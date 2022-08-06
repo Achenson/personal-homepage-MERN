@@ -12,7 +12,7 @@ import { changeTabMutationField } from "./changeTabMutation";
 import { changeBookmarkMutationField } from "./changeBookmarkMutation";
 import { loginMutationField } from "./loginMutation";
 import { logoutMutationField } from "./logoutMutation";
-import { backgroundImgMutationField } from "./backgroundImgMutation";
+import { backgroundImgUploadMutationField } from "./backgroundImgMutation";
 import { revokeRefreshTokenMutationField } from "./revokeRefreshTokenMutation";
 import { deleteAccountByUserMutationField } from "./deleteAccountByUserMutation";
 import { changeUserByUserMutationField } from "./changeUserByUserMutation";
@@ -38,9 +38,9 @@ export const Mutation = new GraphQLObjectType({
     deleteUsersByAdmin: deleteUsersByAdminMutationField,
     deleteBookmark: deleteBookmarkMutationField,
     deleteTab: deleteTabMutationField,
-    loginMutation: loginMutationField,
-    logoutMutation: logoutMutationField,
-    backgroundImgMutation: backgroundImgMutationField,
+    login: loginMutationField,
+    logout: logoutMutationField,
+    backgroundImgUpload: backgroundImgUploadMutationField,
     revokeRefreshToken: revokeRefreshTokenMutationField,
     deleteAccountByUser: deleteAccountByUserMutationField,
     forgotPassword: forgotPasswordMutationField,

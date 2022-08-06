@@ -192,21 +192,21 @@ Props): JSX.Element {
       (res) => {
         console.log("RES DATA");
         console.log(res.data);
-        console.log(res.data.loginMutation);
+        console.log(res.data.login);
 
-        if (res.data.loginMutation.error === "User does not exist!") {
+        if (res.data.login.error === "User does not exist!") {
           // if (res.data.login.token === "User does not exist!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
-          console.log(res.data.loginMutation.error);
-          setLoginErrorMessage(`${res.data.loginMutation.error}`);
+          console.log(res.data.login.error);
+          setLoginErrorMessage(`${res.data.login.error}`);
           return;
         }
 
-        if (res.data.loginMutation.error === "Password is incorrect!") {
+        if (res.data.login.error === "Password is incorrect!") {
           // if (res.data.login.token === "Password is incorrect!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
-          console.log(res.data.loginMutation.error);
-          setLoginErrorMessage(`${res.data.loginMutation.error}`);
+          console.log(res.data.login.error);
+          setLoginErrorMessage(`${res.data.login.error}`);
           return;
         }
 
@@ -225,16 +225,16 @@ Props): JSX.Element {
 
         loginAttempt(
           res.data.ok,
-          res.data.loginMutation.userId,
-          res.data.loginMutation.token
+          res.data.login.userId,
+          res.data.login.token
         );
 
         // authContext.updateAuthContext({
         //   ...authContext,
         //   isAuthenticated: true,
-        //   authenticatedUserId: res.data.loginMutation.userId,
+        //   authenticatedUserId: res.data.login.userId,
         //   // authenticatedUserId: res.data.login.userId,
-        //   accessToken: res.data.loginMutation.token,
+        //   accessToken: res.data.login.token,
         //   // accessToken: res.data.login.token,
         //   // token: res.data.login.token,
         // });

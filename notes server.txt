@@ -151,6 +151,7 @@ DONE 137. changing between 2 differen users, check user queries DONE !!! User.fi
 DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
 DONE 140. x hide/unhide password x password input type instead DONE
 DONE 141. deleteUserMutation -> keep it! proper way to delete user by admin (deketeUsersByAdmin now)DONE
+DONE 142. mutation.ts -> naming: some with Mutation at the end some not - unify! DONE
 DONE 144. clientSide -> change some rendering function to be anonymous inline funcions?? IIFS! (done in LogRegProfile_input) DONE
 DONE 147. darker default background img? (change to darker - slight blueGray) DONE
 DONE 148. after registering -> automatically fill up username field in Login? DONE
@@ -232,7 +233,8 @@ it will trigger refresh in getAuth
 130. improve getAuth -> it should not include refresh token logic in the first run?
 133. revokingToken -> "query was already executed: "mixing promises with callback??
 139. wiki-speed-typing, take care of 138 issue!
-142. mutation.ts -> naming: some with Mutation at the end some not - unify!
+
+
 143. upperUiContext -> logic for demo/unlogged version mixed with ui focus logic (does it work?)
 UserProfile/LoginRegister -> check upperUiContext dispatches
 149. more rigid password checking?

@@ -6,7 +6,7 @@ import { useAuth } from "../../state/hooks/useAuth";
 
 import {
   ChangeSettingsMutation,
-  BackgroundImgMutation,
+  BackgroundImgUploadMutation,
 } from "../../graphql/graphqlMutations";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
@@ -61,7 +61,7 @@ function BackgroundSettings_Upload({
     SettingsDatabase_i
   >(ChangeSettingsMutation);
 
-  const [, changeBackgroundImg] = useMutation(BackgroundImgMutation);
+  const [, uploadBackgroundImg] = useMutation(BackgroundImgUploadMutation);
 
   // const handleChange = React.useCallback(
   //   ({
@@ -103,7 +103,7 @@ function BackgroundSettings_Upload({
     target: { validity, files: file },
   }) => {
     if (validity.valid) {
-      await changeBackgroundImg({ file });
+      await uploadBackgroundImg({ file });
       reexecuteBackgroundImg({ requestPolicy: "network-only" });
       await changeSettings({
         ...(globalSettings as SettingsDatabase_i),
