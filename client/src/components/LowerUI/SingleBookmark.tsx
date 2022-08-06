@@ -182,49 +182,38 @@ Props): JSX.Element {
 
     let faviconUrlApi = "https://icon.horse/icon?uri=" + singleBookmarkData.URL; */
 
-  async function deleteTabsLogic(tabIDsToDelete: string[]) {
+  function deleteTabsLogicNonAuth(
+    tabIDsToDelete: string[],
+    tabs: SingleTabData[]
+  ) {
     for (let tabID of tabIDsToDelete) {
-      if (tabID === "ALL_TAGS") {
+      if (!tabs.filter((el) => el.id === tabID)[0].deletable) {
         continue;
       }
 
-      if (userIdOrNoId) {
-        await deleteTab({ id: tabID }).then((result) => {
-          console.log(result);
-        });
-        // no logic for deletings tags in other bookmarks this time,
-        // because other bookmars should not contain this tag anymore
-      } else {
-        deleteTabNonAuth(tabID);
-      }
+      deleteTabNonAuth(tabID);
     }
+  }
 
-    // if (userIdOrNoId) {
-    //   deleteTab({ id: tabID }).then((result) => {
-    //     if (tabType === "note" || tabType === "rss") {
-    //       return;
-    //     }
+  async function deleteTabsLogicDb(
+    tabIDsToDelete: string[],
+    tabs: TabDatabase_i[]
+  ) {
+    for (let tabID of tabIDsToDelete) {
+      // if (tabID === "ALL_TAGS") {
+      //   continue;
+      // }
 
-    //     let filteredBookmarks = (bookmarks as BookmarkDatabase_i[]).filter(
-    //       (obj) => obj.tags.indexOf(result.data.deleteTab.id) > -1
-    //     );
+      if (!tabs.filter((el) => el.id === tabID)[0].deletable) {
+        continue;
+      }
 
-    //     filteredBookmarks.forEach((obj) => {
-    //       let changedBookmark = { ...obj };
-    //       // console.log(JSON.stringify(changedBookmark, null, 2));
-    //       let indexOfDeletedTab = changedBookmark.tags.indexOf(
-    //         result.data.deleteTab.id
-    //       );
-    //       changedBookmark.tags.splice(indexOfDeletedTab, 1);
-    //       // console.log(JSON.stringify(changedBookmark, null, 2));
-    //       changeBookmark(changedBookmark);
-    //     });
-    //   });
-    // } else {
-    //   deleteTabNonAuth(tabID);
-    // }
-
-    // tabContext.tabVisDispatch({ type: "EDIT_TOGGLE" });
+      await deleteTab({ id: tabID }).then((result) => {
+        console.log(result);
+      });
+      // no logic for deletings tags in other bookmarks this time,
+      // because other bookmars should not contain this tag anymore
+    }
   }
 
   return (
@@ -384,7 +373,10 @@ Props): JSX.Element {
                       return;
                     }
 
-                    deleteTabsLogic(tabIdsToDelete);
+                    deleteTabsLogicNonAuth(
+                      tabIdsToDelete,
+                      tabs as SingleTabData[]
+                    );
                     deleteBookmarkNonAuth(bookmarkId, singleBookmarkData);
                   }
 
@@ -433,7 +425,10 @@ Props): JSX.Element {
                   return;
                 }
 
-                await deleteTabsLogic(tabIdsToDelete);
+                await deleteTabsLogicDb(
+                  tabIdsToDelete,
+                  tabs as TabDatabase_i[]
+                );
 
                 await deleteBookmark({ id: bookmarkId }).then((result) =>
                   console.log(result)

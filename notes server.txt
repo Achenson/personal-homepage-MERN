@@ -349,7 +349,7 @@ If that's not what you want, please create a client and add a Provider.
 264. refreshToken bad request when not logged in -> works, but it should be without error
 265. note cannot be empty -> works only in auth version for now
 265. adding newTab when adding new Bookmark by lower UI (upper ui workd) results in an emptY tab! (in non auth version only)
-
+266. eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?
 
 tabIdsToDel how to get rid off:
    /* 
