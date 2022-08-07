@@ -148,10 +148,24 @@ DONE 132. implement Registration !!! DONE
 DONE 135. LoginSVG -> move to the left? (to the right actually, other svgs also moved) DONE
 DONE 136. change name to username everywhere?  (name on the backend, username frontend - changed UserProfile for consistency)DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
-DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE 
+DONE 138. registering user with same name/email -> still make db entry!!! even though the err is displayed DONE
 DONE 140. x hide/unhide password x password input type instead DONE
 DONE 141. deleteUserMutation -> keep it! proper way to delete user by admin (deketeUsersByAdmin now)DONE
 DONE 142. mutation.ts -> naming: some with Mutation at the end some not - unify! DONE
+DONE 143. upperUiContext -> logic for demo/unlogged version mixed with ui focus logic (does it work?)
+UserProfile/LoginRegister -> check upperUiContext dispatches, add descriptions?
+(the logic is not mixed in fact, works for both auth and non auth version.
+descriptions added, changed one naming
+notes about tabEditableOpenable:
+  !! tabEditableOpenable -> to solve the problem with tabEditables flickering when closing
+       which is visible when backgroundColor modal overlap with tabEditables
+       in other cases the tab editables are closed by setting tabOpenedState to null
+       both tabOpenedState and tabEditableOpenabe are using individual tab context to close tab editables
+       but tabEditablesOpenable is taken from upperUIContext (which contains Main component)
+       while tabOpenedState is taken from central state (zustand) -> this probably makes it noticably slower: 
+       upperUi change -> tab dispatch vs upperUi change -> change zustand state -> tab dispatch
+       same login for color column left as it was (it uses tabOpenedState)
+) DONE
 DONE 144. clientSide -> change some rendering function to be anonymous inline funcions?? IIFS! (done in LogRegProfile_input) DONE
 DONE 147. darker default background img? (change to darker - slight blueGray) DONE
 DONE 148. after registering -> automatically fill up username field in Login? DONE
@@ -234,20 +248,7 @@ it will trigger refresh in getAuth
 133. revokingToken -> "query was already executed: "mixing promises with callback??
 139. wiki-speed-typing, take care of 138 issue!
 
-DONE 143. upperUiContext -> logic for demo/unlogged version mixed with ui focus logic (does it work?)
-UserProfile/LoginRegister -> check upperUiContext dispatches, add descriptions?
-(the logic is not mixed in fact, works for both auth and non auth version.
-descriptions added, changed one naming
-notes about tabEditableOpenable:
-  !! tabEditableOpenable -> to solve the problem with tabEditables flickering when closing
-       which is visible when backgroundColor modal overlap with tabEditables
-       in other cases the tab editables are closed by setting tabOpenedState to null
-       both tabOpenedState and tabEditableOpenabe are using individual tab context to close tab editables
-       but tabEditablesOpenable is taken from upperUIContext (which contains Main component)
-       while tabOpenedState is taken from central state (zustand) -> this probably makes it noticably slower: 
-       upperUi change -> tab dispatch vs upperUi change -> change zustand state -> tab dispatch
-       same login for color column left as it was (it uses tabOpenedState)
-) DONE
+
 149. more rigid password checking?
 153. serverside interfaces are in types files, better interfaces sharing between client and server?
 154. UserProfile -> mutations should succeed if there is proper field being send back
