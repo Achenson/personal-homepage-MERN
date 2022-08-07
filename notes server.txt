@@ -171,6 +171,8 @@ DONE 147. darker default background img? (change to darker - slight blueGray) DO
 DONE 148. after registering -> automatically fill up username field in Login? DONE
 DONE 150. change naming to ByUser & ByAdmin DONE
 DONE 151. check if changeUSer "by admin" works DONE (reworked)
+DONE153. serverside interfaces are in types files, better interfaces sharing between client and server?
+) (settings and basic types for tabs and bookmarks are being taken by server from client) DONE 
 DONE 157. UserProfile -> simplify error logic! less ifs, errors received serverside if no proper data returned DONE
 DONE 161. successful register message && successful user deletion- when? DONE (in useAuth zustand hook)
 DONE 164. prevent copying new password & pastying in password confirmation  DONE
@@ -247,12 +249,10 @@ it will trigger refresh in getAuth
 130. improve getAuth -> it should not include refresh token logic in the first run?
 133. revokingToken -> "query was already executed: "mixing promises with callback??
 139. wiki-speed-typing, take care of 138 issue!
-
-
 149. more rigid password checking?
-153. serverside interfaces are in types files, better interfaces sharing between client and server?
-154. UserProfile -> mutations should succeed if there is proper field being send back
 155. better email validation
+
+154. UserProfile -> mutations should succeed if there is proper field being send back
 156. UserProfile -> no server connection error -> !res may be not the right kind of logic for it?
 158. addUserMutation -> change so it distinguish between username and email already present in DB
 159. all or almost all mutations should have error fields? 

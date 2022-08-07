@@ -1,4 +1,5 @@
 import graphql = require("graphql");
+import { SingleBookmarkDataBasic} from "../../client/src/utils/interfaces"
 
 const {
   GraphQLObjectType,
@@ -9,17 +10,17 @@ const {
   GraphQLList,
 } = graphql;
 
-interface Bookmark_i {
-  title: string;
-  URL: string;
-  defaultFaviconFallback: boolean;
-}
+// interface Bookmark_i {
+//   title: string;
+//   URL: string;
+//   defaultFaviconFallback: boolean;
+// }
 
-export interface BookmarkLocal_i extends Bookmark_i {
+export interface BookmarkLocal_i extends SingleBookmarkDataBasic {
   tagIndices: number[];
 }
 
-export interface BookmarkDatabase_i extends Bookmark_i {
+export interface BookmarkDatabase_i extends SingleBookmarkDataBasic {
   id: string;
   userId: string;
   tags: string[];

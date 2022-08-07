@@ -29,8 +29,7 @@ export interface TabErrors {
 
 export type SetTabErrors = React.Dispatch<React.SetStateAction<TabErrors>>;
 
-export interface SingleTabData {
-  id: string;
+export interface SingleTabDataBasic {
   title: string;
   color: string | null;
   column: number;
@@ -47,12 +46,20 @@ export interface SingleTabData {
   // items?: [object] | never[] | [];
 }
 
-export interface SingleBookmarkData {
+export interface SingleTabData extends SingleTabDataBasic {
   id: string;
+}
+
+export interface SingleBookmarkDataBasic {
   title: string;
   URL: string;
-  tags: string[];
   defaultFaviconFallback: boolean;
+}
+
+
+export interface SingleBookmarkData extends SingleBookmarkDataBasic{
+  id: string;
+  tags: string[];
 }
 
 export interface GlobalSettingsState {

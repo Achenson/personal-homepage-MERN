@@ -1,5 +1,6 @@
 
-import {TabLocal_i} from "../types/tabType"
+// import {TabLocal_i} from "../types/tabType"
+import { SingleTabDataBasic} from "../../client/src/utils/interfaces"
 
 
 /* export const tabs: TabLocal_i[] = [
@@ -41,7 +42,7 @@ import {TabLocal_i} from "../types/tabType"
   ]; */
 
 
-  export const tabs: TabLocal_i[] = [
+  export const tabs: SingleTabDataBasic[] = [
     {
       title: "all bookmarks",
       color: "red-400",

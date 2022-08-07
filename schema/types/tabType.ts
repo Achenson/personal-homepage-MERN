@@ -1,6 +1,7 @@
 import graphql = require("graphql");
 
 const Bookmark = require("../../mongoModels/bookmarkSchema");
+import { SingleTabDataBasic} from "../../client/src/utils/interfaces"
 
 const {
   GraphQLObjectType,
@@ -11,29 +12,29 @@ const {
   GraphQLList,
 } = graphql;
 
-export interface TabLocal_i {
-  title: string;
-  color: string | null;
-  column: number;
-  priority: number;
-  opened: boolean;
-  openedByDefault: boolean;
-  deletable: boolean;
-  type: "folder" | "note" | "rss";
-  noteInput?: string | null;
-  rssLink?: string | null;
-  date?: boolean | null;
-  description?: boolean | null;
-  itemsPerPage?: number | null;
+// export interface TabLocal_i {
+//   title: string;
+//   color: string | null;
+//   column: number;
+//   priority: number;
+//   opened: boolean;
+//   openedByDefault: boolean;
+//   deletable: boolean;
+//   type: "folder" | "note" | "rss";
+//   noteInput?: string | null;
+//   rssLink?: string | null;
+//   date?: boolean | null;
+//   description?: boolean | null;
+//   itemsPerPage?: number | null;
 
-  // not being used actually?
-  // items?: [object] | never[] | [];
-  // backend only
-  // bookmarkIds?: string[];
-  // bookmarks?: Bookmark_i[];
-}
+//   // not being used actually?
+//   // items?: [object] | never[] | [];
+//   // backend only
+//   // bookmarkIds?: string[];
+//   // bookmarks?: Bookmark_i[];
+// }
 
-export interface TabDatabase_i extends TabLocal_i {
+export interface TabDatabase_i extends SingleTabDataBasic {
   id: string;
   userId: string;
 }
