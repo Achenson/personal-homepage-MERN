@@ -128,7 +128,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
       onFocus={() => {
         setFocusedTabState(null);
       }}
-      className={`${upperUiContext.upperVisState.addTagVis_xs ? "h-14" : "h-7"}
+      className={`${upperUiContext.upperVisState.addTabVis_xs ? "h-14" : "h-7"}
         ${xsDisplay("sm:h-7", "xs:h-7")}
       w-28 ${xsDisplay("sm:w-56", "xs:w-56")} ${xsDisplay(
         "sm:flex",

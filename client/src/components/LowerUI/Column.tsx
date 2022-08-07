@@ -308,7 +308,7 @@ Props): JSX.Element {
             className="absolute"
             style={{
               top:
-                upperUiContext.upperVisState.addTagVis_xs &&
+                upperUiContext.upperVisState.addTabVis_xs &&
                 (breakpoint === 0 ||
                   // when col growth is limited && colNumber is ===1, UpperRightMenu_XS is on all breakpoints
                   (globalSettings.limitColGrowth &&

@@ -8,7 +8,7 @@ export function upperVisReducer(
 ): UpperVisState {
   let upperVisStateMostlyFalse: UpperVisState = {
     ...initUpperVisState,
-    addTagVis_xs: state.addTagVis_xs,
+    addTabVis_xs: state.addTabVis_xs,
     xsSizing_initial: state.xsSizing_initial,
     currentXSsettings: state.currentXSsettings,
   };
@@ -61,11 +61,11 @@ export function upperVisReducer(
         columnSelected: action.payload,
         colorsColumnVis: true,
       };
-    case "ADD_TAG_XS_TOGGLE":
+    case "ADD_TAB_XS_TOGGLE":
       return {
         // ...upperVisStateMostlyFalse,
         ...state,
-        addTagVis_xs: !state.addTagVis_xs,
+        addTabVis_xs: !state.addTabVis_xs,
       };
     case "XS_SIZING_TRUE":
       return {

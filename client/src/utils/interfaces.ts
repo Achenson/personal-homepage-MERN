@@ -96,7 +96,7 @@ export interface UpperVisState {
   colorsBackgroundVis: boolean;
   colorsColumnVis: boolean;
   columnSelected: null | number;
-  addTagVis_xs: boolean;
+  addTabVis_xs: boolean;
   xsSizing_initial: boolean;
   tabEditablesOpenable: boolean;
   messagePopup: null | string;
@@ -167,7 +167,7 @@ interface UpperVisAction_noPayload {
     | "COLORS_BACKGROUND_TOGGLE"
     | "COLORS_COLUMN_TOGGLE"
     | "CLOSE_ALL"
-    | "ADD_TAG_XS_TOGGLE"
+    | "ADD_TAB_XS_TOGGLE"
     | "PROFILE_TOGGLE"
     | "XS_SIZING_TRUE"
     | "XS_SIZING_FALSE"

@@ -119,7 +119,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
 
   return (
     <>
-      {upperUiContext.upperVisState.addTagVis_xs && (
+      {upperUiContext.upperVisState.addTabVis_xs && (
         <div
           className={`flex ${xsDisplay(
             "sm:hidden",
@@ -196,7 +196,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
             rounded border-black border-2 transition-colors duration-75 hover:text-${uiColor} hover:border-${uiColor}`}
             style={{ height: "22px" }}
             onClick={() => {
-              upperUiContext.upperVisDispatch({ type: "ADD_TAG_XS_TOGGLE" });
+              upperUiContext.upperVisDispatch({ type: "ADD_TAB_XS_TOGGLE" });
             }}
             tabIndex={10}
             aria-label={"New tab menu"}

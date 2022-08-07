@@ -10,7 +10,7 @@ export const initUpperVisState: UpperVisState = {
   colorsBackgroundVis: false,
   colorsColumnVis: false,
   columnSelected: null,
-  addTagVis_xs: false,
+  addTabVis_xs: false,
   xsSizing_initial: false,
   tabEditablesOpenable: true,
   messagePopup: null,

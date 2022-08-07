@@ -236,7 +236,7 @@ it will trigger refresh in getAuth
 
 
 143. upperUiContext -> logic for demo/unlogged version mixed with ui focus logic (does it work?)
-UserProfile/LoginRegister -> check upperUiContext dispatches
+UserProfile/LoginRegister -> check upperUiContext dispatches, add descriptions?
 149. more rigid password checking?
 153. serverside interfaces are in types files, better interfaces sharing between client and server?
 154. UserProfile -> mutations should succeed if there is proper field being send back
