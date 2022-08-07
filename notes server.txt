@@ -234,9 +234,20 @@ it will trigger refresh in getAuth
 133. revokingToken -> "query was already executed: "mixing promises with callback??
 139. wiki-speed-typing, take care of 138 issue!
 
-
-143. upperUiContext -> logic for demo/unlogged version mixed with ui focus logic (does it work?)
+DONE 143. upperUiContext -> logic for demo/unlogged version mixed with ui focus logic (does it work?)
 UserProfile/LoginRegister -> check upperUiContext dispatches, add descriptions?
+(the logic is not mixed in fact, works for both auth and non auth version.
+descriptions added, changed one naming
+notes about tabEditableOpenable:
+  !! tabEditableOpenable -> to solve the problem with tabEditables flickering when closing
+       which is visible when backgroundColor modal overlap with tabEditables
+       in other cases the tab editables are closed by setting tabOpenedState to null
+       both tabOpenedState and tabEditableOpenabe are using individual tab context to close tab editables
+       but tabEditablesOpenable is taken from upperUIContext (which contains Main component)
+       while tabOpenedState is taken from central state (zustand) -> this probably makes it noticably slower: 
+       upperUi change -> tab dispatch vs upperUi change -> change zustand state -> tab dispatch
+       same login for color column left as it was (it uses tabOpenedState)
+) DONE
 149. more rigid password checking?
 153. serverside interfaces are in types files, better interfaces sharing between client and server?
 154. UserProfile -> mutations should succeed if there is proper field being send back
@@ -299,7 +310,7 @@ change ids in the starting data for nonAuth to strings?
 217. tab deletion confirmation -> implement?
 218. check localStorage for auth version
 221. color hooks - to be partially deleted?
-222. update App structure - routes!
+222. update App structure - routes! contexts! eg.tabcontext -> for each individual tab!
 223. rssSettings problem -> value lower than 5 and 15 can be entered! no easy way to increase/decrese value??
 224. globalSettings rss items number-> hover field, implement is alse elsewhere??
 225. Disable drag & drop -> should be sth like disable drag & drop for tabs??

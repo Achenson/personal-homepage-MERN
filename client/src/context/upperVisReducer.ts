@@ -95,7 +95,9 @@ export function upperVisReducer(
         currentXSsettings: "global",
         settingsVis: true,
       };
-
+      
+   /* ! tabEditablesOpenable -to solve the problem with tabEditables flickering when closing
+       which is visible when backgroundColor modal overlap with tabEditables. More info note #143 */
     case "TAB_EDITABLES_OPENABLE_DEFAULT":
       return {
         ...state,
@@ -125,7 +127,7 @@ export function upperVisReducer(
         focusOnUpperRightUi: action.payload
       }
     }
-
+    // mostly false -> size sizing settings remain the same
     case "CLOSE_ALL":
       return {
         ...upperVisStateMostlyFalse,
