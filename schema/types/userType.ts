@@ -54,3 +54,20 @@ export const UserType = new GraphQLObjectType({
     },
   }),
 });
+
+
+export const AddUserType = new GraphQLObjectType({
+  name: "AddUser",
+  fields: () => ({
+    ...UserFields,
+    // tokenVersion: { type: GraphQLInt },
+    error: {type: GraphQLString}
+    // settings: {
+    //   type: SettingsType,
+    //   resolve(parent: User_i) {
+    //     return Settings.findOne({ userId: parent.id });
+    //   },
+    // },
+  }),
+});
+

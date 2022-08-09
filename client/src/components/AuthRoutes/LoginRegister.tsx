@@ -153,7 +153,7 @@ Props): JSX.Element {
         // console.log("RES DATA");
         // console.log(res.data);
         // console.log(res.data.login);
-
+        
         if (res.data?.login?.error === "User does not exist") {
           // if (res.data.login.token === "User does not exist!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
@@ -268,10 +268,22 @@ Props): JSX.Element {
           return;
         }
 
+        console.log("ERROR?");
+        console.log(res.data?.addUser?.error);
+        console.log(res.data?.addUser);
+        
+
+        
+
+        if (res.data?.addUser?.error) {
+          setRegisterErrorMessage(res.data?.addUser?.error);
+          return;
+        }
+
         console.log("ADD USER RES");
         console.log(res);
 
-        if (res.data?.addUser) {
+        if (res.data?.addUser && typeof res.data?.addUser?.error === null) {
           setRegisterErrorMessage(null);
           setLoginNotification("User successfully registered");
           setUsername("");
@@ -282,10 +294,11 @@ Props): JSX.Element {
           // navigate("/login");
           setLoginOrRegister("login");
           return;
-        } else {
-          setRegisterErrorMessage("Username or email is already in use");
-          return;
         }
+        // else {
+        //   setRegisterErrorMessage("Username or email is already in use");
+        //   return;
+        // }
       },
       (err) => {
         console.log(err);

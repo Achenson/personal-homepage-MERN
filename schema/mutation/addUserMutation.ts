@@ -20,10 +20,10 @@ import { tabs } from "../data/defaultTabs";
 
 import { BookmarkDatabase_i, BookmarkLocal_i } from "../types/bookmarkType";
 import { TabDatabase_i } from "../types/tabType";
-import { UserFields, UserType, User_i } from "../types/userType";
+import { UserFields, UserType, User_i, AddUserType } from "../types/userType";
 
 export const addUserMutationField = {
-  type: UserType,
+  type: AddUserType,
   args: {
     ...UserFields,
   },
@@ -64,10 +64,45 @@ export const addUserMutationField = {
 
     return new Promise((resolve, reject) => {
       // if user with this name & email is found
-      if (!arrOfBooleans[0] || !arrOfBooleans[1]) {
-        resolve(null);
+
+
+
+      if (!arrOfBooleans[0] && !arrOfBooleans[1]) {
+        resolve({
+          id: null,
+          name: "sth",
+          email: null,
+          password: null,
+          tokenVersion: null,
+          error: "Username and email are already in use"
+        });
         return;
       }
+
+      if (!arrOfBooleans[0]) {
+        resolve({
+          id: null,
+          name: null,
+          email: null,
+          password: null,
+          tokenVersion: null,
+          error: "Username is already in use"
+        });
+        return;
+      }
+
+      if (!arrOfBooleans[1]) {
+        resolve({
+          id: null,
+          name: null,
+          email: null,
+          password: null,
+          tokenVersion: null,
+          error: "Email is already in use"
+        });
+        return;
+      }
+
 
       bcrypt.hash(args.password, 12).then((hashedPassword: string) => {
         let user = new User({
@@ -177,7 +212,11 @@ export const addUserMutationField = {
             );
           });
 
-          resolve(userProduct);
+          // resolve(userProduct);
+          resolve({
+            ...userProduct,
+            error: null
+          });
         });
       });
     });
