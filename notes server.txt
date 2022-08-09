@@ -180,6 +180,7 @@ DONE 157. UserProfile -> simplify error logic! less ifs, errors received servers
 DONE 158. addUserMutation -> change so it distinguish between username and email already present in DB DONE
 DONE 159. all or almost all mutations should have error fields? (for now- only those that client can react differently to,forgotPasswordMutation -> better error handling)  DONE
 DONE 161. successful register message && successful user deletion- when? DONE (in useAuth zustand hook)
+DONE 162. whenever returning to editUser, name & email should be filled again DONE
 DONE 164. prevent copying new password & pastying in password confirmation  DONE
 DONE 165. LoginRegister_input naming change (component also used elsewhere) DONE
 DONE 171. deleteUserByAdminMutation -> change so it is possible to delete many users DONE
@@ -232,6 +233,7 @@ GOOD enough?
   seems there is no way to validate if multer is used as a callback,
   it maybe possible if it was uses inside a graphql resolver
   https://github.com/apollographql/apollo-server/issues/301 x
+  xxx 160. editUser -> update causes flickering due to reexecuting query (left, urql problem?) xxx
   xx 174. development mode -> should work also when offline? (good enough)xx
 GOOD enough
 
@@ -258,8 +260,6 @@ it will trigger refresh in getAuth
 155. better email validation
 
 
-160. editUser -> update causes flickering due to reexectuing query?
-162. whenever returning to editUser, name & email should be filled again
 163. UserProfile -> setNotification(null) everywhere not needed?
 166. after implementing forgot password logic -> make sure that it won't work when token is revoked?
 167. changeUserByAdmin -> can it remain in production??

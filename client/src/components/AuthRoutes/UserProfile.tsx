@@ -686,6 +686,8 @@ Props): JSX.Element {
                     }`}
                     onClick={() => {
                       setInputMode("editProfile");
+                      setUsername(usernameInitial);
+                      setEmail(emailInitial);
                       setPasswordCurrent("");
                       setErrorMessage(null);
                       setNotification(null);
