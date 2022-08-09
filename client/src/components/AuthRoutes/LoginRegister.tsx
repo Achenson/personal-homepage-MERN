@@ -153,7 +153,7 @@ Props): JSX.Element {
         // console.log("RES DATA");
         // console.log(res.data);
         // console.log(res.data.login);
-        
+
         if (res.data?.login?.error === "User does not exist") {
           // if (res.data.login.token === "User does not exist!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
@@ -283,7 +283,7 @@ Props): JSX.Element {
         console.log("ADD USER RES");
         console.log(res);
 
-        if (res.data?.addUser && typeof res.data?.addUser?.error === null) {
+        if (res.data?.addUser) {
           setRegisterErrorMessage(null);
           setLoginNotification("User successfully registered");
           setUsername("");

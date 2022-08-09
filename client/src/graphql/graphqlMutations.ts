@@ -303,6 +303,7 @@ export const AddUserMutaton = `
       name
       email
       password
+      error
     }
   }
 `;

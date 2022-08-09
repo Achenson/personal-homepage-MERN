@@ -32,9 +32,9 @@ export const addUserMutationField = {
       new Promise((resolve, reject) => {
         User.findOne({ name: args.name }, (err: Error, res: any) => {
           if (err) {
-            reject(err)
+            reject(err);
             console.log(err);
-          } 
+          }
 
           if (res != null) {
             console.log("name is already present in DB");
@@ -49,8 +49,8 @@ export const addUserMutationField = {
         User.findOne({ email: args.email }, (err: Error, res: any) => {
           if (err) {
             console.log(err);
-            reject(err)
-          } 
+            reject(err);
+          }
 
           if (res != null) {
             console.log("email is already present in DB");
@@ -62,54 +62,48 @@ export const addUserMutationField = {
       }),
     ]);
 
+    if (!arrOfBooleans[0] && !arrOfBooleans[1]) {
+      return {
+        id: null,
+        name: null,
+        email: null,
+        password: null,
+        tokenVersion: null,
+        error: "Username and email are already in use",
+      };
+    }
+
+    if (!arrOfBooleans[0]) {
+      return {
+        id: null,
+        name: null,
+        email: null,
+        password: null,
+        tokenVersion: null,
+        error: "Username is already in use",
+      };
+    }
+
+    if (!arrOfBooleans[1]) {
+      return {
+        id: null,
+        name: null,
+        email: null,
+        password: null,
+        tokenVersion: null,
+        error: "Email is already in use",
+      };
+    }
+
     return new Promise((resolve, reject) => {
       // if user with this name & email is found
-
-
-
-      if (!arrOfBooleans[0] && !arrOfBooleans[1]) {
-        resolve({
-          id: null,
-          name: "sth",
-          email: null,
-          password: null,
-          tokenVersion: null,
-          error: "Username and email are already in use"
-        });
-        return;
-      }
-
-      if (!arrOfBooleans[0]) {
-        resolve({
-          id: null,
-          name: null,
-          email: null,
-          password: null,
-          tokenVersion: null,
-          error: "Username is already in use"
-        });
-        return;
-      }
-
-      if (!arrOfBooleans[1]) {
-        resolve({
-          id: null,
-          name: null,
-          email: null,
-          password: null,
-          tokenVersion: null,
-          error: "Email is already in use"
-        });
-        return;
-      }
-
 
       bcrypt.hash(args.password, 12).then((hashedPassword: string) => {
         let user = new User({
           name: args.name,
           email: args.email,
           password: hashedPassword,
-          tokenVersion: 0
+          tokenVersion: 0,
         });
 
         return user.save(async (err: Error, userProduct: User_i) => {
@@ -214,8 +208,11 @@ export const addUserMutationField = {
 
           // resolve(userProduct);
           resolve({
-            ...userProduct,
-            error: null
+            id: userProduct.id,
+            name: userProduct.name,
+            email: userProduct.email,
+            password: userProduct.password,
+            error: null,
           });
         });
       });
