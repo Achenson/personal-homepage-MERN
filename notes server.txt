@@ -181,6 +181,7 @@ DONE 158. addUserMutation -> change so it distinguish between username and email
 DONE 159. all or almost all mutations should have error fields? (for now- only those that client can react differently to,forgotPasswordMutation -> better error handling)  DONE
 DONE 161. successful register message && successful user deletion- when? DONE (in useAuth zustand hook)
 DONE 162. whenever returning to editUser, name & email should be filled again DONE
+DONE 163. UserProfile -> setNotification(null) everywhere not needed? (moved to function)DONE
 DONE 164. prevent copying new password & pastying in password confirmation  DONE
 DONE 165. LoginRegister_input naming change (component also used elsewhere) DONE
 DONE 171. deleteUserByAdminMutation -> change so it is possible to delete many users DONE
@@ -260,7 +261,6 @@ it will trigger refresh in getAuth
 155. better email validation
 
 
-163. UserProfile -> setNotification(null) everywhere not needed?
 166. after implementing forgot password logic -> make sure that it won't work when token is revoked?
 167. changeUserByAdmin -> can it remain in production??
 168. objectAssign -> convert to function?

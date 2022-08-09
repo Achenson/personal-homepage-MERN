@@ -266,6 +266,14 @@ Props): JSX.Element {
     );
   } */
 
+
+  function errMessage(errorMessage: string | null, notificationNull: boolean = true) {
+    setErrorMessage(errorMessage);
+    if(notificationNull) {
+      setNotification(null);
+    }
+  }
+
   const renderPasswordCurrent = (
     inputModeOn: "editProfile" | "changePassword" | "deleteAccount"
   ) => (
@@ -368,6 +376,8 @@ Props): JSX.Element {
     }
   }
 
+
+
   return (
     <FocusLock>
       <div
@@ -463,8 +473,7 @@ Props): JSX.Element {
                     }`}
                     onClick={() => {
                       if (passwordCurrent === "") {
-                        setErrorMessage("Password not provided");
-                        setNotification(null);
+                        errMessage("Password not provided");
                         return;
                       }
 
@@ -479,20 +488,17 @@ Props): JSX.Element {
                           console.log("editProfile");
 
                           if (username === "") {
-                            setErrorMessage("Username cannot be empty");
-                            setNotification(null);
+                            errMessage("Username cannot be empty");
                             return;
                           }
 
                           if (email === "") {
-                            setErrorMessage("Email cannot be empty");
-                            setNotification(null);
+                            errMessage("Email cannot be empty");
                             return;
                           }
 
                           if (email.indexOf("@") === -1) {
-                            setErrorMessage("Please enter valid email address");
-                            setNotification(null);
+                            errMessage("Please enter valid email address");
                             return;
                           }
 
@@ -506,25 +512,22 @@ Props): JSX.Element {
                           }).then(
                             async (res) => {
                               if (!res) {
-                                setErrorMessage("Server connection Error");
-                                setNotification(null);
+                                errMessage("Server connection Error");
                                 return;
                               }
 
                               if (!res.data?.changeUserByUser?.name) {
                                 // if no specific error is received from the server
                                 if (!res.data?.changeUserByUser?.error) {
-                                  setErrorMessage(
+                                  errMessage(
                                     "An unknown error has occured"
                                   );
-                                  setNotification(null);
                                   return;
                                 }
 
-                                setErrorMessage(
+                                errMessage(
                                   res.data?.changeUserByUser?.error
                                 );
-                                setNotification(null);
                                 return;
                               }
 
@@ -538,12 +541,12 @@ Props): JSX.Element {
                                 requestPolicy: "network-only",
                               });
 
-                              setErrorMessage(null);
+                              errMessage(null, false);
                               setNotification("User data successfully updated");
                             },
                             (err) => {
                               console.log(err);
-                              setErrorMessage("Server connection Error");
+                              errMessage("Server connection Error");
                               return;
                             }
                           );
@@ -553,30 +556,26 @@ Props): JSX.Element {
                           console.log("changePassword");
 
                           if (passwordNew === "") {
-                            setErrorMessage("New password not provided");
-                            setNotification(null);
+                            errMessage("New password not provided");
                             return;
                           }
 
                           if (passwordNew.length < 8) {
-                            setErrorMessage(
+                            errMessage(
                               "Password must contain at least 8 characters"
                             );
-                            setNotification(null);
                             return;
                           }
 
                           if (passwordNewConfirm === "") {
-                            setErrorMessage(
+                            errMessage(
                               "Password confirmation not provided"
                             );
-                            setNotification(null);
                             return;
                           }
 
                           if (passwordNew !== passwordNewConfirm) {
-                            setErrorMessage("Invalid password confirmation");
-                            setNotification(null);
+                            errMessage("Invalid password confirmation");
                             return;
                           }
 
@@ -587,33 +586,31 @@ Props): JSX.Element {
                           }).then(
                             async (res) => {
                               if (!res) {
-                                setErrorMessage("Server connection Error");
+                                errMessage("Server connection Error");
                                 return;
                               }
 
                               if (!res.data?.changePasswordByUser?.name) {
                                 // if no specific error is received from the server
                                 if (!res.data?.changePasswordByUser?.error) {
-                                  setErrorMessage(
+                                  errMessage(
                                     "An unknown error has occured"
                                   );
-                                  setNotification(null);
                                   return;
                                 }
 
-                                setErrorMessage(
+                                errMessage(
                                   res.data?.changePasswordByUser?.error
                                 );
-                                setNotification(null);
                                 return;
                               }
 
-                              setErrorMessage(null);
+                              errMessage(null, false);
                               setNotification("Password successfully changed");
                             },
                             (err) => {
                               console.log(err);
-                              setErrorMessage("Server connection Error");
+                              errMessage("Server connection Error");
                               return;
                             }
                           );
@@ -631,29 +628,26 @@ Props): JSX.Element {
                           }).then(
                             async (res) => {
                               if (!res) {
-                                setErrorMessage("Server connection Error");
+                                errMessage("Server connection Error");
                                 return;
                               }
 
                               if (!res.data?.deleteAccountByUser?.name) {
                                 // if no specific error is received from the server
                                 if (!res.data?.deleteAccountByUser?.error) {
-                                  setErrorMessage(
+                                  errMessage(
                                     "An unknown error has occured"
                                   );
-                                  setNotification(null);
                                   return;
                                 }
 
-                                setErrorMessage(
+                                errMessage(
                                   res.data?.deleteAccountByUser?.error
                                 );
-                                setNotification(null);
                                 return;
                               }
 
-                              setErrorMessage(null);
-                              setNotification(null);
+                              errMessage(null);
                               // setLoginNotification("Account successfully deleted");
 
                               await logoutMut();
@@ -666,7 +660,7 @@ Props): JSX.Element {
                             },
                             (err) => {
                               console.log(err);
-                              setErrorMessage("Server connection Error");
+                              errMessage("Server connection Error");
                               return;
                             }
                           );
@@ -689,8 +683,7 @@ Props): JSX.Element {
                       setUsername(usernameInitial);
                       setEmail(emailInitial);
                       setPasswordCurrent("");
-                      setErrorMessage(null);
-                      setNotification(null);
+                      errMessage(null);
                     }}
                   >
                     Edit profile
@@ -704,8 +697,7 @@ Props): JSX.Element {
                       setPasswordCurrent("");
                       setPasswordNew("");
                       setPasswordNewConfirm("");
-                      setErrorMessage(null);
-                      setNotification(null);
+                      errMessage(null);
                     }}
                   >
                     Change password
@@ -717,8 +709,7 @@ Props): JSX.Element {
                     onClick={() => {
                       setInputMode("deleteAccount");
                       setPasswordCurrent("");
-                      setErrorMessage(null);
-                      setNotification(null);
+                      errMessage(null);
                     }}
                   >
                     Delete account
