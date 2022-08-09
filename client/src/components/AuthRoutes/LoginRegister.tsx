@@ -271,9 +271,6 @@ Props): JSX.Element {
         console.log("ERROR?");
         console.log(res.data?.addUser?.error);
         console.log(res.data?.addUser);
-        
-
-        
 
         if (res.data?.addUser?.error) {
           setRegisterErrorMessage(res.data?.addUser?.error);

@@ -178,6 +178,7 @@ proper fields being return -> generic error) DONE
 xxx 156. UserProfile -> no server connection error -> !res may be not the right kind of logic for it? (seems good enough?) xxx
 DONE 157. UserProfile -> simplify error logic! less ifs, errors received serverside if no proper data returned DONE
 DONE 158. addUserMutation -> change so it distinguish between username and email already present in DB DONE
+DONE 159. all or almost all mutations should have error fields? (for now- only those that client can react differently to,forgotPasswordMutation -> better error handling)  DONE
 DONE 161. successful register message && successful user deletion- when? DONE (in useAuth zustand hook)
 DONE 164. prevent copying new password & pastying in password confirmation  DONE
 DONE 165. LoginRegister_input naming change (component also used elsewhere) DONE
@@ -257,7 +258,6 @@ it will trigger refresh in getAuth
 155. better email validation
 
 
-159. all or almost all mutations should have error fields? 
 160. editUser -> update causes flickering due to reexectuing query?
 162. whenever returning to editUser, name & email should be filled again
 163. UserProfile -> setNotification(null) everywhere not needed?
@@ -366,6 +366,8 @@ If that's not what you want, please create a client and add a Provider.
 265. note cannot be empty -> works only in auth version for now
 265. adding newTab when adding new Bookmark by lower UI (upper ui workd) results in an emptY tab! (in non auth version only)
 266. eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?
+267. mutation -> should take care of res.error -> graphql errors 
+268. add some text, explanation in email with pass change
 
 tabIdsToDel how to get rid off:
    /* 

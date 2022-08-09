@@ -67,6 +67,16 @@ function PassordForgotten({
           return;
         }
 
+        if (res.error) {
+          setErrorMessage("Can't send mail - recipient rejected");
+          return;
+        }
+
+        if (!res.data?.forgotPassword) {
+          setErrorMessage("Email does not exist in the database");
+          return;
+        }
+
         setErrorMessage(null);
         setNotificationMessage("Email successfully sent");
       },
@@ -142,6 +152,7 @@ function PassordForgotten({
                   setInputValue={setEmail}
                   preventCopyPaste={false}
                   passwordInputType={false}
+                  passVisible={undefined}
                 />
               </div>
 

@@ -32,7 +32,7 @@ export const forgotPasswordMutationField = {
 
     if (!user) {
       // to change ??
-      return true;
+      return false;
     }
 
     const token = createForgotPasswordToken(user);
