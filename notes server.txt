@@ -184,6 +184,12 @@ DONE 162. whenever returning to editUser, name & email should be filled again DO
 DONE 163. UserProfile -> setNotification(null) everywhere not needed? (moved to function)DONE
 DONE 164. prevent copying new password & pastying in password confirmation  DONE
 DONE 165. LoginRegister_input naming change (component also used elsewhere) DONE
+! X 166. after implementing forgot password logic -> make sure that it won't work when token is revoked? (
+  not needed! revoking tokens is intended to be use for eg. is refreshToken got stolen - this does not mean that the hacker
+  has access to users email!) X
+! X 169. changeUserByAdmin -> changing password - should it be left out? (NO - in case login password was stolen [
+  revokingToken would not be enough, as the db & refreshToken tokenVersion will be again the same after logging in,
+  so password has to be change by the admin])X  !
 DONE 171. deleteUserByAdminMutation -> change so it is possible to delete many users DONE
 DONE 175. delete AppWrapper DONE
 DONE 178. after registering & redirecting to login -> focus should be set on password DONE
@@ -235,6 +241,8 @@ GOOD enough?
   it maybe possible if it was uses inside a graphql resolver
   https://github.com/apollographql/apollo-server/issues/301 x
   xxx 160. editUser -> update causes flickering due to reexecuting query (left, urql problem?) xxx
+  xx 168. objectAssign -> convert to function? (good enough, but not type safe) xx
+  xxx 170. AuthNotification components -> implement in UserProfile (good enough - AuthNotification would actually mean more codelines)xxx
   xx 174. development mode -> should work also when offline? (good enough)xx
 GOOD enough
 
@@ -261,11 +269,6 @@ it will trigger refresh in getAuth
 155. better email validation
 
 
-166. after implementing forgot password logic -> make sure that it won't work when token is revoked?
-167. changeUserByAdmin -> can it remain in production??
-168. objectAssign -> convert to function?
-169. changeUserByAdmin -> changing password - should it be left out?
-170. AuthNotification components -> implement in UserProfile
 172. deleteUsersByAdminMutation -> not getting proper returned data from graphql, change id naming?
 173. deleteUsersByAdminMutation -> put delete user first, only then settings etc.
 175.5 auth -> zustand, other central state -> context. unify? check downside of using context
@@ -368,6 +371,10 @@ If that's not what you want, please create a client and add a Provider.
 266. eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?
 267. mutation -> should take care of res.error -> graphql errors 
 268. add some text, explanation in email with pass change
+269. changePassword (after clicking token from email) - make better lower margin, too small?
+270. changePassword (after clicking token from email) - implement hide/show password, passVisible props
+167. changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
+
 
 tabIdsToDel how to get rid off:
    /* 
