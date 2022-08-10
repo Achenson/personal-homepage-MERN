@@ -10,6 +10,11 @@ const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
 const Bookmark = require("../../mongoModels/bookmarkSchema");
 
+interface DeletedUser {
+  userId: string;
+  wasDeleted: boolean;
+}
+
 export const deleteUsersByAdminMutationField = {
   type: DeleteUsersByAdminType,
   args: {
@@ -23,11 +28,13 @@ export const deleteUsersByAdminMutationField = {
     let deletedUsers = args.ids.map(async (id) => {
       // await so that everything connected to user is deleted before
       // user is deleted and returned
-      await Promise.all([
-        Settings.findOneAndDelete({ userId: id }),
-        Bookmark.deleteMany({ userId: id }),
-        Tab.deleteMany({ userId: id }),
-      ]);
+
+      // await Promise.all([
+      //   Settings.findOneAndDelete({ userId: id }),
+      //   Bookmark.deleteMany({ userId: id }),
+      //   Tab.deleteMany({ userId: id }),
+      // ]);
+
       /*  await Settings.findOneAndDelete({ userId: args.id });
     await Bookmark.deleteMany({ userId: args.id });
     await Tab.deleteMany({ userId: args.id }); */
@@ -35,8 +42,16 @@ export const deleteUsersByAdminMutationField = {
       let deletedUser = await User.findByIdAndDelete(id);
 
       if (deletedUser) {
+        await Promise.all([
+          Settings.findOneAndDelete({ userId: id }),
+          Bookmark.deleteMany({ userId: id }),
+          Tab.deleteMany({ userId: id }),
+        ]);
+
         fs.rmdir(path.join("backgroundImgs/" + id + "/"), (err: any) => {
-          if (err) console.error(err);
+          if (err) {
+            console.error(err);
+          }
         });
 
         // return { [deletedUser.id]: true };
@@ -66,7 +81,7 @@ export const deleteUsersByAdminMutationField = {
     console.log("awaitedDeletedUsers");
     console.log(awaitedDeletedUsers);
 
-    return awaitedDeletedUsers;
+    return { ids: awaitedDeletedUsers };
 
     // return User.findByIdAndDelete(args.id, (err: Error) => {
     //   if (err) {

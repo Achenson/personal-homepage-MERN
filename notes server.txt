@@ -191,6 +191,9 @@ DONE 165. LoginRegister_input naming change (component also used elsewhere) DONE
   revokingToken would not be enough, as the db & refreshToken tokenVersion will be again the same after logging in,
   so password has to be change by the admin])X  !
 DONE 171. deleteUserByAdminMutation -> change so it is possible to delete many users DONE
+DONE 172. deleteUsersByAdminMutation -> not getting proper returned data from graphql, change id naming?
+ (mutations was not returnig data matching field, id naming not changed) DONE
+DONE 173. deleteUsersByAdminMutation -> put delete user first, only then settings etc. DONE
 DONE 175. delete AppWrapper DONE
 DONE 178. after registering & redirecting to login -> focus should be set on password DONE
 DONE 179. after registering -> register fields should be emptied DONE
@@ -269,8 +272,7 @@ it will trigger refresh in getAuth
 155. better email validation
 
 
-172. deleteUsersByAdminMutation -> not getting proper returned data from graphql, change id naming?
-173. deleteUsersByAdminMutation -> put delete user first, only then settings etc.
+
 175.5 auth -> zustand, other central state -> context. unify? check downside of using context
 175.75 check if all contexts are used!!! backgroundImgContext adn authContext not being used
 176. objects as props in more places? like paddingProps in Main
@@ -374,7 +376,7 @@ If that's not what you want, please create a client and add a Provider.
 269. changePassword (after clicking token from email) - make better lower margin, too small?
 270. changePassword (after clicking token from email) - implement hide/show password, passVisible props
 167. changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
-
+271. tokenVersion -> why not present in UserField?
 
 tabIdsToDel how to get rid off:
    /* 
