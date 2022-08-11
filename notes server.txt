@@ -195,6 +195,9 @@ DONE 172. deleteUsersByAdminMutation -> not getting proper returned data from gr
  (mutations was not returnig data matching field, id naming not changed) DONE
 DONE 173. deleteUsersByAdminMutation -> put delete user first, only then settings etc. DONE
 DONE 175. delete AppWrapper DONE
+DONE 175.75 check if all contexts are used!!! backgroundImgContext adn authContext not being used
+(AuthContext deleted) DONE
+DONE 176. objects as props in more places? like paddingProps in Main (Main & MainRoute improved)DONE
 DONE 178. after registering & redirecting to login -> focus should be set on password DONE
 DONE 179. after registering -> register fields should be emptied DONE
 DONE 187. option to make passwords visible! DONE
@@ -274,8 +277,7 @@ it will trigger refresh in getAuth
 
 
 175.5 auth -> zustand, other central state -> context. unify? check downside of using context
-175.75 check if all contexts are used!!! backgroundImgContext adn authContext not being used
-176. objects as props in more places? like paddingProps in Main
+
 177. useAuth zustand hook -> loginErrorMessage -> delete or implement?
 180. focus should be on first field after clicking Login or Register
 181. clean db in the end
@@ -377,6 +379,7 @@ If that's not what you want, please create a client and add a Provider.
 270. changePassword (after clicking token from email) - implement hide/show password, passVisible props
 167. changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
 271. tokenVersion -> why not present in UserField?
+272. authNotification -> change from colors in props to "error" of "notification" types (colors inside component)
 
 tabIdsToDel how to get rid off:
    /* 

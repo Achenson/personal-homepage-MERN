@@ -391,9 +391,10 @@ function Main({ globalSettings }: Props): JSX.Element {
                 // not possible to access if logged in!
                 <PublicRoute isAuthenticated={authContext.isAuthenticated}>
                   <LoginRegister
-                    mainPaddingRight={paddingRight}
-                    scrollbarWidth={scrollbarWidth}
+                    // mainPaddingRight={paddingRight}
+                    // scrollbarWidth={scrollbarWidth}
                     globalSettings={globalSettings}
+                    {...paddingProps}
                     // loginNotification={loginNotification}
                     // setLoginNotification={setLoginNotification}
                   />
@@ -408,9 +409,10 @@ function Main({ globalSettings }: Props): JSX.Element {
                 // not possible to access if logged in!
                 <PrivateRoute isAuthenticated={authContext.isAuthenticated}>
                   <UserProfile
-                    mainPaddingRight={paddingRight}
-                    scrollbarWidth={scrollbarWidth}
+                    // mainPaddingRight={paddingRight}
+                    // scrollbarWidth={scrollbarWidth}
                     globalSettings={globalSettings}
+                    {...paddingProps}
                     // loginNotification={loginNotification}
                     // setLoginNotification={setLoginNotification}
                   />
@@ -425,9 +427,10 @@ function Main({ globalSettings }: Props): JSX.Element {
                 // not possible to access if logged in!
                 <PublicRoute isAuthenticated={authContext.isAuthenticated}>
                   <PasswordForgotten
-                    mainPaddingRight={paddingRight}
-                    scrollbarWidth={scrollbarWidth}
+                    // mainPaddingRight={paddingRight}
+                    // scrollbarWidth={scrollbarWidth}
                     globalSettings={globalSettings}
+                    {...paddingProps}
                     // loginNotification={loginNotification}
                     // setLoginNotification={setLoginNotification}
                   />
@@ -442,9 +445,10 @@ function Main({ globalSettings }: Props): JSX.Element {
                 // not possible to access if logged in!
                 <PublicRoute isAuthenticated={authContext.isAuthenticated}>
                   <ForgottenPassChange
-                    mainPaddingRight={paddingRight}
-                    scrollbarWidth={scrollbarWidth}
+                    // mainPaddingRight={paddingRight}
+                    // scrollbarWidth={scrollbarWidth}
                     globalSettings={globalSettings}
+                    {...paddingProps}
                     // loginNotification={loginNotification}
                     // setLoginNotification={setLoginNotification}
                   />

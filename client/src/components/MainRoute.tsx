@@ -76,6 +76,16 @@ Props): JSX.Element {
     setLoginNotification(null);
   }, []);
 
+  let paddingProps = {
+    mainPaddingRight,
+    scrollbarWidth,
+  };
+
+  let authAndSettingsProps = {
+    globalSettings,
+    userIdOrNoId,
+  };
+
   function renderBackgroundImg(picBackground: boolean, defaultImage: string) {
     if (
       picBackground &&
@@ -122,11 +132,13 @@ Props): JSX.Element {
             tabType={tabType}
             // tabs={tabs}
             // bookmarks={bookmarks}
-            globalSettings={globalSettings}
-            //   {...paddingProps}
-            mainPaddingRight={mainPaddingRight}
-            scrollbarWidth={scrollbarWidth}
-            userIdOrNoId={userIdOrNoId}
+            // globalSettings={globalSettings}
+            // mainPaddingRight={mainPaddingRight}
+            // scrollbarWidth={scrollbarWidth}
+            // userIdOrNoId={userIdOrNoId}
+              {...paddingProps}
+              {...authAndSettingsProps}
+          
           />
         </ModalWrap>
       )}
@@ -136,44 +148,50 @@ Props): JSX.Element {
             bookmarkComponentType={"new_upperUI"}
             // tabs={tabs}
             // bookmarks={bookmarks}
-            globalSettings={globalSettings}
-            userIdOrNoId={userIdOrNoId}
+            // globalSettings={globalSettings}
+            // userIdOrNoId={userIdOrNoId}
             //   {...paddingProps}
+            {...authAndSettingsProps}
           />
         </ModalWrap>
       )}
       {upperVisState.backgroundSettingsVis && (
         <ModalWrap globalSettings={globalSettings}>
           <BackgroundSettings
-            globalSettings={globalSettings}
+            // globalSettings={globalSettings}
             backgroundImgResults={backgroundImgResults}
             reexecuteBackgroundImg={reexecuteBackgroundImg}
-            //   {...paddingProps}
-            mainPaddingRight={mainPaddingRight}
-            scrollbarWidth={scrollbarWidth}
-            userIdOrNoId={userIdOrNoId}
+            // mainPaddingRight={mainPaddingRight}
+            // scrollbarWidth={scrollbarWidth}
+            // userIdOrNoId={userIdOrNoId}
+              {...paddingProps}
+              {...authAndSettingsProps}
           />
         </ModalWrap>
       )}
       {upperVisState.settingsVis && (
         <ModalWrap globalSettings={globalSettings}>
           <GlobalSettings
-            globalSettings={globalSettings}
+            // globalSettings={globalSettings}
             //   {...paddingProps}
-            mainPaddingRight={mainPaddingRight}
-            scrollbarWidth={scrollbarWidth}
-            userIdOrNoId={userIdOrNoId}
+            // mainPaddingRight={mainPaddingRight}
+            // scrollbarWidth={scrollbarWidth}
+            // userIdOrNoId={userIdOrNoId}
+            {...paddingProps}
+            {...authAndSettingsProps}
           />
         </ModalWrap>
       )}
       {upperVisState.colorsSettingsVis && (
         <ModalWrap globalSettings={globalSettings}>
           <ColorsSettings
-            globalSettings={globalSettings}
+            // globalSettings={globalSettings}
             //   +{...paddingProps}
-            mainPaddingRight={mainPaddingRight}
-            scrollbarWidth={scrollbarWidth}
-            userIdOrNoId={userIdOrNoId}
+            // mainPaddingRight={mainPaddingRight}
+            // scrollbarWidth={scrollbarWidth}
+            // userIdOrNoId={userIdOrNoId}
+            {...paddingProps}
+            {...authAndSettingsProps}
           />
         </ModalWrap>
       )}
@@ -188,8 +206,9 @@ Props): JSX.Element {
       <UpperUI />
       <Grid
         setTabType={setTabType}
-        globalSettings={globalSettings}
-        userIdOrNoId={userIdOrNoId}
+        // globalSettings={globalSettings}
+        // userIdOrNoId={userIdOrNoId}
+        {...authAndSettingsProps}
         // bookmarks={bookmarks}
         // tabs={tabs}
         // staleBookmarks={stale_bookmarks}
