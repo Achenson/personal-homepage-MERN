@@ -414,10 +414,10 @@ function Main({ globalSettings }: Props): JSX.Element {
               element={
                 // not possible to access if logged in!
                 <PrivateRoute isAuthenticated={authContext.isAuthenticated}>
-                  {/* <AuthOuterComponent
+                  <AuthOuterComponent
                     globalSettings={globalSettings}
                     {...paddingProps}
-                  > */}
+                  >
                     <UserProfile
                       // mainPaddingRight={paddingRight}
                       // scrollbarWidth={scrollbarWidth}
@@ -426,7 +426,7 @@ function Main({ globalSettings }: Props): JSX.Element {
                       // loginNotification={loginNotification}
                       // setLoginNotification={setLoginNotification}
                     />
-                  {/* </AuthOuterComponent> */}
+                  </AuthOuterComponent>
                 </PrivateRoute>
               }
             />

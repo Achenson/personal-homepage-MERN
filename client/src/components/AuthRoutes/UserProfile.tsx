@@ -74,13 +74,6 @@ Props): JSX.Element {
 
   const [passVisible, setPassVisible] = useState(false);
 
-  // const [changePasswordErrorMessage, setChangePasswordErrorMessage] = useState<
-  //   null | string
-  // >(null);
-
-  // const [deleteErrorMessage, setDeleteErrorMessage] = useState<null | string>(
-  //   null
-  // );
 
   const [loginMutResult, loginMut] = useMutation<any, AuthDataInput_i>(
     LoginMutation
@@ -117,18 +110,7 @@ Props): JSX.Element {
   });
 
   const { data, fetching, error } = userResults;
-  /* 
-  if (data) {
-    setName(data.user.name);
-    setEmail(data.user.email);
-  } */
 
-  /* useEffect( () => {
-
-    
-    setName(data.user.name)
-    setEmail(data.user.email)
-  }, [data]) */
 
   const [username, setUsername] = useState("");
   // doesn't get changed by user input
@@ -171,100 +153,6 @@ Props): JSX.Element {
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);
   }
-
-  /*  function loginValidation() {
-    console.log("sth");
-
-    if (email_or_name === "" || password === "") {
-      // !!! change
-      setLoginErrorMessage("Email or password not provided");
-      console.log("Email or password not provided");
-      return;
-    }
-
-    console.log("name email provided");
-
-    // diffent than in apollo!
-    loginMut({
-      email_or_name: email_or_name,
-      password: password,
-    }).then(
-      (res) => {
-        console.log("RES DATA");
-        console.log(res.data);
-        console.log(res.data.login);
-
-        if (res.data.login.error === "User does not exist!") {
-          // if (res.data.login.token === "User does not exist!") {
-          // setLoginErrorMessage(`${res.data.login.token}`);
-          console.log(res.data.login.error);
-          setLoginErrorMessage(`${res.data.login.error}`);
-          return;
-        }
-
-        if (res.data.login.error === "Password is incorrect!") {
-          // if (res.data.login.token === "Password is incorrect!") {
-          // setLoginErrorMessage(`${res.data.login.token}`);
-          console.log(res.data.login.error);
-          setLoginErrorMessage(`${res.data.login.error}`);
-          return;
-        }
-
-        if (!res) {
-          return;
-        }
-
-        // if (loggedInState === false) {
-        //   setLoggedInState(true);
-        // }
-
-        // console.log("loginMut res");
-        // console.log(res);
-
-        setLoginErrorMessage(null);
-
-        loginAttempt(
-          res.data.ok,
-          res.data.login.userId,
-          res.data.login.token
-        );
-
-        // authContext.updateAuthContext({
-        //   ...authContext,
-        //   isAuthenticated: true,
-        //   authenticatedUserId: res.data.login.userId,
-        //   // authenticatedUserId: res.data.login.userId,
-        //   accessToken: res.data.login.token,
-        //   // accessToken: res.data.login.token,
-        //   // token: res.data.login.token,
-        // });
-
-        // !!! display message that the login was successful
-        // setLoginNotification(null);
-
-        // history.push('/')
-        // no going back! not possible to go back to login when logged in
-        // !!! no react router will be implemented?
-        // history.replace("/");
-
-        // history.replace("/") equivalent in react-router-dom 6
-        navigate("/", { replace: true });
-
-        // upperUiContext.upperVisDispatch({
-        //   type: "PROFILE_TOGGLE",
-        // });
-
-        upperUiContext.upperVisDispatch({
-          type: "MESSAGE_OPEN_LOGIN",
-        });
-      },
-      (err) => {
-        console.log(err);
-        setLoginErrorMessage("Server connection Error");
-        return;
-      }
-    );
-  } */
 
   function errMessage(
     errorMessage: string | null,
@@ -379,342 +267,270 @@ Props): JSX.Element {
   }
 
   return (
-    <FocusLock>
-      <div
-        // justify-center changed to paddingTop so login & register are on the same height
-        className="flex flex-col z-50 fixed h-full w-screen items-center"
-        style={{ backgroundColor: "rgba(90, 90, 90, 0.4)", paddingTop: "30vh" }}
-        onClick={() => {
-          // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
-          navigate("/");
-        }}
-      >
-        <div
-          className="relative"
-          onClick={(e) => {
-            e.stopPropagation();
-            return;
-          }}
-        >
-          <div
-            className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${uiColor} rounded-sm relative`}
-            style={{
-              width: `350px`,
-              marginLeft: `${
-                mainPaddingRight && scrollbarWidth >= 10
-                  ? `-${scrollbarWidth - 1}px`
-                  : ""
-              }`,
-            }}
-          >
-            <div className="absolute right-0 top-0 mt-1 mr-1">
-              <button
-                className="h-5 w-5 focus-2-offset-dark"
-                onClick={() => {
-                  // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
+    <div className="">
+      <p className="text-center">
+        Logged in as <span className="font-bold">{data.user.name}</span>
+      </p>
 
-                  navigate("/");
+      <div className="mt-3 mb-3">
+        <div className="flex flex-col items-center mb-1">
+          <div className="w-48">
+            {renderInputs(inputMode)}
+            <p className="text-red-500 mb-1 text-center">{errorMessage}</p>
+            <p className="text-green-500 mb-1 text-center">{notification}</p>
+          </div>
+        </div>
 
-                  upperUiContext.upperVisDispatch({
-                    type: "FOCUS_ON_UPPER_RIGHT_UI",
-                    payload: 8,
-                  });
-                }}
-                aria-label={"Close"}
-              >
-                <CancelSVG className="h-5 w-5 fill-current text-gray-600 cursor-pointer hover:text-gray-900" />
-              </button>
-            </div>
+        <div className="mb-5 flex flex-col items-center">
+          <button
+            className={`w-24 mb-3 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark ${
+              inputMode === "initial" ? "hidden" : ""
+            }`}
+            onClick={() => {
+              if (passwordCurrent === "") {
+                errMessage("Password not provided");
+                return;
+              }
 
+              // if (name === nameInitial && email === emailInitial) {
+              //   setErrorMessage("No new data to update");
+              //   setNotification(null);
+              //   return;
+              // }
 
+              switch (inputMode) {
+                case "editProfile":
+                  console.log("editProfile");
 
+                  if (username === "") {
+                    errMessage("Username cannot be empty");
+                    return;
+                  }
 
+                  if (email === "") {
+                    errMessage("Email cannot be empty");
+                    return;
+                  }
 
+                  if (email.indexOf("@") === -1) {
+                    errMessage("Please enter valid email address");
+                    return;
+                  }
 
-            <div className="">
-              <p className="text-center">
-                Logged in as <span className="font-bold">{data.user.name}</span>
-              </p>
-
-              <div className="mt-3 mb-3">
-                <div className="flex flex-col items-center mb-1">
-                  <div className="w-48">
-                    {renderInputs(inputMode)}
-                    <p className="text-red-500 mb-1 text-center">
-                      {errorMessage}
-                    </p>
-                    <p className="text-green-500 mb-1 text-center">
-                      {notification}
-                    </p>
-
-               
-                  </div>
-                </div>
-
-                <div className="mb-5 flex flex-col items-center">
-                  <button
-                    className={`w-24 mb-3 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark ${
-                      inputMode === "initial" ? "hidden" : ""
-                    }`}
-                    onClick={() => {
-                      if (passwordCurrent === "") {
-                        errMessage("Password not provided");
+                  changeUserByUser({
+                    id: userId as string,
+                    // preventing from trying to update fields without changes
+                    name: username === usernameInitial ? null : username,
+                    email: email === emailInitial ? null : email,
+                    passwordCurrent: passwordCurrent,
+                  }).then(
+                    async (res) => {
+                      if (!res) {
+                        errMessage("Server connection Error");
                         return;
                       }
 
-                      // if (name === nameInitial && email === emailInitial) {
-                      //   setErrorMessage("No new data to update");
+                      if (!res.data?.changeUserByUser?.name) {
+                        // if no specific error is received from the server
+                        if (!res.data?.changeUserByUser?.error) {
+                          errMessage("An unknown error has occured");
+                          return;
+                        }
+
+                        errMessage(res.data?.changeUserByUser?.error);
+                        return;
+                      }
+
+                      // if (!res.data?.changeUserByUser?.name) {
+                      //   setErrorMessage("Unknown error");
                       //   setNotification(null);
                       //   return;
                       // }
 
-                      switch (inputMode) {
-                        case "editProfile":
-                          console.log("editProfile");
+                      reexecuteUserResults({
+                        requestPolicy: "network-only",
+                      });
 
-                          if (username === "") {
-                            errMessage("Username cannot be empty");
-                            return;
-                          }
+                      errMessage(null, false);
+                      setNotification("User data successfully updated");
+                    },
+                    (err) => {
+                      console.log(err);
+                      errMessage("Server connection Error");
+                      return;
+                    }
+                  );
 
-                          if (email === "") {
-                            errMessage("Email cannot be empty");
-                            return;
-                          }
+                  return;
+                case "changePassword":
+                  console.log("changePassword");
 
-                          if (email.indexOf("@") === -1) {
-                            errMessage("Please enter valid email address");
-                            return;
-                          }
+                  if (passwordNew === "") {
+                    errMessage("New password not provided");
+                    return;
+                  }
 
-                          changeUserByUser({
-                            id: userId as string,
-                            // preventing from trying to update fields without changes
-                            name:
-                              username === usernameInitial ? null : username,
-                            email: email === emailInitial ? null : email,
-                            passwordCurrent: passwordCurrent,
-                          }).then(
-                            async (res) => {
-                              if (!res) {
-                                errMessage("Server connection Error");
-                                return;
-                              }
+                  if (passwordNew.length < 8) {
+                    errMessage("Password must contain at least 8 characters");
+                    return;
+                  }
 
-                              if (!res.data?.changeUserByUser?.name) {
-                                // if no specific error is received from the server
-                                if (!res.data?.changeUserByUser?.error) {
-                                  errMessage("An unknown error has occured");
-                                  return;
-                                }
+                  if (passwordNewConfirm === "") {
+                    errMessage("Password confirmation not provided");
+                    return;
+                  }
 
-                                errMessage(res.data?.changeUserByUser?.error);
-                                return;
-                              }
+                  if (passwordNew !== passwordNewConfirm) {
+                    errMessage("Invalid password confirmation");
+                    return;
+                  }
 
-                              // if (!res.data?.changeUserByUser?.name) {
-                              //   setErrorMessage("Unknown error");
-                              //   setNotification(null);
-                              //   return;
-                              // }
-
-                              reexecuteUserResults({
-                                requestPolicy: "network-only",
-                              });
-
-                              errMessage(null, false);
-                              setNotification("User data successfully updated");
-                            },
-                            (err) => {
-                              console.log(err);
-                              errMessage("Server connection Error");
-                              return;
-                            }
-                          );
-
-                          return;
-                        case "changePassword":
-                          console.log("changePassword");
-
-                          if (passwordNew === "") {
-                            errMessage("New password not provided");
-                            return;
-                          }
-
-                          if (passwordNew.length < 8) {
-                            errMessage(
-                              "Password must contain at least 8 characters"
-                            );
-                            return;
-                          }
-
-                          if (passwordNewConfirm === "") {
-                            errMessage("Password confirmation not provided");
-                            return;
-                          }
-
-                          if (passwordNew !== passwordNewConfirm) {
-                            errMessage("Invalid password confirmation");
-                            return;
-                          }
-
-                          changePasswordByUser({
-                            id: userId as string,
-                            passwordCurrent: passwordCurrent,
-                            passwordNew: passwordNew,
-                          }).then(
-                            async (res) => {
-                              if (!res) {
-                                errMessage("Server connection Error");
-                                return;
-                              }
-
-                              if (!res.data?.changePasswordByUser?.name) {
-                                // if no specific error is received from the server
-                                if (!res.data?.changePasswordByUser?.error) {
-                                  errMessage("An unknown error has occured");
-                                  return;
-                                }
-
-                                errMessage(
-                                  res.data?.changePasswordByUser?.error
-                                );
-                                return;
-                              }
-
-                              errMessage(null, false);
-                              setNotification("Password successfully changed");
-                            },
-                            (err) => {
-                              console.log(err);
-                              errMessage("Server connection Error");
-                              return;
-                            }
-                          );
-
-                          return;
-                        case "deleteAccount":
-                          console.log("userId");
-                          console.log(userId);
-                          console.log("passwordCurrent");
-                          console.log(passwordCurrent);
-
-                          deleteAccountByUser({
-                            id: userId as string,
-                            password: passwordCurrent,
-                          }).then(
-                            async (res) => {
-                              if (!res) {
-                                errMessage("Server connection Error");
-                                return;
-                              }
-
-                              if (!res.data?.deleteAccountByUser?.name) {
-                                // if no specific error is received from the server
-                                if (!res.data?.deleteAccountByUser?.error) {
-                                  errMessage("An unknown error has occured");
-                                  return;
-                                }
-
-                                errMessage(
-                                  res.data?.deleteAccountByUser?.error
-                                );
-                                return;
-                              }
-
-                              errMessage(null);
-                              // setLoginNotification("Account successfully deleted");
-
-                              await logoutMut();
-                              logout("Account successfully deleted");
-                              navigate("/login-register", { replace: true });
-
-                              upperUiContext.upperVisDispatch({
-                                type: "MESSAGE_OPEN_LOGIN",
-                              });
-                            },
-                            (err) => {
-                              console.log(err);
-                              errMessage("Server connection Error");
-                              return;
-                            }
-                          );
-
-                          console.log("deleteAccount");
-                          return;
-                        default:
-                          return;
+                  changePasswordByUser({
+                    id: userId as string,
+                    passwordCurrent: passwordCurrent,
+                    passwordNew: passwordNew,
+                  }).then(
+                    async (res) => {
+                      if (!res) {
+                        errMessage("Server connection Error");
+                        return;
                       }
-                    }}
-                  >
-                    {inputMode === "deleteAccount" ? "CONFIRM" : "UPDATE"}
-                  </button>
-                  <button
-                    className={`w-24 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark ${
-                      inputMode === "editProfile" ? "hidden" : ""
-                    }`}
-                    onClick={() => {
-                      setInputMode("editProfile");
-                      setUsername(usernameInitial);
-                      setEmail(emailInitial);
-                      setPasswordCurrent("");
+
+                      if (!res.data?.changePasswordByUser?.name) {
+                        // if no specific error is received from the server
+                        if (!res.data?.changePasswordByUser?.error) {
+                          errMessage("An unknown error has occured");
+                          return;
+                        }
+
+                        errMessage(res.data?.changePasswordByUser?.error);
+                        return;
+                      }
+
+                      errMessage(null, false);
+                      setNotification("Password successfully changed");
+                    },
+                    (err) => {
+                      console.log(err);
+                      errMessage("Server connection Error");
+                      return;
+                    }
+                  );
+
+                  return;
+                case "deleteAccount":
+                  console.log("userId");
+                  console.log(userId);
+                  console.log("passwordCurrent");
+                  console.log(passwordCurrent);
+
+                  deleteAccountByUser({
+                    id: userId as string,
+                    password: passwordCurrent,
+                  }).then(
+                    async (res) => {
+                      if (!res) {
+                        errMessage("Server connection Error");
+                        return;
+                      }
+
+                      if (!res.data?.deleteAccountByUser?.name) {
+                        // if no specific error is received from the server
+                        if (!res.data?.deleteAccountByUser?.error) {
+                          errMessage("An unknown error has occured");
+                          return;
+                        }
+
+                        errMessage(res.data?.deleteAccountByUser?.error);
+                        return;
+                      }
+
                       errMessage(null);
-                    }}
-                  >
-                    Edit profile
-                  </button>
-                  <button
-                    className={`w-36 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark ${
-                      inputMode === "changePassword" ? "hidden" : ""
-                    }`}
-                    onClick={() => {
-                      setInputMode("changePassword");
-                      setPasswordCurrent("");
-                      setPasswordNew("");
-                      setPasswordNewConfirm("");
-                      errMessage(null);
-                    }}
-                  >
-                    Change password
-                  </button>
-                  <button
-                    className={`w-32 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark ${
-                      inputMode === "deleteAccount" ? "hidden" : ""
-                    }`}
-                    onClick={() => {
-                      setInputMode("deleteAccount");
-                      setPasswordCurrent("");
-                      errMessage(null);
-                    }}
-                  >
-                    Delete account
-                  </button>
-                </div>
-              </div>
+                      // setLoginNotification("Account successfully deleted");
 
-              <div className="flex justify-center">
-                <button
-                  className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
-                  focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-                  onClick={async () => {
-                    await logoutMut();
+                      await logoutMut();
+                      logout("Account successfully deleted");
+                      navigate("/login-register", { replace: true });
 
-                    logout(null);
+                      upperUiContext.upperVisDispatch({
+                        type: "MESSAGE_OPEN_LOGIN",
+                      });
+                    },
+                    (err) => {
+                      console.log(err);
+                      errMessage("Server connection Error");
+                      return;
+                    }
+                  );
 
-                    navigate("/login-register", { replace: true });
-                  }}
-                >
-                  Logout
-                </button>
-              </div>
-            </div>
-
-
-
-          </div>
+                  console.log("deleteAccount");
+                  return;
+                default:
+                  return;
+              }
+            }}
+          >
+            {inputMode === "deleteAccount" ? "CONFIRM" : "UPDATE"}
+          </button>
+          <button
+            className={`w-24 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark ${
+              inputMode === "editProfile" ? "hidden" : ""
+            }`}
+            onClick={() => {
+              setInputMode("editProfile");
+              setUsername(usernameInitial);
+              setEmail(emailInitial);
+              setPasswordCurrent("");
+              errMessage(null);
+            }}
+          >
+            Edit profile
+          </button>
+          <button
+            className={`w-36 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark ${
+              inputMode === "changePassword" ? "hidden" : ""
+            }`}
+            onClick={() => {
+              setInputMode("changePassword");
+              setPasswordCurrent("");
+              setPasswordNew("");
+              setPasswordNewConfirm("");
+              errMessage(null);
+            }}
+          >
+            Change password
+          </button>
+          <button
+            className={`w-32 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark ${
+              inputMode === "deleteAccount" ? "hidden" : ""
+            }`}
+            onClick={() => {
+              setInputMode("deleteAccount");
+              setPasswordCurrent("");
+              errMessage(null);
+            }}
+          >
+            Delete account
+          </button>
         </div>
       </div>
-    </FocusLock>
+
+      <div className="flex justify-center">
+        <button
+          className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
+                  focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
+          onClick={async () => {
+            await logoutMut();
+
+            logout(null);
+
+            navigate("/login-register", { replace: true });
+          }}
+        >
+          Logout
+        </button>
+      </div>
+    </div>
   );
 }
 
