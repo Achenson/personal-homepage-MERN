@@ -306,149 +306,99 @@ Props): JSX.Element {
   }
 
   return (
-    <FocusLock>
-      <div
-        // justify-center changed to paddingTop so login & register are on the same height
-        className="flex flex-col z-50 fixed h-full w-screen items-center"
-        style={{ backgroundColor: "rgba(90, 90, 90, 0.4)", paddingTop: "30vh" }}
-        onClick={() => {
-          // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
-          // setLoginNotification(null);
-          navigate("/");
-        }}
-      >
-        <div
-          className="relative"
-          onClick={(e) => {
-            e.stopPropagation();
-            return;
+    <div className="">
+      <div className="mx-auto w-32 flex justify-between">
+        <button
+          onClick={() => {
+            setLoginOrRegister("login");
+            setLoginNotification(null);
+          }}
+          className={`${
+            loginOrRegister === "login"
+              ? "cursor-default" +
+                " " +
+                "text-" +
+                finalColorForImgBackgroundMode
+              : "hover:text-opacity-50 cursor-pointer text-gray-400"
+          } text-lg  focus-1-offset`}
+        >
+          <span>Login</span>
+        </button>
+
+        <button
+          className={`${
+            loginOrRegister === "login"
+              ? "hover:text-opacity-50 cursor-pointer text-gray-400"
+              : "cursor-default" +
+                " " +
+                "text-" +
+                finalColorForImgBackgroundMode
+          } text-lg focus-1-offset`}
+          onClick={() => {
+            setLoginOrRegister("register");
+            setLoginNotification(null);
           }}
         >
-          <div
-            className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${uiColor} rounded-sm relative`}
-            style={{
-              width: `350px`,
-              marginLeft: `${
-                mainPaddingRight && scrollbarWidth >= 10
-                  ? `-${scrollbarWidth - 1}px`
-                  : ""
-              }`,
-            }}
-          >
-            <div className="absolute right-0 top-0 mt-1 mr-1">
-              <button
-                className="h-5 w-5 focus-2-offset-dark"
-                onClick={() => {
-                  // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
-                  // setLoginNotification(null);
-                  navigate("/");
+          Register
+        </button>
+      </div>
 
-                  upperUiContext.upperVisDispatch({
-                    type: "FOCUS_ON_UPPER_RIGHT_UI",
-                    payload: 8,
-                  });
-                }}
-                aria-label={"Close"}
-              >
-                <CancelSVG className="h-5 w-5 fill-current text-gray-600 cursor-pointer hover:text-gray-900" />
-              </button>
+      <div className="mt-3 mb-5 flex flex-col items-center">
+        {loginOrRegister === "login" ? (
+          <div className="w-48">
+            <p>Email address / username</p>
+            <LogRegProfile_input
+              ref={firstFieldRef}
+              inputValue={email_or_name}
+              setInputValue={setEmail_or_name}
+              preventCopyPaste={false}
+              passwordInputType={false}
+              passVisible={undefined}
+            />
+          </div>
+        ) : (
+          <>
+            <div className="w-48">
+              <p>Username</p>
+              <LogRegProfile_input
+                inputValue={username}
+                setInputValue={setUsername}
+                preventCopyPaste={false}
+                passwordInputType={false}
+                passVisible={undefined}
+              />
             </div>
+            <div className="mt-1 w-48">
+              <p>Email address</p>
+              <LogRegProfile_input
+                inputValue={email}
+                setInputValue={setEmail}
+                preventCopyPaste={false}
+                passwordInputType={false}
+                passVisible={undefined}
+              />
+            </div>
+          </>
+        )}
 
-            <div className="">
-              <div className="mx-auto w-32 flex justify-between">
-                <button
-                  onClick={() => {
-                    setLoginOrRegister("login");
-                    setLoginNotification(null);
-                  }}
-                  className={`${
-                    loginOrRegister === "login"
-                      ? "cursor-default" +
-                        " " +
-                        "text-" +
-                        finalColorForImgBackgroundMode
-                      : "hover:text-opacity-50 cursor-pointer text-gray-400"
-                  } text-lg  focus-1-offset`}
-                >
-                  <span>Login</span>
-                </button>
+        <div className={`${loginOrRegister === "register" ? "mt-3" : ""}`}>
+          <div className="mt-1 w-48">
+            <div className="flex items-center justify-between">
+              <p>Password</p>
 
-                <button
-                  className={`${
-                    loginOrRegister === "login"
-                      ? "hover:text-opacity-50 cursor-pointer text-gray-400"
-                      : "cursor-default" +
-                        " " +
-                        "text-" +
-                        finalColorForImgBackgroundMode
-                  } text-lg focus-1-offset`}
-                  onClick={() => {
-                    setLoginOrRegister("register");
-                    setLoginNotification(null);
-                  }}
-                >
-                  Register
-                </button>
-              </div>
+              {/* <span>&nbsp;</span> */}
 
-              <div className="mt-3 mb-5 flex flex-col items-center">
-                {loginOrRegister === "login" ? (
-                  <div className="w-48">
-                    <p>Email address / username</p>
-                    <LogRegProfile_input
-                      ref={firstFieldRef}
-                      inputValue={email_or_name}
-                      setInputValue={setEmail_or_name}
-                      preventCopyPaste={false}
-                      passwordInputType={false}
-                      passVisible={undefined}
-                    />
-                  </div>
-                ) : (
-                  <>
-                    <div className="w-48">
-                      <p>Username</p>
-                      <LogRegProfile_input
-                        inputValue={username}
-                        setInputValue={setUsername}
-                        preventCopyPaste={false}
-                        passwordInputType={false}
-                        passVisible={undefined}
-                      />
-                    </div>
-                    <div className="mt-1 w-48">
-                      <p>Email address</p>
-                      <LogRegProfile_input
-                        inputValue={email}
-                        setInputValue={setEmail}
-                        preventCopyPaste={false}
-                        passwordInputType={false}
-                        passVisible={undefined}
-                      />
-                    </div>
-                  </>
-                )}
-
-                <div
-                  className={`${loginOrRegister === "register" ? "mt-3" : ""}`}
-                >
-                  <div className="mt-1 w-48">
-                    <div className="flex items-center justify-between">
-                      <p>Password</p>
-
-                      {/* <span>&nbsp;</span> */}
-
-                      <button
-                        className="focus-1-offset"
-                        onClick={() => {
-                          setPassVisible(!passVisible);
-                        }}
-                      >
-                        <span className={`text-sm text-${uiColor}`}>
-                          {passVisible ? "hide" : "show"}
-                        </span>
-                      </button>
-                      {/* <button
+              <button
+                className="focus-1-offset"
+                onClick={() => {
+                  setPassVisible(!passVisible);
+                }}
+              >
+                <span className={`text-sm text-${uiColor}`}>
+                  {passVisible ? "hide" : "show"}
+                </span>
+              </button>
+              {/* <button
                         className="h-5 w-5 focus-2-offset-dark"
                         onClick={() => {
                           console.log("eye clicked");
@@ -457,95 +407,89 @@ Props): JSX.Element {
                       >
                         <EyeSVG className="h-4 w-4 cursor-pointer hover:text-blue-900" />
                       </button> */}
-                    </div>
+            </div>
 
-                    <LogRegProfile_input
-                      ref={secondFieldRef}
-                      inputValue={
-                        loginOrRegister === "login"
-                          ? password
-                          : passwordForRegister
-                      }
-                      setInputValue={
-                        loginOrRegister === "login"
-                          ? setPassword
-                          : setPasswordForRegister
-                      }
-                      preventCopyPaste={true}
-                      passwordInputType={true}
-                      passVisible={passVisible}
-                    />
-                  </div>
+            <LogRegProfile_input
+              ref={secondFieldRef}
+              inputValue={
+                loginOrRegister === "login" ? password : passwordForRegister
+              }
+              setInputValue={
+                loginOrRegister === "login"
+                  ? setPassword
+                  : setPasswordForRegister
+              }
+              preventCopyPaste={true}
+              passwordInputType={true}
+              passVisible={passVisible}
+            />
+          </div>
 
-                  {loginOrRegister === "register" && (
-                    <div className="mt-1 w-48">
-                      <p>Confirm password</p>
-                      <LogRegProfile_input
-                        inputValue={passwordForRegisterConfirm}
-                        setInputValue={setPasswordForRegisterConfirm}
-                        preventCopyPaste={true}
-                        passwordInputType={true}
-                        passVisible={passVisible}
-                      />
-                    </div>
-                  )}
-                </div>
-                {loginOrRegister === "login" && (
-                  <button
-                    className={`mt-1 text-sm text-gray-400 hover:text-opacity-50 cursor-pointer  focus-1-offset`}
-                    onClick={() => {
-                      navigate("/passforgot");
-                    }}
-                  >
-                    <span>Forgot password?</span>
-                  </button>
-                )}
+          {loginOrRegister === "register" && (
+            <div className="mt-1 w-48">
+              <p>Confirm password</p>
+              <LogRegProfile_input
+                inputValue={passwordForRegisterConfirm}
+                setInputValue={setPasswordForRegisterConfirm}
+                preventCopyPaste={true}
+                passwordInputType={true}
+                passVisible={passVisible}
+              />
+            </div>
+          )}
+        </div>
+        {loginOrRegister === "login" && (
+          <button
+            className={`mt-1 text-sm text-gray-400 hover:text-opacity-50 cursor-pointer  focus-1-offset`}
+            onClick={() => {
+              navigate("/passforgot");
+            }}
+          >
+            <span>Forgot password?</span>
+          </button>
+        )}
 
-                {loginOrRegister === "login" && loginErrorMessage && (
-                  <AuthNotification
-                    colorClass="red-500"
-                    notification={loginErrorMessage}
-                  />
-                )}
-                {loginOrRegister === "register" && registerErrorMessage && (
-                  <AuthNotification
-                    colorClass="red-500"
-                    notification={registerErrorMessage}
-                  />
-                )}
-                {loginOrRegister === "login" && loginNotification && (
-                  <AuthNotification
-                    colorClass="green-500"
-                    notification={loginNotification}
-                  />
-                )}
-              </div>
+        {loginOrRegister === "login" && loginErrorMessage && (
+          <AuthNotification
+            colorClass="red-500"
+            notification={loginErrorMessage}
+          />
+        )}
+        {loginOrRegister === "register" && registerErrorMessage && (
+          <AuthNotification
+            colorClass="red-500"
+            notification={registerErrorMessage}
+          />
+        )}
+        {loginOrRegister === "login" && loginNotification && (
+          <AuthNotification
+            colorClass="green-500"
+            notification={loginNotification}
+          />
+        )}
+      </div>
 
-              <div className="flex justify-center">
-                {loginOrRegister === "login" ? (
-                  <button
-                    className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
+      <div className="flex justify-center">
+        {loginOrRegister === "login" ? (
+          <button
+            className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-                    onClick={loginValidation}
-                  >
-                    Login
-                  </button>
-                ) : (
-                  <button
-                    className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
+            onClick={loginValidation}
+          >
+            Login
+          </button>
+        ) : (
+          <button
+            className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}
                   `}
-                    onClick={registerValidation}
-                  >
-                    Register
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
+            onClick={registerValidation}
+          >
+            Register
+          </button>
+        )}
       </div>
-    </FocusLock>
+    </div>
   );
 }
 

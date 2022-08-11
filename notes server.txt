@@ -201,6 +201,11 @@ DONE 176. objects as props in more places? like paddingProps in Main (Main & Mai
 DONE 177. useAuth zustand hook -> loginErrorMessage -> delete or implement? (deleted) DONE
 DONE 178. after registering & redirecting to login -> focus should be set on password DONE
 DONE 179. after registering -> register fields should be emptied DONE
+xxx 180. focus should be on first field after clicking Login or Register (good-enough)xxx
+  X 182. wiki-speed-typing - better login/register looks? (good enough) X
+  X 183. login/register modals -> name of the app should be visible somewhere?
+  (goodEnough - visible on the tab) X
+??? 184. Profile_Input passedRef -> check agains BackgroudnSettings_Upload ???
 DONE 187. option to make passwords visible! DONE
 DONE !!! 192. email with all .env codes !!! uj DONE
 DONE 201. tabIdsUsedByBookmarks -> MERN -> created every time in one of Grid's useEffect (check EditTab_main editTab wrapper also)
@@ -251,6 +256,7 @@ GOOD enough?
   xx 168. objectAssign -> convert to function? (good enough, but not type safe) xx
   xxx 170. AuthNotification components -> implement in UserProfile (good enough - AuthNotification would actually mean more codelines)xxx
   xx 174. development mode -> should work also when offline? (good enough)xx
+
 GOOD enough
 
 
@@ -279,11 +285,6 @@ it will trigger refresh in getAuth
 
 175.5 auth -> zustand, other central state -> context. unify? check downside of using context
 
-180. focus should be on first field after clicking Login or Register
-181. clean db in the end
-182. wiki-speed-typing - better login/register looks?
-183. login/register modals -> name of the app should be visible somewhere?
-184. Profile_Input passedRef -> check agains BackgroudnSettings_Upload
 185. common upper component for login-register, passwordforgotten & passwordChange
 186. forgotPasswordMutation -> returning true when no user. ??
 188. wiki-speed-typing -> check if password retrival is available still
@@ -380,6 +381,9 @@ If that's not what you want, please create a client and add a Provider.
 167. changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
 271. tokenVersion -> why not present in UserField?
 272. authNotification -> change from colors in props to "error" of "notification" types (colors inside component)
+181. clean db in the end
+273. router keys control (escape) does not work - current code is an old code for client demo,
+the logic should use router, check if handleKeyDown in AuthOuterComponent is enough, delete it in children
 
 tabIdsToDel how to get rid off:
    /* 
@@ -588,3 +592,6 @@ to rerender if parent rerenders as the function will be new
 
 3. (useMemo) computionally expensive calculations
 
+====== passedRef
+userd in LogRegProfile_input to focus on first field on component mount
+parent component is using useEffect to focus on ref, which is passed to first LogRegProfile_input component

@@ -142,110 +142,57 @@ function ForgottenPassChange({
   }
 
   return (
-    <FocusLock>
-      <div
-        // justify-center changed to paddingTop so login & register are on the same height
-        className="flex flex-col z-50 fixed h-full w-screen items-center"
-        style={{ backgroundColor: "rgba(90, 90, 90, 0.4)", paddingTop: "30vh" }}
-        onClick={() => {
-          // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
-          // setLoginNotification(null);
-          navigate("/");
-        }}
-      >
-        <div
-          className="relative"
-          onClick={(e) => {
-            e.stopPropagation();
-            return;
-          }}
-        >
-          <div
-            className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${uiColor} rounded-sm relative`}
-            style={{
-              width: `350px`,
-              marginLeft: `${
-                mainPaddingRight && scrollbarWidth >= 10
-                  ? `-${scrollbarWidth - 1}px`
-                  : ""
-              }`,
-            }}
-          >
-            <div className="absolute right-0 top-0 mt-1 mr-1">
-              <button
-                className="h-5 w-5 focus-2-offset-dark"
-                onClick={() => {
-                  // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
-                  // setLoginNotification(null);
-                  navigate("/");
+    <>
+      <div className="mt-3 mb-5 flex flex-col items-center">
+        <div className="w-48">
+          {/* <p className="text-xl">Password Retrieval</p> */}
+          <p className="text-sky-600 text-sm mb-2">
+            SmoothTabs password change
+          </p>
 
-                  upperUiContext.upperVisDispatch({
-                    type: "FOCUS_ON_UPPER_RIGHT_UI",
-                    payload: 8,
-                  });
-                }}
-                aria-label={"Close"}
-              >
-                <CancelSVG className="h-5 w-5 fill-current text-gray-600 cursor-pointer hover:text-gray-900" />
-              </button>
-            </div>
+          <p>New password</p>
+          <LogRegProfile_input
+            ref={firstFieldRef}
+            inputValue={newPassword}
+            setInputValue={setNewPassword}
+            preventCopyPaste={true}
+            passwordInputType={true}
+          />
 
-            <div className="mt-3 mb-5 flex flex-col items-center">
-              <div className="w-48">
-                {/* <p className="text-xl">Password Retrieval</p> */}
-                <p className="text-sky-600 text-sm mb-2">
-                  SmoothTabs password change
-                </p>
-
-                <p>New password</p>
-                <LogRegProfile_input
-                  ref={firstFieldRef}
-                  inputValue={newPassword}
-                  setInputValue={setNewPassword}
-                  preventCopyPaste={true}
-                  passwordInputType={true}
-                />
-
-                <p>Confirm new password</p>
-                <LogRegProfile_input
-                  //   ref={firstFieldRef}
-                  inputValue={newPasswordConfirm}
-                  setInputValue={setNewPasswordConfirm}
-                  preventCopyPaste={true}
-                  passwordInputType={true}
-                />
-              </div>
-
-              {errorMessage && (
-                <AuthNotification
-                  colorClass="red-500"
-                  notification={errorMessage}
-                />
-              )}
-              {notificationMessage && (
-                <AuthNotification
-                  colorClass="green-500"
-                  notification={notificationMessage}
-                />
-              )}
-            </div>
-
-            <div className="flex justify-center">
-              <button
-                className={`w-40 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
-                  focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-                onClick={
-                  // console.log("password send")
-                  sendPasswordChangeLink
-                }
-              >
-                Change password
-              </button>
-            </div>
-          </div>
+          <p>Confirm new password</p>
+          <LogRegProfile_input
+            //   ref={firstFieldRef}
+            inputValue={newPasswordConfirm}
+            setInputValue={setNewPasswordConfirm}
+            preventCopyPaste={true}
+            passwordInputType={true}
+          />
         </div>
+
+        {errorMessage && (
+          <AuthNotification colorClass="red-500" notification={errorMessage} />
+        )}
+        {notificationMessage && (
+          <AuthNotification
+            colorClass="green-500"
+            notification={notificationMessage}
+          />
+        )}
       </div>
-    </FocusLock>
+
+      <div className="flex justify-center">
+        <button
+          className={`w-40 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
+                  focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
+          onClick={
+            // console.log("password send")
+            sendPasswordChangeLink
+          }
+        >
+          Change password
+        </button>
+      </div>
+    </>
   );
 }
 

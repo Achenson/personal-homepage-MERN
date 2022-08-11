@@ -6,6 +6,7 @@ import path from "path";
 
 // import shallow from "zustand/shallow";
 
+import AuthOuterComponent from "./AuthRoutes/AuthOuterComponent";
 import Grid from "./LowerUI/Grid";
 import Bookmark_newAndEdit from "./Shared/Bookmark_newAndEdit";
 import NewTab from "./UpperUI/NewTab";
@@ -390,14 +391,19 @@ function Main({ globalSettings }: Props): JSX.Element {
               element={
                 // not possible to access if logged in!
                 <PublicRoute isAuthenticated={authContext.isAuthenticated}>
-                  <LoginRegister
-                    // mainPaddingRight={paddingRight}
-                    // scrollbarWidth={scrollbarWidth}
+                  <AuthOuterComponent
                     globalSettings={globalSettings}
                     {...paddingProps}
-                    // loginNotification={loginNotification}
-                    // setLoginNotification={setLoginNotification}
-                  />
+                  >
+                    <LoginRegister
+                      // mainPaddingRight={paddingRight}
+                      // scrollbarWidth={scrollbarWidth}
+                      globalSettings={globalSettings}
+                      {...paddingProps}
+                      // loginNotification={loginNotification}
+                      // setLoginNotification={setLoginNotification}
+                    />
+                  </AuthOuterComponent>
                 </PublicRoute>
               }
             />
@@ -408,14 +414,19 @@ function Main({ globalSettings }: Props): JSX.Element {
               element={
                 // not possible to access if logged in!
                 <PrivateRoute isAuthenticated={authContext.isAuthenticated}>
-                  <UserProfile
-                    // mainPaddingRight={paddingRight}
-                    // scrollbarWidth={scrollbarWidth}
+                  {/* <AuthOuterComponent
                     globalSettings={globalSettings}
                     {...paddingProps}
-                    // loginNotification={loginNotification}
-                    // setLoginNotification={setLoginNotification}
-                  />
+                  > */}
+                    <UserProfile
+                      // mainPaddingRight={paddingRight}
+                      // scrollbarWidth={scrollbarWidth}
+                      globalSettings={globalSettings}
+                      {...paddingProps}
+                      // loginNotification={loginNotification}
+                      // setLoginNotification={setLoginNotification}
+                    />
+                  {/* </AuthOuterComponent> */}
                 </PrivateRoute>
               }
             />
@@ -426,14 +437,19 @@ function Main({ globalSettings }: Props): JSX.Element {
               element={
                 // not possible to access if logged in!
                 <PublicRoute isAuthenticated={authContext.isAuthenticated}>
-                  <PasswordForgotten
-                    // mainPaddingRight={paddingRight}
-                    // scrollbarWidth={scrollbarWidth}
+                  <AuthOuterComponent
                     globalSettings={globalSettings}
                     {...paddingProps}
-                    // loginNotification={loginNotification}
-                    // setLoginNotification={setLoginNotification}
-                  />
+                  >
+                    <PasswordForgotten
+                      // mainPaddingRight={paddingRight}
+                      // scrollbarWidth={scrollbarWidth}
+                      globalSettings={globalSettings}
+                      {...paddingProps}
+                      // loginNotification={loginNotification}
+                      // setLoginNotification={setLoginNotification}
+                    />
+                  </AuthOuterComponent>
                 </PublicRoute>
               }
             />
@@ -443,15 +459,21 @@ function Main({ globalSettings }: Props): JSX.Element {
               path="/passforgot-change/:token"
               element={
                 // not possible to access if logged in!
+
                 <PublicRoute isAuthenticated={authContext.isAuthenticated}>
-                  <ForgottenPassChange
-                    // mainPaddingRight={paddingRight}
-                    // scrollbarWidth={scrollbarWidth}
+                  <AuthOuterComponent
                     globalSettings={globalSettings}
                     {...paddingProps}
-                    // loginNotification={loginNotification}
-                    // setLoginNotification={setLoginNotification}
-                  />
+                  >
+                    <ForgottenPassChange
+                      // mainPaddingRight={paddingRight}
+                      // scrollbarWidth={scrollbarWidth}
+                      globalSettings={globalSettings}
+                      {...paddingProps}
+                      // loginNotification={loginNotification}
+                      // setLoginNotification={setLoginNotification}
+                    />
+                  </AuthOuterComponent>
                 </PublicRoute>
               }
             />

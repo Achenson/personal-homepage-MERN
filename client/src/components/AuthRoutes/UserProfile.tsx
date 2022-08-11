@@ -266,10 +266,12 @@ Props): JSX.Element {
     );
   } */
 
-
-  function errMessage(errorMessage: string | null, notificationNull: boolean = true) {
+  function errMessage(
+    errorMessage: string | null,
+    notificationNull: boolean = true
+  ) {
     setErrorMessage(errorMessage);
-    if(notificationNull) {
+    if (notificationNull) {
       setNotification(null);
     }
   }
@@ -376,8 +378,6 @@ Props): JSX.Element {
     }
   }
 
-
-
   return (
     <FocusLock>
       <div
@@ -426,6 +426,11 @@ Props): JSX.Element {
               </button>
             </div>
 
+
+
+
+
+
             <div className="">
               <p className="text-center">
                 Logged in as <span className="font-bold">{data.user.name}</span>
@@ -442,27 +447,7 @@ Props): JSX.Element {
                       {notification}
                     </p>
 
-                    {/*     <div>
-                      <p>Current password</p>
-                      <LogRegProfile_input
-                        inputValue={passwordCurrent}
-                        setInputValue={setPasswordCurrent}
-                      />
-                    </div>
-                    <div className="mt-1">
-                      <p>Username</p>
-                      <LogRegProfile_input
-                        inputValue={name}
-                        setInputValue={setName}
-                      />
-                    </div>
-                    <div className="mt-1">
-                      <p>Email address</p>
-                      <LogRegProfile_input
-                        inputValue={email}
-                        setInputValue={setEmail}
-                      />
-                    </div> */}
+               
                   </div>
                 </div>
 
@@ -519,15 +504,11 @@ Props): JSX.Element {
                               if (!res.data?.changeUserByUser?.name) {
                                 // if no specific error is received from the server
                                 if (!res.data?.changeUserByUser?.error) {
-                                  errMessage(
-                                    "An unknown error has occured"
-                                  );
+                                  errMessage("An unknown error has occured");
                                   return;
                                 }
 
-                                errMessage(
-                                  res.data?.changeUserByUser?.error
-                                );
+                                errMessage(res.data?.changeUserByUser?.error);
                                 return;
                               }
 
@@ -568,9 +549,7 @@ Props): JSX.Element {
                           }
 
                           if (passwordNewConfirm === "") {
-                            errMessage(
-                              "Password confirmation not provided"
-                            );
+                            errMessage("Password confirmation not provided");
                             return;
                           }
 
@@ -593,9 +572,7 @@ Props): JSX.Element {
                               if (!res.data?.changePasswordByUser?.name) {
                                 // if no specific error is received from the server
                                 if (!res.data?.changePasswordByUser?.error) {
-                                  errMessage(
-                                    "An unknown error has occured"
-                                  );
+                                  errMessage("An unknown error has occured");
                                   return;
                                 }
 
@@ -635,9 +612,7 @@ Props): JSX.Element {
                               if (!res.data?.deleteAccountByUser?.name) {
                                 // if no specific error is received from the server
                                 if (!res.data?.deleteAccountByUser?.error) {
-                                  errMessage(
-                                    "An unknown error has occured"
-                                  );
+                                  errMessage("An unknown error has occured");
                                   return;
                                 }
 
@@ -717,58 +692,6 @@ Props): JSX.Element {
                 </div>
               </div>
 
-              {/*   <div className="mt-3 mb-5 flex flex-col items-center">
-                {loginOrRegister === "login" ? (
-                  <div className="w-48">
-                    <p>Email address / username</p>
-                    <LogRegProfile_input
-                      ref={firstFieldRef}
-                      inputValue={email_or_name}
-                      setInputValue={setEmail_or_name}
-                    />
-                  </div>
-                ) : (
-                  <>
-                    <div className="w-48">
-                      <p>Username</p>
-                      <LogRegProfile_input
-                        inputValue={name}
-                        setInputValue={setName}
-                      />
-                    </div>
-                    <div className="mt-1 w-48">
-                      <p>Email address</p>
-                      <LogRegProfile_input
-                        inputValue={email}
-                        setInputValue={setEmail}
-                      />
-                    </div>
-                  </>
-                )}
-
-                <div
-                  className={`${loginOrRegister === "register" ? "mt-3" : ""}`}
-                >
-                  <div className="mt-1 w-48">
-                    <p>Password</p>
-                    <LogRegProfile_input
-                      inputValue={loginOrRegister === "login"? password : passwordForRegister}
-                      setInputValue={loginOrRegister === "login" ?  setPassword : setPasswordForRegister}
-                    />
-                  </div>
-
-                  {loginOrRegister === "register" && (
-                    <div className="mt-1 w-48">
-                      <p>Confirm password</p>
-                      <LogRegProfile_input
-                        inputValue={passwordForRegisterConfirm}
-                        setInputValue={setPasswordForRegisterConfirm}
-                      />
-                    </div>
-                  )}
-                </div>
-              </div> */}
-
               <div className="flex justify-center">
                 <button
                   className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
@@ -785,6 +708,9 @@ Props): JSX.Element {
                 </button>
               </div>
             </div>
+
+
+
           </div>
         </div>
       </div>

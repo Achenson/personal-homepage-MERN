@@ -89,112 +89,58 @@ function PassordForgotten({
   }
 
   return (
-    <FocusLock>
-      <div
-        // justify-center changed to paddingTop so login & register are on the same height
-        className="flex flex-col z-50 fixed h-full w-screen items-center"
-        style={{ backgroundColor: "rgba(90, 90, 90, 0.4)", paddingTop: "30vh" }}
-        onClick={() => {
-          // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
-          // setLoginNotification(null);
-          navigate("/");
-        }}
-      >
-        <div
-          className="relative"
-          onClick={(e) => {
-            e.stopPropagation();
-            return;
+    <>
+      <div className="mt-3 mb-5 flex flex-col items-center">
+        <div className="w-48">
+          {/* <p className="text-xl">Password Retrieval</p> */}
+          <p className="text-sky-600 text-sm mb-2">
+            A password change link will be sent to the provided email address.
+          </p>
+
+          <p>Email address</p>
+          <LogRegProfile_input
+            ref={firstFieldRef}
+            inputValue={email}
+            setInputValue={setEmail}
+            preventCopyPaste={false}
+            passwordInputType={false}
+            passVisible={undefined}
+          />
+        </div>
+
+        <button
+          className={`mt-1 text-${uiColor} hover:text-opacity-50 cursor-pointer  focus-1-offset`}
+          onClick={() => {
+            navigate("/login-register");
           }}
         >
-          <div
-            className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${uiColor} rounded-sm relative`}
-            style={{
-              width: `350px`,
-              marginLeft: `${
-                mainPaddingRight && scrollbarWidth >= 10
-                  ? `-${scrollbarWidth - 1}px`
-                  : ""
-              }`,
-            }}
-          >
-            <div className="absolute right-0 top-0 mt-1 mr-1">
-              <button
-                className="h-5 w-5 focus-2-offset-dark"
-                onClick={() => {
-                  // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
-                  // setLoginNotification(null);
-                  navigate("/");
+          <span>Back</span>
+        </button>
 
-                  upperUiContext.upperVisDispatch({
-                    type: "FOCUS_ON_UPPER_RIGHT_UI",
-                    payload: 8,
-                  });
-                }}
-                aria-label={"Close"}
-              >
-                <CancelSVG className="h-5 w-5 fill-current text-gray-600 cursor-pointer hover:text-gray-900" />
-              </button>
-            </div>
-
-            <div className="mt-3 mb-5 flex flex-col items-center">
-              <div className="w-48">
-                {/* <p className="text-xl">Password Retrieval</p> */}
-                <p className="text-sky-600 text-sm mb-2">
-                  A password change link will be sent to the provided email
-                  address.
-                </p>
-
-                <p>Email address</p>
-                <LogRegProfile_input
-                  ref={firstFieldRef}
-                  inputValue={email}
-                  setInputValue={setEmail}
-                  preventCopyPaste={false}
-                  passwordInputType={false}
-                  passVisible={undefined}
-                />
-              </div>
-
-              <button
-                className={`mt-1 text-${uiColor} hover:text-opacity-50 cursor-pointer  focus-1-offset`}
-                onClick={() => {
-                  navigate("/login-register");
-                }}
-              >
-                <span>Back</span>
-              </button>
-
-              {errorMessage && (
-                <AuthNotification
-                  colorClass="red-500"
-                  notification={errorMessage}
-                />
-              )}
-              {notificationMessage && (
-                <AuthNotification
-                  colorClass="green-500"
-                  notification={notificationMessage}
-                />
-              )}
-            </div>
-
-            <div className="flex justify-center">
-              <button
-                className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
-                  focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-                onClick={
-                  // console.log("password send")
-                  sendPasswordChangeLink
-                }
-              >
-                Send link
-              </button>
-            </div>
-          </div>
-        </div>
+        {errorMessage && (
+          <AuthNotification colorClass="red-500" notification={errorMessage} />
+        )}
+        {notificationMessage && (
+          <AuthNotification
+            colorClass="green-500"
+            notification={notificationMessage}
+          />
+        )}
       </div>
-    </FocusLock>
+
+      <div className="flex justify-center">
+        <button
+          className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
+                  focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
+          onClick={
+            // console.log("password send")
+            sendPasswordChangeLink
+          }
+        >
+          Send link
+        </button>
+      </div>
+    </>
   );
 }
 
