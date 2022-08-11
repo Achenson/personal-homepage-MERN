@@ -208,6 +208,9 @@ xxx 180. focus should be on first field after clicking Login or Register (good-e
 ??? 184. Profile_Input passedRef -> check agains BackgroudnSettings_Upload ???
 DONE 185. common upper component for login-register, passwordforgotten & passwordChange (AuthOuterComponent added) DONE
 DONE 187. option to make passwords visible! DONE
+xx 190. PasswordForgotten  / forgotPasswordMutation -> more consistent naming? (good enough) xx
+DONE 191. PasswordForgotten -> forgotPasswordMutation should return false sometimes and it should be handled?
+to get info clientside that there is no regisered user DONE
 DONE !!! 192. email with all .env codes !!! uj DONE
 DONE 201. tabIdsUsedByBookmarks -> MERN -> created every time in one of Grid's useEffect (check EditTab_main editTab wrapper also)
 old not-auth -> placed in central bookmarks state. check if it works properly, unify? (auth and non auth logis now in SingleBookmark only) DONE
@@ -257,11 +260,9 @@ GOOD enough?
   xx 168. objectAssign -> convert to function? (good enough, but not type safe) xx
   xxx 170. AuthNotification components -> implement in UserProfile (good enough - AuthNotification would actually mean more codelines)xxx
   xx 174. development mode -> should work also when offline? (good enough)xx
+  x 194. changePasswordAfterForgot -> in case of token expiration -> link to forgotpass should be visible (good enough) x
 
 GOOD enough
-
-
-
 
 !46. bookmarks not up to date when adding newBookmark if there are none (auth vers only)
  -> hacky solution only, reexectuing query in Bookmarks which causes rerender - solve?
@@ -281,24 +282,10 @@ it will trigger refresh in getAuth
 139. wiki-speed-typing, take care of 138 issue!
 149. more rigid password checking?
 155. better email validation
-
-
+188. wiki-speed-typing -> check if password retrival is available still
 
 175.5 auth -> zustand, other central state -> context. unify? check downside of using context
 
-186. forgotPasswordMutation -> returning true when no user. ??
-188. wiki-speed-typing -> check if password retrival is available still
-189. email with pass change ends in span -> put warning to check spam??
-190. PasswordForgotten  / forgotPasswordMutation -> more consistent naming?
-191. PasswordForgotten -> forgotPasswordMutation should return false sometimes and it should be handled?
-to get info clientside that there is no regisered user
-{
-  "data": {
-    "forgotPassword": true
-  }
-}
-193. change all urql components error handling to similar to UserProfile (LoginRegister for sure)
-194. changePasswordAfterForgot -> in case of token expiration -> link to forgotpass should be visible
 195. displaying res.error.message for graphql errors if it is present? [no but sth should be display clientside accordingly?]
 196. test changePasswordAfterForgot mutation by deleting user in the meantime
 197. ForgottenPassChange should display user name??
@@ -384,6 +371,9 @@ If that's not what you want, please create a client and add a Provider.
 181. clean db in the end
 273. router keys control (escape) does not work - current code is an old code for client demo,
 the logic should use router, check if handleKeyDown in AuthOuterComponent is enough, delete it in children
+189 (pushed -> try if it ends up in spam after setting more text, topic in the email). 
+email with pass change ends in span -> put warning to check spam??
+274. ForgottenPassChange -> implement error if accessing the route through random characters in the url?
 
 tabIdsToDel how to get rid off:
    /* 
