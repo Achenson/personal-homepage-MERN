@@ -25,13 +25,13 @@ import {
   BackgroundImgQuery,
 } from "../graphql/graphqlQueries";
 
-import {
-  AuthContextObj_i,
-  AuthContext_i,
-  DbContext_i,
-  SingleBookmarkData,
-  SingleTabData,
-} from "../utils/interfaces";
+// import {
+//   AuthContextObj_i,
+//   AuthContext_i,
+//   DbContext_i,
+//   SingleBookmarkData,
+//   SingleTabData,
+// } from "../utils/interfaces";
 
 interface Props {
   globalSettings: SettingsDatabase_i;

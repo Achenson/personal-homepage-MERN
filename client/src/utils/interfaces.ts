@@ -137,12 +137,12 @@ export interface AuthContextObj_i {
   authenticatedUserId: null | string;
   accessToken: null | string;
   loginNotification: null | string;
-  loginErrorMessage: null | string;
+  // loginErrorMessage: null | string;
 }
 
-export interface AuthContext_i extends AuthContextObj_i {
-  updateAuthContext: React.Dispatch<React.SetStateAction<AuthContextObj_i>>;
-}
+// export interface AuthContext_i extends AuthContextObj_i {
+//   updateAuthContext: React.Dispatch<React.SetStateAction<AuthContextObj_i>>;
+// }
 
 export interface AuthContextZustand_i extends AuthContextObj_i {
   logout: (loginNotification: string|null) => void;

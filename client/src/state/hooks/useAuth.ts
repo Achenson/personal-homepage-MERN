@@ -8,7 +8,7 @@ export const useAuth = create<AuthContextZustand_i>((set) => ({
   authenticatedUserId: null,
   accessToken: null,
   loginNotification: null,
-  loginErrorMessage: null,
+  // loginErrorMessage: null,
   // loginNotification arg -> setting message after deleting user
   logout: (loginNotification) =>
     set((state) => ({
