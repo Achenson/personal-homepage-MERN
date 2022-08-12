@@ -464,7 +464,7 @@ Props): JSX.Element {
 
       <div className="flex justify-center">
         {loginOrRegister === "login" ? (
-          <div className="flex flex-col">
+          <div className="flex flex-col -mb-1">
               <button
             className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
@@ -473,7 +473,7 @@ Props): JSX.Element {
             Login
           </button>
           <button
-            className={`mt-1 text-sm text-gray-400 hover:text-opacity-50 cursor-pointer  focus-1-offset`}
+            className={`mt-0.5 text-sm text-gray-400 hover:text-opacity-50 cursor-pointer  focus-1-offset`}
             onClick={() => {
               navigate("/passforgot");
             }}
