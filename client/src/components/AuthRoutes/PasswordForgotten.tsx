@@ -67,8 +67,18 @@ function PassordForgotten({
           return;
         }
 
-        if (res.error) {
+        if (
+          res.error?.message.includes(
+            "Can't send mail - all recipients were rejected"
+          )
+        ) {
           setErrorMessage("Can't send mail - recipient rejected");
+          return;
+        }
+
+        if (res.error) {
+          console.log(res.error.message);
+          setErrorMessage("Unknown server error");
           return;
         }
 

@@ -88,17 +88,13 @@ function ForgottenPassChange({
           return;
         }
 
-        console.log("res.data");
-        console.log(res.data);
-        console.log(res);
-
         if (!res.data?.changePasswordAfterForgot?.userId) {
-          // if no specific error is received from the server
           if (res.data?.changePasswordAfterForgot?.error) {
             setErrorMessage(res.data?.changePasswordAfterForgot?.error);
             setNotificationMessage(null);
             return;
           }
+          // if no specific error is received from the server, check graphql errors:
 
           if (res.error?.message === "[GraphQL] jwt expired") {
             // [GraphQL] jwt expired
@@ -107,6 +103,23 @@ function ForgottenPassChange({
             setTimeout(() => {
               navigate("/passforgot");
             }, 2500);
+            return;
+          }
+
+          if (res.error?.message === "[GraphQL] jwt malformed") {
+            // [GraphQL] jwt expired
+            setErrorMessage("Invalid token url - redirecting...");
+            setNotificationMessage(null);
+            setTimeout(() => {
+              navigate("/passforgot");
+            }, 2500);
+            return;
+          }
+
+          if (res.error) {
+            console.log(res.error.message);
+            setErrorMessage("Unknown server error");
+            setNotificationMessage(null);
             return;
           }
 

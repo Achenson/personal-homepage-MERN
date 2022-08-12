@@ -150,10 +150,6 @@ Props): JSX.Element {
           return;
         }
 
-        // console.log("RES DATA");
-        // console.log(res.data);
-        // console.log(res.data.login);
-
         if (res.data?.login?.error === "User does not exist") {
           // if (res.data.login.token === "User does not exist!") {
           // setLoginErrorMessage(`${res.data.login.token}`);
@@ -170,12 +166,11 @@ Props): JSX.Element {
           return;
         }
 
-        // if (loggedInState === false) {
-        //   setLoggedInState(true);
-        // }
-
-        // console.log("loginMut res");
-        // console.log(res);
+        if (res.error) {
+          console.log(res.error.message);
+          setLoginErrorMessage("Unknown server error");
+          return;
+        }
 
         setLoginErrorMessage(null);
 
@@ -268,34 +263,31 @@ Props): JSX.Element {
           return;
         }
 
-        console.log("ERROR?");
-        console.log(res.data?.addUser?.error);
-        console.log(res.data?.addUser);
+        if (!res.data?.addUser) {
+          if (res.error) {
+            console.log(res.error.message);
+            setRegisterErrorMessage("Unknown server error");
+          }
 
-        if (res.data?.addUser?.error) {
-          setRegisterErrorMessage(res.data?.addUser?.error);
+          if (res.data?.addUser?.error) {
+            setRegisterErrorMessage(res.data?.addUser?.error);
+            return;
+          }
+
+          setRegisterErrorMessage("An unknown error has occured");
           return;
         }
 
-        console.log("ADD USER RES");
-        console.log(res);
-
-        if (res.data?.addUser) {
-          setRegisterErrorMessage(null);
-          setLoginNotification("User successfully registered");
-          setUsername("");
-          setEmail("");
-          setPasswordForRegister("");
-          setPasswordForRegisterConfirm("");
-          setEmail_or_name(username);
-          // navigate("/login");
-          setLoginOrRegister("login");
-          return;
-        }
-        // else {
-        //   setRegisterErrorMessage("Username or email is already in use");
-        //   return;
-        // }
+        setRegisterErrorMessage(null);
+        setLoginNotification("User successfully registered");
+        setUsername("");
+        setEmail("");
+        setPasswordForRegister("");
+        setPasswordForRegisterConfirm("");
+        setEmail_or_name(username);
+        // navigate("/login");
+        setLoginOrRegister("login");
+        return;
       },
       (err) => {
         console.log(err);
