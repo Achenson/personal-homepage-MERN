@@ -430,7 +430,8 @@ Props): JSX.Element {
             </div>
           )}
         </div>
-        {loginOrRegister === "login" && (
+
+        {/* {loginOrRegister === "login" && (
           <button
             className={`mt-1 text-sm text-gray-400 hover:text-opacity-50 cursor-pointer  focus-1-offset`}
             onClick={() => {
@@ -439,7 +440,7 @@ Props): JSX.Element {
           >
             <span>Forgot password?</span>
           </button>
-        )}
+        )} */}
 
         {loginOrRegister === "login" && loginErrorMessage && (
           <AuthNotification
@@ -463,13 +464,25 @@ Props): JSX.Element {
 
       <div className="flex justify-center">
         {loginOrRegister === "login" ? (
-          <button
+          <div className="flex flex-col">
+              <button
             className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
             onClick={loginValidation}
           >
             Login
           </button>
+          <button
+            className={`mt-1 text-sm text-gray-400 hover:text-opacity-50 cursor-pointer  focus-1-offset`}
+            onClick={() => {
+              navigate("/passforgot");
+            }}
+          >
+            <span>Forgot password?</span>
+          </button>
+          </div>
+        
+
         ) : (
           <button
             className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150

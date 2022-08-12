@@ -214,6 +214,8 @@ to get info clientside that there is no regisered user DONE
 DONE !!! 192. email with all .env codes !!! uj DONE
 DONE 195. displaying res.error.message for graphql errors if it is present? [no but sth should be display clientside accordingly?] 
 (2 times in LoginRegister, ForgottenPassChange & PasswordForgotten. PasswordForgotten & login in LoginRegister -> simpler logic) DONE
+DONE 196. test changePasswordAfterForgot mutation by deleting user in the meantime DONE
+xx 197. ForgottenPassChange should display user name?? (goodEnough)xxx
 DONE 201. tabIdsUsedByBookmarks -> MERN -> created every time in one of Grid's useEffect (check EditTab_main editTab wrapper also)
 old not-auth -> placed in central bookmarks state. check if it works properly, unify? (auth and non auth logis now in SingleBookmark only) DONE
 DONE 204. all userIdOrNoId logic -> convert to ? : DONE
@@ -288,8 +290,6 @@ it will trigger refresh in getAuth
 
 175.5 auth -> zustand, other central state -> context. unify? check downside of using context
 
-196. test changePasswordAfterForgot mutation by deleting user in the meantime
-197. ForgottenPassChange should display user name??
 198. Login pass forgot -> should be below Login btn?
 199. tabsDb and tabsNotAuth etc -> should be in props instead of taken out of Context every time? less code
 200. tabs reset to default: in auth version happens in Grid, in non-auth in Tab -> unify?
