@@ -31,24 +31,24 @@ const UploadedFileType = new GraphQLObjectType({
   },
 });
 
-function removeBackgroundImg(fileName: string, userIdOrDemoId: string) {
-  console.log("removing background IMg");
-  return;
+// function removeBackgroundImg(fileName: string, userIdOrDemoId: string) {
+//   console.log("removing background IMg");
+//   return;
 
-  fs.unlink(
-    path.join(
-      __dirname,
-      "..",
-      "..",
-      "backgroundImgs",
-      userIdOrDemoId,
-      fileName
-    ),
-    (err: any) => {
-      if (err) console.error(err);
-    }
-  );
-}
+//   fs.unlink(
+//     path.join(
+//       __dirname,
+//       "..",
+//       "..",
+//       "backgroundImgs",
+//       userIdOrDemoId,
+//       fileName
+//     ),
+//     (err: any) => {
+//       if (err) console.error(err);
+//     }
+//   );
+// }
 
 export const backgroundImgUploadMutationField = {
   description: "Uploads an image.",

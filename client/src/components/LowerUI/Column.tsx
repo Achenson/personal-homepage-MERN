@@ -267,6 +267,7 @@ Props): JSX.Element {
                 isThisTheOnlyGap={false}
                 globalSettings={globalSettings}
                 userIdOrNoId={userIdOrNoId}
+                tabIsDeletable={el.deletable}
               />
               {/* </div> */}
             </div>
@@ -283,6 +284,7 @@ Props): JSX.Element {
             isThisTheOnlyGap={true}
             globalSettings={globalSettings}
             userIdOrNoId={userIdOrNoId}
+            tabIsDeletable={undefined}
           />
         </div>
       ) : null}

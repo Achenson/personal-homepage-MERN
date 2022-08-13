@@ -36,6 +36,7 @@ interface Props {
   isThisTheOnlyGap: boolean;
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
   userIdOrNoId: string | null;
+  tabIsDeletable: boolean | undefined;
 }
 
 function GapAfterTab({
@@ -45,6 +46,7 @@ function GapAfterTab({
   isThisTheOnlyGap,
   globalSettings,
   userIdOrNoId,
+  tabIsDeletable,
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -141,7 +143,9 @@ function GapAfterTab({
         </div>
       ) : (
         <div
-          className={`h-6 ${
+          className={`
+          ${globalSettings.hideNonDeletable && !tabIsDeletable ? "hidden" : ""}
+          h-6 ${
             globalSettings.picBackground
               ? ""
               : `border-black border-opacity-10 border-l border-r`

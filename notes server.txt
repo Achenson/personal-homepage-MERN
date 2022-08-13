@@ -233,7 +233,11 @@ DONE 208. BackgroundSettings-> if no userId -> implement logic to suggest creati
 BackgroundSettings_Upload doesn't have to be touched though? code won't be executed DONE
 DONE 210. BackgroundSettings_Upload -> instead of hidden class - do not render in in BackgroundSettings render function DONE
 DONE 211. make non-auth data persist in local storage DONE
+?? 212. Bookmark_local tab_indices - is it needed? (no tab indices use, tabIds used instead)??
+DONE 214. delete userIdOrDemoId DONE
 DONE 215. (first bug fixes for nonAuth version)  DONE new bookmark DONE, DONE resetToDefaul DONE , allTags when hidden problem, DONE cannot edit tab DONE, DONE cannot delete bookmars DONE 
+DONE 216. allTabsFolder when hidden problem -> taking too much space!? check in auth and non-auth versions
+(tabIsDeletable hidden logic from Tab extended to GapAfterTab) DONE 
 DONE 219. notes -> should be reworked, so they can be edited in place?
  (middleground solution -> tab is open when edit is clicked, this allows 8 rows instead of 4) DONE
 DONE 220. auth version problems after implementing, non auth version: DONE
@@ -304,10 +308,6 @@ it will trigger refresh in getAuth
 175.5 auth -> zustand, other central state -> context. unify? check downside of using context
 
 
-212. Bookmark_local tab_indices - is it needed?
-213. SingleBookmark -> interface for nonAuth is being used also for auth?? the one for auth being not used
-214. delete userIdOrDemoId
-216. allTags when hidden problem -> taking too much space!? check in auth and non-auth versions
 217. tab deletion confirmation -> implement?
 218. check localStorage for auth version
 221. color hooks - to be partially deleted?
@@ -385,7 +385,8 @@ email with pass change ends in span -> put warning to check spam??
 209. (pushed -> solve auth non-auth problems with bookmarks & tabs first) settings should be unified? add null userId and null to non-auth version?
 278 Transparent colors for columns
 Choose default image: 1 2 3  -> more space between those 2 lines, 1st one should function as"backgroung img on" description
-
+213. (pushed -> solve auth non-auth problems with bookmarks & tabs first) () SingleBookmark -> interface for nonAuth is being used also for auth?? the one for auth being not used
+279 hide folder containing... -> does user 
 
 tabIdsToDel how to get rid off:
    /* 
