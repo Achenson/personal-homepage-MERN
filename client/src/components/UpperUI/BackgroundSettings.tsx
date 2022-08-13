@@ -161,7 +161,7 @@ function BackgroundSettings({
     userIdOrNoId: string | null,
     picBackground: boolean
   ) => {
-    if (userIdOrNoId) {
+    if (userIdOrNoId && globalSettings.picBackground) {
       return (
         <BackgroundSettings_Upload
           xsScreen={xsScreen}

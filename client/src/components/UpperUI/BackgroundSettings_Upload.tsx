@@ -199,9 +199,7 @@ function BackgroundSettings_Upload({
       </div>
       <form
         // onSubmit={submitForm}
-        className={`flex justify-start items-center ${
-          globalSettings.picBackground ? "" : "hidden"
-        }`}
+        className={`flex justify-start items-center`}
       >
         <button
           className={`border border-${uiColor} rounded-md px-1 pb-px mr-1 hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
