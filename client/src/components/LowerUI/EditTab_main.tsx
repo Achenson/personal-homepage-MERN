@@ -10,6 +10,8 @@ import TabErrors from "../Shared/TabErrors_render";
 
 import { ReactComponent as SaveSVG } from "../../svgs/save.svg";
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
+import { ReactComponent as CheckBigSVG } from "../../svgs/check-big.svg";
+import { ReactComponent as XbigSVG } from "../../svgs/x-big.svg";
 import { ReactComponent as TrashSVG } from "../../svgs/trash.svg";
 import { ReactComponent as LockClosedSVG } from "../../svgs/lock-closed.svg";
 import { ReactComponent as LockOpenSVG } from "../../svgs/lock-open.svg";
@@ -53,6 +55,7 @@ interface Props {
   setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>;
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
   userIdOrNoId: string | null;
+  tabIsDeletable: boolean;
   // tabs: SingleTabData[];
   // bookmarks: SingleBookmarkData[];
   // bookmarks: BookmarkDatabase_i[];
@@ -65,6 +68,7 @@ function EditTab({
   setTabOpened_local,
   globalSettings,
   userIdOrNoId,
+  tabIsDeletable,
 }: // tabs,
 // bookmarks,
 Props): JSX.Element {
@@ -178,6 +182,8 @@ Props): JSX.Element {
       return calcArrOfBookmarksNames();
     }
   );
+
+  const [deleteConfirmationVis, setDeleteConfirmationVis] = useState(false);
 
   function calcArrOfBookmarksNames() {
     // filtered liknks
@@ -514,15 +520,48 @@ Props): JSX.Element {
           </div>
 
           <div className="flex justify-between items-center mt-2">
-            <p>Delete</p>
+            {deleteConfirmationVis ? (
+              <>
+                <p className="text-red-600">Delete current tab?</p>
 
-            <button
-              className="h-6 w-6 focus-2"
-              onClick={deleteTabLogic}
-              aria-label={"Delete tab"}
-            >
-              <TrashSVG className="h-6 w-6 text-gray-500 transition-colors duration-75 hover:text-black cursor-pointer" />
-            </button>
+                <div className="w-14 flex justify-between">
+                  <button
+                    className="h-6 w-6 focus-2 text-gray-500 transition-colors duration-75 hover:text-black"
+                    onClick={deleteTabLogic}
+                    aria-label={"Confirm tab deletion"}
+                  >
+                   <CheckBigSVG className=" text-gray-500 hover:text-black cursor-pointer transition-colors duration-75" />
+                  </button>
+                  <button
+                    className="h-6 w-6 focus-2 text-gray-500 transition-colors duration-75 hover:text-black"
+                    onClick={() => setDeleteConfirmationVis(false)}
+                    aria-label={"Cancel tab deletion"}
+                  >
+                    <XbigSVG className="text-gray-500 hover:text-black cursor-pointer transition-colors duration-75" />
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <p>Delete</p>
+
+                <button
+                  className="h-6 w-6 focus-2"
+                  // onClick={deleteTabLogic}
+                  onClick={() => {
+                    if (!tabIsDeletable) {
+                      deleteTabLogic();
+                      return;
+                    }
+
+                    setDeleteConfirmationVis(true);
+                  }}
+                  aria-label={"Delete tab"}
+                >
+                  <TrashSVG className="h-6 w-6 text-gray-500 transition-colors duration-75 hover:text-black cursor-pointer" />
+                </button>
+              </>
+            )}
           </div>
         </div>
 

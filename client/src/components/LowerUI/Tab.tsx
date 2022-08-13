@@ -611,6 +611,7 @@ function Tab({
               setTabOpened_local={setTabOpened_local}
               globalSettings={globalSettings}
               userIdOrNoId={userIdOrNoId}
+              tabIsDeletable={tabIsDeletable}
               // tabs={tabs}
             />
           )}
