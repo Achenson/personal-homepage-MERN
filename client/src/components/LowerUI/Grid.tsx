@@ -50,6 +50,7 @@ Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
 
   const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
+  const defaultTabContentAll = useTabs((store) => store.defaultTabContentAll);
 
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
@@ -159,6 +160,10 @@ Props): JSX.Element {
 
   useEffect(() => {
     if (closeAllTabsState) {
+      if (!userIdOrNoId) {
+        defaultTabContentAll();
+      }
+
       if (userIdOrNoId) {
         (tabs as TabDatabase_i[]).forEach((obj) => {
           editTab({ ...obj, opened: obj.openedByDefault });
@@ -319,7 +324,7 @@ Props): JSX.Element {
       breakpoint,
       tabs,
       userIdOrNoId,
-      globalSettingsDb: globalSettings
+      globalSettingsDb: globalSettings,
     };
 
     switch (numberOfCols) {

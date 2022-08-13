@@ -11,7 +11,8 @@ interface UseTabs {
   // moving tabs to lower number cols(left) if globalSettings numberOfCols changes
   tabsLessColumns: (numberOfCols: 1 | 2 | 3 | 4) => void;
   // reseting tab content (open/closed state) to default
-  defaultTabContent: (tabID: string, tabOpenedByDefault: boolean) => void;
+  // defaultTabContent: (tabID: string, tabOpenedByDefault: boolean) => void;
+  defaultTabContentAll: () => void;
   // deleting tab if there are no bookmarks with this tag (tab's name)
   // deleteEmptyTab: (tabIdsUsedByBookmarks: string[]) => void;
   deleteTab: (tabID: string) => void;
@@ -90,15 +91,23 @@ export const useTabs = create<UseTabs>(
           })
         );
       },
-      defaultTabContent: (tabID, tabOpenedByDefault) =>
+      // defaultTabContent: (tabID, tabOpenedByDefault) =>
+      //   set(
+      //     produce((state: UseTabs) => {
+      //       let tabToUpdate = state.tabs.find((obj) => obj.id === tabID);
+
+      //       if (tabToUpdate) {
+      //         let tabIndex = state.tabs.indexOf(tabToUpdate);
+      //         state.tabs[tabIndex].opened = tabOpenedByDefault;
+      //       }
+      //     })
+      //   ),
+      defaultTabContentAll: () =>
         set(
           produce((state: UseTabs) => {
-            let tabToUpdate = state.tabs.find((obj) => obj.id === tabID);
-
-            if (tabToUpdate) {
-              let tabIndex = state.tabs.indexOf(tabToUpdate);
-              state.tabs[tabIndex].opened = tabOpenedByDefault;
-            }
+            state.tabs.forEach((tab) => {
+              tab.opened = tab.openedByDefault;
+            });
           })
         ),
 
@@ -334,7 +343,7 @@ export const useTabs = create<UseTabs>(
             }
           })
         ),
-        // non-auth only
+      // non-auth only
       toggleTab: (tabID, tabOpened) =>
         set(
           produce((state: UseTabs) => {
@@ -363,7 +372,7 @@ export const useTabs = create<UseTabs>(
           focusedTabState: nullOrID,
         }));
       },
-       // both non-auth and auth
+      // both non-auth and auth
       tabOpenedState: null,
       setTabOpenedState: (nullOrID) => {
         set((state: UseTabs) => ({

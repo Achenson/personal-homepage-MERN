@@ -217,6 +217,10 @@ DONE 195. displaying res.error.message for graphql errors if it is present? [no 
 DONE 196. test changePasswordAfterForgot mutation by deleting user in the meantime DONE
 xx 197. ForgottenPassChange should display user name?? (goodEnough)xxx
 DONE 198. Login pass forgot -> should be below Login btn? (done + margin changes) DONE
+DONE 200. tabs reset to default: in auth version happens in Grid, in non-auth in Tab -> unify?
+non-auth: defaultTabContent was taken from context and passed to each individual tab contexts
+tabVisDispatch({ type: "TAB_CONTENT_DEFAULT" }) was used in every individual tab ("TAB_CONTENT_DEFAULT" to delete?)
+(non-auth logic also being handled in grid, "TAB_CONTENT_DEFAULT" & defaultTabContent for useTabs deleted) DONE
 DONE 201. tabIdsUsedByBookmarks -> MERN -> created every time in one of Grid's useEffect (check EditTab_main editTab wrapper also)
 old not-auth -> placed in central bookmarks state. check if it works properly, unify? (auth and non auth logis now in SingleBookmark only) DONE
 DONE 204. all userIdOrNoId logic -> convert to ? : DONE
@@ -266,6 +270,8 @@ GOOD enough?
   xxx 170. AuthNotification components -> implement in UserProfile (good enough - AuthNotification would actually mean more codelines)xxx
   xx 174. development mode -> should work also when offline? (good enough)xx
   x 194. changePasswordAfterForgot -> in case of token expiration -> link to forgotpass should be visible (good enough) x
+  xx 199. tabsDb and tabsNotAuth etc -> should be in props instead of taken out of Context every time? less code3
+  (purpose of context/state management it to not think about props!)xx
 
 GOOD enough
 
@@ -291,9 +297,8 @@ it will trigger refresh in getAuth
 
 175.5 auth -> zustand, other central state -> context. unify? check downside of using context
 
-199. tabsDb and tabsNotAuth etc -> should be in props instead of taken out of Context every time? less code
-200. tabs reset to default: in auth version happens in Grid, in non-auth in Tab -> unify?
-(should be done for TAB_CONTENT_DEFAULT at least?)
+
+
 202. Grid tabDeletingPause introduced in MERN version -> can/should it be implemented for non-auth version also?
 203. settings interfaces db & demo-> unify, clear (all interfaces shoul be moved out of client?)
 206. useBookmark -> string types for id in MERN version number|string in old client only ver. -> no clashes
@@ -375,6 +380,9 @@ the logic should use router, check if handleKeyDown in AuthOuterComponent is eno
 189 (pushed -> try if it ends up in spam after setting more text, topic in the email). 
 email with pass change ends in span -> put warning to check spam??
 274. ForgottenPassChange -> implement error if accessing the route through random characters in the url?
+275. zustand -> get() or state.
+276. Lock as opened by default (confusing!) -> Opened/Closed by default?
+277. locking as openened by default -> works differently in auth and non-auth version!(changing state immediately in non-auth)
 
 tabIdsToDel how to get rid off:
    /* 

@@ -8,7 +8,7 @@ export function useTabReducer(
   setReset: (trueOrFalse: boolean) => void,
   toggleTab: (tabID: string, tabOpened: boolean) => void,
   tabOpened: boolean,
-  defaultTabContent: (tabID: string, tabOpenedByDefault: boolean) => void,
+  // defaultTabContent: (tabID: string, tabOpenedByDefault: boolean) => void,
   tabOpenedByDefault: boolean
 ): [TabVisState, React.Dispatch<TabVisAction>] {
   const initVisState: TabVisState = {
@@ -139,19 +139,19 @@ export function useTabReducer(
           editBookmarkVis: null,
         };
 
-      case "TAB_CONTENT_DEFAULT":
-        setTimeout(() => {
-          defaultTabContent(tabID, tabOpenedByDefault);
-        });
+      // case "TAB_CONTENT_DEFAULT":
+      //   setTimeout(() => {
+      //     defaultTabContent(tabID, tabOpenedByDefault);
+      //   });
 
-        return {
-          ...state,
-          colorsVis: false,
-          editTabVis: false,
-          newBookmarkVis: false,
-          editBookmarkVis: null,
-          touchScreenModeOn: false,
-        };
+      //   return {
+      //     ...state,
+      //     colorsVis: false,
+      //     editTabVis: false,
+      //     newBookmarkVis: false,
+      //     editBookmarkVis: null,
+      //     touchScreenModeOn: false,
+      //   };
       case "TAB_CONTENT_OPEN_AFTER_LOCKING":
         return {
           ...state,

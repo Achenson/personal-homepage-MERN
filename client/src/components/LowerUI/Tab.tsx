@@ -118,7 +118,7 @@ function Tab({
   const setFocusedTabState = useTabs((store) => store.setFocusedTabState);
   const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
 
-  const defaultTabContent = useTabs((store) => store.defaultTabContent);
+  // const defaultTabContent = useTabs((store) => store.defaultTabContent);
   const toggleTab = useTabs((store) => store.toggleTab);
 
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
@@ -160,7 +160,7 @@ function Tab({
     setReset,
     toggleTab,
     tabOpened,
-    defaultTabContent,
+    // defaultTabContent,
     tabOpenedByDefault
   );
 
@@ -176,12 +176,22 @@ function Tab({
 
   const [crossVis, setCrossVis] = useState<boolean>(true);
 
+
+
+
+
+
   // client-side (ONLY??)
-  useEffect(() => {
-    if (closeAllTabsState && !userIdOrNoId) {
-      tabVisDispatch({ type: "TAB_CONTENT_DEFAULT" });
-    }
-  }, [closeAllTabsState, tabVisDispatch, userIdOrNoId]);
+  // useEffect(() => {
+  //   if (closeAllTabsState && !userIdOrNoId) {
+  //     tabVisDispatch({ type: "TAB_CONTENT_DEFAULT" });
+  //   }
+  // }, [closeAllTabsState, tabVisDispatch, userIdOrNoId]);
+
+
+
+
+
 
   let finalTabColor: string = "";
 
