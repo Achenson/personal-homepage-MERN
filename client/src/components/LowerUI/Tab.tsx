@@ -22,7 +22,6 @@ import { ReactComponent as PlusSVG } from "../../svgs/plus.svg";
 import { useReset } from "../../state/hooks/useReset";
 import {
   useTabBeingDraggedColor,
-  // useDefaultColors,
 } from "../../state/hooks/colorHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useBookmarks } from "../../state/hooks/useBookmarks";

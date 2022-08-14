@@ -2,12 +2,6 @@ import React from "react";
 
 import { useMutation } from "urql";
 
-/* import {
-  useDefaultColors,
-  useColumnsColors,
-  useColumnsColorsImg,
-} from "../../state/hooks/colorHooks"; */
-
 import { setComplementaryUiColor } from "../../utils/funcs and hooks/complementaryUIcolor";
 import { tabColorsLightFocus } from "../../utils/data/colors_tab";
 

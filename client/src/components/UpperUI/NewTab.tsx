@@ -14,7 +14,6 @@ import { ReactComponent as ChevronDownSVG } from "../../svgs/chevron-down.svg";
 import { ReactComponent as ChevronUpSVG } from "../../svgs/chevron-up.svg";
 
 import { useDbContext } from "../../context/dbContext";
-// import { useDefaultColors } from "../../state/hooks/colorHooks";
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
 

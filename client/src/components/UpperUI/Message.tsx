@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 // import shallow from "zustand/shallow";
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-// import { useBackgroundColor } from "../../state/hooks/colorHooks";
 
 import { backgroundColors } from "../../utils/data/colors_background";
 import { useUpperUiContext } from "../../context/upperUiContext";

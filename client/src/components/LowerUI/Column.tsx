@@ -12,10 +12,6 @@ import UpperRightMenu from "../UpperUI/UpperRightMenu";
 import Message from "../UpperUI/Message";
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-/* import {
-  useColumnsColors,
-  useColumnsColorsImg,
-} from "../../state/hooks/colorHooks"; */
 
 // import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";

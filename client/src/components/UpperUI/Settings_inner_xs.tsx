@@ -7,7 +7,6 @@ import { ReactComponent as ColorSVG } from "../../svgs/beaker.svg";
 import { ReactComponent as SettingsSVG } from "../../svgs/settingsAlt.svg";
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-// import { useDefaultColors } from "../../state/hooks/colorHooks";
 
 import { useUpperUiContext } from "../../context/upperUiContext";
 

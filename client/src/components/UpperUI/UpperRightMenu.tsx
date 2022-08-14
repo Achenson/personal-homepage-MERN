@@ -19,7 +19,6 @@ import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 
 // import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-// import { useDefaultColors } from "../../state/hooks/colorHooks";
 
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";

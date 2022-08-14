@@ -1,8 +1,6 @@
 import React from "react";
 import { useMutation } from "urql";
 
-// import { useBackgroundColor } from "../../state/hooks/colorHooks";
-
 import { backgroundColorsLightFocus } from "../../utils/data/colors_background";
 
 import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";

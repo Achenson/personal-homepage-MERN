@@ -10,7 +10,6 @@ import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 import { ReactComponent as PlusSmSVG } from "../../svgs/plus-sm.svg";
 import { ReactComponent as MinusSmSVG } from "../../svgs/minus-sm.svg";
 
-// import { useDefaultColors } from "../../state/hooks/colorHooks";
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 

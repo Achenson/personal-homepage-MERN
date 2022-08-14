@@ -8,7 +8,7 @@ import ColorsToChoose_DefaultAndColumns from "../Colors/ColorsToChoose_DefaultAn
 
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
-import { useResetColors, useDefaultColors } from "../../state/hooks/colorHooks";
+import { useResetColors } from "../../state/hooks/colorHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 

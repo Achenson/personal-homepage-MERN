@@ -8,7 +8,6 @@ import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 import LogRegProfile_input from "./LogRegProfile_input";
 
 // import { useLoggedInState } from "../../state/hooks/useLoggedInState";
-// import { useDefaultColors } from "../../state/hooks/colorHooks";
 import { useUpperUiContext } from "../../context/upperUiContext";
 // import { useAuthContext } from "../../context/authContext";
 import { useAuth } from "../../state/hooks/useAuth";

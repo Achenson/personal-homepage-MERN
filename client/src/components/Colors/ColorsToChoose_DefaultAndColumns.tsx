@@ -6,11 +6,6 @@ import shallow from "zustand/shallow";
 import SingleColor_DefaultAndColumn from "./SingleColor_DefaultAndColumn";
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-/* import {
-  useDefaultColors,
-  useColumnsColors,
-  useColumnsColorsImg,
-} from "../../state/hooks/colorHooks"; */
 
 import { useUpperUiContext } from "../../context/upperUiContext";
 

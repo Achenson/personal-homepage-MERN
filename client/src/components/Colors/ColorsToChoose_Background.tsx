@@ -4,7 +4,6 @@ import FocusLock from "react-focus-lock";
 
 import SingleColor_Background from "./SingleColor_Background";
 
-// import { useBackgroundColor } from "../../state/hooks/colorHooks";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import {

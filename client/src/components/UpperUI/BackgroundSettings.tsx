@@ -12,7 +12,7 @@ import {
   useGlobalSettings,
   UseGlobalSettingsAll,
 } from "../../state/hooks/defaultSettingsHooks";
-// import { useDefaultColors } from "../../state/hooks/colorHooks";
+
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";

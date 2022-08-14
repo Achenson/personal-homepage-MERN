@@ -6,7 +6,6 @@ import FocusLock from "react-focus-lock";
 import SingleColor_Tab from "./SingleColor_Tab";
 
 import { useTabContext } from "../../context/tabContext";
-// import { useDefaultColors } from "../../state/hooks/colorHooks";
 
 import { tabColors, tabColorsConcat } from "../../utils/data/colors_tab";
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";

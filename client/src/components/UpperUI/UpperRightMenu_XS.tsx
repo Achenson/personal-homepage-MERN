@@ -15,7 +15,6 @@ import { ReactComponent as LogoutSVG } from "../../svgs/logout.svg";
 import { ReactComponent as AddRssSVG } from "../../svgs/rss.svg";
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-// import { useDefaultColors } from "../../state/hooks/colorHooks";
 import { useLoggedInState } from "../../state/hooks/useLoggedInState";
 
 import { useUpperUiContext } from "../../context/upperUiContext";

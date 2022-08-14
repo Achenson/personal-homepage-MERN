@@ -4,10 +4,6 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 
 import shallow from "zustand/shallow";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-/* import {
-  useColumnsColors,
-  useColumnsColorsImg,
-} from "../../state/hooks/colorHooks"; */
 import { useTabs } from "../../state/hooks/useTabs";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";

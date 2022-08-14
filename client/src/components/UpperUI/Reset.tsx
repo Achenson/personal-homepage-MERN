@@ -4,7 +4,6 @@ import React from "react";
 
 import { ReactComponent as ResetSVG } from "../../svgs/reset-update.svg";
 
-// import { useBackgroundColor } from "../../state/hooks/colorHooks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useReset } from "../../state/hooks/useReset";
 import { useTabs } from "../../state/hooks/useTabs";

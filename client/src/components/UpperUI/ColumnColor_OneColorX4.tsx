@@ -3,10 +3,6 @@ import React, { useEffect, useRef } from "react";
 // import shallow from "zustand/shallow";
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-/* import {
-  useColumnsColors,
-  useColumnsColorsImg,
-} from "../../state/hooks/colorHooks"; */
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 

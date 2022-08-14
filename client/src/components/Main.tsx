@@ -25,7 +25,6 @@ import Login from "./AuthRoutes/Login_TO_CANCEL";
 import Register from "./AuthRoutes/Register_TO_CANCEL";
 
 // import { useGlobalSettings } from "../state/hooks/defaultSettingsHooks";
-// import { useBackgroundColor } from "../state/hooks/colorHooks";
 
 import { initUpperVisState } from "../context/upperVisInitState";
 import { upperVisReducer } from "../context/upperVisReducer";
