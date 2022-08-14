@@ -2,27 +2,17 @@ import React, { useState, useReducer, useEffect, Children } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useQuery } from "urql";
 // import { useQuery as useReactQuery } from "react-query";
-import path from "path";
 
 // import shallow from "zustand/shallow";
 
 import AuthOuterComponent from "./AuthRoutes/AuthOuterComponent";
-import Grid from "./LowerUI/Grid";
-import Bookmark_newAndEdit from "./Shared/Bookmark_newAndEdit";
-import NewTab from "./UpperUI/NewTab";
-import ColorsSettings from "./UpperUI/ColorsSettings";
-import UpperUI from "./UpperUI/UpperUI";
-import BackgroundSettings from "./UpperUI/BackgroundSettings";
-import GlobalSettings from "./UpperUI/GlobalSettings";
+
 import LoginRegister from "../components/AuthRoutes/LoginRegister";
 // import Profile from "./UpperUI/Profile";
-import ModalWrap from "./UpperUI/ModalWrap";
 import PublicRoute from "./AuthRoutes/PublicRoute";
 import PrivateRoute from "./AuthRoutes/PrivateRoute";
 import MainRoute from "./MainRoute";
 
-import Login from "./AuthRoutes/Login_TO_CANCEL";
-import Register from "./AuthRoutes/Register_TO_CANCEL";
 
 // import { useGlobalSettings } from "../state/hooks/defaultSettingsHooks";
 

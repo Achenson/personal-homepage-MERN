@@ -244,6 +244,8 @@ DONE 219. notes -> should be reworked, so they can be edited in place?
  (middleground solution -> tab is open when edit is clicked, this allows 8 rows instead of 4) DONE
 DONE 220. auth version problems after implementing, non auth version: DONE
 DONE 221. color hooks - to be partially deleted? (resetColors and tabBeingDragged remained) DONE 
+! DONE 222. update App structure - routes! contexts! eg.tabcontext -> for each individual tab!
+(sapling vscode extension! helped) DONE !
 DONE 224. tabDeletingPause in Grid -> hack? explain how it works
 tabDeletingPause is no more -> it was used before to delete empty tab before deleting the last of its bookmark DONE
 DONE 243. background color no pic -> rectangle instead of doc svgs, should be filled with color? DONE
@@ -310,7 +312,6 @@ it will trigger refresh in getAuth
 
 175.5 auth -> zustand, other central state -> context. unify? check downside of using context
 
-222. update App structure - routes! contexts! eg.tabcontext -> for each individual tab!
 223. rssSettings problem -> value lower than 5 and 15 can be entered! no easy way to increase/decrese value??
 224. globalSettings rss items number-> hover field, implement is alse elsewhere??
 225. Disable drag & drop -> should be sth like disable drag & drop for tabs??

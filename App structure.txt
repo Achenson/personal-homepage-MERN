@@ -1,73 +1,102 @@
         App structure:
-// AppWrapper (authContext), changed for zustand central state!
     App
         MainWrapper(for proper server code, see the component for notes)
-            Main
-                Upper_UI
-                ?ModalWrap
-                NewTab
-                    SelectableList
-                    TabErrors_render
-                ?ModalWrap   
-                    Bookmark_newAndEdit
-                        NewBookmark_UpperUI
+            Main <dbContext & upperUiContext Provider>
+                MainRoute
+                    Upper_UI
+                    ?ModalWrap
+                        NewTab
                             SelectableList
-                ?ModalWrap
-                    BackgroundSettings
-                        ?Settings_inner_xs (menu for lowest screen width)
-                ?ModalWrap
-                    ColorsSettings
-                        ?Settings_inner_xs
-                        ?ColorsToChoose_DefaultAndColumns
-                            (SingleColor_DefaultAndColumn)
-                ?ModalWrap
-                    GlobalSettings
-                        ?Settings_inner_xs
-                                        xx// ?ModalWrap
-                                                //Profile
-                                                    //Profile_inputxx
-                Grid
-                    Column
-                        UpperLeftMenu (most left column only)
-                            ColumnColor <-> ColumnColor_OneColorX4
+                            TabErrors
+                    ?ModalWrap   
+                        Bookmark_newAndEdit
+                            NewBookmark_UpperUI
+                                SelectableList
+                                BookmarkErrors_render
+                            Bookmark_lowerUI
+                                Bookmark_lowerUI_edit
+                                    SelectableList
+                                    BookmarkErrors_render
+                                Bookmark_lowerUI_new
+                                    SelectableList
+                                    BookmarkErrors_render
+                    ?ModalWrap
+                        BackgroundSettings
+                            BackgroudnSettings_Upload
+                            ?Settings_inner_xs (menu for lowest screen width)
+                    ?ModalWrap
+                        ColorsSettings
+                            ?Settings_inner_xs
                             ?ColorsToChoose_DefaultAndColumns
                                 (SingleColor_DefaultAndColumn)
-                            BackgroundColor(only if background pic is enabled)
-                            ?ColorsToChoose_Background
-                                (SingleColor_Background)
-                            Reset
-                        UpperRightMenu (most right column only)
-                            ?UpperRightMenu_XS
-                        ?Message
-                        (Tab)
-                            ?Bookmark_newAndEdit
-                                Bookmark_lowerUI (for new bookmark)
-                                    SelectableList
-                            ?ColorsToChoose_Tab
-                                (SingleColor_Tab)
-                            ?EditTab_main
-                                ?EditTab_folder
-                                    SelectableList
-                                ?EditTab_notes
-                                ?EditTab_RSS
-                                TabErrors_render
-                            ?RSS_reactQuery
-                                (SingleRssNews)
-                            ?NoteInput
-                            ?(SingleBookmark)
+                    ?ModalWrap
+                        GlobalSettings
+                            ?Settings_inner_xs
+                    Grid
+                        Column
+                            UpperLeftMenu (most left column only)
+                                ColumnColor <-> ColumnColor_OneColorX4
+                                ?ColorsToChoose_DefaultAndColumns
+                                    (SingleColor_DefaultAndColumn)
+                                BackgroundColor(only if background pic is enabled)
+                                ?ColorsToChoose_Background
+                                    (SingleColor_Background)
+                                Reset
+                            UpperRightMenu (most right column only)
+                                ?UpperRightMenu_XS
+                            ?Message
+                            (Tab) <TabContext Provider>
                                 ?Bookmark_newAndEdit
-                                    Bookmark_lowerUI (for edit bookmark)
-                                        Bookmark_lowerUI_new
-                                            BookmarkErrors_render
-                                            SelectableList
+                                    Bookmark_lowerUI (for new bookmark)
                                         Bookmark_lowerUI_edit
-                                            BookmarkErrors_render
                                             SelectableList
-                        (GapAfterTab)
-            LoginRegister
-                LogRegProfile_input     
+                                            BookmarkErrors_render
+                                        Bookmark_lowerUI_new
+                                            SelectableList
+                                            BookmarkErrors_render        
+                                ?ColorsToChoose_Tab
+                                    (SingleColor_Tab)
+                                ?EditTab_main
+                                    ?EditTab_folder
+                                        SelectableList
+                                    ?EditTab_notes
+                                    ?EditTab_RSS
+                                    TabErrors
+                                ?RSS_reactQuery
+                                    (SingleRssNews)
+                                ?NoteInput
+                                ?(SingleBookmark)
+                                    ?Bookmark_newAndEdit
+                                        Bookmark_lowerUI (for edit bookmark)
+                                            Bookmark_lowerUI_new
+                                                BookmarkErrors_render
+                                                SelectableList
+                                            Bookmark_lowerUI_edit
+                                                BookmarkErrors_render
+                                                SelectableList
+                            (GapAfterTab)
+                PublicRoute
+                    AuthOuterComponent
+                        LoginRegister
+                            LogRegProfile_input
+                            AuthNotification  
+                PrivateRoute
+                    AuthOuterComponent
+                        UserProfile
+                            LogRegProfile_input
+                PublicRoute
+                    AuthOuterComponent
+                        PasswordForgotten
+                            LogRegProfile_input
+                            AuthNotification
+                PublicRoute
+                    AuthOuterComponent
+                        ForgottenPassChange
+                            LogRegProfile_input
+                            AuthNotification
 
             
         ? - togglable / optional
         () - 2 or more repeats possible
         <-> either or
+        <> Provider
