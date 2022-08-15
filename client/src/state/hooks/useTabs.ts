@@ -28,9 +28,9 @@ interface UseTabs {
     tabTitleInput: string,
     textAreaValue: string | null,
     rssLinkInput: string,
-    dateCheckbox: boolean,
-    descriptionCheckbox: boolean,
-    rssItemsPerPage: number,
+    dateCheckbox: boolean | null,
+    descriptionCheckbox: boolean | null,
+    rssItemsPerPage: number | null,
     wasTabOpenClicked: boolean,
     wasCheckboxClicked: boolean,
     wasItemsPerPageClicked: boolean,
@@ -333,9 +333,10 @@ export const useTabs = create<UseTabs>(
           })
         ),
       resetTabRssSettings: (tabID: string) =>
-        set((state) =>
+        set(
           produce((state: UseTabs) => {
             let currentTab = state.tabs.find((obj) => obj.id === tabID);
+
             if (currentTab) {
               currentTab.date = null;
               currentTab.description = null;

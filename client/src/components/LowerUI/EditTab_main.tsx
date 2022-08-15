@@ -246,9 +246,13 @@ Props): JSX.Element {
         tabTitleInput,
         textAreaValue,
         rssLinkInput,
-        dateCheckbox,
-        descriptionCheckbox,
-        rssItemsPerPage,
+        globalSettings.date === dateCheckbox ? null : dateCheckbox,
+        globalSettings.description === descriptionCheckbox
+          ? null
+          : descriptionCheckbox,
+        globalSettings.itemsPerPage === rssItemsPerPage
+          ? null
+          : rssItemsPerPage,
         wasTabOpenClicked,
         wasCheckboxClicked,
         wasItemsPerPageClicked,
@@ -323,9 +327,15 @@ Props): JSX.Element {
         title: tabTitleInput,
         openedByDefault: tabOpen,
         rssLink: rssLinkInput,
-        date: dateCheckbox,
-        description: descriptionCheckbox,
-        itemsPerPage: rssItemsPerPage,
+        date: globalSettings.date === dateCheckbox ? null : dateCheckbox,
+        description:
+          globalSettings.description === descriptionCheckbox
+            ? null
+            : descriptionCheckbox,
+        itemsPerPage:
+          globalSettings.itemsPerPage === rssItemsPerPage
+            ? null
+            : rssItemsPerPage,
       });
     }
 
@@ -530,7 +540,7 @@ Props): JSX.Element {
                     onClick={deleteTabLogic}
                     aria-label={"Confirm tab deletion"}
                   >
-                   <CheckBigSVG className=" text-gray-500 hover:text-black cursor-pointer transition-colors duration-75" />
+                    <CheckBigSVG className=" text-gray-500 hover:text-black cursor-pointer transition-colors duration-75" />
                   </button>
                   <button
                     className="h-6 w-6 focus-2 text-gray-500 transition-colors duration-75 hover:text-black"

@@ -48,8 +48,7 @@ function EditTab_RSS({
   // const rssSettingsState = useRssSettings((state) => state, shallow);
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   const resetTabRssSettings = useTabs((store) => store.resetTabRssSettings);
-  const uiColor = globalSettings.uiColor;
-
+  
   return (
     <div className="-mb-1">
       <div className="flex items-center mt-2 justify-between">
@@ -186,12 +185,15 @@ function EditTab_RSS({
           className="text-red-600 hover:underline cursor-pointer"
           onClick={() => {
             // setResetColorsData(true);
+
+            console.log("RESET CLICKED");
+            
             setDescriptionCheckbox(globalSettings.description);
             setDateCheckbox(globalSettings.date);
             setRssItemsPerPage(globalSettings.itemsPerPage);
-            setWasAnythingClicked(true);
-            setWasCheckboxClicked(true);
-            setWasItemsPerPageClicked(true);
+            // setWasAnythingClicked(true);
+            // setWasCheckboxClicked(true);
+            // setWasItemsPerPageClicked(true);
             resetTabRssSettings(tabID);
           }}
         >
