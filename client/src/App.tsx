@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo } from "react";
-import { useMutation } from "urql";
 // import { DndProvider } from "react-dnd";
 import { DndProvider } from "react-dnd-multi-backend";
 import HTML5toTouch from "react-dnd-multi-backend/dist/esm/HTML5toTouch";
@@ -9,6 +8,7 @@ import {
   dedupExchange,
   cacheExchange,
   fetchExchange,
+  useMutation
 } from "urql";
 import { multipartFetchExchange } from "@urql/exchange-multipart-fetch";
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -61,8 +61,6 @@ const queryClient = new QueryClient();
 function App() {
   const authContext = useAuth();
   const loginAttempt = useAuth((store) => store.loginAttempt);
-
-  const [logoutMutResult, logoutMut] = useMutation<any, any>(LogoutMutation);
 
   useEffect(() => {
     console.log("authContext.isAuthenticated");

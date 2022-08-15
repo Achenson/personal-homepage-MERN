@@ -254,6 +254,10 @@ blinking after user deletion! login gets redisplayed  if its display did not fin
 DONE 223. rssSettings problem -> value lower than 5 and 15 can be entered! no easy way to increase/decrese value?? DONE
 DONE 224. tabDeletingPause in Grid -> hack? explain how it works
 tabDeletingPause is no more -> it was used before to delete empty tab before deleting the last of its bookmark DONE
+x 227. mutations -> sometimes the graphql args are listed, Fields should be imported and spread instead?
+Fields in userType & args -> should they always be the same? (no, it only for convenience) x
+DONE 229. Browser error: Default Client: No client has been specified using urql's Provider.This means that urql will be falling back to defaults including making requests to `/graphql`.
+If that's not what you want, please create a client and add a Provider. (fixed be deleting unused code in App)DONE 
 DONE 243. background color no pic -> rectangle instead of doc svgs, should be filled with color? DONE
 xxx 262. after modifing note -> make the empty space below columns smaller? (no need - different solution - #219)xxx
 DONE -not poss to change col colors
@@ -296,6 +300,7 @@ GOOD enough?
   x 221. objCreators -> bookmarkNonAuth done wrong? id not needed in db version? (good enough, id is ignored later in
   addBookmarkMutation) x
   x 225. Disable drag & drop -> should be sth like disable drag & drop for tabs?? (make hover hints or put in about) x
+  x 226. tabsData, bookmarkData, settignsData -> same as client but with userId? unify?  (good enough)x
 
 GOOD enough
 
@@ -320,13 +325,6 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
 
-223. closeAllTabsState -> in Grid (in grid both auth and non-auth code is used? check!) or Tab if either non-auth or auth -> unify?
-225. is aria-label present in all btns?
-226. tabsData, bookmarkData, settignsData -> same as client but with userId? unify? PROblem with changing of useTabs!
-227. mutations -> sometimes the graphql args are listed, Fields should be imported and spread instead
-Fields in userType & args -> should they always be the same? non-null for args?
-229. Browser error: Default Client: No client has been specified using urql's Provider.This means that urql will be falling back to defaults including making requests to `/graphql`.
-If that's not what you want, please create a client and add a Provider.
 230. promises should start only if an auth code is executed? ex. Bookmark_lowerUI. then maybe implement catching
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
 232. rss local -> changing global rss settings is not being reflected immediately!!
@@ -393,6 +391,7 @@ Choose default image: 1 2 3  -> more space between those 2 lines, 1st one should
 224. (pushed -> no hover field anywhere, but should it be introduced? or may be as display at hte top) 
 globalSettings rss items number-> hover field, implement is alse elsewhere??
 281. write about Note, implement a way to bring it back?
+225 (pushed). is aria-label present in all btns?
 
 tabIdsToDel how to get rid off:
    /* 

@@ -1,4 +1,7 @@
-        App structure:
+App structure:
+
+urql provider
+react query provider
     App
         MainWrapper(for proper server code, see the component for notes)
             Main <dbContext & upperUiContext Provider>
