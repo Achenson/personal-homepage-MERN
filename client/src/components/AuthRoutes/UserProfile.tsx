@@ -49,6 +49,7 @@ Props): JSX.Element {
   const loginAttempt = useAuth((store) => store.loginAttempt);
   const logout = useAuth((store) => store.logout);
   const userId = useAuth((store) => store.authenticatedUserId);
+  const setMessagePopup = useAuth((store) => store.setMessagePopup);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
@@ -102,6 +103,10 @@ Props): JSX.Element {
       document.removeEventListener("keydown", handleKeyDown);
     };
   });
+
+  useEffect(() => {
+    setMessagePopup(null)
+  },[])
 
   const [userResults, reexecuteUserResults] = useQuery({
     query: UserQuery,
@@ -451,9 +456,9 @@ Props): JSX.Element {
                       logout("Account successfully deleted");
                       navigate("/login-register", { replace: true });
 
-                      upperUiContext.upperVisDispatch({
-                        type: "MESSAGE_OPEN_LOGIN",
-                      });
+                      // upperUiContext.upperVisDispatch({
+                      //   type: "MESSAGE_OPEN_LOGIN",
+                      // });
                     },
                     (err) => {
                       console.log(err);

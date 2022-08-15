@@ -195,6 +195,8 @@ DONE 172. deleteUsersByAdminMutation -> not getting proper returned data from gr
  (mutations was not returnig data matching field, id naming not changed) DONE
 DONE 173. deleteUsersByAdminMutation -> put delete user first, only then settings etc. DONE
 DONE 175. delete AppWrapper DONE
+DONE 175.5 auth -> zustand, other central state -> context. unify? check downsides of using context
+context placement updated in app structure. DOWNSIDEs: it the notes, seems to be ok in this app  DONE
 DONE 175.75 check if all contexts are used!!! backgroundImgContext adn authContext not being used
 (AuthContext deleted) DONE
 DONE 176. objects as props in more places? like paddingProps in Main (Main & MainRoute improved)DONE
@@ -246,6 +248,10 @@ DONE 220. auth version problems after implementing, non auth version: DONE
 DONE 221. color hooks - to be partially deleted? (resetColors and tabBeingDragged remained) DONE 
 ! DONE 222. update App structure - routes! contexts! eg.tabcontext -> for each individual tab!
 (sapling vscode extension! helped) DONE !
+DONE 222. LoginSuccessfull notification (Message) ->  not showing after login! (done - switched to central state, instead of context)
+logoutMessage -> to delete? does not have a chance to be set because of routing (deleted)
+blinking after user deletion! login gets redisplayed  if its display did not finish (done -> setting message to null in UserProfile) DONE
+DONE 223. rssSettings problem -> value lower than 5 and 15 can be entered! no easy way to increase/decrese value?? DONE
 DONE 224. tabDeletingPause in Grid -> hack? explain how it works
 tabDeletingPause is no more -> it was used before to delete empty tab before deleting the last of its bookmark DONE
 DONE 243. background color no pic -> rectangle instead of doc svgs, should be filled with color? DONE
@@ -287,6 +293,9 @@ GOOD enough?
   x 194. changePasswordAfterForgot -> in case of token expiration -> link to forgotpass should be visible (good enough) x
   xx 199. tabsDb and tabsNotAuth etc -> should be in props instead of taken out of Context every time? less code3
   (purpose of context/state management it to not think about props!)xx
+  x 221. objCreators -> bookmarkNonAuth done wrong? id not needed in db version? (good enough, id is ignored later in
+  addBookmarkMutation) x
+  x 225. Disable drag & drop -> should be sth like disable drag & drop for tabs?? (make hover hints or put in about) x
 
 GOOD enough
 
@@ -310,14 +319,7 @@ it will trigger refresh in getAuth
 155. better email validation
 188. wiki-speed-typing -> check if password retrival is available still
 
-175.5 auth -> zustand, other central state -> context. unify? check downside of using context
 
-223. rssSettings problem -> value lower than 5 and 15 can be entered! no easy way to increase/decrese value??
-224. globalSettings rss items number-> hover field, implement is alse elsewhere??
-225. Disable drag & drop -> should be sth like disable drag & drop for tabs??
-background Color possible now in no pic mode
-221. objCreators -> bookmarkNonAuth done wrong? id not needed in db version?
-222. LoginSuccessfull notification -> blinking after user deletion! test it, remove it?
 223. closeAllTabsState -> in Grid (in grid both auth and non-auth code is used? check!) or Tab if either non-auth or auth -> unify?
 225. is aria-label present in all btns?
 226. tabsData, bookmarkData, settignsData -> same as client but with userId? unify? PROblem with changing of useTabs!
@@ -388,6 +390,9 @@ Choose default image: 1 2 3  -> more space between those 2 lines, 1st one should
 213. (pushed -> solve auth non-auth problems with bookmarks & tabs first) () SingleBookmark -> interface for nonAuth is being used also for auth?? the one for auth being not used
 279 hide folder containing... -> does user 
 280. unify shade of red for warnings etc.
+224. (pushed -> no hover field anywhere, but should it be introduced? or may be as display at hte top) 
+globalSettings rss items number-> hover field, implement is alse elsewhere??
+281. write about Note, implement a way to bring it back?
 
 tabIdsToDel how to get rid off:
    /* 
@@ -599,3 +604,9 @@ to rerender if parent rerenders as the function will be new
 ====== passedRef
 userd in LogRegProfile_input to focus on first field on component mount
 parent component is using useEffect to focus on ref, which is passed to first LogRegProfile_input component
+
+==== downsides & tips of using context
+context will rerender any components that are using it,
+even if they not use the value that has just changed. Should be used for data that
+is changed with low frequency, should be kept relatively close in app structure,
+ should be split to as many contexts as possible. seem to be ok in this app

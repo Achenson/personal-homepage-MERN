@@ -8,6 +8,7 @@ export const useAuth = create<AuthContextZustand_i>((set) => ({
   authenticatedUserId: null,
   accessToken: null,
   loginNotification: null,
+  messagePopup: null,
   // loginErrorMessage: null,
   // loginNotification arg -> setting message after deleting user
   logout: (loginNotification) =>
@@ -31,6 +32,13 @@ export const useAuth = create<AuthContextZustand_i>((set) => ({
       ...state,
       loginNotification: loginNotification,
     })),
+
+    setMessagePopup: (message) =>
+    set((state) => ({
+      ...state,
+      messagePopup: message,
+    })),
+
 
   //   setLoggedInState: (trueOrFalse) =>
   //     set((state) => ({

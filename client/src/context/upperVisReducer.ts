@@ -104,23 +104,23 @@ export function upperVisReducer(
         tabEditablesOpenable: true,
       };
 
-    case "MESSAGE_OPEN_LOGIN":
-      return {
-        ...state,
-        messagePopup: "Login successful",
-      };
+    // case "MESSAGE_OPEN_LOGIN":
+    //   return {
+    //     ...state,
+    //     messagePopup: "Login successful",
+    //   };
 
-    case "MESSAGE_OPEN_LOGOUT":
-      return {
-        ...state,
-        messagePopup: "Logout successful",
-      };
+    // case "MESSAGE_OPEN_LOGOUT":
+    //   return {
+    //     ...state,
+    //     messagePopup: "Logout successful",
+    //   };
 
-    case "MESSAGE_CLOSE":
-      return {
-        ...state,
-        messagePopup: null,
-      };
+    // case "MESSAGE_CLOSE":
+    //   return {
+    //     ...state,
+    //     messagePopup: null,
+    //   };
     case "FOCUS_ON_UPPER_RIGHT_UI": {
       return {
         ...state,

@@ -323,7 +323,7 @@ Props): JSX.Element {
               globalSettings={globalSettings}
             />
           </div>
-          {upperUiContext.upperVisState.messagePopup && (
+          {authContext.messagePopup && (
             <Message globalSettings={globalSettings} />
           )}
         </div>

@@ -43,6 +43,7 @@ Props): JSX.Element {
   const loginAttempt = useAuth((store) => store.loginAttempt);
   const loginNotification = useAuth((store) => store.loginNotification);
   const setLoginNotification = useAuth((store) => store.setLoginNotification);
+  const setMessagePopup = useAuth((store) => store.setMessagePopup);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
@@ -198,15 +199,18 @@ Props): JSX.Element {
         // history.replace("/");
 
         // history.replace("/") equivalent in react-router-dom 6
-        navigate("/", { replace: true });
 
         // upperUiContext.upperVisDispatch({
         //   type: "PROFILE_TOGGLE",
         // });
 
-        upperUiContext.upperVisDispatch({
-          type: "MESSAGE_OPEN_LOGIN",
-        });
+        // upperUiContext.upperVisDispatch({
+        //   type: "MESSAGE_OPEN_LOGIN",
+        // });
+
+        setMessagePopup("Login successful")
+
+        navigate("/", { replace: true });
       },
       (err) => {
         console.log(err);
@@ -464,24 +468,22 @@ Props): JSX.Element {
       <div className="flex justify-center">
         {loginOrRegister === "login" ? (
           <div className="flex flex-col -mb-1">
-              <button
-            className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
+            <button
+              className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-            onClick={loginValidation}
-          >
-            Login
-          </button>
-          <button
-            className={`mt-0.5 text-sm text-gray-400 hover:text-opacity-50 cursor-pointer  focus-1-offset`}
-            onClick={() => {
-              navigate("/passforgot");
-            }}
-          >
-            <span>Forgot password?</span>
-          </button>
+              onClick={loginValidation}
+            >
+              Login
+            </button>
+            <button
+              className={`mt-0.5 text-sm text-gray-400 hover:text-opacity-50 cursor-pointer  focus-1-offset`}
+              onClick={() => {
+                navigate("/passforgot");
+              }}
+            >
+              <span>Forgot password?</span>
+            </button>
           </div>
-        
-
         ) : (
           <button
             className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150

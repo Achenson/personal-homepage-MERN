@@ -106,7 +106,7 @@ export interface UpperVisState {
   addTabVis_xs: boolean;
   xsSizing_initial: boolean;
   tabEditablesOpenable: boolean;
-  messagePopup: null | string;
+  // messagePopup: null | string;
   currentXSsettings: "background" | "colors" | "global";
   // for focusing specific SVG when closing any of the upperRight UI settings with the keyboard
   // 1-8 corresponds to UpperRightUi (normal sized version) from left to right
@@ -132,19 +132,25 @@ export interface DbContext_i {
 //   updateCurrentBackgroundImgKey: React.Dispatch<React.SetStateAction<string>>;
 // }
 
-export interface AuthContextObj_i {
-  isAuthenticated: boolean;
-  authenticatedUserId: null | string;
-  accessToken: null | string;
-  loginNotification: null | string;
-  // loginErrorMessage: null | string;
-}
+// interface AuthContextObj_i {
+//   isAuthenticated: boolean;
+//   authenticatedUserId: null | string;
+//   accessToken: null | string;
+//   loginNotification: null | string;
+
+//   // loginErrorMessage: null | string;
+// }
 
 // export interface AuthContext_i extends AuthContextObj_i {
 //   updateAuthContext: React.Dispatch<React.SetStateAction<AuthContextObj_i>>;
 // }
 
-export interface AuthContextZustand_i extends AuthContextObj_i {
+export interface AuthContextZustand_i {
+  isAuthenticated: boolean;
+  authenticatedUserId: null | string;
+  accessToken: null | string;
+  loginNotification: null | string;
+  messagePopup: null | string;
   logout: (loginNotification: string|null) => void;
   loginAttempt: (
     isAuthenticated: boolean,
@@ -152,6 +158,7 @@ export interface AuthContextZustand_i extends AuthContextObj_i {
     token: string
   ) => void;
   setLoginNotification: (loginNotification: string|null) => void;
+  setMessagePopup: (message: string|null) => void;
 }
 
 // for Tab
@@ -179,9 +186,9 @@ interface UpperVisAction_noPayload {
     | "XS_SIZING_TRUE"
     | "XS_SIZING_FALSE"
     | "TAB_EDITABLES_OPENABLE_DEFAULT"
-    | "MESSAGE_OPEN_LOGIN"
-    | "MESSAGE_OPEN_LOGOUT"
-    | "MESSAGE_CLOSE"
+    // | "MESSAGE_OPEN_LOGIN"
+    // | "MESSAGE_OPEN_LOGOUT"
+    // | "MESSAGE_CLOSE"
     | "CURRENT_XS_SETTINGS_BACKGROUND"
     | "CURRENT_XS_SETTINGS_COLORS"
     | "CURRENT_XS_SETTINGS_GLOBAL";
