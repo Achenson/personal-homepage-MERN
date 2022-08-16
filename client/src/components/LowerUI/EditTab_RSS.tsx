@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import shallow from "zustand/shallow";
 import { useMutation } from "urql";
@@ -59,6 +59,16 @@ function EditTab_RSS({
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
     ChangeTabMutation
   );
+
+  const [itemsPerPageInitial, setItemsPerPageInitial] = useState(
+    () => rssItemsPerPage
+  );
+
+  useEffect(() => {
+    if (!currentTab.itemsPerPage) {
+      setItemsPerPageInitial(globalSettings.itemsPerPage);
+    }
+  }, [globalSettings.itemsPerPage, currentTab.itemsPerPage]);
 
   return (
     <div className="-mb-1">
@@ -146,6 +156,10 @@ function EditTab_RSS({
                     return;
                   }
 
+                  setItemsPerPageInitial(
+                    (itemsPerPageInitial) => itemsPerPageInitial + 1
+                  );
+
                   setRssItemsPerPage((itemsPerPage) => itemsPerPage + 1);
                   setWasItemsPerPageClicked(true);
                 }}
@@ -163,6 +177,10 @@ function EditTab_RSS({
                     return;
                   }
 
+                  setItemsPerPageInitial(
+                    (itemsPerPageInitial) => itemsPerPageInitial - 1
+                  );
+
                   setRssItemsPerPage((itemsPerPage) => itemsPerPage - 1);
                   setWasItemsPerPageClicked(true);
                 }}
@@ -174,14 +192,19 @@ function EditTab_RSS({
             min="5"
             max="15"
             className="border-t border-b border-r w-8 text-center border-gray-300 focus-1"
-            value={rssItemsPerPage}
+            value={itemsPerPageInitial}
+            // value={rssItemsPerPage}
             onWheel={(event) => event.currentTarget.blur()}
             onChange={(e) => {
+              setItemsPerPageInitial(parseInt(e.target.value));
+            }}
+            onBlur={(e) => {
               if (
                 parseInt(e.target.value) < 5 ||
                 parseInt(e.target.value) > 15 ||
                 e.target.value === ""
               ) {
+                setItemsPerPageInitial(rssItemsPerPage);
                 return;
               }
               setRssItemsPerPage(parseInt(e.target.value));
@@ -203,6 +226,8 @@ function EditTab_RSS({
             // setWasAnythingClicked(true);
             // setWasCheckboxClicked(true);
             // setWasItemsPerPageClicked(true);
+
+            setItemsPerPageInitial(globalSettings.itemsPerPage);
 
             if (userIdOrNoId) {
               editTab({

@@ -105,6 +105,10 @@ function GlobalSettings({
     ChangeTabMutation
   );
 
+  const [itemsPerPageInitial, setItemsPerPageInitial] = useState(
+    () => globalSettings.itemsPerPage
+  );
+
   /*  const { data, fetching, error } = settingsResults;
 
   if (fetching) return <p>Loading...</p>;
@@ -446,6 +450,10 @@ function GlobalSettings({
                             return;
                           }
 
+                          setItemsPerPageInitial(
+                            (itemsPerPageInitial) => itemsPerPageInitial + 1
+                          );
+
                           userIdOrNoId
                             ? changeSettings({
                                 ...globalSettings,
@@ -469,6 +477,10 @@ function GlobalSettings({
                             return;
                           }
 
+                          setItemsPerPageInitial(
+                            (itemsPerPageInitial) => itemsPerPageInitial - 1
+                          );
+
                           userIdOrNoId
                             ? changeSettings({
                                 ...globalSettings,
@@ -487,23 +499,27 @@ function GlobalSettings({
                     min="5"
                     max="15"
                     className="border-t border-r border-b w-8 text-center border-gray-300 bg-gray-50
-                  focus-1
-                  "
-                    // style={{height: "26px"}}
-                    value={globalSettings.itemsPerPage}
+                  focus-1"
+                    // value={globalSettings.itemsPerPage}
+                    value={itemsPerPageInitial}
                     onWheel={(event) => event.currentTarget.blur()}
                     onChange={(e) => {
                       /*   setGlobalSettings({
                         ...globalSettings,
                         itemsPerPage: parseInt(e.target.value),
                       }); */
+                      setItemsPerPageInitial(parseInt(e.target.value));
+                    }}
+                    onBlur={(e) => {
                       if (
                         parseInt(e.target.value) < 5 ||
                         parseInt(e.target.value) > 15 ||
                         e.target.value === ""
                       ) {
+                        setItemsPerPageInitial(globalSettings.itemsPerPage);
                         return;
                       }
+
                       userIdOrNoId
                         ? changeSettings({
                             ...globalSettings,
@@ -517,6 +533,7 @@ function GlobalSettings({
                       //   ...globalSettings,
                       //   itemsPerPage: parseInt(e.target.value),
                       // });
+                      // setItemsPerPageInitial(globalSettings.itemsPerPage)
                       setTabOpenedState(null);
                     }}
                   />
@@ -525,13 +542,10 @@ function GlobalSettings({
             </div>
 
             <div className="flex justify-between items-center mb-2 mt-1">
-            <p className="">Number of columns</p>
-            <div className="flex">{renderColsNumberControls()}</div>
+              <p className="">Number of columns</p>
+              <div className="flex">{renderColsNumberControls()}</div>
+            </div>
           </div>
-
-          </div>
-
-         
         </div>
       </div>
     </FocusLock>
