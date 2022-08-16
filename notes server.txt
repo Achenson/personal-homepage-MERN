@@ -330,7 +330,6 @@ it will trigger refresh in getAuth
 
 
 235. non-auth version problem with less column settings-> missing content?
-236. globalSettings to globalSettignsDb rename everywhere? (currently in Column only)
 237. globalSettings interfaces - smtms different smtms from db?
 239. bookmarks itp -> in the end ts is chosing the type by itself, even if it should be split type
 240. bookmarks are rendered only after tab is open -> maybe they should be just hidden instead?
@@ -393,6 +392,7 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 230 (pushed -> solve auth non-auth problems with bookmarks & tabs first). promises should start only if an auth code is executed? ex. Bookmark_lowerUI. then maybe implement catching
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
 233. rrs itemsPerPage -> test on mobile! real one
+236. (push -> same problem as bookmark and tabs interfaces problen)globalSettings to globalSettignsDb rename everywhere? (currently in Column only)
 
 tabIdsToDel how to get rid off:
    /* 
