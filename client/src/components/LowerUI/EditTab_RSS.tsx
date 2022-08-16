@@ -1,6 +1,7 @@
 import React from "react";
 
 import shallow from "zustand/shallow";
+import { useMutation } from "urql";
 
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
@@ -9,10 +10,12 @@ import { ReactComponent as PlusSmSVG } from "../../svgs/plus-sm.svg";
 import { ReactComponent as MinusSmSVG } from "../../svgs/minus-sm.svg";
 
 import { useTabs } from "../../state/hooks/useTabs";
+import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { TabDatabase_i } from "../../../../schema/types/tabType";
 
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { ChangeTabMutation } from "../../graphql/graphqlMutations";
 
 interface Props {
   setWasAnythingClicked: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,6 +31,8 @@ interface Props {
   rssLinkInput: string;
   setRssLinkInput: React.Dispatch<React.SetStateAction<string>>;
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  userIdOrNoId: string | null;
+  currentTab: TabDatabase_i;
 }
 
 function EditTab_RSS({
@@ -44,11 +49,17 @@ function EditTab_RSS({
   rssLinkInput,
   setRssLinkInput,
   globalSettings,
+  userIdOrNoId,
+  currentTab,
 }: Props): JSX.Element {
   // const rssSettingsState = useRssSettings((state) => state, shallow);
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   const resetTabRssSettings = useTabs((store) => store.resetTabRssSettings);
-  
+
+  const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
+    ChangeTabMutation
+  );
+
   return (
     <div className="-mb-1">
       <div className="flex items-center mt-2 justify-between">
@@ -186,15 +197,23 @@ function EditTab_RSS({
           onClick={() => {
             // setResetColorsData(true);
 
-            console.log("RESET CLICKED");
-            
             setDescriptionCheckbox(globalSettings.description);
             setDateCheckbox(globalSettings.date);
             setRssItemsPerPage(globalSettings.itemsPerPage);
             // setWasAnythingClicked(true);
             // setWasCheckboxClicked(true);
             // setWasItemsPerPageClicked(true);
-            resetTabRssSettings(tabID);
+
+            if (userIdOrNoId) {
+              editTab({
+                ...currentTab,
+                date: null,
+                description: null,
+                itemsPerPage: null,
+              });
+            } else {
+              resetTabRssSettings(tabID);
+            }
           }}
         >
           RESET

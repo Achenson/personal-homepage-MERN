@@ -37,7 +37,6 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { imageColumnColorsConcat } from "../../utils/data/colors_column";
-import { triggerAsyncId } from "async_hooks";
 
 interface TabId {
   id: string;
@@ -486,6 +485,8 @@ Props): JSX.Element {
               rssLinkInput={rssLinkInput}
               setRssLinkInput={setRssLinkInput}
               globalSettings={globalSettings}
+              userIdOrNoId={userIdOrNoId}
+              currentTab={currentTab}
             />
           )}
 

@@ -258,6 +258,9 @@ x 227. mutations -> sometimes the graphql args are listed, Fields should be impo
 Fields in userType & args -> should they always be the same? (no, it only for convenience) x
 DONE 229. Browser error: Default Client: No client has been specified using urql's Provider.This means that urql will be falling back to defaults including making requests to `/graphql`.
 If that's not what you want, please create a client and add a Provider. (fixed be deleting unused code in App)DONE 
+DONE 232. rss local -> changing global rss settings is not being reflected immediately
+(if a setting has been changed locally, even after reseting to default)!! (
+  auth version also didn't worked, code reworked) DONE
 DONE 243. background color no pic -> rectangle instead of doc svgs, should be filled with color? DONE
 xxx 262. after modifing note -> make the empty space below columns smaller? (no need - different solution - #219)xxx
 DONE -not poss to change col colors
@@ -325,8 +328,6 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
 
-232. rss local -> changing global rss settings is not being reflected immediately
-(if a setting has been changed locally, even after reseting to default)!!
 234. rss itemPerPage -> cannot be set by keyboard to more than 9 -> problem?
 235. non-auth version problem with less column settings-> missing content?
 236. globalSettings to globalSettignsDb rename everywhere? (currently in Column only)
