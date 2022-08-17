@@ -267,6 +267,8 @@ xx 242. utils folder server code -> move up? xx
 DONE 243. background color no pic -> rectangle instead of doc svgs, should be filled with color? DONE
 DONE 244. ts generated file -> get rid of it? (deleted, uninstalled, made note in notes about it) DONE
 DONE 245. fetch RSS query file & graphql -> to delete (rssquery type & rss code in client's graphqlQueriers deleted) DONE
+DONE 247. haslo do gmaila (adres to nodemailera) wyslac DONE
+DONE 248. update queries mutation examples DONE
 xxx 262. after modifing note -> make the empty space below columns smaller? (no need - different solution - #219)xxx
 DONE -not poss to change col colors
 DONe
@@ -311,6 +313,8 @@ GOOD enough?
   x 226. tabsData, bookmarkData, settignsData -> same as client but with userId? unify?  (good enough)x
   xx 240. bookmarks are rendered only after tab is open -> maybe they should be just hidden instead?
   (good enough may cause different issues later)) xx
+  xx 246. root mutation & query files -> fix types (after changin const to import) one of the mutation is done right - compare!
+  (left as it is -> problem with GraphQLFieldResolver type, it wants ExpressReqRes before arguments in the resolve, code does not work is this ts error is gone) xx
 
 GOOD enough
 
@@ -335,12 +339,6 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
 
-
-
-
-246. root mutation & query files -> fix types (after changin const to import) one of the mutation is done right - compare!
-247. haslo do gmaila wyslac
-248. update queries mutation examples
 250. login after registering -> "user does not exiss" doen't clean, test all possibilities
 251. custom backgroundImg name is not displayed when going to backgroundImg options in case it is selected before
 252. clientSIde reaction to rss and background img query errors?

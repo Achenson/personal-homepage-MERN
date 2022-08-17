@@ -276,7 +276,7 @@ export const LoginMutation = `
 
 export const LogoutMutation = `
   mutation {
-    logout 
+    logout
   }
 `;
 

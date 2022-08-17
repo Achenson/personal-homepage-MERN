@@ -16,7 +16,7 @@
 
 /* {
   backgroundImg(userId: "61b21a61cc1846bfa9ca8a8e") {
-  backgroundImg
+  backgroundImgUrl
  } */
 
 /* {
@@ -37,7 +37,6 @@
     description
     itemsPerPage
     
-    
   }
 } */
 
@@ -45,11 +44,25 @@
 
 {
 bookmarks(userId: "") {
-  id,
-  userId,
-  title,
-  URL,
+  id
+  userId
+  title
+  URL
   tags
+  defaultFaviconFallback
+}
+}
+
+ {
+user(userId: "") {
+  id
+  name
+  email
+  password
+  settings {
+    id
+    picBackground
+  }
 }
 }
 
@@ -78,8 +91,10 @@ mutation {
 }
 
 mutation {
-  changeUser(id: "6151c1684589d00af404ab7e", name: "newName", email: "newEmail@mail", password: "secret") {
+  changeUserByYser(id: "6151c1684589d00af404ab7e", name: "newName", email: "newEmail@mail", passwordCurrent: "secret") {
     name
+       email
+      error
   }
 }
 
@@ -96,7 +111,9 @@ mutation {
   changeBookmark(id: "61642207c38a6fc18f65a22a", userId: "61642206c38a6fc18f65a214",
         title: "facebooknewww",
         URL: "https://www.facebook.com/",
-        tags: ["61642206c38a6fc18f65a217", "61642206c38a6fc18f65a218", "61642206c38a6fc18f65a219"]) {
+        tags: ["61642206c38a6fc18f65a217", "61642206c38a6fc18f65a218", "61642206c38a6fc18f65a219"],
+        defaultFaviconFallback: false
+        ) {
          id
           userId
           title
@@ -104,17 +121,6 @@ mutation {
           tags
   }
 }
-
-"id": "616d8500e1ea080b82f05e66",
-  "userId": "616d84ffe1ea080b82f05e50",
-  "title": "facebook",
-  "URL": "https://www.facebook.com/",
-  "tags": [
-    "616d84ffe1ea080b82f05e53",
-    "616d84ffe1ea080b82f05e54",
-    "616d84ffe1ea080b82f05e55",
-    "616e89e35ba12b820740f82a",
-    "616e8a215ba12b820740f82e"
 
 
 
@@ -125,6 +131,7 @@ mutation {
     name
     email
     password
+    error
     settings {
       picBackground
     }
@@ -170,10 +177,13 @@ mutation {
       login(email_or_name: John3, password: testwrong) {
       userId
       token
+      error
     }
   }
-  
-  
+
+  mutation {
+	logout
+}
 
   // not used clientside! for admin only in graphql playground?
   mutation {
@@ -183,15 +193,9 @@ mutation {
     }
   }
   
-  
-
-  mutation {
-  forgotPassword(email: "ach.01.mail@gmail.com")
-}
-
-  
 
 
+// not used clientside! for admin only in graphql playground?
 mutation {
   deleteUsersByAdmin (ids: ["62b1a1ca4c29c2e004161fe9", "62b1a2074c29c2e004162013"]) {
    ids {
@@ -200,6 +204,36 @@ mutation {
   }
   }
 }
+
+// no example for backgroundImgUploadMutaion
+// to test it -> Firecamp
+
+mutation {
+  forgotPassword(email: "ach.01.mail@gmail.com")
+}
+
+mutation {
+	deleteAccountByUser(id: "", password: "") {
+    name
+    error
+  }
+}
+
+mutation {
+	changePasswordByUser(id: "", passwordCurrent: "", passwordNew: ""){
+    name
+    error
+  }
+}
+
+mutation {
+	changePasswordAfterForgot(token: "", newPassword: "") {
+    userId
+    token
+    error
+  }
+  }
+
 
 
 */
