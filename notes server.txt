@@ -263,6 +263,7 @@ DONE 232. rss local -> changing global rss settings is not being reflected immed
   auth version also didn't worked, code reworked) DONE
 DONE 234. rss itemPerPage -> cannot be set by keyboard to more than 9 -> problem? (solved by making changes on refocus) DONE
 DONE 235. non-auth version problem with less column settings-> missing content? DONE
+xx 242. utils folder server code -> move up? xx
 DONE 243. background color no pic -> rectangle instead of doc svgs, should be filled with color? DONE
 xxx 262. after modifing note -> make the empty space below columns smaller? (no need - different solution - #219)xxx
 DONE -not poss to change col colors
@@ -306,6 +307,8 @@ GOOD enough?
   addBookmarkMutation) x
   x 225. Disable drag & drop -> should be sth like disable drag & drop for tabs?? (make hover hints or put in about) x
   x 226. tabsData, bookmarkData, settignsData -> same as client but with userId? unify?  (good enough)x
+  xx 240. bookmarks are rendered only after tab is open -> maybe they should be just hidden instead?
+  (good enough may cause different issues later)) xx
 
 GOOD enough
 
@@ -330,12 +333,6 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
 
-237. globalSettings interfaces - smtms different smtms from db?
-239. bookmarks itp -> in the end ts is chosing the type by itself, even if it should be split type
-240. bookmarks are rendered only after tab is open -> maybe they should be just hidden instead?
-241. browser warning: Default Client: No client has been specified using urql's Provider.This means that urql will be falling back to defaults including making requests to `/graphql`.
-If that's not what you want, please create a client and add a Provider.
-242. utils folder server code -> move up?
 244. ts generated file -> get rid of it?
 245. fetch RSS query file & graphql -> to delete
 246. root mutation & query files -> fix types (after changin const to import) one of the mutation is done right - compare!
@@ -394,6 +391,8 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 233. rrs itemsPerPage -> test on mobile! real one
 236. (push -> same problem as bookmark and tabs interfaces problen)globalSettings to globalSettignsDb rename everywhere? (currently in Column only)
 282. nonauth v notauth -> unify
+237. (pushed, solve interfaces problem together with tabs& bookmarks) globalSettings interfaces - smtms different smtms from db?
+239. (pushed, same reason as above) bookmarks itp -> in the end ts is chosing the type by itself, even if it should be split type
 
 tabIdsToDel how to get rid off:
    /* 
