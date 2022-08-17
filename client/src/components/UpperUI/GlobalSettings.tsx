@@ -55,6 +55,7 @@ function GlobalSettings({
   // const tabs = useDbContext().tabs;
 
   const tabsNotAuth = useTabs((store) => store.tabs);
+  const tabsLessColumnsNotAuth = useTabs((store) => store.tabsLessColumns);
 
   const tabsDb = useDbContext()?.tabs;
 
@@ -135,16 +136,14 @@ function GlobalSettings({
         <div className="flex items-center ml-2" key={i}>
           <button
             onClick={() => {
-              if (!userIdOrNoId) {
+              if (userIdOrNoId) {
+                changeSettings({ ...globalSettings, numberOfCols: el });
+              } else {
                 setGlobalSettings({
                   ...globalSettings,
                   numberOfCols: el,
                 });
-
-                return;
               }
-
-              changeSettings({ ...globalSettings, numberOfCols: el });
 
               (tabs as TabDatabase_i[])
                 // .filter((obj) => obj.column >= globalSettings.numberOfCols)
@@ -159,7 +158,13 @@ function GlobalSettings({
                   return 0;
                 })
                 .forEach((obj, i) => {
-                  editTab({ ...obj, column: el, priority: i });
+                  if (userIdOrNoId) {
+                    editTab({ ...obj, column: el, priority: i });
+                    return;
+                  }
+
+                  tabsLessColumnsNotAuth(el);
+
                   /* obj.column = globalSettings.numberOfCols;
                   obj.priority = i; */
                 });

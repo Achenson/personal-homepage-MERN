@@ -71,6 +71,8 @@ export const useTabs = create<UseTabs>(
         );
       },
       tabsLessColumns: (numberOfCols) => {
+        console.log("tabLessColumns");
+        
         set(
           produce((state: UseTabs) => {
             state.tabs

@@ -49,7 +49,7 @@ function Grid({
 Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
 
-  const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
+  // const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
   const defaultTabContentAll = useTabs((store) => store.defaultTabContentAll);
 
   const tabsNotAuth = useTabs((store) => store.tabs);
