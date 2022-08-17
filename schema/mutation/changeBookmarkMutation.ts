@@ -1,5 +1,7 @@
 const Bookmark = require("../../mongoModels/bookmarkSchema");
 
+import { GraphQLError } from "graphql";
+
 import {
   BookmarkFields,
   BookmarkDatabase_i,
@@ -11,7 +13,13 @@ export const changeBookmarkMutationField = {
   args: {
     ...BookmarkFields,
   },
-  resolve(_source: unknown, args: BookmarkDatabase_i) {
+  resolve(_source: unknown, args: BookmarkDatabase_i, request: any) {
+
+    if (!request.isAuth) {
+      return new GraphQLError("Auth error");
+      // throw new Error("Auth error");
+    }
+
     let update = {
       id: args.id,
       userId: args.userId,

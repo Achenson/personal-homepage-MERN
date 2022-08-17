@@ -1,4 +1,5 @@
 const graphql = require("graphql");
+// import graphql = require("graphql")
 
 import { changeSettingsMutationField } from "./changeSettingsMutation";
 import { addUserMutationField } from "./addUserMutation";

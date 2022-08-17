@@ -335,6 +335,9 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
 
+
+
+
 246. root mutation & query files -> fix types (after changin const to import) one of the mutation is done right - compare!
 247. haslo do gmaila wyslac
 248. update queries mutation examples
