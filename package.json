@@ -50,9 +50,6 @@
     "urql": "^2.2.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.7.0",
-    "@graphql-codegen/typescript": "2.2.2",
-    "@graphql-codegen/typescript-resolvers": "^2.6.7",
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.12",
