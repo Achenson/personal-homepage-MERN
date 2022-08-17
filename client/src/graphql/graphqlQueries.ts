@@ -65,12 +65,6 @@ export const BackgroundImgQuery = `query ($userId: ID) {
     }
   }`;
 
-export const RssFetchQuery = `query ($rssLink: String) {
-    rssFetch (rssLink: $rssLink) {
-      rssFetchData
-    }
-    }`;
-
 export const UserQuery = `query ($userId: ID) {
       user (userId: $userId) {
         name

@@ -831,3 +831,12 @@ export function useAuthContext() {
 
   return context;
 }
+
+
+//// graphqlQueries.ts
+
+export const RssFetchQuery = `query ($rssLink: String) {
+    rssFetch (rssLink: $rssLink) {
+      rssFetchData
+    }
+    }`;
