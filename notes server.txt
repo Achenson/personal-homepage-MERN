@@ -277,6 +277,7 @@ x 257. no authHeader isAuth error console log repeats to many times -> too many 
  (it's fine, as the message sits in isAuth middleware)x
 DONE 258. where is res in login and logout coming from -> console.log it 
 (see notes, request is passed to graphql resolver, res seems to be added to request object) DONE
+DONE 259. !!! UserProfile does not show on smaller browser window!!! (wrong code in UpperRightMenu_XS) DONE
 x 260. UpperUI comp to delete? (it is still used, even though UpperRightMenu & UpperLeftMenu are being attached to Column now) x 
 xxx 262. after modifing note -> make the empty space below columns smaller? (no need - different solution - #219)xxx
 DONE -not poss to change col colors
@@ -349,7 +350,6 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
 
-259. !!! UserProfile does not show on smaller browser window!!!
 152 (pushed, solve mutation type prolbem first). mutations-> change args from manual to Fields 
 263. option to reset single Tab to default?
 264. refreshToken bad request when not logged in -> works, but it should be without error
@@ -393,6 +393,7 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 239. (pushed, same reason as above) bookmarks itp -> in the end ts is chosing the type by itself, even if it should be split type
 102 (pushed -> interfaces for tabs etc. should be unified first). react keys -> they should by indices ! change to id 
 282. delete background get from server.ts? already using route?
+283. clear svgs (logout for sure)
 
 tabIdsToDel how to get rid off:
    /* 
