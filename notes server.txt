@@ -272,6 +272,8 @@ DONE 248. update queries mutation examples DONE
 DONE 250. login after registering -> "user does not exiss" doen't clean, test all possibilities DONE
 DONE 251. custom backgroundImg name is not displayed when going to backgroundImg options in case it is selected before
 (also - wasCustomClicked logic deleted)DONE
+DONE  253. backgroundImg folders not being deleted from the app after user deletion! 
+(only deleteUserByAdminMutation was not working, fixed - recursive true) DONE
 xxx 262. after modifing note -> make the empty space below columns smaller? (no need - different solution - #219)xxx
 DONE -not poss to change col colors
 DONe
@@ -318,7 +320,8 @@ GOOD enough?
   (good enough may cause different issues later)) xx
   xx 246. root mutation & query files -> fix types (after changin const to import) one of the mutation is done right - compare!
   (left as it is -> problem with GraphQLFieldResolver type, it wants ExpressReqRes before arguments in the resolve, code does not work is this ts error is gone) xx
-
+  x 252. clientSIde reaction to rss and background img query errors? (goodEnough, rss is taken care of, img errot doesnt'
+  break app, no background img is shown instead) x
 GOOD enough
 
 !46. bookmarks not up to date when adding newBookmark if there are none (auth vers only)
@@ -342,8 +345,6 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
 
-252. clientSIde reaction to rss and background img query errors?
-253. backgroundImg folders not being deleted from the app after user deletion!
 254. backgroundImg is not needed?? works without? (take care of its route if needed/not needed), maybe it shouldn't be saved in db?
 255. request in mutation in queries -> unify type
 256. backgroundImgMutation -> test if it is used at all, console.logs not working

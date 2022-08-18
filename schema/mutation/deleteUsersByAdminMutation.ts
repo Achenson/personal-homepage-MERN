@@ -48,7 +48,7 @@ export const deleteUsersByAdminMutationField = {
           Tab.deleteMany({ userId: id }),
         ]);
 
-        fs.rmdir(path.join("backgroundImgs/" + id + "/"), (err: any) => {
+        fs.rmdir(path.join("backgroundImgs/" + id + "/"), {recursive: true}, (err: any) => {
           if (err) {
             console.error(err);
           }
