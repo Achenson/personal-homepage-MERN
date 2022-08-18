@@ -290,6 +290,8 @@ But possible to edit bookmarks, delete, drag
 & possible to add bookmarks, tabs in the lower Ui,
 & possible to edit folders
 DONE background Color possible now in no pic mode
+DONE 264. refreshToken bad request when not logged in -> works, but it should be without error
+(actually this is the error send be server code, changed to 401) DONE
 
 
 GOOD enough?
@@ -329,6 +331,10 @@ GOOD enough?
   break app, no background img is shown instead) x
 GOOD enough
 
+TO implement in future versions?
+  x 263. option to reset single Tab color to default? (goodEnough for now, all tabs have to reseted) x 
+TO implement in future versions?
+
 !46. bookmarks not up to date when adding newBookmark if there are none (auth vers only)
  -> hacky solution only, reexectuing query in Bookmarks which causes rerender - solve?
 (possible solution to get rid of rerender at least -> no bookmarks in any of useeffect? diff way for calc. tabIdsUsedByBookmarks)
@@ -349,10 +355,7 @@ it will trigger refresh in getAuth
 155. better email validation
 188. wiki-speed-typing -> check if password retrival is available still
 
-
-152 (pushed, solve mutation type prolbem first). mutations-> change args from manual to Fields 
-263. option to reset single Tab to default?
-264. refreshToken bad request when not logged in -> works, but it should be without error
+ 
 265. note cannot be empty -> works only in auth version for now
 265. adding newTab when adding new Bookmark by lower UI (upper ui workd) results in an emptY tab! (in non auth version only)
 266. eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?
@@ -394,6 +397,7 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 102 (pushed -> interfaces for tabs etc. should be unified first). react keys -> they should by indices ! change to id 
 282. delete background get from server.ts? already using route?
 283. clear svgs (logout for sure)
+284. RESET tabs to default -> RESET tabs colors to default?
 
 tabIdsToDel how to get rid off:
    /* 

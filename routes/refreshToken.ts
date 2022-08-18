@@ -24,7 +24,7 @@ router.post("/", async (req: RequestWithAuth, res: Response) => {
   const token = req.cookies.jid;
 
   if (!token) {
-    return res.status(400).send({ ok: false, accessToken: null, userId: null });
+    return res.status(401).send({ ok: false, accessToken: null, userId: null });
   }
 
   let payload = null;
