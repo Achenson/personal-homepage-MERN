@@ -138,6 +138,8 @@ DONE 120. urql query from rss -> archive DONE
 DONE 121. get favicon server.ts -> archive (faviconFetch?)DONE
 DONE 122. ts -> less any types (multer any reduced, most remaining are from mongo models bus see #255)DONE
 DONE 123. custom background img -> should work if there is no file in the beginning? DONE
+DONE 124 (pushed after taking care of context). zustand hooks -> delete or implent when logged out?
+(useLoggedInState deleted) DONE
 ? done 125. should refreshToken() return null in case of failure in App.ts?? (returning null now)done ?
 DONE 127. implement token revoking !!!! DONE
 DONE 132. implement Registration !!! DONE
@@ -347,7 +349,6 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
 
-124 (pushed after taking care of context). zustand hooks -> delete or implent when logged out?
 259. !!! UserProfile does not show on smaller browser window!!!
 152 (pushed, solve mutation type prolbem first). mutations-> change args from manual to Fields 
 263. option to reset single Tab to default?
