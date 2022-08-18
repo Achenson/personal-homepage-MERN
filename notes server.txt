@@ -270,6 +270,8 @@ DONE 245. fetch RSS query file & graphql -> to delete (rssquery type & rss code 
 DONE 247. haslo do gmaila (adres to nodemailera) wyslac DONE
 DONE 248. update queries mutation examples DONE
 DONE 250. login after registering -> "user does not exiss" doen't clean, test all possibilities DONE
+DONE 251. custom backgroundImg name is not displayed when going to backgroundImg options in case it is selected before
+(also - wasCustomClicked logic deleted)DONE
 xxx 262. after modifing note -> make the empty space below columns smaller? (no need - different solution - #219)xxx
 DONE -not poss to change col colors
 DONe
@@ -340,7 +342,6 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
 
-251. custom backgroundImg name is not displayed when going to backgroundImg options in case it is selected before
 252. clientSIde reaction to rss and background img query errors?
 253. backgroundImg folders not being deleted from the app after user deletion!
 254. backgroundImg is not needed?? works without? (take care of its route if needed/not needed), maybe it shouldn't be saved in db?

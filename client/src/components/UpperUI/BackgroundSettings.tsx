@@ -61,7 +61,7 @@ function BackgroundSettings({
     () => upperUiContext.upperVisState.xsSizing_initial
   );
 
-  const [wasCustomClicked, setWasCustomClicked] = useState(false);
+  // const [wasCustomClicked, setWasCustomClicked] = useState(false);
 
   const hiddenFileInput = useRef<HTMLInputElement>(null);
 
@@ -136,9 +136,9 @@ function BackgroundSettings({
             console.log("BACKGROUND IMG RESULTS exist");
             console.log(backgroundImgResults);
 
-            if (!wasCustomClicked) {
-              setWasCustomClicked(true);
-            }
+            // if (!wasCustomClicked) {
+            //   setWasCustomClicked(true);
+            // }
 
             changeSettings({
               ...(globalSettings as SettingsDatabase_i),
@@ -168,8 +168,8 @@ function BackgroundSettings({
           globalSettings={globalSettings}
           backgroundImgResults={backgroundImgResults}
           reexecuteBackgroundImg={reexecuteBackgroundImg}
-          wasCustomClicked={wasCustomClicked}
-          setWasCustomClicked={setWasCustomClicked}
+          // wasCustomClicked={wasCustomClicked}
+          // setWasCustomClicked={setWasCustomClicked}
           hiddenFileInput={hiddenFileInput}
         />
       );
@@ -351,7 +351,7 @@ function BackgroundSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground",
                         }); */
-                        if (wasCustomClicked) setWasCustomClicked(false);
+                        // if (wasCustomClicked) setWasCustomClicked(false);
 
                         userIdOrNoId
                           ? changeSettings({
@@ -385,7 +385,7 @@ function BackgroundSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground_2",
                         }); */
-                        if (wasCustomClicked) setWasCustomClicked(false);
+                        // if (wasCustomClicked) setWasCustomClicked(false);
                         // changeSettings({
                         //   ...globalSettings,
                         //   defaultImage: "defaultBackground_2",
@@ -419,7 +419,7 @@ function BackgroundSettings({
                           ...globalSettings,
                           defaultImage: "defaultBackground_3",
                         }); */
-                        if (wasCustomClicked) setWasCustomClicked(false);
+                        // if (wasCustomClicked) setWasCustomClicked(false);
 
                         userIdOrNoId
                           ? changeSettings({

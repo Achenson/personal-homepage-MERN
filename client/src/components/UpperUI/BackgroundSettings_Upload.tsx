@@ -29,8 +29,8 @@ interface Props {
   reexecuteBackgroundImg: (
     opts?: Partial<OperationContext> | undefined
   ) => void;
-  wasCustomClicked: boolean;
-  setWasCustomClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  // wasCustomClicked: boolean;
+  // setWasCustomClicked: React.Dispatch<React.SetStateAction<boolean>>;
   hiddenFileInput: React.RefObject<HTMLInputElement>;
 }
 
@@ -44,8 +44,8 @@ function BackgroundSettings_Upload({
   globalSettings,
   backgroundImgResults,
   reexecuteBackgroundImg,
-  wasCustomClicked,
-  setWasCustomClicked,
+  // wasCustomClicked,
+  // setWasCustomClicked,
   hiddenFileInput,
 }: Props): JSX.Element {
   const authContext = useAuth();
@@ -109,9 +109,9 @@ function BackgroundSettings_Upload({
         ...(globalSettings as SettingsDatabase_i),
         defaultImage: "customBackground",
       });
-      if (!wasCustomClicked) {
-        setWasCustomClicked(true);
-      }
+      // if (!wasCustomClicked) {
+      //   setWasCustomClicked(true);
+      // }
     }
   };
 
@@ -222,7 +222,8 @@ function BackgroundSettings_Upload({
         >
           {/* <p className="overflow-hidden whitespace-nowrap">{uploadFileName}</p> */}
           <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">
-            {wasCustomClicked ? uploadFile : null}
+            {/* {wasCustomClicked ? uploadFile : null} */}
+            {globalSettings.defaultImage === "customBackground" && uploadFile ? uploadFile : null}
           </p>
         </div>
         <input
