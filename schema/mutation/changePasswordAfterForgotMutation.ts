@@ -10,6 +10,8 @@ interface ExpressReqRes {
   res: Response;
 }
 
+import { RequestWithAuth } from "../middleware/isAuth";
+
 import { GraphQLString } from "graphql";
 
 const createAccessToken = require("../middleware/accessToken.ts");
@@ -28,7 +30,7 @@ export const changePasswordAfterForgotMutationField = {
   async resolve(
     _source: unknown,
     args: { token: string; newPassword: string },
-    { req, res }: ExpressReqRes
+    { res }: RequestWithAuth
   ) {
     let decodedToken = jwt.verify(args.token, process.env.FORGOT_PASSWORD as string);
 

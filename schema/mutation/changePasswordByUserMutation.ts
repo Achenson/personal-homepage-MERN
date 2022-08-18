@@ -1,11 +1,18 @@
 const User = require("../../mongoModels/userSchema");
-import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
+import {
+  GraphQLID,
+  GraphQLNonNull,
+  GraphQLString,
+  GraphQLError,
+} from "graphql";
 
 // import { UserFields, UserType, User_i } from "../types/userType";
 import {
   ChangePasswordByUserType,
   ChangePasswordByUser_i,
 } from "../types/changePasswordByUserType";
+
+import { RequestWithAuth } from "../middleware/isAuth";
 
 import bcrypt = require("bcrypt");
 
@@ -20,8 +27,14 @@ export const changePasswordByUserMutationField = {
   },
   async resolve(
     _source: unknown,
-    { id, passwordCurrent, passwordNew }: ChangePasswordByUser_i
+    { id, passwordCurrent, passwordNew }: ChangePasswordByUser_i,
+    request: RequestWithAuth
   ) {
+    if (!request.isAuth) {
+      return new GraphQLError("Auth error");
+      // throw new Error("Auth error");
+    }
+
     const user = await User.findById(id);
     if (!user) {
       console.log("NO USER");

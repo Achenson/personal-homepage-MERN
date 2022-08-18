@@ -1,6 +1,8 @@
 import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 // import { UserType } from "../types/userType";
 import { DeleteAccountByUserType } from "../types/deleteAccountByUserType";
+import { GraphQLError } from "graphql";
+
 
 import fs = require("fs");
 import path = require("path");
@@ -10,6 +12,8 @@ const Settings = require("../../mongoModels/settingsSchema");
 const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
 const Bookmark = require("../../mongoModels/bookmarkSchema");
+
+import { RequestWithAuth } from "../middleware/isAuth";
 
 interface AuthData_i {
   id: string;
@@ -23,7 +27,13 @@ export const deleteAccountByUserMutationField = {
     // password: { type: new GraphQLNonNull(GraphQLString) },
     password: { type: GraphQLString },
   },
-  async resolve(_source: unknown, { id, password }: AuthData_i) {
+  async resolve(_source: unknown, { id, password }: AuthData_i, request: RequestWithAuth) {
+
+    if (!request.isAuth) {
+      return new GraphQLError("Auth error");
+      // throw new Error("Auth error");
+    }
+
     // @ts-ignore
     const user = await User.findById(id);
     if (!user) {

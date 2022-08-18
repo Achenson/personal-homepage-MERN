@@ -1,6 +1,9 @@
 // const Bookmark = require("../../mongoModels/bookmarkSchema");
 import Bookmark = require("../../mongoModels/bookmarkSchema");
 
+import { GraphQLError } from "graphql";
+import { RequestWithAuth } from "../middleware/isAuth";
+
 import {
   BookmarkFields,
   BookmarkType,
@@ -12,7 +15,15 @@ export const addBookmarkMutationField = {
   args: {
     ...BookmarkFields,
   },
-  resolve(_source: unknown, args: BookmarkDatabase_i) {
+  resolve(
+    _source: unknown,
+    args: BookmarkDatabase_i,
+    request: RequestWithAuth
+  ) {
+    if (!request.isAuth) {
+      return new GraphQLError("Auth error");
+      // throw new Error("Auth error");
+    }
 
     // @ts-ignore
     let newBookmark = new Bookmark({
@@ -20,7 +31,7 @@ export const addBookmarkMutationField = {
       title: args.title,
       URL: args.URL,
       tags: args.tags,
-      defaultFaviconFallback: false
+      defaultFaviconFallback: false,
     });
 
     return new Promise((resolve, reject) => {

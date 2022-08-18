@@ -7,6 +7,9 @@ import {
   ChangeUserByUser_i,
 } from "../types/changeUserByUserType";
 
+import { RequestWithAuth } from "../middleware/isAuth";
+import { GraphQLError } from "graphql";
+
 import bcrypt = require("bcrypt");
 
 export const changeUserByUserMutationField = {
@@ -20,8 +23,14 @@ export const changeUserByUserMutationField = {
   },
   async resolve(
     _source: unknown,
-    { id, name, email, passwordCurrent }: ChangeUserByUser_i
+    { id, name, email, passwordCurrent }: ChangeUserByUser_i,
+    request: RequestWithAuth
   ) {
+    if (!request.isAuth) {
+      return new GraphQLError("Auth error");
+      // throw new Error("Auth error");
+    }
+
     const user = await User.findById(id);
     if (!user) {
       console.log("NO USER");
@@ -62,9 +71,8 @@ export const changeUserByUserMutationField = {
         User.findOne({ name: name }, (err: Error, res: any) => {
           if (err) {
             console.log(err);
-            reject(err)
+            reject(err);
           }
-           
 
           if (res != null) {
             console.log("name is already present in DB");
@@ -84,7 +92,7 @@ export const changeUserByUserMutationField = {
         User.findOne({ email: email }, (err: Error, res: any) => {
           if (err) {
             console.log(err);
-            reject(err)
+            reject(err);
           }
 
           if (res != null) {

@@ -8,12 +8,14 @@ import {
   BookmarkType,
 } from "../types/bookmarkType";
 
+import { RequestWithAuth } from "../middleware/isAuth";
+
 export const changeBookmarkMutationField = {
   type: BookmarkType,
   args: {
     ...BookmarkFields,
   },
-  resolve(_source: unknown, args: BookmarkDatabase_i, request: any) {
+  resolve(_source: unknown, args: BookmarkDatabase_i, request: RequestWithAuth) {
 
     if (!request.isAuth) {
       return new GraphQLError("Auth error");

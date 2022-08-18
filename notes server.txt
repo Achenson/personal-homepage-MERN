@@ -115,12 +115,7 @@ DONE 95. unify rssFetch & backgroundFetch serverside -> errors etc.  DONE
 DONE 98. delete data -> rssExample DONE
 DONE 99. server.ts -> make separate files (params has to be in a route!,
  for backgroundImg see #254, backgroundUpload - middleware, not a route) DONE
- DONE 100. server.txs -> rootValue -> is it needed?
-    rootValue: A value to pass as the rootValue to the graphql() function from GraphQL.js/src/execute.js.
-    context: A value to pass as the context to the graphql() function from GraphQL.js/src/execute.js.
-     If context is not provided, the request object is passed as the context.
-     (deleted, was used only in backgroundImgMut, but see #258) DONE
-     
+ DONE 100. server.txs -> rootValue -> is it needed? see notes DONE
 !!! DONE 103. unify callback functions -> function declaration instead of () => { }everywherw in JSX?
  (changed to function reference in few cases) DONE !!!
 DONE 105. delete the other background image (post route? deleted ) DONE
@@ -273,7 +268,10 @@ DONE 250. login after registering -> "user does not exiss" doen't clean, test al
 DONE 251. custom backgroundImg name is not displayed when going to backgroundImg options in case it is selected before
 (also - wasCustomClicked logic deleted)DONE
 DONE  253. backgroundImg folders not being deleted from the app after user deletion! 
+DONE 255. request in mutation in queries -> unify type (RequestWithAuth everywhere) DONE
 (only deleteUserByAdminMutation was not working, fixed - recursive true) DONE
+DONE 258. where is res in login and logout coming from -> console.log it 
+(see notes, request is passed to graphql resolver, res seems to be added to request object) DONE
 xxx 262. after modifing note -> make the empty space below columns smaller? (no need - different solution - #219)xxx
 DONE -not poss to change col colors
 DONe
@@ -345,11 +343,7 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
 
-254. backgroundImg is not needed?? works without? (take care of its route if needed/not needed), maybe it shouldn't be saved in db?
-255. request in mutation in queries -> unify type
-256. backgroundImgMutation -> test if it is used at all, console.logs not working
 257. no authHeader isAuth error console log repeats to many times -> too many redners somewhere?
-258. where is res in login and logout coming from -> console.log it
 102 (pushed -> interfaces for tabs etc. should be unified first). react keys -> they should by indices ! change to id 
 107(pushed - see other notes about backgroundIMgMut first). write notes for file upload system!
 124 (pushed after taking care of context). zustand hooks -> delete or implent when logged out?
@@ -619,6 +613,18 @@ is changed with low frequency, should be kept relatively close in app structure,
  "@graphql-codegen/cli": "^2.7.0",
   "@graphql-codegen/typescript": "2.2.2",
   "@graphql-codegen/typescript-resolvers": "^2.6.7",
+
+
+===== value being passed to graphql resolvers
+  rootValue: A value to pass as the rootValue to the graphql() function from GraphQL.js/src/execute.js.
+    context: A value to pass as the context to the graphql() function from GraphQL.js/src/execute.js.
+    differences:
+    "Generally, the context value is information that is useful at any point during query execution. A canonical example
+    is the current logged in user. The root value represents the "top" of your metaphorical graph of data, and is useful
+    to include functions or data to help resolve the root fields in your schema."
+
+     If context is not provided, the request object is passed as the context.
+    !!!  It seems that the response (as res) is added to this request object (is is being used in loginMutation & logoutMutation)
 
 
 

@@ -4,16 +4,18 @@ import { TabDatabase_i, TabFields, TabType } from "../types/tabType";
 import { GraphQLError } from "graphql";
 // import { testUserId } from "../../client/src/state/data/testUserId";
 
+import { RequestWithAuth } from "../middleware/isAuth";
+
 export const changeTabMutationField = {
   type: TabType,
   args: {
     ...TabFields,
   },
-  resolve(_source: unknown, args: TabDatabase_i, request: any) {
+  resolve(_source: unknown, args: TabDatabase_i, request: RequestWithAuth) {
 
-    console.log("change tab mutation is Auth");
-    console.log(request.isAuth);
-    console.log(request.userId);
+    // console.log("change tab mutation is Auth");
+    // console.log(request.isAuth);
+    // console.log(request.userId);
     
     
     if (!request.isAuth) {

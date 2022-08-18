@@ -1,6 +1,10 @@
 const Settings = require("../../mongoModels/settingsSchema");
 // import { testUserId } from "../../client/src/state/data/testUserId";
 
+import { GraphQLError } from "graphql";
+
+import { RequestWithAuth } from "../middleware/isAuth";
+
 import {
   SettingsFields,
   SettingsType,
@@ -13,7 +17,12 @@ export const changeSettingsMutationField = {
     // userId: { type: new GraphQLNonNull(GraphQLString) },
     ...SettingsFields,
   },
-  resolve(_source: unknown, args: SettingsDatabase_i) {
+  resolve(_source: unknown, args: SettingsDatabase_i, request: RequestWithAuth) {
+
+    if (!request.isAuth) {
+      return new GraphQLError("Auth error");
+      // throw new Error("Auth error");
+    }
 
     // if (!request.isAuth && request.userId !== testUserId) {
     //   return new GraphQLError("Auth error");

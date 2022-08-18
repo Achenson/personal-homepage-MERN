@@ -13,6 +13,8 @@ const sendRefreshToken = require("../middleware/sendRefreshToken");
 
 import { AuthDataType } from "../types/authDataType";
 
+import { RequestWithAuth } from "../middleware/isAuth";
+
 interface AuthData_i {
   email_or_name: string;
   password: string;
@@ -36,7 +38,7 @@ export const loginMutationField = {
   async resolve(
     _source: unknown,
     { email_or_name, password }: AuthData_i,
-    { req, res }: ExpressReqRes
+    { res }: RequestWithAuth
   ) {
     let credential;
 
