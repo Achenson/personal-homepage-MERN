@@ -269,6 +269,7 @@ DONE 244. ts generated file -> get rid of it? (deleted, uninstalled, made note i
 DONE 245. fetch RSS query file & graphql -> to delete (rssquery type & rss code in client's graphqlQueriers deleted) DONE
 DONE 247. haslo do gmaila (adres to nodemailera) wyslac DONE
 DONE 248. update queries mutation examples DONE
+DONE 250. login after registering -> "user does not exiss" doen't clean, test all possibilities DONE
 xxx 262. after modifing note -> make the empty space below columns smaller? (no need - different solution - #219)xxx
 DONE -not poss to change col colors
 DONe
@@ -339,7 +340,6 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
 
-250. login after registering -> "user does not exiss" doen't clean, test all possibilities
 251. custom backgroundImg name is not displayed when going to backgroundImg options in case it is selected before
 252. clientSIde reaction to rss and background img query errors?
 253. backgroundImg folders not being deleted from the app after user deletion!

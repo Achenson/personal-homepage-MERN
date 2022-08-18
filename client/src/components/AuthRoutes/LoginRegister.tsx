@@ -41,6 +41,7 @@ function LoginRegister({
 Props): JSX.Element {
   let navigate = useNavigate();
   const loginAttempt = useAuth((store) => store.loginAttempt);
+  // notification happens after register, but is displayed in login window
   const loginNotification = useAuth((store) => store.loginNotification);
   const setLoginNotification = useAuth((store) => store.setLoginNotification);
   const setMessagePopup = useAuth((store) => store.setMessagePopup);
@@ -208,7 +209,7 @@ Props): JSX.Element {
         //   type: "MESSAGE_OPEN_LOGIN",
         // });
 
-        setMessagePopup("Login successful")
+        setMessagePopup("Login successful");
 
         navigate("/", { replace: true });
       },
@@ -307,6 +308,7 @@ Props): JSX.Element {
           onClick={() => {
             setLoginOrRegister("login");
             setLoginNotification(null);
+            setLoginErrorMessage(null);
           }}
           className={`${
             loginOrRegister === "login"
@@ -331,7 +333,8 @@ Props): JSX.Element {
           } text-lg focus-1-offset`}
           onClick={() => {
             setLoginOrRegister("register");
-            setLoginNotification(null);
+            // setLoginNotification(null);
+            setRegisterErrorMessage(null);
           }}
         >
           Register
