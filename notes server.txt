@@ -120,6 +120,7 @@ DONE 99. server.ts -> make separate files (params has to be in a route!,
  (changed to function reference in few cases) DONE !!!
 DONE 105. delete the other background image (post route? deleted ) DONE
 DONE 106. make it possible to changle background img when not logged in, again DONE
+DONE 107 (pushed - see other notes about backgroundIMgMut first). write notes for file upload system! DONE
 DONE 108. not possible to write even a console.log in backgroundImgMutation even while is working? (backgroundImgMutation resolve
 is not being used - that is how UploadFileType work?) DONE
 DONE 109. backgroundImgUpload funcion -> for !req.body is next() needed? (yes, following code is not executed if there is no body) DONE
@@ -270,8 +271,11 @@ DONE 251. custom backgroundImg name is not displayed when going to backgroundImg
 DONE  253. backgroundImg folders not being deleted from the app after user deletion! 
 DONE 255. request in mutation in queries -> unify type (RequestWithAuth everywhere) DONE
 (only deleteUserByAdminMutation was not working, fixed - recursive true) DONE
+x 257. no authHeader isAuth error console log repeats to many times -> too many redners somewhere?
+ (it's fine, as the message sits in isAuth middleware)x
 DONE 258. where is res in login and logout coming from -> console.log it 
 (see notes, request is passed to graphql resolver, res seems to be added to request object) DONE
+x 260. UpperUI comp to delete? (it is still used, even though UpperRightMenu & UpperLeftMenu are being attached to Column now) x 
 xxx 262. after modifing note -> make the empty space below columns smaller? (no need - different solution - #219)xxx
 DONE -not poss to change col colors
 DONe
@@ -343,13 +347,9 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
 
-257. no authHeader isAuth error console log repeats to many times -> too many redners somewhere?
-102 (pushed -> interfaces for tabs etc. should be unified first). react keys -> they should by indices ! change to id 
-107(pushed - see other notes about backgroundIMgMut first). write notes for file upload system!
 124 (pushed after taking care of context). zustand hooks -> delete or implent when logged out?
 259. !!! UserProfile does not show on smaller browser window!!!
 152 (pushed, solve mutation type prolbem first). mutations-> change args from manual to Fields 
-260. Upper_UI comp to delete?
 263. option to reset single Tab to default?
 264. refreshToken bad request when not logged in -> works, but it should be without error
 265. note cannot be empty -> works only in auth version for now
@@ -390,6 +390,8 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 282. nonauth v notauth -> unify
 237. (pushed, solve interfaces problem together with tabs& bookmarks) globalSettings interfaces - smtms different smtms from db?
 239. (pushed, same reason as above) bookmarks itp -> in the end ts is chosing the type by itself, even if it should be split type
+102 (pushed -> interfaces for tabs etc. should be unified first). react keys -> they should by indices ! change to id 
+282. delete background get from server.ts? already using route?
 
 tabIdsToDel how to get rid off:
    /* 
@@ -627,4 +629,10 @@ is changed with low frequency, should be kept relatively close in app structure,
     !!!  It seems that the response (as res) is added to this request object (is is being used in loginMutation & logoutMutation)
 
 
+==== file upload system
 
+- image is being send in graphql mutation with  UploadFileType, resolver is not being used.
+Image is attached as a request body
+- multer is being used as a middleware in server.ts -> it runs everytime there is a body in a request, and if the user if authenticated
+(req.isAuth)
+- image is being saved not in a db, but on the server! (in backgroundImgs folder)
