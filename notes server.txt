@@ -360,10 +360,6 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
  
-
-
-
-267. mutation -> should take care of res.error -> graphql errors 
 268. add some text, explanation in email with pass change
 269. changePassword (after clicking token from email) - make better lower margin, too small?
 270. changePassword (after clicking token from email) - implement hide/show password, passVisible props

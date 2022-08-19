@@ -283,6 +283,7 @@ Props): JSX.Element {
         }
 
         setRegisterErrorMessage(null);
+        setLoginErrorMessage(null)
         setLoginNotification("User successfully registered");
         setUsername("");
         setEmail("");
