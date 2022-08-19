@@ -53,7 +53,6 @@ export const SettingsType = new GraphQLObjectType({
   fields: () => ({
     ...SettingsFields,
     // user: {
-    //   type: UserType,
     //   resolve(parent: Settings_i) {
     //     return User.findById(parent.userId);
     //   },

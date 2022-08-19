@@ -302,6 +302,9 @@ for different clients to read)DONE
 DONE 269. changePassword (after clicking token from email) - make better lower margin, too small? 
 (some spaces changed before)DONE
 DONE 270. changePassword (after clicking token from email) - implement hide/show password, passVisible props DONE
+DONE 271. tokenVersion -> why not present in UserField? (UserFields are use in UserType & AddUserType
+in the 2nd case tokenVersion is not returned (to the client), Changed UserType to include tokenVersion,
+ also other interfaces is userType changed) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -364,7 +367,6 @@ it will trigger refresh in getAuth
 155. better email validation
 188. wiki-speed-typing -> check if password retrival is available still
  
-271. tokenVersion -> why not present in UserField?
 272. authNotification -> change from colors in props to "error" of "notification" types (colors inside component)
 273. router keys control (escape) does not work - current code is an old code for client demo,
 the logic should use router, check if handleKeyDown in AuthOuterComponent is enough, delete it in children
@@ -404,6 +406,27 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
  eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?
 167.(pushed) changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
 181. (pushed) clean db in the end
+288. userQueryField- isit used?
+289. revokeRefreshToken, works but: {
+  "errors": [
+    {
+      "message": "Query was already executed: User.findOneAndUpdate({ _id: new ObjectId(\"62ffd00b4ac6abda2...",
+      "locations": [
+        {
+          "line": 2,
+          "column": 7
+        }
+      ],
+      "path": [
+        "revokeRefreshToken"
+      ]
+    }
+  ],
+  "data": {
+    "revokeRefreshToken": null
+  }
+}
+
 
 tabIdsToDel how to get rid off:
    /* 

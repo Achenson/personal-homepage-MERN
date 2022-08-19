@@ -91,7 +91,7 @@ mutation {
 }
 
 mutation {
-  changeUserByYser(id: "6151c1684589d00af404ab7e", name: "newName", email: "newEmail@mail", passwordCurrent: "secret") {
+  changeUserByUser(id: "6151c1684589d00af404ab7e", name: "newName", email: "newEmail@mail", passwordCurrent: "secret") {
     name
        email
       error
@@ -188,8 +188,10 @@ mutation {
   // not used clientside! for admin only in graphql playground?
   mutation {
       revokeRefreshToken(userId: "") {
-      userId
-      tokenVersion
+      id
+    	name
+    	email
+    	tokenVersion
     }
   }
   
@@ -204,6 +206,16 @@ mutation {
   }
   }
 }
+
+// not used clientside! for admin only in graphql playground?
+mutation {
+  changeUserByAdmin (id: "62ffd00b4ac6abda2599499c", name: "testNew333" ) {
+    name
+    email
+    password
+  }
+}
+
 
 // no example for backgroundImgUploadMutaion
 // to test it -> Firecamp

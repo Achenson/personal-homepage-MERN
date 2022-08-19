@@ -26,7 +26,6 @@ interface ExpressReqRes {
 }
 
 export const loginMutationField = {
-  // type: UserType,
   type: AuthDataType,
   args: {
     // email_or_name: { type: new GraphQLNonNull(GraphQLString) },

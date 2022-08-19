@@ -49,7 +49,7 @@ export const UserType = new GraphQLObjectType({
   name: "User",
   fields: () => ({
     ...UserFields,
-    // tokenVersion: { type: GraphQLInt },
+    tokenVersion: { type: GraphQLInt },
     settings: {
       type: SettingsType,
       resolve(parent: User_i) {
