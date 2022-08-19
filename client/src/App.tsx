@@ -100,9 +100,9 @@ function App() {
               return operation;
             }
 
-            console.log("urql RETURN HEADERS with Authorization");
-            console.log("authState.accessToken");
-            console.log(authState.accessToken);
+            // console.log("urql RETURN HEADERS with Authorization");
+            // console.log("authState.accessToken");
+            // console.log(authState.accessToken);
 
             const fetchOptions =
               typeof operation.context.fetchOptions === "function"

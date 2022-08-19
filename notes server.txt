@@ -292,6 +292,8 @@ But possible to edit bookmarks, delete, drag
 DONE background Color possible now in no pic mode
 DONE 264. refreshToken bad request when not logged in -> works, but it should be without error
 (actually this is the error send be server code, changed to 401) DONE
+DONE 265. note cannot be empty -> works only in auth version for now (
+  in fact both were not working -> textarea value consisting of only space characters was allowed) DONE
 
 
 GOOD enough?
@@ -356,7 +358,9 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
  
-265. note cannot be empty -> works only in auth version for now
+
+
+
 265. adding newTab when adding new Bookmark by lower UI (upper ui workd) results in an emptY tab! (in non auth version only)
 266. eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?
 267. mutation -> should take care of res.error -> graphql errors 
