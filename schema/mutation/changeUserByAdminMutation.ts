@@ -1,5 +1,6 @@
 import bcrypt = require("bcrypt");
 const User = require("../../mongoModels/userSchema");
+import { GraphQLString } from "graphql";
 
 import { UserFields, UserType, UserToChangeByAdmin_i } from "../types/userType";
 

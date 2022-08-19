@@ -1,4 +1,5 @@
-/* import { UserFields, User_i, UserType } from "../types/userType";
+/* 
+import { UserFields, User_i } from "../types/userType";
 const graphql = require("graphql");
 
 const {
@@ -44,7 +45,7 @@ const {
 
 const User = require("../../mongoModels/userSchema");
 
-import { UserFields, UserType, User_i } from "../types/userType";
+import { UserType, User_i } from "../types/userType";
 
 export const revokeRefreshTokenMutationField = {
   type: UserType,

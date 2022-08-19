@@ -1,5 +1,4 @@
 import { GraphQLID, GraphQLList } from "graphql";
-// import { UserType } from "../types/userType";
 import { DeleteUsersByAdminType } from "../types/deleteUsersByAdminType";
 
 import fs = require("fs");

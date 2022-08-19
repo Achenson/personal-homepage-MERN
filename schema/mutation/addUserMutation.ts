@@ -8,6 +8,8 @@ const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
 import Bookmark = require("../../mongoModels/bookmarkSchema");
 
+import { GraphQLString } from "graphql";
+
 import {
   columnColors,
   imageColumnColors,
@@ -20,14 +22,16 @@ import { tabs } from "../data/defaultTabs";
 
 import { BookmarkDatabase_i, BookmarkLocal_i } from "../types/bookmarkType";
 import { TabDatabase_i } from "../types/tabType";
-import { UserFields, UserType, User_i, AddUserType } from "../types/userType";
+import { User_basic_i, User_i, AddUserType } from "../types/userType";
 
 export const addUserMutationField = {
   type: AddUserType,
   args: {
-    ...UserFields,
+    name: { type: GraphQLString },
+    email: { type: GraphQLString },
+    password: { type: GraphQLString },
   },
-  async resolve(_source: unknown, args: User_i) {
+  async resolve(_source: unknown, args: User_basic_i) {
     let arrOfBooleans = await Promise.all([
       new Promise((resolve, reject) => {
         User.findOne({ name: args.name }, (err: Error, res: any) => {

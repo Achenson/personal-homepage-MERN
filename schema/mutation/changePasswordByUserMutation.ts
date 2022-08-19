@@ -6,7 +6,7 @@ import {
   GraphQLError,
 } from "graphql";
 
-// import { UserFields, UserType, User_i } from "../types/userType";
+
 import {
   ChangePasswordByUserType,
   ChangePasswordByUser_i,

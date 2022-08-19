@@ -1,7 +1,6 @@
 const User = require("../../mongoModels/userSchema");
 import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 
-// import { UserFields, UserType, User_i } from "../types/userType";
 import {
   ChangeUserByUserType,
   ChangeUserByUser_i,

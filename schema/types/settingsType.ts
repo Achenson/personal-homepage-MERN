@@ -2,7 +2,7 @@ import graphql = require("graphql");
 
 // const User = require("../../mongoModels/userSchema");
 
-// import { User_i, UserType } from "../types/userType";
+// import { User_i from "../types/userType";
 
 import { GlobalSettingsState } from "../../client/src/utils/interfaces";
 

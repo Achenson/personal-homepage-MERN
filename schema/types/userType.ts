@@ -14,11 +14,15 @@ const {
   GraphQLBoolean,
 } = graphql;
 
-export interface User_i {
-  id: string;
+export interface User_basic_i {
   name: string;
   email: string;
   password: string;
+
+}
+
+export interface User_i extends User_basic_i {
+  id: string;
   tokenVersion: number;
   /*   settings: Settings_i;
   tabs: Tab_i[];
@@ -30,7 +34,7 @@ export interface UserToChangeByAdmin_i {
   name: string | null;
   email: string | null;
   password: string | null;
-  tokenVersion: number | null;
+  // tokenVersion: number | null;
 }
 
 

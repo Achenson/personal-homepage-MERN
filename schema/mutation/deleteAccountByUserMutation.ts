@@ -1,5 +1,4 @@
 import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
-// import { UserType } from "../types/userType";
 import { DeleteAccountByUserType } from "../types/deleteAccountByUserType";
 import { GraphQLError } from "graphql";
 
