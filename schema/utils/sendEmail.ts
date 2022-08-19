@@ -84,8 +84,11 @@ module.exports = async function sendEmail(email: string, url: string) {
     to: email, // list of receivers
     // UNCOMMENT FOR TESTING!!! to: "bar@example.com, baz@example.com", // list of receivers
     subject: "SmoothTabs - password change", // Subject line
-    text: "Follow the link to change password.", // plain text body
-    html: `<a href="${url}">${url}</a>`, // html body
+    text: `Follow the link to change password for your SmoothTabs account: ${url}
+    `, // plain text body
+    html: `<p>Follow the link to change password for your SmoothTabs account:</p>
+    <a href="${url}">${url}</a>
+    `, // html body
   };
 
   // send mail with defined transport object

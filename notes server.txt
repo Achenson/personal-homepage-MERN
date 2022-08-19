@@ -296,6 +296,9 @@ DONE 265. note cannot be empty -> works only in auth version for now (
   in fact both were not working -> textarea value consisting of only space characters was allowed) DONE
 DONE 265.5 adding newTab when adding new Bookmark by lower UI (upper ui workd) results in an emptY tab! (in non auth version only) \
 (adding tab logic in lowerUI fixed, code order fixed to be similar to upperUi)DONE
+DONE 268. add some text, explanation in email with pass change (
+one sentence is now visible, seems both text & html field should contain the same message
+for different clients to read)DONE
 
 
 GOOD enough?
@@ -360,7 +363,6 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
  
-268. add some text, explanation in email with pass change
 269. changePassword (after clicking token from email) - make better lower margin, too small?
 270. changePassword (after clicking token from email) - implement hide/show password, passVisible props
 167. changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
