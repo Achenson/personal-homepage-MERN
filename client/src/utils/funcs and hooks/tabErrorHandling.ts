@@ -94,9 +94,6 @@ export function tabErrorHandling(
   }
 
   if (tabType === "note") {
-    console.log("tab type note");
-    console.log(textAreaValue?.length);
-
     if (
       (textAreaValue as string).length === 0 ||
       /^\s+$/.test(textAreaValue as string)

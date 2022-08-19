@@ -202,7 +202,7 @@ function Bookmark_lowerUI({
     // for edit only
     let newTabId: undefined | string;
     // let newTabsToAdd: SingleTabData[] = [];
-    let newTabsToAdd: TabDatabase_i[] = [];
+    let newTabsToAdd: TabDatabase_i[] | SingleTabData[] = [];
 
     // let newTabIdsUsedByBookmarksData = [...tabIdsUsedByBookmarks];
 
@@ -225,18 +225,24 @@ function Bookmark_lowerUI({
       // if folder with title corresponding to tag doesn't exist create it...
       if (!tabForCurrentTag && selectablesInputStr !== "") {
         // let newTab = createFolderTab(el, colNumber, newTabPriority);
-        let newTab = createFolderTabDb(
-          (globalSettings as SettingsDatabase_i).userId,
-          el,
-          colNumber,
-          newTabPriority
-        );
-        // tagsInputArr_ToIds.push(newTab.id);
+
+        let newTab: TabDatabase_i | SingleTabData;
+
+        newTab = userIdOrNoId
+          ? createFolderTabDb(
+              (globalSettings as SettingsDatabase_i).userId,
+              el,
+              colNumber,
+              newTabPriority
+            )
+          : createFolderTab(el, 1, newTabPriority);
+        tagsInputArr_ToIds.push(newTab.id);
         // for edit only
         // newTabId = newTab.id;
 
         //... and add new folder tab to the main tags list
         // newTabIdsUsedByBookmarksData.push(newTab.id);
+        // @ts-ignore
         newTabsToAdd.push(newTab);
         console.log("newTabsToAdd");
         console.log(newTabsToAdd);
@@ -251,7 +257,9 @@ function Bookmark_lowerUI({
 
     if (newTabsToAdd.length > 0) {
       if (userIdOrNoId) {
-        let arrOfPromises = newTabsToAdd.map((obj) => addTab(obj));
+        let arrOfPromises = (newTabsToAdd as TabDatabase_i[]).map((obj) =>
+          addTab(obj)
+        );
 
         /*    let arrOfPromises: Promise<string>[] = [];
      
@@ -292,84 +300,48 @@ function Bookmark_lowerUI({
       }
     }
 
+    if (!userIdOrNoId) {
+      if (bookmarkComponentType === "edit") {
+        editBookmarkNonAuth(
+          bookmarkId,
+          titleInput,
+          urlInput,
+          tagsInputArr_ToIds,
+          currentBookmark.defaultFaviconFallback
+        );
+      } else {
+        console.log("tagsInputArr_ToIds");
+        console.log(tagsInputArr_ToIds);
+        
+
+        addBookmarkNonAuth(
+
+          
+          createBookmarkNonAuth(titleInput, urlInput, tagsInputArr_ToIds)
+        );
+      }
+
+      return;
+    }
+
     let bookmarkPromise = new Promise((resolve, reject) => {
       if (bookmarkComponentType === "edit") {
-        if (userIdOrNoId) {
-          editBookmark({
-            id: bookmarkId,
-            userId: (globalSettings as SettingsDatabase_i).userId,
-            title: titleInput,
-            URL: urlInput,
-            tags: tagsInputArr_ToIds,
-            defaultFaviconFallback: currentBookmark.defaultFaviconFallback,
-          }).then((result) => {
-            if (result.error) {
-              reject(result.error);
-              // return;
-            }
-            resolve(result.data.editBookmark);
-          });
-        } else {
-          editBookmarkNonAuth(
-            bookmarkId,
-            titleInput,
-            urlInput,
-            tagsInputArr_ToIds,
-            currentBookmark.defaultFaviconFallback
-          );
-        }
-
-        // for deleting empty folder
-        let tagsIdsToDelete: string[] = [];
-
-        initialTagsInputArr.forEach((el) => {
-          // if the tag was present in initial tags, but is not present in the end
-          if (tagsInputArr_ToIds.indexOf(el) === -1) {
-            // all bookmarks except for curren
-            let filteredBookmarks = bookmarks.filter(
-              (obj) => obj.id !== (currentBookmark as SingleBookmarkData).id
-            );
-
-            let isElPresent: boolean = false;
-
-            filteredBookmarks.forEach((obj) => {
-              if (obj.tags.indexOf(el) > -1) {
-                // tag is present in some other bookmark than this
-                isElPresent = true;
-                return;
-              }
-            });
-
-            // if (!isElPresent && el !== "ALL_TAGS") {
-            if (!isElPresent && tabs.find((obj) => obj.id === el)?.deletable) {
-              tagsIdsToDelete.push(el);
-            }
+        editBookmark({
+          id: bookmarkId,
+          userId: (globalSettings as SettingsDatabase_i).userId,
+          title: titleInput,
+          URL: urlInput,
+          tags: tagsInputArr_ToIds,
+          defaultFaviconFallback: currentBookmark.defaultFaviconFallback,
+        }).then((result) => {
+          if (result.error) {
+            reject(result.error);
+            // return;
           }
+          resolve(result.data.editBookmark);
         });
-
-        /*   let tabIdsUsedByBookmarksData_new: string[] = [];
-  
-        if (newTabId) {
-          tabIdsUsedByBookmarksData_new.push(newTabId);
-        }
-   */
-        /*     tabIdsUsedByBookmarks.forEach((el) => {
-          if (tagsIdsToDelete.indexOf(el) === -1) {
-            tabIdsUsedByBookmarksData_new.push(el);
-          }
-        }); */
-
-        // setTabIdsUsedByBookmarks([...tabIdsUsedByBookmarksData_new]);
       } else {
         // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
-
-        if (!userIdOrNoId) {
-          addBookmarkNonAuth(
-            createBookmarkNonAuth(titleInput, urlInput, tagsInputArr_ToIds)
-          );
-          return;
-        }
-
         addBookmark(
           createBookmarkDb(
             (globalSettings as SettingsDatabase_i).userId,

@@ -294,6 +294,8 @@ DONE 264. refreshToken bad request when not logged in -> works, but it should be
 (actually this is the error send be server code, changed to 401) DONE
 DONE 265. note cannot be empty -> works only in auth version for now (
   in fact both were not working -> textarea value consisting of only space characters was allowed) DONE
+DONE 265.5 adding newTab when adding new Bookmark by lower UI (upper ui workd) results in an emptY tab! (in non auth version only) \
+(adding tab logic in lowerUI fixed, code order fixed to be similar to upperUi)DONE
 
 
 GOOD enough?
@@ -361,8 +363,6 @@ it will trigger refresh in getAuth
 
 
 
-265. adding newTab when adding new Bookmark by lower UI (upper ui workd) results in an emptY tab! (in non auth version only)
-266. eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?
 267. mutation -> should take care of res.error -> graphql errors 
 268. add some text, explanation in email with pass change
 269. changePassword (after clicking token from email) - make better lower margin, too small?
@@ -402,6 +402,11 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 282. delete background get from server.ts? already using route?
 283. clear svgs (logout for sure)
 284. RESET tabs to default -> RESET tabs colors to default?
+285. make the UpperRightMenu_XS the default way? Then -> move ResetSVG btn to the UpperRightMenu?
+286. make the 3 settings modals appear always at the same height
+! 287. implement empty tab deletion login in edit bookmark
+266. (pushed, solve all issue regarding bookmarks, tabs, settings interfaces together)
+ eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?
 
 tabIdsToDel how to get rid off:
    /* 
