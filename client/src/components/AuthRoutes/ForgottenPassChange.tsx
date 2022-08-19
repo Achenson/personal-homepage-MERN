@@ -53,6 +53,8 @@ function ForgottenPassChange({
       ChangePasswordAfterForgotMutation
     );
 
+  const [passVisible, setPassVisible] = useState(false);
+
   useEffect(() => {
     if (firstFieldRef.current !== null) {
       firstFieldRef.current.focus();
@@ -163,13 +165,27 @@ function ForgottenPassChange({
             SmoothTabs password change
           </p>
 
-          <p>New password</p>
+          <div className="flex items-center justify-between">
+            <p>New password</p>
+            <button
+              className="focus-1-offset"
+              onClick={() => {
+                setPassVisible(!passVisible);
+              }}
+            >
+              <span className={`text-sm text-${uiColor}`}>
+                {passVisible ? "hide" : "show"}
+              </span>
+            </button>
+          </div>
+
           <LogRegProfile_input
             ref={firstFieldRef}
             inputValue={newPassword}
             setInputValue={setNewPassword}
             preventCopyPaste={true}
             passwordInputType={true}
+            passVisible={passVisible}
           />
 
           <p>Confirm new password</p>
@@ -179,6 +195,7 @@ function ForgottenPassChange({
             setInputValue={setNewPasswordConfirm}
             preventCopyPaste={true}
             passwordInputType={true}
+            passVisible={passVisible}
           />
         </div>
 
