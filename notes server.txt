@@ -310,6 +310,7 @@ DONE 273. router keys control (escape) does not work - current code is an old co
 the logic should use router, check if handleKeyDown in AuthOuterComponent is enough, delete it in children DONE
 !x 275.zustand -> get() or state. (get() is for getting value but not for changing it)  x!
 DONE 276. Lock as opened by default (confusing!) -> Opened/Closed by default? (Default content visibility 2x eye svgs) DONE
+DONE 277. Default content visibility -> works differently in auth and non-auth version!(changing state immediately in non-auth) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -374,12 +375,11 @@ it will trigger refresh in getAuth
 188. wiki-speed-typing -> check if password retrival is available still
 
 
-277. locking as openened by default -> works differently in auth and non-auth version!(changing state immediately in non-auth)
+278 Transparent colors for columns
+Choose default image: 1 2 3  -> more space between those 2 lines, 1st one should function as"backgroung img on" description
 207. (pushed -> solve auth non-auth problems with bookmarks & tabs first) NewBookmark_UpperUI
  -> ts-ignore had to be user 2x -> why??
 209. (pushed -> solve auth non-auth problems with bookmarks & tabs first) settings should be unified? add null userId and null to non-auth version?
-278 Transparent colors for columns
-Choose default image: 1 2 3  -> more space between those 2 lines, 1st one should function as"backgroung img on" description
 213. (pushed -> solve auth non-auth problems with bookmarks & tabs first) () SingleBookmark -> interface for nonAuth is being used also for auth?? the one for auth being not used
 279 hide folder containing... -> does user 
 280. unify shade of red for warnings etc.
@@ -426,7 +426,6 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
   }
 }
 290.useBookmarks - useles code? eg. delete bookmark
-291. hiddenByDefault - changes automatically in non-auth version, not in auth version
 240. (rethink again - slow performance!?) bookmarks are rendered only after tab is open -> maybe they should be just hidden instead?
   (good enough may cause different issues later)) 
 

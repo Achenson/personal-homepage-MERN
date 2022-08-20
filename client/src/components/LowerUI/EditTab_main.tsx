@@ -276,6 +276,7 @@ Props): JSX.Element {
         ...currentTab,
         title: tabTitleInput,
         openedByDefault: tabOpen,
+        opened: tabOpen
       });
 
       console.log(bookmarksInputArr);
@@ -319,6 +320,7 @@ Props): JSX.Element {
         title: tabTitleInput,
         openedByDefault: tabOpen,
         noteInput: textAreaValue,
+        opened: tabOpen
       });
     }
 
@@ -327,6 +329,7 @@ Props): JSX.Element {
         ...currentTab,
         title: tabTitleInput,
         openedByDefault: tabOpen,
+        opened: tabOpen,
         rssLink: rssLinkInput,
         date: globalSettings.date === dateCheckbox ? null : dateCheckbox,
         description:
@@ -513,7 +516,7 @@ Props): JSX.Element {
                   setWasTabOpenClicked(true);
                   setSelectablesListVis(false);
                 }}
-                aria-label={"Disable lock as opened be default"}
+                aria-label={"Disable content visibility by default"}
               >
                 <EyeSVG className="text-gray-700 transition-colors duration-75 hover:text-black cursor-pointer" />
               </button>
@@ -525,7 +528,7 @@ Props): JSX.Element {
                   setWasTabOpenClicked(true);
                   setSelectablesListVis(false);
                 }}
-                aria-label={"Lock as opened by default"}
+                aria-label={"Enable content visibility by default"}
               >
                 <EyeOffSVG className="h-6 w-6 text-gray-700 transition-colors duration-75 hover:text-black cursor-pointer" />
               </button>
