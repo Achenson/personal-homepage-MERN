@@ -200,11 +200,14 @@ function ForgottenPassChange({
         </div>
 
         {errorMessage && (
-          <AuthNotification colorClass="red-500" notification={errorMessage} />
+          <AuthNotification
+            notificationType="error"
+            notification={errorMessage}
+          />
         )}
         {notificationMessage && (
           <AuthNotification
-            colorClass="green-500"
+            notificationType="confirmation"
             notification={notificationMessage}
           />
         )}

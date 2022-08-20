@@ -18,11 +18,6 @@ import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handle
 import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { LoginMutation, AddUserMutaton } from "../../graphql/graphqlMutations";
 
-import {
-  AuthDataInput_i,
-  AuthDataInputRegister_i,
-} from "../../../../schema/types/authDataType";
-import AuthNotification from "./AuthNotification";
 
 interface Props {
   mainPaddingRight: boolean;

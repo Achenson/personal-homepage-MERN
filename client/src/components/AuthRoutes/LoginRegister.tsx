@@ -283,7 +283,7 @@ Props): JSX.Element {
         }
 
         setRegisterErrorMessage(null);
-        setLoginErrorMessage(null)
+        setLoginErrorMessage(null);
         setLoginNotification("User successfully registered");
         setUsername("");
         setEmail("");
@@ -451,19 +451,19 @@ Props): JSX.Element {
 
         {loginOrRegister === "login" && loginErrorMessage && (
           <AuthNotification
-            colorClass="red-500"
+            notificationType="error"
             notification={loginErrorMessage}
           />
         )}
         {loginOrRegister === "register" && registerErrorMessage && (
           <AuthNotification
-            colorClass="red-500"
+            notificationType="error"
             notification={registerErrorMessage}
           />
         )}
         {loginOrRegister === "login" && loginNotification && (
           <AuthNotification
-            colorClass="green-500"
+            notificationType="confirmation"
             notification={loginNotification}
           />
         )}
