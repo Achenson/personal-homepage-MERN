@@ -13,8 +13,10 @@ import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 import { ReactComponent as CheckBigSVG } from "../../svgs/check-big.svg";
 import { ReactComponent as XbigSVG } from "../../svgs/x-big.svg";
 import { ReactComponent as TrashSVG } from "../../svgs/trash.svg";
-import { ReactComponent as LockClosedSVG } from "../../svgs/lock-closed.svg";
-import { ReactComponent as LockOpenSVG } from "../../svgs/lock-open.svg";
+// import { ReactComponent as LockClosedSVG } from "../../svgs/lock-closed.svg";
+// import { ReactComponent as LockOpenSVG } from "../../svgs/lock-open.svg";
+import { ReactComponent as EyeSVG } from "../../svgs/eye.svg";
+import { ReactComponent as EyeOffSVG } from "../../svgs/eye-off.svg";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useDbContext } from "../../context/dbContext";
@@ -501,7 +503,7 @@ Props): JSX.Element {
 
         <div className={`pt-2`} style={{ borderTop: "solid lightGray 1px" }}>
           <div className="flex justify-between items-center">
-            <p>Lock as opened by default</p>
+            <p>Default content visibility</p>
 
             {tabOpen ? (
               <button
@@ -513,7 +515,7 @@ Props): JSX.Element {
                 }}
                 aria-label={"Disable lock as opened be default"}
               >
-                <LockClosedSVG className="text-gray-700 transition-colors duration-75 hover:text-black cursor-pointer" />
+                <EyeSVG className="text-gray-700 transition-colors duration-75 hover:text-black cursor-pointer" />
               </button>
             ) : (
               <button
@@ -525,7 +527,7 @@ Props): JSX.Element {
                 }}
                 aria-label={"Lock as opened by default"}
               >
-                <LockOpenSVG className="h-6 w-6 text-gray-700 transition-colors duration-75 hover:text-black cursor-pointer" />
+                <EyeOffSVG className="h-6 w-6 text-gray-700 transition-colors duration-75 hover:text-black cursor-pointer" />
               </button>
             )}
           </div>

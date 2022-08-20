@@ -308,6 +308,8 @@ in the 2nd case tokenVersion is not returned (to the client), Changed UserType t
 DONE 272. authNotification -> change from colors in props to "error" of "notification" types (colors inside component) DONE
 DONE 273. router keys control (escape) does not work - current code is an old code for client demo,
 the logic should use router, check if handleKeyDown in AuthOuterComponent is enough, delete it in children DONE
+!x 275.zustand -> get() or state. (get() is for getting value but not for changing it)  x!
+DONE 276. Lock as opened by default (confusing!) -> Opened/Closed by default? (Default content visibility 2x eye svgs) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -338,12 +340,13 @@ GOOD enough?
   addBookmarkMutation) x
   x 225. Disable drag & drop -> should be sth like disable drag & drop for tabs?? (make hover hints or put in about) x
   x 226. tabsData, bookmarkData, settignsData -> same as client but with userId? unify?  (good enough)x
-  xx 240. bookmarks are rendered only after tab is open -> maybe they should be just hidden instead?
-  (good enough may cause different issues later)) xx
   xx 246. root mutation & query files -> fix types (after changin const to import) one of the mutation is done right - compare!
   (left as it is -> problem with GraphQLFieldResolver type, it wants ExpressReqRes before arguments in the resolve, code does not work is this ts error is gone) xx
   x 252. clientSIde reaction to rss and background img query errors? (goodEnough, rss is taken care of, img errot doesnt'
   break app, no background img is shown instead) x
+  x 189 email with pass change ended once in span -> put warning to check spam? (put it in known issues of about section)x
+  xx 274. ForgottenPassChange -> implement error if accessing the route through random characters in the url?
+  (goodEnough as it now, easy way to access componetent)xx
 GOOD enough
 
 TO implement in future versions?
@@ -369,11 +372,8 @@ it will trigger refresh in getAuth
 149. more rigid password checking?
 155. better email validation
 188. wiki-speed-typing -> check if password retrival is available still
-189 (pushed -> try if it ends up in spam after setting more text, topic in the email). 
-email with pass change ends in span -> put warning to check spam??
-274. ForgottenPassChange -> implement error if accessing the route through random characters in the url?
-275. zustand -> get() or state.
-276. Lock as opened by default (confusing!) -> Opened/Closed by default?
+
+
 277. locking as openened by default -> works differently in auth and non-auth version!(changing state immediately in non-auth)
 207. (pushed -> solve auth non-auth problems with bookmarks & tabs first) NewBookmark_UpperUI
  -> ts-ignore had to be user 2x -> why??
@@ -425,6 +425,12 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
     "revokeRefreshToken": null
   }
 }
+290.useBookmarks - useles code? eg. delete bookmark
+291. hiddenByDefault - changes automatically in non-auth version, not in auth version
+240. (rethink again - slow performance!?) bookmarks are rendered only after tab is open -> maybe they should be just hidden instead?
+  (good enough may cause different issues later)) 
+
+
 
 
 tabIdsToDel how to get rid off:
