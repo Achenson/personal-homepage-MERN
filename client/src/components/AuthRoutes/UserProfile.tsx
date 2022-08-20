@@ -97,12 +97,12 @@ Props): JSX.Element {
     finalColorForImgBackgroundMode = "blueGray-700";
   }
 
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  });
+  // useEffect(() => {
+  //   document.addEventListener("keydown", handleKeyDown);
+  //   return () => {
+  //     document.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // });
 
   useEffect(() => {
     setMessagePopup(null)
@@ -154,9 +154,9 @@ Props): JSX.Element {
 
   // console.log(data.user);
 
-  function handleKeyDown(event: KeyboardEvent) {
-    handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);
-  }
+  // function handleKeyDown(event: KeyboardEvent) {
+  //   handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);
+  // }
 
   function errMessage(
     errorMessage: string | null,

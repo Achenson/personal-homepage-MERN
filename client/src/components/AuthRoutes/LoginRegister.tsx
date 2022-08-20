@@ -109,12 +109,12 @@ Props): JSX.Element {
     finalColorForImgBackgroundMode = "blueGray-700";
   }
 
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  });
+  // useEffect(() => {
+  //   document.addEventListener("keydown", handleKeyDown);
+  //   return () => {
+  //     document.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // });
 
   // useEffect(() => {
   //   // setLoginNotification(null);
@@ -123,9 +123,9 @@ Props): JSX.Element {
   //   };
   // });
 
-  function handleKeyDown(event: KeyboardEvent) {
-    handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);
-  }
+  // function handleKeyDown(event: KeyboardEvent) {
+  //   handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);
+  // }
 
   function loginValidation() {
     console.log("sth");

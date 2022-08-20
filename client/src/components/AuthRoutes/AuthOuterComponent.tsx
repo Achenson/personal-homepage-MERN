@@ -88,7 +88,7 @@ Props): JSX.Element {
   // });
 
   function handleKeyDown(event: KeyboardEvent) {
-    handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);
+    handleKeyDown_upperUiSetting(event.code, upperUiContext, 8, navigate);
   }
 
   return (
@@ -129,10 +129,12 @@ Props): JSX.Element {
                   // setLoginNotification(null);
                   navigate("/");
 
-                  upperUiContext.upperVisDispatch({
-                    type: "FOCUS_ON_UPPER_RIGHT_UI",
-                    payload: 8,
-                  });
+                  // upperUiContext.upperVisDispatch({
+                  //   type: "FOCUS_ON_UPPER_RIGHT_UI",
+                  //   payload: 8,
+                  // });fha
+
+
                 }}
                 aria-label={"Close"}
               >
