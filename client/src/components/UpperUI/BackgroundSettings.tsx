@@ -112,7 +112,7 @@ function BackgroundSettings({
     }
 
     return (
-      <p className="block xs:inline-block mb-2">
+      <p className="block xs:inline-block xs:mb-2">
         {imgDescription_2a}
         <button
           onClick={() => {
@@ -163,15 +163,18 @@ function BackgroundSettings({
   ) => {
     if (userIdOrNoId && globalSettings.picBackground) {
       return (
-        <BackgroundSettings_Upload
-          xsScreen={xsScreen}
-          globalSettings={globalSettings}
-          backgroundImgResults={backgroundImgResults}
-          reexecuteBackgroundImg={reexecuteBackgroundImg}
-          // wasCustomClicked={wasCustomClicked}
-          // setWasCustomClicked={setWasCustomClicked}
-          hiddenFileInput={hiddenFileInput}
-        />
+        
+        <div className="mt-1 xs:mt-0">
+          <BackgroundSettings_Upload
+            xsScreen={xsScreen}
+            globalSettings={globalSettings}
+            backgroundImgResults={backgroundImgResults}
+            reexecuteBackgroundImg={reexecuteBackgroundImg}
+            // wasCustomClicked={wasCustomClicked}
+            // setWasCustomClicked={setWasCustomClicked}
+            hiddenFileInput={hiddenFileInput}
+          />
+        </div>
       );
     } else {
       if (!picBackground) {
@@ -179,7 +182,7 @@ function BackgroundSettings({
       }
 
       return (
-        <p className="text-center">
+        <p className="text-center mt-1 xs:mt-3">
           <button
             onClick={() => {
               navigate("/login-register");
@@ -341,7 +344,7 @@ function BackgroundSettings({
                 <div className="text-center">
                   <p className={`mb-2 xs:mb-0`}>{imgDescription_1}</p>
 
-                  <div className={`mt-8`}>
+                  <div className={`mt-12 xs:mt-8`}>
                     {renderChoseImage(userIdOrNoId)}
                     {/* INSERT HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
 
