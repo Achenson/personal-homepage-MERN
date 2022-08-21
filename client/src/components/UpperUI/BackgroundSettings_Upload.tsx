@@ -115,7 +115,7 @@ function BackgroundSettings_Upload({
     }
   };
 
-  const [dbFilesError, setDbFilesError] = useState<null | string>(null);
+  // const [dbFilesError, setDbFilesError] = useState<null | string>(null);
 
   // let uploadFileName;
   // @ts-ignore
@@ -194,9 +194,9 @@ function BackgroundSettings_Upload({
       {/* {dbFilesError ? <p>{dbFilesError}</p> : <p className="invisible"></p>} */}
       {/* {dbFilesError ? <p>{dbFilesError}</p> : <p className="invisible"></p>} */}
       {/* <p className={ dbFilesError ? "invisible" : "visible" }>{dbFilesError}</p> */}
-      <div className="h-6 mt-0.5 mb-1 text-red-500 text-center text-sm">
+      {/* <div className="h-6 mt-0.5 mb-1 text-red-500 text-center text-sm">
         {dbFilesError}
-      </div>
+      </div> */}
       <form
         // onSubmit={submitForm}
         className={`flex justify-start items-center`}

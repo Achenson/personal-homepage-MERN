@@ -112,7 +112,7 @@ function BackgroundSettings({
     }
 
     return (
-      <p className="block xs:inline-block">
+      <p className="block xs:inline-block mb-2">
         {imgDescription_2a}
         <button
           onClick={() => {
@@ -253,7 +253,7 @@ function BackgroundSettings({
 
             <div className="mx-0 xs:mx-2">
               <p className="text-center mb-3">Background mode</p>
-              <div className="mb-3 text-center">
+              <div className="mb-1 text-center">
                 <span className="text-lg">Background image:</span>
                 <button
                   className="ml-2 focus-1-offset"
@@ -340,7 +340,8 @@ function BackgroundSettings({
               {globalSettings.picBackground ? (
                 <div className="text-center">
                   <p className={`mb-2 xs:mb-0`}>{imgDescription_1}</p>
-                  <div className={`mt-0`}>
+
+                  <div className={`mt-8`}>
                     {renderChoseImage(userIdOrNoId)}
                     {/* INSERT HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
 
@@ -459,7 +460,7 @@ function BackgroundSettings({
               > */}
 
               {/* 
-<BackgroundSettings_Upload
+              <BackgroundSettings_Upload
                   xsScreen={xsScreen}
                   globalSettings={globalSettings}
                   backgroundImgResults={backgroundImgResults}
