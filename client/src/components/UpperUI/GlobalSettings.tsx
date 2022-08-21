@@ -118,7 +118,7 @@ function GlobalSettings({
   let globalSettings: SettingsDatabase_i = data.settings; */
 
   function handleKeyDown(event: KeyboardEvent) {
-    handleKeyDown_upperUiSetting(event.code, upperUiContext, 7);
+    handleKeyDown_upperUiSetting(event.code, upperUiContext, 7, undefined);
   }
 
   function renderColsNumberControls() {

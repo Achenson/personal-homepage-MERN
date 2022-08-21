@@ -311,6 +311,7 @@ the logic should use router, check if handleKeyDown in AuthOuterComponent is eno
 !x 275.zustand -> get() or state. (get() is for getting value but not for changing it)  x!
 DONE 276. Lock as opened by default (confusing!) -> Opened/Closed by default? (Default content visibility 2x eye svgs) DONE
 DONE 277. Default content visibility -> works differently in auth and non-auth version!(changing state immediately in non-auth) DONE
+DONE  280. unify shade of red for warnings etc. (red-500 for all warning text, red-600 for some UI elements)DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -381,15 +382,11 @@ Choose default image: 1 2 3  -> more space between those 2 lines, 1st one should
  -> ts-ignore had to be user 2x -> why??
 209. (pushed -> solve auth non-auth problems with bookmarks & tabs first) settings should be unified? add null userId and null to non-auth version?
 213. (pushed -> solve auth non-auth problems with bookmarks & tabs first) () SingleBookmark -> interface for nonAuth is being used also for auth?? the one for auth being not used
-279 hide folder containing... -> does user 
-280. unify shade of red for warnings etc.
 224. (pushed -> no hover field anywhere, but should it be introduced? or may be as display at hte top) 
 globalSettings rss items number-> hover field, implement is alse elsewhere??
 281. write about Note, implement a way to bring it back?
-225 (pushed). is aria-label present in all btns?
 230 (pushed -> solve auth non-auth problems with bookmarks & tabs first). promises should start only if an auth code is executed? ex. Bookmark_lowerUI. then maybe implement catching
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
-233. rrs itemsPerPage -> test on mobile! real one
 236. (push -> same problem as bookmark and tabs interfaces problen)globalSettings to globalSettignsDb rename everywhere? (currently in Column only)
 282. nonauth v notauth -> unify
 237. (pushed, solve interfaces problem together with tabs& bookmarks) globalSettings interfaces - smtms different smtms from db?
@@ -428,6 +425,8 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 290.useBookmarks - useles code? eg. delete bookmark
 240. (rethink again - slow performance!?) bookmarks are rendered only after tab is open -> maybe they should be just hidden instead?
   (good enough may cause different issues later)) 
+233. rrs itemsPerPage -> test on mobile! real one
+225 (pushed). is aria-label present in all btns?
 
 
 

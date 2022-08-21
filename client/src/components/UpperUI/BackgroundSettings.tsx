@@ -90,7 +90,7 @@ function BackgroundSettings({
   // let globalSettings: SettingsDatabase_i = data.settings;
 
   function handleKeyDown(event: KeyboardEvent) {
-    handleKeyDown_upperUiSetting(event.code, upperUiContext, 5);
+    handleKeyDown_upperUiSetting(event.code, upperUiContext, 5, undefined);
   }
 
   let finalColorForImgBackgroundMode = uiColor;
@@ -340,7 +340,7 @@ function BackgroundSettings({
               {globalSettings.picBackground ? (
                 <div className="text-center">
                   <p className={`mb-2 xs:mb-0`}>{imgDescription_1}</p>
-                  <div className={`mb-0`}>
+                  <div className={`mt-0`}>
                     {renderChoseImage(userIdOrNoId)}
                     {/* INSERT HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
 

@@ -9,7 +9,7 @@ interface Props {
 
 function BookmarkErrors_render({ errors }: Props): JSX.Element {
 
-  const errorsCSS = "text-red-600 -mb-5 -mt-1.5"
+  const errorsCSS = "text-red-500 -mb-5 -mt-1.5"
 
   return (
     <>

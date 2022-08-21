@@ -15,7 +15,7 @@ function TabErrors_render({
   componentType,
 }: Props): JSX.Element {
   let errorsCSS =
-    componentType === "new" ? "text-red-600 -mb-2" : "text-red-600 mt-1 -mb-2";
+    componentType === "new" ? "text-red-500 -mb-2" : "text-red-500 mt-1 -mb-2";
 
   return (
     <>
@@ -44,7 +44,7 @@ function TabErrors_render({
       )}
 
       {errors.noDeletionErrorVis && componentType === "edit" && (
-        <p className={`text-red-600 mt-1 -mb-2`}>{tabErrors.noDeletion}</p>
+        <p className={`text-red-500 mt-1 -mb-2`}>{tabErrors.noDeletion}</p>
       )}
 
       {errors.invalidLinkErrorVis && tabType === "rss" && (

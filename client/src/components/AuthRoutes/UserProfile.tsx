@@ -261,7 +261,7 @@ Props): JSX.Element {
         return (
           <div className="h-44">
             {renderPasswordCurrent("deleteAccount")}
-            <p className="mt-1 text-red-600">
+            <p className="mt-1 text-red-500">
               Enter password and confirm. All account information will be
               irreversibly lost.
             </p>

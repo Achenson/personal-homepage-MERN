@@ -538,7 +538,7 @@ Props): JSX.Element {
           <div className="flex justify-between items-center mt-2">
             {deleteConfirmationVis ? (
               <>
-                <p className="text-red-600">Delete current tab?</p>
+                <p className="text-red-500">Delete current tab?</p>
 
                 <div className="w-14 flex justify-between">
                   <button

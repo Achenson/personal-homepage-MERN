@@ -194,7 +194,7 @@ function BackgroundSettings_Upload({
       {/* {dbFilesError ? <p>{dbFilesError}</p> : <p className="invisible"></p>} */}
       {/* {dbFilesError ? <p>{dbFilesError}</p> : <p className="invisible"></p>} */}
       {/* <p className={ dbFilesError ? "invisible" : "visible" }>{dbFilesError}</p> */}
-      <div className="h-6 mt-0.5 mb-1 text-red-600 text-center text-sm">
+      <div className="h-6 mt-0.5 mb-1 text-red-500 text-center text-sm">
         {dbFilesError}
       </div>
       <form

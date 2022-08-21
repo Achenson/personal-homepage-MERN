@@ -87,7 +87,7 @@ function ColorsSettings({
   let globalSettings: SettingsDatabase_i = data.settings; */
 
   function handleKeyDown(event: KeyboardEvent) {
-    handleKeyDown_upperUiSetting(event.code, upperUiContext, 6);
+    handleKeyDown_upperUiSetting(event.code, upperUiContext, 6, undefined);
   }
 
   return (
