@@ -237,7 +237,7 @@ function ColorsSettings({
                   RESET
                 </span>
               </button>{" "}
-              tabs to default
+              tabs to default colors
             </p>
             {colorsToChooseVis && (
               <div
