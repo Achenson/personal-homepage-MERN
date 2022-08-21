@@ -11,7 +11,7 @@ import { ReactComponent as NoteSVG } from "../../svgs/note_UXwing.svg";
 import { ReactComponent as CogSVG } from "../../svgs/cog.svg";
 import { ReactComponent as UserSVG } from "../../svgs/user.svg";
 import { ReactComponent as LoginSVG } from "../../svgs/login.svg";
-import { ReactComponent as LogoutSVG } from "../../svgs/logout.svg";
+// import { ReactComponent as LogoutSVG } from "../../svgs/logout.svg";
 import { ReactComponent as AddRssSVG } from "../../svgs/rss.svg";
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";

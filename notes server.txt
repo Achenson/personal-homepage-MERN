@@ -315,6 +315,7 @@ DONE 278 Transparent colors for columns
 Choose default image: 1 2 3  -> more space between those 2 lines, 1st one should function as"backgroung img on" description DONE
 DONE  280. unify shade of red for warnings etc. (red-500 for all warning text, red-600 for some UI elements)DONE
 DONE 282. nonauth v notauth -> unify (unified ad notAuth) DONE
+DONE 283. clear svgs (logout for sure) (globeAlt also deleted) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -391,7 +392,6 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 239. (pushed, same reason as above) bookmarks itp -> in the end ts is chosing the type by itself, even if it should be split type
 102 (pushed -> interfaces for tabs etc. should be unified first). react keys -> they should by indices ! change to id 
 282. delete background get from server.ts? already using route?
-283. clear svgs (logout for sure)
 284. RESET tabs to default -> RESET tabs colors to default?
 285. make the UpperRightMenu_XS the default way? Then -> move ResetSVG btn to the UpperRightMenu?
 286. make the 3 settings modals appear always at the same height
