@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { useQuery, UseQueryState, OperationContext } from "urql";
+import { UseQueryState, OperationContext } from "urql";
 
 // import { BackgroundImgContext } from "../context/backgroundImgContext";
 

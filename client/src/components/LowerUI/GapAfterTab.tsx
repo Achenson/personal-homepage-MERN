@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery, useMutation } from "urql";
+import { useMutation } from "urql";
 
 import { useDrop } from "react-dnd";
 // import shallow from "zustand/shallow";

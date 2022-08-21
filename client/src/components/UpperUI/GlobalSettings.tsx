@@ -92,10 +92,6 @@ function GlobalSettings({
     };
   });
 
-  /* const [settingsResults] = useQuery({
-    query: SettingsQuery,
-    variables: { userId: testUserId },
-  }); */
 
   const [changeSettingsResult, changeSettings] = useMutation<
     any,

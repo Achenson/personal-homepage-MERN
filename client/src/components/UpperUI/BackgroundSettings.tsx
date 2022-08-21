@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 // import shallow from "zustand/shallow";
 import FocusLock from "react-focus-lock";
-import { useQuery, useMutation, UseQueryState, OperationContext } from "urql";
+import { useMutation, UseQueryState, OperationContext } from "urql";
 
 import Settings_inner_xs from "./Settings_inner_xs";
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";

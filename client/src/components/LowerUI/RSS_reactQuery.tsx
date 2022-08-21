@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // import shallow from "zustand/shallow";
 import { useQuery as useReactQuery } from "react-query";
-import { useQuery } from "urql";
+
 
 import SingleRssNews from "./SingleRssNews";
 

@@ -395,14 +395,12 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 
 
 285. make the UpperRightMenu_XS the default way? Then -> move ResetSVG btn to the UpperRightMenu?
-286. make the 3 settings modals appear always at the same height
+286. make the 3 settings modals appear always at the same height (important on a xs screen)
 ! 287. implement empty tab deletion login in edit bookmark
 266. (pushed, solve all issue regarding bookmarks, tabs, settings interfaces together)
  eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?
 167.(pushed) changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
 181. (pushed) clean db in the end
-288. userQueryField- isit used?
-
 133. revokingToken -> "query was already executed: "mixing promises with callback??
 289. revokeRefreshToken, works but: {
   "errors": [
@@ -677,3 +675,7 @@ Image is attached as a request body
 - multer is being used as a middleware in server.ts -> it runs everytime there is a body in a request, and if the user if authenticated
 (req.isAuth)
 - image is being saved not in a db, but on the server! (in backgroundImgs folder)
+
+== file query:
+backgroundImgQuery in Main is generating url with users id in it, this url is passed to MainRoute
+In MainRoute an express route is using the passed url to return file from the server

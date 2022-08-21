@@ -3,7 +3,7 @@ import { useDrop } from "react-dnd";
 
 // import shallow from "zustand/shallow";
 import { useDrag } from "react-dnd";
-import { useQuery, useMutation } from "urql";
+import { useMutation } from "urql";
 
 import SingleBookmark from "./SingleBookmark";
 import ColorsToChoose_Tab from "../Colors/ColorsToChoose_Tab";

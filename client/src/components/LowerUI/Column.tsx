@@ -3,7 +3,6 @@ import React from "react";
 import shallow from "zustand/shallow";
 
 // import shallow from "zustand/shallow";
-import { useQuery } from "urql";
 
 import Tab from "./Tab";
 import GapAfterTab from "./GapAfterTab";
@@ -75,11 +74,6 @@ Props): JSX.Element {
       ? authContext.authenticatedUserId
       : null;
 
-  // const [settingsResults] = useQuery({
-  //   query: SettingsQuery,
-  //   variables: { userId: userIdOrNoId },
-  //   pause: !userIdOrNoId,
-  // });
 
   // const { data, fetching, error } = settingsResults;
 
