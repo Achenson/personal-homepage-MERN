@@ -97,7 +97,7 @@ Props): JSX.Element {
 
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
-  const editBookmarkNonAuth = useBookmarks((store) => store.editBookmark);
+  const editBookmarkNotAuth = useBookmarks((store) => store.editBookmark);
 
   const bookmarksDb = useDbContext()?.bookmarks;
   const tabsDb = useDbContext()?.tabs;
@@ -123,8 +123,8 @@ Props): JSX.Element {
 
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   // const tabs = useTabs((state) => state.tabs);
-  const deleteBookmarkNonAuth = useBookmarks((store) => store.deleteBookmark);
-  const deleteTabNonAuth = useTabs((store) => store.deleteTab);
+  const deleteBookmarkNotAuth = useBookmarks((store) => store.deleteBookmark);
+  const deleteTabNotAuth = useTabs((store) => store.deleteTab);
   const getTabsToDelete = useBookmarks((store) => store.getTabsToDelete);
 
   const [deleteBookmarkResult, deleteBookmark] = useMutation<any, BookmarkId>(
@@ -182,7 +182,7 @@ Props): JSX.Element {
 
     let faviconUrlApi = "https://icon.horse/icon?uri=" + singleBookmarkData.URL; */
 
-  function deleteTabsLogicNonAuth(
+  function deleteTabsLogicNotAuth(
     tabIDsToDelete: string[],
     tabs: SingleTabData[]
   ) {
@@ -191,7 +191,7 @@ Props): JSX.Element {
         continue;
       }
 
-      deleteTabNonAuth(tabID);
+      deleteTabNotAuth(tabID);
     }
   }
 
@@ -252,7 +252,7 @@ Props): JSX.Element {
                           defaultFaviconFallback:
                             !singleBookmarkData.defaultFaviconFallback,
                         })
-                      : editBookmarkNonAuth(
+                      : editBookmarkNotAuth(
                           singleBookmarkData.id,
                           singleBookmarkData.title,
                           singleBookmarkData.URL,
@@ -290,7 +290,7 @@ Props): JSX.Element {
                           defaultFaviconFallback:
                             !singleBookmarkData.defaultFaviconFallback,
                         })
-                      : editBookmarkNonAuth(
+                      : editBookmarkNotAuth(
                           singleBookmarkData.id,
                           singleBookmarkData.title,
                           singleBookmarkData.URL,
@@ -369,15 +369,15 @@ Props): JSX.Element {
                     let tabIdsToDelete = getTabsToDelete(bookmarkToDelete.id);
 
                     if (tabIdsToDelete.length === 0) {
-                      deleteBookmarkNonAuth(bookmarkId, singleBookmarkData);
+                      deleteBookmarkNotAuth(bookmarkId, singleBookmarkData);
                       return;
                     }
 
-                    deleteTabsLogicNonAuth(
+                    deleteTabsLogicNotAuth(
                       tabIdsToDelete,
                       tabs as SingleTabData[]
                     );
-                    deleteBookmarkNonAuth(bookmarkId, singleBookmarkData);
+                    deleteBookmarkNotAuth(bookmarkId, singleBookmarkData);
                   }
 
                   return;

@@ -12,7 +12,7 @@ import { useDbContext } from "../../context/dbContext";
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 import {
-  createBookmarkNonAuth,
+  createBookmarkNotAuth,
   createBookmarkDb,
   createFolderTab,
   createFolderTabDb,
@@ -85,8 +85,8 @@ function Bookmark_lowerUI({
   globalSettings,
   userIdOrNoId,
 }: Props): JSX.Element {
-  const addBookmarkNonAuth = useBookmarks((store) => store.addBookmark);
-  const editBookmarkNonAuth = useBookmarks((store) => store.editBookmark);
+  const addBookmarkNotAuth = useBookmarks((store) => store.addBookmark);
+  const editBookmarkNotAuth = useBookmarks((store) => store.editBookmark);
 
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
@@ -133,7 +133,7 @@ function Bookmark_lowerUI({
   //   (store) => store.setTabIdsUsedByBookmarks
   // );
 
-  const addTabsNonAuth = useTabs((store) => store.addTabs);
+  const addTabsNotAuth = useTabs((store) => store.addTabs);
 
   // const tabs = useTabs((store) => store.tabs);
 
@@ -296,13 +296,13 @@ function Bookmark_lowerUI({
            }); */
       } else {
         // setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
-        addTabsNonAuth(newTabsToAdd);
+        addTabsNotAuth(newTabsToAdd);
       }
     }
 
     if (!userIdOrNoId) {
       if (bookmarkComponentType === "edit") {
-        editBookmarkNonAuth(
+        editBookmarkNotAuth(
           bookmarkId,
           titleInput,
           urlInput,
@@ -314,10 +314,10 @@ function Bookmark_lowerUI({
         console.log(tagsInputArr_ToIds);
         
 
-        addBookmarkNonAuth(
+        addBookmarkNotAuth(
 
           
-          createBookmarkNonAuth(titleInput, urlInput, tagsInputArr_ToIds)
+          createBookmarkNotAuth(titleInput, urlInput, tagsInputArr_ToIds)
         );
       }
 

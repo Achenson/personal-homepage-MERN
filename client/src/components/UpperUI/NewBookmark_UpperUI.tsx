@@ -21,7 +21,7 @@ import {
   createFolderTab,
   createBookmarkDb,
   createFolderTabDb,
-  createBookmarkNonAuth,
+  createBookmarkNotAuth,
 } from "../../utils/funcs and hooks/objCreators";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { bookmarkErrorHandling } from "../../utils/funcs and hooks/bookmarkErrorHandling";
@@ -109,7 +109,7 @@ function NewBookmark_UpperUI({
   // const bookmarks = useDbContext().bookmarks;
   const reexecuteBookmarks = useDbContext()?.reexecuteBookmarks;
   // const tabs = useDbContext().tabs;
-  const addTabsNonAuth = useTabs((store) => store.addTabs);
+  const addTabsNotAuth = useTabs((store) => store.addTabs);
   const [addTabResult, addTab] = useMutation<any, TabDatabase_i>(
     AddTabMutation
   );
@@ -124,7 +124,7 @@ function NewBookmark_UpperUI({
   // const setTabIdsUsedByBookmarks = useBookmarks(
   //   (store) => store.setTabIdsUsedByBookmarks
   // );
-  const addBookmarkNonAuth = useBookmarks((store) => store.addBookmark);
+  const addBookmarkNotAuth = useBookmarks((store) => store.addBookmark);
 
   // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
@@ -170,7 +170,7 @@ function NewBookmark_UpperUI({
     // let newTabsToAdd: SingleTabData[] = [];
     let newTabsToAdd: TabDatabase_i[] | SingleTabData[] = [];
 
-    // // nonAuth
+    // // NotAuth
     // let newTabIdsUsedByBookmarksData = [...tabIdsUsedByBookmarks];
 
     // getting higher priority for each subsequent tab that is being added at the same time
@@ -237,13 +237,13 @@ function NewBookmark_UpperUI({
         });
       } else {
         // setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
-        addTabsNonAuth(newTabsToAdd);
+        addTabsNotAuth(newTabsToAdd);
       }
     }
 
     if (!userIdOrNoId) {
-      addBookmarkNonAuth(
-        createBookmarkNonAuth(titleInput, urlInput, tagsInputArr_ToIds)
+      addBookmarkNotAuth(
+        createBookmarkNotAuth(titleInput, urlInput, tagsInputArr_ToIds)
       );
       return;
     }

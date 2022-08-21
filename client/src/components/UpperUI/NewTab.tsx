@@ -60,7 +60,7 @@ function NewTab({
   userIdOrNoId,
 }: Props): JSX.Element {
   // const tabs = useTabs((state) => state.tabs);
-  const addTabsNonAuth = useTabs((store) => store.addTabs);
+  const addTabsNotAuth = useTabs((store) => store.addTabs);
 
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
@@ -275,7 +275,7 @@ function NewTab({
           )
         ).then((result) => console.log(result));
       } else {
-        addTabsNonAuth([
+        addTabsNotAuth([
           {
             ...createNote(
               tabTitleInput,
@@ -319,7 +319,7 @@ function NewTab({
         // newTabIdsUsedByBookmarksData.push(newFolderTab.id);
         // setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
 
-        addTabsNonAuth([newFolderTab]);
+        addTabsNotAuth([newFolderTab]);
         // updating links data (tags array)
         addTag(newFolderTab.id, bookmarksInputArr);
       }
@@ -337,7 +337,7 @@ function NewTab({
           )
         );
       } else {
-        addTabsNonAuth([
+        addTabsNotAuth([
           {
             ...createRSS(
               tabTitleInput,

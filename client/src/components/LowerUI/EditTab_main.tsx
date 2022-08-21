@@ -102,7 +102,7 @@ Props): JSX.Element {
     ChangeTabMutation
   );
 
-  const deleteTabNonAuth = useTabs((store) => store.deleteTab);
+  const deleteTabNotAuth = useTabs((store) => store.deleteTab);
   const [deleteTabResult, deleteTab] = useMutation<any, TabId>(
     DeleteTabMutation
   );
@@ -408,7 +408,7 @@ Props): JSX.Element {
         });
       });
     } else {
-      deleteTabNonAuth(tabID);
+      deleteTabNotAuth(tabID);
     }
 
     tabContext.tabVisDispatch({ type: "EDIT_TOGGLE" });

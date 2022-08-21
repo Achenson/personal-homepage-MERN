@@ -314,6 +314,7 @@ DONE 277. Default content visibility -> works differently in auth and non-auth v
 DONE 278 Transparent colors for columns
 Choose default image: 1 2 3  -> more space between those 2 lines, 1st one should function as"backgroung img on" description DONE
 DONE  280. unify shade of red for warnings etc. (red-500 for all warning text, red-600 for some UI elements)DONE
+DONE 282. nonauth v notauth -> unify (unified ad notAuth) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -383,11 +384,9 @@ it will trigger refresh in getAuth
 213. (pushed -> solve auth non-auth problems with bookmarks & tabs first) () SingleBookmark -> interface for nonAuth is being used also for auth?? the one for auth being not used
 224. (pushed -> no hover field anywhere, but should it be introduced? or may be as display at hte top) 
 globalSettings rss items number-> hover field, implement is alse elsewhere??
-281. write about Note, implement a way to bring it back?
 230 (pushed -> solve auth non-auth problems with bookmarks & tabs first). promises should start only if an auth code is executed? ex. Bookmark_lowerUI. then maybe implement catching
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
 236. (push -> same problem as bookmark and tabs interfaces problen)globalSettings to globalSettignsDb rename everywhere? (currently in Column only)
-282. nonauth v notauth -> unify
 237. (pushed, solve interfaces problem together with tabs& bookmarks) globalSettings interfaces - smtms different smtms from db?
 239. (pushed, same reason as above) bookmarks itp -> in the end ts is chosing the type by itself, even if it should be split type
 102 (pushed -> interfaces for tabs etc. should be unified first). react keys -> they should by indices ! change to id 
@@ -427,6 +426,7 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 233. rrs itemsPerPage -> test on mobile! real one
 225 (pushed). is aria-label present in all btns?
 291. BackgroundSettings_Upload -> errors not implemented! bring back commented out code for error div
+281. write about Note, implement a way to bring it back?
 
 
 
