@@ -7,7 +7,7 @@ import { bookmarksData } from "../data/bookmarksData";
 
 interface UseBookmarks {
   addBookmark: (singleBookmarkData: SingleBookmarkData) => void;
-  getTabsToDelete: (bookmarkIdToDelete: string) => string[];
+  getTabsToDelete: (bookmarkIdToDelete: string, bookmarkTagsToDelete: string[]) => string[];
   editBookmark: (
     editId: string,
     title: string,
@@ -38,7 +38,7 @@ interface UseBookmarks {
 export const useBookmarks = create<UseBookmarks>(
   persist(
     (set, get) => ({
-      getTabsToDelete(bookmarkIdToDelete) {
+      getTabsToDelete(bookmarkIdToDelete, bookmarkTagsToDelete) {
         // should contain all tags, but without the tags present in bookmark to del
         let arrOfTags: string[] = [];
 
@@ -53,19 +53,29 @@ export const useBookmarks = create<UseBookmarks>(
             }
           }
         }
+
         // first item in the arr is bookmark to delete
-        let bookmarkToDeleteArr = get().bookmarks.filter(
-          (el) => el.id === bookmarkIdToDelete
-        );
+        // let bookmarkToDeleteArr = get().bookmarks.filter(
+        //   (el) => el.id === bookmarkIdToDelete
+        // );
+
 
         let tagsToDelete: string[] = [];
 
         // if one of the tag(tab) of bookmark to del is not present is all tags -> this tags (tabs) to delete 
-        for (let tag of bookmarkToDeleteArr[0].tags) {
+        // for (let tag of bookmarkToDeleteArr[0].tags) {
+        //   if (arrOfTags.indexOf(tag) === -1) {
+        //     tagsToDelete.push(tag);
+        //   }
+        // }
+
+        for (let tag of bookmarkTagsToDelete) {
           if (arrOfTags.indexOf(tag) === -1) {
             tagsToDelete.push(tag);
           }
         }
+
+
 
         return tagsToDelete;
 

@@ -100,6 +100,8 @@ function Bookmark_lowerUI({
   const tabsDb = useDbContext()?.tabs;
   // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
 
+  const getTabsToDelete = useBookmarks((store) => store.getTabsToDelete);
+
   bookmarks = userIdOrNoId
     ? (bookmarksDb as SingleBookmarkData[])
     : bookmarksNotAuth;
@@ -134,7 +136,7 @@ function Bookmark_lowerUI({
   // );
 
   const addTabsNotAuth = useTabs((store) => store.addTabs);
-
+  const deleteTabNotAuth = useTabs((store) => store.deleteTab);
   // const tabs = useTabs((store) => store.tabs);
 
   const tabContext = useTabContext();
@@ -302,6 +304,25 @@ function Bookmark_lowerUI({
 
     if (!userIdOrNoId) {
       if (bookmarkComponentType === "edit") {
+        // first item in the arr is bookmark to delete
+        //  let bookmarkToEdit = bookmarks.find(
+        //   (el) => el.id === bookmarkId
+        // );
+
+        let bookmarkTagsToDelete: string[] = [];
+
+        for (let tag of currentBookmark.tags) {
+          if (tagsInputArr_ToIds.indexOf(tag) === -1) {
+            bookmarkTagsToDelete.push(tag);
+          }
+        }
+
+        let tabIdsToDelete = getTabsToDelete(bookmarkId, bookmarkTagsToDelete);
+
+        if (tabIdsToDelete.length > 0) {
+          deleteTabsLogicNotAuth(tabIdsToDelete, tabs as SingleTabData[]);
+        }
+
         editBookmarkNotAuth(
           bookmarkId,
           titleInput,
@@ -312,11 +333,8 @@ function Bookmark_lowerUI({
       } else {
         console.log("tagsInputArr_ToIds");
         console.log(tagsInputArr_ToIds);
-        
 
         addBookmarkNotAuth(
-
-          
           createBookmarkNotAuth(titleInput, urlInput, tagsInputArr_ToIds)
         );
       }
@@ -372,6 +390,19 @@ function Bookmark_lowerUI({
     // if (bookmarkComponentType === "edit") {
     //   setTabDeletingPause(false);
     // }
+
+    function deleteTabsLogicNotAuth(
+      tabIDsToDelete: string[],
+      tabs: SingleTabData[]
+    ) {
+      for (let tabID of tabIDsToDelete) {
+        if (!tabs.filter((el) => el.id === tabID)[0].deletable) {
+          continue;
+        }
+
+        deleteTabNotAuth(tabID);
+      }
+    }
   }
 
   function handleKeyDown(event: KeyboardEvent) {

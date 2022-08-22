@@ -366,7 +366,7 @@ Props): JSX.Element {
                   );
 
                   if (bookmarkToDelete) {
-                    let tabIdsToDelete = getTabsToDelete(bookmarkToDelete.id);
+                    let tabIdsToDelete = getTabsToDelete(bookmarkToDelete.id, bookmarkToDelete.tags);
 
                     if (tabIdsToDelete.length === 0) {
                       deleteBookmarkNotAuth(bookmarkId, singleBookmarkData);
