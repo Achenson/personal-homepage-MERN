@@ -103,7 +103,14 @@ function BackgroundSettings_Upload({
     target: { validity, files: file },
   }) => {
     if (validity.valid) {
-      await uploadBackgroundImg({ file });
+      await uploadBackgroundImg({ file }).then(res => {
+        console.log("background img upload res");
+        console.log(res);
+        console.log("file");
+        // @ts-ignore
+       console.log(res?.operation?.variables?.file[0]?.name);
+       
+      });
       reexecuteBackgroundImg({ requestPolicy: "network-only" });
       await changeSettings({
         ...(globalSettings as SettingsDatabase_i),

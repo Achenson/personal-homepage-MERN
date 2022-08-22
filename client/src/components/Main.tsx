@@ -238,9 +238,9 @@ function Main({ globalSettings }: Props): JSX.Element {
   // }
 
   if (data_backgroundImg) {
-    console.log("data_background");
-    console.log(data_backgroundImg);
-    console.log(data_backgroundImg.backgroundImg);
+    // console.log("data_background");
+    // console.log(data_backgroundImg);
+    // console.log(data_backgroundImg.backgroundImg);
 
     // if(data_backgroundImg.backgroundImg.backgroundImgUrl) {
     backgroundImgUrl = data_backgroundImg?.backgroundImg?.backgroundImgUrl;
