@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "urql";
 
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
-import { ReactComponent as EyeSVG } from "../../svgs/eye.svg";
-import { ReactComponent as EyeOffSVG } from "../../svgs/eye-off.svg";
+// import { ReactComponent as EyeSVG } from "../../svgs/eye.svg";
+// import { ReactComponent as EyeOffSVG } from "../../svgs/eye-off.svg";
 
 import LogRegProfile_input from "./LogRegProfile_input";
 

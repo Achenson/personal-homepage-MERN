@@ -518,7 +518,7 @@ Props): JSX.Element {
                 }}
                 aria-label={"Disable content visibility by default"}
               >
-                <EyeSVG className="text-gray-700 transition-colors duration-75 hover:text-black cursor-pointer" />
+                <EyeSVG className="text-gray-500 transition-colors duration-75 hover:text-black cursor-pointer" />
               </button>
             ) : (
               <button
@@ -530,7 +530,7 @@ Props): JSX.Element {
                 }}
                 aria-label={"Enable content visibility by default"}
               >
-                <EyeOffSVG className="h-6 w-6 text-gray-700 transition-colors duration-75 hover:text-black cursor-pointer" />
+                <EyeOffSVG className="h-6 w-6 text-gray-500 transition-colors duration-75 hover:text-black cursor-pointer" />
               </button>
             )}
           </div>

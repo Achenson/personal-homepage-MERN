@@ -395,8 +395,11 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 102 (pushed -> interfaces for tabs etc. should be unified first). react keys -> they should by indices ! change to id 
 
 
+
 285. make the UpperRightMenu_XS the default way? Then -> move ResetSVG btn to the UpperRightMenu? (if not, check if height on md: is okay, was changed by #286)
-! 287. implement empty tab deletion login in edit bookmark
+
+!287. implement empty tab deletion login in edit bookmark
+
 266. (pushed, solve all issue regarding bookmarks, tabs, settings interfaces together)
  eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?
 167.(pushed) changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
