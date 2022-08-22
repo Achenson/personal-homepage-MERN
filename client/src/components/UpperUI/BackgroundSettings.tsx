@@ -213,7 +213,8 @@ function BackgroundSettings({
         }}
       >
         <div
-          className="md:mb-40 relative"
+          // className="md:mb-40 relative"
+          style={{marginBottom: "29px"}}
           onClick={(e) => {
             e.stopPropagation();
             return;

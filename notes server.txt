@@ -318,6 +318,7 @@ DONE 282. nonauth v notauth -> unify (unified ad notAuth) DONE
 DONE 282.5 delete background get from server.ts? already using route? (route had to be changed) DONE
 DONE 283. clear svgs (logout for sure) (globeAlt also deleted) DONE
 DONE 284. RESET tabs to default -> change text DONE
+DONE 286. make the 3 settings modals appear always at the same height (important on a xs screen) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -394,8 +395,7 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 102 (pushed -> interfaces for tabs etc. should be unified first). react keys -> they should by indices ! change to id 
 
 
-285. make the UpperRightMenu_XS the default way? Then -> move ResetSVG btn to the UpperRightMenu?
-286. make the 3 settings modals appear always at the same height (important on a xs screen)
+285. make the UpperRightMenu_XS the default way? Then -> move ResetSVG btn to the UpperRightMenu? (if not, check if height on md: is okay, was changed by #286)
 ! 287. implement empty tab deletion login in edit bookmark
 266. (pushed, solve all issue regarding bookmarks, tabs, settings interfaces together)
  eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?

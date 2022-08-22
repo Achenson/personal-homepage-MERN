@@ -100,8 +100,8 @@ function ColorsSettings({
         }}
       >
         <div
-          className="mb-24 md:mb-40"
-          style={{marginBottom: "88px"}}
+          // className="mb-24 md:mb-40"
+          style={{marginBottom: "87px"}}
           onClick={(e) => {
             e.stopPropagation();
             return;
