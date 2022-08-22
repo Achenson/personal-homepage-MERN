@@ -319,6 +319,7 @@ DONE 282.5 delete background get from server.ts? already using route? (route had
 DONE 283. clear svgs (logout for sure) (globeAlt also deleted) DONE
 DONE 284. RESET tabs to default -> change text DONE
 DONE 286. make the 3 settings modals appear always at the same height (important on a xs screen) DONE
+DONE !287. implement empty tab deletion login in edit bookmark DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -395,10 +396,8 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 102 (pushed -> interfaces for tabs etc. should be unified first). react keys -> they should by indices ! change to id 
 
 
-
 285. make the UpperRightMenu_XS the default way? Then -> move ResetSVG btn to the UpperRightMenu? (if not, check if height on md: is okay, was changed by #286)
 
-!287. implement empty tab deletion login in edit bookmark
 
 266. (pushed, solve all issue regarding bookmarks, tabs, settings interfaces together)
  eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?
@@ -431,7 +430,7 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 225 (pushed). is aria-label present in all btns?
 291. BackgroundSettings_Upload -> errors not implemented! bring back commented out code for error div
 281. write about Note, implement a way to bring it back?
-
+292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?
 
 
 

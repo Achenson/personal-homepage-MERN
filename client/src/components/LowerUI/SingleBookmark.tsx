@@ -204,7 +204,7 @@ Props): JSX.Element {
       //   continue;
       // }
 
-      if (!tabs.filter((el) => el.id === tabID)[0].deletable) {
+      if (!tabs.filter((el) => el.id === tabID)[0]?.deletable) {
         continue;
       }
 

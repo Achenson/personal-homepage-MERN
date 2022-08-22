@@ -23,6 +23,7 @@ import {
   AddBookmarkMutation,
   ChangeBookmarkMutation,
   AddTabMutation,
+  DeleteTabMutation
 } from "../../graphql/graphqlMutations";
 
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
@@ -33,6 +34,10 @@ import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { responsePathAsArray } from "graphql";
 
 import { DbContext_i } from "../../utils/interfaces";
+
+interface TabId {
+  id: string;
+}
 
 interface Props {
   titleInput: string;
@@ -121,6 +126,11 @@ function Bookmark_lowerUI({
     any,
     BookmarkDatabase_i
   >(ChangeBookmarkMutation);
+
+  const [deleteTabResult, deleteTab] = useMutation<any, TabId>(
+    DeleteTabMutation
+  );
+
 
   const [addTabResult, addTab] = useMutation<any, TabDatabase_i>(
     AddTabMutation
@@ -344,6 +354,24 @@ function Bookmark_lowerUI({
 
     let bookmarkPromise = new Promise((resolve, reject) => {
       if (bookmarkComponentType === "edit") {
+
+
+
+        let bookmarkTagsToDelete: string[] = [];
+
+        for (let tag of currentBookmark.tags) {
+          if (tagsInputArr_ToIds.indexOf(tag) === -1) {
+            bookmarkTagsToDelete.push(tag);
+          }
+        }
+
+        let tabIdsToDelete = getTabsToDeleteDb(bookmarkId);
+
+        if (tabIdsToDelete.length > 0) {
+           deleteTabsLogicDb(tabIdsToDelete, tabs as TabDatabase_i[]);
+        }
+
+
         editBookmark({
           id: bookmarkId,
           userId: (globalSettings as SettingsDatabase_i).userId,
@@ -403,6 +431,72 @@ function Bookmark_lowerUI({
         deleteTabNotAuth(tabID);
       }
     }
+
+    async function deleteTabsLogicDb(
+      tabIDsToDelete: string[],
+      tabs: TabDatabase_i[]
+    ) {
+      for (let tabID of tabIDsToDelete) {
+        // if (tabID === "ALL_TAGS") {
+        //   continue;
+        // }
+  
+        if (!tabs.filter((el) => el.id === tabID)[0].deletable) {
+          continue;
+        }
+  
+        await deleteTab({ id: tabID }).then((result) => {
+          console.log(result);
+        });
+        // no logic for deletings tags in other bookmarks this time,
+        // because other bookmars should not contain this tag anymore
+      }
+    }
+
+    function getTabsToDeleteDb(bookmarkIdToDelete: string) {
+      // should contain all tags, but without the tags present in bookmark to del
+      let arrOfTags: string[] = [];
+
+      let bmarksWithoutBkmarkToDel: BookmarkDatabase_i[] = (
+        bookmarks as BookmarkDatabase_i[]
+      ).filter((el) => el.id !== bookmarkIdToDelete);
+
+      // pushing unique tags to arrOfAllTags
+      for (let bmark of bmarksWithoutBkmarkToDel) {
+        for (let tag of bmark.tags) {
+          if (arrOfTags.indexOf(tag) === -1) {
+            arrOfTags.push(tag);
+          }
+        }
+      }
+
+      let bookmarkTagsToDelete: string[] = [];
+
+      for (let tag of currentBookmark.tags) {
+        if (tagsInputArr_ToIds.indexOf(tag) === -1) {
+          bookmarkTagsToDelete.push(tag);
+        }
+      }
+      // first item in the arr is bookmark to delete
+      // let bookmarkToDeleteArr: BookmarkDatabase_i[] = (
+      //   bookmarks as BookmarkDatabase_i[]
+      // ).filter((el) => el.id === bookmarkIdToDelete);
+
+      let tagsToDelete: string[] = [];
+
+      // if one of the tag(tab) of bookmark to del is not present is all tags -> this tags (tabs) to delete
+      // for (let tag of bookmarkToDeleteArr[0].tags) {
+      for (let tag of bookmarkTagsToDelete) {
+        if (arrOfTags.indexOf(tag) === -1) {
+          tagsToDelete.push(tag);
+        }
+      }
+
+      return tagsToDelete;
+    }
+
+
+
   }
 
   function handleKeyDown(event: KeyboardEvent) {
