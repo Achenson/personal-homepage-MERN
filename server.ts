@@ -141,6 +141,13 @@ app.use(
       if (multerErr) {
         console.log("multerErr");
         console.log(multerErr);
+
+        res.status(415).json({
+          message: multerErr,
+          createdProduct: null,
+        });
+        return;
+
       }
 
       console.log("req.body background img upload");
@@ -183,7 +190,7 @@ app.use(
               removeBackgroundImg(file, userId);
             }
           });
-
+          // might be not needed
           res.status(201).json({
             message: "Created product successfully",
             createdProduct: backgroundImgProduct,

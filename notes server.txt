@@ -320,6 +320,8 @@ DONE 283. clear svgs (logout for sure) (globeAlt also deleted) DONE
 DONE 284. RESET tabs to default -> change text DONE
 DONE 286. make the 3 settings modals appear always at the same height (important on a xs screen) DONE
 DONE !287. implement empty tab deletion login in edit bookmark DONE
+DONE 291. BackgroundSettings_Upload -> errors not implemented! bring back commented out code for error div (goodEnough -> both errors in one)DONE
+DONE 291.5 Test uploading wrong type, too large files etc.DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -427,9 +429,8 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
   (good enough may cause different issues later)) 
 233. rrs itemsPerPage -> test on mobile! real one
 225 (pushed). is aria-label present in all btns?
-291. BackgroundSettings_Upload -> errors not implemented! bring back commented out code for error div
-message: "[Network] No Content"
-291.5 Test uploading wrong type, too large files etc.
+
+
 281. write about Note, implement a way to bring it back?
 292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?
 

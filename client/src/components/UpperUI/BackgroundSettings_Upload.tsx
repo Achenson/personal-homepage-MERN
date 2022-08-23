@@ -32,6 +32,7 @@ interface Props {
   // wasCustomClicked: boolean;
   // setWasCustomClicked: React.Dispatch<React.SetStateAction<boolean>>;
   hiddenFileInput: React.RefObject<HTMLInputElement>;
+  setDbFilesError: React.Dispatch<React.SetStateAction<string | null>>
 }
 
 enum DbFileErrors {
@@ -47,21 +48,23 @@ function BackgroundSettings_Upload({
   // wasCustomClicked,
   // setWasCustomClicked,
   hiddenFileInput,
+  setDbFilesError
 }: Props): JSX.Element {
   const authContext = useAuth();
-
+  
   const uiColor = globalSettings.uiColor;
-
+  
   const [uploadFile, setUploadFile] = useState("");
   // const [uploadFile, setUploadFile] = React.useState<Blob>();
   // const [uploadFile, setUploadFile] = React.useState<Object>();
-
+  
   const [changeSettingsResult, changeSettings] = useMutation<
-    any,
-    SettingsDatabase_i
+  any,
+  SettingsDatabase_i
   >(ChangeSettingsMutation);
 
   const [, uploadBackgroundImg] = useMutation(BackgroundImgUploadMutation);
+  
 
   // const handleChange = React.useCallback(
   //   ({
@@ -109,6 +112,15 @@ function BackgroundSettings_Upload({
         console.log("file");
         // @ts-ignore
        console.log(res?.operation?.variables?.file[0]?.name);
+
+       if (res.error?.message === '[Network] Unsupported Media Type') {
+        setDbFilesError("Upload a jpg or png file no larger than 10MB")
+
+        console.log("Upload a .jpg or .png file no larger than 10MB");
+        
+       } else {
+        setDbFilesError(null)
+       }
        
       });
       reexecuteBackgroundImg({ requestPolicy: "network-only" });
@@ -122,7 +134,6 @@ function BackgroundSettings_Upload({
     }
   };
 
-  // const [dbFilesError, setDbFilesError] = useState<null | string>(null);
 
   // let uploadFileName;
   // @ts-ignore

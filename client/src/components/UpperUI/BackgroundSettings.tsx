@@ -65,6 +65,8 @@ function BackgroundSettings({
 
   const hiddenFileInput = useRef<HTMLInputElement>(null);
 
+  const [dbFilesError, setDbFilesError] = useState<null | string>(null);
+
   useEffect(() => {
     if (windowSize.width) {
       if (windowSize.width < 505) {
@@ -163,7 +165,6 @@ function BackgroundSettings({
   ) => {
     if (userIdOrNoId && globalSettings.picBackground) {
       return (
-        
         <div className="mt-1 xs:mt-0">
           <BackgroundSettings_Upload
             xsScreen={xsScreen}
@@ -173,6 +174,7 @@ function BackgroundSettings({
             // wasCustomClicked={wasCustomClicked}
             // setWasCustomClicked={setWasCustomClicked}
             hiddenFileInput={hiddenFileInput}
+            setDbFilesError={setDbFilesError}
           />
         </div>
       );
@@ -214,7 +216,7 @@ function BackgroundSettings({
       >
         <div
           // className="md:mb-40 relative"
-          style={{marginBottom: "29px"}}
+          style={{ marginBottom: "29px" }}
           onClick={(e) => {
             e.stopPropagation();
             return;
@@ -345,7 +347,11 @@ function BackgroundSettings({
                 <div className="text-center">
                   <p className={`mb-2 xs:mb-0`}>{imgDescription_1}</p>
 
-                  <div className={`mt-12 xs:mt-8`}>
+                  <div className="mt-6  xs:mt-3  h-5 text-red-500 text-center text-sm">
+                    {userIdOrNoId ? dbFilesError : null}
+                  </div>
+
+                  <div className={`mt-0 xs:mt-0`}>
                     {renderChoseImage(userIdOrNoId)}
                     {/* INSERT HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
 
@@ -368,6 +374,9 @@ function BackgroundSettings({
                               defaultImage: "defaultBackground",
                             });
 
+                        if (userIdOrNoId) {
+                          setDbFilesError(null);
+                        }
                         // changeSettings({
                         //   ...globalSettings,
                         //   defaultImage: "defaultBackground",
@@ -405,6 +414,10 @@ function BackgroundSettings({
                               ...(globalSettings as UseGlobalSettingsAll),
                               defaultImage: "defaultBackground_2",
                             });
+
+                        if (userIdOrNoId) {
+                          setDbFilesError(null);
+                        }
                       }}
                       className="focus-1-offset"
                       aria-label={"Background image two"}
@@ -436,6 +449,9 @@ function BackgroundSettings({
                               defaultImage: "defaultBackground_3",
                             });
 
+                        if (userIdOrNoId) {
+                          setDbFilesError(null);
+                        }
                         // changeSettings({
                         //   ...globalSettings,
                         //   defaultImage: "defaultBackground_3",
