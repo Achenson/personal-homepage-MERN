@@ -59,14 +59,14 @@ export const revokeRefreshTokenMutationField = {
       { _id: args.userId },
       { $inc: { tokenVersion: 1 } },
       { new: true },
-      (err: Error, response: any) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log("revokeToken response");
-          console.log(response);
-        }
-      }
+      // (err: Error, response: any) => {
+      //   if (err) {
+      //     console.log(err);
+      //   } else {
+      //     console.log("revokeToken response");
+      //     console.log(response);
+      //   }
+      // }
     );
   },
 };

@@ -143,6 +143,8 @@ DONE 124 (pushed after taking care of context). zustand hooks -> delete or imple
 ? done 125. should refreshToken() return null in case of failure in App.ts?? (returning null now)done ?
 DONE 127. implement token revoking !!!! DONE
 DONE 132. implement Registration !!! DONE
+DONE 133. revokingToken -> "query was already executed: "mixing promises with callback??
+(deleted error handling) DONE
 DONE 135. LoginSVG -> move to the left? (to the right actually, other svgs also moved) DONE
 DONE 136. change name to username everywhere?  (name on the backend, username frontend - changed UserProfile for consistency)DONE
 DONE 137. changing between 2 differen users, check user queries DONE !!! User.findById(userId) !!!
@@ -405,26 +407,7 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
  eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?
 167.(pushed) changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
 181. (pushed) clean db in the end
-133. revokingToken -> "query was already executed: "mixing promises with callback??
-289. revokeRefreshToken, works but: {
-  "errors": [
-    {
-      "message": "Query was already executed: User.findOneAndUpdate({ _id: new ObjectId(\"62ffd00b4ac6abda2...",
-      "locations": [
-        {
-          "line": 2,
-          "column": 7
-        }
-      ],
-      "path": [
-        "revokeRefreshToken"
-      ]
-    }
-  ],
-  "data": {
-    "revokeRefreshToken": null
-  }
-}
+
 240. (rethink again - slow performance!?) bookmarks are rendered only after tab is open -> maybe they should be just hidden instead?
   (good enough may cause different issues later)) 
 233. rrs itemsPerPage -> test on mobile! real one
