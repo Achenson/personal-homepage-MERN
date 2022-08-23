@@ -118,6 +118,7 @@ DONE 99. server.ts -> make separate files (params has to be in a route!,
  DONE 100. server.txs -> rootValue -> is it needed? see notes DONE
 !!! DONE 103. unify callback functions -> function declaration instead of () => { }everywherw in JSX?
  (changed to function reference in few cases) DONE !!!
+DONE 102  react keys -> they should by indices ! change to id (indices for bookmars and tabs changed) DONE
 DONE 105. delete the other background image (post route? deleted ) DONE
 DONE 106. make it possible to changle background img when not logged in, again DONE
 DONE 107 (pushed - see other notes about backgroundIMgMut first). write notes for file upload system! DONE
@@ -397,11 +398,8 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 236. (push -> same problem as bookmark and tabs interfaces problen)globalSettings to globalSettignsDb rename everywhere? (currently in Column only)
 237. (pushed, solve interfaces problem together with tabs& bookmarks) globalSettings interfaces - smtms different smtms from db?
 239. (pushed, same reason as above) bookmarks itp -> in the end ts is chosing the type by itself, even if it should be split type
-102 (pushed -> interfaces for tabs etc. should be unified first). react keys -> they should by indices ! change to id 
-
 
 285. make the UpperRightMenu_XS the default way? Then -> move ResetSVG btn to the UpperRightMenu? (if not, check if height on md: is okay, was changed by #286)
-
 
 266. (pushed, solve all issue regarding bookmarks, tabs, settings interfaces together)
  eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?

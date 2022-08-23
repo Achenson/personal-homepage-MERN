@@ -20,9 +20,7 @@ import { ReactComponent as PlusSVG } from "../../svgs/plus.svg";
 // import { useBookmarks } from "../../state/hooks/useBookmarks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useReset } from "../../state/hooks/useReset";
-import {
-  useTabBeingDraggedColor,
-} from "../../state/hooks/colorHooks";
+import { useTabBeingDraggedColor } from "../../state/hooks/colorHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabReducer } from "../../context/useTabReducer";
@@ -63,7 +61,7 @@ interface Props {
   tabIsDeletable: boolean;
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
   // tabs: TabDatabase_i[];
-  currentTab: TabDatabase_i;
+  currentTab: TabDatabase_i | SingleTabData;
   userIdOrNoId: string | null;
   // tabs: SingleTabData[];
 }
@@ -102,12 +100,12 @@ function Tab({
   const bookmarksDb = useDbContext()?.bookmarks;
   const tabsDb = useDbContext()?.tabs;
 
-  let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
+  // let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
 
-  bookmarks = userIdOrNoId
-    ? (bookmarksDb as BookmarkDatabase_i[])
-    : bookmarksNotAuth;
+  // bookmarks = userIdOrNoId
+  //   ? (bookmarksDb as BookmarkDatabase_i[])
+  //   : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   // const tabs = useTabs((store) => store.tabs);
@@ -175,22 +173,12 @@ function Tab({
 
   const [crossVis, setCrossVis] = useState<boolean>(true);
 
-
-
-
-
-
   // client-side (ONLY??)
   // useEffect(() => {
   //   if (closeAllTabsState && !userIdOrNoId) {
   //     tabVisDispatch({ type: "TAB_CONTENT_DEFAULT" });
   //   }
   // }, [closeAllTabsState, tabVisDispatch, userIdOrNoId]);
-
-
-
-
-
 
   let finalTabColor: string = "";
 
@@ -617,7 +605,10 @@ function Tab({
 
         {tabOpened_local && tabType === "folder" && (
           <div>
-            {bookmarks
+            {(userIdOrNoId
+              ? (bookmarksDb as BookmarkDatabase_i[])
+              : (bookmarksNotAuth as SingleBookmarkData[])
+            )
               .filter((el) => el.tags.indexOf(tabID) > -1)
               .sort((a, b) => (a.title > b.title ? 1 : -1))
               .map((el, i) => {
@@ -627,7 +618,7 @@ function Tab({
                     bookmarkId={el.id as string}
                     colNumber={colNumber}
                     setBookmarkId={setBookmarkId}
-                    key={i}
+                    key={el.id}
                     tabID={tabID}
                     isTabDraggedOver={isTabDraggedOver}
                     globalSettings={globalSettings}

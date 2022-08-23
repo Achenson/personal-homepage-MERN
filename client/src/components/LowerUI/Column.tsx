@@ -62,9 +62,9 @@ Props): JSX.Element {
 
   const globalSettingsNotAuth = useGlobalSettings((state) => state, shallow);
 
-  let tabs: TabDatabase_i[] | SingleTabData[];
+  // let tabs: TabDatabase_i[] | SingleTabData[];
 
-  tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
+  // tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   const upperUiContext = useUpperUiContext();
   const authContext = useAuth();
@@ -88,7 +88,7 @@ Props): JSX.Element {
     ? globalSettingsDb
     : globalSettingsNotAuth;
 
-  tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
+  // tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   function calcColumnColor_picBackground(
     colNumber: number,
@@ -150,7 +150,7 @@ Props): JSX.Element {
     }
   }
 
-  let sortedTabs = (tabs as SingleTabData[])
+  let sortedTabs = (tabsNotAuth)
     .filter((el) => el.column === colNumber)
     .sort((a, b) => a.priority - b.priority);
 
@@ -161,7 +161,7 @@ Props): JSX.Element {
     lastTabId = null;
   }
 
-  let tabDataLength = (tabs as SingleTabData[]).filter(
+  let tabDataLength = (tabsNotAuth).filter(
     (el) => el.column === colNumber
   ).length;
 
@@ -222,14 +222,14 @@ Props): JSX.Element {
       }}
     >
       {/* {(tabs as SingleTabData[]) */}
-      {(tabs as TabDatabase_i[])
+      {(userIdOrNoId ? tabsDb as TabDatabase_i[] : tabsNotAuth )
         .filter((el) => el.column === colNumber)
         // lower priority, higher in the column
         .sort((a, b) => a.priority - b.priority)
         .map((el, i) => {
           return (
             <div
-              key={i}
+              key={el.id}
               className={`flex flex-col ${
                 isThisLastGap(lastTabId, el.id) ? "flex-grow" : ""
               }`}

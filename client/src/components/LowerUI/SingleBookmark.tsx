@@ -62,7 +62,7 @@ import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import e from "express";
 
 interface Props {
-  singleBookmarkData: SingleBookmarkData;
+  singleBookmarkData: SingleBookmarkData | BookmarkDatabase_i;
   bookmarkId: string;
   setBookmarkId: React.Dispatch<React.SetStateAction<string | undefined>>;
   colNumber: number;

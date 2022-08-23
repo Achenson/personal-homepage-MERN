@@ -7,6 +7,7 @@ import { tabColorsLightFocus } from "../../utils/data/colors_tab";
 
 import { ChangeTabMutation } from "../../graphql/graphqlMutations";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
+import { SingleTabData } from "../../utils/interfaces";
 
 interface Props {
   color: string;
@@ -17,7 +18,7 @@ interface Props {
   colorNumber: number;
   setSelectedNumber: React.Dispatch<React.SetStateAction<number>>;
   colorArrLength: number;
-  currentTab: TabDatabase_i;
+  currentTab: TabDatabase_i | SingleTabData;
   userIdOrNoId: string | null;
 }
 
@@ -70,7 +71,7 @@ function SingleColor_Tab({
         // setTabColor(color, tabID);
 
         userIdOrNoId
-          ? editTab({ ...currentTab, color: color })
+          ? editTab({ ...currentTab as TabDatabase_i, color: color })
           : setTabColor(color, tabID);
 
         setSelectedNumber(colorNumber);

@@ -12,6 +12,7 @@ import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { SingleTabData } from "../../utils/interfaces";
 // import { testUserId } from "../../state/data/testUserId";
 
 interface Props {
@@ -20,7 +21,7 @@ interface Props {
   tabColor: string | null;
   tabType: "folder" | "note" | "rss";
   globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
-  currentTab: TabDatabase_i;
+  currentTab: TabDatabase_i | SingleTabData;
   userIdOrNoId: string | null;
 }
 
