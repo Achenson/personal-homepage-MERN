@@ -128,7 +128,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
       }}
       className={`${upperUiContext.upperVisState.addTabVis_xs ? "h-14" : "h-7"}
         ${xsDisplay("sm:h-7", "xs:h-7")}
-      w-28 ${xsDisplay("sm:w-56", "xs:w-56")} ${xsDisplay(
+      w-28 ${xsDisplay("sm:w-44", "xs:w-44")} ${xsDisplay(
         "sm:flex",
         "xs:flex"
       )}  justify-between items-center bg-white bg-opacity-80 rounded-md border border-gray-700 `}
@@ -208,9 +208,9 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
         className={`hidden ${xsDisplay(
           "sm:flex",
           "xs:flex"
-        )}  w-24 justify-around items-center mr-0.5`}
+        )}  w-24 justify-end items-center mr-0.5`}
       >
-        <button
+        {/* <button
           ref={focusOnUpperRightUi_ref_5}
           className="h-6 w-6 focus-2-veryDark"
           onClick={() => {
@@ -225,8 +225,8 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
             className={`h-full w-full cursor-pointer transition-colors duration-75 hover:text-${uiColor} `}
           />
         </button>
-
-        <button
+            */}
+        {/* <button
           ref={focusOnUpperRightUi_ref_6}
           className="h-6 w-6 focus-2-veryDark"
           onClick={() => {
@@ -238,7 +238,9 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
           <ColorSVG
             className={`h-full w-full cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
           />
-        </button>
+        </button>  */}
+        
+      
 
         <button
           ref={focusOnUpperRightUi_ref_7}
