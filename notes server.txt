@@ -230,7 +230,8 @@ DONE 202. Grid tabDeletingPause introduced in MERN version -> can/should it be i
   tab deleting pause is no more! it was used for old logic of empty tab deletion) DONE
 DONE 204. all userIdOrNoId logic -> convert to ? : DONE
 DONE 206. useBookmark -> change ids in the starting data for nonAuth to strings? DONE
-
+DONE 207. (pushed -> solve auth non-auth problems with bookmarks & tabs first) NewBookmark_UpperUI
+ -> ts-ignore had to be user 2x -> why?? (1 ts-ignore less, more separated logic between auth and notAuth) DONE 
 DONE !!!!! 207. SingleBookmark -> implement icon fallback for nonAuth Version! DONE
 DONE 208. BackgroundSettings-> if no userId -> implement logic to suggest creating an account
 BackgroundSettings_Upload doesn't have to be touched though? code won't be executed DONE
@@ -387,8 +388,6 @@ it will trigger refresh in getAuth
 155. better email validation
 188. wiki-speed-typing -> check if password retrival is available still
 
-207. (pushed -> solve auth non-auth problems with bookmarks & tabs first) NewBookmark_UpperUI
- -> ts-ignore had to be user 2x -> why??
 209. (pushed -> solve auth non-auth problems with bookmarks & tabs first) settings should be unified? add null userId and null to non-auth version?
 213. (pushed -> solve auth non-auth problems with bookmarks & tabs first) () SingleBookmark -> interface for nonAuth is being used also for auth?? the one for auth being not used
 224. (pushed -> no hover field anywhere, but should it be introduced? or may be as display at hte top) 

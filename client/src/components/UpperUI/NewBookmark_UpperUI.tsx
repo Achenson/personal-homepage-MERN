@@ -168,7 +168,8 @@ function NewBookmark_UpperUI({
     ];
 
     // let newTabsToAdd: SingleTabData[] = [];
-    let newTabsToAdd: TabDatabase_i[] | SingleTabData[] = [];
+    let newTabsToAddDb: TabDatabase_i[] = [];
+    let newTabsToAddNotAuth: SingleTabData[] = [];
 
     // // NotAuth
     // let newTabIdsUsedByBookmarksData = [...tabIdsUsedByBookmarks];
@@ -190,26 +191,41 @@ function NewBookmark_UpperUI({
 
       // if folder with title corresponding to tag doesn't exist create it...
       if (!tabCorrespondingToTag && selectablesInputStr !== "") {
-        let newTab: TabDatabase_i | SingleTabData;
+        // let newTab: TabDatabase_i | SingleTabData;
         // let newTab = createFolderTab(el, 1, newTabPriority);
 
-        newTab = userIdOrNoId
+        let newTabDb: TabDatabase_i | null;
+
+        let newTabNotAuth: SingleTabData | null;
+
+        newTabDb = userIdOrNoId
           ? createFolderTabDb(
               (globalSettings as SettingsDatabase_i).userId,
               el,
               1,
               newTabPriority
             )
+          : null;
+
+        newTabNotAuth = userIdOrNoId
+          ? null
           : createFolderTab(el, 1, newTabPriority);
 
-        tagsInputArr_ToIds.push(newTab.id);
+        tagsInputArr_ToIds.push(
+          userIdOrNoId
+            ? (newTabDb as TabDatabase_i).id
+            : (newTabNotAuth as SingleTabData).id
+        );
 
         //... and add new folder tab to the main tags list
 
         // if (!userIdOrNoId) newTabIdsUsedByBookmarksData.push(newTab.id);
 
-        // @ts-ignore
-        newTabsToAdd.push(newTab);
+        if (userIdOrNoId) {
+          newTabsToAddDb.push(newTabDb as TabDatabase_i);
+        } else {
+          newTabsToAddNotAuth.push(newTabNotAuth as SingleTabData);
+        }
 
         counterForIndices++;
       } else {
@@ -220,25 +236,22 @@ function NewBookmark_UpperUI({
       }
     });
 
-    if (newTabsToAdd.length > 0) {
+    if (newTabsToAddDb.length > 0 && userIdOrNoId) {
       // setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
       // addTabs(newTabsToAdd);
 
-      if (userIdOrNoId) {
-        let arrOfPromises = (newTabsToAdd as TabDatabase_i[]).map((obj) =>
-          addTab(obj)
-        );
+      let arrOfPromises = newTabsToAddDb.map((obj) => addTab(obj));
 
-        let arrOfNewFolderObjs = await Promise.all(arrOfPromises);
-        // let arrOfNewFolderIds = await Promise.all(arrOfPromises);
+      let arrOfNewFolderObjs = await Promise.all(arrOfPromises);
+      // let arrOfNewFolderIds = await Promise.all(arrOfPromises);
 
-        arrOfNewFolderObjs.forEach((obj) => {
-          tagsInputArr_ToIds.push(obj.data.addTab.id);
-        });
-      } else {
-        // setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
-        addTabsNotAuth(newTabsToAdd);
-      }
+      arrOfNewFolderObjs.forEach((obj) => {
+        tagsInputArr_ToIds.push(obj.data.addTab.id);
+      });
+    }
+
+    if (newTabsToAddNotAuth.length > 0 && !userIdOrNoId) {
+      addTabsNotAuth(newTabsToAddNotAuth);
     }
 
     if (!userIdOrNoId) {
