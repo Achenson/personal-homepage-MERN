@@ -106,7 +106,7 @@ Props): JSX.Element {
   let tabs: TabDatabase_i[] | SingleTabData[];
 
   bookmarks = userIdOrNoId
-    ? (bookmarksDb as SingleBookmarkData[])
+    ? (bookmarksDb as BookmarkDatabase_i[])
     : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
