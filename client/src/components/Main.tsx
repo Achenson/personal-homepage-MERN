@@ -28,7 +28,6 @@ import { useAuth } from "../state/hooks/useAuth";
 import { useTabs } from "../state/hooks/useTabs";
 import { useBookmarks } from "../state/hooks/useBookmarks";
 
-import { SettingsDatabase_i } from "../../../schema/types/settingsType";
 import {
   TabsQuery,
   BookmarksQuery,
@@ -42,6 +41,7 @@ import {
   // AuthContext_i,
   // BackgroundImgContext_i,
   DbContext_i,
+  GlobalSettingsState,
   SingleBookmarkData,
   SingleTabData,
 } from "../utils/interfaces";
@@ -52,7 +52,7 @@ import PasswordForgotten from "./AuthRoutes/PasswordForgotten";
 import ForgottenPassChange from "./AuthRoutes/ForgottenPassChange";
 
 interface Props {
-  globalSettings: SettingsDatabase_i;
+  globalSettings: GlobalSettingsState;
 }
 
 function Main({ globalSettings }: Props): JSX.Element {

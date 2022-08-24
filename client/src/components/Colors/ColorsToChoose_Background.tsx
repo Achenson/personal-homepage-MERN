@@ -10,14 +10,14 @@ import {
   backgroundColors,
   backgroundColorsConcat,
 } from "../../utils/data/colors_background";
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { GlobalSettingsState } from "../../utils/interfaces";
 // import { testUserId } from "../../state/data/testUserId";
 
 interface Props {
   setFocusOnBackgroundColor: React.Dispatch<React.SetStateAction<boolean>>;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
 

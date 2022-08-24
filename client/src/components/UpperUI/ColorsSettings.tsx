@@ -13,13 +13,13 @@ import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
 
@@ -84,7 +84,7 @@ function ColorsSettings({
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  let globalSettings: SettingsDatabase_i = data.settings; */
+ 
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 6, undefined);

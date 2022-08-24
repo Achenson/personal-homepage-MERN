@@ -15,14 +15,14 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 import { useAuth } from "../../state/hooks/useAuth";
 
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { LoginMutation, AddUserMutaton } from "../../graphql/graphqlMutations";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: GlobalSettingsState;
   children: ReactChild;
   // loginNotification: string | null;
   // setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>;

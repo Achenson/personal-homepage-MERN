@@ -4,8 +4,8 @@ import React from "react";
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
   title: string;
@@ -15,7 +15,7 @@ interface Props {
   descriptionVis: boolean | null | undefined;
   dateVis: boolean | null | undefined;
   isTabDraggedOver: boolean;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
 }
 
 function SingeRssNews({

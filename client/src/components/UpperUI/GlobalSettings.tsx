@@ -24,16 +24,15 @@ import {
   ChangeTabMutation,
 } from "../../graphql/graphqlMutations";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { objectTraps } from "immer/dist/internal";
 
-import { SingleTabData } from "../../utils/interfaces";
+import { GlobalSettingsState, SingleTabData } from "../../utils/interfaces";
 
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
 
@@ -95,7 +94,7 @@ function GlobalSettings({
 
   const [changeSettingsResult, changeSettings] = useMutation<
     any,
-    SettingsDatabase_i
+    GlobalSettingsState
   >(ChangeSettingsMutation);
 
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
@@ -106,12 +105,6 @@ function GlobalSettings({
     () => globalSettings.itemsPerPage
   );
 
-  /*  const { data, fetching, error } = settingsResults;
-
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
-
-  let globalSettings: SettingsDatabase_i = data.settings; */
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 7, undefined);

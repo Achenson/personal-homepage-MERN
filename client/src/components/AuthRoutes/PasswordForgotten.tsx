@@ -3,7 +3,6 @@ import FocusLock from "react-focus-lock";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "urql";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
@@ -13,11 +12,12 @@ import LogRegProfile_input from "./LogRegProfile_input";
 import { ForgotPasswordMutation } from "../../graphql/graphqlMutations";
 
 import { AuthDataForgotPassword_i } from "../../../../schema/types/authDataType";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: GlobalSettingsState;
   // loginNotification: string | null;
   // setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>;
 }

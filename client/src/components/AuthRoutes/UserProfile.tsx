@@ -12,8 +12,6 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 // import { useAuthContext } from "../../context/authContext";
 import { useAuth } from "../../state/hooks/useAuth";
 
-import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { DeleteAccountByUser_i } from "../../../../schema/types/deleteAccountByUserType";
 
 import {
@@ -29,11 +27,12 @@ import { UserQuery } from "../../graphql/graphqlQueries";
 import { AuthDataInput_i } from "../../../../schema/types/authDataType";
 import { ChangeUserByUser_i } from "../../../../schema/types/changeUserByUserType";
 import { ChangePasswordByUser_i } from "../../../../schema/types/changePasswordByUserType";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: GlobalSettingsState;
   // loginNotification: string | null;
   // setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>;
 }

@@ -35,11 +35,11 @@ import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 import {
   BookmarkErrors,
+  GlobalSettingsState,
   SetBookmarkErrors,
   SingleBookmarkData,
   SingleTabData,
 } from "../../utils/interfaces";
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 
@@ -64,7 +64,7 @@ interface Props {
   scrollbarWidth: number;
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
 
@@ -200,7 +200,7 @@ function NewBookmark_UpperUI({
 
         newTabDb = userIdOrNoId
           ? createFolderTabDb(
-              (globalSettings as SettingsDatabase_i).userId,
+              globalSettings.userId,
               el,
               1,
               newTabPriority
@@ -264,7 +264,7 @@ function NewBookmark_UpperUI({
     let bookmarkPromise = new Promise((resolve, reject) => {
       addBookmark(
         createBookmarkDb(
-          (globalSettings as SettingsDatabase_i).userId,
+          globalSettings.userId,
           titleInput,
           urlInput,
           tagsInputArr_ToIds

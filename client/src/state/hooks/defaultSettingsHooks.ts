@@ -22,6 +22,9 @@ export interface UseGlobalSettingsAll extends GlobalSettingsState {
 export const useGlobalSettings = create<UseGlobalSettingsAll>(
   persist(
   (set) => ({
+    // id & userId used in auth version
+    id: "",
+    userId: "",
     picBackground: false,
     defaultImage: "defaultBackground",
     oneColorForAllCols: false,

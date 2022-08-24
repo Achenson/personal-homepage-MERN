@@ -63,6 +63,8 @@ export interface SingleBookmarkData extends SingleBookmarkDataBasic{
 }
 
 export interface GlobalSettingsState {
+  id: string;
+  userId: string;
   picBackground: boolean;
   defaultImage: string;
   oneColorForAllCols: boolean;

@@ -15,8 +15,7 @@ const {
 } = graphql;
 
 export interface SettingsDatabase_i extends GlobalSettingsState {
-  id: string;
-  userId: string;
+
 }
 
 export const SettingsFields = {

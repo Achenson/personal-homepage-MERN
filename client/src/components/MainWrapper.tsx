@@ -9,9 +9,8 @@ import { SettingsQuery } from "../graphql/graphqlQueries";
 // import { useAuthContext } from "../context/authContext";
 import { useAuth } from "../state/hooks/useAuth";
 import { useGlobalSettings } from "../state/hooks/defaultSettingsHooks";
+import { GlobalSettingsState } from "../utils/interfaces";
 
-
-import { SettingsDatabase_i } from "../../../schema/types/settingsType";
 
 // component purpose: to provide globalSetting as a prop, because
 // in Main a useEffect depends on it - globalSettins needs to be defined right away
@@ -37,8 +36,7 @@ function MainWrapper(): JSX.Element {
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
 
-  // let globalSettings: SettingsDatabase_i = data.settings;
-  let globalSettings: SettingsDatabase_i;
+  let globalSettings: GlobalSettingsState;
 
   globalSettings = userIdOrNoId ? data.settings : globalSettingsNotAuth
 

@@ -15,9 +15,8 @@ import ModalWrap from "./UpperUI/ModalWrap";
 
 import { useAuth } from "../state/hooks/useAuth";
 
-import { SettingsDatabase_i } from "../../../schema/types/settingsType";
 
-import { UpperVisState } from "../utils/interfaces";
+import { GlobalSettingsState, UpperVisState } from "../utils/interfaces";
 
 import {
   TabsQuery,
@@ -34,7 +33,7 @@ import {
 // } from "../utils/interfaces";
 
 interface Props {
-  globalSettings: SettingsDatabase_i;
+  globalSettings: GlobalSettingsState;
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   tabType: "folder" | "note" | "rss";

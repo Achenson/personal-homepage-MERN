@@ -19,13 +19,13 @@ import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import BackgroundSettings_Upload from "./BackgroundSettings_Upload";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   backgroundImgResults: UseQueryState<
     any,
     {
@@ -86,10 +86,10 @@ function BackgroundSettings({
 
   const [changeSettingsResult, changeSettings] = useMutation<
     any,
-    SettingsDatabase_i
+    GlobalSettingsState
   >(ChangeSettingsMutation);
 
-  // let globalSettings: SettingsDatabase_i = data.settings;
+
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 5, undefined);
@@ -143,7 +143,7 @@ function BackgroundSettings({
             // }
 
             changeSettings({
-              ...(globalSettings as SettingsDatabase_i),
+              ...globalSettings,
               defaultImage: "customBackground",
             });
           }}
@@ -272,11 +272,11 @@ function BackgroundSettings({
 
                       userIdOrNoId
                         ? changeSettings({
-                            ...(globalSettings as SettingsDatabase_i),
+                            ...globalSettings,
                             picBackground: true,
                           })
                         : setGlobalSettings({
-                            ...(globalSettings as UseGlobalSettingsAll),
+                            ...globalSettings,
                             picBackground: true,
                           });
 
@@ -312,11 +312,11 @@ function BackgroundSettings({
 
                       userIdOrNoId
                         ? changeSettings({
-                            ...(globalSettings as SettingsDatabase_i),
+                            ...globalSettings,
                             picBackground: false,
                           })
                         : setGlobalSettings({
-                            ...(globalSettings as UseGlobalSettingsAll),
+                            ...globalSettings,
                             picBackground: false,
                           });
 
@@ -366,11 +366,11 @@ function BackgroundSettings({
 
                         userIdOrNoId
                           ? changeSettings({
-                              ...(globalSettings as SettingsDatabase_i),
+                              ...globalSettings,
                               defaultImage: "defaultBackground",
                             })
                           : setGlobalSettings({
-                              ...(globalSettings as UseGlobalSettingsAll),
+                              ...globalSettings,
                               defaultImage: "defaultBackground",
                             });
 
@@ -407,7 +407,7 @@ function BackgroundSettings({
 
                         userIdOrNoId
                           ? changeSettings({
-                              ...(globalSettings as SettingsDatabase_i),
+                              ...globalSettings,
                               defaultImage: "defaultBackground_2",
                             })
                           : setGlobalSettings({
@@ -441,7 +441,7 @@ function BackgroundSettings({
 
                         userIdOrNoId
                           ? changeSettings({
-                              ...(globalSettings as SettingsDatabase_i),
+                              ...globalSettings,
                               defaultImage: "defaultBackground_3",
                             })
                           : setGlobalSettings({

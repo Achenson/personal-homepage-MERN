@@ -27,13 +27,12 @@ import { useAuth } from "../../state/hooks/useAuth";
 
 import { LogoutMutation } from "../../graphql/graphqlMutations";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
-
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
 }
 
 function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {

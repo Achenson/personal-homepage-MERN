@@ -8,13 +8,13 @@ import { backgroundColors } from "../../utils/data/colors_background";
 import { useUpperUiContext } from "../../context/upperUiContext";
 import "../../utils/fade.css";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import { useAuth } from "../../state/hooks/useAuth";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
 }
 
 function Message({ globalSettings }: Props): JSX.Element {

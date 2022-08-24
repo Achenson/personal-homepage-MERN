@@ -5,11 +5,11 @@ import { RemoveScroll } from "react-remove-scroll";
 
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
   children: ReactChild;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: GlobalSettingsState;
 }
 
 // different handling of scrollbar in case of plain color image mode and background image mode

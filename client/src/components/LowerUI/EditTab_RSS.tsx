@@ -12,10 +12,10 @@ import { ReactComponent as MinusSmSVG } from "../../svgs/minus-sm.svg";
 import { useTabs } from "../../state/hooks/useTabs";
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 import { ChangeTabMutation } from "../../graphql/graphqlMutations";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
   setWasAnythingClicked: React.Dispatch<React.SetStateAction<boolean>>;
@@ -30,7 +30,7 @@ interface Props {
   tabID: string;
   rssLinkInput: string;
   setRssLinkInput: React.Dispatch<React.SetStateAction<string>>;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
   currentTab: TabDatabase_i;
 }

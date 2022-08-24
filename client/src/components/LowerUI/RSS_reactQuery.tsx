@@ -15,8 +15,7 @@ import { ReactComponent as ArrowRight } from "../../svgs/arrowRight.svg";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
-import { SingleTabData } from "../../utils/interfaces";
+import { GlobalSettingsState, SingleTabData } from "../../utils/interfaces";
 
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
@@ -27,7 +26,7 @@ interface Props {
   tabID: string;
   currentTab: SingleTabData;
   isTabDraggedOver: boolean;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
 }
 
 function ReactQuery({

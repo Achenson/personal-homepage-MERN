@@ -26,10 +26,9 @@ import {
   DeleteTabMutation
 } from "../../graphql/graphqlMutations";
 
-import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
+import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { BookmarkErrors, SetBookmarkErrors } from "../../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { responsePathAsArray } from "graphql";
 
@@ -62,7 +61,7 @@ interface Props {
   setErrors: SetBookmarkErrors;
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
 
@@ -242,7 +241,7 @@ function Bookmark_lowerUI({
 
         newTab = userIdOrNoId
           ? createFolderTabDb(
-              (globalSettings as SettingsDatabase_i).userId,
+              globalSettings.userId,
               el,
               colNumber,
               newTabPriority
@@ -374,7 +373,7 @@ function Bookmark_lowerUI({
 
         editBookmark({
           id: bookmarkId,
-          userId: (globalSettings as SettingsDatabase_i).userId,
+          userId: globalSettings.userId,
           title: titleInput,
           URL: urlInput,
           tags: tagsInputArr_ToIds,
@@ -390,7 +389,7 @@ function Bookmark_lowerUI({
         // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
         addBookmark(
           createBookmarkDb(
-            (globalSettings as SettingsDatabase_i).userId,
+            globalSettings.userId,
             titleInput,
             urlInput,
             tagsInputArr_ToIds

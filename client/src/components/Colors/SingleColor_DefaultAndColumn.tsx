@@ -6,12 +6,12 @@ import { setComplementaryUiColor } from "../../utils/funcs and hooks/complementa
 import { tabColorsLightFocus } from "../../utils/data/colors_tab";
 
 import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 import {
   UseGlobalSettingsAll,
   useGlobalSettings,
 } from "../../state/hooks/defaultSettingsHooks";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
   color: string;
@@ -29,7 +29,7 @@ interface Props {
   colorNumber: number;
   setSelectedNumber: React.Dispatch<React.SetStateAction<number>>;
   colorArrLength: number;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
 
@@ -52,7 +52,7 @@ function SingleColor_DefaultAndColumn({
 
   const [changeSettingsResult, changeSettings] = useMutation<
     any,
-    SettingsDatabase_i
+    GlobalSettingsState
   >(ChangeSettingsMutation);
 
   const setGlobalSettings = useGlobalSettings(
@@ -156,12 +156,12 @@ function SingleColor_DefaultAndColumn({
 
           userIdOrNoId
             ? changeSettings({
-                ...(globalSettings as SettingsDatabase_i),
+                ...globalSettings,
                 folderColor: color,
                 uiColor: setComplementaryUiColor(color),
               })
             : setGlobalSettings({
-                ...(globalSettings as UseGlobalSettingsAll),
+                ...globalSettings,
                 folderColor: color,
                 uiColor: setComplementaryUiColor(color),
               });
@@ -173,7 +173,7 @@ function SingleColor_DefaultAndColumn({
 
           userIdOrNoId
             ? changeSettings({
-                ...(globalSettings as SettingsDatabase_i),
+                ...globalSettings,
                 noteColor: color,
               })
             : setGlobalSettings({
@@ -188,11 +188,11 @@ function SingleColor_DefaultAndColumn({
 
           userIdOrNoId
             ? changeSettings({
-                ...(globalSettings as SettingsDatabase_i),
+                ...globalSettings,
                 rssColor: color,
               })
             : setGlobalSettings({
-                ...(globalSettings as UseGlobalSettingsAll),
+                ...globalSettings,
                 rssColor: color,
               });
         }
@@ -209,11 +209,11 @@ function SingleColor_DefaultAndColumn({
 
           userIdOrNoId
             ? changeSettings({
-                ...(globalSettings as SettingsDatabase_i),
+                ...globalSettings,
                 [defaultColorsFor]: color,
               })
             : setGlobalSettings({
-                ...(globalSettings as UseGlobalSettingsAll),
+                ...globalSettings,
                 [defaultColorsFor]: color,
               });
 
@@ -235,11 +235,11 @@ function SingleColor_DefaultAndColumn({
 
           userIdOrNoId
             ? changeSettings({
-                ...(globalSettings as SettingsDatabase_i),
+                ...globalSettings,
                 [defaultColorsForImg]: color,
               })
             : setGlobalSettings({
-                ...(globalSettings as UseGlobalSettingsAll),
+                ...globalSettings,
                 [defaultColorsForImg]: color,
               });
         }

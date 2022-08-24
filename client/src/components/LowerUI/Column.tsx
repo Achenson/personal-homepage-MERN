@@ -28,8 +28,7 @@ import { SettingsQuery } from "../../graphql/graphqlQueries";
 
 // import { testUserId } from "../../state/data/testUserId";
 
-import { SingleTabData } from "../../utils/interfaces";
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { GlobalSettingsState, SingleTabData } from "../../utils/interfaces";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 interface Props {
@@ -39,7 +38,7 @@ interface Props {
   // tabs: SingleTabData[];
   // tabs: TabDatabase_i[];
   userIdOrNoId: string | null;
-  globalSettingsDb: SettingsDatabase_i;
+  globalSettings: GlobalSettingsState;
 }
 
 function Column({
@@ -47,7 +46,7 @@ function Column({
   setTabType,
   breakpoint,
   userIdOrNoId,
-  globalSettingsDb
+  globalSettings
 }: // tabs,
 Props): JSX.Element {
   // const columnsColors = useColumnsColors((state) => state, shallow);
@@ -60,7 +59,7 @@ Props): JSX.Element {
 
   const tabsNotAuth = useTabs((store) => store.tabs);
 
-  const globalSettingsNotAuth = useGlobalSettings((state) => state, shallow);
+  // const globalSettingsNotAuth = useGlobalSettings((state) => state, shallow);
 
   // let tabs: TabDatabase_i[] | SingleTabData[];
 
@@ -80,13 +79,7 @@ Props): JSX.Element {
   // if (fetching) return <p>Loading...</p>;
   // if (error) return <p>{error.message}</p>;
 
-  // let globalSettings: SettingsDatabase_i = data.settings;
-  let globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
 
-  globalSettings = userIdOrNoId
-    // ? (data.settings as SettingsDatabase_i)
-    ? globalSettingsDb
-    : globalSettingsNotAuth;
 
   // tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 

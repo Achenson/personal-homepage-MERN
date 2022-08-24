@@ -35,10 +35,9 @@ import { ChangeTabMutation } from "../../graphql/graphqlMutations";
 // import { testUserId } from "../../state/data/testUserId";
 
 import { ItemTypes } from "../../utils/data/itemsDnd";
-import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
+import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 // import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
@@ -59,7 +58,7 @@ interface Props {
   tabOpened: boolean;
   tabOpenedByDefault: boolean;
   tabIsDeletable: boolean;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   // tabs: TabDatabase_i[];
   currentTab: TabDatabase_i | SingleTabData;
   userIdOrNoId: string | null;

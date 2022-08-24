@@ -24,7 +24,7 @@ import { useDbContext } from "../../context/dbContext";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useTabContext } from "../../context/tabContext";
-import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
+import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { tabErrorHandling } from "../../utils/funcs and hooks/tabErrorHandling";
 import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
 import {
@@ -35,7 +35,6 @@ import {
 
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { imageColumnColorsConcat } from "../../utils/data/colors_column";
@@ -54,7 +53,7 @@ interface Props {
   // currentTab: SingleTabData;
   currentTab: TabDatabase_i;
   setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
   tabIsDeletable: boolean;
   // tabs: SingleTabData[];

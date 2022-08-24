@@ -11,11 +11,11 @@ import ColumnColor_OneColorX4 from "./ColumnColor_OneColorX4";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
 

@@ -5,12 +5,13 @@ import { backgroundColorsLightFocus } from "../../utils/data/colors_background";
 
 import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+
 
 import {
   useGlobalSettings,
   UseGlobalSettingsAll,
 } from "../../state/hooks/defaultSettingsHooks";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
   color: string;
@@ -19,7 +20,7 @@ interface Props {
   colorNumber: number;
   setSelectedNumber: React.Dispatch<React.SetStateAction<number>>;
   colorArrLength: number;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
 
@@ -43,7 +44,7 @@ function SingleColor_Background({
 
   const [changeSettingsResult, changeSettings] = useMutation<
     any,
-    SettingsDatabase_i
+    GlobalSettingsState
   >(ChangeSettingsMutation);
 
   function borderMaker() {
@@ -86,7 +87,7 @@ function SingleColor_Background({
         // setBackgroundColor(color);
         userIdOrNoId
           ? changeSettings({
-              ...(globalSettings as SettingsDatabase_i),
+              ...globalSettings,
               backgroundColor: color,
             })
           : setGlobalSettings({

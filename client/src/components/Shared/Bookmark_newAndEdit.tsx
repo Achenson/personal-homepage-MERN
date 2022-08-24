@@ -7,8 +7,7 @@ import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useDbContext } from "../../context/dbContext";
 
-import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
@@ -26,7 +25,7 @@ interface Props {
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
   // bookmarks: SingleBookmarkData[];
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
 

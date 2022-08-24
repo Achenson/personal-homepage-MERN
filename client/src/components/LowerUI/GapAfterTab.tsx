@@ -14,10 +14,9 @@ import { useDbContext } from "../../context/dbContext";
 import { dragTabDb } from "../../utils/funcs and hooks/dragTabDb";
 import { ChangeTabMutation } from "../../graphql/graphqlMutations";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
-import { SingleTabData } from "../../utils/interfaces";
+import { GlobalSettingsState, SingleTabData } from "../../utils/interfaces";
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 interface Item {
@@ -34,7 +33,7 @@ interface Props {
   isThisLastGap: boolean;
   // for proper top border display
   isThisTheOnlyGap: boolean;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
   tabIsDeletable: boolean | undefined;
 }

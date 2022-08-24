@@ -34,8 +34,7 @@ import {
   ChangeBookmarkMutation,
 } from "../../graphql/graphqlMutations";
 
-import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 
@@ -46,7 +45,7 @@ interface Props {
   // tabs: SingleTabData[];
   // bookmarks: SingleBookmarkData[];
   // bookmarks: BookmarkDatabase_i[];
-  globalSettings: SettingsDatabase_i;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
 

@@ -20,10 +20,9 @@ import {
   ChangeTabMutation,
 } from "../../graphql/graphqlMutations";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
-import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
+import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 
 interface TabId {
   id: string;
@@ -31,7 +30,7 @@ interface TabId {
 
 interface Props {
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
-  globalSettings: SettingsDatabase_i;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
@@ -324,7 +323,7 @@ Props): JSX.Element {
       breakpoint,
       tabs,
       userIdOrNoId,
-      globalSettingsDb: globalSettings,
+      globalSettings: globalSettings,
     };
 
     switch (numberOfCols) {

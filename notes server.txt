@@ -235,6 +235,9 @@ DONE 207. (pushed -> solve auth non-auth problems with bookmarks & tabs first) N
 DONE !!!!! 207. SingleBookmark -> implement icon fallback for nonAuth Version! DONE
 DONE 208. BackgroundSettings-> if no userId -> implement logic to suggest creating an account
 BackgroundSettings_Upload doesn't have to be touched though? code won't be executed DONE
+DONE 209. settings should be unified? add null userId and null to non-auth version?
+ (GlobalSettingsState, notAuth verision has empty string for id and userId, UseGlobalSettingsState include setGlobalSettingsState
+  SettingsDatabase_i on the server extends GlobalSettingsState, but it is the same)DONE
 DONE 210. BackgroundSettings_Upload -> instead of hidden class - do not render in in BackgroundSettings render function DONE
 DONE 211. make non-auth data persist in local storage DONE
 ?? 212. Bookmark_local tab_indices - is it needed? (no tab indices use, tabIds used instead)??
@@ -390,19 +393,13 @@ it will trigger refresh in getAuth
 155. better email validation
 188. wiki-speed-typing -> check if password retrival is available still
 
-209. (pushed -> solve auth non-auth problems with bookmarks & tabs first) settings should be unified? add null userId and null to non-auth version?
 224. (pushed -> no hover field anywhere, but should it be introduced? or may be as display at hte top) 
 globalSettings rss items number-> hover field, implement is alse elsewhere??
-230 (pushed -> solve auth non-auth problems with bookmarks & tabs first). promises should start only if an auth code is executed? ex. Bookmark_lowerUI. then maybe implement catching
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
-236. (push -> same problem as bookmark and tabs interfaces problen)globalSettings to globalSettignsDb rename everywhere? (currently in Column only)
-237. (pushed, solve interfaces problem together with tabs& bookmarks) globalSettings interfaces - smtms different smtms from db?
 239. (pushed, same reason as above) bookmarks itp -> in the end ts is chosing the type by itself, even if it should be split type
 
 285. make the UpperRightMenu_XS the default way? Then -> move ResetSVG btn to the UpperRightMenu? (if not, check if height on md: is okay, was changed by #286)
 
-266. (pushed, solve all issue regarding bookmarks, tabs, settings interfaces together)
- eg. bookmarks assigning to bookmarks db and not auth should be abandoned? instead both of the shoul be used in the code?
 167.(pushed) changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
 181. (pushed) clean db in the end
 
@@ -415,38 +412,6 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 281. write about Note, implement a way to bring it back?
 292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?
 
-
-
-tabIdsToDel how to get rid off:
-   /* 
-        
-        In SingleBookmarks:
-        1. call useBookmark method, only used to return the array of tabs to be deleted:
-        loop across all single bookmark tags ->
-        identify the one that will no longer be present after bookmark deletion
-        -> return this tab's id
-        -> in SingleBookmark
-
-       2. wait/await 1.)
-
-        3. call deleteTab function from useTabs
-
-        4. await 3
-
-        5. deleteBoomkmark
-        
-        */
-        
-
-
-
-
-{
-  filename: 'nature-3082832_1920.jpg',
-  mimetype: 'image/jpeg',
-  encoding: '7bit',
-  createReadStream: [Function: createReadStream]      
-}
 
 
 "urql": "^2.0.5"

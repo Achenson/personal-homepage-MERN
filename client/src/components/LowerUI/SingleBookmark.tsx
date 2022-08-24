@@ -54,8 +54,7 @@ import {
   DeleteTabMutation,
 } from "../../graphql/graphqlMutations";
 
-import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
+import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
@@ -68,7 +67,7 @@ interface Props {
   colNumber: number;
   tabID: string;
   isTabDraggedOver: boolean;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];

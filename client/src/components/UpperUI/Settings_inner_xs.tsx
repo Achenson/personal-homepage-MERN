@@ -10,15 +10,15 @@ import { ReactComponent as SettingsSVG } from "../../svgs/settingsAlt.svg";
 
 import { useUpperUiContext } from "../../context/upperUiContext";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import {
   useGlobalSettings,
   UseGlobalSettingsAll,
 } from "../../state/hooks/defaultSettingsHooks";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
   currentSettings: "background" | "colors" | "global";
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
 }
 
 function Settings_inner_xs({

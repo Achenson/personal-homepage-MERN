@@ -12,15 +12,15 @@ import { useUpperUiContext } from "../../context/upperUiContext";
 import { backgroundColorsUpperUiFocus } from "../../utils/data/colors_background";
 
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 
 interface Props {
   setFocusOnColumnColor: React.Dispatch<
     React.SetStateAction<1 | 2 | 4 | 3 | null>
   >;
   setFocusOnBackgroundColor: React.Dispatch<React.SetStateAction<boolean>>;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll
+  globalSettings: GlobalSettingsState
 }
 
 function Reset({

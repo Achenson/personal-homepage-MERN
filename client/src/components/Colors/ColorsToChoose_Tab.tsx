@@ -8,11 +8,10 @@ import SingleColor_Tab from "./SingleColor_Tab";
 import { useTabContext } from "../../context/tabContext";
 
 import { tabColors, tabColorsConcat } from "../../utils/data/colors_tab";
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
-import { SingleTabData } from "../../utils/interfaces";
+import { GlobalSettingsState, SingleTabData } from "../../utils/interfaces";
 // import { testUserId } from "../../state/data/testUserId";
 
 interface Props {
@@ -20,7 +19,7 @@ interface Props {
   tabID: string;
   tabColor: string | null;
   tabType: "folder" | "note" | "rss";
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   currentTab: TabDatabase_i | SingleTabData;
   userIdOrNoId: string | null;
 }

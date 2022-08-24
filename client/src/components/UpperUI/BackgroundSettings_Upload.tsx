@@ -9,17 +9,17 @@ import {
   BackgroundImgUploadMutation,
 } from "../../graphql/graphqlMutations";
 
-import { SettingsDatabase_i } from "../../../../schema/types/settingsType";
 // import { testUserId } from "../../state/data/testUserId";
 
 import {
   UseGlobalSettingsAll,
   useGlobalSettings,
 } from "../../state/hooks/defaultSettingsHooks";
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
   xsScreen: boolean;
-  globalSettings: SettingsDatabase_i | UseGlobalSettingsAll;
+  globalSettings: GlobalSettingsState;
   backgroundImgResults: UseQueryState<
     any,
     {
@@ -60,7 +60,7 @@ function BackgroundSettings_Upload({
   
   const [changeSettingsResult, changeSettings] = useMutation<
   any,
-  SettingsDatabase_i
+  GlobalSettingsState
   >(ChangeSettingsMutation);
 
   const [, uploadBackgroundImg] = useMutation(BackgroundImgUploadMutation);
@@ -125,7 +125,7 @@ function BackgroundSettings_Upload({
       });
       reexecuteBackgroundImg({ requestPolicy: "network-only" });
       await changeSettings({
-        ...(globalSettings as SettingsDatabase_i),
+        ...globalSettings,
         defaultImage: "customBackground",
       });
       // if (!wasCustomClicked) {
