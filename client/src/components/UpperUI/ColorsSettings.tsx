@@ -74,15 +74,15 @@ function ColorsSettings({
     };
   });
 
-  /*   const [settingsResults] = useQuery({
-    query: SettingsQuery,
-    variables: { userId: testUserId },
-  });
+  // const [settingsResults] = useQuery({
+  //   query: SettingsQuery,
+  //   variables: { userId: testUserId },
+  // });
 
-  const { data, fetching, error } = settingsResults;
+  // const { data, fetching, error } = settingsResults;
 
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
+  // if (fetching) return <p>Loading...</p>;
+  // if (error) return <p>Oh no... {error.message}</p>;
 
  
 

@@ -361,6 +361,8 @@ GOOD enough?
   addBookmarkMutation) x
   x 225. Disable drag & drop -> should be sth like disable drag & drop for tabs?? (make hover hints or put in about) x
   x 226. tabsData, bookmarkData, settignsData -> same as client but with userId? unify?  (good enough)x
+  DONE 239. (pushed, same reason as above) bookmarks itp -> in the end ts is chosing the type by itself, even if it should be split type
+  (before, bmarks & tabs changed 2 times to allow proper ids as keys for mapping, global setting interfaces overhaul, rest - good enough)) DONE
   xx 246. root mutation & query files -> fix types (after changin const to import) one of the mutation is done right - compare!
   (left as it is -> problem with GraphQLFieldResolver type, it wants ExpressReqRes before arguments in the resolve, code does not work is this ts error is gone) xx
   x 252. clientSIde reaction to rss and background img query errors? (goodEnough, rss is taken care of, img errot doesnt'
@@ -373,6 +375,8 @@ GOOD enough
 TO implement in future versions?
   x 263. option to reset single Tab color to default? (goodEnough for now, all tabs have to reseted) x 
 TO implement in future versions?
+
+
 
 !46. bookmarks not up to date when adding newBookmark if there are none (auth vers only)
  -> hacky solution only, reexectuing query in Bookmarks which causes rerender - solve?
@@ -396,7 +400,6 @@ it will trigger refresh in getAuth
 224. (pushed -> no hover field anywhere, but should it be introduced? or may be as display at hte top) 
 globalSettings rss items number-> hover field, implement is alse elsewhere??
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
-239. (pushed, same reason as above) bookmarks itp -> in the end ts is chosing the type by itself, even if it should be split type
 
 285. make the UpperRightMenu_XS the default way? Then -> move ResetSVG btn to the UpperRightMenu? (if not, check if height on md: is okay, was changed by #286)
 
@@ -407,7 +410,6 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
   (good enough may cause different issues later)) 
 233. rrs itemsPerPage -> test on mobile! real one
 225 (pushed). is aria-label present in all btns?
-
 
 281. write about Note, implement a way to bring it back?
 292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?
