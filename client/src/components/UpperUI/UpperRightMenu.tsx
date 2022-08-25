@@ -9,7 +9,8 @@ import UpperRightMenu_XS from "./UpperRightMenu_XS";
 import { ReactComponent as FolderSVG } from "../../svgs/folder.svg";
 import { ReactComponent as BookmarkSVG } from "../../svgs/bookmarkAlt.svg";
 import { ReactComponent as NoteSVG } from "../../svgs/note_UXwing.svg";
-import { ReactComponent as SettingsSVG } from "../../svgs/settingsAlt.svg";
+// import { ReactComponent as SettingsSVG } from "../../svgs/settingsAlt.svg";
+import { ReactComponent as CogSVG } from "../../svgs/cog.svg";
 import { ReactComponent as UserSVG } from "../../svgs/user.svg";
 // import { ReactComponent as LogoutSVG } from "../../svgs/logout.svg";
 import { ReactComponent as LoginSVG } from "../../svgs/login.svg";
@@ -128,17 +129,14 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
       }}
       className={`${upperUiContext.upperVisState.addTabVis_xs ? "h-14" : "h-7"}
         ${xsDisplay("sm:h-7", "xs:h-7")}
-      w-28 ${xsDisplay("sm:w-44", "xs:w-44")} ${xsDisplay(
+      w-28 ${xsDisplay("sm:w-full", "xs:w-full")} ${xsDisplay(
         "sm:flex",
         "xs:flex"
       )}  justify-between items-center bg-white bg-opacity-80 rounded-md border border-gray-700 `}
       style={{ marginBottom: "2px" }}
     >
       <div
-        className={`hidden ${xsDisplay(
-          "sm:flex",
-          "xs:flex"
-        )} w-28 justify-around`}
+        className={`hidden ${xsDisplay("sm:flex", "xs:flex")} justify-between`}
       >
         <button
           ref={focusOnUpperRightUi_ref_1}
@@ -204,11 +202,15 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
       />
       {/* xs ============================^ */}
 
+      {/* <div className={`hidden ${xsDisplay("sm:flex", "xs:flex")} w-10`}></div> */}
+
+      <div className={`w-3`}></div>
+
       <div
         className={`hidden ${xsDisplay(
           "sm:flex",
           "xs:flex"
-        )}  w-24 justify-end items-center mr-0.5`}
+        )} justify-end items-center mr-0.5`}
       >
         {/* <button
           ref={focusOnUpperRightUi_ref_5}
@@ -239,19 +241,17 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
             className={`h-full w-full cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
           />
         </button>  */}
-        
-      
 
         <button
           ref={focusOnUpperRightUi_ref_7}
-          className="h-6 w-6 focus-2-veryDark"
+          className="h-6 w-6 mr-px focus-2-veryDark"
           onClick={() => {
             upperUiContext.upperVisDispatch({ type: "SETTINGS_TOGGLE" });
           }}
           tabIndex={13}
           aria-label={"Global settings"}
         >
-          <SettingsSVG
+          <CogSVG
             className={`h-full w-full cursor-pointer transition-colors duration-75 hover:text-${uiColor}`}
           />
         </button>
@@ -261,13 +261,12 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
             <button
               ref={focusOnUpperRightUi_ref_8}
               className="h-6 w-6 focus-2-inset-veryDark"
-              onClick={
-                () => {
+              onClick={() => {
                 // async () => {
                 // setLoggedInState(false);
-                
+
                 // await logoutMut();
-                
+
                 // logout()
 
                 // authContext.updateAuthContext({
@@ -280,7 +279,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                 //   type: "MESSAGE_OPEN_LOGOUT",
                 // });
                 // navigate("/login-register")
-                navigate("/user-profile")
+                navigate("/user-profile");
               }}
               tabIndex={14}
               aria-label={"User profile"}
