@@ -327,10 +327,14 @@ DONE 282. nonauth v notauth -> unify (unified ad notAuth) DONE
 DONE 282.5 delete background get from server.ts? already using route? (route had to be changed) DONE
 DONE 283. clear svgs (logout for sure) (globeAlt also deleted) DONE
 DONE 284. RESET tabs to default -> change text DONE
+DONE 285. make the UpperRightMenu_XS the default way? (if not, check if height on md: is okay, was changed by #286)
+(not default way, but settings are handled the same on all screen)  DONE
 DONE 286. make the 3 settings modals appear always at the same height (important on a xs screen) DONE
 DONE !287. implement empty tab deletion login in edit bookmark DONE
 DONE 291. BackgroundSettings_Upload -> errors not implemented! bring back commented out code for error div (goodEnough -> both errors in one)DONE
 DONE 291.5 Test uploading wrong type, too large files etc.DONE
+DONE 294. upperUi modals -> make ColorsSettings width same as others (on larger screen), so it is easier to navigate DONE
+DONE 295. ColorsSetting -> margins on the left? too spaced (layout reworked)DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -401,7 +405,6 @@ it will trigger refresh in getAuth
 globalSettings rss items number-> hover field, implement is alse elsewhere??
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
 
-285. make the UpperRightMenu_XS the default way? Then -> move ResetSVG btn to the UpperRightMenu? (if not, check if height on md: is okay, was changed by #286)
 
 167.(pushed) changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
 181. (pushed) clean db in the end
@@ -413,9 +416,8 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 
 281. write about Note, implement a way to bring it back?
 292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?
-294. upperUi modals -> make ColorsSettings width same as others (on larger screen), so it is easier to navigate
-295. ColorsSetting -> margins on the left? too spaced
 296. consider making all settings the same width alwass
+297. colorsSettings focus on folder/rss/note after pressing escape
 
 "urql": "^2.0.5"
 

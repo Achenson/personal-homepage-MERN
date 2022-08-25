@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, VoidFunctionComponent } from "react";
 
 import FocusLock from "react-focus-lock";
 import shallow from "zustand/shallow";
@@ -32,6 +32,7 @@ interface Props {
     | "colColor_4"
     | "unselected";
   setColorsToChooseVis?: React.Dispatch<React.SetStateAction<boolean>>;
+  deselectColorsSettings?: () => void;
   setFocusOnColumnColor?: React.Dispatch<
     React.SetStateAction<null | 1 | 2 | 3 | 4>
   >;
@@ -42,6 +43,7 @@ interface Props {
 function ColorsToChoose_DefaultAndColumns({
   defaultColorsFor,
   setColorsToChooseVis,
+  deselectColorsSettings,
   setFocusOnColumnColor,
   globalSettings,
   userIdOrNoId
@@ -198,8 +200,9 @@ function ColorsToChoose_DefaultAndColumns({
         }
       }
       // for upperUI colorSettings
-      if (setColorsToChooseVis) {
+      if (setColorsToChooseVis && deselectColorsSettings) {
         setColorsToChooseVis(false);
+        deselectColorsSettings();
       }
     }
   }

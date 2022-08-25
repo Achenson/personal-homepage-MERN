@@ -51,15 +51,16 @@ function ColorsSettings({
     defaultColorsFor: "folders" | "notes" | "rss" | "unselected"
   ) {
     if (defaultColorsFor === "folders") {
-      return "57px";
+      // return "57px";
+      return "65px";
     }
 
     if (defaultColorsFor === "notes") {
-      return "89px";
+      return "97px";
     }
 
     if (defaultColorsFor === "rss") {
-      return "121px";
+      return "129px";
     }
 
     if (defaultColorsFor === "unselected") {
@@ -101,6 +102,12 @@ function ColorsSettings({
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 6, undefined);
+  }
+
+  function deselectColorsSettings() {
+    setFoldersSelected(false)
+    setNotesSelected(false)
+    setRssSelected(false)
   }
 
   return (
@@ -156,7 +163,7 @@ function ColorsSettings({
             </div>
 
             <p className="text-center">Default tab colors</p>
-            <div className="flex justify-start items-center mb-2 mt-2">
+            <div className="flex justify-start items-center mb-2 mt-4">
               <p className="w-16">Folders</p>
               <button
                 onClick={() => {
@@ -234,7 +241,7 @@ function ColorsSettings({
               ></button>
             </div>
 
-            <p className={`text-center mt-5`}>
+            <p className={`text-center mt-3`}>
               {" "}
               <button
                 onClick={() => {
@@ -244,13 +251,13 @@ function ColorsSettings({
                 className="focus-1-offset"
                 aria-label={"Reset colors to default"}
                 disabled={
-                  foldersSelected || rssSelected || notesSelected ? true : false
+                  colorsToChooseVis  ? true : false
                 }
               >
                 <span
                   className={` ${
-                    foldersSelected || rssSelected || notesSelected
-                      ? "cursor-default text-red-300"
+                   colorsToChooseVis
+                      ? "cursor-default text-red-200"
                       : "hover:underline cursor-pointer text-red-600"
                   } 
               `}
@@ -274,6 +281,7 @@ function ColorsSettings({
                   setColorsToChooseVis={setColorsToChooseVis}
                   globalSettings={globalSettings}
                   userIdOrNoId={userIdOrNoId}
+                  deselectColorsSettings={deselectColorsSettings}
                 />
               </div>
             )}
