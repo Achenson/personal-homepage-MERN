@@ -11,6 +11,7 @@ import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 import { useResetColors } from "../../state/hooks/colorHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
+import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import { GlobalSettingsState } from "../../utils/interfaces";
@@ -67,6 +68,22 @@ function ColorsSettings({
     }
   }
 
+
+  const windowSize = useWindowSize();
+  const [xsScreen, setXsScreen] = useState(
+    () => upperUiContext.upperVisState.xsSizing_initial
+  );
+
+  useEffect(() => {
+    if (windowSize.width) {
+      if (windowSize.width < 505) {
+        setXsScreen(true);
+      } else {
+        setXsScreen(false);
+      }
+    }
+  }, [windowSize.width]);
+
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -110,7 +127,7 @@ function ColorsSettings({
           <div
             className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${globalSettings.uiColor} rounded-sm relative`}
             style={{
-              width: `350px`,
+              width: xsScreen ? `350px`  : `417px`,
               height: "200px",
               marginLeft: `${
                 mainPaddingRight && scrollbarWidth >= 10

@@ -74,8 +74,8 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
       focusOnUpperRightUi_ref_4.current !== null &&
       focusOnUpperRightUi_ref_5.current !== null &&
       focusOnUpperRightUi_ref_6.current !== null &&
-      focusOnUpperRightUi_ref_7.current !== null &&
-      focusOnUpperRightUi_ref_8.current !== null &&
+      // focusOnUpperRightUi_ref_7.current !== null &&
+      // focusOnUpperRightUi_ref_8.current !== null &&
       upperUiContext.upperVisState.focusOnUpperRightUi
     ) {
       switch (upperUiContext.upperVisState.focusOnUpperRightUi) {
@@ -97,12 +97,12 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
         case 6:
           focusOnUpperRightUi_ref_6.current.focus();
           return;
-        case 7:
-          focusOnUpperRightUi_ref_7.current.focus();
-          return;
-        case 8:
-          focusOnUpperRightUi_ref_8.current.focus();
-          return;
+        // case 7:
+        //   focusOnUpperRightUi_ref_7.current.focus();
+        //   return;
+        // case 8:
+        //   focusOnUpperRightUi_ref_8.current.focus();
+        //   return;
       }
     }
 
@@ -243,35 +243,31 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
         </button>  */}
 
         <button
-          ref={focusOnUpperRightUi_ref_7}
+          // ref={focusOnUpperRightUi_ref_7}
+          ref={focusOnUpperRightUi_ref_5}
           className="h-6 w-6 mr-px focus-2-veryDark"
           onClick={() => {
             // upperUiContext.upperVisDispatch({ type: "SETTINGS_TOGGLE" });
 
-
-         
-              switch (upperUiContext.upperVisState.currentXSsettings) {
-                case "background":
-                  upperUiContext.upperVisDispatch({
-                    type: "BACKGROUND_SETTINGS_TOGGLE",
-                  });
-                  return;
-                case "colors":
-                  upperUiContext.upperVisDispatch({
-                    type: "COLORS_SETTINGS_TOGGLE",
-                  });
-                  return;
-                case "global":
-                  upperUiContext.upperVisDispatch({ type: "SETTINGS_TOGGLE" });
-                  return;
-                default:
-                  upperUiContext.upperVisDispatch({
-                    type: "COLORS_SETTINGS_TOGGLE",
-                  });
-              }
-     
-
-
+            switch (upperUiContext.upperVisState.currentXSsettings) {
+              case "background":
+                upperUiContext.upperVisDispatch({
+                  type: "BACKGROUND_SETTINGS_TOGGLE",
+                });
+                return;
+              case "colors":
+                upperUiContext.upperVisDispatch({
+                  type: "COLORS_SETTINGS_TOGGLE",
+                });
+                return;
+              case "global":
+                upperUiContext.upperVisDispatch({ type: "SETTINGS_TOGGLE" });
+                return;
+              default:
+                upperUiContext.upperVisDispatch({
+                  type: "COLORS_SETTINGS_TOGGLE",
+                });
+            }
           }}
           tabIndex={13}
           aria-label={"Global settings"}
@@ -284,7 +280,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
         <div style={{ width: "24px", height: "24px" }}>
           {authContext.isAuthenticated ? (
             <button
-              ref={focusOnUpperRightUi_ref_8}
+              ref={focusOnUpperRightUi_ref_6}
               className="h-6 w-6 focus-2-inset-veryDark"
               onClick={() => {
                 // async () => {
@@ -316,7 +312,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
             </button>
           ) : (
             <button
-              ref={focusOnUpperRightUi_ref_8}
+              ref={focusOnUpperRightUi_ref_6}
               className="h-6 w-5 focus-2-veryDark"
               onClick={() => {
                 // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });

@@ -7,6 +7,13 @@ export function handleKeyDown_upperUiSetting(
   focusOnUpperUi_number: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | null,
   navigate: NavigateFunction | undefined
 ) {
+
+  // before focusPayload was same as focusOnUpperUi_number, 2 items were deleted from upperUi
+  // let focusPayload: ( 1 | 2 | 3 | 4 | 5 | 6 | null ) = null;
+  let focusPayload = focusOnUpperUi_number;
+
+ 
+
   switch (eventCode) {
     case "Escape":
       if (focusOnUpperUi_number && upperUiContext) {
@@ -20,24 +27,30 @@ export function handleKeyDown_upperUiSetting(
             upperUiContext.upperVisDispatch({
               type: "COLORS_SETTINGS_TOGGLE",
             });
+            focusPayload = 5;
             break;
           case 7:
             upperUiContext.upperVisDispatch({
               type: "SETTINGS_TOGGLE",
             });
+            focusPayload = 5;
             break;
           case 8:
             // upperUiContext.upperVisDispatch({
             //   type: "PROFILE_TOGGLE",
             // });
             (navigate as NavigateFunction)("/");
+            focusPayload = 6;
             break;
           default:
             break;
         }
+        console.log("focusPayload");
+        console.log(focusPayload);
+        
         upperUiContext.upperVisDispatch({
           type: "FOCUS_ON_UPPER_RIGHT_UI",
-          payload: focusOnUpperUi_number,
+          payload: focusPayload,
         });
       }
       return;

@@ -413,8 +413,8 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 
 281. write about Note, implement a way to bring it back?
 292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?
-
-
+294. upperUi modals -> make ColorsSettings width same as others (on larger screen), so it is easier to navigate
+295. ColorsSetting -> margins on the left? too spaced
 
 "urql": "^2.0.5"
 

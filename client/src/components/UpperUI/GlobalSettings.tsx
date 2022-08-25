@@ -215,7 +215,7 @@ function GlobalSettings({
                   upperUiContext.upperVisDispatch({ type: "SETTINGS_TOGGLE" });
                   upperUiContext.upperVisDispatch({
                     type: "FOCUS_ON_UPPER_RIGHT_UI",
-                    payload: 7,
+                    payload: 5,
                   });
                 }}
                 aria-label={"Close"}

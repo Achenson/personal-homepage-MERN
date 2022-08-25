@@ -54,7 +54,8 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   let focusOnUpperRightUi_xs_ref_4 = useRef<HTMLButtonElement>(null);
   // no ref 6 & 7 in UpperRightMenu_XS as there is only one SVG for all settings
   let focusOnUpperRightUi_xs_ref_5 = useRef<HTMLButtonElement>(null);
-  let focusOnUpperRightUi_xs_ref_8 = useRef<HTMLButtonElement>(null);
+  // let focusOnUpperRightUi_xs_ref_8 = useRef<HTMLButtonElement>(null);
+  let focusOnUpperRightUi_xs_ref_6 = useRef<HTMLButtonElement>(null);
 
   const [logoutMutResult, logoutMut] = useMutation<any, any>(
     LogoutMutation
@@ -64,7 +65,8 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
     if (
       focusOnUpperRightUi_xs_ref_1.current !== null &&
       focusOnUpperRightUi_xs_ref_5.current !== null &&
-      focusOnUpperRightUi_xs_ref_8.current !== null &&
+      // focusOnUpperRightUi_xs_ref_8.current !== null &&
+      focusOnUpperRightUi_xs_ref_5.current !== null &&
       upperUiContext.upperVisState.focusOnUpperRightUi
     ) {
       switch (upperUiContext.upperVisState.focusOnUpperRightUi) {
@@ -88,13 +90,13 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
             focusOnUpperRightUi_xs_ref_4.current.focus();
           }
           return;
+        // case 5:
+        // case 6:
         case 5:
-        case 6:
-        case 7:
           focusOnUpperRightUi_xs_ref_5.current.focus();
           return;
-        case 8:
-          focusOnUpperRightUi_xs_ref_8.current.focus();
+        case 6:
+          (focusOnUpperRightUi_xs_ref_6.current as HTMLButtonElement).focus();
           return;
       }
     }
@@ -240,7 +242,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
           <div className="mr-0.5" style={{ width: "24px", height: "24px" }}>
             {authContext.isAuthenticated ? (
               <button
-                ref={focusOnUpperRightUi_xs_ref_8}
+                ref={focusOnUpperRightUi_xs_ref_6}
                 className="h-6 w-5 focus-2-veryDark"
                 style={{ width: "22px" }}
                 onClick={
@@ -275,7 +277,7 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
               </button>
             ) : (
               <button
-                ref={focusOnUpperRightUi_xs_ref_8}
+                ref={focusOnUpperRightUi_xs_ref_6}
                 className="h-6 w-5 focus-2-veryDark"
                 style={{ width: "18px" }}
                 onClick={() => {
