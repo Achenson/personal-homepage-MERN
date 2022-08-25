@@ -105,9 +105,9 @@ function ColorsSettings({
   }
 
   function deselectColorsSettings() {
-    setFoldersSelected(false)
-    setNotesSelected(false)
-    setRssSelected(false)
+    setFoldersSelected(false);
+    setNotesSelected(false);
+    setRssSelected(false);
   }
 
   return (
@@ -164,7 +164,7 @@ function ColorsSettings({
 
             <p className="text-center">Default tab colors</p>
             <div className="flex justify-start items-center mb-2 mt-4">
-              <p className="w-16">Folders</p>
+              <p style={{ width: "72px" }}>Folders</p>
               <button
                 onClick={() => {
                   setDefaultColorsFor("folders");
@@ -181,7 +181,7 @@ function ColorsSettings({
                   setFoldersSelected((b) => !b);
                   setTabOpenedState(null);
                 }}
-                className={`h-4 w-16 bg-${
+                className={`h-4 w-12 bg-${
                   globalSettings.folderColor
                 } cursor-pointer ${
                   foldersSelected ? "border-2" : "border"
@@ -190,7 +190,7 @@ function ColorsSettings({
               ></button>
             </div>
             <div className="flex justify-start items-center mb-2 mt-2">
-              <p className="w-16">Notes</p>
+              <p style={{ width: "72px" }}>Notes</p>
               <button
                 onClick={() => {
                   setDefaultColorsFor("notes");
@@ -207,7 +207,7 @@ function ColorsSettings({
 
                   setTabOpenedState(null);
                 }}
-                className={`h-4 w-16 bg-${
+                className={`h-4 w-12 bg-${
                   globalSettings.noteColor
                 } cursor-pointer ${
                   notesSelected ? "border-2" : "border"
@@ -216,7 +216,7 @@ function ColorsSettings({
               ></button>
             </div>
             <div className="flex justify-start items-center mb-2 mt-2">
-              <p className="w-16">RSS</p>
+              <p style={{ width: "72px" }}>RSS</p>
               <button
                 onClick={() => {
                   setDefaultColorsFor("rss");
@@ -232,7 +232,7 @@ function ColorsSettings({
                   setRssSelected((b) => !b);
                   setTabOpenedState(null);
                 }}
-                className={`h-4 w-16 bg-${
+                className={`h-4 w-12 bg-${
                   globalSettings.rssColor
                 } cursor-pointer ${
                   rssSelected ? "border-2" : "border"
@@ -250,13 +250,11 @@ function ColorsSettings({
                 }}
                 className="focus-1-offset"
                 aria-label={"Reset colors to default"}
-                disabled={
-                  colorsToChooseVis  ? true : false
-                }
+                disabled={colorsToChooseVis ? true : false}
               >
                 <span
                   className={` ${
-                   colorsToChooseVis
+                    colorsToChooseVis
                       ? "cursor-default text-red-200"
                       : "hover:underline cursor-pointer text-red-600"
                   } 
@@ -265,7 +263,13 @@ function ColorsSettings({
                   RESET
                 </span>
               </button>{" "}
-              tabs to default colors
+              <span
+                className={`${
+                  colorsToChooseVis ? "text-gray-200" : "text-black"
+                }`}
+              >
+                tabs to default colors
+              </span>
             </p>
             {colorsToChooseVis && (
               <div
