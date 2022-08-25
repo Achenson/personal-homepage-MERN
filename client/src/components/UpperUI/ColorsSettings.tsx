@@ -181,7 +181,7 @@ function ColorsSettings({
                   setFoldersSelected((b) => !b);
                   setTabOpenedState(null);
                 }}
-                className={`h-4 w-8 bg-${
+                className={`h-4 w-16 bg-${
                   globalSettings.folderColor
                 } cursor-pointer ${
                   foldersSelected ? "border-2" : "border"
@@ -207,7 +207,7 @@ function ColorsSettings({
 
                   setTabOpenedState(null);
                 }}
-                className={`h-4 w-8 bg-${
+                className={`h-4 w-16 bg-${
                   globalSettings.noteColor
                 } cursor-pointer ${
                   notesSelected ? "border-2" : "border"
@@ -232,7 +232,7 @@ function ColorsSettings({
                   setRssSelected((b) => !b);
                   setTabOpenedState(null);
                 }}
-                className={`h-4 w-8 bg-${
+                className={`h-4 w-16 bg-${
                   globalSettings.rssColor
                 } cursor-pointer ${
                   rssSelected ? "border-2" : "border"
@@ -273,7 +273,7 @@ function ColorsSettings({
                 style={{
                   top: calcColorTop(defaultColorsFor),
                   // left: "99px",
-                  left: "122px",
+                  left: xsScreen ? "155px" : "155px",
                 }}
               >
                 <ColorsToChoose_DefaultAndColumns

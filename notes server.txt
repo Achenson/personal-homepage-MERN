@@ -374,6 +374,7 @@ GOOD enough?
   x 189 email with pass change ended once in span -> put warning to check spam? (put it in known issues of about section)x
   xx 274. ForgottenPassChange -> implement error if accessing the route through random characters in the url?
   (goodEnough as it now, easy way to access componetent)xx
+  xx 296. consider making all settings the same width alwass (wider "tabs" in ColorsSettings made instead) xx
 GOOD enough
 
 TO implement in future versions?
@@ -416,7 +417,6 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 
 281. write about Note, implement a way to bring it back?
 292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?
-296. consider making all settings the same width alwass
 297. colorsSettings focus on folder/rss/note after pressing escape
 
 "urql": "^2.0.5"
