@@ -21,7 +21,7 @@ interface Props {
   globalSettings: GlobalSettingsState;
 }
 
-function Settings_inner_xs({
+function Settings_inner({
   currentSettings,
   globalSettings,
 }: Props): JSX.Element {
@@ -33,18 +33,19 @@ function Settings_inner_xs({
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
   // inner settings vis depending on numberOfCols && col width limit
-  function innerSettingsVis() {
-    if (globalSettings.limitColGrowth) {
-      // inner setting always visible in case of colLimit && numberOfCols === 1
-      if (globalSettings.numberOfCols === 1) return "";
-      return "sm:hidden";
-    }
-    return "xs:hidden";
-  }
+  // function innerSettingsVis() {
+  //   if (globalSettings.limitColGrowth) {
+  //     // inner setting always visible in case of colLimit && numberOfCols === 1
+  //     if (globalSettings.numberOfCols === 1) return "";
+  //     return "sm:hidden";
+  //   }
+  //   return "xs:hidden";
+  // }
 
+  // ${innerSettingsVis()}
   return (
     <div
-      className={` ${innerSettingsVis()}  absolute top-5
+      className={`   absolute top-5
         flex items-center justify-between
          `}
       style={{ width: "75px", left: "14px" }}
@@ -116,4 +117,4 @@ function Settings_inner_xs({
   );
 }
 
-export default Settings_inner_xs;
+export default Settings_inner;

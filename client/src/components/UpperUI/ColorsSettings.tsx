@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 // import shallow from "zustand/shallow";
 import FocusLock from "react-focus-lock";
 
-import Settings_inner_xs from "./Settings_inner_xs";
+import Settings_inner from "./Settings_inner";
 import ColorsToChoose_DefaultAndColumns from "../Colors/ColorsToChoose_DefaultAndColumns";
 
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
@@ -101,7 +101,7 @@ function ColorsSettings({
       >
         <div
           // className="mb-24 md:mb-40"
-          style={{marginBottom: "87px"}}
+          style={{marginBottom: "263px"}}
           onClick={(e) => {
             e.stopPropagation();
             return;
@@ -119,7 +119,7 @@ function ColorsSettings({
               }`,
             }}
           >
-            <Settings_inner_xs
+            <Settings_inner
               currentSettings={"colors"}
               globalSettings={globalSettings}
             />

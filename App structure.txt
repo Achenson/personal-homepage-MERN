@@ -26,15 +26,15 @@ react query provider
                     ?ModalWrap
                         BackgroundSettings
                             BackgroudnSettings_Upload
-                            ?Settings_inner_xs (menu for lowest screen width)
+                            ?Settings_inner(menu for lowest screen width)
                     ?ModalWrap
                         ColorsSettings
-                            ?Settings_inner_xs
+                            ?Settings_inner
                             ?ColorsToChoose_DefaultAndColumns
                                 (SingleColor_DefaultAndColumn)
                     ?ModalWrap
                         GlobalSettings
-                            ?Settings_inner_xs
+                            ?Settings_inner
                     Grid
                         Column
                             UpperLeftMenu (most left column only)

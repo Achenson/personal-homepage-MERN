@@ -246,7 +246,32 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
           ref={focusOnUpperRightUi_ref_7}
           className="h-6 w-6 mr-px focus-2-veryDark"
           onClick={() => {
-            upperUiContext.upperVisDispatch({ type: "SETTINGS_TOGGLE" });
+            // upperUiContext.upperVisDispatch({ type: "SETTINGS_TOGGLE" });
+
+
+         
+              switch (upperUiContext.upperVisState.currentXSsettings) {
+                case "background":
+                  upperUiContext.upperVisDispatch({
+                    type: "BACKGROUND_SETTINGS_TOGGLE",
+                  });
+                  return;
+                case "colors":
+                  upperUiContext.upperVisDispatch({
+                    type: "COLORS_SETTINGS_TOGGLE",
+                  });
+                  return;
+                case "global":
+                  upperUiContext.upperVisDispatch({ type: "SETTINGS_TOGGLE" });
+                  return;
+                default:
+                  upperUiContext.upperVisDispatch({
+                    type: "COLORS_SETTINGS_TOGGLE",
+                  });
+              }
+     
+
+
           }}
           tabIndex={13}
           aria-label={"Global settings"}

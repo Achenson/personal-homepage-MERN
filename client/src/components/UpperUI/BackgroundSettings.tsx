@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import FocusLock from "react-focus-lock";
 import { useMutation, UseQueryState, OperationContext } from "urql";
 
-import Settings_inner_xs from "./Settings_inner_xs";
+import Settings_inner from "./Settings_inner";
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
 import {
@@ -216,7 +216,7 @@ function BackgroundSettings({
       >
         <div
           // className="md:mb-40 relative"
-          style={{ marginBottom: "29px" }}
+          style={{ marginBottom: `${xsScreen ? "205px" : "238px"}` }}
           onClick={(e) => {
             e.stopPropagation();
             return;
@@ -228,6 +228,7 @@ function BackgroundSettings({
               width: `${xsScreen ? "350px" : "417px"}`,
               // height: `${xsScreen ? "238px" : "205px"}`,
               height: `${xsScreen ? "258px" : "225px"}`,
+              // height: `${xsScreen ? "258px" : "258px"}`,
               marginLeft: `${
                 mainPaddingRight && scrollbarWidth >= 10
                   ? `-${scrollbarWidth - 1}px`
@@ -235,7 +236,7 @@ function BackgroundSettings({
               }`,
             }}
           >
-            <Settings_inner_xs
+            <Settings_inner
               currentSettings={"background"}
               globalSettings={globalSettings}
             />

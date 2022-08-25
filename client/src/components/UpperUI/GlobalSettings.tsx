@@ -4,7 +4,7 @@ import FocusLock from "react-focus-lock";
 // import shallow from "zustand/shallow";
 import { useMutation } from "urql";
 
-import Settings_inner_xs from "./Settings_inner_xs";
+import Settings_inner from "./Settings_inner";
 
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 import { ReactComponent as PlusSmSVG } from "../../svgs/plus-sm.svg";
@@ -185,7 +185,7 @@ function GlobalSettings({
         }}
       >
         <div
-          className="md:mb-40 relative"
+          className="mb-44 relative"
           onClick={(e) => {
             e.stopPropagation();
             return;
@@ -203,7 +203,7 @@ function GlobalSettings({
               }`,
             }}
           >
-            <Settings_inner_xs
+            <Settings_inner
               currentSettings="global"
               globalSettings={globalSettings}
             />
