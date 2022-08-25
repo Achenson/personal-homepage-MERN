@@ -16,7 +16,6 @@ import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
-
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
@@ -28,7 +27,7 @@ function ColorsSettings({
   mainPaddingRight,
   scrollbarWidth,
   globalSettings,
-  userIdOrNoId
+  userIdOrNoId,
 }: Props): JSX.Element {
   const [defaultColorsFor, setDefaultColorsFor] = useState<
     "folders" | "notes" | "rss" | "unselected"
@@ -68,7 +67,6 @@ function ColorsSettings({
     }
   }
 
-
   const windowSize = useWindowSize();
   const [xsScreen, setXsScreen] = useState(
     () => upperUiContext.upperVisState.xsSizing_initial
@@ -101,8 +99,6 @@ function ColorsSettings({
   // if (fetching) return <p>Loading...</p>;
   // if (error) return <p>Oh no... {error.message}</p>;
 
- 
-
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 6, undefined);
   }
@@ -118,7 +114,7 @@ function ColorsSettings({
       >
         <div
           // className="mb-24 md:mb-40"
-          style={{marginBottom: "263px"}}
+          style={{ marginBottom: "263px" }}
           onClick={(e) => {
             e.stopPropagation();
             return;
@@ -127,7 +123,7 @@ function ColorsSettings({
           <div
             className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${globalSettings.uiColor} rounded-sm relative`}
             style={{
-              width: xsScreen ? `350px`  : `417px`,
+              width: xsScreen ? `350px` : `417px`,
               height: "200px",
               marginLeft: `${
                 mainPaddingRight && scrollbarWidth >= 10
@@ -160,8 +156,8 @@ function ColorsSettings({
             </div>
 
             <p className="text-center">Default tab colors</p>
-            <div className="flex justify-between items-center mb-2 mt-2">
-              <p className="w-32">Folders</p>
+            <div className="flex justify-start items-center mb-2 mt-2">
+              <p className="w-16">Folders</p>
               <button
                 onClick={() => {
                   setDefaultColorsFor("folders");
@@ -186,8 +182,8 @@ function ColorsSettings({
                 aria-label={"Default folders color menu"}
               ></button>
             </div>
-            <div className="flex justify-between items-center mb-2 mt-2">
-              <p className="w-32">Notes</p>
+            <div className="flex justify-start items-center mb-2 mt-2">
+              <p className="w-16">Notes</p>
               <button
                 onClick={() => {
                   setDefaultColorsFor("notes");
@@ -212,8 +208,8 @@ function ColorsSettings({
                 aria-label={"Default notes color menu"}
               ></button>
             </div>
-            <div className="flex justify-between items-center mb-2 mt-2">
-              <p className="w-32">RSS</p>
+            <div className="flex justify-start items-center mb-2 mt-2">
+              <p className="w-16">RSS</p>
               <button
                 onClick={() => {
                   setDefaultColorsFor("rss");
@@ -247,9 +243,16 @@ function ColorsSettings({
                 }}
                 className="focus-1-offset"
                 aria-label={"Reset colors to default"}
+                disabled={
+                  foldersSelected || rssSelected || notesSelected ? true : false
+                }
               >
                 <span
-                  className={`text-red-600 hover:underline cursor-pointer
+                  className={` ${
+                    foldersSelected || rssSelected || notesSelected
+                      ? "cursor-default text-red-300"
+                      : "hover:underline cursor-pointer text-red-600"
+                  } 
               `}
                 >
                   RESET
@@ -262,7 +265,8 @@ function ColorsSettings({
                 className="absolute"
                 style={{
                   top: calcColorTop(defaultColorsFor),
-                  left: "99px",
+                  // left: "99px",
+                  left: "122px",
                 }}
               >
                 <ColorsToChoose_DefaultAndColumns
