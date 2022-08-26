@@ -226,7 +226,7 @@ function ColorsSettings({
               </div>
               <div className="flex justify-start items-center mb-2 mt-2 mr-6 ml-6 xs:mr-4 xs:ml-4">
                 {/* <p style={{ width: xsScreen? "64px" : "" }}>Notes</p> */}
-                <div className="h-5 w-5 xs:h-6 xs:w-6 mr-px">
+                <div className="h-5 w-5 xs:h-6 xs:w-6 mr-px mb-1 xs:mb-1">
                   <NoteSVG className="w-full h-full" />
                 </div>
                 <button

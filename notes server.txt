@@ -452,7 +452,7 @@ serverside: Login mutation (vars: name/email, password):
  every request to the server is going to have access token (in the headers) taken from central state
 
 6. clientside during every app reload:
- App.js is posting to /refresh_token route on the server,
+ App.js is posting to /refresh_token route on the server,                           
   which verifies if client has a valid refresh token in a cookie,
   if yes -> 
     server creates new refresh token and sends it back
