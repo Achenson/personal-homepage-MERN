@@ -82,51 +82,51 @@ function ColorsSettings({
   // if (fetching) return <p>Loading...</p>;
   // if (error) return <p>Oh no... {error.message}</p>;
 
-  function calcColorTop(
-    defaultColorsFor: "folders" | "notes" | "rss" | "unselected",
-    xsScreen: boolean
-  ) {
-    if (!xsScreen) {
-      return "100px";
-    }
+  // function calcColorTop(
+  //   defaultColorsFor: "folders" | "notes" | "rss" | "unselected",
+  //   xsScreen: boolean
+  // ) {
+  //   if (!xsScreen) {
+  //     return "100px";
+  //   }
 
-    if (defaultColorsFor === "folders") {
-      // return "57px";
-      return "65px";
-    }
+  //   if (defaultColorsFor === "folders") {
+  //     // return "57px";
+  //     return "65px";
+  //   }
 
-    if (defaultColorsFor === "notes") {
-      return "97px";
-    }
+  //   if (defaultColorsFor === "notes") {
+  //     return "97px";
+  //   }
 
-    if (defaultColorsFor === "rss") {
-      return "129px";
-    }
+  //   if (defaultColorsFor === "rss") {
+  //     return "129px";
+  //   }
 
-    if (defaultColorsFor === "unselected") {
-      return "0px";
-    }
-  }
+  //   if (defaultColorsFor === "unselected") {
+  //     return "0px";
+  //   }
+  // }
 
   function calcColorLeft(
     defaultColorsFor: "folders" | "notes" | "rss" | "unselected",
     xsScreen: boolean
   ) {
-    if (xsScreen) {
-      return "134px";
-    }
+    // if (xsScreen) {
+    //   return "134px";
+    // }
 
     if (defaultColorsFor === "folders") {
       // return "57px";
-      return "83px";
+      return xsScreen ? "80px" :  "83px";
     }
 
     if (defaultColorsFor === "notes") {
-      return "188px";
+      return xsScreen ?  "92px" : "126px";
     }
 
     if (defaultColorsFor === "rss") {
-      return "171px";
+      return xsScreen ? "103px" : "171px";
     }
 
     if (defaultColorsFor === "unselected") {
@@ -197,10 +197,10 @@ function ColorsSettings({
             </div>
 
             <p className="text-center">Default tab colors</p>
-            <div className="xs:flex xs:justify-center xs:mt-6">
-              <div className="flex justify-start items-center mb-2 mt-4 xs:mt-2">
+            <div className="flex justify-center mt-6">
+              <div className="flex justify-start items-center mb-2 mt-2">
                 {/* <p style={{ width: xsScreen? "64px" : "" }}>Folders</p> */}
-                <div className="h-7 w-7">
+                <div className="h-6 w-6 xs:h-7 xs:w-7">
                   <FolderSVG className="w-full h-full" />
                 </div>
                 <button
@@ -224,9 +224,9 @@ function ColorsSettings({
                   aria-label={"Default folders color menu"}
                 ></button>
               </div>
-              <div className="flex justify-start items-center mb-2 mt-2 xs:mr-4 xs:ml-4">
+              <div className="flex justify-start items-center mb-2 mt-2 mr-6 ml-6 xs:mr-4 xs:ml-4">
                 {/* <p style={{ width: xsScreen? "64px" : "" }}>Notes</p> */}
-                <div className="h-6 w-6 xs:mr-px">
+                <div className="h-5 w-5 xs:h-6 xs:w-6 mr-px">
                   <NoteSVG className="w-full h-full" />
                 </div>
                 <button
@@ -252,7 +252,7 @@ function ColorsSettings({
               </div>
               <div className="flex  justify-start items-center mb-2 mt-2">
                 {/* <p style={{ width: xsScreen? "64px" : "" }}>RSS</p> */}
-                <div className="h-7 w-7 xs:-mr-px">
+                <div className="h-6 w-6 xs:h-7 xs:w-7 -mr-px">
                   <RssSVG className="w-full h-full" />
                 </div>
                 <button
@@ -278,7 +278,7 @@ function ColorsSettings({
               </div>
             </div>
 
-            <p className={`text-center mt-3`}>
+            <p className={`text-center mt-4 xs:mt-3`}>
               {" "}
               <button
                 onClick={() => {
@@ -312,7 +312,8 @@ function ColorsSettings({
               <div
                 className="absolute"
                 style={{
-                  top: calcColorTop(defaultColorsFor, xsScreen),
+                  // top: calcColorTop(defaultColorsFor, xsScreen),
+                  top: xsScreen ? "96px" : "100px",
                   // left: "99px",
                   // left: xsScreen ? "134px" : "155px",
                   left: calcColorLeft(defaultColorsFor, xsScreen),
