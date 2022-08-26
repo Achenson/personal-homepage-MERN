@@ -7,6 +7,9 @@ import Settings_inner from "./Settings_inner";
 import ColorsToChoose_DefaultAndColumns from "../Colors/ColorsToChoose_DefaultAndColumns";
 
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
+import { ReactComponent as FolderSVG } from "../../svgs/folder.svg";
+import { ReactComponent as NoteSVG } from "../../svgs/note_UXwing.svg";
+import { ReactComponent as RssSVG } from "../../svgs/rss.svg";
 
 import { useResetColors } from "../../state/hooks/colorHooks";
 import { useTabs } from "../../state/hooks/useTabs";
@@ -47,27 +50,6 @@ function ColorsSettings({
 
   const upperUiContext = useUpperUiContext();
 
-  function calcColorTop(
-    defaultColorsFor: "folders" | "notes" | "rss" | "unselected"
-  ) {
-    if (defaultColorsFor === "folders") {
-      // return "57px";
-      return "65px";
-    }
-
-    if (defaultColorsFor === "notes") {
-      return "97px";
-    }
-
-    if (defaultColorsFor === "rss") {
-      return "129px";
-    }
-
-    if (defaultColorsFor === "unselected") {
-      return "0px";
-    }
-  }
-
   const windowSize = useWindowSize();
   const [xsScreen, setXsScreen] = useState(
     () => upperUiContext.upperVisState.xsSizing_initial
@@ -99,6 +81,58 @@ function ColorsSettings({
 
   // if (fetching) return <p>Loading...</p>;
   // if (error) return <p>Oh no... {error.message}</p>;
+
+  function calcColorTop(
+    defaultColorsFor: "folders" | "notes" | "rss" | "unselected",
+    xsScreen: boolean
+  ) {
+    if (!xsScreen) {
+      return "100px";
+    }
+
+    if (defaultColorsFor === "folders") {
+      // return "57px";
+      return "65px";
+    }
+
+    if (defaultColorsFor === "notes") {
+      return "97px";
+    }
+
+    if (defaultColorsFor === "rss") {
+      return "129px";
+    }
+
+    if (defaultColorsFor === "unselected") {
+      return "0px";
+    }
+  }
+
+  function calcColorLeft(
+    defaultColorsFor: "folders" | "notes" | "rss" | "unselected",
+    xsScreen: boolean
+  ) {
+    if (xsScreen) {
+      return "134px";
+    }
+
+    if (defaultColorsFor === "folders") {
+      // return "57px";
+      return "83px";
+    }
+
+    if (defaultColorsFor === "notes") {
+      return "188px";
+    }
+
+    if (defaultColorsFor === "rss") {
+      return "171px";
+    }
+
+    if (defaultColorsFor === "unselected") {
+      return "0px";
+    }
+  }
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 6, undefined);
@@ -163,82 +197,85 @@ function ColorsSettings({
             </div>
 
             <p className="text-center">Default tab colors</p>
-            <div className="flex justify-start items-center mb-2 mt-4">
-              <p style={{ width: xsScreen? "64px" : "72px" }}>Folders</p>
-              <button
-                onClick={() => {
-                  setDefaultColorsFor("folders");
-
-                  if (defaultColorsFor === "folders") {
-                    setColorsToChooseVis((b) => !b);
-                  } else {
-                    setColorsToChooseVis(true);
-                  }
-
-                  setNotesSelected(false);
-                  setRssSelected(false);
-
-                  setFoldersSelected((b) => !b);
-                  setTabOpenedState(null);
-                }}
-                className={`h-4 w-10 xs:w-12 bg-${
-                  globalSettings.folderColor
-                } cursor-pointer ${
-                  foldersSelected ? "border-2" : "border"
-                } border-black hover:border-gray-500 focus-1-offset-dark`}
-                aria-label={"Default folders color menu"}
-              ></button>
-            </div>
-            <div className="flex justify-start items-center mb-2 mt-2">
-              <p style={{ width: xsScreen? "64px" : "72px" }}>Notes</p>
-              <button
-                onClick={() => {
-                  setDefaultColorsFor("notes");
-
-                  if (defaultColorsFor === "notes") {
-                    setColorsToChooseVis((b) => !b);
-                  } else {
-                    setColorsToChooseVis(true);
-                  }
-
-                  setFoldersSelected(false);
-                  setRssSelected(false);
-                  setNotesSelected((b) => !b);
-
-                  setTabOpenedState(null);
-                }}
-                className={`h-4 w-10 xs:w-12 bg-${
-                  globalSettings.noteColor
-                } cursor-pointer ${
-                  notesSelected ? "border-2" : "border"
-                } border-black hover:border-gray-500 focus-1-offset-dark`}
-                aria-label={"Default notes color menu"}
-              ></button>
-            </div>
-            <div className="flex justify-start items-center mb-2 mt-2">
-              <p style={{ width: xsScreen? "64px" : "72px" }}>RSS</p>
-              <button
-                onClick={() => {
-                  setDefaultColorsFor("rss");
-
-                  if (defaultColorsFor === "rss") {
-                    setColorsToChooseVis((b) => !b);
-                  } else {
-                    setColorsToChooseVis(true);
-                  }
-                  setFoldersSelected(false);
-                  setNotesSelected(false);
-
-                  setRssSelected((b) => !b);
-                  setTabOpenedState(null);
-                }}
-                className={`h-4 w-10 xs:w-12 bg-${
-                  globalSettings.rssColor
-                } cursor-pointer ${
-                  rssSelected ? "border-2" : "border"
-                } border-black hover:border-gray-500 focus-1-offset-dark`}
-                aria-label={"Default RSS color menu"}
-              ></button>
+            <div className="xs:flex xs:justify-center xs:mt-6">
+              <div className="flex justify-start items-center mb-2 mt-4 xs:mt-2">
+                {/* <p style={{ width: xsScreen? "64px" : "" }}>Folders</p> */}
+                <div className="h-7 w-7">
+                  <FolderSVG className="w-full h-full" />
+                </div>
+                <button
+                  onClick={() => {
+                    setDefaultColorsFor("folders");
+                    if (defaultColorsFor === "folders") {
+                      setColorsToChooseVis((b) => !b);
+                    } else {
+                      setColorsToChooseVis(true);
+                    }
+                    setNotesSelected(false);
+                    setRssSelected(false);
+                    setFoldersSelected((b) => !b);
+                    setTabOpenedState(null);
+                  }}
+                  className={`h-4 xs:h-5 w-10 xs:w-16 bg-${
+                    globalSettings.folderColor
+                  } cursor-pointer ${
+                    foldersSelected ? "border-2" : "border"
+                  } border-black hover:border-gray-500 focus-1-offset-dark`}
+                  aria-label={"Default folders color menu"}
+                ></button>
+              </div>
+              <div className="flex justify-start items-center mb-2 mt-2 xs:mr-4 xs:ml-4">
+                {/* <p style={{ width: xsScreen? "64px" : "" }}>Notes</p> */}
+                <div className="h-6 w-6 xs:mr-px">
+                  <NoteSVG className="w-full h-full" />
+                </div>
+                <button
+                  onClick={() => {
+                    setDefaultColorsFor("notes");
+                    if (defaultColorsFor === "notes") {
+                      setColorsToChooseVis((b) => !b);
+                    } else {
+                      setColorsToChooseVis(true);
+                    }
+                    setFoldersSelected(false);
+                    setRssSelected(false);
+                    setNotesSelected((b) => !b);
+                    setTabOpenedState(null);
+                  }}
+                  className={`h-4 xs:h-5 w-10 xs:w-16 bg-${
+                    globalSettings.noteColor
+                  } cursor-pointer ${
+                    notesSelected ? "border-2" : "border"
+                  } border-black hover:border-gray-500 focus-1-offset-dark`}
+                  aria-label={"Default notes color menu"}
+                ></button>
+              </div>
+              <div className="flex  justify-start items-center mb-2 mt-2">
+                {/* <p style={{ width: xsScreen? "64px" : "" }}>RSS</p> */}
+                <div className="h-7 w-7 xs:-mr-px">
+                  <RssSVG className="w-full h-full" />
+                </div>
+                <button
+                  onClick={() => {
+                    setDefaultColorsFor("rss");
+                    if (defaultColorsFor === "rss") {
+                      setColorsToChooseVis((b) => !b);
+                    } else {
+                      setColorsToChooseVis(true);
+                    }
+                    setFoldersSelected(false);
+                    setNotesSelected(false);
+                    setRssSelected((b) => !b);
+                    setTabOpenedState(null);
+                  }}
+                  className={`h-4 xs:h-5 w-10 xs:w-16 bg-${
+                    globalSettings.rssColor
+                  } cursor-pointer ${
+                    rssSelected ? "border-2" : "border"
+                  } border-black hover:border-gray-500 focus-1-offset-dark`}
+                  aria-label={"Default RSS color menu"}
+                ></button>
+              </div>
             </div>
 
             <p className={`text-center mt-3`}>
@@ -275,9 +312,10 @@ function ColorsSettings({
               <div
                 className="absolute"
                 style={{
-                  top: calcColorTop(defaultColorsFor),
+                  top: calcColorTop(defaultColorsFor, xsScreen),
                   // left: "99px",
-                  left: xsScreen ? "134px" : "155px",
+                  // left: xsScreen ? "134px" : "155px",
+                  left: calcColorLeft(defaultColorsFor, xsScreen),
                 }}
               >
                 <ColorsToChoose_DefaultAndColumns
