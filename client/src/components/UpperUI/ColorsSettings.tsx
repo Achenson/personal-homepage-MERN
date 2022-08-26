@@ -164,7 +164,7 @@ function ColorsSettings({
 
             <p className="text-center">Default tab colors</p>
             <div className="flex justify-start items-center mb-2 mt-4">
-              <p style={{ width: "72px" }}>Folders</p>
+              <p style={{ width: xsScreen? "64px" : "72px" }}>Folders</p>
               <button
                 onClick={() => {
                   setDefaultColorsFor("folders");
@@ -181,7 +181,7 @@ function ColorsSettings({
                   setFoldersSelected((b) => !b);
                   setTabOpenedState(null);
                 }}
-                className={`h-4 w-12 bg-${
+                className={`h-4 w-10 xs:w-12 bg-${
                   globalSettings.folderColor
                 } cursor-pointer ${
                   foldersSelected ? "border-2" : "border"
@@ -190,7 +190,7 @@ function ColorsSettings({
               ></button>
             </div>
             <div className="flex justify-start items-center mb-2 mt-2">
-              <p style={{ width: "72px" }}>Notes</p>
+              <p style={{ width: xsScreen? "64px" : "72px" }}>Notes</p>
               <button
                 onClick={() => {
                   setDefaultColorsFor("notes");
@@ -207,7 +207,7 @@ function ColorsSettings({
 
                   setTabOpenedState(null);
                 }}
-                className={`h-4 w-12 bg-${
+                className={`h-4 w-10 xs:w-12 bg-${
                   globalSettings.noteColor
                 } cursor-pointer ${
                   notesSelected ? "border-2" : "border"
@@ -216,7 +216,7 @@ function ColorsSettings({
               ></button>
             </div>
             <div className="flex justify-start items-center mb-2 mt-2">
-              <p style={{ width: "72px" }}>RSS</p>
+              <p style={{ width: xsScreen? "64px" : "72px" }}>RSS</p>
               <button
                 onClick={() => {
                   setDefaultColorsFor("rss");
@@ -232,7 +232,7 @@ function ColorsSettings({
                   setRssSelected((b) => !b);
                   setTabOpenedState(null);
                 }}
-                className={`h-4 w-12 bg-${
+                className={`h-4 w-10 xs:w-12 bg-${
                   globalSettings.rssColor
                 } cursor-pointer ${
                   rssSelected ? "border-2" : "border"
@@ -277,7 +277,7 @@ function ColorsSettings({
                 style={{
                   top: calcColorTop(defaultColorsFor),
                   // left: "99px",
-                  left: xsScreen ? "155px" : "155px",
+                  left: xsScreen ? "134px" : "155px",
                 }}
               >
                 <ColorsToChoose_DefaultAndColumns
