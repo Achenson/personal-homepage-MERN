@@ -335,6 +335,7 @@ DONE 291. BackgroundSettings_Upload -> errors not implemented! bring back commen
 DONE 291.5 Test uploading wrong type, too large files etc.DONE
 DONE 294. upperUi modals -> make ColorsSettings width same as others (on larger screen), so it is easier to navigate DONE
 DONE 295. ColorsSetting -> margins on the left? too spaced (layout reworked)DONE
+DONE 297. colorsSettings focus on folder/rss/note after pressing escape DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -417,7 +418,6 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 
 281. write about Note, implement a way to bring it back?
 292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?
-297. colorsSettings focus on folder/rss/note after pressing escape
 
 "urql": "^2.0.5"
 

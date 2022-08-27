@@ -76,17 +76,22 @@ function ColorsSettings({
     };
   });
 
-  function focusOnTabColors(tabType: "folders" | "notes" | "rss") {
-    switch (tabType) {
-      case "folders":
-        focusOnFolders.current?.focus();
-        break;
-      case "notes":
-        focusOnNotes.current?.focus();
-        break;
-      case "rss":
-        focusOnRss.current?.focus();
-        break;
+  function focusOnTabColors(
+    foldersSelected: boolean,
+    notesSelected: boolean,
+    rssSelected: boolean
+  ) {
+    if (foldersSelected) {
+      focusOnFolders.current?.focus();
+      return;
+    }
+    if (notesSelected) {
+      focusOnNotes.current?.focus();
+      return;
+    }
+    if (rssSelected) {
+      focusOnRss.current?.focus();
+      return;
     }
   }
 
@@ -350,7 +355,6 @@ function ColorsSettings({
                   foldersSelected={foldersSelected}
                   notesSelected={notesSelected}
                   rssSelected={rssSelected}
-
                 />
               </div>
             )}

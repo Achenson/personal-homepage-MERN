@@ -41,7 +41,11 @@ interface Props {
   setFocusOnColumnColor?: React.Dispatch<
     React.SetStateAction<null | 1 | 2 | 3 | 4>
   >;
-  focusOnTabColors?: (tabType: "folders" | "notes" | "rss") => void;
+  focusOnTabColors?: (
+    foldersSelected: boolean,
+    notesSelected: boolean,
+    rssSelected: boolean
+  ) => void;
   foldersSelected?: boolean;
   notesSelected?: boolean;
   rssSelected?: boolean;
@@ -216,19 +220,11 @@ function ColorsToChoose_DefaultAndColumns({
       if (setColorsToChooseVis && deselectColorsSettings && focusOnTabColors) {
         setColorsToChooseVis(false);
         deselectColorsSettings();
-
-        if (foldersSelected) {
-          focusOnTabColors("folders");
-          return;
-        }
-        if (notesSelected) {
-          focusOnTabColors("notes");
-          return;
-        }
-        if (rssSelected) {
-          focusOnTabColors("rss");
-          return;
-        }
+        focusOnTabColors(
+          foldersSelected as boolean,
+          notesSelected as boolean,
+          rssSelected as boolean
+        );
       }
     }
   }
