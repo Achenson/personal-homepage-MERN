@@ -46,7 +46,7 @@ function Column({
   setTabType,
   breakpoint,
   userIdOrNoId,
-  globalSettings
+  globalSettings,
 }: // tabs,
 Props): JSX.Element {
   // const columnsColors = useColumnsColors((state) => state, shallow);
@@ -73,13 +73,10 @@ Props): JSX.Element {
       ? authContext.authenticatedUserId
       : null;
 
-
   // const { data, fetching, error } = settingsResults;
 
   // if (fetching) return <p>Loading...</p>;
   // if (error) return <p>{error.message}</p>;
-
-
 
   // tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
@@ -143,7 +140,9 @@ Props): JSX.Element {
     }
   }
 
-  let sortedTabs = (tabsNotAuth)
+  let sortedTabs: TabDatabase_i[] | SingleTabData[];
+
+  sortedTabs = (userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth)
     .filter((el) => el.column === colNumber)
     .sort((a, b) => a.priority - b.priority);
 
@@ -154,9 +153,9 @@ Props): JSX.Element {
     lastTabId = null;
   }
 
-  let tabDataLength = (tabsNotAuth).filter(
-    (el) => el.column === colNumber
-  ).length;
+  let tabDataLength = (
+    userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth
+  ).filter((el) => el.column === colNumber).length;
 
   function isThisLastGap(lastTabId: string | null, tabID: string) {
     if (lastTabId === tabID) {
@@ -215,7 +214,7 @@ Props): JSX.Element {
       }}
     >
       {/* {(tabs as SingleTabData[]) */}
-      {(userIdOrNoId ? tabsDb as TabDatabase_i[] : tabsNotAuth )
+      {(userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth)
         .filter((el) => el.column === colNumber)
         // lower priority, higher in the column
         .sort((a, b) => a.priority - b.priority)

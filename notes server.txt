@@ -337,6 +337,7 @@ DONE 294. upperUi modals -> make ColorsSettings width same as others (on larger 
 DONE 295. ColorsSetting -> margins on the left? too spaced (layout reworked)DONE
 DONE 297. colorsSettings focus on folder/rss/note after pressing escape DONE
 DONE 298. ColorsSettings -> different border for dark colors selection DONE
+DONE !!! 299. cannot move tabs by dragging !!! (Column -> nonAuth auth code fixes for LastGap)DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
