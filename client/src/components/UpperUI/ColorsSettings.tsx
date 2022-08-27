@@ -97,8 +97,11 @@ function ColorsSettings({
     }
   }
 
-  function calcBorderColor(defaultColor: string) {
-    if ([tabColors[0][5], tabColors[11][5]].indexOf(defaultColor) > -1) {
+  function calcBorderColor(defaultColor: string, folderTypeSelected: boolean) {
+    if (
+      [tabColors[0][5], tabColors[11][5]].indexOf(defaultColor) > -1 &&
+      folderTypeSelected
+    ) {
       return "blueGray-400";
     }
 
@@ -255,7 +258,8 @@ function ColorsSettings({
                   } cursor-pointer ${
                     foldersSelected ? "border-2" : "border"
                   } border-${calcBorderColor(
-                    globalSettings.folderColor
+                    globalSettings.folderColor,
+                    foldersSelected
                   )} hover:border-gray-500 focus-1-offset-dark`}
                   aria-label={"Default folders color menu"}
                 ></button>
@@ -284,7 +288,8 @@ function ColorsSettings({
                   } cursor-pointer ${
                     notesSelected ? "border-2" : "border"
                   }  border-${calcBorderColor(
-                    globalSettings.noteColor
+                    globalSettings.noteColor,
+                    notesSelected
                   )} hover:border-gray-500 focus-1-offset-dark`}
                   aria-label={"Default notes color menu"}
                 ></button>
@@ -313,7 +318,8 @@ function ColorsSettings({
                   } cursor-pointer ${
                     rssSelected ? "border-2" : "border"
                   }  border-${calcBorderColor(
-                    globalSettings.rssColor
+                    globalSettings.rssColor,
+                    rssSelected
                   )} hover:border-gray-500 focus-1-offset-dark`}
                   aria-label={"Default RSS color menu"}
                 ></button>
