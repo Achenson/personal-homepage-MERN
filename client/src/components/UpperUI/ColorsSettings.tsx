@@ -361,7 +361,7 @@ function ColorsSettings({
                 className="absolute"
                 style={{
                   // top: calcColorTop(defaultColorsFor, xsScreen),
-                  top: xsScreen ? "96px" : "100px",
+                  top: xsScreen ? "99px" : "100px",
                   // left: "99px",
                   // left: xsScreen ? "134px" : "155px",
                   left: calcColorLeft(defaultColorsFor, xsScreen),
