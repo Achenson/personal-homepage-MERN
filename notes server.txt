@@ -336,6 +336,7 @@ DONE 291.5 Test uploading wrong type, too large files etc.DONE
 DONE 294. upperUi modals -> make ColorsSettings width same as others (on larger screen), so it is easier to navigate DONE
 DONE 295. ColorsSetting -> margins on the left? too spaced (layout reworked)DONE
 DONE 297. colorsSettings focus on folder/rss/note after pressing escape DONE
+DONE 298. ColorsSettings -> different border for dark colors selection DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time

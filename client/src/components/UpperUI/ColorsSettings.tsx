@@ -19,6 +19,8 @@ import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
+import { tabColors } from "../../utils/data/colors_tab";
+
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
@@ -93,6 +95,14 @@ function ColorsSettings({
       focusOnRss.current?.focus();
       return;
     }
+  }
+
+  function calcBorderColor(defaultColor: string) {
+    if ([tabColors[0][5], tabColors[11][5]].indexOf(defaultColor) > -1) {
+      return "blueGray-400";
+    }
+
+    return "black";
   }
 
   // const [settingsResults] = useQuery({
@@ -244,7 +254,9 @@ function ColorsSettings({
                     globalSettings.folderColor
                   } cursor-pointer ${
                     foldersSelected ? "border-2" : "border"
-                  } border-black hover:border-gray-500 focus-1-offset-dark`}
+                  } border-${calcBorderColor(
+                    globalSettings.folderColor
+                  )} hover:border-gray-500 focus-1-offset-dark`}
                   aria-label={"Default folders color menu"}
                 ></button>
               </div>
@@ -271,7 +283,9 @@ function ColorsSettings({
                     globalSettings.noteColor
                   } cursor-pointer ${
                     notesSelected ? "border-2" : "border"
-                  } border-black hover:border-gray-500 focus-1-offset-dark`}
+                  }  border-${calcBorderColor(
+                    globalSettings.noteColor
+                  )} hover:border-gray-500 focus-1-offset-dark`}
                   aria-label={"Default notes color menu"}
                 ></button>
               </div>
@@ -298,7 +312,9 @@ function ColorsSettings({
                     globalSettings.rssColor
                   } cursor-pointer ${
                     rssSelected ? "border-2" : "border"
-                  } border-black hover:border-gray-500 focus-1-offset-dark`}
+                  }  border-${calcBorderColor(
+                    globalSettings.rssColor
+                  )} hover:border-gray-500 focus-1-offset-dark`}
                   aria-label={"Default RSS color menu"}
                 ></button>
               </div>
