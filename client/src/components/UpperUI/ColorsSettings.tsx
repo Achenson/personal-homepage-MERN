@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // import shallow from "zustand/shallow";
 import FocusLock from "react-focus-lock";
@@ -55,6 +55,10 @@ function ColorsSettings({
     () => upperUiContext.upperVisState.xsSizing_initial
   );
 
+  const focusOnFolders = useRef<HTMLButtonElement>(null);
+  const focusOnNotes = useRef<HTMLButtonElement>(null);
+  const focusOnRss = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     if (windowSize.width) {
       if (windowSize.width < 505) {
@@ -71,6 +75,20 @@ function ColorsSettings({
       document.removeEventListener("keydown", handleKeyDown);
     };
   });
+
+  function focusOnTabColors(tabType: "folders" | "notes" | "rss") {
+    switch (tabType) {
+      case "folders":
+        focusOnFolders.current?.focus();
+        break;
+      case "notes":
+        focusOnNotes.current?.focus();
+        break;
+      case "rss":
+        focusOnRss.current?.focus();
+        break;
+    }
+  }
 
   // const [settingsResults] = useQuery({
   //   query: SettingsQuery,
@@ -118,11 +136,11 @@ function ColorsSettings({
 
     if (defaultColorsFor === "folders") {
       // return "57px";
-      return xsScreen ? "80px" :  "83px";
+      return xsScreen ? "80px" : "83px";
     }
 
     if (defaultColorsFor === "notes") {
-      return xsScreen ?  "92px" : "126px";
+      return xsScreen ? "92px" : "126px";
     }
 
     if (defaultColorsFor === "rss") {
@@ -204,6 +222,7 @@ function ColorsSettings({
                   <FolderSVG className="w-full h-full" />
                 </div>
                 <button
+                  ref={focusOnFolders}
                   onClick={() => {
                     setDefaultColorsFor("folders");
                     if (defaultColorsFor === "folders") {
@@ -230,6 +249,7 @@ function ColorsSettings({
                   <NoteSVG className="w-full h-full" />
                 </div>
                 <button
+                  ref={focusOnNotes}
                   onClick={() => {
                     setDefaultColorsFor("notes");
                     if (defaultColorsFor === "notes") {
@@ -256,6 +276,7 @@ function ColorsSettings({
                   <RssSVG className="w-full h-full" />
                 </div>
                 <button
+                  ref={focusOnRss}
                   onClick={() => {
                     setDefaultColorsFor("rss");
                     if (defaultColorsFor === "rss") {
@@ -325,6 +346,11 @@ function ColorsSettings({
                   globalSettings={globalSettings}
                   userIdOrNoId={userIdOrNoId}
                   deselectColorsSettings={deselectColorsSettings}
+                  focusOnTabColors={focusOnTabColors}
+                  foldersSelected={foldersSelected}
+                  notesSelected={notesSelected}
+                  rssSelected={rssSelected}
+
                 />
               </div>
             )}

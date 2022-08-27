@@ -1,4 +1,9 @@
-import React, { useEffect, useState, useCallback, VoidFunctionComponent } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  VoidFunctionComponent,
+} from "react";
 
 import FocusLock from "react-focus-lock";
 import shallow from "zustand/shallow";
@@ -17,7 +22,6 @@ import {
   imageColumnColorsConcat,
 } from "../../utils/data/colors_column";
 
-
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
@@ -31,11 +35,16 @@ interface Props {
     | "colColor_3"
     | "colColor_4"
     | "unselected";
+  // optional props are used by ColorsSettings
   setColorsToChooseVis?: React.Dispatch<React.SetStateAction<boolean>>;
   deselectColorsSettings?: () => void;
   setFocusOnColumnColor?: React.Dispatch<
     React.SetStateAction<null | 1 | 2 | 3 | 4>
   >;
+  focusOnTabColors?: (tabType: "folders" | "notes" | "rss") => void;
+  foldersSelected?: boolean;
+  notesSelected?: boolean;
+  rssSelected?: boolean;
   globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
@@ -45,8 +54,12 @@ function ColorsToChoose_DefaultAndColumns({
   setColorsToChooseVis,
   deselectColorsSettings,
   setFocusOnColumnColor,
+  focusOnTabColors,
+  foldersSelected,
+  notesSelected,
+  rssSelected,
   globalSettings,
-  userIdOrNoId
+  userIdOrNoId,
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
@@ -200,9 +213,22 @@ function ColorsToChoose_DefaultAndColumns({
         }
       }
       // for upperUI colorSettings
-      if (setColorsToChooseVis && deselectColorsSettings) {
+      if (setColorsToChooseVis && deselectColorsSettings && focusOnTabColors) {
         setColorsToChooseVis(false);
         deselectColorsSettings();
+
+        if (foldersSelected) {
+          focusOnTabColors("folders");
+          return;
+        }
+        if (notesSelected) {
+          focusOnTabColors("notes");
+          return;
+        }
+        if (rssSelected) {
+          focusOnTabColors("rss");
+          return;
+        }
       }
     }
   }
