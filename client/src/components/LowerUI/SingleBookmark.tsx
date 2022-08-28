@@ -111,7 +111,7 @@ Props): JSX.Element {
     : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
-  const reexecuteBookmarks = useDbContext()?.reexecuteBookmarks;
+  // const reexecuteBookmarks = useDbContext()?.reexecuteBookmarks;
 
   const authContext = useAuth();
   const tabContext = useTabContext();

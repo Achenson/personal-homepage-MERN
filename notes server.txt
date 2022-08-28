@@ -344,6 +344,7 @@ DONE !!! 299. cannot move tabs by dragging !!! (Column -> nonAuth auth code fixe
 DONE 301.  delete aria-label where it is not needed -> eg. if the text inside the button tag is goodEnough (aria-labelled by
 might have been used in few cases?)DONE
 DONE 302. aria-labelled by to use in few cases? (used in GlobalSettings) DONE
+DONE 304. check if all dbContext values are being used(reexecuteTabs & staleBookmarks not used - deleted) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -423,6 +424,8 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?
 300. dbContext -> may be slowing down the app? test by changing context to central state?
  (other solution would involve not remembering state after closing the app. Solution -> move the logic to localStorage? )
+
+
 
 "urql": "^2.0.5"
 

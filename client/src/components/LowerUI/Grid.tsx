@@ -35,7 +35,6 @@ interface Props {
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
   // tabs: TabDatabase_i[];
-  // staleBookmarks: boolean;
 }
 
 function Grid({
@@ -62,7 +61,6 @@ Props): JSX.Element {
 
   const bookmarksDb = useDbContext()?.bookmarks;
   // only used in authenticated version of the app
-  const staleBookmarks = useDbContext()?.stale_bookmarks;
   const tabsDb = useDbContext()?.tabs;
   // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
 

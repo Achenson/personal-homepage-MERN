@@ -51,8 +51,6 @@ function GlobalSettings({
     (store) => store.setGlobalSettings
   );
 
-  // const tabs = useDbContext().tabs;
-
   const tabsNotAuth = useTabs((store) => store.tabs);
   const tabsLessColumnsNotAuth = useTabs((store) => store.tabsLessColumns);
 

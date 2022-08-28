@@ -100,7 +100,6 @@ function Bookmark_lowerUI({
 
   const bookmarksDb = useDbContext()?.bookmarks;
   // only used in authenticated version of the app
-  const staleBookmarks = useDbContext()?.stale_bookmarks;
   const tabsDb = useDbContext()?.tabs;
   // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
 
@@ -111,8 +110,6 @@ function Bookmark_lowerUI({
     : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
-  // const bookmarks = useDbContext().bookmarks;
-  // const staleBookmarks = useDbContext().stale_bookmarks;
   const reexecuteBookmarks = (useDbContext() as DbContext_i)
     ?.reexecuteBookmarks;
   // const tabs = useDbContext().tabs;

@@ -54,8 +54,6 @@ function Bookmark_newAndEdit({
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   // const tabs = useTabs((state) => state.tabs);
 
-  // const bookmarks = useDbContext().bookmarks;
-  // const tabs = useDbContext().tabs;
 
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
@@ -65,7 +63,6 @@ function Bookmark_newAndEdit({
 
   const bookmarksDb = useDbContext()?.bookmarks;
   const tabsDb = useDbContext()?.tabs;
-  // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
 
   bookmarks = userIdOrNoId
     ? (bookmarksDb as SingleBookmarkData[])

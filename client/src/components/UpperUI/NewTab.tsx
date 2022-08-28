@@ -75,9 +75,6 @@ function NewTab({
     : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
-  // const bookmarks = useDbContext().bookmarks;
-  // const tabs = useDbContext().tabs;
-
   const [addTabResult, addTab] = useMutation<any, TabDatabase_i>(
     AddTabMutation
   );

@@ -298,23 +298,15 @@ function Main({ globalSettings }: Props): JSX.Element {
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   bookmarks = userIdOrNoId ? data_bookmarks.bookmarks : bookmarksNotAuth;
 
-  // let dbValue: DbContext_i = {
-  //   bookmarks,
-  //   tabs,
-  //   stale_bookmarks,
-  //   reexecuteBookmarks,
-  //   reexecuteTabs,
-  // };
-
   let dbValue: DbContext_i | undefined;
 
   dbValue = userIdOrNoId
     ? {
         bookmarks: bookmarks as BookmarkDatabase_i[],
         tabs: tabs as TabDatabase_i[],
-        stale_bookmarks,
+        // stale_bookmarks,
         reexecuteBookmarks,
-        reexecuteTabs,
+        // reexecuteTabs,
       }
     : undefined;
 

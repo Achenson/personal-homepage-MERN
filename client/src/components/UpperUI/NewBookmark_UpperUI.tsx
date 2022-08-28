@@ -106,9 +106,7 @@ function NewBookmark_UpperUI({
     : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
-  // const bookmarks = useDbContext().bookmarks;
   const reexecuteBookmarks = useDbContext()?.reexecuteBookmarks;
-  // const tabs = useDbContext().tabs;
   const addTabsNotAuth = useTabs((store) => store.addTabs);
   const [addTabResult, addTab] = useMutation<any, TabDatabase_i>(
     AddTabMutation

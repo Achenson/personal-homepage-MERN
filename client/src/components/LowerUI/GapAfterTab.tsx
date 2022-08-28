@@ -51,7 +51,7 @@ function GapAfterTab({
 
   const tabsNotAuth = useTabs((store) => store.tabs);
 
-  const bookmarksDb = useDbContext()?.bookmarks;
+  // const bookmarksDb = useDbContext()?.bookmarks;
   const tabsDb = useDbContext()?.tabs;
 
   let tabs: TabDatabase_i[] | SingleTabData[];

@@ -24,12 +24,7 @@ import {
   BackgroundImgQuery,
 } from "../graphql/graphqlQueries";
 
-// import {
-//   AuthContextObj_i,
-//   AuthContext_i,
-//   DbContext_i,
-//   SingleBookmarkData,
-//   SingleTabData,
+
 // } from "../utils/interfaces";
 
 interface Props {
@@ -210,7 +205,6 @@ Props): JSX.Element {
         {...authAndSettingsProps}
         // bookmarks={bookmarks}
         // tabs={tabs}
-        // staleBookmarks={stale_bookmarks}
       />
     </main>
   );
