@@ -98,7 +98,7 @@ function EditTab_RSS({
                 setDescriptionCheckbox((b) => !b);
                 setWasCheckboxClicked(true);
               }}
-              aria-label={"RSS description on"}
+              aria-label={"RSS description on/off"}
             >
               <div
                 className={`h-3 w-3 cursor-pointer transition duration-75 border-2 border-blueGray-400 ${
@@ -120,7 +120,7 @@ function EditTab_RSS({
                 setDateCheckbox((b) => !b);
                 setWasCheckboxClicked(true);
               }}
-              aria-label={"RSS date on"}
+              aria-label={"RSS date on/off"}
             >
               <div
                 className={`h-3 w-3 cursor-pointer transition duration-75 border-2 border-blueGray-400 ${

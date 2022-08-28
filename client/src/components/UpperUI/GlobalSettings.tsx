@@ -227,7 +227,7 @@ function GlobalSettings({
 
             <p className="text-center">Global settings</p>
             <div className="flex justify-between items-center mb-2 mt-2">
-              <p className="">One color for all columns</p>
+              <p className="" id="oneColor">One color for all columns</p>
               <button
                 className={`h-4 w-4 cursor-pointer transition duration-75 border-2 border-${uiColor} ${
                   globalSettings.oneColorForAllCols
@@ -253,11 +253,12 @@ function GlobalSettings({
                     oneColorForAllCols: !globalSettings.oneColorForAllCols,
                   });
                 }}
-                aria-label={"One color for all columns"}
+                // aria-label={"One color for all columns"}
+                aria-labelledby="oneColor"
               ></button>
             </div>
             <div className="flex justify-between items-center mb-2 mt-2">
-              <p className="">Limit column width growth</p>
+              <p className="" id="limitColGrowth">Limit column width growth</p>
               <button
                 className={`h-4 w-4 cursor-pointer transition duration-75 border-2 border-${uiColor} ${
                   globalSettings.limitColGrowth
@@ -283,12 +284,13 @@ function GlobalSettings({
                     limitColGrowth: !globalSettings.limitColGrowth,
                   });
                 }}
-                aria-label={"Limit column width growth"}
+                // aria-label={"Limit column width growth"}
+                aria-labelledby={"limitColGrowth"}
               ></button>
             </div>
 
             <div className="flex justify-between items-center mb-2 mt-2">
-              <p className="">Hide folder containing all bookmarks</p>
+              <p className="" id="hideAllBookmarks">Hide folder containing all bookmarks</p>
               <button
                 className={`h-4 w-4 cursor-pointer transition duration-75 border-2 border-${uiColor} ${
                   globalSettings.hideNonDeletable
@@ -314,11 +316,12 @@ function GlobalSettings({
                     hideNonDeletable: !globalSettings.hideNonDeletable,
                   });
                 }}
-                aria-label={"Hide folder containing all bookmarks"}
+                // aria-label={"Hide folder containing all bookmarks"}
+                aria-labelledby={"hideAllBookmarks"}
               ></button>
             </div>
             <div className="flex justify-between items-center mb-2 mt-2">
-              <p className="">Disable drag & drop</p>
+              <p className="" id="disableDandD">Disable drag & drop</p>
               <button
                 className={`h-4 w-4 cursor-pointer transition duration-75 border-2 border-${uiColor} ${
                   globalSettings.disableDrag
@@ -344,7 +347,8 @@ function GlobalSettings({
                     disableDrag: !globalSettings.disableDrag,
                   });
                 }}
-                aria-label={"Disable drag and drop"}
+                // aria-label={"Disable drag and drop"}
+                aria-labelledby="disableDandD"
               ></button>
             </div>
 
@@ -381,7 +385,7 @@ function GlobalSettings({
 
                         setTabOpenedState(null);
                       }}
-                      aria-label={"RSS description on by default"}
+                      aria-label={"RSS description on/off by default"}
                     ></button>
                     <span className="ml-1 ">Description</span>
                   </div>
@@ -413,7 +417,7 @@ function GlobalSettings({
 
                         setTabOpenedState(null);
                       }}
-                      aria-label={"RSS date on by default"}
+                      aria-label={"RSS date on/off by default"}
                     ></button>
                     <span className="ml-1">Date</span>
                   </div>

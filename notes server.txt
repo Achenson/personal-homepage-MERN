@@ -343,6 +343,7 @@ DONE 298. ColorsSettings -> different border for dark colors selection DONE
 DONE !!! 299. cannot move tabs by dragging !!! (Column -> nonAuth auth code fixes for LastGap)DONE
 DONE 301.  delete aria-label where it is not needed -> eg. if the text inside the button tag is goodEnough (aria-labelled by
 might have been used in few cases?)DONE
+DONE 302. aria-labelled by to use in few cases? (used in GlobalSettings) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -422,7 +423,6 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?
 300. dbContext -> may be slowing down the app? test by changing context to central state?
  (other solution would involve not remembering state after closing the app. Solution -> move the logic to localStorage? )
-302. aria-labelled by to use in few cases?
 
 "urql": "^2.0.5"
 
