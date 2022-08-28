@@ -108,6 +108,7 @@ function ColumnColor_OneColorX4({
           }`,
         }}
         tabIndex={1}
+        aria-label={"Column color menu"}
       >
         {arrOfCols.map((el, i) => (
           <div

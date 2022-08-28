@@ -172,6 +172,7 @@ function ForgottenPassChange({
               onClick={() => {
                 setPassVisible(!passVisible);
               }}
+              aria-label={"Show/hide password"}
             >
               <span className={`text-sm text-${uiColor}`}>
                 {passVisible ? "hide" : "show"}
@@ -221,6 +222,7 @@ function ForgottenPassChange({
             // console.log("password send")
             sendPasswordChangeLink
           }
+          aria-label={"Change password"}
         >
           Change password
         </button>

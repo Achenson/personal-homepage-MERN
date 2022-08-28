@@ -228,6 +228,7 @@ function BackgroundSettings_Upload({
             console.log("click");
             hiddenFileInput.current?.click();
           }}
+          aria-label="Browse"
         >
           Browse...
         </button>

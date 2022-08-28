@@ -159,6 +159,7 @@ function GlobalSettings({
                 });
             }}
             className="focus-1-offset"
+            aria-label={`Number of columns: ${colsNumbering[el]}`}
           >
             <p
               className={` ${

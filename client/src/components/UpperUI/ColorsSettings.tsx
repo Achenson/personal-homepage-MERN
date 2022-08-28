@@ -334,7 +334,7 @@ function ColorsSettings({
                   setTabOpenedState(null);
                 }}
                 className="focus-1-offset"
-                aria-label={"Reset colors to default"}
+                aria-label={"Reset tabs to default colors"}
                 disabled={colorsToChooseVis ? true : false}
               >
                 <span

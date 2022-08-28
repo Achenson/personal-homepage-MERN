@@ -515,7 +515,7 @@ Props): JSX.Element {
                   setWasTabOpenClicked(true);
                   setSelectablesListVis(false);
                 }}
-                aria-label={"Disable content visibility by default"}
+                aria-label={"Disable tab content visibility by default"}
               >
                 <EyeSVG className="text-gray-500 transition-colors duration-75 hover:text-black cursor-pointer" />
               </button>
@@ -527,7 +527,7 @@ Props): JSX.Element {
                   setWasTabOpenClicked(true);
                   setSelectablesListVis(false);
                 }}
-                aria-label={"Enable content visibility by default"}
+                aria-label={"Enable tab content visibility by default"}
               >
                 <EyeOffSVG className="h-6 w-6 text-gray-500 transition-colors duration-75 hover:text-black cursor-pointer" />
               </button>

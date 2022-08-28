@@ -261,6 +261,7 @@ blinking after user deletion! login gets redisplayed  if its display did not fin
 DONE 223. rssSettings problem -> value lower than 5 and 15 can be entered! no easy way to increase/decrese value?? DONE
 DONE 224. tabDeletingPause in Grid -> hack? explain how it works
 tabDeletingPause is no more -> it was used before to delete empty tab before deleting the last of its bookmark DONE
+DONE 225 (pushed). is aria-label present in all btns? DONE
 x 227. mutations -> sometimes the graphql args are listed, Fields should be imported and spread instead?
 Fields in userType & args -> should they always be the same? (no, it only for convenience) x
 DONE 229. Browser error: Default Client: No client has been specified using urql's Provider.This means that urql will be falling back to defaults including making requests to `/graphql`.
@@ -414,7 +415,6 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 181. (pushed) clean db in the end
 
 233. rrs itemsPerPage -> test on mobile! real one
-225 (pushed). is aria-label present in all btns?
 
 281. write about Note, implement a way to bring it back?
 292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?

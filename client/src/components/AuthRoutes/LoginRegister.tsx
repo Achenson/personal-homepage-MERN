@@ -318,6 +318,7 @@ Props): JSX.Element {
                 finalColorForImgBackgroundMode
               : "hover:text-opacity-50 cursor-pointer text-gray-400"
           } text-lg  focus-1-offset`}
+          aria-label={"Login form"}
         >
           <span>Login</span>
         </button>
@@ -336,6 +337,7 @@ Props): JSX.Element {
             // setLoginNotification(null);
             setRegisterErrorMessage(null);
           }}
+          aria-label={"Register form"}
         >
           Register
         </button>
@@ -391,6 +393,7 @@ Props): JSX.Element {
                 onClick={() => {
                   setPassVisible(!passVisible);
                 }}
+                aria-label={"Show/hide password"}
               >
                 <span className={`text-sm text-${uiColor}`}>
                   {passVisible ? "hide" : "show"}
@@ -475,6 +478,7 @@ Props): JSX.Element {
               className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
               onClick={loginValidation}
+              aria-label={"Login"}
             >
               Login
             </button>
@@ -483,6 +487,7 @@ Props): JSX.Element {
               onClick={() => {
                 navigate("/passforgot");
               }}
+              aria-label={"Forgot password?"}
             >
               <span>Forgot password?</span>
             </button>
@@ -493,6 +498,7 @@ Props): JSX.Element {
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}
                   `}
             onClick={registerValidation}
+            aria-label={"Register"}
           >
             Register
           </button>
