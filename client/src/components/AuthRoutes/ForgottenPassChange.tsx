@@ -222,7 +222,6 @@ function ForgottenPassChange({
             // console.log("password send")
             sendPasswordChangeLink
           }
-          aria-label={"Change password"}
         >
           Change password
         </button>

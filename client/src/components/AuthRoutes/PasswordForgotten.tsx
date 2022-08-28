@@ -123,9 +123,8 @@ function PassordForgotten({
           onClick={() => {
             navigate("/login-register");
           }}
-          aria-label={"Back"}
         >
-          <span>Back</span>
+          Back
         </button>
 
         {errorMessage && (
@@ -150,7 +149,6 @@ function PassordForgotten({
             // console.log("password send")
             sendPasswordChangeLink
           }
-          aria-label={"Send link"}
         >
           Send link
         </button>

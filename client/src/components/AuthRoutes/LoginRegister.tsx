@@ -478,7 +478,6 @@ Props): JSX.Element {
               className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
               onClick={loginValidation}
-              aria-label={"Login"}
             >
               Login
             </button>
@@ -487,9 +486,8 @@ Props): JSX.Element {
               onClick={() => {
                 navigate("/passforgot");
               }}
-              aria-label={"Forgot password?"}
             >
-              <span>Forgot password?</span>
+              Forgot password?
             </button>
           </div>
         ) : (
@@ -498,7 +496,6 @@ Props): JSX.Element {
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}
                   `}
             onClick={registerValidation}
-            aria-label={"Register"}
           >
             Register
           </button>

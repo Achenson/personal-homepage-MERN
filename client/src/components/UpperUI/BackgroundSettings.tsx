@@ -148,7 +148,7 @@ function BackgroundSettings({
             });
           }}
           className="focus-1-offset"
-          aria-label={"Default Background image"}
+          aria-label={"Custom image"}
         >
           <span className={`text-${uiColor} cursor-pointer hover:underline`}>
             custom image
@@ -384,7 +384,7 @@ function BackgroundSettings({
                         // });
                       }}
                       className="focus-1-offset"
-                      aria-label={"Background image one"}
+                      aria-label={"Default background image one"}
                     >
                       <span
                         className={`text-${uiColor} cursor-pointer hover:underline`}
@@ -421,7 +421,7 @@ function BackgroundSettings({
                         }
                       }}
                       className="focus-1-offset"
-                      aria-label={"Background image two"}
+                      aria-label={"Default background image two"}
                     >
                       <span
                         className={`text-${uiColor} cursor-pointer hover:underline`}
@@ -458,7 +458,7 @@ function BackgroundSettings({
                         //   defaultImage: "defaultBackground_3",
                         // });
                       }}
-                      aria-label={"Background image three"}
+                      aria-label={"Default background image three"}
                     >
                       <span
                         className={`text-${uiColor} cursor-pointer hover:underline`}

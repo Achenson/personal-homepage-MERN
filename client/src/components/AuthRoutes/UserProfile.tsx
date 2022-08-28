@@ -290,7 +290,6 @@ Props): JSX.Element {
             className={`w-24 mb-3 hover:text-${uiColor} transition-colors duration-150 focus-1-offset-dark ${
               inputMode === "initial" ? "hidden" : ""
             }`}
-            aria-label={`${inputMode === "deleteAccount" ? "CONFIRM" : "UPDATE"}`}
             onClick={() => {
               if (passwordCurrent === "") {
                 errMessage("Password not provided");
@@ -488,7 +487,6 @@ Props): JSX.Element {
               setPasswordCurrent("");
               errMessage(null);
             }}
-            aria-lable="Edit profile"
           >
             Edit profile
           </button>
@@ -503,7 +501,6 @@ Props): JSX.Element {
               setPasswordNewConfirm("");
               errMessage(null);
             }}
-            aria-label = "Change password"
           >
             Change password
           </button>
@@ -516,7 +513,6 @@ Props): JSX.Element {
               setPasswordCurrent("");
               errMessage(null);
             }}
-            aria-label="Delete account"
           >
             Delete account
           </button>
@@ -534,7 +530,6 @@ Props): JSX.Element {
 
             navigate("/login-register", { replace: true });
           }}
-          aria-label="Logout"
         >
           Logout
         </button>
