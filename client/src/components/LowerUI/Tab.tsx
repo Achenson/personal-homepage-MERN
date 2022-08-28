@@ -622,6 +622,7 @@ function Tab({
                     isTabDraggedOver={isTabDraggedOver}
                     globalSettings={globalSettings}
                     userIdOrNoId={userIdOrNoId}
+                    tabOpened_local={tabOpened_local}
                     // bookmarks={bookmarks}
                     // tabs={tabs}
                   />
@@ -630,11 +631,13 @@ function Tab({
           </div>
         )}
 
-        {tabOpened_local && tabType === "note" && (
+        {/* {tabOpened_local && tabType === "note" && ( */}
+        {tabType === "note" && (
           <NoteInput
             currentTab={currentTab as SingleTabData}
             isTabDraggedOver={isTabDraggedOver}
             globalSettings={globalSettings}
+            tabOpened_local={tabOpened_local}
           />
         )}
 

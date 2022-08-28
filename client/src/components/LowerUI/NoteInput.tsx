@@ -13,9 +13,10 @@ interface Props {
   currentTab: SingleTabData;
   isTabDraggedOver: boolean;
   globalSettings: GlobalSettingsState
+  tabOpened_local: boolean
 }
 
-function NoteInput({ currentTab, isTabDraggedOver, globalSettings }: Props): JSX.Element {
+function NoteInput({ currentTab, isTabDraggedOver, globalSettings, tabOpened_local }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   const tabContext = useTabContext();
 
@@ -49,7 +50,7 @@ function NoteInput({ currentTab, isTabDraggedOver, globalSettings }: Props): JSX
           : `${
               isTabDraggedOver ? "bg-gray-100" : "bg-amber-100"
             } border border-black border-opacity-10 border-t-0`
-      } p-2 `}
+      } ${tabOpened_local ? "visible" : "hidden"} p-2 `}
     >
       <div
         className={`p-2 rounded-md overflow-hidden border border-black border-opacity-10

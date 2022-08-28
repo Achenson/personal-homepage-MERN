@@ -69,6 +69,7 @@ interface Props {
   isTabDraggedOver: boolean;
   globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
+  tabOpened_local: boolean;
   // bookmarks: SingleBookmarkData[];
   // tabs: SingleTabData[];
 }
@@ -89,6 +90,7 @@ function SingleBookmark({
   isTabDraggedOver,
   globalSettings,
   userIdOrNoId,
+  tabOpened_local
 }: // bookmarks,
 // tabs,
 Props): JSX.Element {
@@ -217,6 +219,7 @@ Props): JSX.Element {
 
   return (
     <div
+    className={`${tabOpened_local ? "visible" : "hidden"}`}
       onFocus={() => {
         setFocusedTabState(null);
       }}

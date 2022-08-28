@@ -270,6 +270,8 @@ DONE 232. rss local -> changing global rss settings is not being reflected immed
   auth version also didn't worked, code reworked) DONE
 DONE 234. rss itemPerPage -> cannot be set by keyboard to more than 9 -> problem? (solved by making changes on refocus) DONE
 DONE 235. non-auth version problem with less column settings-> missing content? DONE
+DONE 240. (rethink again - slow performance!?) bookmarks are rendered only after tab is open ->
+ maybe they should be just hidden instead? (done for notes also) DONE
 xx 242. utils folder server code -> move up? xx
 DONE 243. background color no pic -> rectangle instead of doc svgs, should be filled with color? DONE
 DONE 244. ts generated file -> get rid of it? (deleted, uninstalled, made note in notes about it) DONE
@@ -385,7 +387,6 @@ TO implement in future versions?
 TO implement in future versions?
 
 
-
 !46. bookmarks not up to date when adding newBookmark if there are none (auth vers only)
  -> hacky solution only, reexectuing query in Bookmarks which causes rerender - solve?
 (possible solution to get rid of rerender at least -> no bookmarks in any of useeffect? diff way for calc. tabIdsUsedByBookmarks)
@@ -409,17 +410,18 @@ it will trigger refresh in getAuth
 globalSettings rss items number-> hover field, implement is alse elsewhere??
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
 
-
 167.(pushed) changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
 181. (pushed) clean db in the end
 
-240. (rethink again - slow performance!?) bookmarks are rendered only after tab is open -> maybe they should be just hidden instead?
-  (good enough may cause different issues later)) 
 233. rrs itemsPerPage -> test on mobile! real one
 225 (pushed). is aria-label present in all btns?
 
 281. write about Note, implement a way to bring it back?
 292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?
+300. dbContext -> may be slowing down the app? test by changing context to central state?
+ (other solution would involve not remembering state after closing the app. Solution -> move the logic to localStorage? )
+
+
 
 "urql": "^2.0.5"
 
