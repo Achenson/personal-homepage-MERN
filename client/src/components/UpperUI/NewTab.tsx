@@ -13,9 +13,11 @@ import { ReactComponent as XsmallSVG } from "../../svgs/x-small.svg";
 import { ReactComponent as ChevronDownSVG } from "../../svgs/chevron-down.svg";
 import { ReactComponent as ChevronUpSVG } from "../../svgs/chevron-up.svg";
 
-import { useDbContext } from "../../context/dbContext";
+// import { useDbContext } from "../../context/dbContext";
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
+import { useTabsDb } from "../../state/hooks/useTabsDb";
+import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
 
 import {
   createFolderTab,
@@ -64,11 +66,14 @@ function NewTab({
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
-  const bookmarksDb = useDbContext()?.bookmarks;
-  const tabsDb = useDbContext()?.tabs;
+  const tabsDb = useTabsDb((store) => store.tabsDb);
+  const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
+  // const bookmarksDb = useDbContext()?.bookmarks;
+  // const tabsDb = useDbContext()?.tabs;
 
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
+
 
   bookmarks = userIdOrNoId
     ? (bookmarksDb as SingleBookmarkData[])

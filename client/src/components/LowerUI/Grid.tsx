@@ -12,7 +12,9 @@ import { useReset } from "../../state/hooks/useReset";
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { useDbContext } from "../../context/dbContext";
+// import { useDbContext } from "../../context/dbContext";
+import { useTabsDb } from "../../state/hooks/useTabsDb";
+import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import {
@@ -53,15 +55,18 @@ Props): JSX.Element {
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
+  const tabsDb = useTabsDb((store) => store.tabsDb);
+  const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
+
   // const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
   // const tabDeletingPause = useTabs((store) => store.tabDeletingPause);
 
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
 
-  const bookmarksDb = useDbContext()?.bookmarks;
+  // const bookmarksDb = useDbContext()?.bookmarks;
   // only used in authenticated version of the app
-  const tabsDb = useDbContext()?.tabs;
+  // const tabsDb = useDbContext()?.tabs;
   // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
 
   bookmarks = userIdOrNoId

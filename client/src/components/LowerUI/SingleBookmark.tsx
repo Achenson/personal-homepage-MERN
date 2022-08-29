@@ -45,8 +45,10 @@ import { ReactComponent as GlobeSVG } from "../../svgs/internet-web-browser-conv
 import { useTabContext } from "../../context/tabContext";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { useDbContext } from "../../context/dbContext";
+// import { useDbContext } from "../../context/dbContext";
 import { useBookmarks } from "../../state/hooks/useBookmarks";
+import { useTabsDb } from "../../state/hooks/useTabsDb";
+import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
 
 import {
   ChangeBookmarkMutation,
@@ -100,8 +102,11 @@ Props): JSX.Element {
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
   const editBookmarkNotAuth = useBookmarks((store) => store.editBookmark);
 
-  const bookmarksDb = useDbContext()?.bookmarks;
-  const tabsDb = useDbContext()?.tabs;
+  // const bookmarksDb = useDbContext()?.bookmarks;
+  // const tabsDb = useDbContext()?.tabs;
+
+  const tabsDb = useTabsDb((store) => store.tabsDb);
+  const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
 
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];

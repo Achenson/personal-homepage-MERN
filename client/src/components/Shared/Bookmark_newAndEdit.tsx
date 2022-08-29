@@ -5,7 +5,9 @@ import Bookmark_lowerUI from "../LowerUI/Bookmark_lowerUI";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
-import { useDbContext } from "../../context/dbContext";
+// import { useDbContext } from "../../context/dbContext";
+import { useTabsDb } from "../../state/hooks/useTabsDb";
+import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
 
 import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
@@ -61,8 +63,11 @@ function Bookmark_newAndEdit({
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
 
-  const bookmarksDb = useDbContext()?.bookmarks;
-  const tabsDb = useDbContext()?.tabs;
+  // const bookmarksDb = useDbContext()?.bookmarks;
+  // const tabsDb = useDbContext()?.tabs;
+
+  const tabsDb = useTabsDb((store) => store.tabsDb);
+  const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
 
   bookmarks = userIdOrNoId
     ? (bookmarksDb as SingleBookmarkData[])

@@ -14,7 +14,9 @@ import { ReactComponent as ChevronUpSVG } from "../../svgs/chevron-up.svg";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
-import { useDbContext } from "../../context/dbContext";
+// import { useDbContext } from "../../context/dbContext";
+import { useTabsDb } from "../../state/hooks/useTabsDb";
+import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
 
 import {
   // createBookmark,
@@ -95,8 +97,13 @@ function NewBookmark_UpperUI({
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
-  const bookmarksDb = useDbContext()?.bookmarks;
-  const tabsDb = useDbContext()?.tabs;
+  // const bookmarksDb = useDbContext()?.bookmarks;
+  // const tabsDb = useDbContext()?.tabs;
+
+  const tabsDb = useTabsDb((store) => store.tabsDb);
+  const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
+
+
 
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
@@ -106,7 +113,11 @@ function NewBookmark_UpperUI({
     : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
-  const reexecuteBookmarks = useDbContext()?.reexecuteBookmarks;
+  // const reexecuteBookmarks = useDbContext()?.reexecuteBookmarks;
+
+
+
+
   const addTabsNotAuth = useTabs((store) => store.addTabs);
   const [addTabResult, addTab] = useMutation<any, TabDatabase_i>(
     AddTabMutation
@@ -278,10 +289,12 @@ function NewBookmark_UpperUI({
 
     await bookmarkPromise;
     // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
-    if (bookmarks.length === 0 && userIdOrNoId) {
-      // @ts-ignore
-      reexecuteBookmarks({ requestPolicy: "network-only" });
-    }
+    // if (bookmarks.length === 0 && userIdOrNoId) {
+    //   // @ts-ignore
+    //   reexecuteBookmarks({ requestPolicy: "network-only" });
+    // }
+
+
   }
 
   function handleKeyDown(event: KeyboardEvent) {

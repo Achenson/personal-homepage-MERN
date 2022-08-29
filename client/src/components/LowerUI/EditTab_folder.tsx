@@ -9,10 +9,11 @@ import { ReactComponent as XsmallSVG } from "../../svgs/x-small.svg";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 // import { useTabs } from "../../state/hooks/useTabs";
+import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
 
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
-import { useDbContext } from "../../context/dbContext";
+// import { useDbContext } from "../../context/dbContext";
 
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 // import { TabDatabase_i } from "../../../../schema/types/tabType";
@@ -43,7 +44,9 @@ Props): JSX.Element {
   // const tabsNotAuth = useTabs((state) => state.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
-  const bookmarksDb = useDbContext()?.bookmarks;
+  const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
+
+  // const bookmarksDb = useDbContext()?.bookmarks;
   // const tabsDb = useDbContext()?.tabs;
   // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
 

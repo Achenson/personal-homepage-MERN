@@ -425,6 +425,7 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 300. dbContext -> may be slowing down the app? test by changing context to central state?
  (other solution would involve not remembering state after closing the app. Solution -> move the logic to localStorage? )
 
+reexecuteBookmarks NewBookmark_UpperUI & Bookmark_lowerUI -> bring back!
 
 
 "urql": "^2.0.5"

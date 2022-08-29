@@ -13,20 +13,21 @@ import PublicRoute from "./AuthRoutes/PublicRoute";
 import PrivateRoute from "./AuthRoutes/PrivateRoute";
 import MainRoute from "./MainRoute";
 
-
 // import { useGlobalSettings } from "../state/hooks/defaultSettingsHooks";
 
 import { initUpperVisState } from "../context/upperVisInitState";
 import { upperVisReducer } from "../context/upperVisReducer";
 import { useWindowSize } from "../utils/funcs and hooks/useWindowSize";
 import { UpperUiContext } from "../context/upperUiContext";
-import { DbContext } from "../context/dbContext";
+// import { DbContext } from "../context/dbContext";
 // import { BackgroundImgContext } from "../context/backgroundImgContext";
 // import { useAuthContext } from "../context/authContext";
 import { useAuth } from "../state/hooks/useAuth";
 
 import { useTabs } from "../state/hooks/useTabs";
 import { useBookmarks } from "../state/hooks/useBookmarks";
+import { useTabsDb } from "../state/hooks/useTabsDb";
+import { useBookmarksDb } from "../state/hooks/useBookmarksDb";
 
 import {
   TabsQuery,
@@ -59,6 +60,9 @@ function Main({ globalSettings }: Props): JSX.Element {
   const authContext = useAuth();
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
+
+  const updateTabsDb = useTabsDb((store) => store.updateTabsDb);
+  const updateBookmarksDb = useBookmarksDb((store) => store.updateBookmarksDb);
 
   let userIdOrNoId: string | null;
   userIdOrNoId =
@@ -278,6 +282,18 @@ function Main({ globalSettings }: Props): JSX.Element {
     stale: stale_bookmarks,
   } = bookmarkResults;
 
+  useEffect(() => {
+    if (data_tabs?.tabs && userIdOrNoId) {
+      updateTabsDb(data_tabs.tabs);
+    }
+  }, [data_tabs, userIdOrNoId]);
+
+  useEffect(() => {
+    if (data_bookmarks?.bookmarks && userIdOrNoId) {
+      updateBookmarksDb(data_bookmarks.bookmarks);
+    }
+  }, [data_bookmarks, userIdOrNoId]);
+
   if (fetching_tabs) return <p>Loading...</p>;
   if (error_tabs) return <p>Oh no... {error_tabs.message}</p>;
 
@@ -298,17 +314,17 @@ function Main({ globalSettings }: Props): JSX.Element {
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   bookmarks = userIdOrNoId ? data_bookmarks.bookmarks : bookmarksNotAuth;
 
-  let dbValue: DbContext_i | undefined;
+  // let dbValue: DbContext_i | undefined;
 
-  dbValue = userIdOrNoId
-    ? {
-        bookmarks: bookmarks as BookmarkDatabase_i[],
-        tabs: tabs as TabDatabase_i[],
-        // stale_bookmarks,
-        reexecuteBookmarks,
-        // reexecuteTabs,
-      }
-    : undefined;
+  // dbValue = userIdOrNoId
+  //   ? {
+  //       bookmarks: bookmarks as BookmarkDatabase_i[],
+  //       tabs: tabs as TabDatabase_i[],
+  //       // stale_bookmarks,
+  //       reexecuteBookmarks,
+  //       // reexecuteTabs,
+  //     }
+  //   : undefined;
 
   let paddingProps = {
     mainPaddingRight: paddingRight,
@@ -336,130 +352,130 @@ function Main({ globalSettings }: Props): JSX.Element {
 
   return (
     // <AuthContext.Provider value={authValue}>
-    <DbContext.Provider value={dbValue}>
-      <UpperUiContext.Provider value={upperUiValue}>
-        <BrowserRouter>
-          <Routes>
-            {/* <Route path="/" element={<MainWrapper />}> */}
-            <Route
-              path="/"
-              element={
-                <MainRoute
-                  backgroundImgUrl={backgroundImgUrl}
-                  backgroundImgResults={backgroundImgResults}
-                  globalSettings={globalSettings}
-                  paddingRight={paddingRight}
-                  setTabType={setTabType}
-                  tabType={tabType}
-                  reexecuteBackgroundImg={reexecuteBackgroundImg}
-                  upperVisState={upperVisState}
-                  userIdOrNoId={userIdOrNoId}
-                  // userIdOrNoId={userIdOrNoId}
-                  // setLoginNotification={setLoginNotification}
-                  {...paddingProps}
-                />
-              }
-            />
-            {/* <CustomRoute
+    // <DbContext.Provider value={dbValue}>
+    <UpperUiContext.Provider value={upperUiValue}>
+      <BrowserRouter>
+        <Routes>
+          {/* <Route path="/" element={<MainWrapper />}> */}
+          <Route
+            path="/"
+            element={
+              <MainRoute
+                backgroundImgUrl={backgroundImgUrl}
+                backgroundImgResults={backgroundImgResults}
+                globalSettings={globalSettings}
+                paddingRight={paddingRight}
+                setTabType={setTabType}
+                tabType={tabType}
+                reexecuteBackgroundImg={reexecuteBackgroundImg}
+                upperVisState={upperVisState}
+                userIdOrNoId={userIdOrNoId}
+                // userIdOrNoId={userIdOrNoId}
+                // setLoginNotification={setLoginNotification}
+                {...paddingProps}
+              />
+            }
+          />
+          {/* <CustomRoute
                 isAuthenticated={authContext.isAuthenticated}
                 path="/login-register"
                 component={LoginRegister}
               /> */}
 
-            <Route
-              // isAuthenticated={authContext.isAuthenticated}
-              path="/login-register"
-              element={
-                // not possible to access if logged in!
-                <PublicRoute isAuthenticated={authContext.isAuthenticated}>
-                  <AuthOuterComponent
+          <Route
+            // isAuthenticated={authContext.isAuthenticated}
+            path="/login-register"
+            element={
+              // not possible to access if logged in!
+              <PublicRoute isAuthenticated={authContext.isAuthenticated}>
+                <AuthOuterComponent
+                  globalSettings={globalSettings}
+                  {...paddingProps}
+                >
+                  <LoginRegister
+                    // mainPaddingRight={paddingRight}
+                    // scrollbarWidth={scrollbarWidth}
                     globalSettings={globalSettings}
                     {...paddingProps}
-                  >
-                    <LoginRegister
-                      // mainPaddingRight={paddingRight}
-                      // scrollbarWidth={scrollbarWidth}
-                      globalSettings={globalSettings}
-                      {...paddingProps}
-                      // loginNotification={loginNotification}
-                      // setLoginNotification={setLoginNotification}
-                    />
-                  </AuthOuterComponent>
-                </PublicRoute>
-              }
-            />
+                    // loginNotification={loginNotification}
+                    // setLoginNotification={setLoginNotification}
+                  />
+                </AuthOuterComponent>
+              </PublicRoute>
+            }
+          />
 
-            <Route
-              // isAuthenticated={authContext.isAuthenticated}
-              path="/user-profile"
-              element={
-                // not possible to access if logged in!
-                <PrivateRoute isAuthenticated={authContext.isAuthenticated}>
-                  <AuthOuterComponent
+          <Route
+            // isAuthenticated={authContext.isAuthenticated}
+            path="/user-profile"
+            element={
+              // not possible to access if logged in!
+              <PrivateRoute isAuthenticated={authContext.isAuthenticated}>
+                <AuthOuterComponent
+                  globalSettings={globalSettings}
+                  {...paddingProps}
+                >
+                  <UserProfile
+                    // mainPaddingRight={paddingRight}
+                    // scrollbarWidth={scrollbarWidth}
                     globalSettings={globalSettings}
                     {...paddingProps}
-                  >
-                    <UserProfile
-                      // mainPaddingRight={paddingRight}
-                      // scrollbarWidth={scrollbarWidth}
-                      globalSettings={globalSettings}
-                      {...paddingProps}
-                      // loginNotification={loginNotification}
-                      // setLoginNotification={setLoginNotification}
-                    />
-                  </AuthOuterComponent>
-                </PrivateRoute>
-              }
-            />
+                    // loginNotification={loginNotification}
+                    // setLoginNotification={setLoginNotification}
+                  />
+                </AuthOuterComponent>
+              </PrivateRoute>
+            }
+          />
 
-            <Route
-              // isAuthenticated={authContext.isAuthenticated}
-              path="/passforgot"
-              element={
-                // not possible to access if logged in!
-                <PublicRoute isAuthenticated={authContext.isAuthenticated}>
-                  <AuthOuterComponent
+          <Route
+            // isAuthenticated={authContext.isAuthenticated}
+            path="/passforgot"
+            element={
+              // not possible to access if logged in!
+              <PublicRoute isAuthenticated={authContext.isAuthenticated}>
+                <AuthOuterComponent
+                  globalSettings={globalSettings}
+                  {...paddingProps}
+                >
+                  <PasswordForgotten
+                    // mainPaddingRight={paddingRight}
+                    // scrollbarWidth={scrollbarWidth}
                     globalSettings={globalSettings}
                     {...paddingProps}
-                  >
-                    <PasswordForgotten
-                      // mainPaddingRight={paddingRight}
-                      // scrollbarWidth={scrollbarWidth}
-                      globalSettings={globalSettings}
-                      {...paddingProps}
-                      // loginNotification={loginNotification}
-                      // setLoginNotification={setLoginNotification}
-                    />
-                  </AuthOuterComponent>
-                </PublicRoute>
-              }
-            />
+                    // loginNotification={loginNotification}
+                    // setLoginNotification={setLoginNotification}
+                  />
+                </AuthOuterComponent>
+              </PublicRoute>
+            }
+          />
 
-            <Route
-              // isAuthenticated={authContext.isAuthenticated}
-              path="/passforgot-change/:token"
-              element={
-                // not possible to access if logged in!
+          <Route
+            // isAuthenticated={authContext.isAuthenticated}
+            path="/passforgot-change/:token"
+            element={
+              // not possible to access if logged in!
 
-                <PublicRoute isAuthenticated={authContext.isAuthenticated}>
-                  <AuthOuterComponent
+              <PublicRoute isAuthenticated={authContext.isAuthenticated}>
+                <AuthOuterComponent
+                  globalSettings={globalSettings}
+                  {...paddingProps}
+                >
+                  <ForgottenPassChange
+                    // mainPaddingRight={paddingRight}
+                    // scrollbarWidth={scrollbarWidth}
                     globalSettings={globalSettings}
                     {...paddingProps}
-                  >
-                    <ForgottenPassChange
-                      // mainPaddingRight={paddingRight}
-                      // scrollbarWidth={scrollbarWidth}
-                      globalSettings={globalSettings}
-                      {...paddingProps}
-                      // loginNotification={loginNotification}
-                      // setLoginNotification={setLoginNotification}
-                    />
-                  </AuthOuterComponent>
-                </PublicRoute>
-              }
-            />
+                    // loginNotification={loginNotification}
+                    // setLoginNotification={setLoginNotification}
+                  />
+                </AuthOuterComponent>
+              </PublicRoute>
+            }
+          />
 
-            {/* <Route
+          {/* <Route
                   path="login-register"
                   element={
                     <LoginRegister
@@ -470,12 +486,12 @@ function Main({ globalSettings }: Props): JSX.Element {
                   }
                 /> */}
 
-            {/* <Route path="invoices" element={<Invoices />} /> */}
-            {/* </Route> */}
-          </Routes>
-        </BrowserRouter>
-      </UpperUiContext.Provider>
-    </DbContext.Provider>
+          {/* <Route path="invoices" element={<Invoices />} /> */}
+          {/* </Route> */}
+        </Routes>
+      </BrowserRouter>
+    </UpperUiContext.Provider>
+    // </DbContext.Provider>
     // </AuthContext.Provider>
   );
 }

@@ -8,7 +8,9 @@ import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
 
 import { useTabContext } from "../../context/tabContext";
-import { useDbContext } from "../../context/dbContext";
+import { useTabsDb } from "../../state/hooks/useTabsDb";
+import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
+// import { useDbContext } from "../../context/dbContext";
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 import {
@@ -98,9 +100,14 @@ function Bookmark_lowerUI({
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
 
-  const bookmarksDb = useDbContext()?.bookmarks;
+  const tabsDb = useTabsDb((store) => store.tabsDb);
+  const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
+
+
+
+  // const bookmarksDb = useDbContext()?.bookmarks;
   // only used in authenticated version of the app
-  const tabsDb = useDbContext()?.tabs;
+  // const tabsDb = useDbContext()?.tabs;
   // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
 
   const getTabsToDelete = useBookmarks((store) => store.getTabsToDelete);
@@ -110,8 +117,8 @@ function Bookmark_lowerUI({
     : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
-  const reexecuteBookmarks = (useDbContext() as DbContext_i)
-    ?.reexecuteBookmarks;
+  // const reexecuteBookmarks = (useDbContext() as DbContext_i)
+  //   ?.reexecuteBookmarks;
   // const tabs = useDbContext().tabs;
 
   const [addBookmarkResult, addBookmark] = useMutation<any, BookmarkDatabase_i>(
@@ -406,9 +413,9 @@ function Bookmark_lowerUI({
     /* console.log("bookmarkPromise");
     console.log(bookmarkPromise); */
 
-    if (bookmarks.length === 0 && userIdOrNoId) {
-      reexecuteBookmarks({ requestPolicy: "network-only" });
-    }
+    // if (bookmarks.length === 0 && userIdOrNoId) {
+    //   reexecuteBookmarks({ requestPolicy: "network-only" });
+    // }
 
     // setTimeout(() => setTabDeletingPause(false), 500);
     // if (bookmarkComponentType === "edit") {

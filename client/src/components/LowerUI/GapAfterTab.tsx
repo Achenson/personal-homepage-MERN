@@ -9,7 +9,8 @@ import { useTabBeingDraggedColor } from "../../state/hooks/colorHooks";
 
 import { ItemTypes } from "../../utils/data/itemsDnd";
 import { useTabs } from "../../state/hooks/useTabs";
-import { useDbContext } from "../../context/dbContext";
+// import { useDbContext } from "../../context/dbContext";
+import { useTabsDb } from "../../state/hooks/useTabsDb";
 
 import { dragTabDb } from "../../utils/funcs and hooks/dragTabDb";
 import { ChangeTabMutation } from "../../graphql/graphqlMutations";
@@ -52,7 +53,9 @@ function GapAfterTab({
   const tabsNotAuth = useTabs((store) => store.tabs);
 
   // const bookmarksDb = useDbContext()?.bookmarks;
-  const tabsDb = useDbContext()?.tabs;
+  // const tabsDb = useDbContext()?.tabs;
+
+  const tabsDb = useTabsDb((store) => store.tabsDb);
 
   let tabs: TabDatabase_i[] | SingleTabData[];
 

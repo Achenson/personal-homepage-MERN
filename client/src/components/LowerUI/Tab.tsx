@@ -26,7 +26,9 @@ import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabReducer } from "../../context/useTabReducer";
 import { TabContext } from "../../context/tabContext";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { useDbContext } from "../../context/dbContext";
+// import { useDbContext } from "../../context/dbContext";
+import { useTabsDb } from "../../state/hooks/useTabsDb";
+import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
 
 import { dragTabDb } from "../../utils/funcs and hooks/dragTabDb";
 // import { BookmarksQuery, SettingsQuery } from "../../graphql/graphqlQueries";
@@ -96,8 +98,11 @@ function Tab({
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
-  const bookmarksDb = useDbContext()?.bookmarks;
-  const tabsDb = useDbContext()?.tabs;
+  // const bookmarksDb = useDbContext()?.bookmarks;
+  // const tabsDb = useDbContext()?.tabs;
+  const tabsDb = useTabsDb((store) => store.tabsDb);
+  const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
+
 
   // let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];

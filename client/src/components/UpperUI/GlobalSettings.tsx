@@ -15,7 +15,8 @@ import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { useDbContext } from "../../context/dbContext";
+// import { useDbContext } from "../../context/dbContext";
+import { useTabsDb } from "../../state/hooks/useTabsDb";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
@@ -54,7 +55,8 @@ function GlobalSettings({
   const tabsNotAuth = useTabs((store) => store.tabs);
   const tabsLessColumnsNotAuth = useTabs((store) => store.tabsLessColumns);
 
-  const tabsDb = useDbContext()?.tabs;
+  // const tabsDb = useDbContext()?.tabs;
+  const tabsDb = useTabsDb((store) => store.tabsDb);
 
   let tabs: TabDatabase_i[] | SingleTabData[];
 

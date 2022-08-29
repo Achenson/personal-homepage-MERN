@@ -14,10 +14,14 @@ import Message from "../UpperUI/Message";
 
 // import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
-import { useDbContext } from "../../context/dbContext";
+// import { useDbContext } from "../../context/dbContext";
 // import { useAuthContext } from "../../context/authContext";
 import { useAuth } from "../../state/hooks/useAuth";
 import { useTabs } from "../../state/hooks/useTabs";
+
+import { useTabsDb } from "../../state/hooks/useTabsDb";
+
+
 import {
   useGlobalSettings,
   UseGlobalSettingsAll,
@@ -55,9 +59,11 @@ Props): JSX.Element {
   // const tabs = useTabs((store) => store.tabs);
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
-  const tabsDb = useDbContext()?.tabs;
+  // const tabsDb = useDbContext()?.tabs;
 
   const tabsNotAuth = useTabs((store) => store.tabs);
+
+  const tabsDb = useTabsDb((store) => store.tabsDb);
 
   // const globalSettingsNotAuth = useGlobalSettings((state) => state, shallow);
 

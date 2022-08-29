@@ -19,7 +19,9 @@ import { ReactComponent as EyeSVG } from "../../svgs/eye.svg";
 import { ReactComponent as EyeOffSVG } from "../../svgs/eye-off.svg";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
-import { useDbContext } from "../../context/dbContext";
+import { useTabsDb } from "../../state/hooks/useTabsDb";
+import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
+// import { useDbContext } from "../../context/dbContext";
 // import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
 // import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useTabs } from "../../state/hooks/useTabs";
@@ -83,9 +85,12 @@ Props): JSX.Element {
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
-  const bookmarksDb = useDbContext()?.bookmarks;
+  const tabsDb = useTabsDb((store) => store.tabsDb);
+  const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
+
+  // const bookmarksDb = useDbContext()?.bookmarks;
   // only used in authenticated version of the app
-  const tabsDb = useDbContext()?.tabs;
+  // const tabsDb = useDbContext()?.tabs;
   // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
 
   bookmarks = userIdOrNoId
