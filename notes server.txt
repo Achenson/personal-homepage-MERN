@@ -426,7 +426,7 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
  (other solution would involve not remembering state after closing the app. Solution -> move the logic to localStorage? )
 
 reexecuteBookmarks NewBookmark_UpperUI & Bookmark_lowerUI -> bring back!
-
+301. problem with reloading on auth (check non auth version also) version - problem started with useZustand version of the app? 
 
 "urql": "^2.0.5"
 

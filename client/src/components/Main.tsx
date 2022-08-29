@@ -54,9 +54,11 @@ import ForgottenPassChange from "./AuthRoutes/ForgottenPassChange";
 
 interface Props {
   globalSettings: GlobalSettingsState;
+  tabsDb: TabDatabase_i[] | null;
+  bookmarksDb: BookmarkDatabase_i[] | null;
 }
 
-function Main({ globalSettings }: Props): JSX.Element {
+function Main({ globalSettings, tabsDb, bookmarksDb }: Props): JSX.Element {
   const authContext = useAuth();
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
@@ -254,65 +256,65 @@ function Main({ globalSettings }: Props): JSX.Element {
     // }
   }
 
-  const [tabResults, reexecuteTabs] = useQuery({
-    query: TabsQuery,
-    // variables: { userId: authContext.isAuthenticated ? authContext.authenticatedUserId : testUserId },
-    variables: { userId: userIdOrNoId },
-    pause: !userIdOrNoId,
-    // requestPolicy: 'cache-and-network',
-  });
+  // const [tabResults, reexecuteTabs] = useQuery({
+  //   query: TabsQuery,
+  //   // variables: { userId: authContext.isAuthenticated ? authContext.authenticatedUserId : testUserId },
+  //   variables: { userId: userIdOrNoId },
+  //   pause: !userIdOrNoId,
+  //   // requestPolicy: 'cache-and-network',
+  // });
 
-  const {
-    data: data_tabs,
-    fetching: fetching_tabs,
-    error: error_tabs,
-  } = tabResults;
+  // const {
+  //   data: data_tabs,
+  //   fetching: fetching_tabs,
+  //   error: error_tabs,
+  // } = tabResults;
 
-  const [bookmarkResults, reexecuteBookmarks] = useQuery({
-    query: BookmarksQuery,
-    variables: { userId: userIdOrNoId },
-    pause: !userIdOrNoId,
-    // requestPolicy: 'cache-and-network',
-  });
+  // const [bookmarkResults, reexecuteBookmarks] = useQuery({
+  //   query: BookmarksQuery,
+  //   variables: { userId: userIdOrNoId },
+  //   pause: !userIdOrNoId,
+  //   // requestPolicy: 'cache-and-network',
+  // });
 
-  const {
-    data: data_bookmarks,
-    fetching: fetching_bookmarks,
-    error: error_bookmarks,
-    stale: stale_bookmarks,
-  } = bookmarkResults;
-
-  useEffect(() => {
-    if (data_tabs?.tabs && userIdOrNoId) {
-      updateTabsDb(data_tabs.tabs);
-    }
-  }, [data_tabs, userIdOrNoId]);
+  // const {
+  //   data: data_bookmarks,
+  //   fetching: fetching_bookmarks,
+  //   error: error_bookmarks,
+  //   stale: stale_bookmarks,
+  // } = bookmarkResults;
 
   useEffect(() => {
-    if (data_bookmarks?.bookmarks && userIdOrNoId) {
-      updateBookmarksDb(data_bookmarks.bookmarks);
+    if (tabsDb && userIdOrNoId) {
+      updateTabsDb(tabsDb);
     }
-  }, [data_bookmarks, userIdOrNoId]);
+  }, [tabsDb, userIdOrNoId]);
 
-  if (fetching_tabs) return <p>Loading...</p>;
-  if (error_tabs) return <p>Oh no... {error_tabs.message}</p>;
+  useEffect(() => {
+    if (bookmarksDb && userIdOrNoId) {
+      updateBookmarksDb(bookmarksDb);
+    }
+  }, [bookmarksDb, userIdOrNoId]);
+
+  // if (fetching_tabs) return <p>Loading...</p>;
+  // if (error_tabs) return <p>Oh no... {error_tabs.message}</p>;
 
   // let tabs: SingleTabData[] = data_tabs.tabs;
   // let tabs: TabDatabase_i[] = data_tabs.tabs;
-  let tabs: TabDatabase_i[] | SingleTabData[];
+  // let tabs: TabDatabase_i[] | SingleTabData[];
 
-  tabs = userIdOrNoId ? data_tabs.tabs : tabsNotAuth;
+  // tabs = userIdOrNoId ? data_tabs.tabs : tabsNotAuth;
 
-  if (fetching_bookmarks) return <p>Loading...</p>;
+  // if (fetching_bookmarks) return <p>Loading...</p>;
   /* setTimeout(() => {
     if (fetching_bookmarks) return <p>Loading...</p>;
   }, 1000); */
-  if (error_bookmarks) return <p>Oh no... {error_bookmarks.message}</p>;
+  // if (error_bookmarks) return <p>Oh no... {error_bookmarks.message}</p>;
 
   // let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
   // let bookmarks: BookmarkDatabase_i[] = data_bookmarks.bookmarks;
-  let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
-  bookmarks = userIdOrNoId ? data_bookmarks.bookmarks : bookmarksNotAuth;
+  // let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
+  // bookmarks = userIdOrNoId ? data_bookmarks.bookmarks : bookmarksNotAuth;
 
   // let dbValue: DbContext_i | undefined;
 
