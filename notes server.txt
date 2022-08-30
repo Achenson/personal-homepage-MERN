@@ -358,6 +358,10 @@ GOOD enough?
   https://stackoverflow.com/questions/62403571/hot-reloading-in-a-react-app-with-express-server
   10. typescript doesn't work for schemas?
   manaul static methods with mongoose model methods inside them should be used? use sth different than mongoose - papr?
+  DONE 46. bookmarks not up to date when adding newBookmark if there are none (auth vers only)
+  -> hacky solution only, reexectuing query in Bookmarks which causes rerender - solve?
+  (possible solution to get rid of rerender at least -> no bookmarks in any of useeffect? diff way for calc. tabIdsUsedByBookmarks)
+  no useeffect using bookmarks, no tabIdsUsedByBookmarks -> it is probably the issue with urql DONE
   done 51. fix any types (server.js multer?) (isAuth interface but not used in multer, backgroundImgResult types) done
   DONE 64. npm modules should be imported like: import multer = require("multer"). with const typescript types are not working!!
   change everywhere!!  (change with exception of jsonwebtoken, some ts-ignores added in server.ts,
@@ -396,10 +400,8 @@ TO implement in future versions?
 TO implement in future versions?
 
 
-!46. bookmarks not up to date when adding newBookmark if there are none (auth vers only)
- -> hacky solution only, reexectuing query in Bookmarks which causes rerender - solve?
-(possible solution to get rid of rerender at least -> no bookmarks in any of useeffect? diff way for calc. tabIdsUsedByBookmarks)
-no useeffect using bookmarks
+
+
 ? 61. background img -> currently there is no point in storing it in db, as it is get from server only??
 BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutation (x2) -> currently it is not deleting images!)
   (BackgroundImgSchema in server.ts does work -should it be deleted?, because querying is done from server only )   ?
@@ -417,6 +419,7 @@ it will trigger refresh in getAuth
 
 224. (pushed -> no hover field anywhere, but should it be introduced? or may be as display at hte top) 
 globalSettings rss items number-> hover field, implement is alse elsewhere??
+
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
 
 167.(pushed) changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
@@ -427,8 +430,8 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 281. write about Note, implement a way to bring it back?
 292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?
 
-
-302. check tabs speed in producion! too slow >  not remembering state after closing the app. -> move the logic to localStorage? 
+302. check tabs speed in producion! too slow >  not remembering state after closing the app.
+ -> move the logic to localStorage? disadvantage -> no sync between different devices
 
 "urql": "^2.0.5"
 
@@ -509,20 +512,6 @@ schema -> root mutation & root query
 individual mutations & queries -> using models from mongoModels folder (root of the app)
 
 client -> graphql folder -> graphql queries for mutation & queries
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ======================
