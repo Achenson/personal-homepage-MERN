@@ -1,5 +1,9 @@
 import { SingleTabData } from "../../utils/interfaces";
 
+interface TabDatabaseInit_i extends SingleTabData {
+  userId: string;
+}
+
 export const tabsData: SingleTabData[] = [
   {
     id: "ALL_TAGS",
@@ -121,6 +125,23 @@ Bypass CORS to allow RSS channels (https only) to work. On Chrome:
     rssLink: "https://techbeacon.com/rss.xml",
   },
 ];
+
+export const tabsDataDbInit: TabDatabaseInit_i[] = [
+  {
+    id: "ALL_TAGS",
+    userId: "",
+    title: "all bookmarks",
+    color: "red-400",
+    column: 1,
+    priority: 1,
+    opened: true,
+    openedByDefault: true,
+    deletable: false,
+    type: "folder",
+  },
+
+]
+
 
 /*  RSS links for testing
 Not working in production! due to mixed content (http request on https domain)

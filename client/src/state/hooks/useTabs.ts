@@ -6,6 +6,7 @@ import { tabsData } from "../data/tabsData";
 
 import { SingleTabData } from "../../utils/interfaces";
 
+
 interface UseTabs {
   addTabs: (newTabDataArr: SingleTabData[]) => void;
   // moving tabs to lower number cols(left) if globalSettings numberOfCols changes
