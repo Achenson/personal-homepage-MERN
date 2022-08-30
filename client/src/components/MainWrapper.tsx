@@ -83,11 +83,12 @@ function MainWrapper(): JSX.Element {
 
   if (fetching_tabs) return <p>Loading...</p>;
   if (error_tabs) return <p>Oh no... {error_tabs.message}</p>;
-  if (!data_tabs?.tabs) return <p>Loading...</p>;
+  // crucial for zustand db to work
+  if (!data_tabs?.tabs && userIdOrNoId) return <p>Loading...</p>;
 
   if (fetching_bookmarks) return <p>Loading...</p>;
   if (error_bookmarks) return <p>Oh no... {error_bookmarks.message}</p>;
-  if (!data_bookmarks?.bookmarks) return <p>Loading data...</p>;
+  if (!data_bookmarks?.bookmarks && userIdOrNoId) return <p>Loading...</p>;
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
@@ -106,6 +107,7 @@ function MainWrapper(): JSX.Element {
       globalSettings={globalSettings}
       tabsDb={userIdOrNoId ? data_tabs.tabs : null}
       bookmarksDb= {userIdOrNoId ? data_bookmarks.bookmarks : null}
+      reexecuteBookmarks={reexecuteBookmarks}
     />
   );
 }

@@ -126,6 +126,7 @@ Bypass CORS to allow RSS channels (https only) to work. On Chrome:
   },
 ];
 
+// crucial for zustand db to work (problems with )
 export const tabsDataDbInit: TabDatabaseInit_i[] = [
   {
     id: "ALL_TAGS",

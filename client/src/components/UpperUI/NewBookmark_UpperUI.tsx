@@ -16,7 +16,8 @@ import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
 // import { useDbContext } from "../../context/dbContext";
 import { useTabsDb } from "../../state/hooks/useTabsDb";
-import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
+import { useBookmarksDb, ReexecuteBookmarks } from "../../state/hooks/useBookmarksDb";
+
 
 import {
   // createBookmark,
@@ -114,7 +115,8 @@ function NewBookmark_UpperUI({
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   // const reexecuteBookmarks = useDbContext()?.reexecuteBookmarks;
-
+  const reexecuteBookmarks = useBookmarksDb(store => store.reexecuteBookmarks);
+  
 
 
 
@@ -289,10 +291,10 @@ function NewBookmark_UpperUI({
 
     await bookmarkPromise;
     // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
-    // if (bookmarks.length === 0 && userIdOrNoId) {
-    //   // @ts-ignore
-    //   reexecuteBookmarks({ requestPolicy: "network-only" });
-    // }
+    if (bookmarks.length === 0 && userIdOrNoId) {
+      
+      (reexecuteBookmarks as ReexecuteBookmarks)({ requestPolicy: "network-only" });
+    }
 
 
   }

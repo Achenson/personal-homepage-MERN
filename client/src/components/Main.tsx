@@ -56,15 +56,17 @@ interface Props {
   globalSettings: GlobalSettingsState;
   tabsDb: TabDatabase_i[] | null;
   bookmarksDb: BookmarkDatabase_i[] | null;
+  reexecuteBookmarks:  (opts?: Partial<any> | undefined) => void
 }
 
-function Main({ globalSettings, tabsDb, bookmarksDb }: Props): JSX.Element {
+function Main({ globalSettings, tabsDb, bookmarksDb, reexecuteBookmarks }: Props): JSX.Element {
   const authContext = useAuth();
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
   const updateTabsDb = useTabsDb((store) => store.updateTabsDb);
   const updateBookmarksDb = useBookmarksDb((store) => store.updateBookmarksDb);
+  const updateReexecuteBookmarks = useBookmarksDb((store) => store.updateReexecuteBookmarks);
 
   let userIdOrNoId: string | null;
   userIdOrNoId =
@@ -293,6 +295,7 @@ function Main({ globalSettings, tabsDb, bookmarksDb }: Props): JSX.Element {
   useEffect(() => {
     if (bookmarksDb && userIdOrNoId) {
       updateBookmarksDb(bookmarksDb);
+      updateReexecuteBookmarks(reexecuteBookmarks);
     }
   }, [bookmarksDb, userIdOrNoId]);
 

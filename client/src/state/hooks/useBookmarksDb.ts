@@ -1,13 +1,13 @@
 import create from "zustand";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 
-type ReexuteBookmarks = (opts?: Partial<any> | undefined) => void;
+export type ReexecuteBookmarks = (opts?: Partial<any> | undefined) => void;
 
 interface UseBookmarksDb {
   bookmarksDb: BookmarkDatabase_i[] | null;
   updateBookmarksDb: (newBookmarksDb: BookmarkDatabase_i[]) => void;
-  reexecuteBookmarks: ReexuteBookmarks | null;
-  updateReexecuteBookmarks: (reexecuteBookmarksFunc: ReexuteBookmarks) => void;
+  reexecuteBookmarks: ReexecuteBookmarks | null;
+  updateReexecuteBookmarks: (reexecuteBookmarksFunc: ReexecuteBookmarks) => void;
 }
 
 export const useBookmarksDb = create<UseBookmarksDb>((set) => ({

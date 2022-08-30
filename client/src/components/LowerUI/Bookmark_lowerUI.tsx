@@ -9,7 +9,7 @@ import { useTabs } from "../../state/hooks/useTabs";
 
 import { useTabContext } from "../../context/tabContext";
 import { useTabsDb } from "../../state/hooks/useTabsDb";
-import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
+import { useBookmarksDb, ReexecuteBookmarks } from "../../state/hooks/useBookmarksDb";
 // import { useDbContext } from "../../context/dbContext";
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
@@ -102,6 +102,8 @@ function Bookmark_lowerUI({
 
   const tabsDb = useTabsDb((store) => store.tabsDb);
   const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
+
+  const reexecuteBookmarks = useBookmarksDb(store => store.reexecuteBookmarks);
 
 
 
@@ -413,9 +415,9 @@ function Bookmark_lowerUI({
     /* console.log("bookmarkPromise");
     console.log(bookmarkPromise); */
 
-    // if (bookmarks.length === 0 && userIdOrNoId) {
-    //   reexecuteBookmarks({ requestPolicy: "network-only" });
-    // }
+    if (bookmarks.length === 0 && userIdOrNoId) {
+      (reexecuteBookmarks as ReexecuteBookmarks)({ requestPolicy: "network-only" });
+    }
 
     // setTimeout(() => setTabDeletingPause(false), 500);
     // if (bookmarkComponentType === "edit") {
