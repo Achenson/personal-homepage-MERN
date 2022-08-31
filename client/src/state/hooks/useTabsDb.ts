@@ -8,7 +8,7 @@ import {tabsDataDbInit} from "../../state/data/tabsData"
 
 
 interface UseTabsDb {
-  tabsDb: TabDatabase_i[] | null;
+  tabsDb: TabDatabase_i[];
   updateTabsDb: (newTabsDb: TabDatabase_i[]) => void;
 }
 
