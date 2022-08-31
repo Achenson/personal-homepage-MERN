@@ -433,6 +433,8 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 302. check tabs speed in producion! too slow >  not remembering state after closing the app.
  -> move the logic to localStorage? disadvantage -> no sync between different devices
 
+ 303. info about files limits somewhere?
+
 "urql": "^2.0.5"
 
 

@@ -70,13 +70,23 @@ export const tabsData: SingleTabData[] = [
     openedByDefault: true,
     deletable: true,
     type: "note",
-    noteInput: `Welcome to SmoothTabs (frontend demo),
+    noteInput: `Welcome to SmoothTabs,
 
-Manage bookmarks, RSS channels and notes in a form of draggable & foldable tabs
+Manage bookmarks, notes and RSS channels in a form of draggable & foldable tabs.
 
-Bypass CORS to allow RSS channels (https only) to work. On Chrome:
-1. Add new shortcut on the desktop
-2. Add the target as "[PATH_TO_CHROME]\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=~/chromeTemp
+Register to get persistent data storage and an option to upload picture as a background. Unregistered user's data is preserved until the browser data is cleared.
+
+Tips & tricks:
+
+SmoothTabs is preserving the content visibility of all tabs between reloads. You can reset (curly arrow in the upper left corner) the tabs' content visibility to a default state, which can be set differently for individual tabs.
+
+Colors can be set either individually for each tab or separately for folders, notes and RSS channels. To reset all individual tab colors to corresponding tab type press RESET in "Default tab colors" settings menu.
+
+
+
+
+
+
 `,
   },
   {
