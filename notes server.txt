@@ -392,14 +392,14 @@ GOOD enough?
   x 189 email with pass change ended once in span -> put warning to check spam? (put it in known issues of about section)x
   xx 274. ForgottenPassChange -> implement error if accessing the route through random characters in the url?
   (goodEnough as it now, easy way to access componetent)xx
+  DONE 281. write about Note, implement a way to bring it back? 
+  (after deleting, about & tips & tricks can be brought back by clearing storage/browser data as an unregistered user) DONE
   xx 296. consider making all settings the same width alwass (wider "tabs" in ColorsSettings made instead) xx
 GOOD enough
 
 TO implement in future versions?
   x 263. option to reset single Tab color to default? (goodEnough for now, all tabs have to reseted) x 
 TO implement in future versions?
-
-
 
 
 ? 61. background img -> currently there is no point in storing it in db, as it is get from server only??
@@ -427,7 +427,6 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 
 233. rrs itemsPerPage -> test on mobile! real one
 
-281. write about Note, implement a way to bring it back?
 292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?
 
 302. check tabs speed in producion! too slow >  not remembering state after closing the app.
@@ -435,7 +434,6 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
 
  303. info about files limits somewhere?
  304. technical info about the app on github page
- 305. double tab doesn't work the same as double click (to edit notes). Correct tips & tricks if done
 
 "urql": "^2.0.5"
 

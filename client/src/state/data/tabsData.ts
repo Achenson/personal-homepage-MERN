@@ -67,33 +67,43 @@ export const tabsData: SingleTabData[] = [
     column: 4,
     priority: 0,
     opened: true,
-    openedByDefault: true,
+    openedByDefault: false,
     deletable: true,
     type: "note",
     noteInput: `Welcome to SmoothTabs,
 
 Manage bookmarks, notes and RSS channels in a form of draggable & foldable tabs.
 
-Tips & tricks:
+Register to get persistent data storage and an option to upload an image as a background. Unregistered user's data is preserved until the browser data is cleared.
 
-Register to get persistent data storage and an option to upload picture as a background. Unregistered user's data is preserved until the browser data is cleared.
+Refer to tips & trick note for advanced usage.
+`,
+  },
+  {
+    id: "65",
+    title: "tips & tricks",
+    color: null,
+    column: 4,
+    priority: 1,
+    opened: false,
+    openedByDefault: false,
+    deletable: true,
+    type: "note",
+    noteInput: `The content visibility of all tabs is being preserved between reloads. You can reset (curly arrow in the upper left section) the tabs' content visibility to default state, which can be set for individual tabs.
 
-SmoothTabs is preserving the content visibility of all tabs between reloads. You can reset (curly arrow in the upper left section) the tabs' content visibility to a default state, which can be set differently for individual tabs.
+Tab colors can be set either individually or globally for bookmark folders, notes and RSS channels. In "Default tab colors" settings menu you can reset all individual tab colors to global configuration.
 
-Colors can be set either individually for each tab or globally for bookmark folders, notes and RSS channels. To reset all individual tab colors to global settings press RESET in "Default tab colors" settings menu.
+RSS settings can be controlled globally or separately for individual RSS channels. Each RSS tab can be reset back to global configuration.
 
-RSS settings can be controlled globally or speparately for individual RSS channels. Each RSS tab can be reset back to global settings.
+Tabs can be dragged around by long pressing anywhere within the tab label. You can disable drag & drop in global settings if you encounter accidental tab dragging on a touchscreen.
 
-Tabs can be dragged around by long pressing anywhere within the tab label. You can disable drag & drop in global settings if you encounter accidental tabs dragging on a touchscreen.
+Double click on a note's content for the fastest way to edit it.
 
-Double click on a note text for a fastest way to edit it.
-
-Click the bookmark favicon to change it for default link icon.
-
-Except for tabs position rearranging, all SmoothTabs functions can be controlled using keyboard.
+Click a bookmark favicon to change it for default icon.
 
 Bookmark folders are being deleted automatically when empty, except for "all bookmarks" folder.
-`,
+
+Except for tabs' position rearranging, all SmoothTabs features can be controlled using keyboard.`,
   },
   {
     id: "7",
@@ -156,9 +166,7 @@ export const tabsDataDbInit: TabDatabaseInit_i[] = [
     deletable: false,
     type: "folder",
   },
-
-]
-
+];
 
 /*  RSS links for testing
 Not working in production! due to mixed content (http request on https domain)
