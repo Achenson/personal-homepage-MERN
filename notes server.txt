@@ -434,6 +434,8 @@ globalSettings rss items number-> hover field, implement is alse elsewhere??
  -> move the logic to localStorage? disadvantage -> no sync between different devices
 
  303. info about files limits somewhere?
+ 304. technical info about the app on github page
+ 305. double tab doesn't work the same as double click (to edit notes). Correct tips & tricks if done
 
 "urql": "^2.0.5"
 

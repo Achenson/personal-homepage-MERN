@@ -62,7 +62,7 @@ export const tabsData: SingleTabData[] = [
   },
   {
     id: "6",
-    title: "note",
+    title: "about",
     color: null,
     column: 4,
     priority: 0,
@@ -74,19 +74,25 @@ export const tabsData: SingleTabData[] = [
 
 Manage bookmarks, notes and RSS channels in a form of draggable & foldable tabs.
 
-Register to get persistent data storage and an option to upload picture as a background. Unregistered user's data is preserved until the browser data is cleared.
-
 Tips & tricks:
 
-SmoothTabs is preserving the content visibility of all tabs between reloads. You can reset (curly arrow in the upper left corner) the tabs' content visibility to a default state, which can be set differently for individual tabs.
+Register to get persistent data storage and an option to upload picture as a background. Unregistered user's data is preserved until the browser data is cleared.
 
-Colors can be set either individually for each tab or separately for folders, notes and RSS channels. To reset all individual tab colors to corresponding tab type press RESET in "Default tab colors" settings menu.
+SmoothTabs is preserving the content visibility of all tabs between reloads. You can reset (curly arrow in the upper left section) the tabs' content visibility to a default state, which can be set differently for individual tabs.
 
+Colors can be set either individually for each tab or globally for bookmark folders, notes and RSS channels. To reset all individual tab colors to global settings press RESET in "Default tab colors" settings menu.
 
+RSS settings can be controlled globally or speparately for individual RSS channels. Each RSS tab can be reset back to global settings.
 
+Tabs can be dragged around by long pressing anywhere within the tab label. You can disable drag & drop in global settings if you encounter accidental tabs dragging on a touchscreen.
 
+Double click on a note text for a fastest way to edit it.
 
+Click the bookmark favicon to change it for default link icon.
 
+Except for tabs position rearranging, all SmoothTabs functions can be controlled using keyboard.
+
+Bookmark folders are being deleted automatically when empty, except for "all bookmarks" folder.
 `,
   },
   {
