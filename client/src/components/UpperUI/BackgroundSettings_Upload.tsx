@@ -32,7 +32,7 @@ interface Props {
   // wasCustomClicked: boolean;
   // setWasCustomClicked: React.Dispatch<React.SetStateAction<boolean>>;
   hiddenFileInput: React.RefObject<HTMLInputElement>;
-  setDbFilesError: React.Dispatch<React.SetStateAction<string | null>>
+  setDbFilesError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 enum DbFileErrors {
@@ -48,23 +48,22 @@ function BackgroundSettings_Upload({
   // wasCustomClicked,
   // setWasCustomClicked,
   hiddenFileInput,
-  setDbFilesError
+  setDbFilesError,
 }: Props): JSX.Element {
   const authContext = useAuth();
-  
+
   const uiColor = globalSettings.uiColor;
-  
+
   const [uploadFile, setUploadFile] = useState("");
   // const [uploadFile, setUploadFile] = React.useState<Blob>();
   // const [uploadFile, setUploadFile] = React.useState<Object>();
-  
+
   const [changeSettingsResult, changeSettings] = useMutation<
-  any,
-  GlobalSettingsState
+    any,
+    GlobalSettingsState
   >(ChangeSettingsMutation);
 
   const [, uploadBackgroundImg] = useMutation(BackgroundImgUploadMutation);
-  
 
   // const handleChange = React.useCallback(
   //   ({
@@ -106,22 +105,20 @@ function BackgroundSettings_Upload({
     target: { validity, files: file },
   }) => {
     if (validity.valid) {
-      await uploadBackgroundImg({ file }).then(res => {
+      await uploadBackgroundImg({ file }).then((res) => {
         console.log("background img upload res");
         console.log(res);
         console.log("file");
         // @ts-ignore
-       console.log(res?.operation?.variables?.file[0]?.name);
+        console.log(res?.operation?.variables?.file[0]?.name);
 
-       if (res.error?.message === '[Network] Unsupported Media Type') {
-        setDbFilesError("Upload a jpg or png file no larger than 10MB")
+        if (res.error?.message === "[Network] Unsupported Media Type") {
+          setDbFilesError("Upload a jpg or png file no larger than 10MB");
 
-        console.log("Upload a .jpg or .png file no larger than 10MB");
-        
-       } else {
-        setDbFilesError(null)
-       }
-       
+          console.log("Upload a .jpg or .png file no larger than 10MB");
+        } else {
+          setDbFilesError(null);
+        }
       });
       reexecuteBackgroundImg({ requestPolicy: "network-only" });
       await changeSettings({
@@ -133,7 +130,6 @@ function BackgroundSettings_Upload({
       // }
     }
   };
-
 
   // let uploadFileName;
   // @ts-ignore
@@ -241,7 +237,25 @@ function BackgroundSettings_Upload({
           {/* <p className="overflow-hidden whitespace-nowrap">{uploadFileName}</p> */}
           <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">
             {/* {wasCustomClicked ? uploadFile : null} */}
-            {globalSettings.defaultImage === "customBackground" && uploadFile ? uploadFile : null}
+
+            {/* {globalSettings.defaultImage === "customBackground" && uploadFile ? uploadFile : "jpg/png file up to 10MB"} */}
+            {(() => {
+              if (
+                globalSettings.defaultImage === "customBackground" &&
+                uploadFile
+              ) {
+                return uploadFile;
+              }
+
+              if (globalSettings.defaultImage !== "customBackground") {
+                if (!uploadFile) {
+                  // only returned if no image for uploaded yet
+                  return "jpg/png file up to 10MB";
+                } else {
+                  return "";
+                }
+              }
+            })()}
           </p>
         </div>
         <input

@@ -375,9 +375,9 @@ function BackgroundSettings({
                               defaultImage: "defaultBackground",
                             });
 
-                        if (userIdOrNoId) {
-                          setDbFilesError(null);
-                        }
+                        // if (userIdOrNoId) {
+                        //   setDbFilesError(null);
+                        // }
                         // changeSettings({
                         //   ...globalSettings,
                         //   defaultImage: "defaultBackground",
@@ -416,9 +416,9 @@ function BackgroundSettings({
                               defaultImage: "defaultBackground_2",
                             });
 
-                        if (userIdOrNoId) {
-                          setDbFilesError(null);
-                        }
+                        // if (userIdOrNoId) {
+                        //   setDbFilesError(null);
+                        // }
                       }}
                       className="focus-1-offset"
                       aria-label={"Default background image two"}
@@ -450,9 +450,9 @@ function BackgroundSettings({
                               defaultImage: "defaultBackground_3",
                             });
 
-                        if (userIdOrNoId) {
-                          setDbFilesError(null);
-                        }
+                        // if (userIdOrNoId) {
+                        //   setDbFilesError(null);
+                        // }
                         // changeSettings({
                         //   ...globalSettings,
                         //   defaultImage: "defaultBackground_3",
