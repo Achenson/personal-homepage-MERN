@@ -397,6 +397,8 @@ GOOD enough?
   (goodEnough as it now, easy way to access componetent)xx
   DONE 281. write about Note, implement a way to bring it back? 
   (after deleting, about & tips & tricks can be brought back by clearing storage/browser data as an unregistered user) DONE
+  xx 292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth 
+  -> all logic resides in useBookmarks. unify? (not worth it, code short and not exactly the same)xx
   xx 296. consider making all settings the same width alwass (wider "tabs" in ColorsSettings made instead) xx
   DONE 305. image error is being shown only 1st time or 1st time after successful img upload 
   (if same file is being uploaded  -> no res from the server)) workaround ->
@@ -410,7 +412,6 @@ TO implement in future versions?
 ? 61. background img -> currently there is no point in storing it in db, as it is get from server only??
 BackgroundImg schema in server.ts - does it work?? (!!! updade deleteUserMutation (x2) -> currently it is not deleting images!)
   (BackgroundImgSchema in server.ts does work -should it be deleted?, because querying is done from server only )   ?
-68. list all links to free svgs in notes [one more svg may be implemented still]
 126. didAuthError not needed? since there will be (!isAuth) logic in qraphql mutation/queries.
 instead, willAuthError is needed? even if it does not trigger error (logic for refreshing is not needed in getAuth?), 
 it will trigger refresh in getAuth
@@ -421,19 +422,12 @@ it will trigger refresh in getAuth
 149. more rigid password checking?
 155. better email validation
 188. wiki-speed-typing -> check if password retrival is available still
-
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
-
 167.(pushed) changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
 181. (pushed) clean db in the end
-
 233. rrs itemsPerPage -> test on mobile! real one
-
-292. SingleBookmark & Bookmark_lowerUi -> for db, the code for deleting empty is doubled, for notAuth -> all logic resides in useBookmarks. unify?
-
 302. check tabs speed in producion! too slow >  not remembering state after closing the app.
  -> move the logic to localStorage? disadvantage -> no sync between different devices
-
  304. technical info about the app on github page
 
 "urql": "^2.0.5"
