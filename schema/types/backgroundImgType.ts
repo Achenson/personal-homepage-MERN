@@ -9,12 +9,12 @@ const {
   GraphQLBoolean,
 } = graphql;
 
-export interface BackgroundImg {
-  userId: string;
-  backgroundImg: string;
-}
+// export interface BackgroundImg {
+//   userId: string;
+//   backgroundImg: string;
+// }
 
-export const BackgroundImgFields = {
+const BackgroundImgFields = {
   // userId: { type: GraphQLID },
   backgroundImgUrl: { type: GraphQLString },
 };

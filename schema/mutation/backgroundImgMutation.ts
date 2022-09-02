@@ -3,15 +3,15 @@ import path = require("path");
 
 const BackgroundImgSchema = require("../../mongoModels/backgroundImgSchema");
 
-import { BackgroundImg } from "../../schema/types/backgroundImgType";
+// import { BackgroundImg } from "../../schema/types/backgroundImgType";
 
 import { GraphQLObjectType, GraphQLString, GraphQLBoolean } from "graphql";
 import { GraphQLUpload, FileUpload } from "graphql-upload";
 
-import {
-  BackgroundImgType,
-  BackgroundImgFields,
-} from "../types/backgroundImgType";
+// import {
+//   BackgroundImgType,
+//   BackgroundImgFields,
+// } from "../types/backgroundImgType";
 
 // const UploadedFileType = new GraphQLObjectType({
 //   name: "UploadedFile",

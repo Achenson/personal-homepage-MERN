@@ -899,3 +899,94 @@ export function useDbContext() {
 
 
 
+============== background img db code
+
+===== BackgroundImgSchema
+
+import { model, Schema } from "mongoose";
+import { BackgroundImg } from "../schema/types/backgroundImgType";
+
+const BackgroundImgSchema = new Schema<BackgroundImg>({
+  // we don't have to pass id, because mongoDB will create it manualy
+  userId: String,
+  //  img: { data: Buffer, contentType: String }
+  backgroundImg: String,
+});
+
+module.exports = model("BackgroundImg", BackgroundImgSchema);
+
+
+===== in server.ts inside backgroundImgUpload
+      // BackgroundImgSchema.replaceOne(
+      //   { userId: userId },
+      //   newBackgroundImg,
+      //   { upsert: true },
+      //   (err: Error, backgroundImgProduct: BackgroundImg) => {
+      //     if (err) {
+      //       console.log(err);
+      //       res.status(500).json({
+      //         error: err,
+      //       });
+      //       removeBackgroundImg(newBackgroundImageName, userId);
+      //       return;
+      //     }
+      //     let dest = "backgroundImgs/" + userId + "/";
+      //     fs.readdirSync(dest).forEach((file: string) => {
+      //       // console.log(file);
+      //       if (file !== newBackgroundImageName) {
+      //         // removeBackgroundImg(file, req.params.userId);
+      //         // removeBackgroundImg(file, userIdOrTestId);
+      //         removeBackgroundImg(file, userId);
+      //       }
+      //     });
+      //     // might be not needed
+      //     res.status(201).json({
+      //       message: "Created product successfully",
+      //       createdProduct: backgroundImgProduct,
+      //     });
+      //   }
+      // );
+
+==== backgroundImgType
+
+import graphql = require("graphql");
+
+const {
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLInt,
+  GraphQLString,
+  GraphQLBoolean,
+} = graphql;
+
+export interface BackgroundImg {
+  userId: string;
+  backgroundImg: string;
+}
+
+export const BackgroundImgFields = {
+  // userId: { type: GraphQLID },
+  backgroundImgUrl: { type: GraphQLString },
+};
+
+
+export const BackgroundImgType = new GraphQLObjectType({
+  name: "BackgroundImg",
+  fields: () => ({
+    ...BackgroundImgFields,
+  }),
+});
+
+
+in case the code is being brought back -> deletion of img from db should be implemented
+
+
+
+
+
+
+
+
+
+
+

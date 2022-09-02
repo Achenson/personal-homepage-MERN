@@ -33,7 +33,7 @@ const BackgroundImgSchema = require("./mongoModels/backgroundImgSchema");
 import { schema } from "./schema/schema";
 
 // import { testUserId } from "./client/src/state/data/testUserId";
-import { BackgroundImg } from "./schema/types/backgroundImgType";
+// import { BackgroundImg } from "./schema/types/backgroundImgType";
 let rssParser = new Parser();
 // let upload = multer({dest: "uploads/"})
 
@@ -160,25 +160,28 @@ app.use(
 
       let userId = req.userId;
 
-      let newBackgroundImg = {
-        userId: userId,
-        backgroundImg: newBackgroundImageName,
-      };
+      // let newBackgroundImg = {
+      //   userId: userId,
+      //   backgroundImg: newBackgroundImageName,
+      // };
 
-      BackgroundImgSchema.replaceOne(
-        { userId: userId },
-        newBackgroundImg,
-        { upsert: true },
-        (err: Error, backgroundImgProduct: BackgroundImg) => {
-          if (err) {
-            console.log(err);
-            res.status(500).json({
-              error: err,
-            });
+      // BackgroundImgSchema.replaceOne(
+      //   { userId: userId },
+      //   newBackgroundImg,
+      //   { upsert: true },
+      //   (err: Error, backgroundImgProduct: BackgroundImg) => {
+      //     if (err) {
+      //       console.log(err);
+      //       res.status(500).json({
+      //         error: err,
+      //       });
 
-            removeBackgroundImg(newBackgroundImageName, userId);
-            return;
-          }
+      //       removeBackgroundImg(newBackgroundImageName, userId);
+      //       return;
+      //     }
+
+
+
           let dest = "backgroundImgs/" + userId + "/";
 
           fs.readdirSync(dest).forEach((file: string) => {
@@ -190,13 +193,19 @@ app.use(
               removeBackgroundImg(file, userId);
             }
           });
-          // might be not needed
+        
+          // crucial!! cause page reload -> new img as a background
           res.status(201).json({
-            message: "Created product successfully",
-            createdProduct: backgroundImgProduct,
+            message: "Product created successfully",
+            // createdProduct: backgroundImgProduct,
           });
-        }
-      );
+
+
+      //   }
+      // );
+
+
+
     });
   }
 );
