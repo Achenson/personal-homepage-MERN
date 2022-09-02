@@ -398,8 +398,9 @@ GOOD enough?
   DONE 281. write about Note, implement a way to bring it back? 
   (after deleting, about & tips & tricks can be brought back by clearing storage/browser data as an unregistered user) DONE
   xx 296. consider making all settings the same width alwass (wider "tabs" in ColorsSettings made instead) xx
-  DONE 305. image error is being shown only 1st time or 1st time after successful img upload. workaround -> error is
-  not being set after clicking one of 3 default imgs DONE
+  DONE 305. image error is being shown only 1st time or 1st time after successful img upload 
+  (if same file is being uploaded  -> no res from the server)) workaround ->
+   error is not being set after clicking one of 3 default imgs. "error" color changed to black DONE
 GOOD enough
 
 TO implement in future versions?

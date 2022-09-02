@@ -348,7 +348,7 @@ function BackgroundSettings({
                 <div className="text-center">
                   <p className={`mb-2 xs:mb-0`}>{imgDescription_1}</p>
 
-                  <div className="mt-6  xs:mt-3  h-5 text-red-500 text-center text-sm">
+                  <div className="mt-6  xs:mt-3  h-5 text-black text-center text-sm">
                     {userIdOrNoId ? dbFilesError : null}
                   </div>
 
