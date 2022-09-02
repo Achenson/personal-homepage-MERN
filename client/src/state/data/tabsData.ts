@@ -103,6 +103,8 @@ Click a bookmark favicon to change it for default icon.
 
 Bookmark folders are being deleted automatically when empty, except for "all bookmarks" folder.
 
+Selected UI elements automatically change color for a one similar to current default color of bookmark folders.
+
 Except for tabs' position rearranging, all SmoothTabs features can be controlled using keyboard.`,
   },
   {
