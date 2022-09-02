@@ -429,7 +429,15 @@ it will trigger refresh in getAuth
 233. rrs itemsPerPage -> test on mobile! real one
 302. check tabs speed in producion! too slow >  not remembering state after closing the app.
  -> move the logic to localStorage? disadvantage -> no sync between different devices
- 304. technical info about the app on github page
+305. technical info about the app on github page
+306. file after file cleaning. order of imports/interfaces!
+
+
+
+
+
+
+
 
 "urql": "^2.0.5"
 
@@ -519,59 +527,9 @@ backgroundSettings_Upload -> reexecute query works only after introducint async 
 
 react-tracked -> optimized rerender for zustand itp?
 
-bookmarkAllTags purpose -> delete a Tab if its last bookmark is deleted
+//// bookmarkAllTags purpose -> delete a Tab if its last bookmark is deleted  not used anymore///
 
 
-
-export interface AuthContextObj_i {
-  isAuthenticated: boolean;
-  authenticatedUserId: null | string;
-  accessToken: null | string;
-  loginNotification: null | string;
-  loginErrorMessage: null | string;
-}
-
-export interface AuthContextZustand_i extends AuthContextObj_i {
-  logout: () => void;
-  loginAttempt: (
-    isAuthenticated: boolean,
-    userId: string,
-    token: string
-  ) => void;
-}
-
-import create from "zustand";
-
-import { AuthContextZustand_i } from "../../utils/interfaces";
-
-export const useAuth = create<AuthContextZustand_i>((set) => ({
-  isAuthenticated: false,
-  authenticatedUserId: null,
-  accessToken: null,
-  loginNotification: null,
-  loginErrorMessage: null,
-  logout: () => set(state => ({
-      ...state,
-      isAuthenticated: false,
-      authenticatedUserId: null,
-      accessToken: null
-  })),
-  loginAttempt: (isAuthenticated, userId, token) => set(state => ({
-      ...state,
-      isAuthenticated: isAuthenticated,
-      authenticatedUserId: userId,
-      accessToken: token
-  }))
-
-//   setLoggedInState: (trueOrFalse) =>
-//     set((state) => ({
-//       ...state,
-//       loggedInState: trueOrFalse,
-//     })),
-
-
-
-}));
 
 ================  useCallback & useMemo
 https://kentcdodds.com/blog/usememo-and-usecallback
