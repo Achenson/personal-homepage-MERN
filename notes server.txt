@@ -457,16 +457,16 @@ mutation ($image: Upload!) {
 ======================================
 JWT logic: 
 
-0. Login component -> login Mutation (see below -> res from the server contains the refresh token in a cookie and is setting it on client),
- access token & authenticatedUserId is taken from the server response is saved to central state
+0. LoginRegister component -> login Mutation (see below -> res from the server contains the refresh token in a cookie and is setting it on client),
+ access token & authenticatedUserId is taken from the server response and saved to central state
 
 serverside: Login mutation (vars: name/email, password): 
 1. searches db by name/email
 2. check if password is valid
 3. sends refresh token (first creates it) in a cookie? (from the server)
  - so client has a refresh token in a cookie set now!!
-[refresh token is being send in a request only if hiting /refresh_token (point 6)]
-4. creates accessToken, returns it so it can be stored in central state (point 0)
+[refresh token is being send in a request from the client only if hiting /refresh_token (point 6)]
+4. creates accessToken, returns it in the server response so it can be stored in central state (point 0)
 
 5. clientside (ApolloClient/urqlClient?):
  every request to the server is going to have access token (in the headers) taken from central state
@@ -479,7 +479,8 @@ serverside: Login mutation (vars: name/email, password):
     server sends access token in a response from the server
     access token is stored clientside in memory (central state)
 
-7. creating new access token if old expires -> Apollo middleware? what about urql??
+7. creating new access token if old expires -> getAuth in App runs if there is an auth error:
+-if no AuthState -> this means this is the initial launch
 
 8. mutation/queries are being protected by isAuth, which checks if accessTOken is valid
 

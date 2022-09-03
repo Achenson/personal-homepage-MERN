@@ -28,7 +28,7 @@ const sendRefreshToken = require("./schema/middleware/sendRefreshToken");
 const isAuth = require("./schema/middleware/isAuth");
 
 // const BackgroundImgSchema = require("../../mongoModels/BackgroundImgSchema");
-const BackgroundImgSchema = require("./mongoModels/backgroundImgSchema");
+// const BackgroundImgSchema = require("./mongoModels/backgroundImgSchema");
 
 import { schema } from "./schema/schema";
 

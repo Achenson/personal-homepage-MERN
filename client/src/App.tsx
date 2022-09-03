@@ -140,11 +140,16 @@ function App() {
             console.log("getAuth runs");
 
             if (!authState) {
+              console.log("NO AUTH STATE");
+              
               // const accessToken = localStorage.getItem("token");
               const accessToken = authContext.accessToken;
               // const refreshToken = localStorage.getItem("refreshToken");
               if (accessToken) {
                 // ====== checking if accessToken is expired
+
+                console.log("ACCESS TOKEN PRESENT");
+                
                 try {
                   // @ts-ignore
                   const { exp } = jwtDecode(accessToken);
@@ -163,6 +168,8 @@ function App() {
                 // delete this?!? refreshToken() should be returned instead?
                 // return { accessToken };
               }
+              console.log("NO ACCESS TOKEN");
+              
               return null;
               // return { accessToken: null };
             }
@@ -174,7 +181,7 @@ function App() {
              * If refresh fails, we should log out
              **/
 
-            console.log("possible auth error has occurred?");
+            console.log("POSSIBLE auth error has occurred?");
 
             return refreshToken();
 

@@ -1,7 +1,7 @@
 import fs = require("fs");
 import path = require("path");
 
-const BackgroundImgSchema = require("../../mongoModels/backgroundImgSchema");
+// const BackgroundImgSchema = require("../../mongoModels/backgroundImgSchema");
 
 // import { BackgroundImg } from "../../schema/types/backgroundImgType";
 
