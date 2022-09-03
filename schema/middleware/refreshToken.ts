@@ -3,7 +3,7 @@ import jwt = require("jsonwebtoken")
 import { User_i } from "../types/userType";
 
 module.exports = (user: User_i) => {
-  console.log("refresshhhhh token");
+  console.log("refresh token");
   
   return jwt.sign(
     { userId: user.id, tokenVersion: user.tokenVersion },

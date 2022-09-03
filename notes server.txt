@@ -416,6 +416,12 @@ TO implement in future versions?
 126. didAuthError not needed? since there will be (!isAuth) logic in qraphql mutation/queries.
 instead, willAuthError is needed? even if it does not trigger error (logic for refreshing is not needed in getAuth?), 
 it will trigger refresh in getAuth
+
+
+
+
+
+
 128. update token notes (refreshing tokens -> always two tokens are being refreshed, that is by design? probably)
 129. implement willAuthError for better performance
 130. improve getAuth -> it should not include refresh token logic in the first run?
@@ -457,8 +463,9 @@ mutation ($image: Upload!) {
 ======================================
 JWT logic: 
 
-0. LoginRegister component -> login Mutation (see below -> res from the server contains the refresh token in a cookie and is setting it on client),
- access token & authenticatedUserId is taken from the server response and saved to central state
+0. LoginRegister component -> login Mutation ->
+res from the server contains the refresh token in a cookie and is setting it on client(see below),
+access token & authenticatedUserId is taken from the server response and saved to central state
 
 serverside: Login mutation (vars: name/email, password): 
 1. searches db by name/email
@@ -468,35 +475,78 @@ serverside: Login mutation (vars: name/email, password):
 [refresh token is being send in a request from the client only if hiting /refresh_token (point 6)]
 4. creates accessToken, returns it in the server response so it can be stored in central state (point 0)
 
-5. clientside (ApolloClient/urqlClient?):
+5. clientside (urqlClient):
  every request to the server is going to have access token (in the headers) taken from central state
 
 6. clientside during every app reload:
+
  App.js is posting to /refresh_token route on the server,                           
   which verifies if client has a valid refresh token in a cookie,
   if yes -> 
     server creates new refresh token and sends it back
     server sends access token in a response from the server
     access token is stored clientside in memory (central state)
+  if no ->
+    user is logout, has to login to create new refreshTokne
 
-7. creating new access token if old expires -> getAuth in App runs if there is an auth error:
--if no AuthState -> this means this is the initial launch
+7. creating new access token if old expires ->
 
-8. mutation/queries are being protected by isAuth, which checks if accessTOken is valid
+isAuth middleware is checking the validity of access token in request headers on various mutations/queries
+if accessToken is invalid -> req.isAuth is false
+respective mutatation/queries return GraphQL error
+in App, getAuth runs if there is a specific auth error,
+(it runs logic coresponding to authstate being already there, meaning this in not the first app launch)
+getAuth runs only if didAuthError's graphql error message is the same as error message returned from mutation/queries
+("If didAuthError returns true, it will trigger the exchange to trigger the logic for asking for re-authentication via getAuth.")
+ this results in posting to /refresh_token,
+-> if refresh token is valid:
+new refresh token is send in a cookie, new access token is send and stored in a central state
+-> if refresh token is invalid:
+user is logout, has to login to create new refreshTokne
 
-9. logOut -> setting empty string in a cookie instead of refresh token + setting access token to null clientside
+8. logOut -> setting empty string in a cookie instead of refresh oken + setting access token to null & isAuthenticated to false clientside
 
-...more, check
+9. what happens on app launch
+
+refreshToken() start but asynchronously
+in the meantime: getAuth runs more than once -> no AuthState, no Access token
+addAuthToOperation return empty operation
+finally, the refreshToken() finishes running
+-> getAuth runs again, this time there is no auth state but there is an access token,
+so it returns it (this is the AuthState)
+addAuthToOperation return headers with authorisation
+from now on getAuth will run the logic outside the if(!AuthState) {...} logic
+
+10. revoking tokens:
+
+tokenVersion == 0 when creating user
+when creating refreshToken ->refreshTokens' tokenVersion == user.tokenVerssion
+to invalidate user -> mutation to increment user's tokenVersion in db
+when the user tries to refresh tokens(reloading or after the accessToken runs out),
+/refresh_token path checks if his user.tokenVersion match the version from the refresh token in his cookies
+if not: new accessToken & refreshToken is not being sent
+-user can still use App until accessToken run out (or until he reloads)
+BUT new refreshToken would still be created if the user Logs in again -
+so password has to be changed first be the admin
+intended to be used when a third party has stolen refreshToken. They can still use the app until accessToken is valid,
+or if they with user's credentials
+
+11. Not implemented:
+willAuthError ->run before a network request is made.
+We can use it to trigger the logic in getAuth without the need to send a request and get a GraphQL Error back.
+BUT it will cause login & logout mutation to fail, unless the a complicated code is written (check urql docs for more)
 
 
 To so sum up, after login: 
 1. Client has a cookie with refresh token (that is not being sent with every request, but only to /refresh_token endpoint),
 access token is stored in client's memory (state manager)), and it is being sent in every request to the server (in headers)
-(mutations/queries are being protected by isAuth on the server, which checks if there is proper accessToken set in the header)
+(mutations/queries are being protected by isAuth on the server, which checks if there is proper accessToken set in the header, see 3. belowe)
 
 2. app reload: post to /refresh_token route -> after validating if client has proper refresh token in a cookie, new refresh token & access token is being sent to client
+-> no proper refresh token -> logout (isAuthenticated -> false)
 
-3. creating new access token if old expires -> apollo middleware
+3. isAuth middleware failure (invalid accessToken) results in creating new refresh token & access token 
+(assuming refresh token is still valid, if not -> logout (isAuthenticated -> false)) 
 
 
 

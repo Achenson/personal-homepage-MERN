@@ -8,7 +8,7 @@ import {
   dedupExchange,
   cacheExchange,
   fetchExchange,
-  useMutation
+  useMutation,
 } from "urql";
 import { multipartFetchExchange } from "@urql/exchange-multipart-fetch";
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -62,20 +62,27 @@ function App() {
   const authContext = useAuth();
   const loginAttempt = useAuth((store) => store.loginAttempt);
 
-  useEffect(() => {
-    console.log("authContext.isAuthenticated");
-    console.log(authContext.isAuthenticated);
-    console.log(authContext.authenticatedUserId);
-    console.log(authContext.accessToken);
-  }, [
-    authContext.isAuthenticated,
-    authContext.authenticatedUserId,
-    authContext.accessToken,
-  ]);
+  // useEffect(() => {
+  //   console.log("authContext.isAuthenticated");
+  //   console.log(authContext.isAuthenticated);
+  //   console.log(authContext.authenticatedUserId);
+  //   console.log(authContext.accessToken);
+  // }, [
+  //   authContext.isAuthenticated,
+  //   authContext.authenticatedUserId,
+  //   authContext.accessToken,
+  // ]);
 
   const client = useMemo(() => {
-    refreshToken();
+    console.log("REFRESH TOKEN 111");
 
+    // prevents excessive refreshtoken runs
+    if (!authContext.isAuthenticated) {
+      refreshToken();
+    }
+    
+    
+    refreshToken();
     //  !!!! later -> implement logic to show demo version if
     // not authenticated -> do it more like wiki-speed-typing app
     /*  if (!authContext.isAuthenticated) {
@@ -100,7 +107,7 @@ function App() {
               return operation;
             }
 
-            // console.log("urql RETURN HEADERS with Authorization");
+            console.log("urql RETURN HEADERS with Authorization");
             // console.log("authState.accessToken");
             // console.log(authState.accessToken);
 
@@ -123,9 +130,8 @@ function App() {
           },
           didAuthError: ({ error }) => {
             // check if the error was an auth error (this can be implemented in various ways, e.g. 401 or a special error code)
-            
 
-            console.log("DIDAUTHERROR");
+            console.log("did auth error");
 
             return error.graphQLErrors.some(
               // e => e.extensions?.code === 'FORBIDDEN',
@@ -140,21 +146,22 @@ function App() {
             console.log("getAuth runs");
 
             if (!authState) {
-              console.log("NO AUTH STATE");
-              
+              console.log("no auth state - initial app run");
+
               // const accessToken = localStorage.getItem("token");
               const accessToken = authContext.accessToken;
               // const refreshToken = localStorage.getItem("refreshToken");
               if (accessToken) {
                 // ====== checking if accessToken is expired
 
-                console.log("ACCESS TOKEN PRESENT");
-                
+                console.log("accessToken present");
+
                 try {
                   // @ts-ignore
                   const { exp } = jwtDecode(accessToken);
                   // won't it always be OK? since the user has just logged in
                   if (Date.now() >= exp * 1000) {
+                    console.log("refresh token - access token expired");
                     return refreshToken();
                   } else {
                     console.log("accessToken standard return");
@@ -162,6 +169,7 @@ function App() {
                     return { accessToken };
                   }
                 } catch {
+                  console.log("refresh token after catching error");
                   return refreshToken();
                 }
                 // returning an authState
@@ -169,7 +177,7 @@ function App() {
                 // return { accessToken };
               }
               console.log("NO ACCESS TOKEN");
-              
+
               return null;
               // return { accessToken: null };
             }
@@ -181,8 +189,9 @@ function App() {
              * If refresh fails, we should log out
              **/
 
-            console.log("POSSIBLE auth error has occurred?");
+            console.log("auth error has occurred");
 
+            console.log("refresh token after auth error");
             return refreshToken();
 
             // logout is already implemented in the last refreshToken() above?

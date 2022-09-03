@@ -8,6 +8,7 @@ module.exports = (user: User_i) => {
     process.env.ACCESS as string,
     {
       expiresIn: "15m",
+      // expiresIn: 20,
       // in ms
       // expiresIn: "10000",
     }
