@@ -80,7 +80,8 @@ function App() {
     // prevents excessive refreshtoken runs
     if (!authContext.isAuthenticated) {
       console.log("refresh token first");
-      refreshToken();
+      // crucial! without this -> possible to reload with auth, not possible to login
+    refreshToken();
     }
 
     console.log("authContext.isAuthenticated");
@@ -185,6 +186,7 @@ function App() {
             console.log("auth error has occurred");
 
             console.log("refresh token after auth error");
+            // reload work also without this, but with flickering loginSVG
             return refreshToken();
 
             // logout is already implemented in the last refreshToken() above?
