@@ -74,21 +74,14 @@ function App() {
   // ]);
 
   const client = useMemo(() => {
-    console.log("REFRESH TOKEN 111");
 
+    // refreshToken();
+    
     // prevents excessive refreshtoken runs
     if (!authContext.isAuthenticated) {
+      console.log("refresh token first");
       refreshToken();
     }
-    
-    
-    refreshToken();
-    //  !!!! later -> implement logic to show demo version if
-    // not authenticated -> do it more like wiki-speed-typing app
-    /*  if (!authContext.isAuthenticated) {
-      // return null;
-    logoutMut()
-    } */
 
     console.log("authContext.isAuthenticated");
     console.log(authContext.isAuthenticated);
