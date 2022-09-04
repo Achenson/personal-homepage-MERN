@@ -11,7 +11,7 @@ const createAccessToken = require("../middleware/accessToken");
 const createRefreshToken = require("../middleware/refreshToken");
 const sendRefreshToken = require("../middleware/sendRefreshToken");
 
-import { AuthDataType } from "../types/authDataType";
+import { AuthDataTypeLogin } from "../types/authDataType";
 
 import { RequestWithAuth } from "../middleware/isAuth";
 
@@ -26,7 +26,7 @@ interface ExpressReqRes {
 }
 
 export const loginMutationField = {
-  type: AuthDataType,
+  type: AuthDataTypeLogin,
   args: {
     // email_or_name: { type: new GraphQLNonNull(GraphQLString) },
     email_or_name: { type: GraphQLString },
@@ -53,6 +53,7 @@ export const loginMutationField = {
     if (!user) {
       // throw new Error("User does not exist!");
       return {
+        ok: false,
         userId: null,
         token: null,
         error: "User does not exist",
@@ -64,13 +65,14 @@ export const loginMutationField = {
     if (!isEqual) {
       // throw new Error("Password is incorrect!");
       return {
+        ok: false,
         userId: null,
         token: null,
         error: "Password is incorrect",
       };
     }
 
-    sendRefreshToken(res, createRefreshToken(user));
+    await sendRefreshToken(res, createRefreshToken(user));
 
     const token = createAccessToken(user);
 
@@ -78,6 +80,6 @@ export const loginMutationField = {
     // console.log(token);
     
 
-    return { userId: user.id, token: token, error: null };
+    return { ok: true, userId: user.id, token: token, error: null };
   },
 };

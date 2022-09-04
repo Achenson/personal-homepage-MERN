@@ -267,6 +267,7 @@ export const ChangeTabMutation = `
 export const LoginMutation = `
   mutation ($email_or_name: String, $password: String) {
     login(email_or_name: $email_or_name, password: $password) {
+      ok
       userId
       token
       error

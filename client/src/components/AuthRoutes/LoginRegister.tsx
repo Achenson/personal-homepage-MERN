@@ -174,8 +174,14 @@ Props): JSX.Element {
 
         setLoginErrorMessage(null);
 
+        // console.log("logloginAttempt");
+        // console.log(res.data?.login?.ok);
+        // console.log(res.data?.login?.userId);
+        // console.log( res.data?.login?.token);
+        
+
         loginAttempt(
-          res.data?.ok,
+          res.data?.login?.ok,
           res.data?.login?.userId,
           res.data?.login?.token
         );

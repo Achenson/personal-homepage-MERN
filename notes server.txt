@@ -417,9 +417,7 @@ TO implement in future versions?
 instead, willAuthError is needed? even if it does not trigger error (logic for refreshing is not needed in getAuth?), 
 it will trigger refresh in getAuth
 
-
-
-
+check wiki speed typing loginMut!
 
 
 128. update token notes (refreshing tokens -> always two tokens are being refreshed, that is by design? probably)
@@ -472,7 +470,7 @@ serverside: Login mutation (vars: name/email, password):
 2. check if password is valid
 3. sends refresh token (first creates it) in a cookie? (from the server)
  - so client has a refresh token in a cookie set now!!
-[refresh token is being send in a request from the client only if hiting /refresh_token (point 6)]
+!!!??? [refresh token is being send in a request from the client only if hiting /refresh_token (point 6)] check !!!????
 4. creates accessToken, returns it in the server response so it can be stored in central state (point 0)
 
 5. clientside (urqlClient):

@@ -1,4 +1,4 @@
-import { GraphQLString, GraphQLObjectType, GraphQLID } from "graphql";
+import { GraphQLString, GraphQLObjectType, GraphQLID, GraphQLBoolean } from "graphql";
 
 export interface AuthDataForgotPassword_i {
   email: string
@@ -26,9 +26,18 @@ export interface AuthData_i {
 }
 
 export const AuthDataField = {
+  // ok: {type: GraphQLBoolean},
   userId: { type: GraphQLID },
   token: { type: GraphQLString},
   error: {type: GraphQLString}
+};
+
+export const AuthDataFieldLogin = {
+  ...AuthDataField,
+  ok: {type: GraphQLBoolean},
+  // userId: { type: GraphQLID },
+  // token: { type: GraphQLString},
+  // error: {type: GraphQLString}
 };
 
 export const AuthDataType = new GraphQLObjectType({
@@ -37,3 +46,14 @@ export const AuthDataType = new GraphQLObjectType({
     ...AuthDataField,
   }),
 });
+
+
+export const AuthDataTypeLogin = new GraphQLObjectType({
+  name: "AuthLogin",
+  fields: () => ({
+    ...AuthDataFieldLogin,
+  }),
+});
+
+
+

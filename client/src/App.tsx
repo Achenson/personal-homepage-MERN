@@ -78,11 +78,11 @@ function App() {
     // refreshToken();
     
     // prevents excessive refreshtoken runs
-    if (!authContext.isAuthenticated) {
-      console.log("refresh token first");
-      // crucial! without this -> possible to reload with auth, not possible to login
-    refreshToken();
-    }
+    // if (!authContext.isAuthenticated) {
+    //   console.log("refresh token first");
+    //   // crucial! without this -> possible to reload with auth, not possible to login
+    // refreshToken();
+    // }
 
     console.log("authContext.isAuthenticated");
     console.log(authContext.isAuthenticated);
@@ -144,7 +144,14 @@ function App() {
 
               // const accessToken = localStorage.getItem("token");
               const accessToken = authContext.accessToken;
+              
               // const refreshToken = localStorage.getItem("refreshToken");
+
+              console.log("getAuth isAuthenticated");
+              console.log(authContext.isAuthenticated);
+              console.log(accessToken);
+              
+              
               if (accessToken) {
                 // ====== checking if accessToken is expired
 
@@ -172,7 +179,8 @@ function App() {
               }
               console.log("NO ACCESS TOKEN");
 
-              return null;
+              // return null;
+              return refreshToken()
               // return { accessToken: null };
             }
 
