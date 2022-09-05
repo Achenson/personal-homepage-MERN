@@ -432,7 +432,8 @@ function Tab({
                     // } ${tabID === "ALL_TAGS" ? "tracking-wider" : ""}`}
                   } ${!tabIsDeletable ? "tracking-wider" : ""}`}
                 >
-                  {tabTitle} {tabType === "note" ? noteHeight?.toString() : null}
+                  {/* {tabTitle} {tabType === "note" ? noteHeight?.toString() : null} */}
+                  {tabTitle}
                 </p>
               </button>
             </div>
