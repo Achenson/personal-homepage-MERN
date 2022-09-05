@@ -4,15 +4,18 @@ interface Props {
   textAreaValue: string | null;
   setTextAreaValue: React.Dispatch<React.SetStateAction<string | null>>;
   setWasAnythingClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  noteHeight: number | null;
 }
 
 function EditTab_notes({
   textAreaValue,
   setTextAreaValue,
   setWasAnythingClicked,
+  noteHeight
 }: Props): JSX.Element {
   return (
     <div className="mt-2">
+      <p>{noteHeight?.toString()}</p>
       <textarea
         value={textAreaValue as string}
         className="h-full w-full overflow-visible pl-px pr-px border font-mono resize-none focus-1"

@@ -605,6 +605,7 @@ function Tab({
               globalSettings={globalSettings}
               userIdOrNoId={userIdOrNoId}
               tabIsDeletable={tabIsDeletable}
+              noteHeight={tabType === "note" ? noteHeight : undefined}
               // tabs={tabs}
             />
           )}

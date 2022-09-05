@@ -58,6 +58,7 @@ interface Props {
   globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
   tabIsDeletable: boolean;
+  noteHeight?: number | null
   // tabs: SingleTabData[];
   // bookmarks: SingleBookmarkData[];
   // bookmarks: BookmarkDatabase_i[];
@@ -71,6 +72,7 @@ function EditTab({
   globalSettings,
   userIdOrNoId,
   tabIsDeletable,
+  noteHeight
 }: // tabs,
 // bookmarks,
 Props): JSX.Element {
@@ -475,6 +477,7 @@ Props): JSX.Element {
               textAreaValue={textAreaValue}
               setTextAreaValue={setTextAreaValue}
               setWasAnythingClicked={setWasAnythingClicked}
+              noteHeight={noteHeight as number | null}
             />
           )}
 
