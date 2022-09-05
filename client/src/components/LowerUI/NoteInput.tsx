@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 // import shallow from "zustand/shallow";
 
@@ -12,15 +12,24 @@ import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 interface Props {
   currentTab: SingleTabData;
   isTabDraggedOver: boolean;
-  globalSettings: GlobalSettingsState
-  tabOpened_local: boolean
+  globalSettings: GlobalSettingsState;
+  tabOpened_local: boolean;
+  setNoteHeight: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-function NoteInput({ currentTab, isTabDraggedOver, globalSettings, tabOpened_local }: Props): JSX.Element {
+function NoteInput({
+  currentTab,
+  isTabDraggedOver,
+  globalSettings,
+  tabOpened_local,
+  setNoteHeight,
+}: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
   const tabContext = useTabContext();
 
   const [focusOnNote, setFocusOnNote] = useState(false);
+
+  const heightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
@@ -30,6 +39,19 @@ function NoteInput({ currentTab, isTabDraggedOver, globalSettings, tabOpened_loc
       document.removeEventListener("keydown", handleKeyDown);
     };
   });
+
+  useEffect(() => {
+    getHeight();
+  }, [currentTab?.noteInput, tabOpened_local]);
+
+  useEffect(() => {
+    window.addEventListener("resize", getHeight);
+  }, []);
+
+  function getHeight() {
+    const newHeight = heightRef.current?.clientHeight;
+    setNoteHeight(newHeight as number);
+  }
 
   function handleKeyDown(event: KeyboardEvent) {
     if (
@@ -42,6 +64,7 @@ function NoteInput({ currentTab, isTabDraggedOver, globalSettings, tabOpened_loc
 
   return (
     <div
+      ref={heightRef}
       className={`${
         globalSettings.picBackground
           ? `${

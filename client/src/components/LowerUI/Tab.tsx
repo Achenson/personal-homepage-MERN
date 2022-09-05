@@ -83,6 +83,8 @@ function Tab({
 }: Props): JSX.Element {
   // const globalSettings = useGlobalSettings((state) => state, shallow);
 
+  const [noteHeight, setNoteHeight] = useState<number | null>(null);
+
   const setTabBeingDraggedColor = useTabBeingDraggedColor(
     (store) => store.setTabBeingDraggedColor
   );
@@ -430,7 +432,7 @@ function Tab({
                     // } ${tabID === "ALL_TAGS" ? "tracking-wider" : ""}`}
                   } ${!tabIsDeletable ? "tracking-wider" : ""}`}
                 >
-                  {tabTitle}
+                  {tabTitle} {tabType === "note" ? noteHeight?.toString() : null}
                 </p>
               </button>
             </div>
@@ -643,6 +645,7 @@ function Tab({
             isTabDraggedOver={isTabDraggedOver}
             globalSettings={globalSettings}
             tabOpened_local={tabOpened_local}
+            setNoteHeight={setNoteHeight}
           />
         )}
 
