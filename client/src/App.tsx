@@ -62,31 +62,11 @@ function App() {
   const authContext = useAuth();
   const loginAttempt = useAuth((store) => store.loginAttempt);
 
-  // useEffect(() => {
-  //   console.log("authContext.isAuthenticated");
-  //   console.log(authContext.isAuthenticated);
-  //   console.log(authContext.authenticatedUserId);
-  //   console.log(authContext.accessToken);
-  // }, [
-  //   authContext.isAuthenticated,
-  //   authContext.authenticatedUserId,
-  //   authContext.accessToken,
-  // ]);
 
   const client = useMemo(() => {
 
     // refreshToken();
-    
-    // prevents excessive refreshtoken runs
-    // if (!authContext.isAuthenticated) {
-    //   console.log("refresh token first");
-    //   // crucial! without this -> possible to reload with auth, not possible to login
-    // refreshToken();
-    // }
-
-    console.log("authContext.isAuthenticated");
-    console.log(authContext.isAuthenticated);
-
+  
     return createClient({
       url: "http://localhost:4000/graphql",
       exchanges: [
@@ -102,8 +82,6 @@ function App() {
             }
 
             console.log("urql RETURN HEADERS with Authorization");
-            // console.log("authState.accessToken");
-            // console.log(authState.accessToken);
 
             const fetchOptions =
               typeof operation.context.fetchOptions === "function"
@@ -142,31 +120,25 @@ function App() {
             if (!authState) {
               console.log("no auth state - initial app run");
 
-              // const accessToken = localStorage.getItem("token");
               const accessToken = authContext.accessToken;
               
-              // const refreshToken = localStorage.getItem("refreshToken");
-
-              console.log("getAuth isAuthenticated");
-              console.log(authContext.isAuthenticated);
-              console.log(accessToken);
-              
-              
               if (accessToken) {
-                // ====== checking if accessToken is expired
+                // code executed after login. Also, later on app reload 
+                // (after the code for no access token runs first)
 
+                // ====== checking if accessToken is expired
                 console.log("accessToken present");
 
                 try {
                   // @ts-ignore
                   const { exp } = jwtDecode(accessToken);
-                  // won't it always be OK? since the user has just logged in
+                  // accessToken shouldn't expire as this code should be executed
+                  // right after access token creation, but in thery it is possible
                   if (Date.now() >= exp * 1000) {
                     console.log("refresh token - access token expired");
                     return refreshToken();
                   } else {
                     console.log("accessToken standard return");
-
                     return { accessToken };
                   }
                 } catch {
@@ -177,33 +149,27 @@ function App() {
                 // delete this?!? refreshToken() should be returned instead?
                 // return { accessToken };
               }
-              console.log("NO ACCESS TOKEN");
+               // code executed immediately on app reload 
+              console.log("no access token");
 
               // return null;
               return refreshToken()
               // return { accessToken: null };
             }
+            // code executed when an auth erros has occured (meaning: accessToken has expired)
 
             /**
              * the following code gets executed when an auth error has occurred
-             * (in case the authState is true but an error occurred in didAuthError  ??? check)
+             * (in case the authState is true but an error occurred in didAuthError)
              * we should refresh the token if possible and return a new auth state
              * If refresh fails, we should log out
              **/
 
-            console.log("auth error has occurred");
-
             console.log("refresh token after auth error");
-            // reload work also without this, but with flickering loginSVG
+
             return refreshToken();
 
-            // logout is already implemented in the last refreshToken() above?
-            //  should it return null in case of failure?
 
-            // console.log("authContextaccessToken");
-            // console.log(authContext.accessToken);
-
-            // return null;
           },
         }),
         // fetchExchange,
