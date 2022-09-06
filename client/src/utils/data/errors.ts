@@ -3,7 +3,7 @@ import { BookmarkErrors, TabErrors } from "../interfaces";
 export const bookmarkErrors = {
   titleFormat:
     // "Title can contain letters, numbers, underscores and single spaces",
-    "Title should start and end with a letter, digit or underscore. Only single spaces are allowed",
+    "Start and end the title with a letter, digit or underscore. Commas and multiple spaces are not allowed",
   titleUniqueness: "Bookmark with that title already exists",
   // tagFormat: "Folders should consist of words separated by coma and single space",
   tagFormat:
@@ -30,7 +30,7 @@ export const tabErrors = {
   // titleFormat: "Tab title should consist of words without special characters",
   titleFormat:
     // "Title can contain letters, numbers, underscores and single spaces",
-    "Title should start and end with a letter, digit or underscore. Only single spaces are allowed",
+    "Start and end the title with a letter, digit or underscore. Commas and multiple spaces are not allowed",
   // not used in edit tab
   titleUniqueness: "Tab with that title already exists",
   invalidLinkError: "Invalid link",

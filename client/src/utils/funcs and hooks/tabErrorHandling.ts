@@ -21,24 +21,37 @@ export function tabErrorHandling(
   // let regexForBookmarks = /^\w+(,\s\w+)*$/;
   // let regexForBookmarks = /^\w(\s?\w+)*(,\s\w(\s?\w+)*)*$/;
   // let regexForTitle = /^\w+$/;
-  
-  
+
   // https://stackoverflow.com/questions/1500260/detect-urls-in-text-with-javascript
   // const regexForLink =
   //   /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
-  
+
   // const regexForBookmarks = /^\w(\s?\w+)*(,\s\w(\s?\w+)*)*,?$/;
   // const regexForTitle = /^\w(\s?\w+)*$/;
+
+  // const regexForBookmarks = /^\w(\s*\S*)*\w(,\s\w(\s*\S*)*\w)*,?$/;
   
-  const regexForBookmarks = /^\w(\s*\S*)*\w(,\s\w(\s*\S*)*\w)*,?$/;
   
-  const regexForTitle = /^\w(\s*\S*)*\w$/;
 
-  const regexForTitle_forbidden = /\s\s+/
+  // does not contain comma
+  const regexForTitle =
+  /^\w(\s*[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w$/;
+  // regexForTitle does not allow single characters as titles
+  const regexForTitle_short = /^\w$/;
+  
+  
+  // regex for title still allows multiplespaces
+  const regexForTitle_forbidden = /\s\s+/;
+  
+  // const regexForBookmarks = new RegExp("(" + regexForTitle.source + ")")
+  const regexForBookmarks = new RegExp(`^${regexForTitle.source}(,\\s${regexForTitle.source})*,?$`)
 
 
-
-  if (!regexForTitle.test(tabTitleInput) || regexForTitle_forbidden.test(tabTitleInput)) {
+  if (
+    (!regexForTitle.test(tabTitleInput) &&
+      !regexForTitle_short.test(tabTitleInput)) ||
+    regexForTitle_forbidden.test(tabTitleInput)
+  ) {
     setErrors({
       ...errorsAllFalse,
       titleFormatErrorVis: true,

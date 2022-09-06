@@ -435,6 +435,7 @@ TO implement in future versions?
 
 308. tabTitles -> currently & is not allowed, but tips & tricks are being set from the beginning!
 (make two different type of errors? for double spaces and flanking characters)
+single letters can't be tags or bookmarks?
 
 be visible again (bug was only in editFolder, selectables visibility was not reset in onChange) DONE
 
