@@ -20,14 +20,25 @@ export function tabErrorHandling(
   // ^  and $ -> beginning and end of the text!
   // let regexForBookmarks = /^\w+(,\s\w+)*$/;
   // let regexForBookmarks = /^\w(\s?\w+)*(,\s\w(\s?\w+)*)*$/;
-  const regexForBookmarks = /^\w(\s?\w+)*(,\s\w(\s?\w+)*)*,?$/;
   // let regexForTitle = /^\w+$/;
-  const regexForTitle = /^\w(\s?\w+)*$/;
+  
+  
   // https://stackoverflow.com/questions/1500260/detect-urls-in-text-with-javascript
   // const regexForLink =
   //   /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+  
+  // const regexForBookmarks = /^\w(\s?\w+)*(,\s\w(\s?\w+)*)*,?$/;
+  // const regexForTitle = /^\w(\s?\w+)*$/;
+  
+  const regexForBookmarks = /^\w(\s*\S*)*\w(,\s\w(\s*\S*)*\w)*,?$/;
+  
+  const regexForTitle = /^\w(\s*\S*)*\w$/;
 
-  if (!regexForTitle.test(tabTitleInput)) {
+  const regexForTitle_forbidden = /\s\s+/
+
+
+
+  if (!regexForTitle.test(tabTitleInput) || regexForTitle_forbidden.test(tabTitleInput)) {
     setErrors({
       ...errorsAllFalse,
       titleFormatErrorVis: true,

@@ -434,6 +434,7 @@ TO implement in future versions?
 306. file after file cleaning. order of imports/interfaces!
 
 308. tabTitles -> currently & is not allowed, but tips & tricks are being set from the beginning!
+(make two different type of errors? for double spaces and flanking characters)
 
 be visible again (bug was only in editFolder, selectables visibility was not reset in onChange) DONE
 
