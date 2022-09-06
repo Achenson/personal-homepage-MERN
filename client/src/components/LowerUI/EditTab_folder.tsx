@@ -106,6 +106,7 @@ Props): JSX.Element {
       // in new RegExp the \ needs to be escaped!
       // \b -> word boundary
       let tagRegex = new RegExp(`\\b${el}\\b`);
+      // let tagRegex = new RegExp(`${el}`);
       // a selectable is visible only if the input does not contain it
       if (
         !tagRegex.test(selectablesInputStr) &&
@@ -170,6 +171,7 @@ Props): JSX.Element {
             value={selectablesInputStr}
             onChange={(e) => {
               setWasAnythingClicked(true);
+              if (!selectablesListVis) setSelectablesListVis(true);
 
               let target = e.target.value;
 

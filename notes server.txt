@@ -358,6 +358,7 @@ DONE 303. info about files limits somewhere? (info is being shown only before an
 DONE 304. check if all dbContext values are being used(reexecuteTabs & staleBookmarks not used - deleted) DONE
 DONE 307. noteEdit -> measure component? (after clicking edit, note is open, height is calculated and based on that the
 number of textarea rows is calculated) DONE
+DONE 309. better tags handling -> in editFolder if the selectables go empty (e. double space) they won't
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -434,6 +435,7 @@ TO implement in future versions?
 
 308. tabTitles -> currently & is not allowed, but tips & tricks are being set from the beginning!
 
+be visible again (bug was only in editFolder, selectables visibility was not reset in onChange) DONE
 
 
 "urql": "^2.0.5"
