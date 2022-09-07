@@ -25,30 +25,49 @@ export function bookmarkErrorHandling(
 
   // const regexForTags = /^\w(\s?\w+)*(,\s\w(\s?\w+)*)*$/;
   // const regexForTitle = /^\w(\s?\w+)*$/;
+  
+  // does not contain comma
+  const regexSingleChar = /[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]/;
 
   // does not contain comma
   const regexForTitle =
     /^\w(\s?[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w$/;
+
+    const regexForTitle_2 = new RegExp(`^${regexSingleChar.source}(\\s?${regexSingleChar.source}+)*$`)
+    const regexForTitle_2_unflanked = new RegExp(`${regexSingleChar.source}(\\s?${regexSingleChar.source}+)*`)
+
+
   const regexForTitleUnflanked =
     /\w(\s?[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w/;
 
+
+
+
+
+
   // regexForTitle does not allow single characters as titles
-  const regexForTitle_short = /^\w$/;
+  // const regexForTitle_short = /^\w$/;
 
   // regex for title & bookmarks still allows multiplespaces
-  const regex_forbidden = /\s\s+/;
+  // const regex_forbidden = /\s\s+/;
 
   // const regexForBookmarks = new RegExp("(" + regexForTitle.source + ")")
   const regexForTags = new RegExp(
     `^${regexForTitleUnflanked.source}(,\\s${regexForTitleUnflanked.source})*,?$`
   );
 
+  const regexForTags_2 = new RegExp(
+    `^${regexForTitle_2_unflanked.source}(,\\s${regexForTitle_2_unflanked.source})*,?$`
+  );
+
   // if (!regexForTitle.test(titleInput)) {
 
   if (
-    (!regexForTitle.test(titleInput) &&
-      !regexForTitle_short.test(titleInput)) ||
-    regex_forbidden.test(titleInput)
+    // (
+      !regexForTitle_2.test(titleInput)
+    //  &&
+    //   !regexForTitle_short.test(titleInput)) ||
+    // regex_forbidden.test(titleInput)
   ) {
     setErrors({
       ...errorsAllFalse,
@@ -85,8 +104,11 @@ export function bookmarkErrorHandling(
   let tagsInputArrToStr = tagsInputArr.join(", ");
 
   if (
-    (!regexForTags.test(tagsInputArrToStr) ||
-      regex_forbidden.test(tagsInputArrToStr)) &&
+    // (
+      !regexForTags_2.test(tagsInputArrToStr)
+    //  ||
+      // regex_forbidden.test(tagsInputArrToStr)) 
+      &&
     selectablesInputStr !== ""
   ) {
     setErrors({

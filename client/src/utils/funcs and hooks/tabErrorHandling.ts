@@ -31,28 +31,43 @@ export function tabErrorHandling(
 
   // const regexForBookmarks = /^\w(\s*\S*)*\w(,\s\w(\s*\S*)*\w)*,?$/;
 
+// does not contain comma
+  const regexSingleChar = /[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]/;
+
   // does not contain comma
   const regexForTitle =
     /^\w(\s*[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w$/;
+
+  const regexForTitle_2 = new RegExp(`^${regexSingleChar.source}(\\s?${regexSingleChar.source}+)*$`)
+  const regexForTitle_2_unflanked = new RegExp(`${regexSingleChar.source}(\\s?${regexSingleChar.source}+)*`)
+
+
 
   const regexForTitleUnflanked =
     /\w(\s?[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w/;
 
   // regexForTitle does not allow single characters as titles
-  const regexForTitle_short = /^\w$/;
+  // const regexForTitle_short = /^\w$/;
 
   // regex for title & bookmarks still allows multiplespaces
-  const regex_forbidden = /\s\s+/;
+  // const regex_forbidden = /\s\s+/;
 
   // const regexForBookmarks = new RegExp("(" + regexForTitle.source + ")")
   const regexForBookmarks = new RegExp(
     `^${regexForTitleUnflanked.source}(,\\s${regexForTitleUnflanked.source})*,?$`
   );
 
+  const regexForBookmarks_2 = new RegExp(
+    `^${regexForTitle_2_unflanked.source}(,\\s${regexForTitle_2_unflanked.source})*,?$`
+  );
+
+
   if (
-    (!regexForTitle.test(tabTitleInput) &&
-      !regexForTitle_short.test(tabTitleInput)) ||
-    regex_forbidden.test(tabTitleInput)
+    // (
+      !regexForTitle_2.test(tabTitleInput)
+      //  &&
+      // !regexForTitle_short.test(tabTitleInput)) ||
+    // regex_forbidden.test(tabTitleInput)
   ) {
     setErrors({
       ...errorsAllFalse,
@@ -75,8 +90,9 @@ export function tabErrorHandling(
 
   if (tabType === "folder") {
     if (
-      !regexForBookmarks.test(bookmarksInputArrToStr) ||
-      regex_forbidden.test(bookmarksInputArrToStr)
+      !regexForBookmarks_2.test(bookmarksInputArrToStr)
+      //  ||
+      // regex_forbidden.test(bookmarksInputArrToStr)
     ) {
       setErrors({
         ...errorsAllFalse,
