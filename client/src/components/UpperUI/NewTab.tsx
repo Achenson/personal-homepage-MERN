@@ -36,7 +36,11 @@ import {
   ChangeBookmarkMutation,
 } from "../../graphql/graphqlMutations";
 
-import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
+import {
+  GlobalSettingsState,
+  SingleBookmarkData,
+  SingleTabData,
+} from "../../utils/interfaces";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 
@@ -73,7 +77,6 @@ function NewTab({
 
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
-
 
   bookmarks = userIdOrNoId
     ? (bookmarksDb as SingleBookmarkData[])
@@ -167,9 +170,26 @@ function NewTab({
       // \b -> word boundary
       let tagRegex = new RegExp(`\\b${el}\\b`);
 
+      let tagRegex_2 = new RegExp(
+        `(^|\\s+|,+|(\\s+,+)*|(,+\\s+)*)${el}(\\s+|,+|(\\s+,+)*|(,+\\s+)*|$)`
+      );
+
+      const regexSingleChar =
+        /[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]/;
+
+      let tagRegex_inv = new RegExp(`${regexSingleChar.source}+${el}`);
+      let tagRegex_inv_2 = new RegExp(`${el}${regexSingleChar.source}+`);
+
       // a selectable is visible only if the input does not contain it
       if (
-        !tagRegex.test(selectablesInputStr) &&
+        // !tagRegex.test(selectablesInputStr) &&
+        // if selectablesInputStr pass this test it won't be visible
+        // (so it won't be still visible if surrounded by spaces and commas)
+        (!tagRegex_2.test(selectablesInputStr) ||
+          // or if selectablesInputStr passes one of those tests it will be visible
+          // (so it will be visible when surrounded be characters that can make a title)
+          (tagRegex_inv.test(selectablesInputStr) ||
+            tagRegex_inv_2.test(selectablesInputStr))) &&
         (letterToLetterMatch(lastSelectablesArrEl, el) ||
           selectablesInputStr.length === 0)
       ) {
