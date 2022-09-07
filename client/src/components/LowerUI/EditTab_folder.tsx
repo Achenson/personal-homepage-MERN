@@ -106,10 +106,14 @@ Props): JSX.Element {
       // in new RegExp the \ needs to be escaped!
       // \b -> word boundary
       let tagRegex = new RegExp(`\\b${el}\\b`);
+
+      let tagRegex_2 = new RegExp(`(^|\\s+|,+|(\\s+,+)*|(,+\\s+)*)${el}(\\s+|,+|(\\s+,+)*|(,+\\s+)*|$)`)
+
       // let tagRegex = new RegExp(`${el}`);
       // a selectable is visible only if the input does not contain it
       if (
-        !tagRegex.test(selectablesInputStr) &&
+        !tagRegex_2.test(selectablesInputStr) &&
+        // !tagRegex.test(selectablesInputStr) &&
         (letterToLetterMatch(lastSelectablesArrEl, el) ||
           selectablesInputStr.length === 0)
       ) {
