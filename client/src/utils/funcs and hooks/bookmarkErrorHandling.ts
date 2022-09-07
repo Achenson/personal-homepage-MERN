@@ -19,13 +19,37 @@ export function bookmarkErrorHandling(
   // ^  and $ -> beginning and end of the text!
   // let regexForTags = /^\w+(,\s\w+)*$/;
   // let regexForTitle = /^\w+$/;
-  const regexForTags = /^\w(\s?\w+)*(,\s\w(\s?\w+)*)*$/;
-  const regexForTitle = /^\w(\s?\w+)*$/;
   // https://stackoverflow.com/questions/1500260/detect-urls-in-text-with-javascript
   // const regexForLink =
   //   /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
 
-  if (!regexForTitle.test(titleInput)) {
+  // const regexForTags = /^\w(\s?\w+)*(,\s\w(\s?\w+)*)*$/;
+  // const regexForTitle = /^\w(\s?\w+)*$/;
+
+  // does not contain comma
+  const regexForTitle =
+    /^\w(\s?[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w$/;
+  const regexForTitleUnflanked =
+    /\w(\s?[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w/;
+
+  // regexForTitle does not allow single characters as titles
+  const regexForTitle_short = /^\w$/;
+
+  // regex for title & bookmarks still allows multiplespaces
+  const regex_forbidden = /\s\s+/;
+
+  // const regexForBookmarks = new RegExp("(" + regexForTitle.source + ")")
+  const regexForTags = new RegExp(
+    `^${regexForTitleUnflanked.source}(,\\s${regexForTitleUnflanked.source})*,?$`
+  );
+
+  // if (!regexForTitle.test(titleInput)) {
+
+  if (
+    (!regexForTitle.test(titleInput) &&
+      !regexForTitle_short.test(titleInput)) ||
+    regex_forbidden.test(titleInput)
+  ) {
     setErrors({
       ...errorsAllFalse,
       titleFormatErrorVis: true,
@@ -58,8 +82,11 @@ export function bookmarkErrorHandling(
     return true;
   }
 
+  let tagsInputArrToStr = tagsInputArr.join(", ");
+
   if (
-    !regexForTags.test(tagsInputArr.join(", ")) &&
+    (!regexForTags.test(tagsInputArrToStr) ||
+      regex_forbidden.test(tagsInputArrToStr)) &&
     selectablesInputStr !== ""
   ) {
     setErrors({

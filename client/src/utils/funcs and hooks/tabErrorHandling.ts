@@ -30,27 +30,29 @@ export function tabErrorHandling(
   // const regexForTitle = /^\w(\s?\w+)*$/;
 
   // const regexForBookmarks = /^\w(\s*\S*)*\w(,\s\w(\s*\S*)*\w)*,?$/;
-  
-  
 
   // does not contain comma
   const regexForTitle =
-  /^\w(\s*[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w$/;
+    /^\w(\s*[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w$/;
+
+  const regexForTitleUnflanked =
+    /\w(\s?[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w/;
+
   // regexForTitle does not allow single characters as titles
   const regexForTitle_short = /^\w$/;
-  
-  
-  // regex for title still allows multiplespaces
-  const regexForTitle_forbidden = /\s\s+/;
-  
-  // const regexForBookmarks = new RegExp("(" + regexForTitle.source + ")")
-  const regexForBookmarks = new RegExp(`^${regexForTitle.source}(,\\s${regexForTitle.source})*,?$`)
 
+  // regex for title & bookmarks still allows multiplespaces
+  const regex_forbidden = /\s\s+/;
+
+  // const regexForBookmarks = new RegExp("(" + regexForTitle.source + ")")
+  const regexForBookmarks = new RegExp(
+    `^${regexForTitleUnflanked.source}(,\\s${regexForTitleUnflanked.source})*,?$`
+  );
 
   if (
     (!regexForTitle.test(tabTitleInput) &&
       !regexForTitle_short.test(tabTitleInput)) ||
-    regexForTitle_forbidden.test(tabTitleInput)
+    regex_forbidden.test(tabTitleInput)
   ) {
     setErrors({
       ...errorsAllFalse,
@@ -69,8 +71,13 @@ export function tabErrorHandling(
     return true;
   }
 
+  let bookmarksInputArrToStr = bookmarksInputArr.join(", ");
+
   if (tabType === "folder") {
-    if (!regexForBookmarks.test(bookmarksInputArr.join(", "))) {
+    if (
+      !regexForBookmarks.test(bookmarksInputArrToStr) ||
+      regex_forbidden.test(bookmarksInputArrToStr)
+    ) {
       setErrors({
         ...errorsAllFalse,
         bookmarksErrorVis: true,

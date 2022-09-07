@@ -440,6 +440,47 @@ single letters can't be tags or bookmarks?
 be visible again (bug was only in editFolder, selectables visibility was not reset in onChange) DONE
 
 
+
+
+    const regexForTitle =
+  /^\w(\s*[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w$/;
+
+  
+  console.log(regexForTitle.source);
+
+
+
+ const regexForBookmarks = new RegExp(`^${regexForTitle.source}(,\\s${regexForTitle.source})*,?$`);
+
+ const regexForBookmarksOld = /^\w(\s*[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w$(,\s\w(\s*[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w)*,?$/
+
+ //console.log(regexForBookmarks);
+ 
+ 
+ const regexTest = new RegExp(`${regexForTitle.source}`);
+
+let testNewRegex = regexTest.test("dsfsd %ffds");
+//console.log(testNewRegex)
+
+
+let testOld = regexForTitle.test("dsfsd %ffds");
+//console.log(testOld)
+
+
+let test_regexForBookmarks_new = regexForBookmarks.test("sdffsfd, sfsdf")
+console.log(test_regexForBookmarks_new)
+ 
+let test_regexForBookmarks_old = regexForBookmarksOld.test("sdffsfsss, f")
+console.log(test_regexForBookmarks_old)
+
+
+
+
+
+
+
+
+
 "urql": "^2.0.5"
 
 
