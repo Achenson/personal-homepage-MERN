@@ -6,6 +6,12 @@ import FocusLock from "react-focus-lock";
 import SelectableList from "../Shared/SelectableList";
 import TabErrors from "../Shared/TabErrors_render";
 
+import {
+  createSelectablesRegex,
+  createSelectablesRegex_inverted_start,
+  createSelectablesRegex_inverted_end,
+} from "../../utils/regex";
+
 import { ReactComponent as SaveSVG } from "../../svgs/save.svg";
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 import { ReactComponent as CheckSVG } from "../../svgs/check-small.svg";
@@ -168,28 +174,31 @@ function NewTab({
     initialBookmarks.forEach((el) => {
       // in new RegExp the \ needs to be escaped!
       // \b -> word boundary
-      let tagRegex = new RegExp(`\\b${el}\\b`);
+      // let tagRegex = new RegExp(`\\b${el}\\b`);
 
-      let tagRegex_2 = new RegExp(
-        `(^|\\s+|,+|(\\s+,+)*|(,+\\s+)*)${el}(\\s+|,+|(\\s+,+)*|(,+\\s+)*|$)`
-      );
+      // let tagRegex_2 = new RegExp(
+      //   `(^|\\s+|,+|(\\s+,+)*|(,+\\s+)*)${el}(\\s+|,+|(\\s+,+)*|(,+\\s+)*|$)`
+      // );
 
-      const regexSingleChar =
-        /[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]/;
+      // const regexSingleChar =
+      //   /[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]/;
 
-      let tagRegex_inv = new RegExp(`${regexSingleChar.source}+${el}`);
-      let tagRegex_inv_2 = new RegExp(`${el}${regexSingleChar.source}+`);
+      // let tagRegex_inv = new RegExp(`${regexSingleChar.source}+${el}`);
+      // let tagRegex_inv_2 = new RegExp(`${el}${regexSingleChar.source}+`);
 
       // a selectable is visible only if the input does not contain it
       if (
         // !tagRegex.test(selectablesInputStr) &&
         // if selectablesInputStr pass this test it won't be visible
         // (so it won't be still visible if surrounded by spaces and commas)
-        (!tagRegex_2.test(selectablesInputStr) ||
+        // (!tagRegex_2.test(selectablesInputStr) ||
+        (!createSelectablesRegex(el).test(selectablesInputStr) ||
           // or if selectablesInputStr passes one of those tests it will be visible
           // (so it will be visible when surrounded be characters that can make a title)
-          (tagRegex_inv.test(selectablesInputStr) ||
-            tagRegex_inv_2.test(selectablesInputStr))) &&
+          // (tagRegex_inv.test(selectablesInputStr) ||
+          createSelectablesRegex_inverted_start(el).test(selectablesInputStr) ||
+          // tagRegex_inv_2.test(selectablesInputStr))) &&
+          createSelectablesRegex_inverted_end(el).test(selectablesInputStr)) &&
         (letterToLetterMatch(lastSelectablesArrEl, el) ||
           selectablesInputStr.length === 0)
       ) {

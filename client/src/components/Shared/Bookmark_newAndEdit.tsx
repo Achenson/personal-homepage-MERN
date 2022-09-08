@@ -9,7 +9,17 @@ import { useTabs } from "../../state/hooks/useTabs";
 import { useTabsDb } from "../../state/hooks/useTabsDb";
 import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
 
-import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
+import {
+  createSelectablesRegex,
+  createSelectablesRegex_inverted_start,
+  createSelectablesRegex_inverted_end,
+} from "../../utils/regex";
+
+import {
+  GlobalSettingsState,
+  SingleBookmarkData,
+  SingleTabData,
+} from "../../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
@@ -51,11 +61,10 @@ function Bookmark_newAndEdit({
   // bookmarks,
   // tabs,
   globalSettings,
-  userIdOrNoId
+  userIdOrNoId,
 }: Props): JSX.Element {
   // const bookmarks = useBookmarks((state) => state.bookmarks);
   // const tabs = useTabs((state) => state.tabs);
-
 
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
@@ -178,11 +187,18 @@ function Bookmark_newAndEdit({
     initialTags.forEach((el) => {
       // in new RegExp the \ needs to be escaped!
       // \b -> word boundary
-      let tagRegex = new RegExp(`\\b${el}\\b`);
+      // let tagRegex = new RegExp(`\\b${el}\\b`);
 
       // a selectable is visible only if the input does not contain it
       if (
-        !tagRegex.test(selectablesInputStr) &&
+        // !tagRegex.test(selectablesInputStr) &&
+        // (letterToLetterMatch(lastSelectablesArrEl, el) ||
+        //   selectablesInputStr.length === 0)
+
+        // explanation in NewTab
+        (!createSelectablesRegex(el).test(selectablesInputStr) ||
+          createSelectablesRegex_inverted_start(el).test(selectablesInputStr) ||
+          createSelectablesRegex_inverted_end(el).test(selectablesInputStr)) &&
         (letterToLetterMatch(lastSelectablesArrEl, el) ||
           selectablesInputStr.length === 0)
       ) {

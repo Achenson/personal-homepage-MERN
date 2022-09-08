@@ -1,6 +1,8 @@
 import { SingleBookmarkData, SetBookmarkErrors } from "../interfaces";
 import { bookmarkErrorsAllFalse as errorsAllFalse } from "../data/errors";
 
+import {titleRegex, tagsOrBookmarksRegexForSaving} from "../regex"
+
 const urlRegexSafe = require("url-regex-safe");
 
 export function bookmarkErrorHandling(
@@ -27,23 +29,17 @@ export function bookmarkErrorHandling(
   // const regexForTitle = /^\w(\s?\w+)*$/;
   
   // does not contain comma
-  const regexSingleChar = /[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]/;
+  // const regexSingleChar = /[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]/;
 
   // does not contain comma
-  const regexForTitle =
-    /^\w(\s?[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w$/;
+  // const regexForTitle =
+    // /^\w(\s?[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w$/;
 
-    const regexForTitle_2 = new RegExp(`^${regexSingleChar.source}(\\s?${regexSingleChar.source}+)*$`)
-    const regexForTitle_2_unflanked = new RegExp(`${regexSingleChar.source}(\\s?${regexSingleChar.source}+)*`)
+    // const regexForTitle_2 = new RegExp(`^${regexSingleChar.source}(\\s?${regexSingleChar.source}+)*$`)
+    // const regexForTitle_2_unflanked = new RegExp(`${regexSingleChar.source}(\\s?${regexSingleChar.source}+)*`)
 
-
-  const regexForTitleUnflanked =
-    /\w(\s?[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w/;
-
-
-
-
-
+  // const regexForTitleUnflanked =
+  //   /\w(\s?[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w/;
 
   // regexForTitle does not allow single characters as titles
   // const regexForTitle_short = /^\w$/;
@@ -52,19 +48,20 @@ export function bookmarkErrorHandling(
   // const regex_forbidden = /\s\s+/;
 
   // const regexForBookmarks = new RegExp("(" + regexForTitle.source + ")")
-  const regexForTags = new RegExp(
-    `^${regexForTitleUnflanked.source}(,\\s${regexForTitleUnflanked.source})*,?$`
-  );
+  // const regexForTags = new RegExp(
+  //   `^${regexForTitleUnflanked.source}(,\\s${regexForTitleUnflanked.source})*,?$`
+  // );
 
-  const regexForTags_2 = new RegExp(
-    `^${regexForTitle_2_unflanked.source}(,\\s${regexForTitle_2_unflanked.source})*,?$`
-  );
+  // const regexForTags_2 = new RegExp(
+  //   `^${regexForTitle_2_unflanked.source}(,\\s${regexForTitle_2_unflanked.source})*,?$`
+  // );
 
   // if (!regexForTitle.test(titleInput)) {
 
   if (
     // (
-      !regexForTitle_2.test(titleInput)
+      // !regexForTitle_2.test(titleInput)
+      !titleRegex.test(titleInput)
     //  &&
     //   !regexForTitle_short.test(titleInput)) ||
     // regex_forbidden.test(titleInput)
@@ -105,7 +102,8 @@ export function bookmarkErrorHandling(
 
   if (
     // (
-      !regexForTags_2.test(tagsInputArrToStr)
+      // !regexForTags_2.test(tagsInputArrToStr)
+      !tagsOrBookmarksRegexForSaving.test(tagsInputArrToStr)
     //  ||
       // regex_forbidden.test(tagsInputArrToStr)) 
       &&

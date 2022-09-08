@@ -18,6 +18,12 @@ import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 // import { TabDatabase_i } from "../../../../schema/types/tabType";
 
+import {
+  createSelectablesRegex,
+  createSelectablesRegex_inverted_start,
+  createSelectablesRegex_inverted_end,
+} from "../../utils/regex";
+
 interface Props {
   selectablesListVis: boolean;
   setSelectablesListVis: React.Dispatch<React.SetStateAction<boolean>>;
@@ -105,15 +111,22 @@ Props): JSX.Element {
     initialBookmarks.forEach((el) => {
       // in new RegExp the \ needs to be escaped!
       // \b -> word boundary
-      let tagRegex = new RegExp(`\\b${el}\\b`);
+      // let tagRegex = new RegExp(`\\b${el}\\b`);
 
-      let tagRegex_2 = new RegExp(`(^|\\s+|,+|(\\s+,+)*|(,+\\s+)*)${el}(\\s+|,+|(\\s+,+)*|(,+\\s+)*|$)`)
+      // let tagRegex_2 = new RegExp(`(^|\\s+|,+|(\\s+,+)*|(,+\\s+)*)${el}(\\s+|,+|(\\s+,+)*|(,+\\s+)*|$)`)
 
       // let tagRegex = new RegExp(`${el}`);
       // a selectable is visible only if the input does not contain it
       if (
-        !tagRegex_2.test(selectablesInputStr) &&
-        // !tagRegex.test(selectablesInputStr) &&
+        // !tagRegex_2.test(selectablesInputStr) &&
+        // // !tagRegex.test(selectablesInputStr) &&
+        // (letterToLetterMatch(lastSelectablesArrEl, el) ||
+        //   selectablesInputStr.length === 0)
+
+        // explanation in NewTab
+        (!createSelectablesRegex(el).test(selectablesInputStr) ||
+          createSelectablesRegex_inverted_start(el).test(selectablesInputStr) ||
+          createSelectablesRegex_inverted_end(el).test(selectablesInputStr)) &&
         (letterToLetterMatch(lastSelectablesArrEl, el) ||
           selectablesInputStr.length === 0)
       ) {
