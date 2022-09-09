@@ -1,43 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
-import FocusLock from "react-focus-lock";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "urql";
 
-// import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
-// import { ReactComponent as EyeSVG } from "../../svgs/eye.svg";
-// import { ReactComponent as EyeOffSVG } from "../../svgs/eye-off.svg";
-
 import LogRegProfile_input from "./LogRegProfile_input";
-
-// import { useLoggedInState } from "../../state/hooks/useLoggedInState";
-import { useUpperUiContext } from "../../context/upperUiContext";
-// import { useAuthContext } from "../../context/authContext";
-import { useAuth } from "../../state/hooks/useAuth";
+import AuthNotification from "./AuthNotification";
 
 import { LoginMutation, AddUserMutaton } from "../../graphql/graphqlMutations";
+
+import { useAuth } from "../../state/hooks/useAuth";
 
 import {
   AuthDataInput_i,
   AuthDataInputRegister_i,
 } from "../../../../schema/types/authDataType";
-import AuthNotification from "./AuthNotification";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   globalSettings: GlobalSettingsState;
-  // loginNotification: string | null;
-  // setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-function LoginRegister({
-  mainPaddingRight,
-  scrollbarWidth,
-  globalSettings,
-}: // loginNotification,
-// setLoginNotification,
-Props): JSX.Element {
+function LoginRegister({ globalSettings }: Props): JSX.Element {
   let navigate = useNavigate();
   const loginAttempt = useAuth((store) => store.loginAttempt);
   // notification happens after register, but is displayed in login window
@@ -45,17 +29,11 @@ Props): JSX.Element {
   const setLoginNotification = useAuth((store) => store.setLoginNotification);
   const setMessagePopup = useAuth((store) => store.setMessagePopup);
 
-  // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
 
   const [loginOrRegister, setLoginOrRegister] = useState<"login" | "register">(
     "login"
   );
-  // const loggedInState = useLoggedInState((state) => state.loggedInState);
-  // const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
-
-  const upperUiContext = useUpperUiContext();
-  const authContext = useAuth();
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
   let secondFieldRef = useRef<HTMLInputElement>(null);
@@ -108,24 +86,6 @@ Props): JSX.Element {
     finalColorForImgBackgroundMode = "blueGray-700";
   }
 
-  // useEffect(() => {
-  //   document.addEventListener("keydown", handleKeyDown);
-  //   return () => {
-  //     document.removeEventListener("keydown", handleKeyDown);
-  //   };
-  // });
-
-  // useEffect(() => {
-  //   // setLoginNotification(null);
-  //   return () => {
-  //     setLoginNotification(null);
-  //   };
-  // });
-
-  // function handleKeyDown(event: KeyboardEvent) {
-  //   handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);
-  // }
-
   function loginValidation() {
     console.log("sth");
     setLoginNotification(null);
@@ -151,16 +111,12 @@ Props): JSX.Element {
         }
 
         if (res.data?.login?.error === "User does not exist") {
-          // if (res.data.login.token === "User does not exist!") {
-          // setLoginErrorMessage(`${res.data.login.token}`);
           console.log(res.data.login.error);
           setLoginErrorMessage(res.data.login.error);
           return;
         }
 
         if (res.data?.login?.error === "Password is incorrect") {
-          // if (res.data.login.token === "Password is incorrect!") {
-          // setLoginErrorMessage(`${res.data.login.token}`);
           console.log(res.data.login.error);
           setLoginErrorMessage(res.data.login.error);
           return;
@@ -174,45 +130,11 @@ Props): JSX.Element {
 
         setLoginErrorMessage(null);
 
-        // console.log("logloginAttempt");
-        // console.log(res.data?.login?.ok);
-        // console.log(res.data?.login?.userId);
-        // console.log( res.data?.login?.token);
-        
-
         loginAttempt(
           res.data?.login?.ok,
           res.data?.login?.userId,
           res.data?.login?.token
         );
-
-        // authContext.updateAuthContext({
-        //   ...authContext,
-        //   isAuthenticated: true,
-        //   authenticatedUserId: res.data.login.userId,
-        //   // authenticatedUserId: res.data.login.userId,
-        //   accessToken: res.data.login.token,
-        //   // accessToken: res.data.login.token,
-        //   // token: res.data.login.token,
-        // });
-
-        // !!! display message that the login was successful
-        // setLoginNotification(null);
-
-        // history.push('/')
-        // no going back! not possible to go back to login when logged in
-        // !!! no react router will be implemented?
-        // history.replace("/");
-
-        // history.replace("/") equivalent in react-router-dom 6
-
-        // upperUiContext.upperVisDispatch({
-        //   type: "PROFILE_TOGGLE",
-        // });
-
-        // upperUiContext.upperVisDispatch({
-        //   type: "MESSAGE_OPEN_LOGIN",
-        // });
 
         setMessagePopup("Login successful");
 
@@ -295,7 +217,6 @@ Props): JSX.Element {
         setPasswordForRegister("");
         setPasswordForRegisterConfirm("");
         setEmail_or_name(username);
-        // navigate("/login");
         setLoginOrRegister("login");
         return;
       },
@@ -391,9 +312,6 @@ Props): JSX.Element {
           <div className="mt-1 w-48">
             <div className="flex items-center justify-between">
               <p>Password</p>
-
-              {/* <span>&nbsp;</span> */}
-
               <button
                 className="focus-1-offset"
                 onClick={() => {
@@ -405,15 +323,6 @@ Props): JSX.Element {
                   {passVisible ? "hide" : "show"}
                 </span>
               </button>
-              {/* <button
-                        className="h-5 w-5 focus-2-offset-dark"
-                        onClick={() => {
-                          console.log("eye clicked");
-                        }}
-                        aria-label={"Show Password"}
-                      >
-                        <EyeSVG className="h-4 w-4 cursor-pointer hover:text-blue-900" />
-                      </button> */}
             </div>
 
             <LogRegProfile_input
@@ -445,17 +354,6 @@ Props): JSX.Element {
             </div>
           )}
         </div>
-
-        {/* {loginOrRegister === "login" && (
-          <button
-            className={`mt-1 text-sm text-gray-400 hover:text-opacity-50 cursor-pointer  focus-1-offset`}
-            onClick={() => {
-              navigate("/passforgot");
-            }}
-          >
-            <span>Forgot password?</span>
-          </button>
-        )} */}
 
         {loginOrRegister === "login" && loginErrorMessage && (
           <AuthNotification

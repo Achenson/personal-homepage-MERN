@@ -7,8 +7,6 @@ interface Props {
 }
 
 function PrivateRoute({ children, isAuthenticated }: Props): JSX.Element {
-  //   let navigate = useNavigate();
-
   if (!isAuthenticated) {
     return <Navigate to="/login-register" />;
   }

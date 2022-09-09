@@ -1,30 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
-import FocusLock from "react-focus-lock";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "urql";
 
-import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
-
 import LogRegProfile_input from "./LogRegProfile_input";
 
-// import { useLoggedInState } from "../../state/hooks/useLoggedInState";
-import { useUpperUiContext } from "../../context/upperUiContext";
-// import { useAuthContext } from "../../context/authContext";
-import { useAuth } from "../../state/hooks/useAuth";
-
-import { DeleteAccountByUser_i } from "../../../../schema/types/deleteAccountByUserType";
-
 import {
-  LoginMutation,
   LogoutMutation,
   DeleteAccountByUserMutation,
   ChangeUserByUserMutation,
   ChangePasswordByUserMutation,
 } from "../../graphql/graphqlMutations";
-
 import { UserQuery } from "../../graphql/graphqlQueries";
 
-import { AuthDataInput_i } from "../../../../schema/types/authDataType";
+import { useAuth } from "../../state/hooks/useAuth";
+
+import { DeleteAccountByUser_i } from "../../../../schema/types/deleteAccountByUserType";
 import { ChangeUserByUser_i } from "../../../../schema/types/changeUserByUserType";
 import { ChangePasswordByUser_i } from "../../../../schema/types/changePasswordByUserType";
 import { GlobalSettingsState } from "../../utils/interfaces";
@@ -33,34 +23,15 @@ interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   globalSettings: GlobalSettingsState;
-  // loginNotification: string | null;
-  // setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-function UserProfile({
-  mainPaddingRight,
-  scrollbarWidth,
-  globalSettings,
-}: // loginNotification,
-// setLoginNotification,
-Props): JSX.Element {
+function UserProfile({ globalSettings }: Props): JSX.Element {
   let navigate = useNavigate();
-  const loginAttempt = useAuth((store) => store.loginAttempt);
   const logout = useAuth((store) => store.logout);
   const userId = useAuth((store) => store.authenticatedUserId);
   const setMessagePopup = useAuth((store) => store.setMessagePopup);
 
-  // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
-
-  const [loginOrRegister, setLoginOrRegister] = useState<"login" | "register">(
-    "login"
-  );
-  // const loggedInState = useLoggedInState((state) => state.loggedInState);
-  // const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
-
-  const upperUiContext = useUpperUiContext();
-  const authContext = useAuth();
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
 
@@ -72,11 +43,6 @@ Props): JSX.Element {
   const [notification, setNotification] = useState<null | string>(null);
 
   const [passVisible, setPassVisible] = useState(false);
-
-
-  const [loginMutResult, loginMut] = useMutation<any, AuthDataInput_i>(
-    LoginMutation
-  );
 
   const [logoutMutResult, logoutMut] = useMutation<any, any>(LogoutMutation);
 
@@ -90,22 +56,9 @@ Props): JSX.Element {
     }
   }, []);
 
-  let finalColorForImgBackgroundMode = uiColor;
-
-  if (uiColor === "blueGray-400") {
-    finalColorForImgBackgroundMode = "blueGray-700";
-  }
-
-  // useEffect(() => {
-  //   document.addEventListener("keydown", handleKeyDown);
-  //   return () => {
-  //     document.removeEventListener("keydown", handleKeyDown);
-  //   };
-  // });
-
   useEffect(() => {
-    setMessagePopup(null)
-  },[])
+    setMessagePopup(null);
+  }, []);
 
   const [userResults, reexecuteUserResults] = useQuery({
     query: UserQuery,
@@ -114,15 +67,12 @@ Props): JSX.Element {
 
   const { data, fetching, error } = userResults;
 
-
   const [username, setUsername] = useState("");
   // doesn't get changed by user input
   const [usernameInitial, setUsernameInitial] = useState("");
-  // const [name, setName] = useState(data?.user?.name ? data.user.name : "");
   const [email, setEmail] = useState("");
   // doesn't get changed by user input
   const [emailInitial, setEmailInitial] = useState("");
-  // const [email, setEmail] = useState(data?.user?.email ? data.user.email : "");
 
   useEffect(() => {
     if (data?.user) {
@@ -150,12 +100,6 @@ Props): JSX.Element {
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
-
-  // console.log(data.user);
-
-  // function handleKeyDown(event: KeyboardEvent) {
-  //   handleKeyDown_upperUiSetting(event.code, upperUiContext, 8);
-  // }
 
   function errMessage(
     errorMessage: string | null,
@@ -296,12 +240,6 @@ Props): JSX.Element {
                 return;
               }
 
-              // if (name === nameInitial && email === emailInitial) {
-              //   setErrorMessage("No new data to update");
-              //   setNotification(null);
-              //   return;
-              // }
-
               switch (inputMode) {
                 case "editProfile":
                   console.log("editProfile");
@@ -344,12 +282,6 @@ Props): JSX.Element {
                         errMessage(res.data?.changeUserByUser?.error);
                         return;
                       }
-
-                      // if (!res.data?.changeUserByUser?.name) {
-                      //   setErrorMessage("Unknown error");
-                      //   setNotification(null);
-                      //   return;
-                      // }
 
                       reexecuteUserResults({
                         requestPolicy: "network-only",
@@ -423,11 +355,6 @@ Props): JSX.Element {
 
                   return;
                 case "deleteAccount":
-                  console.log("userId");
-                  console.log(userId);
-                  console.log("passwordCurrent");
-                  console.log(passwordCurrent);
-
                   deleteAccountByUser({
                     id: userId as string,
                     password: passwordCurrent,
@@ -450,15 +377,10 @@ Props): JSX.Element {
                       }
 
                       errMessage(null);
-                      // setLoginNotification("Account successfully deleted");
 
                       await logoutMut();
                       logout("Account successfully deleted");
                       navigate("/login-register", { replace: true });
-
-                      // upperUiContext.upperVisDispatch({
-                      //   type: "MESSAGE_OPEN_LOGIN",
-                      // });
                     },
                     (err) => {
                       console.log(err);
@@ -525,9 +447,7 @@ Props): JSX.Element {
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
           onClick={async () => {
             await logoutMut();
-
             logout(null);
-
             navigate("/login-register", { replace: true });
           }}
         >

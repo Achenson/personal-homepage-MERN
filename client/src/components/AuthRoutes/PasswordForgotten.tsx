@@ -1,10 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
-import FocusLock from "react-focus-lock";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "urql";
-
-import { useUpperUiContext } from "../../context/upperUiContext";
-import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
 import AuthNotification from "./AuthNotification";
 import LogRegProfile_input from "./LogRegProfile_input";
@@ -18,17 +14,10 @@ interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   globalSettings: GlobalSettingsState;
-  // loginNotification: string | null;
-  // setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-function PassordForgotten({
-  mainPaddingRight,
-  scrollbarWidth,
-  globalSettings,
-}: Props): JSX.Element {
+function PassordForgotten({ globalSettings }: Props): JSX.Element {
   let navigate = useNavigate();
-  const upperUiContext = useUpperUiContext();
   const uiColor = globalSettings.uiColor;
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
@@ -102,7 +91,6 @@ function PassordForgotten({
     <>
       <div className="mt-3 mb-5 flex flex-col items-center">
         <div className="w-48">
-          {/* <p className="text-xl">Password Retrieval</p> */}
           <p className="text-sky-600 text-sm mb-2">
             A password change link will be sent to the provided email address.
           </p>
@@ -140,15 +128,11 @@ function PassordForgotten({
           />
         )}
       </div>
-
       <div className="flex justify-center">
         <button
           className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-          onClick={
-            // console.log("password send")
-            sendPasswordChangeLink
-          }
+          onClick={sendPasswordChangeLink}
         >
           Send link
         </button>

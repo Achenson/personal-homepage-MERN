@@ -1,10 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
-import FocusLock from "react-focus-lock";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "urql";
-
-import { useUpperUiContext } from "../../context/upperUiContext";
-import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 
 import AuthNotification from "./AuthNotification";
 import LogRegProfile_input from "./LogRegProfile_input";
@@ -14,26 +10,17 @@ import { ChangePasswordAfterForgotMutation } from "../../graphql/graphqlMutation
 import { useAuth } from "../../state/hooks/useAuth";
 
 import { AuthDataPasswordChangeAfterForgot_i } from "../../../../schema/types/authDataType";
-import { resolveSoa } from "dns";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
   mainPaddingRight: boolean;
   scrollbarWidth: number;
   globalSettings: GlobalSettingsState;
-  // loginNotification: string | null;
-  // setLoginNotification: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-function ForgottenPassChange({
-  mainPaddingRight,
-  scrollbarWidth,
-  globalSettings,
-}: Props): JSX.Element {
+function ForgottenPassChange({ globalSettings }: Props): JSX.Element {
   let navigate = useNavigate();
-  // from ".../passforgot-change/:token"
   let { token } = useParams();
-  const upperUiContext = useUpperUiContext();
   const uiColor = globalSettings.uiColor;
 
   const loginAttempt = useAuth((store) => store.loginAttempt);
@@ -97,7 +84,6 @@ function ForgottenPassChange({
             return;
           }
           // if no specific error is received from the server, check graphql errors:
-
           if (res.error?.message === "[GraphQL] jwt expired") {
             // [GraphQL] jwt expired
             setErrorMessage("Session expired - redirecting...");
@@ -133,12 +119,6 @@ function ForgottenPassChange({
         setErrorMessage(null);
         setNotificationMessage("Password successfully changed. Logging in...");
 
-        // loginAttempt(
-        //   true,
-        //   res.data.changePasswordAfterForgot.userId,
-        //   res.data.changePasswordAfterForgot.token
-        // );
-
         setTimeout(() => {
           loginAttempt(
             true,
@@ -160,7 +140,6 @@ function ForgottenPassChange({
     <>
       <div className="mt-3 mb-5 flex flex-col items-center">
         <div className="w-48">
-          {/* <p className="text-xl">Password Retrieval</p> */}
           <p className="text-sky-600 text-sm mb-2">
             SmoothTabs password change
           </p>
@@ -218,10 +197,7 @@ function ForgottenPassChange({
         <button
           className={`w-40 mt-1 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
                   focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-          onClick={
-            // console.log("password send")
-            sendPasswordChangeLink
-          }
+          onClick={sendPasswordChangeLink}
         >
           Change password
         </button>

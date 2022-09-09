@@ -435,10 +435,20 @@ TO implement in future versions?
  -> move the logic to localStorage? disadvantage -> no sync between different devices
 305. technical info about the app on github page
 306. file after file cleaning. order of imports/interfaces!
+  modules
+  components
+  graphqlMutation/queries
+  state
+  context
+  utility funcs etc.
+  static data
+  interfaces
+
+comps less than 500...?
 
 
 
-
+code before cleaning  (TypeScriptReact + typescript)-> 15,199
 
 
 
