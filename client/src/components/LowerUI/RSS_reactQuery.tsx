@@ -1,26 +1,12 @@
 import React, { useState } from "react";
-
-// import shallow from "zustand/shallow";
 import { useQuery as useReactQuery } from "react-query";
-
 
 import SingleRssNews from "./SingleRssNews";
 
 import { ReactComponent as ArrowLeft } from "../../svgs/arrowLeft.svg";
 import { ReactComponent as ArrowRight } from "../../svgs/arrowRight.svg";
 
-// import { RssFetchQuery } from "../../graphql/graphqlQueries";
-// import { rssExample } from "../../utils/data/rssExample";
-
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-// import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
-
 import { GlobalSettingsState, SingleTabData } from "../../utils/interfaces";
-
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
-
-let Parser = require("rss-parser");
-let parser = new Parser();
 
 interface Props {
   tabID: string;
@@ -35,13 +21,7 @@ function ReactQuery({
   isTabDraggedOver,
   globalSettings,
 }: Props): JSX.Element {
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
-  // const rssSettingsState = useRssSettings((state) => state, shallow);
-
   function calcItemsPerPage() {
-    // if currentBookmars itemsPerPage is set, return it, otherwise
-    // return defaul option for RSS setting
-
     if (typeof currentTab?.itemsPerPage === "number") {
       return currentTab.itemsPerPage;
     }
@@ -76,42 +56,15 @@ function ReactQuery({
     // cacheTime: 10,
     onSuccess: () => {
       console.log("data fetched with no problems");
-      // console.log(data);
     },
   });
 
-  // const [rssFetchResults, reexecuteRssFetch] = useQuery({
-  //   query: RssFetchQuery,
-  //   // variables: { userId: authContext.isAuthenticated ? authContext.authenticatedUserId : testUserId },
-  //   variables: { rssLink: currentTab.rssLink },
-  //   // requestPolicy: 'cache-and-network',
-  // });
-
-  // const { data, fetching, error } = rssFetchResults;
-
-  // console.log(currentTab.rssLink);
-
-
-  // let rssData: any;
-
-  // if (data && data.rssFetch) {
-  //   rssData = data.rssFetch.rssFetchData;
-  // } 
-  
-  // else {
-  //   rssData = rssExample.data.rssFetch.rssFetchData;
-  // }
-
   async function fetchFeed() {
-
     let baseFetchUrl = "http://localhost:4000/fetch_rss/";
     let extendedRSSurl = `${currentTab.rssLink}?format=xml`;
 
     try {
-      // let response = await parser.parseURL(currentTab?.rssLink);
-      // return response;
       let toSendUrl = encodeURIComponent(`${currentTab.rssLink}`);
-
       let response = await fetch(baseFetchUrl + toSendUrl);
 
       if (!response.ok) {
@@ -120,10 +73,7 @@ function ReactQuery({
 
       return response.json();
     } catch (err) {
-      // let newResponse = await parser.parseURL(extendedRSSurl);
-      // return newResponse;
       let newToSendUrl = encodeURIComponent(extendedRSSurl);
-
       let newResponse = await fetch(baseFetchUrl + newToSendUrl);
 
       if (!newResponse.ok) {
@@ -136,8 +86,6 @@ function ReactQuery({
 
   function mapData() {
     let arrOfObj = [];
-
-    // let howManyNews = rssData.items.length;
     let howManyNews = data.rssFetchData.items.length;
 
     for (
@@ -149,9 +97,7 @@ function ReactQuery({
         break;
       }
 
-      // if (rssData.items[i]) {
       if (data.rssFetchData.items[i]) {
-        // arrOfObj.push(rssData.items[i]);
         arrOfObj.push(data.rssFetchData.items[i]);
         continue;
       }
@@ -204,17 +150,9 @@ function ReactQuery({
 
   function lastPageNumber() {
     if (status !== "success") {
-    // if (!rssData) {
       return 1;
     }
 
-    // console.log("data last page number");
-    // console.log(data);
-    
-    // console.log(JSON.stringify(data, null, 2));
-    
-
-    // let howManyNews = rssData.items.length;
     let howManyNews = data.rssFetchData.items.length;
 
     let maxNumber = howManyNews < 50 ? howManyNews : 50;
@@ -274,13 +212,10 @@ function ReactQuery({
         : "border-r border-l border-black border-opacity-10"
     }`}
       >
-        {/* {fetching && <div>Loading data...</div>} */}
         {status === "loading" && <div>Loading data...</div>}
-
         {status === "error" && <div>Error fetching data</div>}
       </div>
 
-      {/* {rssData && <div>{mapData()}</div>} */}
       {status === "success" && <div>{mapData()}</div>}
     </div>
   );

@@ -1,55 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "urql";
 
-// import shallow from "zustand/shallow";
-
 import Column from "./Column";
 
-// import { useBookmarks } from "../../state/hooks/useBookmarks";
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+import { ChangeTabMutation } from "../../graphql/graphqlMutations";
+
 import { useResetColors } from "../../state/hooks/colorHooks";
 import { useReset } from "../../state/hooks/useReset";
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
-// import { useDbContext } from "../../context/dbContext";
 import { useTabsDb } from "../../state/hooks/useTabsDb";
 import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
-import {
-  DeleteTabMutation,
-  ChangeTabMutation,
-} from "../../graphql/graphqlMutations";
 
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
-import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
-
-interface TabId {
-  id: string;
-}
+import {
+  GlobalSettingsState,
+  SingleBookmarkData,
+  SingleTabData,
+} from "../../utils/interfaces";
 
 interface Props {
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
   globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
-  // bookmarks: SingleBookmarkData[];
-  // tabs: SingleTabData[];
-  // tabs: TabDatabase_i[];
 }
 
 function Grid({
   setTabType,
   globalSettings,
   userIdOrNoId,
-}: // bookmarks,
-// tabs,
-// staleBookmarks,
-Props): JSX.Element {
-  // const tabs = useTabs((store) => store.tabs);
-
-  // const tabsLessColumns = useTabs((store) => store.tabsLessColumns);
+}: Props): JSX.Element {
   const defaultTabContentAll = useTabs((store) => store.defaultTabContentAll);
 
   const tabsNotAuth = useTabs((store) => store.tabs);
@@ -58,48 +42,25 @@ Props): JSX.Element {
   const tabsDb = useTabsDb((store) => store.tabsDb);
   const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
 
-  // const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
-  // const tabDeletingPause = useTabs((store) => store.tabDeletingPause);
-
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
-
-  // const bookmarksDb = useDbContext()?.bookmarks;
-  // only used in authenticated version of the app
-  // const tabsDb = useDbContext()?.tabs;
-  // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
 
   bookmarks = userIdOrNoId
     ? (bookmarksDb as SingleBookmarkData[])
     : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
-  const [deleteTabResult, deleteTab] = useMutation<any, TabId>(
-    DeleteTabMutation
-  );
-
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
     ChangeTabMutation
   );
 
-  // const resetAllTabColors = useTabs((store) => store.resetAllTabColors);
-
-  // const tabIdsUsedByBookmarks = useBookmarks((store) => store.tabIdsUsedByBookmarks);
-
   const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
   const setCloseAllTabsState = useTabs((store) => store.setCloseAllTabsState);
   const resetAllTabColors = useTabs((store) => store.resetAllTabColors);
-  // const deleteEmptyTabsNotAuth = useTabs((store) => store.deleteEmptyTab);
-
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
-
   const resetColors = useResetColors((store) => store.resetColors);
   const setResetColors = useResetColors((store) => store.setResetColors);
-
   const setReset = useReset((store) => store.setReset);
-
   const upperUiContext = useUpperUiContext();
-
   const windowSize = useWindowSize();
 
   const [breakpoint, setBreakpoint] = useState<0 | 1 | 2 | 3 | 4 | null>(null);
@@ -178,13 +139,6 @@ Props): JSX.Element {
     }
   }, [closeAllTabsState, setCloseAllTabsState, userIdOrNoId]);
 
-  /*   useEffect(() => {
-    if (resetColors) {
-      resetAllTabColors();
-      setResetColors(false);
-    }
-  }, [resetColors, setResetColors, resetAllTabColors]); */
-
   useEffect(() => {
     if (resetColors) {
       userIdOrNoId
@@ -196,129 +150,6 @@ Props): JSX.Element {
       setResetColors(false);
     }
   }, [resetColors, setResetColors, userIdOrNoId]);
-
-  /* useEffect(() => {
-    deleteEmptyTab(tabIdsUsedByBookmarks);
-  }, [tabs, tabIdsUsedByBookmarks, deleteEmptyTab]); */
-
-  /*   useEffect(() => {
-    console.log(tabIdsUsedByBookmarks);
-    tabs
-      .filter((obj) => obj.type === "folder")
-      .forEach((obj) => {
-        if (!tabIdsUsedByBookmarks.includes(obj.id)) {
-          // deleteTab({ id: obj.id });
-          console.log(obj.id);
-        }
-      });
-  }, [tabs, tabIdsUsedByBookmarks]); */
-
-  // useEffect(() => {
-  //   if (!userIdOrNoId) {
-  //     deleteEmptyTabsNotAuth(tabIdsUsedByBookmarks);
-  //     return;
-  //   }
-
-  //   deleteEmptyTabs();
-  //   async function deleteEmptyTabs() {
-  //     // console.log(tabDeletingPause);
-
-  //     if (tabDeletingPause) {
-  //       return;
-  //     }
-
-  //     if (staleBookmarks) {
-  //       return;
-  //     }
-
-  //     let tabIdsUsedByBookmarks: string[] = [];
-
-  //     bookmarks.forEach((obj) => {
-  //       obj.tags.forEach((el) => {
-  //         if (!tabIdsUsedByBookmarks.includes(el)) {
-  //           tabIdsUsedByBookmarks.push(el);
-  //         }
-  //       });
-  //     });
-
-  //     // console.log(tabIdsUsedByBookmarks);
-
-  //     if (userIdOrNoId) {
-  //       tabs
-  //         .filter((obj) => obj.type === "folder" && obj.deletable)
-  //         .forEach((obj) => {
-  //           if (!tabIdsUsedByBookmarks.includes(obj.id) && !tabDeletingPause) {
-  //             deleteTab({ id: obj.id }).then((result) => {
-  //               if (result.error) {
-  //                 console.log(result.error);
-  //                 return;
-  //               }
-  //             });
-  //           }
-  //         });
-  //     } else {
-  //       deleteEmptyTabsNotAuth(tabIdsUsedByBookmarks);
-  //     }
-
-  //     // let arrOfPromises: Promise<string>[] = [];
-
-  //     /*     tabs
-  //       .filter((obj) => obj.type === "folder")
-  //       .forEach((obj) => {
-  //         let newPromise = new Promise<string>((resolve, reject) => {
-  //           if (!tabIdsUsedByBookmarks.includes(obj.id) && !tabDeletingPause) {
-  //             deleteTab({ id: obj.id }).then((result) => {
-  //               if (result.error) {
-  //                 reject(result.error);
-  //                 return;
-  //               }
-  //               resolve(result.data.deleteTab.id);
-  //             });
-  //             // console.log(obj.id);
-  //           } else {
-  //             resolve("no ID");
-  //           }
-  //         });
-
-  //         arrOfPromises.push(newPromise);
-  //       }); */
-
-  //     // let allPromises = "test"
-
-  //     // await Promise.all(arrOfPromises);
-
-  //     // console.log("sth");
-
-  //     setTabDeletingPause(true);
-
-  //     /*  tabs
-  //       .filter((obj) => obj.type === "folder")
-  //       .forEach((obj) => {
-  //         if (!tabIdsUsedByBookmarks.includes(obj.id) && !tabDeletingPause) {
-  //           deleteTab({ id: obj.id });
-  //           // console.log(obj.id);
-  //         }
-  //       }); */
-  //   }
-  //   // }, [bookmarks, tabs, tabDeletingPause, userIdOrNoId]);
-  // }, [
-  //   bookmarks,
-  //   tabs,
-  //   tabDeletingPause,
-  //   userIdOrNoId,
-  //   tabIdsUsedByBookmarks,
-  //   deleteEmptyTabsNotAuth,
-  // ]);
-
-  // client-side legacy code, now handled by GlobalSettings
-  /*   useEffect(() => {
-    createLessColumns(globalSettings.numberOfCols);
-
-    function createLessColumns(numberOfCols: 1 | 2 | 3 | 4) {
-      if (numberOfCols === 4) return;
-      tabsLessColumns(numberOfCols);
-    }
-  }, [globalSettings.numberOfCols, tabsLessColumns]); */
 
   function renderColumns(numberOfCols: 1 | 2 | 3 | 4) {
     let columnProps = {

@@ -1,24 +1,18 @@
 import React from "react";
 import { useMutation } from "urql";
-
 import { useDrop } from "react-dnd";
-// import shallow from "zustand/shallow";
 
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-import { useTabBeingDraggedColor } from "../../state/hooks/colorHooks";
-
-import { ItemTypes } from "../../utils/data/itemsDnd";
-import { useTabs } from "../../state/hooks/useTabs";
-// import { useDbContext } from "../../context/dbContext";
-import { useTabsDb } from "../../state/hooks/useTabsDb";
-
-import { dragTabDb } from "../../utils/funcs and hooks/dragTabDb";
 import { ChangeTabMutation } from "../../graphql/graphqlMutations";
 
-import { TabDatabase_i } from "../../../../schema/types/tabType";
+import { useTabBeingDraggedColor } from "../../state/hooks/colorHooks";
+import { useTabs } from "../../state/hooks/useTabs";
+import { useTabsDb } from "../../state/hooks/useTabsDb";
 
+import { ItemTypes } from "../../utils/data/itemsDnd";
+import { dragTabDb } from "../../utils/funcs and hooks/dragTabDb";
+
+import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { GlobalSettingsState, SingleTabData } from "../../utils/interfaces";
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 interface Item {
   type: string;
@@ -32,7 +26,6 @@ interface Props {
   tabID_orNull: string | null;
   picBackground: boolean;
   isThisLastGap: boolean;
-  // for proper top border display
   isThisTheOnlyGap: boolean;
   globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
@@ -48,12 +41,7 @@ function GapAfterTab({
   userIdOrNoId,
   tabIsDeletable,
 }: Props): JSX.Element {
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
-
   const tabsNotAuth = useTabs((store) => store.tabs);
-
-  // const bookmarksDb = useDbContext()?.bookmarks;
-  // const tabsDb = useDbContext()?.tabs;
 
   const tabsDb = useTabsDb((store) => store.tabsDb);
 
