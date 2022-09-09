@@ -21,6 +21,18 @@ export function createSelectablesRegex_inverted_end(singleSelectable: string) {
     return selectablesRegex_inverted_end;
 }
 
+export function createSelectablesRegex_noShortWordsAlreadyPresent(singleSelectable: string) {
+  let selectablesRegex_noShortWordsAlreadyPresent = new RegExp(`(^|,\\s)${singleSelectable}($|,\\s)`)
+  return selectablesRegex_noShortWordsAlreadyPresent;
+}
+
+// export function createSelectablesRegex_noShortWordsAlreadyPresent(singleSelectable: string) {
+//   let selectablesRegex_noShortWordsAlreadyPresent = new RegExp(`(^|,\\s)${singleSelectable}($|,\\s)`)
+//   return selectablesRegex_noShortWordsAlreadyPresent;
+// }
+
+
+
 // title for bookmark or tab
 export const titleRegex = new RegExp(`^${singleCharRegex.source}(\\s?${singleCharRegex.source}+)*$`)
 

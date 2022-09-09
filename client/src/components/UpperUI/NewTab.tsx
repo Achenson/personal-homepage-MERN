@@ -10,6 +10,7 @@ import {
   createSelectablesRegex,
   createSelectablesRegex_inverted_start,
   createSelectablesRegex_inverted_end,
+  createSelectablesRegex_noShortWordsAlreadyPresent,
 } from "../../utils/regex";
 
 import { ReactComponent as SaveSVG } from "../../svgs/save.svg";
@@ -196,14 +197,53 @@ function NewTab({
           // or if selectablesInputStr passes one of those tests it will be visible
           // (so it will be visible when surrounded be characters that can make a title)
           // (tagRegex_inv.test(selectablesInputStr) ||
-          createSelectablesRegex_inverted_start(el).test(selectablesInputStr) ||
-          // tagRegex_inv_2.test(selectablesInputStr))) &&
-          createSelectablesRegex_inverted_end(el).test(selectablesInputStr)) &&
+          ((createSelectablesRegex_inverted_start(el).test(
+            selectablesInputStr
+          ) ||
+            // tagRegex_inv_2.test(selectablesInputStr))) &&
+            createSelectablesRegex_inverted_end(el).test(
+              selectablesInputStr
+            )) &&
+            !createSelectablesRegex_noShortWordsAlreadyPresent(el).test(
+              selectablesInputStr
+            ))) &&
         (letterToLetterMatch(lastSelectablesArrEl, el) ||
           selectablesInputStr.length === 0)
       ) {
         newVisibleBookmarks.push(el);
       }
+
+
+
+      // if (
+      //   // !tagRegex.test(selectablesInputStr) &&
+      //   // if selectablesInputStr pass this test it won't be visible
+      //   // (so it won't be still visible if surrounded by spaces and commas)
+      //   // (!tagRegex_2.test(selectablesInputStr) ||
+      //   (!createSelectablesRegex(el).test(selectablesInputStr) ||
+      //     // or if selectablesInputStr passes one of those tests it will be visible
+      //     // (so it will be visible when surrounded be characters that can make a title)
+      //     // (tagRegex_inv.test(selectablesInputStr) ||
+      //     ((createSelectablesRegex_inverted_start(el).test(
+      //       selectablesInputStr
+      //     ) ||
+      //       // tagRegex_inv_2.test(selectablesInputStr))) &&
+      //       createSelectablesRegex_inverted_end(el).test(
+      //         selectablesInputStr
+      //       )) &&
+      //       !createSelectablesRegex_noShortWordsAlreadyPresent(el).test(
+      //         selectablesInputStr
+      //       ))) &&
+      //   (letterToLetterMatch(lastSelectablesArrEl, el) ||
+      //     selectablesInputStr.length === 0)
+      // ) {
+      //   newVisibleBookmarks.push(el);
+      // }
+
+
+
+
+
     });
 
     setVisibleBookmarks([...newVisibleBookmarks]);

@@ -1,13 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 
-// import shallow from "zustand/shallow";
-
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-
-import { GlobalSettingsState, SingleTabData } from "../../utils/interfaces";
 import { useTabContext } from "../../context/tabContext";
-
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { GlobalSettingsState, SingleTabData } from "../../utils/interfaces";
 
 interface Props {
   currentTab: SingleTabData;
@@ -24,7 +18,6 @@ function NoteInput({
   tabOpened_local,
   setNoteHeight,
 }: Props): JSX.Element {
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const tabContext = useTabContext();
 
   const [focusOnNote, setFocusOnNote] = useState(false);
@@ -33,7 +26,6 @@ function NoteInput({
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
-
     // !!!! without this everything will be recalculated from start - lag
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
