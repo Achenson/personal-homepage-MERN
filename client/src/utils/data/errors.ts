@@ -9,7 +9,7 @@ export const bookmarkErrors = {
   // tagFormat: "Folders should consist of words separated by coma and single space",
   tagFormat:
     // "Folders should consist of letters, numbers, underscores, single spaces separated by coma and space",
-    "Enter folder titles (starting and ending with a character, no commas or multiple spaces), separated by comma and space",
+    "Enter folders (starting and ending with a character, no commas or multiple spaces), separated by comma and space",
   noteError: "Folder names cannot be the same as Note titles",
   rssError: "Folder names cannot be the same as RSS titles",
   tagRepeat: "Each folder should be unique",
@@ -40,7 +40,7 @@ export const tabErrors = {
   bookmarksFormat:
     // "Bookmarks should consist of letters, numbers, underscores, single spaces separated by coma and space",
     // "Enter bookmark titles (starting and ending with a letter, digit or underscore, single spaces are allowed), separated by coma and space",
-    "Enter bookmark titles (starting and ending with a character, no commas or multiple spaces), separated by comma and space",
+    "Enter bookmarks (starting and ending with a character, no commas or multiple spaces), separated by comma and space",
   bookmarkExistence: "You can choose from existing bookmarks only",
   bookmarksRepeat: "Each bookmark should be unique",
   // note only

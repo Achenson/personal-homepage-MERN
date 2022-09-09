@@ -8,8 +8,6 @@ import TabErrors from "../Shared/TabErrors_render";
 
 import {
   createSelectablesRegex,
-  createSelectablesRegex_inverted_start,
-  createSelectablesRegex_inverted_end,
 } from "../../utils/regex";
 
 import { ReactComponent as SaveSVG } from "../../svgs/save.svg";
@@ -156,51 +154,26 @@ function NewTab({
     let lastSelectablesArrEl =
       selectablesInputArr[selectablesInputArr.length - 1];
 
-    function letterToLetterMatch(lastInput: string, el: string) {
-      for (let i = 0; i < lastInput.length; i++) {
-        if (
-          lastInput[i] !== el[i] &&
-          // returns true if lastInput is present in initial bookmarks
-          initialBookmarks.indexOf(lastInput) === -1 &&
-          // returns true is last char is a comma
-          selectablesInputStr[selectablesInputStr.length - 1] !== ","
-        ) {
-          return false;
-        }
-      }
-      return true;
-    }
+    // function letterToLetterMatch(lastInput: string, el: string) {
+    //   for (let i = 0; i < lastInput.length; i++) {
+    //     if (
+    //       lastInput[i] !== el[i] &&
+    //       // returns true if lastInput is present in initial bookmarks
+    //       initialBookmarks.indexOf(lastInput) === -1 &&
+    //       // returns true is last char is a comma
+    //       selectablesInputStr[selectablesInputStr.length - 1] !== ","
+    //     ) {
+    //       return false;
+    //     }
+    //   }
+    //   return true;
+    // }
 
     initialBookmarks.forEach((el) => {
-      // in new RegExp the \ needs to be escaped!
-      // \b -> word boundary
-      // let tagRegex = new RegExp(`\\b${el}\\b`);
+ 
 
-      // let tagRegex_2 = new RegExp(
-      //   `(^|\\s+|,+|(\\s+,+)*|(,+\\s+)*)${el}(\\s+|,+|(\\s+,+)*|(,+\\s+)*|$)`
-      // );
-
-      // const regexSingleChar =
-      //   /[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]/;
-
-      // let tagRegex_inv = new RegExp(`${regexSingleChar.source}+${el}`);
-      // let tagRegex_inv_2 = new RegExp(`${el}${regexSingleChar.source}+`);
-
-      // a selectable is visible only if the input does not contain it
       if (
-        // !tagRegex.test(selectablesInputStr) &&
-        // if selectablesInputStr pass this test it won't be visible
-        // (so it won't be still visible if surrounded by spaces and commas)
-        // (!tagRegex_2.test(selectablesInputStr) ||
-        (!createSelectablesRegex(el).test(selectablesInputStr) ||
-          // or if selectablesInputStr passes one of those tests it will be visible
-          // (so it will be visible when surrounded be characters that can make a title)
-          // (tagRegex_inv.test(selectablesInputStr) ||
-          createSelectablesRegex_inverted_start(el).test(selectablesInputStr) ||
-          // tagRegex_inv_2.test(selectablesInputStr))) &&
-          createSelectablesRegex_inverted_end(el).test(selectablesInputStr)) &&
-        (letterToLetterMatch(lastSelectablesArrEl, el) ||
-          selectablesInputStr.length === 0)
+        shouldSelectableBeVisible(el, selectablesInputStr, lastSelectablesArrEl)
       ) {
         newVisibleBookmarks.push(el);
       }
@@ -217,6 +190,45 @@ function NewTab({
     setVisibleBookmarks,
     setSelectablesListVis,
   ]);
+
+  function shouldSelectableBeVisible(
+    initialTagOrBookmark: string,
+    selectablesInputStr: string,
+    lastSelectablesArrEl: string
+  ) {
+    if (selectablesInputStr.length === 0) {
+      return true;
+    }
+    // when typing last word -> filter out non matching words
+    if (!letterToLetterMatch(lastSelectablesArrEl, initialTagOrBookmark)) {
+      return false;
+    }
+    // if there is no match for a selectable surrounded only be characters that cannot flank a title
+    //  (spaces, commas)  ), -> selectable not visible
+    if (
+      createSelectablesRegex(initialTagOrBookmark).test(selectablesInputStr)
+    ) {
+      return false;
+    }
+    // selectable is visible in case the title is flanked by legal title character - 
+    // in that case the title is treated as a separate entity
+    return true;
+  }
+
+  function letterToLetterMatch(lastInput: string, el: string) {
+    for (let i = 0; i < lastInput.length; i++) {
+      if (
+        lastInput[i] !== el[i] &&
+        // returns true if lastInput is present in initial bookmarks
+        initialBookmarks.indexOf(lastInput) === -1 &&
+        // returns true is last char is a comma
+        selectablesInputStr[selectablesInputStr.length - 1] !== ","
+      ) {
+        return false;
+      }
+    }
+    return true;
+  }
 
   function makeInitialBookmarks(): string[] {
     let bookmarksInitial: string[] = [];

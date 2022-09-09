@@ -18,11 +18,7 @@ import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 // import { TabDatabase_i } from "../../../../schema/types/tabType";
 
-import {
-  createSelectablesRegex,
-  createSelectablesRegex_inverted_start,
-  createSelectablesRegex_inverted_end,
-} from "../../utils/regex";
+import { createSelectablesRegex } from "../../utils/regex";
 
 interface Props {
   selectablesListVis: boolean;
@@ -93,42 +89,24 @@ Props): JSX.Element {
     let lastSelectablesArrEl =
       selectablesInputArr[selectablesInputArr.length - 1];
 
-    function letterToLetterMatch(lastInput: string, el: string) {
-      for (let i = 0; i < lastInput.length; i++) {
-        if (
-          lastInput[i] !== el[i] &&
-          // returns true if lastInput is present in initial bookmarks
-          initialBookmarks.indexOf(lastInput) === -1 &&
-          // returns true is last char is a comma
-          selectablesInputStr[selectablesInputStr.length - 1] !== ","
-        ) {
-          return false;
-        }
-      }
-      return true;
-    }
+    // function letterToLetterMatch(lastInput: string, el: string) {
+    //   for (let i = 0; i < lastInput.length; i++) {
+    //     if (
+    //       lastInput[i] !== el[i] &&
+    //       // returns true if lastInput is present in initial bookmarks
+    //       initialBookmarks.indexOf(lastInput) === -1 &&
+    //       // returns true is last char is a comma
+    //       selectablesInputStr[selectablesInputStr.length - 1] !== ","
+    //     ) {
+    //       return false;
+    //     }
+    //   }
+    //   return true;
+    // }
 
     initialBookmarks.forEach((el) => {
-      // in new RegExp the \ needs to be escaped!
-      // \b -> word boundary
-      // let tagRegex = new RegExp(`\\b${el}\\b`);
-
-      // let tagRegex_2 = new RegExp(`(^|\\s+|,+|(\\s+,+)*|(,+\\s+)*)${el}(\\s+|,+|(\\s+,+)*|(,+\\s+)*|$)`)
-
-      // let tagRegex = new RegExp(`${el}`);
-      // a selectable is visible only if the input does not contain it
       if (
-        // !tagRegex_2.test(selectablesInputStr) &&
-        // // !tagRegex.test(selectablesInputStr) &&
-        // (letterToLetterMatch(lastSelectablesArrEl, el) ||
-        //   selectablesInputStr.length === 0)
-
-        // explanation in NewTab
-        (!createSelectablesRegex(el).test(selectablesInputStr) ||
-          createSelectablesRegex_inverted_start(el).test(selectablesInputStr) ||
-          createSelectablesRegex_inverted_end(el).test(selectablesInputStr)) &&
-        (letterToLetterMatch(lastSelectablesArrEl, el) ||
-          selectablesInputStr.length === 0)
+        shouldSelectableBeVisible(el, selectablesInputStr, lastSelectablesArrEl)
       ) {
         newVisibleBookmarks.push(el);
       }
@@ -145,6 +123,45 @@ Props): JSX.Element {
     setVisibleBookmarks,
     setSelectablesListVis,
   ]);
+
+  function shouldSelectableBeVisible(
+    initialTagOrBookmark: string,
+    selectablesInputStr: string,
+    lastSelectablesArrEl: string
+  ) {
+    if (selectablesInputStr.length === 0) {
+      return true;
+    }
+    // when typing last word -> filter out non matching words
+    if (!letterToLetterMatch(lastSelectablesArrEl, initialTagOrBookmark)) {
+      return false;
+    }
+    // if there is no match for a selectable surrounded only be characters that cannot flank a title
+    //  (spaces, commas)  ), -> selectable not visible
+    if (
+      createSelectablesRegex(initialTagOrBookmark).test(selectablesInputStr)
+    ) {
+      return false;
+    }
+    // selectable is visible in case the title is flanked by legal title character -
+    // in that case the title is treated as a separate entity
+    return true;
+  }
+
+  function letterToLetterMatch(lastInput: string, el: string) {
+    for (let i = 0; i < lastInput.length; i++) {
+      if (
+        lastInput[i] !== el[i] &&
+        // returns true if lastInput is present in initial bookmarks
+        initialBookmarks.indexOf(lastInput) === -1 &&
+        // returns true is last char is a comma
+        selectablesInputStr[selectablesInputStr.length - 1] !== ","
+      ) {
+        return false;
+      }
+    }
+    return true;
+  }
 
   function makeInitialBookmarks(): string[] {
     let bookmarksInitial: string[] = [];
