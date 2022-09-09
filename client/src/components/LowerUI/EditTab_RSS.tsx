@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
-
-import shallow from "zustand/shallow";
 import { useMutation } from "urql";
-
-// import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 
 import { ReactComponent as PlusSmSVG } from "../../svgs/plus-sm.svg";
 import { ReactComponent as MinusSmSVG } from "../../svgs/minus-sm.svg";
 
+import { ChangeTabMutation } from "../../graphql/graphqlMutations";
+
 import { useTabs } from "../../state/hooks/useTabs";
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
 import { TabDatabase_i } from "../../../../schema/types/tabType";
-
-import { ChangeTabMutation } from "../../graphql/graphqlMutations";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
@@ -52,8 +46,6 @@ function EditTab_RSS({
   userIdOrNoId,
   currentTab,
 }: Props): JSX.Element {
-  // const rssSettingsState = useRssSettings((state) => state, shallow);
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const resetTabRssSettings = useTabs((store) => store.resetTabRssSettings);
 
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
@@ -108,10 +100,8 @@ function EditTab_RSS({
                 } `}
               ></div>
             </button>
-
             <span className="ml-1">Description</span>
           </div>
-
           <div className="flex items-center">
             <button
               style={{ marginTop: "2px" }}
@@ -130,7 +120,6 @@ function EditTab_RSS({
                 } `}
               ></div>
             </button>
-
             <span className="ml-1">Date</span>
           </div>
         </div>
@@ -138,17 +127,11 @@ function EditTab_RSS({
       <div className="flex items-center mt-2 justify-between">
         <p className="whitespace-nowrap w-32">Items per page (5-15)</p>
         <div className="flex items-center">
-          <div
-            // style={{ height: "60px", width: "60px", marginTop: "0px" }}
-            // className="flex"
-            className=""
-          >
+          <div>
             <div
-              // className={`bg-${uiColor}`}
               className={`bg-blueGray-400`}
               style={{ height: "13px", width: "13px" }}
             >
-              {/* <div className=" bg-gray-400" style={{height: "16px", width: "24px"}}> */}
               <PlusSmSVG
                 className="cursor-pointer hover:text-blueGray-500 transition-colors duration-75"
                 onClick={() => {
@@ -193,7 +176,6 @@ function EditTab_RSS({
             max="15"
             className="border-t border-b border-r w-8 text-center border-gray-300 focus-1"
             value={itemsPerPageInitial}
-            // value={rssItemsPerPage}
             onWheel={(event) => event.currentTarget.blur()}
             onChange={(e) => {
               setItemsPerPageInitial(parseInt(e.target.value));
@@ -218,15 +200,9 @@ function EditTab_RSS({
         <span
           className="text-red-600 hover:underline cursor-pointer"
           onClick={() => {
-            // setResetColorsData(true);
-
             setDescriptionCheckbox(globalSettings.description);
             setDateCheckbox(globalSettings.date);
             setRssItemsPerPage(globalSettings.itemsPerPage);
-            // setWasAnythingClicked(true);
-            // setWasCheckboxClicked(true);
-            // setWasItemsPerPageClicked(true);
-
             setItemsPerPageInitial(globalSettings.itemsPerPage);
 
             if (userIdOrNoId) {

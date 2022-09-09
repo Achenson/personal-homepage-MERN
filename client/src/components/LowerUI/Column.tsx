@@ -1,36 +1,15 @@
 import React from "react";
 
-import shallow from "zustand/shallow";
-
-// import shallow from "zustand/shallow";
-
 import Tab from "./Tab";
 import GapAfterTab from "./GapAfterTab";
 import UpperLeftMenu from "../UpperUI/UpperLeftMenu";
 import UpperRightMenu from "../UpperUI/UpperRightMenu";
 import Message from "../UpperUI/Message";
 
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-
-// import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
-// import { useDbContext } from "../../context/dbContext";
-// import { useAuthContext } from "../../context/authContext";
 import { useAuth } from "../../state/hooks/useAuth";
 import { useTabs } from "../../state/hooks/useTabs";
-
 import { useTabsDb } from "../../state/hooks/useTabsDb";
-
-
-import {
-  useGlobalSettings,
-  UseGlobalSettingsAll,
-} from "../../state/hooks/defaultSettingsHooks";
-
-import { TabsQuery } from "../../graphql/graphqlQueries";
-import { SettingsQuery } from "../../graphql/graphqlQueries";
-
-// import { testUserId } from "../../state/data/testUserId";
 
 import { GlobalSettingsState, SingleTabData } from "../../utils/interfaces";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
@@ -39,8 +18,6 @@ interface Props {
   colNumber: number;
   setTabType: React.Dispatch<React.SetStateAction<"folder" | "note" | "rss">>;
   breakpoint: 0 | 1 | 2 | 3 | 4 | null;
-  // tabs: SingleTabData[];
-  // tabs: TabDatabase_i[];
   userIdOrNoId: string | null;
   globalSettings: GlobalSettingsState;
 }
@@ -51,25 +28,10 @@ function Column({
   breakpoint,
   userIdOrNoId,
   globalSettings,
-}: // tabs,
-Props): JSX.Element {
-  // const columnsColors = useColumnsColors((state) => state, shallow);
-  // const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);
-
-  // const tabs = useTabs((store) => store.tabs);
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
-
-  // const tabsDb = useDbContext()?.tabs;
-
+}: Props): JSX.Element {
   const tabsNotAuth = useTabs((store) => store.tabs);
 
   const tabsDb = useTabsDb((store) => store.tabsDb);
-
-  // const globalSettingsNotAuth = useGlobalSettings((state) => state, shallow);
-
-  // let tabs: TabDatabase_i[] | SingleTabData[];
-
-  // tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   const upperUiContext = useUpperUiContext();
   const authContext = useAuth();
@@ -78,13 +40,6 @@ Props): JSX.Element {
     authContext.authenticatedUserId && authContext.isAuthenticated
       ? authContext.authenticatedUserId
       : null;
-
-  // const { data, fetching, error } = settingsResults;
-
-  // if (fetching) return <p>Loading...</p>;
-  // if (error) return <p>{error.message}</p>;
-
-  // tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   function calcColumnColor_picBackground(
     colNumber: number,
@@ -96,22 +51,17 @@ Props): JSX.Element {
     }
 
     if (oneColorForAllColumns) {
-      // return columnsColorsImg.colColor_1;
       return globalSettings.colColorImg_1;
     }
 
     switch (colNumber) {
       case 1:
-        // return columnsColorsImg.colColor_1;
         return globalSettings.colColorImg_1;
       case 2:
-        // return columnsColorsImg.colColor_2;
         return globalSettings.colColorImg_2;
       case 3:
-        // return columnsColorsImg.colColor_3;
         return globalSettings.colColorImg_3;
       case 4:
-        // return columnsColorsImg.colColor_4;
         return globalSettings.colColorImg_4;
     }
   }
@@ -126,23 +76,18 @@ Props): JSX.Element {
     }
 
     if (oneColorForAllColumns) {
-      // return "bg-" + columnsColors.colColor_1;
       return "bg-" + globalSettings.colColor_1;
     }
 
     switch (colNumber) {
       case 1:
-        // return "bg-" + columnsColors.colColor_1;
         return "bg-" + globalSettings.colColor_1;
       case 2:
-        // return "bg-" + columnsColors.colColor_2;
         return "bg-" + globalSettings.colColor_2;
       case 3:
         return "bg-" + globalSettings.colColor_3;
-      // return "bg-" + columnsColors.colColor_3;
       case 4:
         return "bg-" + globalSettings.colColor_4;
-      // return "bg-" + columnsColors.colColor_4;
     }
   }
 
@@ -219,7 +164,6 @@ Props): JSX.Element {
         ),
       }}
     >
-      {/* {(tabs as SingleTabData[]) */}
       {(userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth)
         .filter((el) => el.column === colNumber)
         // lower priority, higher in the column
@@ -242,11 +186,9 @@ Props): JSX.Element {
                 tabOpenedByDefault={el.openedByDefault}
                 tabIsDeletable={el.deletable}
                 globalSettings={globalSettings}
-                // tabs={tabs}
                 currentTab={el}
                 userIdOrNoId={userIdOrNoId}
               />
-              {/* <div className="flex-grow"> */}
               <GapAfterTab
                 colNumber={colNumber}
                 tabID_orNull={el.id}
@@ -257,7 +199,6 @@ Props): JSX.Element {
                 userIdOrNoId={userIdOrNoId}
                 tabIsDeletable={el.deletable}
               />
-              {/* </div> */}
             </div>
           );
         })}

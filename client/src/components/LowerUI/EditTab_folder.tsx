@@ -8,17 +8,13 @@ import { ReactComponent as CheckSVG } from "../../svgs/check-small.svg";
 import { ReactComponent as XsmallSVG } from "../../svgs/x-small.svg";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
-// import { useTabs } from "../../state/hooks/useTabs";
 import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
 
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
-import { SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
-// import { useDbContext } from "../../context/dbContext";
-
-import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
-// import { TabDatabase_i } from "../../../../schema/types/tabType";
-
 import { createSelectablesRegex } from "../../utils/regex";
+
+import { SingleBookmarkData } from "../../utils/interfaces";
+import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 
 interface Props {
   selectablesListVis: boolean;
@@ -28,7 +24,6 @@ interface Props {
   selectablesInputStr: string;
   setSelectablesInputStr: React.Dispatch<React.SetStateAction<string>>;
   saveFunc: () => void;
-  // bookmarks: SingleBookmarkData[];
   userIdOrNoId: string | null;
 }
 
@@ -41,27 +36,15 @@ function EditTab_folder({
   setSelectablesInputStr,
   saveFunc,
   userIdOrNoId,
-}: // bookmarks
-Props): JSX.Element {
-  // const tabsNotAuth = useTabs((state) => state.tabs);
+}: Props): JSX.Element {
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
-
   const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
 
-  // const bookmarksDb = useDbContext()?.bookmarks;
-  // const tabsDb = useDbContext()?.tabs;
-  // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
-
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
-  // let tabs: TabDatabase_i[] | SingleTabData[];
 
   bookmarks = userIdOrNoId
     ? (bookmarksDb as SingleBookmarkData[])
     : bookmarksNotAuth;
-  // tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
-
-  // const bookmarks = useBookmarks((state) => state.bookmarks);
-  // const bookmarks = useDbContext().bookmarks;
 
   let selectablesRef = useRef<HTMLInputElement>(null);
 
@@ -88,21 +71,6 @@ Props): JSX.Element {
 
     let lastSelectablesArrEl =
       selectablesInputArr[selectablesInputArr.length - 1];
-
-    // function letterToLetterMatch(lastInput: string, el: string) {
-    //   for (let i = 0; i < lastInput.length; i++) {
-    //     if (
-    //       lastInput[i] !== el[i] &&
-    //       // returns true if lastInput is present in initial bookmarks
-    //       initialBookmarks.indexOf(lastInput) === -1 &&
-    //       // returns true is last char is a comma
-    //       selectablesInputStr[selectablesInputStr.length - 1] !== ","
-    //     ) {
-    //       return false;
-    //     }
-    //   }
-    //   return true;
-    // }
 
     initialBookmarks.forEach((el) => {
       if (

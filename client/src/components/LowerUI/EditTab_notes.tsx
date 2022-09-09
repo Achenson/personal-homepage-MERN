@@ -28,7 +28,6 @@ function EditTab_notes({
         value={textAreaValue as string}
         className="h-full w-full overflow-visible pl-px pr-px border font-mono resize-none focus-1"
         // rows={(currentTab[0].noteInput as string).length / 30}
-
         // rows={8}
         rows={calcNumberOfRows(noteHeight as number)}
         onChange={(e) => {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import FocusLock from "react-focus-lock";
 import { useMutation } from "urql";
-// import shallow from "zustand/shallow";
 
 import EditTab_folder from "./EditTab_folder";
 import EditTab_notes from "./EditTab_notes";
@@ -13,55 +12,41 @@ import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 import { ReactComponent as CheckBigSVG } from "../../svgs/check-big.svg";
 import { ReactComponent as XbigSVG } from "../../svgs/x-big.svg";
 import { ReactComponent as TrashSVG } from "../../svgs/trash.svg";
-// import { ReactComponent as LockClosedSVG } from "../../svgs/lock-closed.svg";
-// import { ReactComponent as LockOpenSVG } from "../../svgs/lock-open.svg";
 import { ReactComponent as EyeSVG } from "../../svgs/eye.svg";
 import { ReactComponent as EyeOffSVG } from "../../svgs/eye-off.svg";
 
-import { useBookmarks } from "../../state/hooks/useBookmarks";
-import { useTabsDb } from "../../state/hooks/useTabsDb";
-import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
-// import { useDbContext } from "../../context/dbContext";
-// import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-import { useTabs } from "../../state/hooks/useTabs";
-import { useTabContext } from "../../context/tabContext";
-import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
-import { tabErrorHandling } from "../../utils/funcs and hooks/tabErrorHandling";
-import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
 import {
   DeleteTabMutation,
   ChangeBookmarkMutation,
   ChangeTabMutation,
 } from "../../graphql/graphqlMutations";
 
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { useBookmarks } from "../../state/hooks/useBookmarks";
+import { useTabsDb } from "../../state/hooks/useTabsDb";
+import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
+import { useTabs } from "../../state/hooks/useTabs";
+import { useTabContext } from "../../context/tabContext";
 
+import { tabErrorHandling } from "../../utils/funcs and hooks/tabErrorHandling";
+import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
+
+import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
-import { imageColumnColorsConcat } from "../../utils/data/colors_column";
 
 interface TabId {
-  id: string;
-}
-
-interface BookmarkId {
   id: string;
 }
 
 interface Props {
   tabType: "folder" | "note" | "rss";
   tabID: string;
-  // currentTab: SingleTabData;
   currentTab: TabDatabase_i;
   setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>;
   globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
   tabIsDeletable: boolean;
   noteHeight?: number | null
-  // tabs: SingleTabData[];
-  // bookmarks: SingleBookmarkData[];
-  // bookmarks: BookmarkDatabase_i[];
 }
 
 function EditTab({
@@ -73,11 +58,9 @@ function EditTab({
   userIdOrNoId,
   tabIsDeletable,
   noteHeight
-}: // tabs,
-// bookmarks,
+}: 
+
 Props): JSX.Element {
-  // const tabs = useTabs((store) => store.tabs);
-  // const editTab = useTabs((store) => store.editTab);
 
   const editTabNotAuth = useTabs((store) => store.editTab);
 
@@ -90,18 +73,10 @@ Props): JSX.Element {
   const tabsDb = useTabsDb((store) => store.tabsDb);
   const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
 
-  // const bookmarksDb = useDbContext()?.bookmarks;
-  // only used in authenticated version of the app
-  // const tabsDb = useDbContext()?.tabs;
-  // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
-
   bookmarks = userIdOrNoId
     ? (bookmarksDb as SingleBookmarkData[])
     : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
-
-  // const bookmarks = useDbContext().bookmarks;
-  // const tabs = useDbContext().tabs;
 
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
     ChangeTabMutation
@@ -116,8 +91,6 @@ Props): JSX.Element {
     any,
     BookmarkDatabase_i
   >(ChangeBookmarkMutation);
-  // const rssSettingsState = useRssSettings((state) => state, shallow);
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const tabContext = useTabContext();
 
   let firstFieldRef = useRef<HTMLInputElement>(null);
@@ -136,7 +109,6 @@ Props): JSX.Element {
     rssLink = currentTab.rssLink;
   }
 
-  // const bookmarks = useBookmarks((state) => state.bookmarks);
   const editTag = useBookmarks((store) => store.editTag);
   const deleteTag = useBookmarks((store) => store.deleteTag);
 
@@ -348,10 +320,6 @@ Props): JSX.Element {
       });
     }
 
-    /* if (tabType === "folder") {
-      // changing a tag in bookmarks
-      editTag(tabID, arrOfBookmarksNames, bookmarksInputArr);
-    } */
   }
 
   function saveFunc() {
@@ -403,12 +371,10 @@ Props): JSX.Element {
 
         filteredBookmarks.forEach((obj) => {
           let changedBookmark = { ...obj };
-          // console.log(JSON.stringify(changedBookmark, null, 2));
           let indexOfDeletedTab = changedBookmark.tags.indexOf(
             result.data.deleteTab.id
           );
           changedBookmark.tags.splice(indexOfDeletedTab, 1);
-          // console.log(JSON.stringify(changedBookmark, null, 2));
           changeBookmark(changedBookmark);
         });
       });
@@ -467,7 +433,6 @@ Props): JSX.Element {
               selectablesInputStr={selectablesInputStr}
               setSelectablesInputStr={setSelectablesInputStr}
               saveFunc={saveFunc}
-              // bookmarks={bookmarks}
               userIdOrNoId={userIdOrNoId}
             />
           )}
@@ -569,13 +534,11 @@ Props): JSX.Element {
 
                 <button
                   className="h-6 w-6 focus-2"
-                  // onClick={deleteTabLogic}
                   onClick={() => {
                     if (!tabIsDeletable) {
                       deleteTabLogic();
                       return;
                     }
-
                     setDeleteConfirmationVis(true);
                   }}
                   aria-label={"Delete tab"}

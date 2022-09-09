@@ -6,12 +6,12 @@ import Bookmark_lowerUI_new from "./Bookmark_lowerUI_new";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
-
 import { useTabContext } from "../../context/tabContext";
 import { useTabsDb } from "../../state/hooks/useTabsDb";
-import { useBookmarksDb, ReexecuteBookmarks } from "../../state/hooks/useBookmarksDb";
-// import { useDbContext } from "../../context/dbContext";
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import {
+  useBookmarksDb,
+  ReexecuteBookmarks,
+} from "../../state/hooks/useBookmarksDb";
 
 import {
   createBookmarkNotAuth,
@@ -25,16 +25,17 @@ import {
   AddBookmarkMutation,
   ChangeBookmarkMutation,
   AddTabMutation,
-  DeleteTabMutation
+  DeleteTabMutation,
 } from "../../graphql/graphqlMutations";
 
-import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
+import {
+  GlobalSettingsState,
+  SingleBookmarkData,
+  SingleTabData,
+} from "../../utils/interfaces";
 import { BookmarkErrors, SetBookmarkErrors } from "../../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
-import { responsePathAsArray } from "graphql";
-
-import { DbContext_i } from "../../utils/interfaces";
 
 interface TabId {
   id: string;
@@ -56,13 +57,10 @@ interface Props {
   rssTitlesArr: string[];
   bookmarkComponentType: "new_upperUI" | "new_lowerUI" | "edit";
   bookmarkId: string;
-  // currentBookmark: SingleBookmarkData | undefined;
   currentBookmark: BookmarkDatabase_i | SingleBookmarkData;
   colNumber: number;
   errors: BookmarkErrors;
   setErrors: SetBookmarkErrors;
-  // bookmarks: SingleBookmarkData[];
-  // tabs: SingleTabData[];
   globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
@@ -86,8 +84,6 @@ function Bookmark_lowerUI({
   colNumber,
   errors,
   setErrors,
-  // bookmarks,
-  // tabs,
   globalSettings,
   userIdOrNoId,
 }: Props): JSX.Element {
@@ -103,14 +99,9 @@ function Bookmark_lowerUI({
   const tabsDb = useTabsDb((store) => store.tabsDb);
   const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
 
-  const reexecuteBookmarks = useBookmarksDb(store => store.reexecuteBookmarks);
-
-
-
-  // const bookmarksDb = useDbContext()?.bookmarks;
-  // only used in authenticated version of the app
-  // const tabsDb = useDbContext()?.tabs;
-  // const reexecuteBookmarks = useDbContext().reexecuteBookmarks;
+  const reexecuteBookmarks = useBookmarksDb(
+    (store) => store.reexecuteBookmarks
+  );
 
   const getTabsToDelete = useBookmarks((store) => store.getTabsToDelete);
 
@@ -118,10 +109,6 @@ function Bookmark_lowerUI({
     ? (bookmarksDb as SingleBookmarkData[])
     : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
-
-  // const reexecuteBookmarks = (useDbContext() as DbContext_i)
-  //   ?.reexecuteBookmarks;
-  // const tabs = useDbContext().tabs;
 
   const [addBookmarkResult, addBookmark] = useMutation<any, BookmarkDatabase_i>(
     AddBookmarkMutation
@@ -136,23 +123,12 @@ function Bookmark_lowerUI({
     DeleteTabMutation
   );
 
-
   const [addTabResult, addTab] = useMutation<any, TabDatabase_i>(
     AddTabMutation
   );
 
-  // const setTabDeletingPause = useTabs((store) => store.setTabDeletingPause);
-
-  // const bookmarks = useBookmarks((store) => store.bookmarks);
-  // const tabIdsUsedByBookmarks = useBookmarks((store) => store.tabIdsUsedByBookmarks);
-  // DB: tabIdsUsedByBookmarks in Grid only
-  // const setTabIdsUsedByBookmarks = useBookmarks(
-  //   (store) => store.setTabIdsUsedByBookmarks
-  // );
-
   const addTabsNotAuth = useTabs((store) => store.addTabs);
   const deleteTabNotAuth = useTabs((store) => store.deleteTab);
-  // const tabs = useTabs((store) => store.tabs);
 
   const tabContext = useTabContext();
 
@@ -173,29 +149,8 @@ function Bookmark_lowerUI({
     };
   });
 
-  const [initialTagsInputArr, setInitialTagsInputArr] = useState(() =>
-    generateTagIds()
-  );
-
   // for disabling save btn
   const [wasAnythingChanged, setWasAnythingChanged] = useState(false);
-
-  function generateTagIds() {
-    if (bookmarkComponentType !== "edit") {
-      return [];
-    }
-
-    let arrOut: string[] = [];
-
-    selectablesInputStr.split(", ").forEach((el) => {
-      let currentTab = tabs.find((obj) => obj.title === el);
-      if (currentTab) {
-        arrOut.push(currentTab.id);
-      }
-    });
-
-    return arrOut;
-  }
 
   let tagsInputArr: string[] = selectablesInputStr.split(", ");
 
@@ -216,12 +171,8 @@ function Bookmark_lowerUI({
     let tagsInputArr_ToIds: string[] = [
       tabs.find((obj) => !obj.deletable)?.id as string,
     ];
-    // for edit only
-    let newTabId: undefined | string;
     // let newTabsToAdd: SingleTabData[] = [];
     let newTabsToAdd: TabDatabase_i[] | SingleTabData[] = [];
-
-    // let newTabIdsUsedByBookmarksData = [...tabIdsUsedByBookmarks];
 
     // getting higher priority for each subsequent tab that is being added at the same time
     let counterForIndices = 0;
@@ -238,11 +189,8 @@ function Bookmark_lowerUI({
         1 +
         counterForIndices;
 
-      // setTabDeletingPause(true);
       // if folder with title corresponding to tag doesn't exist create it...
       if (!tabForCurrentTag && selectablesInputStr !== "") {
-        // let newTab = createFolderTab(el, colNumber, newTabPriority);
-
         let newTab: TabDatabase_i | SingleTabData;
 
         newTab = userIdOrNoId
@@ -254,8 +202,6 @@ function Bookmark_lowerUI({
             )
           : createFolderTab(el, 1, newTabPriority);
         tagsInputArr_ToIds.push(newTab.id);
-        // for edit only
-        // newTabId = newTab.id;
 
         //... and add new folder tab to the main tags list
         // newTabIdsUsedByBookmarksData.push(newTab.id);
@@ -278,52 +224,18 @@ function Bookmark_lowerUI({
           addTab(obj)
         );
 
-        /*    let arrOfPromises: Promise<string>[] = [];
-     
-           newTabsToAdd.forEach((obj) => {
-             let newPromise = new Promise<string>((resolve, reject) => {
-               addTab(obj).then((result) => {
-                 if (result.error) {
-                   reject(result.error);
-                   return;
-                 }
-                 resolve(result.data.addTab.id);
-               });
-             });
-     
-             arrOfPromises.push(newPromise);
-           }); */
-
         let arrOfNewFolderObjs = await Promise.all(arrOfPromises);
-        // let arrOfNewFolderIds = await Promise.all(arrOfPromises);
 
         arrOfNewFolderObjs.forEach((obj) => {
           tagsInputArr_ToIds.push(obj.data.addTab.id);
         });
-
-        console.log(tagsInputArr_ToIds);
-
-        /*   newTabsToAdd.forEach((obj) => {
-             console.log(obj.title);
-     
-             addTab(obj).then((result) => {
-               console.log(result);
-               tagsInputArr_ToIds.push(result.data.addTab.id);
-             });
-           }); */
       } else {
-        // setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
         addTabsNotAuth(newTabsToAdd);
       }
     }
 
     if (!userIdOrNoId) {
       if (bookmarkComponentType === "edit") {
-        // first item in the arr is bookmark to delete
-        //  let bookmarkToEdit = bookmarks.find(
-        //   (el) => el.id === bookmarkId
-        // );
-
         let bookmarkTagsToDelete: string[] = [];
 
         for (let tag of currentBookmark.tags) {
@@ -346,9 +258,6 @@ function Bookmark_lowerUI({
           currentBookmark.defaultFaviconFallback
         );
       } else {
-        console.log("tagsInputArr_ToIds");
-        console.log(tagsInputArr_ToIds);
-
         addBookmarkNotAuth(
           createBookmarkNotAuth(titleInput, urlInput, tagsInputArr_ToIds)
         );
@@ -359,9 +268,6 @@ function Bookmark_lowerUI({
 
     let bookmarkPromise = new Promise((resolve, reject) => {
       if (bookmarkComponentType === "edit") {
-
-
-
         let bookmarkTagsToDelete: string[] = [];
 
         for (let tag of currentBookmark.tags) {
@@ -373,9 +279,8 @@ function Bookmark_lowerUI({
         let tabIdsToDelete = getTabsToDeleteDb(bookmarkId);
 
         if (tabIdsToDelete.length > 0) {
-           deleteTabsLogicDb(tabIdsToDelete, tabs as TabDatabase_i[]);
+          deleteTabsLogicDb(tabIdsToDelete, tabs as TabDatabase_i[]);
         }
-
 
         editBookmark({
           id: bookmarkId,
@@ -412,17 +317,11 @@ function Bookmark_lowerUI({
 
     await bookmarkPromise;
 
-    /* console.log("bookmarkPromise");
-    console.log(bookmarkPromise); */
-
     if (bookmarks.length === 0 && userIdOrNoId) {
-      (reexecuteBookmarks as ReexecuteBookmarks)({ requestPolicy: "network-only" });
+      (reexecuteBookmarks as ReexecuteBookmarks)({
+        requestPolicy: "network-only",
+      });
     }
-
-    // setTimeout(() => setTabDeletingPause(false), 500);
-    // if (bookmarkComponentType === "edit") {
-    //   setTabDeletingPause(false);
-    // }
 
     function deleteTabsLogicNotAuth(
       tabIDsToDelete: string[],
@@ -442,14 +341,10 @@ function Bookmark_lowerUI({
       tabs: TabDatabase_i[]
     ) {
       for (let tabID of tabIDsToDelete) {
-        // if (tabID === "ALL_TAGS") {
-        //   continue;
-        // }
-  
         if (!tabs.filter((el) => el.id === tabID)[0].deletable) {
           continue;
         }
-  
+
         await deleteTab({ id: tabID }).then((result) => {
           console.log(result);
         });
@@ -482,10 +377,6 @@ function Bookmark_lowerUI({
           bookmarkTagsToDelete.push(tag);
         }
       }
-      // first item in the arr is bookmark to delete
-      // let bookmarkToDeleteArr: BookmarkDatabase_i[] = (
-      //   bookmarks as BookmarkDatabase_i[]
-      // ).filter((el) => el.id === bookmarkIdToDelete);
 
       let tagsToDelete: string[] = [];
 
@@ -499,9 +390,6 @@ function Bookmark_lowerUI({
 
       return tagsToDelete;
     }
-
-
-
   }
 
   function handleKeyDown(event: KeyboardEvent) {

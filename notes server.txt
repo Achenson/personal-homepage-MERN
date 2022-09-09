@@ -437,6 +437,7 @@ TO implement in future versions?
 306. file after file cleaning. order of imports/interfaces!
   modules
   components
+  svgs
   graphqlMutation/queries
   state
   context
@@ -444,9 +445,10 @@ TO implement in future versions?
   static data
   interfaces
 
-comps less than 500...?
+comps less than 600...?
 
 310. Default Tab Colors -> Rss too much to the right?
+311. EdtiTab_main -> check editTag logic -> is it needed still?
 
 
 

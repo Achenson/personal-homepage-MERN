@@ -1,5 +1,4 @@
 import React from "react";
-
 import FocusLock from "react-focus-lock";
 
 import SelectableList from "../Shared/SelectableList";
@@ -12,8 +11,9 @@ import { ReactComponent as XsmallSVG } from "../../svgs/x-small.svg";
 import { ReactComponent as ChevronDownSVG } from "../../svgs/chevron-down.svg";
 import { ReactComponent as ChevronUpSVG } from "../../svgs/chevron-up.svg";
 
-import { BookmarkErrors } from "../../utils/interfaces";
 import { useTabContext } from "../../context/tabContext";
+
+import { BookmarkErrors } from "../../utils/interfaces";
 
 interface Props {
   firstFieldRef: React.RefObject<HTMLInputElement>;

@@ -1,5 +1,4 @@
 import React from "react";
-
 import FocusLock from "react-focus-lock";
 
 import SelectableList from "../Shared/SelectableList";
@@ -13,6 +12,7 @@ import { ReactComponent as ChevronDownSVG } from "../../svgs/chevron-down.svg";
 import { ReactComponent as ChevronUpSVG } from "../../svgs/chevron-up.svg";
 
 import { useTabContext } from "../../context/tabContext";
+
 import { BookmarkErrors } from "../../utils/interfaces";
 
 interface Props {
@@ -126,9 +126,7 @@ function Bookmark_lowerUI_edit({
                   onChange={(e) => {
                     setWasAnythingChanged(true);
                     if (!selectablesListVis) setSelectablesListVis(true);
-
                     let target = e.target.value;
-
                     setSelectablesInputStr(target);
                   }}
                   onFocus={(e) => {
@@ -198,9 +196,7 @@ function Bookmark_lowerUI_edit({
               )}
             </div>
           </div>
-
           <BookmarkErrors_render errors={errors} />
-
           {/* SaveSVG is cut without the <p> - bug? */}
           <div
             className="w-full flex justify-center"
