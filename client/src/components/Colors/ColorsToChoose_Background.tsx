@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-
 import FocusLock from "react-focus-lock";
 
 import SingleColor_Background from "./SingleColor_Background";
@@ -11,9 +10,7 @@ import {
   backgroundColorsConcat,
 } from "../../utils/data/colors_background";
 
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import { GlobalSettingsState } from "../../utils/interfaces";
-// import { testUserId } from "../../state/data/testUserId";
 
 interface Props {
   setFocusOnBackgroundColor: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,7 +23,6 @@ function ColorsToChoose_Background({
   globalSettings,
   userIdOrNoId,
 }: Props): JSX.Element {
-  // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
   const backgroundColor = globalSettings.backgroundColor;
 
   const calcSelectedNumber = useCallback((): number => {

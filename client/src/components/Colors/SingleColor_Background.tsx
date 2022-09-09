@@ -1,11 +1,9 @@
 import React from "react";
 import { useMutation } from "urql";
 
-import { backgroundColorsLightFocus } from "../../utils/data/colors_background";
-
 import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
 
-
+import { backgroundColorsLightFocus } from "../../utils/data/colors_background";
 
 import {
   useGlobalSettings,
@@ -34,9 +32,6 @@ function SingleColor_Background({
   globalSettings,
   userIdOrNoId,
 }: Props): JSX.Element {
-  /*   const setBackgroundColor = useBackgroundColor(
-    (state) => state.setBackgroundColor
-  ); */
 
   const setGlobalSettings = useGlobalSettings(
     (store) => store.setGlobalSettings
@@ -84,7 +79,6 @@ function SingleColor_Background({
       focus:outline-none focus-visible:ring-2 ring-${focusColor()} ring-inset
       `}
       onClick={() => {
-        // setBackgroundColor(color);
         userIdOrNoId
           ? changeSettings({
               ...globalSettings,

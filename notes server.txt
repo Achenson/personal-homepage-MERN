@@ -446,6 +446,8 @@ TO implement in future versions?
 
 comps less than 500...?
 
+310. Default Tab Colors -> Rss too much to the right?
+
 
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199

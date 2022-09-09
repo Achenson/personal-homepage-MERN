@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
-
 import FocusLock from "react-focus-lock";
-// import shallow from "zustand/shallow";
 
 import SingleColor_Tab from "./SingleColor_Tab";
 
 import { useTabContext } from "../../context/tabContext";
 
 import { tabColors, tabColorsConcat } from "../../utils/data/colors_tab";
-import { TabDatabase_i } from "../../../../schema/types/tabType";
 
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { GlobalSettingsState, SingleTabData } from "../../utils/interfaces";
-// import { testUserId } from "../../state/data/testUserId";
 
 interface Props {
   setIconsVis: (value: React.SetStateAction<boolean>) => void;
@@ -31,9 +27,8 @@ function ColorsToChoose_Tab({
   tabType,
   globalSettings,
   currentTab,
-  userIdOrNoId
+  userIdOrNoId,
 }: Props): JSX.Element {
-  // const defaultColors = useDefaultColors((state) => state, shallow);
   const [selectedNumber, setSelectedNumber] = useState(calcSelectedNumber());
 
   const tabContext = useTabContext();

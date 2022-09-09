@@ -1,16 +1,7 @@
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-  VoidFunctionComponent,
-} from "react";
-
+import React, { useEffect, useState, useCallback } from "react";
 import FocusLock from "react-focus-lock";
-import shallow from "zustand/shallow";
 
 import SingleColor_DefaultAndColumn from "./SingleColor_DefaultAndColumn";
-
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 
 import { useUpperUiContext } from "../../context/upperUiContext";
 
@@ -22,7 +13,6 @@ import {
   imageColumnColorsConcat,
 } from "../../utils/data/colors_column";
 
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
@@ -65,12 +55,6 @@ function ColorsToChoose_DefaultAndColumns({
   globalSettings,
   userIdOrNoId,
 }: Props): JSX.Element {
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
-
-  // const defaultColors = useDefaultColors((state) => state, shallow);
-  // const columnsColors = useColumnsColors((state) => state, shallow);
-  // const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);
-
   const calcSelectedNumber = useCallback((): number => {
     let selectedNumber: number = 0;
 
@@ -211,8 +195,11 @@ function ColorsToChoose_DefaultAndColumns({
         }
         if (setFocusOnColumnColor) {
           setFocusOnColumnColor(
-            // @ts-ignore
-            parseInt(defaultColorsFor.slice(defaultColorsFor.length - 1))
+            parseInt(defaultColorsFor.slice(defaultColorsFor.length - 1)) as
+              | 1
+              | 2
+              | 3
+              | 4
           );
         }
       }

@@ -1,9 +1,5 @@
 import React from "react";
-
 import { useMutation } from "urql";
-
-import { setComplementaryUiColor } from "../../utils/funcs and hooks/complementaryUIcolor";
-import { tabColorsLightFocus } from "../../utils/data/colors_tab";
 
 import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
 
@@ -11,6 +7,10 @@ import {
   UseGlobalSettingsAll,
   useGlobalSettings,
 } from "../../state/hooks/defaultSettingsHooks";
+
+import { setComplementaryUiColor } from "../../utils/funcs and hooks/complementaryUIcolor";
+import { tabColorsLightFocus } from "../../utils/data/colors_tab";
+
 import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
@@ -44,12 +44,6 @@ function SingleColor_DefaultAndColumn({
   globalSettings,
   userIdOrNoId,
 }: Props): JSX.Element {
-  // const setDefaultColors = useDefaultColors((state) => state.setDefaultColors);
-  /*  const setColumnsColors = useColumnsColors((state) => state.setColumnsColors);
-  const setColumnsColorsImg = useColumnsColorsImg(
-    (state) => state.setColumsColors
-  ); */
-
   const [changeSettingsResult, changeSettings] = useMutation<
     any,
     GlobalSettingsState
@@ -148,12 +142,6 @@ function SingleColor_DefaultAndColumn({
       style={{ backgroundColor: `${colsForBackgroundImg ? color : ""}` }}
       onClick={() => {
         if (defaultColorsFor === "folders") {
-          // setDefaultColors({ key: "folderColor", color: color });
-          // setDefaultColors({
-          //   key: "uiColor",
-          //   color: setComplementaryUiColor(color),
-          // });
-
           userIdOrNoId
             ? changeSettings({
                 ...globalSettings,
@@ -168,9 +156,6 @@ function SingleColor_DefaultAndColumn({
         }
 
         if (defaultColorsFor === "notes") {
-          // setDefaultColors({ key: "noteColor", color: color });
-          // changeSettings({ ...globalSettings, noteColor: color });
-
           userIdOrNoId
             ? changeSettings({
                 ...globalSettings,
@@ -183,9 +168,6 @@ function SingleColor_DefaultAndColumn({
         }
 
         if (defaultColorsFor === "rss") {
-          // setDefaultColors({ key: "rssColor", color: color });
-          // changeSettings({ ...globalSettings, rssColor: color });
-
           userIdOrNoId
             ? changeSettings({
                 ...globalSettings,
@@ -198,15 +180,6 @@ function SingleColor_DefaultAndColumn({
         }
 
         if (/colColor/.test(defaultColorsFor) && !colsForBackgroundImg) {
-          /*  setColumnsColors({
-            key: defaultColorsFor as
-              | "colColor_1"
-              | "colColor_2"
-              | "colColor_3"
-              | "colColor_4",
-            color: color,
-          }); */
-
           userIdOrNoId
             ? changeSettings({
                 ...globalSettings,
@@ -216,23 +189,9 @@ function SingleColor_DefaultAndColumn({
                 ...globalSettings,
                 [defaultColorsFor]: color,
               });
-
-          // changeSettings({ ...globalSettings, [defaultColorsFor]: color }).then(
-          //   (results) => console.log(results)
-          // );
         }
 
         if (/colColor/.test(defaultColorsFor) && colsForBackgroundImg) {
-          /*        setColumnsColorsImg({
-            key: defaultColorsFor as
-              | "colColor_1"
-              | "colColor_2"
-              | "colColor_3"
-              | "colColor_4",
-            color: color,
-          }); */
-          // changeSettings({ ...globalSettings, [defaultColorsForImg]: color });
-
           userIdOrNoId
             ? changeSettings({
                 ...globalSettings,

@@ -1,11 +1,12 @@
 import React from "react";
 import { useMutation } from "urql";
+
+import { ChangeTabMutation } from "../../graphql/graphqlMutations";
+
 import { useTabs } from "../../state/hooks/useTabs";
 
 import { tabColorsLightFocus } from "../../utils/data/colors_tab";
-// import { useTabs } from "../../state/hooks/useTabs";
 
-import { ChangeTabMutation } from "../../graphql/graphqlMutations";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { SingleTabData } from "../../utils/interfaces";
 
@@ -42,7 +43,6 @@ function SingleColor_Tab({
 
   function calcTabIndex() {
     let indexToReturn = colorNumber - selectedNumber + 1;
-
     if (indexToReturn >= 1) {
       return indexToReturn;
     }
@@ -68,10 +68,8 @@ function SingleColor_Tab({
       focus:outline-none focus-visible:ring-2 ring-${focusColor()} ring-inset
       `}
       onClick={() => {
-        // setTabColor(color, tabID);
-
         userIdOrNoId
-          ? editTab({ ...currentTab as TabDatabase_i, color: color })
+          ? editTab({ ...(currentTab as TabDatabase_i), color: color })
           : setTabColor(color, tabID);
 
         setSelectedNumber(colorNumber);
