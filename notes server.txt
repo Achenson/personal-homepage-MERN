@@ -449,6 +449,8 @@ comps less than 600...?
 
 310. Default Tab Colors -> Rss too much to the right?
 311. EdtiTab_main -> check editTag logic -> is it needed still?
+312. rss-parser check if used
+313. Tab -> why is tabOpened_local not needed for notes?
 
 
 

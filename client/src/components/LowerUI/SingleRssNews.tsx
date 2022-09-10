@@ -1,10 +1,5 @@
 import React from "react";
 
-// import shallow from "zustand/shallow";
-
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
@@ -28,8 +23,6 @@ function SingeRssNews({
   isTabDraggedOver,
   globalSettings,
 }: Props): JSX.Element {
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
-
   function renderDescription(descripion: string) {
     if (!description) {
       return "short description unavailable";

@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDrop } from "react-dnd";
-
-// import shallow from "zustand/shallow";
-import { useDrag } from "react-dnd";
+import { useDrop, useDrag } from "react-dnd";
 import { useMutation } from "urql";
 
 import SingleBookmark from "./SingleBookmark";
@@ -17,8 +14,8 @@ import { ReactComponent as PencilSmallSVG } from "../../svgs/pencilSmall.svg";
 import { ReactComponent as CrossArrowsSVG } from "../../svgs/cross-arrows.svg";
 import { ReactComponent as PlusSVG } from "../../svgs/plus.svg";
 
-// import { useBookmarks } from "../../state/hooks/useBookmarks";
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+import { ChangeTabMutation } from "../../graphql/graphqlMutations";
+
 import { useReset } from "../../state/hooks/useReset";
 import { useTabBeingDraggedColor } from "../../state/hooks/colorHooks";
 import { useTabs } from "../../state/hooks/useTabs";
@@ -26,22 +23,18 @@ import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabReducer } from "../../context/useTabReducer";
 import { TabContext } from "../../context/tabContext";
 import { useUpperUiContext } from "../../context/upperUiContext";
-// import { useDbContext } from "../../context/dbContext";
 import { useTabsDb } from "../../state/hooks/useTabsDb";
 import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
 
 import { dragTabDb } from "../../utils/funcs and hooks/dragTabDb";
-// import { BookmarksQuery, SettingsQuery } from "../../graphql/graphqlQueries";
-import { ChangeTabMutation } from "../../graphql/graphqlMutations";
-
-// import { testUserId } from "../../state/data/testUserId";
-
 import { ItemTypes } from "../../utils/data/itemsDnd";
-import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 
+import {
+  GlobalSettingsState,
+  SingleBookmarkData,
+  SingleTabData,
+} from "../../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
-// import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 interface Item {
@@ -61,10 +54,8 @@ interface Props {
   tabOpenedByDefault: boolean;
   tabIsDeletable: boolean;
   globalSettings: GlobalSettingsState;
-  // tabs: TabDatabase_i[];
   currentTab: TabDatabase_i | SingleTabData;
   userIdOrNoId: string | null;
-  // tabs: SingleTabData[];
 }
 
 function Tab({
@@ -77,51 +68,31 @@ function Tab({
   tabOpenedByDefault,
   tabIsDeletable,
   globalSettings,
-  // tabs,
   currentTab,
   userIdOrNoId,
 }: Props): JSX.Element {
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
-
   const [noteHeight, setNoteHeight] = useState<number | null>(null);
 
   const setTabBeingDraggedColor = useTabBeingDraggedColor(
     (store) => store.setTabBeingDraggedColor
   );
 
-  // const defaultColors = useDefaultColors((state) => state, shallow);
-
   // needed for immediate tab content opening/closing after locking/unlocking
   const [tabOpened_local, setTabOpened_local] = useState(tabOpened);
   const setReset = useReset((store) => store.setReset);
   const resetEnabled = useReset((store) => store.enabled);
-  // const bookmarks = useBookmarks((state) => state.bookmarks);
-
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
-
-  // const bookmarksDb = useDbContext()?.bookmarks;
-  // const tabsDb = useDbContext()?.tabs;
   const tabsDb = useTabsDb((store) => store.tabsDb);
   const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
 
-
-  // let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
-
-  // bookmarks = userIdOrNoId
-  //   ? (bookmarksDb as BookmarkDatabase_i[])
-  //   : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
-  // const tabs = useTabs((store) => store.tabs);
-  const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
   const tabOpenedState = useTabs((store) => store.tabOpenedState);
   const focusedTabState = useTabs((store) => store.focusedTabState);
   const setFocusedTabState = useTabs((store) => store.setFocusedTabState);
   const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
-
-  // const defaultTabContent = useTabs((store) => store.defaultTabContent);
   const toggleTab = useTabs((store) => store.toggleTab);
 
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
@@ -130,22 +101,9 @@ function Tab({
 
   const upperUiContext = useUpperUiContext();
 
-  // const [bookmarkResults] = useQuery({
-  //   query: BookmarksQuery,
-  //   variables: { userId: testUserId },
-  // });
-
-  // const {
-  //   data: data_bookmarks,
-  //   fetching: fetching_bookmarks,
-  //   error: errors_bookmarks,
-  // } = bookmarkResults;
-
   useEffect(() => {
     setTabOpened_local(tabOpened);
   }, [tabOpened]);
-
-  // let currentTab = tabs.find((obj) => obj.id === tabID);
 
   const [iconsVis, setIconsVis] = useState<boolean>(false);
 
@@ -163,7 +121,6 @@ function Tab({
     setReset,
     toggleTab,
     tabOpened,
-    // defaultTabContent,
     tabOpenedByDefault
   );
 
@@ -178,13 +135,6 @@ function Tab({
   const [bookmarkId, setBookmarkId] = useState<string>();
 
   const [crossVis, setCrossVis] = useState<boolean>(true);
-
-  // client-side (ONLY??)
-  // useEffect(() => {
-  //   if (closeAllTabsState && !userIdOrNoId) {
-  //     tabVisDispatch({ type: "TAB_CONTENT_DEFAULT" });
-  //   }
-  // }, [closeAllTabsState, tabVisDispatch, userIdOrNoId]);
 
   let finalTabColor: string = "";
 
@@ -286,7 +236,6 @@ function Tab({
 
   // "default" behaviour
   const regexForColors = /[6789]/;
-
   const [mouseOverTab, setMouseOverTab] = useState(false);
 
   useEffect(() => {
@@ -354,12 +303,6 @@ function Tab({
     tabID !== draggedItem.tabID
   );
 
-  // if (fetching_bookmarks) return <p>Loading...</p>;
-  // if (errors_bookmarks) return <p>Oh no... {errors_bookmarks.message}</p>;
-
-  // let bookmarks: SingleBookmarkData[] = data_bookmarks.bookmarks;
-  // let bookmarks: BookmarkDatabase_i[] = data_bookmarks.bookmarks;
-
   return (
     <TabContext.Provider value={tabContextValue}>
       <div
@@ -410,7 +353,6 @@ function Tab({
                       },
                     })
                   : tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
-
                 upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                 if (!resetEnabled) setReset(true);
               }}
@@ -429,10 +371,8 @@ function Tab({
                 <p
                   className={`truncate ${
                     isTabDraggedOver ? `invisible` : "visible"
-                    // } ${tabID === "ALL_TAGS" ? "tracking-wider" : ""}`}
                   } ${!tabIsDeletable ? "tracking-wider" : ""}`}
                 >
-                  {/* {tabTitle} {tabType === "note" ? noteHeight?.toString() : null} */}
                   {tabTitle}
                 </p>
               </button>
@@ -524,19 +464,15 @@ function Tab({
                           },
                         })
                       : tabVisDispatch({ type: "EDIT_TOGGLE_NOTE_OPEN" });
-
                     upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                     if (!resetEnabled) setReset(true);
-
                     return;
                   }
-
                   tabVisDispatch({ type: "EDIT_TOGGLE" });
                   upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
 
                   if (tabType === "note" && !tabOpened) {
                     console.log("tab note test");
-
                     userIdOrNoId
                       ? tabVisDispatch({
                           type: "TAB_CONTENT_TOGGLE_DB",
@@ -549,7 +485,6 @@ function Tab({
                           },
                         })
                       : tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
-
                     upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                     if (!resetEnabled) setReset(true);
                   }
@@ -587,8 +522,6 @@ function Tab({
               bookmarkComponentType={"new_lowerUI"}
               colNumber={colNumber}
               tabTitle={tabTitle as string}
-              // bookmarks={bookmarks}
-              // tabs={tabs}
               globalSettings={globalSettings}
               userIdOrNoId={userIdOrNoId}
             />
@@ -600,14 +533,12 @@ function Tab({
             <EditTab_main
               tabID={tabID}
               tabType={tabType}
-              // currentTab={currentTab as SingleTabData}
               currentTab={currentTab as TabDatabase_i}
               setTabOpened_local={setTabOpened_local}
               globalSettings={globalSettings}
               userIdOrNoId={userIdOrNoId}
               tabIsDeletable={tabIsDeletable}
               noteHeight={tabType === "note" ? noteHeight : undefined}
-              // tabs={tabs}
             />
           )}
 
@@ -632,8 +563,6 @@ function Tab({
                     globalSettings={globalSettings}
                     userIdOrNoId={userIdOrNoId}
                     tabOpened_local={tabOpened_local}
-                    // bookmarks={bookmarks}
-                    // tabs={tabs}
                   />
                 );
               })}
