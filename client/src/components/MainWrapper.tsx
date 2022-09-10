@@ -9,34 +9,17 @@ import {
   BookmarksQuery,
   SettingsQuery,
 } from "../graphql/graphqlQueries";
-// import { testUserId } from "../state/data/testUserId";
-// import { useAuthContext } from "../context/authContext";
+
 import { useAuth } from "../state/hooks/useAuth";
 import { useGlobalSettings } from "../state/hooks/defaultSettingsHooks";
-import { useTabs } from "../state/hooks/useTabs";
-import { useBookmarks } from "../state/hooks/useBookmarks";
 
-import { BookmarkDatabase_i } from "../../../schema/types/bookmarkType";
-import { TabDatabase_i } from "../../../schema/types/tabType";
-
-import {
-  // AuthContextObj_i,
-  // AuthContext_i,
-  // BackgroundImgContext_i,
-  DbContext_i,
-  GlobalSettingsState,
-  SingleBookmarkData,
-  SingleTabData,
-} from "../utils/interfaces";
+import { GlobalSettingsState } from "../utils/interfaces";
 
 // component purpose: to provide globalSetting as a prop, because
 // in Main a useEffect depends on it - globalSettins needs to be defined right away
 function MainWrapper(): JSX.Element {
   const authContext = useAuth();
   const globalSettingsNotAuth = useGlobalSettings((state) => state, shallow);
-
-  const tabsNotAuth = useTabs((store) => store.tabs);
-  const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
   let userIdOrNoId: string | null;
 
@@ -93,12 +76,6 @@ function MainWrapper(): JSX.Element {
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
 
-  // let tabs: TabDatabase_i[] | SingleTabData[];
-  // tabs = userIdOrNoId ? data_tabs.tabs : tabsNotAuth;
-
-  // let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
-  // bookmarks = userIdOrNoId ? data_bookmarks.bookmarks : bookmarksNotAuth;
-
   let globalSettings: GlobalSettingsState;
   globalSettings = userIdOrNoId ? data.settings : globalSettingsNotAuth;
 
@@ -106,7 +83,7 @@ function MainWrapper(): JSX.Element {
     <Main
       globalSettings={globalSettings}
       tabsDb={userIdOrNoId ? data_tabs.tabs : null}
-      bookmarksDb= {userIdOrNoId ? data_bookmarks.bookmarks : null}
+      bookmarksDb={userIdOrNoId ? data_bookmarks.bookmarks : null}
       reexecuteBookmarks={reexecuteBookmarks}
     />
   );
