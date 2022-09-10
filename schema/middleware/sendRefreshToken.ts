@@ -1,9 +1,7 @@
-import {Request, Response} from "express"
+import {Response} from "express"
 
 module.exports = (res: Response, token: String) => {
   console.log("SENDING REFRESH TOKEN");
-  // console.log("SENDING REFRESH TOKEN");
-  
     res.cookie("jid", token, {
       httpOnly: true,
       // to prevent sending cookie in every request
