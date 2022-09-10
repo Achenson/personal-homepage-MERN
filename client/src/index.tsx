@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 
 import "./assets/main.css";
 import "./custom.css";
-// import App from "./App";
-// import AppWrapper from "./AppWrapper";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 

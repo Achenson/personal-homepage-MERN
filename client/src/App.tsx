@@ -1,5 +1,4 @@
-import React, { useEffect, useMemo } from "react";
-// import { DndProvider } from "react-dnd";
+import React, { useMemo } from "react";
 import { DndProvider } from "react-dnd-multi-backend";
 import HTML5toTouch from "react-dnd-multi-backend/dist/esm/HTML5toTouch";
 import {
@@ -7,8 +6,6 @@ import {
   Provider,
   dedupExchange,
   cacheExchange,
-  fetchExchange,
-  useMutation,
 } from "urql";
 import { multipartFetchExchange } from "@urql/exchange-multipart-fetch";
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -16,18 +13,13 @@ import { authExchange } from "@urql/exchange-auth";
 import { makeOperation } from "@urql/core";
 import jwtDecode from "jwt-decode";
 
-// import { useAuthContext } from "./context/authContext";
-import { useAuth } from "./state/hooks/useAuth";
-
-import { LogoutMutation } from "./graphql/graphqlMutations";
-
 import MainWrapper from "./components/MainWrapper";
 
+import { useAuth } from "./state/hooks/useAuth";
+
 interface AuthState {
-  // userId: string | null;
   accessToken: string | null;
 }
-
 interface AuthToOperation {
   authState: AuthState;
   operation: any;
@@ -51,22 +43,13 @@ if (environment === "production") {
   refreshTokenUri = "http://localhost:4000/refresh_token";
 }
 
-// import { HTML5Backend } from "react-dnd-html5-backend";
-// import { TouchBackend } from 'react-dnd-touch-backend';
-
-// import { ReactQueryDevtools} from "react-query-devtools";
-
 const queryClient = new QueryClient();
 
 function App() {
   const authContext = useAuth();
   const loginAttempt = useAuth((store) => store.loginAttempt);
 
-
   const client = useMemo(() => {
-
-    // refreshToken();
-  
     return createClient({
       url: "http://localhost:4000/graphql",
       exchanges: [
@@ -77,7 +60,6 @@ function App() {
             //if the token isn't in the auth state, return the operation without changes
             if (!authState || !authState.accessToken) {
               console.log("urql RETURN empty OPERATION");
-
               return operation;
             }
 
@@ -94,7 +76,6 @@ function App() {
                 ...fetchOptions,
                 headers: {
                   ...fetchOptions.headers,
-                  // Authorization: authState.accessToken,
                   Authorization: `Bearer ${authState.accessToken}`,
                 },
               },
@@ -102,7 +83,6 @@ function App() {
           },
           didAuthError: ({ error }) => {
             // check if the error was an auth error (this can be implemented in various ways, e.g. 401 or a special error code)
-
             console.log("did auth error");
 
             return error.graphQLErrors.some(
@@ -112,7 +92,6 @@ function App() {
           },
           getAuth: async ({ authState, mutate }) => {
             // for initial launch, fetch the auth state from central state (zustand)
-
             // "We check that the authState doesn't already exist (this indicates that it is the first time
             // this exchange is executed and not an auth failure) "
             console.log("getAuth runs");
@@ -145,16 +124,10 @@ function App() {
                   console.log("refresh token after catching error");
                   return refreshToken();
                 }
-                // returning an authState
-                // delete this?!? refreshToken() should be returned instead?
-                // return { accessToken };
               }
                // code executed immediately on app reload 
               console.log("no access token");
-
-              // return null;
               return refreshToken()
-              // return { accessToken: null };
             }
             // code executed when an auth erros has occured (meaning: accessToken has expired)
 
@@ -166,10 +139,7 @@ function App() {
              **/
 
             console.log("refresh token after auth error");
-
             return refreshToken();
-
-
           },
         }),
         // fetchExchange,
@@ -189,40 +159,19 @@ function App() {
         .then((res) => res.json())
         .then((res) => {
           console.log("refreshToken run");
-
           console.log(res);
-
-          // (if case of failure, this will be a logout logic)
-          //  authContext.updateAuthContext({
-          //    ...authContext,
-          //    isAuthenticated: res.ok,
-          //    accessToken: res.accessToken,
-          //    authenticatedUserId: res.userId,
-          //    /* isAuthenticated: authContext.isAuthenticated,
-          //      authenticatedUserId: authContext.authenticatedUserId,
-          //      accessToken: authContext.accessToken,
-          //      loginNotification: authContext.loginNotification,
-          //      loginErrorMessage: authContext.loginErrorMessage
-          //       */
-          //  });
-
-          // this is logout logic if it fails?
+          // this is also a logout logic if it fails
           loginAttempt(res.ok, res.userId, res.accessToken);
-
-          // return { accessToken: res.accessToken as string | null };
 
           if (!res.accessToken) {
             return null;
           }
 
           return { accessToken: res.accessToken as string };
-
-          // accessToken will be an empty string in case of failure!! ,- still true? it is null
         });
     }
   }, [authContext.isAuthenticated]);
 
-  // check if needed!!!!
   /*  if (!client) {
     console.log("no client");
     return null;
