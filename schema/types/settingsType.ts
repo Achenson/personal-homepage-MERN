@@ -1,9 +1,5 @@
 import graphql = require("graphql");
 
-// const User = require("../../mongoModels/userSchema");
-
-// import { User_i from "../types/userType";
-
 import { GlobalSettingsState } from "../../client/src/utils/interfaces";
 
 const {
@@ -15,7 +11,7 @@ const {
 } = graphql;
 
 export interface SettingsDatabase_i extends GlobalSettingsState {
-
+  // exactly the same, not changed due to naming purposes
 }
 
 export const SettingsFields = {
@@ -51,10 +47,5 @@ export const SettingsType = new GraphQLObjectType({
   name: "Settings",
   fields: () => ({
     ...SettingsFields,
-    // user: {
-    //   resolve(parent: Settings_i) {
-    //     return User.findById(parent.userId);
-    //   },
-    // },
   }),
 });

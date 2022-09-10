@@ -1,20 +1,13 @@
 import graphql = require("graphql");
-import { SingleBookmarkDataBasic} from "../../client/src/utils/interfaces"
-
 const {
   GraphQLObjectType,
   GraphQLID,
-  GraphQLInt,
   GraphQLString,
   GraphQLBoolean,
   GraphQLList,
 } = graphql;
 
-// interface Bookmark_i {
-//   title: string;
-//   URL: string;
-//   defaultFaviconFallback: boolean;
-// }
+import { SingleBookmarkDataBasic } from "../../client/src/utils/interfaces";
 
 export interface BookmarkLocal_i extends SingleBookmarkDataBasic {
   tagIndices: number[];
@@ -32,7 +25,7 @@ export const BookmarkFields = {
   title: { type: GraphQLString },
   URL: { type: GraphQLString },
   tags: { type: new GraphQLList(GraphQLID) },
-  defaultFaviconFallback: {type: GraphQLBoolean}
+  defaultFaviconFallback: { type: GraphQLBoolean },
 };
 
 export const BookmarkType = new GraphQLObjectType({

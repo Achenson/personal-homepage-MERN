@@ -7,7 +7,6 @@ export interface ChangePasswordByUser_i {
 }
 
 export const ChangePasswordByUserField = {
-  // currentPassword: { type: GraphQLString },
   name: { type: GraphQLString },
   error: { type: GraphQLString },
 };

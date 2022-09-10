@@ -1,38 +1,13 @@
 import graphql = require("graphql");
-
-const Bookmark = require("../../mongoModels/bookmarkSchema");
-import { SingleTabDataBasic} from "../../client/src/utils/interfaces"
-
 const {
   GraphQLObjectType,
   GraphQLID,
   GraphQLInt,
   GraphQLString,
   GraphQLBoolean,
-  GraphQLList,
 } = graphql;
 
-// export interface TabLocal_i {
-//   title: string;
-//   color: string | null;
-//   column: number;
-//   priority: number;
-//   opened: boolean;
-//   openedByDefault: boolean;
-//   deletable: boolean;
-//   type: "folder" | "note" | "rss";
-//   noteInput?: string | null;
-//   rssLink?: string | null;
-//   date?: boolean | null;
-//   description?: boolean | null;
-//   itemsPerPage?: number | null;
-
-//   // not being used actually?
-//   // items?: [object] | never[] | [];
-//   // backend only
-//   // bookmarkIds?: string[];
-//   // bookmarks?: Bookmark_i[];
-// }
+import { SingleTabDataBasic } from "../../client/src/utils/interfaces";
 
 export interface TabDatabase_i extends SingleTabDataBasic {
   id: string;
@@ -55,23 +30,11 @@ export const TabFields = {
   date: { type: GraphQLBoolean },
   description: { type: GraphQLBoolean },
   itemsPerPage: { type: GraphQLInt },
-}
+};
 
 export const TabType = new GraphQLObjectType({
   name: "Tab",
   fields: () => ({
-    ...TabFields
-    /*    id: { type: GraphQLID },
-    title: { type: GraphQLString },
-    URL: { type: GraphQLString },
-    tags: { type: new GraphQLList(GraphQLID) }, */
-
-    // bookmarkIds: { type: GraphQLList({type: GraphQLID})},
-    // bookmarks: {
-    //   type: GraphQLList({type: BookmarkType}),
-    //   resolve(parent: Tab_i) {
-    //     return Bookmark.find
-    //   }
-    // }
+    ...TabFields,
   }),
 });

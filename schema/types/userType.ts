@@ -3,30 +3,18 @@ import graphql = require("graphql");
 const Settings = require("../../mongoModels/settingsSchema");
 
 import { SettingsType } from "../types/settingsType";
-/* import { Bookmark_i } from "./bookmarkType";
-import { Tab_i } from "./tabType"; */
 
-const {
-  GraphQLObjectType,
-  GraphQLID,
-  GraphQLInt,
-  GraphQLString,
-  GraphQLBoolean,
-} = graphql;
+const { GraphQLObjectType, GraphQLID, GraphQLInt, GraphQLString } = graphql;
 
 export interface User_basic_i {
   name: string;
   email: string;
   password: string;
-
 }
 
 export interface User_i extends User_basic_i {
   id: string;
   tokenVersion: number;
-  /*   settings: Settings_i;
-  tabs: Tab_i[];
-  bookmarks: Bookmark_i[]; */
 }
 
 export interface UserToChangeByAdmin_i {
@@ -34,9 +22,7 @@ export interface UserToChangeByAdmin_i {
   name: string | null;
   email: string | null;
   password: string | null;
-  // tokenVersion: number | null;
 }
-
 
 export const UserFields = {
   id: { type: GraphQLID },
@@ -59,19 +45,10 @@ export const UserType = new GraphQLObjectType({
   }),
 });
 
-
 export const AddUserType = new GraphQLObjectType({
   name: "AddUser",
   fields: () => ({
     ...UserFields,
-    // tokenVersion: { type: GraphQLInt },
-    error: {type: GraphQLString}
-    // settings: {
-    //   type: SettingsType,
-    //   resolve(parent: User_i) {
-    //     return Settings.findOne({ userId: parent.id });
-    //   },
-    // },
+    error: { type: GraphQLString },
   }),
 });
-
