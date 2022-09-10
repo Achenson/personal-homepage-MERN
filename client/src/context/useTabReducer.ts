@@ -7,9 +7,7 @@ export function useTabReducer(
   setTabOpenedState: (nullOrID: string | null) => void,
   setReset: (trueOrFalse: boolean) => void,
   toggleTab: (tabID: string, tabOpened: boolean) => void,
-  tabOpened: boolean,
-  // defaultTabContent: (tabID: string, tabOpenedByDefault: boolean) => void,
-  tabOpenedByDefault: boolean
+  tabOpened: boolean
 ): [TabVisState, React.Dispatch<TabVisAction>] {
   const initVisState: TabVisState = {
     editTabVis: false,
@@ -138,20 +136,6 @@ export function useTabReducer(
           newBookmarkVis: false,
           editBookmarkVis: null,
         };
-
-      // case "TAB_CONTENT_DEFAULT":
-      //   setTimeout(() => {
-      //     defaultTabContent(tabID, tabOpenedByDefault);
-      //   });
-
-      //   return {
-      //     ...state,
-      //     colorsVis: false,
-      //     editTabVis: false,
-      //     newBookmarkVis: false,
-      //     editBookmarkVis: null,
-      //     touchScreenModeOn: false,
-      //   };
       case "TAB_CONTENT_OPEN_AFTER_LOCKING":
         return {
           ...state,
@@ -160,7 +144,6 @@ export function useTabReducer(
           newBookmarkVis: false,
           editBookmarkVis: null,
         };
-
       case "TAB_EDITABLES_CLOSE":
         return {
           ...state,
@@ -198,7 +181,6 @@ export function useTabReducer(
           newBookmarkVis: false,
           editBookmarkVis: action.payload,
         };
-
       case "EDIT_BOOKMARK_CLOSE":
         return {
           ...state,
@@ -207,7 +189,6 @@ export function useTabReducer(
           newBookmarkVis: false,
           editBookmarkVis: null,
         };
-
       case "TOUCH_SCREEN_MODE_ON":
         if (!state.touchScreenModeOn) {
           setTimeout(() => {
@@ -218,7 +199,6 @@ export function useTabReducer(
           ...state,
           touchScreenModeOn: true,
         };
-
       default:
         return state;
     }

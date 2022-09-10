@@ -63,7 +63,6 @@ export function upperVisReducer(
       };
     case "ADD_TAB_XS_TOGGLE":
       return {
-        // ...upperVisStateMostlyFalse,
         ...state,
         addTabVis_xs: !state.addTabVis_xs,
       };
@@ -103,24 +102,6 @@ export function upperVisReducer(
         ...state,
         tabEditablesOpenable: true,
       };
-
-    // case "MESSAGE_OPEN_LOGIN":
-    //   return {
-    //     ...state,
-    //     messagePopup: "Login successful",
-    //   };
-
-    // case "MESSAGE_OPEN_LOGOUT":
-    //   return {
-    //     ...state,
-    //     messagePopup: "Logout successful",
-    //   };
-
-    // case "MESSAGE_CLOSE":
-    //   return {
-    //     ...state,
-    //     messagePopup: null,
-    //   };
     case "FOCUS_ON_UPPER_RIGHT_UI": {
       return {
         ...state,

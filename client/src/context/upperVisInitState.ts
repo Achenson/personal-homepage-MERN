@@ -13,7 +13,6 @@ export const initUpperVisState: UpperVisState = {
   addTabVis_xs: false,
   xsSizing_initial: false,
   tabEditablesOpenable: true,
-  // messagePopup: null,
   currentXSsettings: "global",
   focusOnUpperRightUi: null
 };
