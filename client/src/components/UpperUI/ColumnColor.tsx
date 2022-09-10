@@ -1,12 +1,8 @@
 import React, { useEffect, useRef } from "react";
 
 import { useUpperUiContext } from "../../context/upperUiContext";
-
-import shallow from "zustand/shallow";
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
@@ -29,7 +25,7 @@ interface Props {
   setFocusOnColumnColor: React.Dispatch<
     React.SetStateAction<null | 1 | 2 | 3 | 4>
   >;
-  globalSettings: GlobalSettingsState
+  globalSettings: GlobalSettingsState;
 }
 
 function ColumnColor({
@@ -40,15 +36,9 @@ function ColumnColor({
   tabIndex,
   focusOnColumnColor,
   setFocusOnColumnColor,
-  globalSettings
+  globalSettings,
 }: Props): JSX.Element {
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
-
- /*  const columnsColors = useColumnsColors((state) => state, shallow);
-  const columnsColorsImg = useColumnsColorsImg((state) => state, shallow); */
-
   const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
-
   const upperUiContext = useUpperUiContext();
 
   let focusOnColumnColor_ref = useRef<HTMLButtonElement>(null);
@@ -68,38 +58,28 @@ function ColumnColor({
       switch (colNumber) {
         case 1:
           return "bg-" + globalSettings.colColor_1;
-          // return "bg-" + columnsColors.colColor_1;
         case 2:
           return "bg-" + globalSettings.colColor_2;
-          // return "bg-" + columnsColors.colColor_2;
         case 3:
           return "bg-" + globalSettings.colColor_3;
-          // return "bg-" + columnsColors.colColor_3;
         case 4:
           return "bg-" + globalSettings.colColor_4;
-          // return "bg-" + columnsColors.colColor_4;
         default:
           return globalSettings.colColor_1;
-          // return columnsColors.colColor_1;
       }
     }
 
     switch (colNumber) {
       case 1:
         return globalSettings.colColorImg_1;
-        // return columnsColorsImg.colColor_1;
       case 2:
         return globalSettings.colColorImg_2;
-        // return columnsColorsImg.colColor_2;
       case 3:
         return globalSettings.colColorImg_3;
-        // return columnsColorsImg.colColor_3;
       case 4:
         return globalSettings.colColorImg_4;
-        // return columnsColorsImg.colColor_4;
       default:
         return globalSettings.colColorImg_1;
-        // return columnsColorsImg.colColor_1;
     }
   }
 
@@ -111,7 +91,6 @@ function ColumnColor({
       }
       return "border";
     }
-
     // selected column (or all columns if oneColorForAllCols is true)
     if (arrIndex > 0) {
       return `border border-t-2 border-b-2 border-r-2 ${

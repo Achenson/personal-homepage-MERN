@@ -12,29 +12,28 @@ import { ReactComponent as XsmallSVG } from "../../svgs/x-small.svg";
 import { ReactComponent as ChevronDownSVG } from "../../svgs/chevron-down.svg";
 import { ReactComponent as ChevronUpSVG } from "../../svgs/chevron-up.svg";
 
-import { useBookmarks } from "../../state/hooks/useBookmarks";
-import { useTabs } from "../../state/hooks/useTabs";
-// import { useDbContext } from "../../context/dbContext";
-import { useTabsDb } from "../../state/hooks/useTabsDb";
-import { useBookmarksDb, ReexecuteBookmarks } from "../../state/hooks/useBookmarksDb";
-
-
-import {
-  // createBookmark,
-  createFolderTab,
-  createBookmarkDb,
-  createFolderTabDb,
-  createBookmarkNotAuth,
-} from "../../utils/funcs and hooks/objCreators";
-import { useUpperUiContext } from "../../context/upperUiContext";
-import { bookmarkErrorHandling } from "../../utils/funcs and hooks/bookmarkErrorHandling";
-import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 import {
   AddBookmarkMutation,
   AddTabMutation,
 } from "../../graphql/graphqlMutations";
 
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
+import { useBookmarks } from "../../state/hooks/useBookmarks";
+import { useTabs } from "../../state/hooks/useTabs";
+import { useTabsDb } from "../../state/hooks/useTabsDb";
+import {
+  useBookmarksDb,
+  ReexecuteBookmarks,
+} from "../../state/hooks/useBookmarksDb";
+import { useUpperUiContext } from "../../context/upperUiContext";
+
+import {
+  createFolderTab,
+  createBookmarkDb,
+  createFolderTabDb,
+  createBookmarkNotAuth,
+} from "../../utils/funcs and hooks/objCreators";
+import { bookmarkErrorHandling } from "../../utils/funcs and hooks/bookmarkErrorHandling";
+import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
 
 import {
   BookmarkErrors,
@@ -65,8 +64,6 @@ interface Props {
   setErrors: SetBookmarkErrors;
   mainPaddingRight: boolean;
   scrollbarWidth: number;
-  // bookmarks: SingleBookmarkData[];
-  // tabs: SingleTabData[];
   globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
@@ -88,23 +85,13 @@ function NewBookmark_UpperUI({
   setErrors,
   mainPaddingRight,
   scrollbarWidth,
-  // bookmarks,
-  // tabs,
   globalSettings,
   userIdOrNoId,
 }: Props): JSX.Element {
-  // const tabs = useTabs((store) => store.tabs);
-
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
-
-  // const bookmarksDb = useDbContext()?.bookmarks;
-  // const tabsDb = useDbContext()?.tabs;
-
   const tabsDb = useTabsDb((store) => store.tabsDb);
   const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
-
-
 
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
@@ -114,32 +101,20 @@ function NewBookmark_UpperUI({
     : bookmarksNotAuth;
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
-  // const reexecuteBookmarks = useDbContext()?.reexecuteBookmarks;
-  const reexecuteBookmarks = useBookmarksDb(store => store.reexecuteBookmarks);
-  
-
-
-
+  const reexecuteBookmarks = useBookmarksDb(
+    (store) => store.reexecuteBookmarks
+  );
   const addTabsNotAuth = useTabs((store) => store.addTabs);
+
   const [addTabResult, addTab] = useMutation<any, TabDatabase_i>(
     AddTabMutation
   );
-
   const [addBookmarkResult, addBookmark] = useMutation<any, BookmarkDatabase_i>(
     AddBookmarkMutation
   );
 
-  // const bookmarks = useBookmarks((store) => store.bookmarks);
-
-  // const tabIdsUsedByBookmarks: string[] = bookmarks.map((obj) => obj.id);
-  // const setTabIdsUsedByBookmarks = useBookmarks(
-  //   (store) => store.setTabIdsUsedByBookmarks
-  // );
   const addBookmarkNotAuth = useBookmarks((store) => store.addBookmark);
-
-  // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
-
   const upperUiContext = useUpperUiContext();
 
   let selectablesRef = useRef<HTMLInputElement>(null);
@@ -178,12 +153,8 @@ function NewBookmark_UpperUI({
       tabs.find((obj) => !obj.deletable)?.id as string,
     ];
 
-    // let newTabsToAdd: SingleTabData[] = [];
     let newTabsToAddDb: TabDatabase_i[] = [];
     let newTabsToAddNotAuth: SingleTabData[] = [];
-
-    // // NotAuth
-    // let newTabIdsUsedByBookmarksData = [...tabIdsUsedByBookmarks];
 
     // getting higher priority for each subsequent tab that is being added at the same time
     let counterForIndices = 0;
@@ -202,20 +173,11 @@ function NewBookmark_UpperUI({
 
       // if folder with title corresponding to tag doesn't exist create it...
       if (!tabCorrespondingToTag && selectablesInputStr !== "") {
-        // let newTab: TabDatabase_i | SingleTabData;
-        // let newTab = createFolderTab(el, 1, newTabPriority);
-
         let newTabDb: TabDatabase_i | null;
-
         let newTabNotAuth: SingleTabData | null;
 
         newTabDb = userIdOrNoId
-          ? createFolderTabDb(
-              globalSettings.userId,
-              el,
-              1,
-              newTabPriority
-            )
+          ? createFolderTabDb(globalSettings.userId, el, 1, newTabPriority)
           : null;
 
         newTabNotAuth = userIdOrNoId
@@ -227,10 +189,6 @@ function NewBookmark_UpperUI({
             ? (newTabDb as TabDatabase_i).id
             : (newTabNotAuth as SingleTabData).id
         );
-
-        //... and add new folder tab to the main tags list
-
-        // if (!userIdOrNoId) newTabIdsUsedByBookmarksData.push(newTab.id);
 
         if (userIdOrNoId) {
           newTabsToAddDb.push(newTabDb as TabDatabase_i);
@@ -248,13 +206,9 @@ function NewBookmark_UpperUI({
     });
 
     if (newTabsToAddDb.length > 0 && userIdOrNoId) {
-      // setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
-      // addTabs(newTabsToAdd);
-
       let arrOfPromises = newTabsToAddDb.map((obj) => addTab(obj));
 
       let arrOfNewFolderObjs = await Promise.all(arrOfPromises);
-      // let arrOfNewFolderIds = await Promise.all(arrOfPromises);
 
       arrOfNewFolderObjs.forEach((obj) => {
         tagsInputArr_ToIds.push(obj.data.addTab.id);
@@ -283,20 +237,17 @@ function NewBookmark_UpperUI({
       ).then((result) => {
         if (result.error) {
           reject(result.error);
-          // return;
         }
         resolve(result.data.addBookmark);
       });
     });
 
     await bookmarkPromise;
-    // addBookmark(createBookmark(titleInput, urlInput, tagsInputArr_ToIds));
     if (bookmarks.length === 0 && userIdOrNoId) {
-      
-      (reexecuteBookmarks as ReexecuteBookmarks)({ requestPolicy: "network-only" });
+      (reexecuteBookmarks as ReexecuteBookmarks)({
+        requestPolicy: "network-only",
+      });
     }
-
-
   }
 
   function handleKeyDown(event: KeyboardEvent) {
@@ -329,7 +280,6 @@ function NewBookmark_UpperUI({
 
     // 1. adding bookmark  2. adding folder/s if some tags do not correspond to existing folders
     addBookmarkWrapper();
-    // upperVisDispatch({ type: "NEW_BOOKMARK_TOGGLE" });
     upperUiContext.upperVisDispatch({ type: "NEW_BOOKMARK_TOGGLE" });
     upperUiContext.upperVisDispatch({
       type: "FOCUS_ON_UPPER_RIGHT_UI",
@@ -484,7 +434,6 @@ function NewBookmark_UpperUI({
               className="h-5 w-5 mr-6 focus-2-offset-dark"
               onClick={(e) => {
                 e.preventDefault();
-
                 saveFunc();
               }}
               aria-label={"Save"}

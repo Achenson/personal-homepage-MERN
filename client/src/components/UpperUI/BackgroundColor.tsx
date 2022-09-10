@@ -1,16 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 
-// import shallow from "zustand/shallow";
-
 import ColorsToChoose_Background from "../Colors/ColorsToChoose_Background";
-import { ReactComponent as DocumentSVG } from "../../svgs/document.svg";
 
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { backgroundColorsUpperUiFocus } from "../../utils/data/colors_background";
 
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
@@ -26,8 +21,6 @@ function BackgroundColor({
   globalSettings,
   userIdOrNoId,
 }: Props): JSX.Element {
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
-  // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
   const backgroundColor = globalSettings.backgroundColor;
 
   const [selected, setSelected] = useState(false);
@@ -42,7 +35,6 @@ function BackgroundColor({
       setFocusOnBackgroundColor(false);
     }
   }, [focusOnBackgroundColor, setFocusOnBackgroundColor]);
-
 
   function focusColor(): string {
     if (globalSettings.picBackground) {
@@ -71,8 +63,9 @@ function BackgroundColor({
         tabIndex={5}
         aria-label={"Background color menu"}
       >
-        {/* <DocumentSVG className={`h-7`} /> */}
-        <div className={`h-5 w-4 border border-black rounded-sm bg-${backgroundColor}`}></div>
+        <div
+          className={`h-5 w-4 border border-black rounded-sm bg-${backgroundColor}`}
+        ></div>
       </button>
       {upperUiContext.upperVisState.colorsBackgroundVis && (
         <div className="absolute">

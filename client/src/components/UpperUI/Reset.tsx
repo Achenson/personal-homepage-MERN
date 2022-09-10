@@ -1,42 +1,33 @@
 import React from "react";
 
-// import shallow from "zustand/shallow";
-
 import { ReactComponent as ResetSVG } from "../../svgs/reset-update.svg";
 
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useReset } from "../../state/hooks/useReset";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { backgroundColorsUpperUiFocus } from "../../utils/data/colors_background";
 
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import { GlobalSettingsState } from "../../utils/interfaces";
-
 
 interface Props {
   setFocusOnColumnColor: React.Dispatch<
     React.SetStateAction<1 | 2 | 4 | 3 | null>
   >;
   setFocusOnBackgroundColor: React.Dispatch<React.SetStateAction<boolean>>;
-  globalSettings: GlobalSettingsState
+  globalSettings: GlobalSettingsState;
 }
 
 function Reset({
   setFocusOnBackgroundColor,
   setFocusOnColumnColor,
-  globalSettings
+  globalSettings,
 }: Props): JSX.Element {
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
-  // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
   const backgroundColor = globalSettings.backgroundColor;
-
   const setCloseAllTabsState = useTabs((store) => store.setCloseAllTabsState);
   const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
   const resetEnabled = useReset((store) => store.enabled);
   const setReset = useReset((store) => store.setReset);
-
   const upperUiContext = useUpperUiContext();
 
   function focusColor(): string {
@@ -82,7 +73,7 @@ function Reset({
       <ResetSVG
         style={{
           height: "21px",
-          marginLeft: "0px"
+          marginLeft: "0px",
         }}
       />
     </button>

@@ -1,19 +1,11 @@
 import React from "react";
 
-// import shallow from "zustand/shallow";
-
 import { ReactComponent as PhotographSVG } from "../../svgs/photograph.svg";
 import { ReactComponent as ColorSVG } from "../../svgs/beaker.svg";
 import { ReactComponent as SettingsSVG } from "../../svgs/settingsAlt.svg";
 
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-
 import { useUpperUiContext } from "../../context/upperUiContext";
 
-import {
-  useGlobalSettings,
-  UseGlobalSettingsAll,
-} from "../../state/hooks/defaultSettingsHooks";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
@@ -25,24 +17,9 @@ function Settings_inner({
   currentSettings,
   globalSettings,
 }: Props): JSX.Element {
-  // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
-
   const upperUiContext = useUpperUiContext();
 
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
-
-  // inner settings vis depending on numberOfCols && col width limit
-  // function innerSettingsVis() {
-  //   if (globalSettings.limitColGrowth) {
-  //     // inner setting always visible in case of colLimit && numberOfCols === 1
-  //     if (globalSettings.numberOfCols === 1) return "";
-  //     return "sm:hidden";
-  //   }
-  //   return "xs:hidden";
-  // }
-
-  // ${innerSettingsVis()}
   return (
     <div
       className={`   absolute top-5
@@ -70,7 +47,6 @@ function Settings_inner({
           aria-label={"Background mode"}
         />
       </button>
-
       <button
         className="h-6 w-6 focus-1-dark"
         onClick={() => {

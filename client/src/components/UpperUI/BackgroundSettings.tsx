@@ -1,23 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-
-// import shallow from "zustand/shallow";
 import FocusLock from "react-focus-lock";
 import { useMutation, UseQueryState, OperationContext } from "urql";
 
 import Settings_inner from "./Settings_inner";
+
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
+
+import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
 
 import {
   useGlobalSettings,
   UseGlobalSettingsAll,
 } from "../../state/hooks/defaultSettingsHooks";
-
 import { useUpperUiContext } from "../../context/upperUiContext";
 
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
-import { ChangeSettingsMutation } from "../../graphql/graphqlMutations";
 
 import BackgroundSettings_Upload from "./BackgroundSettings_Upload";
 import { GlobalSettingsState } from "../../utils/interfaces";
@@ -47,24 +46,16 @@ function BackgroundSettings({
   userIdOrNoId,
 }: Props): JSX.Element {
   const navigate = useNavigate();
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const setGlobalSettings = useGlobalSettings(
     (store) => store.setGlobalSettings
   );
-  // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
-
   const upperUiContext = useUpperUiContext();
-
   const windowSize = useWindowSize();
   const [xsScreen, setXsScreen] = useState(
     () => upperUiContext.upperVisState.xsSizing_initial
   );
-
-  // const [wasCustomClicked, setWasCustomClicked] = useState(false);
-
   const hiddenFileInput = useRef<HTMLInputElement>(null);
-
   const [dbFilesError, setDbFilesError] = useState<null | string>(null);
 
   useEffect(() => {
@@ -89,8 +80,6 @@ function BackgroundSettings({
     GlobalSettingsState
   >(ChangeSettingsMutation);
 
-
-
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 5, undefined);
   }
@@ -105,7 +94,6 @@ function BackgroundSettings({
   const imgDescription_2a = "Use ";
   const imgDescription_2b = " or choose default:";
   const imgDescription_3 = "Choose default image:";
-  // const imgDescription_2 = "Upload background image or use default:";
   const noImgDescription = "Full colors for background and columns";
 
   const renderChoseImage = (userIdOrNoId: string | null) => {
@@ -118,29 +106,14 @@ function BackgroundSettings({
         {imgDescription_2a}
         <button
           onClick={() => {
-            /*   setGlobalSettings({
-          ...globalSettings,
-          defaultImage: "defaultBackground",
-        }); */
-
             if (!userIdOrNoId) {
-              console.log("authentication needed to access custom");
               return;
             }
 
             if (!backgroundImgResults?.data?.backgroundImg?.backgroundImgUrl) {
-              console.log("no BACKGROUND IMG RESULTS");
-
               hiddenFileInput.current?.click();
               return;
             }
-
-            console.log("BACKGROUND IMG RESULTS exist");
-            console.log(backgroundImgResults);
-
-            // if (!wasCustomClicked) {
-            //   setWasCustomClicked(true);
-            // }
 
             changeSettings({
               ...globalSettings,
@@ -171,8 +144,6 @@ function BackgroundSettings({
             globalSettings={globalSettings}
             backgroundImgResults={backgroundImgResults}
             reexecuteBackgroundImg={reexecuteBackgroundImg}
-            // wasCustomClicked={wasCustomClicked}
-            // setWasCustomClicked={setWasCustomClicked}
             hiddenFileInput={hiddenFileInput}
             setDbFilesError={setDbFilesError}
           />
@@ -215,7 +186,6 @@ function BackgroundSettings({
         }}
       >
         <div
-          // className="md:mb-40 relative"
           style={{ marginBottom: `${xsScreen ? "205px" : "238px"}` }}
           onClick={(e) => {
             e.stopPropagation();
@@ -226,9 +196,7 @@ function BackgroundSettings({
             className={`bg-gray-100 pb-3 pt-5 border-2 px-4 border-${uiColor} rounded-sm relative`}
             style={{
               width: `${xsScreen ? "350px" : "417px"}`,
-              // height: `${xsScreen ? "238px" : "205px"}`,
               height: `${xsScreen ? "258px" : "225px"}`,
-              // height: `${xsScreen ? "258px" : "258px"}`,
               marginLeft: `${
                 mainPaddingRight && scrollbarWidth >= 10
                   ? `-${scrollbarWidth - 1}px`
@@ -266,11 +234,6 @@ function BackgroundSettings({
                   className="ml-2 focus-1-offset"
                   onClick={() => {
                     if (!globalSettings.picBackground) {
-                      /* setGlobalSettings({
-                        ...globalSettings,
-                        picBackground: true,
-                      }); */
-
                       userIdOrNoId
                         ? changeSettings({
                             ...globalSettings,
@@ -280,11 +243,6 @@ function BackgroundSettings({
                             ...globalSettings,
                             picBackground: true,
                           });
-
-                      // changeSettings({
-                      //   ...globalSettings,
-                      //   picBackground: true,
-                      // });
                     }
                   }}
                   aria-label={"Background image on"}
@@ -306,11 +264,6 @@ function BackgroundSettings({
                   className="ml-1.5 focus-1-offset"
                   onClick={() => {
                     if (globalSettings.picBackground) {
-                      /*   setGlobalSettings({
-                        ...globalSettings,
-                        picBackground: false,
-                      }); */
-
                       userIdOrNoId
                         ? changeSettings({
                             ...globalSettings,
@@ -320,11 +273,6 @@ function BackgroundSettings({
                             ...globalSettings,
                             picBackground: false,
                           });
-
-                      // changeSettings({
-                      //   ...globalSettings,
-                      //   picBackground: false,
-                      // });
                     }
                   }}
                   aria-label={"Background image off"}
@@ -347,24 +295,14 @@ function BackgroundSettings({
               {globalSettings.picBackground ? (
                 <div className="text-center">
                   <p className={`mb-2 xs:mb-0`}>{imgDescription_1}</p>
-
                   <div className="mt-6  xs:mt-3  h-5 text-black text-center text-sm">
                     {userIdOrNoId ? dbFilesError : null}
                   </div>
-
                   <div className={`mt-0 xs:mt-0`}>
                     {renderChoseImage(userIdOrNoId)}
-                    {/* INSERT HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
-
                     <span> </span>
                     <button
                       onClick={() => {
-                        /*   setGlobalSettings({
-                          ...globalSettings,
-                          defaultImage: "defaultBackground",
-                        }); */
-                        // if (wasCustomClicked) setWasCustomClicked(false);
-
                         userIdOrNoId
                           ? changeSettings({
                               ...globalSettings,
@@ -374,14 +312,6 @@ function BackgroundSettings({
                               ...globalSettings,
                               defaultImage: "defaultBackground",
                             });
-
-                        // if (userIdOrNoId) {
-                        //   setDbFilesError(null);
-                        // }
-                        // changeSettings({
-                        //   ...globalSettings,
-                        //   defaultImage: "defaultBackground",
-                        // });
                       }}
                       className="focus-1-offset"
                       aria-label={"Default background image one"}
@@ -396,16 +326,6 @@ function BackgroundSettings({
                     <span> </span>
                     <button
                       onClick={() => {
-                        /*   setGlobalSettings({
-                          ...globalSettings,
-                          defaultImage: "defaultBackground_2",
-                        }); */
-                        // if (wasCustomClicked) setWasCustomClicked(false);
-                        // changeSettings({
-                        //   ...globalSettings,
-                        //   defaultImage: "defaultBackground_2",
-                        // });
-
                         userIdOrNoId
                           ? changeSettings({
                               ...globalSettings,
@@ -415,10 +335,6 @@ function BackgroundSettings({
                               ...(globalSettings as UseGlobalSettingsAll),
                               defaultImage: "defaultBackground_2",
                             });
-
-                        // if (userIdOrNoId) {
-                        //   setDbFilesError(null);
-                        // }
                       }}
                       className="focus-1-offset"
                       aria-label={"Default background image two"}
@@ -429,17 +345,10 @@ function BackgroundSettings({
                         2
                       </span>
                     </button>
-
                     <span> </span>
                     <button
                       className="focus-1-offset"
                       onClick={() => {
-                        /*   setGlobalSettings({
-                          ...globalSettings,
-                          defaultImage: "defaultBackground_3",
-                        }); */
-                        // if (wasCustomClicked) setWasCustomClicked(false);
-
                         userIdOrNoId
                           ? changeSettings({
                               ...globalSettings,
@@ -449,14 +358,6 @@ function BackgroundSettings({
                               ...(globalSettings as UseGlobalSettingsAll),
                               defaultImage: "defaultBackground_3",
                             });
-
-                        // if (userIdOrNoId) {
-                        //   setDbFilesError(null);
-                        // }
-                        // changeSettings({
-                        //   ...globalSettings,
-                        //   defaultImage: "defaultBackground_3",
-                        // });
                       }}
                       aria-label={"Default background image three"}
                     >
@@ -471,38 +372,7 @@ function BackgroundSettings({
               ) : (
                 <p className="text-center mb-3">{noImgDescription}</p>
               )}
-
               {renderBrowseFiles(userIdOrNoId, globalSettings.picBackground)}
-
-              {/* <div
-                className={`flex justify-between items-center ${
-                  globalSettings.picBackground ? "" : "hidden"
-                }`}
-              > */}
-
-              {/* 
-              <BackgroundSettings_Upload
-                  xsScreen={xsScreen}
-                  globalSettings={globalSettings}
-                  backgroundImgResults={backgroundImgResults}
-                  reexecuteBackgroundImg={reexecuteBackgroundImg}
-                  wasCustomClicked={wasCustomClicked}
-                  setWasCustomClicked={setWasCustomClicked}
-                  hiddenFileInput={hiddenFileInput}
-                /> */}
-
-              {/*       <div
-                  className={`bg-blueGray-50 h-6 ${
-                    xsScreen ? "w-48" : "w-60"
-                  } border border-gray-300`}
-                ></div>
-                <button
-                  className={`border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
-                focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-                >
-                  Upload image
-                </button> */}
-              {/* </div> */}
             </div>
           </div>
         </div>

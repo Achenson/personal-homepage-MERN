@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import shallow from "zustand/shallow";
 
 import ColumnColor from "./ColumnColor";
 import ColorsToChoose_DefaultAndColumns from "../Colors/ColorsToChoose_DefaultAndColumns";
@@ -7,11 +6,9 @@ import BackgroundColor from "./BackgroundColor";
 import Reset from "./Reset";
 import ColumnColor_OneColorX4 from "./ColumnColor_OneColorX4";
 
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
@@ -20,8 +17,6 @@ interface Props {
 }
 
 function UpperLeftMenu({ globalSettings, userIdOrNoId }: Props): JSX.Element {
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
-
   const [defaultColorsFor, setDefaultColorsFor] = useState<
     "colColor_1" | "colColor_2" | "colColor_3" | "colColor_4" | "unselected"
   >("unselected");

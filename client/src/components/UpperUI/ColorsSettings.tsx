@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-
-// import shallow from "zustand/shallow";
 import FocusLock from "react-focus-lock";
 
 import Settings_inner from "./Settings_inner";
@@ -14,12 +12,12 @@ import { ReactComponent as RssSVG } from "../../svgs/rss.svg";
 import { useResetColors } from "../../state/hooks/colorHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
+
 import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
-
 import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
-import { GlobalSettingsState } from "../../utils/interfaces";
-
 import { tabColors } from "../../utils/data/colors_tab";
+
+import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
   mainPaddingRight: boolean;
@@ -39,24 +37,16 @@ function ColorsSettings({
   >("unselected");
 
   const [colorsToChooseVis, setColorsToChooseVis] = useState<boolean>(false);
-
   const [foldersSelected, setFoldersSelected] = useState<boolean>(false);
   const [notesSelected, setNotesSelected] = useState<boolean>(false);
   const [rssSelected, setRssSelected] = useState<boolean>(false);
-
   const setResetColors = useResetColors((store) => store.setResetColors);
-
-  // const defaultColors = useDefaultColors((state) => state, shallow);
-
   const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
-
   const upperUiContext = useUpperUiContext();
-
   const windowSize = useWindowSize();
   const [xsScreen, setXsScreen] = useState(
     () => upperUiContext.upperVisState.xsSizing_initial
   );
-
   const focusOnFolders = useRef<HTMLButtonElement>(null);
   const focusOnNotes = useRef<HTMLButtonElement>(null);
   const focusOnRss = useRef<HTMLButtonElement>(null);
@@ -108,52 +98,11 @@ function ColorsSettings({
     return "black";
   }
 
-  // const [settingsResults] = useQuery({
-  //   query: SettingsQuery,
-  //   variables: { userId: testUserId },
-  // });
-
-  // const { data, fetching, error } = settingsResults;
-
-  // if (fetching) return <p>Loading...</p>;
-  // if (error) return <p>Oh no... {error.message}</p>;
-
-  // function calcColorTop(
-  //   defaultColorsFor: "folders" | "notes" | "rss" | "unselected",
-  //   xsScreen: boolean
-  // ) {
-  //   if (!xsScreen) {
-  //     return "100px";
-  //   }
-
-  //   if (defaultColorsFor === "folders") {
-  //     // return "57px";
-  //     return "65px";
-  //   }
-
-  //   if (defaultColorsFor === "notes") {
-  //     return "97px";
-  //   }
-
-  //   if (defaultColorsFor === "rss") {
-  //     return "129px";
-  //   }
-
-  //   if (defaultColorsFor === "unselected") {
-  //     return "0px";
-  //   }
-  // }
-
   function calcColorLeft(
     defaultColorsFor: "folders" | "notes" | "rss" | "unselected",
     xsScreen: boolean
   ) {
-    // if (xsScreen) {
-    //   return "134px";
-    // }
-
     if (defaultColorsFor === "folders") {
-      // return "57px";
       return xsScreen ? "80px" : "83px";
     }
 
@@ -190,7 +139,6 @@ function ColorsSettings({
         }}
       >
         <div
-          // className="mb-24 md:mb-40"
           style={{ marginBottom: "263px" }}
           onClick={(e) => {
             e.stopPropagation();
@@ -213,7 +161,6 @@ function ColorsSettings({
               currentSettings={"colors"}
               globalSettings={globalSettings}
             />
-
             <div className="absolute right-0 top-0 mt-1 mr-1 ">
               <button
                 onClick={() => {
@@ -235,7 +182,6 @@ function ColorsSettings({
             <p className="text-center">Default tab colors</p>
             <div className="flex justify-center mt-6">
               <div className="flex justify-start items-center mb-2 mt-2">
-                {/* <p style={{ width: xsScreen? "64px" : "" }}>Folders</p> */}
                 <div className="h-6 w-6 xs:h-7 xs:w-7">
                   <FolderSVG className="w-full h-full" />
                 </div>
@@ -265,7 +211,6 @@ function ColorsSettings({
                 ></button>
               </div>
               <div className="flex justify-start items-center mb-2 mt-2 mr-6 ml-6 xs:mr-4 xs:ml-4">
-                {/* <p style={{ width: xsScreen? "64px" : "" }}>Notes</p> */}
                 <div className="h-5 w-5 xs:h-6 xs:w-6 mr-px mb-1 xs:mb-1">
                   <NoteSVG className="w-full h-full" />
                 </div>
@@ -295,7 +240,6 @@ function ColorsSettings({
                 ></button>
               </div>
               <div className="flex  justify-start items-center mb-2 mt-2">
-                {/* <p style={{ width: xsScreen? "64px" : "" }}>RSS</p> */}
                 <div className="h-6 w-6 xs:h-7 xs:w-7 -mr-px">
                   <RssSVG className="w-full h-full" />
                 </div>
@@ -360,10 +304,7 @@ function ColorsSettings({
               <div
                 className="absolute"
                 style={{
-                  // top: calcColorTop(defaultColorsFor, xsScreen),
                   top: xsScreen ? "102px" : "106px",
-                  // left: "99px",
-                  // left: xsScreen ? "134px" : "155px",
                   left: calcColorLeft(defaultColorsFor, xsScreen),
                 }}
               >

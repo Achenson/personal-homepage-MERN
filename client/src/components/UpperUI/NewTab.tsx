@@ -1,14 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useMutation } from "urql";
-
 import FocusLock from "react-focus-lock";
 
 import SelectableList from "../Shared/SelectableList";
 import TabErrors from "../Shared/TabErrors_render";
-
-import {
-  createSelectablesRegex,
-} from "../../utils/regex";
 
 import { ReactComponent as SaveSVG } from "../../svgs/save.svg";
 import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
@@ -17,12 +12,18 @@ import { ReactComponent as XsmallSVG } from "../../svgs/x-small.svg";
 import { ReactComponent as ChevronDownSVG } from "../../svgs/chevron-down.svg";
 import { ReactComponent as ChevronUpSVG } from "../../svgs/chevron-up.svg";
 
-// import { useDbContext } from "../../context/dbContext";
+import {
+  AddTabMutation,
+  ChangeBookmarkMutation,
+} from "../../graphql/graphqlMutations";
+
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useTabsDb } from "../../state/hooks/useTabsDb";
 import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
+import { useUpperUiContext } from "../../context/upperUiContext";
 
+import { createSelectablesRegex } from "../../utils/regex";
 import {
   createFolderTab,
   createFolderTabDb,
@@ -34,11 +35,6 @@ import {
 import { tabErrorHandling } from "../../utils/funcs and hooks/tabErrorHandling";
 import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
 import { handleKeyDown_inner } from "../../utils/funcs and hooks/handleKeyDown_bookmarksAndTabs";
-import { useUpperUiContext } from "../../context/upperUiContext";
-import {
-  AddTabMutation,
-  ChangeBookmarkMutation,
-} from "../../graphql/graphqlMutations";
 
 import {
   GlobalSettingsState,
@@ -52,9 +48,6 @@ interface Props {
   tabType: "folder" | "note" | "rss";
   mainPaddingRight: boolean;
   scrollbarWidth: number;
-  // tabs: SingleTabData[];
-  // bookmarks: SingleBookmarkData[];
-  // bookmarks: BookmarkDatabase_i[];
   globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
@@ -63,21 +56,14 @@ function NewTab({
   tabType,
   mainPaddingRight,
   scrollbarWidth,
-  // tabs,
-  // bookmarks,
   globalSettings,
   userIdOrNoId,
 }: Props): JSX.Element {
-  // const tabs = useTabs((state) => state.tabs);
   const addTabsNotAuth = useTabs((store) => store.addTabs);
-
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
-
   const tabsDb = useTabsDb((store) => store.tabsDb);
   const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
-  // const bookmarksDb = useDbContext()?.bookmarks;
-  // const tabsDb = useDbContext()?.tabs;
 
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
@@ -96,21 +82,12 @@ function NewTab({
     BookmarkDatabase_i
   >(ChangeBookmarkMutation);
 
-  // const bookmarks = useBookmarks((state) => state.bookmarks);
   const addTag = useBookmarks((store) => store.addTag);
-
-  // const tabIdsUsedByBookmarks: string[] = bookmarks.map((obj) => obj.id);
-  // const setTabIdsUsedByBookmarks = useBookmarks(
-  //   (store) => store.setTabIdsUsedByBookmarks
-  // );
-  // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
-
   const upperUiContext = useUpperUiContext();
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
-
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
@@ -128,87 +105,31 @@ function NewTab({
   const [tabTitleInput, setTabTitleInput] = useState<string>("");
   const [rssLinkInput, setRssLinkInput] = useState<string>("");
   const [tabColumnInput, setTabColumnInput] = useState<number>(1);
-
   const [errors, setErrors] = useState({
     ...errorsAllFalse,
   });
-
   const [selectablesListVis, setSelectablesListVis] = useState<boolean>(false);
   const [visibleBookmarks, setVisibleBookmarks] = useState<string[]>(() =>
     makeInitialBookmarks()
   );
-
   const [selectablesInputStr, setSelectablesInputStr] = useState<string>("");
   const [textAreaValue, setTextAreaValue] = useState<string | null>("");
-
   const [initialBookmarks, setInitialBookmarks] = useState(() =>
     makeInitialBookmarks()
   );
-
   // XX tags won't be visible on first render even though visibleTags length won't be 0 (see useEffect)
   useEffect(() => {
     let newVisibleBookmarks: string[] = [];
-
     let selectablesInputArr = selectablesInputStr.split(", ");
-
     let lastSelectablesArrEl =
       selectablesInputArr[selectablesInputArr.length - 1];
 
-    // function letterToLetterMatch(lastInput: string, el: string) {
-    //   for (let i = 0; i < lastInput.length; i++) {
-    //     if (
-    //       lastInput[i] !== el[i] &&
-    //       // returns true if lastInput is present in initial bookmarks
-    //       initialBookmarks.indexOf(lastInput) === -1 &&
-    //       // returns true is last char is a comma
-    //       selectablesInputStr[selectablesInputStr.length - 1] !== ","
-    //     ) {
-    //       return false;
-    //     }
-    //   }
-    //   return true;
-    // }
-
     initialBookmarks.forEach((el) => {
- 
-
       if (
         shouldSelectableBeVisible(el, selectablesInputStr, lastSelectablesArrEl)
       ) {
         newVisibleBookmarks.push(el);
       }
-
-
-
-      // if (
-      //   // !tagRegex.test(selectablesInputStr) &&
-      //   // if selectablesInputStr pass this test it won't be visible
-      //   // (so it won't be still visible if surrounded by spaces and commas)
-      //   // (!tagRegex_2.test(selectablesInputStr) ||
-      //   (!createSelectablesRegex(el).test(selectablesInputStr) ||
-      //     // or if selectablesInputStr passes one of those tests it will be visible
-      //     // (so it will be visible when surrounded be characters that can make a title)
-      //     // (tagRegex_inv.test(selectablesInputStr) ||
-      //     ((createSelectablesRegex_inverted_start(el).test(
-      //       selectablesInputStr
-      //     ) ||
-      //       // tagRegex_inv_2.test(selectablesInputStr))) &&
-      //       createSelectablesRegex_inverted_end(el).test(
-      //         selectablesInputStr
-      //       )) &&
-      //       !createSelectablesRegex_noShortWordsAlreadyPresent(el).test(
-      //         selectablesInputStr
-      //       ))) &&
-      //   (letterToLetterMatch(lastSelectablesArrEl, el) ||
-      //     selectablesInputStr.length === 0)
-      // ) {
-      //   newVisibleBookmarks.push(el);
-      // }
-
-
-
-
-
     });
 
     setVisibleBookmarks([...newVisibleBookmarks]);
@@ -242,7 +163,7 @@ function NewTab({
     ) {
       return false;
     }
-    // selectable is visible in case the title is flanked by legal title character - 
+    // selectable is visible in case the title is flanked by legal title character -
     // in that case the title is treated as a separate entity
     return true;
   }
@@ -315,7 +236,6 @@ function NewTab({
   }
 
   let bookmarksInputArr: string[] = selectablesInputStr.split(", ");
-
   let selectablesInputStr_noComma: string;
 
   if (selectablesInputStr[selectablesInputStr.length - 1] === ",") {
@@ -388,10 +308,6 @@ function NewTab({
           tabColumnInput,
           newTabPriority
         );
-
-        // let newTabIdsUsedByBookmarksData = [...tabIdsUsedByBookmarks];
-        // newTabIdsUsedByBookmarksData.push(newFolderTab.id);
-        // setTabIdsUsedByBookmarks([...newTabIdsUsedByBookmarksData]);
 
         addTabsNotAuth([newFolderTab]);
         // updating links data (tags array)
@@ -576,7 +492,6 @@ function NewTab({
                     </span>
                   )}
                 </div>
-
                 {selectablesListVis && (
                   <SelectableList
                     setSelectablesInputStr={setSelectablesInputStr}
@@ -588,7 +503,6 @@ function NewTab({
                   />
                 )}
               </div>
-
               <div className="flex-none w-5 h-5 mt-1">
                 {selectablesListVis ? (
                   <ChevronUpSVG
@@ -608,7 +522,6 @@ function NewTab({
               </div>
             </div>
           )}
-
           {tabType === "rss" && (
             <div className="flex justify-around mb-2 mt-2">
               <p className="flex-none" style={{ width: "66px" }}>
@@ -626,7 +539,6 @@ function NewTab({
               <div className="w-5 flex-none"></div>
             </div>
           )}
-
           <div className="flex justify-between mb-2 mt-2">
             <p className="w-32">Column</p>
             <div className="flex">
@@ -634,7 +546,6 @@ function NewTab({
               <div className="w-5 flex-none"></div>
             </div>
           </div>
-
           {tabType === "note" && (
             <div>
               <textarea
@@ -647,9 +558,7 @@ function NewTab({
               ></textarea>
             </div>
           )}
-
           <TabErrors errors={errors} tabType={tabType} componentType={"new"} />
-
           <div
             className="w-full flex justify-center"
             style={{ marginTop: "18px" }}
@@ -658,14 +567,12 @@ function NewTab({
               className="h-5 w-5 mr-6 focus-2-offset-dark"
               onClick={(e) => {
                 e.preventDefault();
-
                 saveFunc();
               }}
               aria-label={"Save"}
             >
               <SaveSVG className="h-5 w-5 fill-current text-black mr-6 hover:text-green-600 cursor-pointer transition-colors duration-75" />
             </button>
-
             <button
               className="h-5 w-5 focus-2-offset-dark"
               onClick={(e) => {

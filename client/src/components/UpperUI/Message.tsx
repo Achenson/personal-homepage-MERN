@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-// import shallow from "zustand/shallow";
-
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+import { useAuth } from "../../state/hooks/useAuth";
 
 import { backgroundColors } from "../../utils/data/colors_background";
-import { useUpperUiContext } from "../../context/upperUiContext";
 import "../../utils/fade.css";
 
-
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
-import { useAuth } from "../../state/hooks/useAuth";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
@@ -18,16 +12,12 @@ interface Props {
 }
 
 function Message({ globalSettings }: Props): JSX.Element {
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
-
   const [close, setClose] = useState(false);
   const [fadeInEnd, setFadeInEnd] = useState(false);
 
-  // const backgroundColor = useBackgroundColor((state) => state.backgroundColor);
   const backgroundColor = globalSettings.backgroundColor;
-  // const upperUiContext = useUpperUiContext();
-  const messagePopup = useAuth().messagePopup
-  const setMessagePopup = useAuth().setMessagePopup
+  const messagePopup = useAuth().messagePopup;
+  const setMessagePopup = useAuth().setMessagePopup;
 
   useEffect(() => {
     if (fadeInEnd) {
@@ -74,7 +64,7 @@ function Message({ globalSettings }: Props): JSX.Element {
         // runs after fadeOut
         if (close) {
           // upperUiContext.upperVisDispatch({ type: "MESSAGE_CLOSE" });
-          setMessagePopup(null)
+          setMessagePopup(null);
         }
       }}
     >

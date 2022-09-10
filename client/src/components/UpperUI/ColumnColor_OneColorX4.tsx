@@ -1,12 +1,8 @@
 import React, { useEffect, useRef } from "react";
 
-// import shallow from "zustand/shallow";
-
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
 import { useTabs } from "../../state/hooks/useTabs";
 import { useUpperUiContext } from "../../context/upperUiContext";
 
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
@@ -28,15 +24,11 @@ function ColumnColor_OneColorX4({
   setFocusOnColumnColor,
   globalSettings,
 }: Props): JSX.Element {
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
-  // const columnsColors = useColumnsColors((state) => state, shallow);
-  // const columnsColorsImg = useColumnsColorsImg((state) => state, shallow);
   const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
 
   const upperUiContext = useUpperUiContext();
 
   let focusOnAllColumnColors_ref = useRef<HTMLButtonElement>(null);
-
   let arrOfCols = [];
 
   for (let i = 1; i <= globalSettings.numberOfCols; i++) {
@@ -77,8 +69,7 @@ function ColumnColor_OneColorX4({
       className={`h-4 w-${calcWidth(globalSettings.numberOfCols)} ${
         globalSettings.picBackground
           ? "bg-white opacity-80"
-          : // : `bg-${columnsColors.colColor_1}`
-            `bg-${globalSettings.colColor_1}`
+          : `bg-${globalSettings.colColor_1}`
       }`}
     >
       <button
@@ -101,10 +92,7 @@ function ColumnColor_OneColorX4({
         ring-inset ring-blueGray-500`}
         style={{
           backgroundColor: `${
-            globalSettings.picBackground
-              ? //  columnsColorsImg.colColor_1 : ""
-                globalSettings.colColorImg_1
-              : ""
+            globalSettings.picBackground ? globalSettings.colColorImg_1 : ""
           }`,
         }}
         tabIndex={1}

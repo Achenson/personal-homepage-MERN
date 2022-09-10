@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import FocusLock from "react-focus-lock";
-// import shallow from "zustand/shallow";
 import { useMutation } from "urql";
 
 import Settings_inner from "./Settings_inner";
@@ -10,24 +8,20 @@ import { ReactComponent as CancelSVG } from "../../svgs/alphabet-x.svg";
 import { ReactComponent as PlusSmSVG } from "../../svgs/plus-sm.svg";
 import { ReactComponent as MinusSmSVG } from "../../svgs/minus-sm.svg";
 
-// import { useRssSettings } from "../../state/hooks/defaultSettingsHooks";
-import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-
-import { useTabs } from "../../state/hooks/useTabs";
-import { useUpperUiContext } from "../../context/upperUiContext";
-// import { useDbContext } from "../../context/dbContext";
-import { useTabsDb } from "../../state/hooks/useTabsDb";
-
-import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
-import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
 import {
   ChangeSettingsMutation,
   ChangeTabMutation,
 } from "../../graphql/graphqlMutations";
 
-import { TabDatabase_i } from "../../../../schema/types/tabType";
-import { objectTraps } from "immer/dist/internal";
+import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
+import { useTabs } from "../../state/hooks/useTabs";
+import { useUpperUiContext } from "../../context/upperUiContext";
+import { useTabsDb } from "../../state/hooks/useTabsDb";
 
+import { useWindowSize } from "../../utils/funcs and hooks/useWindowSize";
+import { handleKeyDown_upperUiSetting } from "../../utils/funcs and hooks/handleKeyDown_upperUiSettings";
+
+import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { GlobalSettingsState, SingleTabData } from "../../utils/interfaces";
 
 interface Props {
@@ -43,32 +37,21 @@ function GlobalSettings({
   globalSettings,
   userIdOrNoId,
 }: Props): JSX.Element {
-  // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
 
-  // shallow option enables updates when any of the object keys changes!
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
   const setGlobalSettings = useGlobalSettings(
     (store) => store.setGlobalSettings
   );
 
   const tabsNotAuth = useTabs((store) => store.tabs);
   const tabsLessColumnsNotAuth = useTabs((store) => store.tabsLessColumns);
-
-  // const tabsDb = useDbContext()?.tabs;
   const tabsDb = useTabsDb((store) => store.tabsDb);
 
   let tabs: TabDatabase_i[] | SingleTabData[];
-
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
-
-  /*  const rssSettingsState = useRssSettings((state) => state, shallow);
-  const setRssSettingsState = useRssSettings((state) => state.setRssSettings); */
-
   const upperUiContext = useUpperUiContext();
-
   const windowSize = useWindowSize();
   const [xsScreen, setXsScreen] = useState(
     () => upperUiContext.upperVisState.xsSizing_initial
@@ -90,8 +73,6 @@ function GlobalSettings({
       document.removeEventListener("keydown", handleKeyDown);
     };
   });
-
-
   const [changeSettingsResult, changeSettings] = useMutation<
     any,
     GlobalSettingsState
@@ -104,7 +85,6 @@ function GlobalSettings({
   const [itemsPerPageInitial, setItemsPerPageInitial] = useState(
     () => globalSettings.itemsPerPage
   );
-
 
   function handleKeyDown(event: KeyboardEvent) {
     handleKeyDown_upperUiSetting(event.code, upperUiContext, 7, undefined);
@@ -133,9 +113,7 @@ function GlobalSettings({
                   numberOfCols: el,
                 });
               }
-
               (tabs as TabDatabase_i[])
-                // .filter((obj) => obj.column >= globalSettings.numberOfCols)
                 .filter((obj) => obj.column >= el)
                 .sort((a, b) => {
                   if (a.title < b.title) {
@@ -153,9 +131,6 @@ function GlobalSettings({
                   }
 
                   tabsLessColumnsNotAuth(el);
-
-                  /* obj.column = globalSettings.numberOfCols;
-                  obj.priority = i; */
                 });
             }}
             className="focus-1-offset"
@@ -227,7 +202,9 @@ function GlobalSettings({
 
             <p className="text-center">Global settings</p>
             <div className="flex justify-between items-center mb-2 mt-2">
-              <p className="" id="oneColor">One color for all columns</p>
+              <p className="" id="oneColor">
+                One color for all columns
+              </p>
               <button
                 className={`h-4 w-4 cursor-pointer transition duration-75 border-2 border-${uiColor} ${
                   globalSettings.oneColorForAllCols
@@ -235,11 +212,6 @@ function GlobalSettings({
                     : `hover:border-opacity-50`
                 } focus-1-offset-dark`}
                 onClick={() => {
-                  /*   setGlobalSettings({
-                    ...globalSettings,
-                    oneColorForAllCols: !globalSettings.oneColorForAllCols,
-                  }); */
-
                   if (!userIdOrNoId) {
                     setGlobalSettings({
                       ...globalSettings,
@@ -247,18 +219,18 @@ function GlobalSettings({
                     });
                     return;
                   }
-
                   changeSettings({
                     ...globalSettings,
                     oneColorForAllCols: !globalSettings.oneColorForAllCols,
                   });
                 }}
-                // aria-label={"One color for all columns"}
                 aria-labelledby="oneColor"
               ></button>
             </div>
             <div className="flex justify-between items-center mb-2 mt-2">
-              <p className="" id="limitColGrowth">Limit column width growth</p>
+              <p className="" id="limitColGrowth">
+                Limit column width growth
+              </p>
               <button
                 className={`h-4 w-4 cursor-pointer transition duration-75 border-2 border-${uiColor} ${
                   globalSettings.limitColGrowth
@@ -266,11 +238,6 @@ function GlobalSettings({
                     : `hover:border-opacity-50`
                 } focus-1-offset-dark  `}
                 onClick={() => {
-                  /*   setGlobalSettings({
-                    ...globalSettings,
-                    limitColGrowth: !globalSettings.limitColGrowth,
-                  }); */
-
                   if (!userIdOrNoId) {
                     setGlobalSettings({
                       ...globalSettings,
@@ -278,19 +245,19 @@ function GlobalSettings({
                     });
                     return;
                   }
-
                   changeSettings({
                     ...globalSettings,
                     limitColGrowth: !globalSettings.limitColGrowth,
                   });
                 }}
-                // aria-label={"Limit column width growth"}
                 aria-labelledby={"limitColGrowth"}
               ></button>
             </div>
 
             <div className="flex justify-between items-center mb-2 mt-2">
-              <p className="" id="hideAllBookmarks">Hide folder containing all bookmarks</p>
+              <p className="" id="hideAllBookmarks">
+                Hide folder containing all bookmarks
+              </p>
               <button
                 className={`h-4 w-4 cursor-pointer transition duration-75 border-2 border-${uiColor} ${
                   globalSettings.hideNonDeletable
@@ -298,11 +265,6 @@ function GlobalSettings({
                     : `hover:border-opacity-50`
                 } focus-1-offset-dark `}
                 onClick={() => {
-                  /*   setGlobalSettings({
-                    ...globalSettings,
-                    hideNonDeletable: !globalSettings.hideNonDeletable,
-                  }); */
-
                   if (!userIdOrNoId) {
                     setGlobalSettings({
                       ...globalSettings,
@@ -310,18 +272,18 @@ function GlobalSettings({
                     });
                     return;
                   }
-
                   changeSettings({
                     ...globalSettings,
                     hideNonDeletable: !globalSettings.hideNonDeletable,
                   });
                 }}
-                // aria-label={"Hide folder containing all bookmarks"}
                 aria-labelledby={"hideAllBookmarks"}
               ></button>
             </div>
             <div className="flex justify-between items-center mb-2 mt-2">
-              <p className="" id="disableDandD">Disable drag & drop</p>
+              <p className="" id="disableDandD">
+                Disable drag & drop
+              </p>
               <button
                 className={`h-4 w-4 cursor-pointer transition duration-75 border-2 border-${uiColor} ${
                   globalSettings.disableDrag
@@ -329,11 +291,6 @@ function GlobalSettings({
                     : `hover:border-opacity-50`
                 } focus-1-offset-dark `}
                 onClick={() => {
-                  /*   setGlobalSettings({
-                    ...globalSettings,
-                    disableDrag: !globalSettings.disableDrag,
-                  }); */
-
                   if (!userIdOrNoId) {
                     setGlobalSettings({
                       ...globalSettings,
@@ -341,13 +298,11 @@ function GlobalSettings({
                     });
                     return;
                   }
-
                   changeSettings({
                     ...globalSettings,
                     disableDrag: !globalSettings.disableDrag,
                   });
                 }}
-                // aria-label={"Disable drag and drop"}
                 aria-labelledby="disableDandD"
               ></button>
             </div>
@@ -368,11 +323,6 @@ function GlobalSettings({
                       } focus-1-offset-dark `}
                       style={{ marginTop: "2px" }}
                       onClick={() => {
-                        /*   setGlobalSettings({
-                          ...globalSettings,
-                          description: !globalSettings.description,
-                        }); */
-
                         userIdOrNoId
                           ? changeSettings({
                               ...globalSettings,
@@ -382,14 +332,12 @@ function GlobalSettings({
                               ...globalSettings,
                               description: !globalSettings.description,
                             });
-
                         setTabOpenedState(null);
                       }}
                       aria-label={"RSS description on/off by default"}
                     ></button>
                     <span className="ml-1 ">Description</span>
                   </div>
-
                   <div className="flex items-center">
                     <button
                       className={`h-3 w-3 cursor-pointer transition duration-75 border-2 border-${uiColor} ${
@@ -399,12 +347,6 @@ function GlobalSettings({
                       } focus-1-offset-dark`}
                       style={{ marginTop: "2px" }}
                       onClick={() => {
-                        /*      setGlobalSettings({
-                          ...globalSettings,
-                          date: !globalSettings.date,
-                        });
-                         */
-
                         userIdOrNoId
                           ? changeSettings({
                               ...globalSettings,
@@ -414,7 +356,6 @@ function GlobalSettings({
                               ...globalSettings,
                               date: !globalSettings.date,
                             });
-
                         setTabOpenedState(null);
                       }}
                       aria-label={"RSS date on/off by default"}
@@ -423,7 +364,6 @@ function GlobalSettings({
                   </div>
                 </div>
               </div>
-
               <div
                 className={`flex items-center mt-2 pb-1 justify-between border-${uiColor} border-b border-opacity-40`}
               >
@@ -432,16 +372,11 @@ function GlobalSettings({
                 </p>
 
                 <div className="flex items-center">
-                  <div
-                    // style={{ height: "60px", width: "60px", marginTop: "0px" }}
-                    // className="flex"
-                    className=""
-                  >
+                  <div>
                     <div
                       className={`bg-${uiColor}`}
                       style={{ height: "13px", width: "13px" }}
                     >
-                      {/* <div className=" bg-gray-400" style={{height: "16px", width: "24px"}}> */}
                       <PlusSmSVG
                         className="cursor-pointer hover:text-blueGray-500 transition-colors duration-75"
                         onClick={() => {
@@ -475,11 +410,9 @@ function GlobalSettings({
                           if (globalSettings.itemsPerPage < 6) {
                             return;
                           }
-
                           setItemsPerPageInitial(
                             (itemsPerPageInitial) => itemsPerPageInitial - 1
                           );
-
                           userIdOrNoId
                             ? changeSettings({
                                 ...globalSettings,
@@ -499,14 +432,9 @@ function GlobalSettings({
                     max="15"
                     className="border-t border-r border-b w-8 text-center border-gray-300 bg-gray-50
                   focus-1"
-                    // value={globalSettings.itemsPerPage}
                     value={itemsPerPageInitial}
                     onWheel={(event) => event.currentTarget.blur()}
                     onChange={(e) => {
-                      /*   setGlobalSettings({
-                        ...globalSettings,
-                        itemsPerPage: parseInt(e.target.value),
-                      }); */
                       setItemsPerPageInitial(parseInt(e.target.value));
                     }}
                     onBlur={(e) => {
@@ -518,7 +446,6 @@ function GlobalSettings({
                         setItemsPerPageInitial(globalSettings.itemsPerPage);
                         return;
                       }
-
                       userIdOrNoId
                         ? changeSettings({
                             ...globalSettings,
@@ -528,18 +455,12 @@ function GlobalSettings({
                             ...globalSettings,
                             itemsPerPage: parseInt(e.target.value),
                           });
-                      // changeSettings({
-                      //   ...globalSettings,
-                      //   itemsPerPage: parseInt(e.target.value),
-                      // });
-                      // setItemsPerPageInitial(globalSettings.itemsPerPage)
                       setTabOpenedState(null);
                     }}
                   />
                 </div>
               </div>
             </div>
-
             <div className="flex justify-between items-center mb-2 mt-1">
               <p className="">Number of columns</p>
               <div className="flex">{renderColsNumberControls()}</div>

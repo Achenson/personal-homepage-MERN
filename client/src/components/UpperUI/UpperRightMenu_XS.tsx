@@ -1,8 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "urql";
-
-import shallow from "zustand/shallow";
 
 import { ReactComponent as FolderSVG } from "../../svgs/folder.svg";
 import { ReactComponent as PlusSmSVG } from "../../svgs/plus-sm.svg";
@@ -11,19 +8,11 @@ import { ReactComponent as NoteSVG } from "../../svgs/note_UXwing.svg";
 import { ReactComponent as CogSVG } from "../../svgs/cog.svg";
 import { ReactComponent as UserSVG } from "../../svgs/user.svg";
 import { ReactComponent as LoginSVG } from "../../svgs/login.svg";
-// import { ReactComponent as LogoutSVG } from "../../svgs/logout.svg";
 import { ReactComponent as AddRssSVG } from "../../svgs/rss.svg";
 
-// import { useGlobalSettings } from "../../state/hooks/defaultSettingsHooks";
-// import { useLoggedInState } from "../../state/hooks/useLoggedInState";
-
 import { useUpperUiContext } from "../../context/upperUiContext";
-// import { AuthContext, useAuthContext } from "../../context/authContext";
 import { useAuth } from "../../state/hooks/useAuth";
 
-import {LogoutMutation } from "../../graphql/graphqlMutations";
-
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import { GlobalSettingsState } from "../../utils/interfaces";
 
 interface Props {
@@ -31,18 +20,10 @@ interface Props {
   globalSettings: GlobalSettingsState;
 }
 
-
 function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
-  const logout = useAuth((store) => store.logout);
   let navigate = useNavigate();
-  // const globalSettings = useGlobalSettings((state) => state, shallow);
 
-  // const uiColor = useDefaultColors((state) => state.uiColor);
   const uiColor = globalSettings.uiColor;
-
-  // const loggedInState = useLoggedInState((state) => state.loggedInState);
-  // const setLoggedInState = useLoggedInState((state) => state.setLoggedInState);
-
   const colLimit = globalSettings.limitColGrowth;
 
   const upperUiContext = useUpperUiContext();
@@ -56,10 +37,6 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
   let focusOnUpperRightUi_xs_ref_5 = useRef<HTMLButtonElement>(null);
   // let focusOnUpperRightUi_xs_ref_8 = useRef<HTMLButtonElement>(null);
   let focusOnUpperRightUi_xs_ref_6 = useRef<HTMLButtonElement>(null);
-
-  const [logoutMutResult, logoutMut] = useMutation<any, any>(
-    LogoutMutation
-  );
 
   useEffect(() => {
     if (
@@ -90,8 +67,6 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
             focusOnUpperRightUi_xs_ref_4.current.focus();
           }
           return;
-        // case 5:
-        // case 6:
         case 5:
           focusOnUpperRightUi_xs_ref_5.current.focus();
           return;
@@ -100,7 +75,6 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
           return;
       }
     }
-
     upperUiContext.upperVisDispatch({
       type: "FOCUS_ON_UPPER_RIGHT_UI",
       payload: null,
@@ -116,7 +90,6 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
     }
     return str_2;
   }
-
   return (
     <>
       {upperUiContext.upperVisState.addTabVis_xs && (
@@ -186,7 +159,6 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
           </button>
         </div>
       )}
-
       <div
         className={`flex items-center ${xsDisplay("sm:hidden", "xs:hidden")}`}
       >
@@ -245,27 +217,8 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                 ref={focusOnUpperRightUi_xs_ref_6}
                 className="h-6 w-5 focus-2-veryDark"
                 style={{ width: "22px" }}
-                onClick={
-                  // async() => {
-                  () => {
-                  // setLoggedInState(false);
-
-                  // logoutMut()
-
-                  // logout(null)
-
-                  // authContext.updateAuthContext({...authContext,
-                  //   isAuthenticated: false,
-                  //   authenticatedUserId: null,
-                  //   accessToken: null
-                  //   })
-
-
-                    
-                  // upperUiContext.upperVisDispatch({
-                  //   type: "MESSAGE_OPEN_LOGOUT",
-                  // });
-                  navigate("/user-profile")
+                onClick={() => {
+                  navigate("/user-profile");
                 }}
                 tabIndex={12}
                 aria-label={"User profile"}
@@ -281,7 +234,6 @@ function UpperRightMenu({ setTabType, globalSettings }: Props): JSX.Element {
                 className="h-6 w-5 focus-2-veryDark"
                 style={{ width: "18px" }}
                 onClick={() => {
-                  // upperUiContext.upperVisDispatch({ type: "PROFILE_TOGGLE" });
                   navigate("/login-register");
                 }}
                 tabIndex={12}
