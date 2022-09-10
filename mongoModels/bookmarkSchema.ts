@@ -1,4 +1,3 @@
-
 import {model, Schema} from "mongoose"
 import {BookmarkDatabase_i} from "../schema/types/bookmarkType"
 

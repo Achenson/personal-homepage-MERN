@@ -18,10 +18,6 @@ const TabSchema = new Schema<TabDatabase_i>({
   date: Schema.Types.Mixed,
   description: Schema.Types.Mixed,
   itemsPerPage: Schema.Types.Mixed,
-  // not being used actually?
-  // items?: [object] | never[] | [];
-  // backend only
-  // bookmarkIds: [String]
 });
 
 module.exports = model<TabDatabase_i>("Tab", TabSchema);

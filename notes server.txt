@@ -453,6 +453,7 @@ comps less than 600...?
 313. Tab -> why is tabOpened_local not needed for notes?
 314. last npm audi
 315. tailwind packing before production
+316. readme files
 
 
 
@@ -701,3 +702,11 @@ Not working in production! due to mixed content (http request on https domain)
     // rssLink: "https://techbeacon.com/rss.xml"  
     // rssLink:  "https://feeds.theguardian.com/theguardian/uk-news/rss"
 */
+
+=======
+  // 1. testing sending test cookie in request using postman
+  // cookies -> add domain: localhost -> coookie name: jid
+  // console.log(req.headers);
+
+    //  testing: send login mutation in graphql, get accessToken
+  // testin2: take refresh cookie from res (sieć)

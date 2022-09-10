@@ -1,7 +1,3 @@
-/* const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
- */
-
 import { model, Schema } from "mongoose";
 import { SettingsDatabase_i } from "../schema/types/settingsType";
 
