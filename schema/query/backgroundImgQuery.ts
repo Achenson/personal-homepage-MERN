@@ -1,34 +1,28 @@
 import graphql = require("graphql");
-// import fetch = require("node-fetch");
 import fs = require("fs");
 import path = require("path");
-
-// import { testUserId } from "../../client/src/state/data/testUserId";
-
-const { GraphQLObjectType, GraphQLID } = graphql;
+const { GraphQLID } = graphql;
 
 import { RequestWithAuth } from "../middleware/isAuth";
 import { BackgroundImgType } from "../types/backgroundImgType";
+
 import { User_i } from "../types/userType";
 
 export const backgroundImgQueryField = {
   type: BackgroundImgType,
   args: { userId: { type: GraphQLID } },
-  async resolve(parent: User_i, { userId }: { userId: string }, request: RequestWithAuth) {
+  async resolve(
+    parent: User_i,
+    { userId }: { userId: string },
+    request: RequestWithAuth
+  ) {
     console.log("!!!backgroundImgQuery  started !!!!");
 
-    if (!request.isAuth) return
-
-    // let userIdOrTestId = request.isAuth ? request.userId : testUserId;
-    // let userId = request.isAuth
+    if (!request.isAuth) return;
 
     let backgroundImgFiles = fs.readdirSync(
-      // path.join(__dirname, "..", "..", "backgroundImgs", userIdOrTestId)
       path.join(__dirname, "..", "..", "backgroundImgs", userId)
     );
-
-    console.log("backgroundImgFiles");
-    console.log(backgroundImgFiles);
 
     if (backgroundImgFiles.length === 0) {
       return {
@@ -38,54 +32,22 @@ export const backgroundImgQueryField = {
 
     let backgroundImgUrl =
       "background_img/" + userId + "/" + backgroundImgFiles[0];
-      // "background_img/" + userIdOrTestId + "/" + backgroundImgFiles[0];
-
-    console.log("backgroundImgUrl");
-    console.log(backgroundImgUrl);
 
     if (backgroundImgUrl) {
       return {
         backgroundImgUrl: backgroundImgUrl,
       };
-
-      // backgroundImgUrl;
     }
     return null;
 
-    // return null;
-
     // let fetchedBackgroundImg = await fetchBackgroundImg();
-    // console.log("fetchedBackgroundImg");
-    // console.log(fetchedBackgroundImg);
-
     // return fetchedBackgroundImg;
-
     // async function fetchBackgroundImg() {
-    //   console.log("fetching background img query");
-    //   console.log("userId");
-    //   console.log(userId);
-
     //   let response = await fetch(
     //     "http://localhost:4000/background_img/" + userId
     //   );
-
-    //   // console.log("response");
-    //   // console.log(response);
-
-    //   if (!response.ok) {
-    //     console.log("response not ok");
-    //     throw new Error("Network response was not ok");
-    //   }
-
-    //   if (response.ok) {
-    //     console.log("response ok");
-    //   }
-
     //   let fetchedImgResponse = await response.json();
-
     //   //   return response.json();
-    //   console.log("fetched img response");
-    //   console.log(fetchedImgResponse);
     //   return fetchedImgResponse;
     // }
   },

@@ -1,7 +1,7 @@
 import graphql = require("graphql");
-const Bookmark = require("../../mongoModels/bookmarkSchema");
+const { GraphQLID, GraphQLList } = graphql;
 
-const { GraphQLObjectType, GraphQLID, GraphQLList } = graphql;
+const Bookmark = require("../../mongoModels/bookmarkSchema");
 
 import { BookmarkType } from "../types/bookmarkType";
 import { User_i } from "../types/userType";

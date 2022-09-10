@@ -1,7 +1,7 @@
 import graphql = require("graphql");
-const Settings = require("../../mongoModels/settingsSchema");
+const { GraphQLID } = graphql;
 
-const { GraphQLObjectType, GraphQLID } = graphql;
+const Settings = require("../../mongoModels/settingsSchema");
 
 import { SettingsType } from "../types/settingsType";
 import { User_i } from "../types/userType";

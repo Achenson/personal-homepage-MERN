@@ -1,7 +1,7 @@
 import graphql = require("graphql");
-const Tab= require("../../mongoModels/tabSchema");
+const { GraphQLID, GraphQLList } = graphql;
 
-const { GraphQLObjectType, GraphQLID, GraphQLList } = graphql;
+const Tab = require("../../mongoModels/tabSchema");
 
 import { TabType } from "../types/tabType";
 import { User_i } from "../types/userType";

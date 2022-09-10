@@ -1,7 +1,7 @@
 import graphql = require("graphql");
-const User = require("../../mongoModels/userSchema")
+const User = require("../../mongoModels/userSchema");
 
-const { GraphQLObjectType, GraphQLID } = graphql;
+const { GraphQLID } = graphql;
 
 import { User_i, UserType } from "../types/userType";
 

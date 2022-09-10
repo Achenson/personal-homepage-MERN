@@ -1,13 +1,11 @@
 const graphql = require("graphql");
+const { GraphQLObjectType } = graphql;
 
 import { settingsQueryField } from "./settingsQuery";
 import { bookmarksQueryField } from "./bookmarksQuery";
 import { tabsQueryField } from "./tabsQuery";
 import { backgroundImgQueryField } from "./backgroundImgQuery";
-// import {rssFetchQueryField} from "./rssFetchQuery"
 import { userQueryField } from "./userQuery";
-
-const { GraphQLObjectType, GraphQLID } = graphql;
 
 export const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -16,7 +14,6 @@ export const RootQuery = new GraphQLObjectType({
     bookmarks: bookmarksQueryField,
     tabs: tabsQueryField,
     backgroundImg: backgroundImgQueryField,
-    // rssFetch: rssFetchQueryField,
-    user: userQueryField
+    user: userQueryField,
   },
 });
