@@ -6,16 +6,11 @@ import { tabsData } from "../data/tabsData";
 
 import { SingleTabData } from "../../utils/interfaces";
 
-
 interface UseTabs {
   addTabs: (newTabDataArr: SingleTabData[]) => void;
   // moving tabs to lower number cols(left) if globalSettings numberOfCols changes
   tabsLessColumns: (numberOfCols: 1 | 2 | 3 | 4) => void;
-  // reseting tab content (open/closed state) to default
-  // defaultTabContent: (tabID: string, tabOpenedByDefault: boolean) => void;
   defaultTabContentAll: () => void;
-  // deleting tab if there are no bookmarks with this tag (tab's name)
-  // deleteEmptyTab: (tabIdsUsedByBookmarks: string[]) => void;
   deleteTab: (tabID: string) => void;
   dragTab: (
     itemID: string,
@@ -53,9 +48,6 @@ interface UseTabs {
   // id (or empty) of a only tab that is currently being edited(eg. colors to choose are on )
   tabOpenedState: null | string;
   setTabOpenedState: (nullOrID: null | string) => void;
-  // deletion of empty tabs in Grid will be paused during editing/adding of bookmarks
-  // tabDeletingPause: boolean;
-  // setTabDeletingPause: (trueOrFalse: boolean) => void;
 }
 
 // this can be used everywhere in your application
@@ -72,8 +64,6 @@ export const useTabs = create<UseTabs>(
         );
       },
       tabsLessColumns: (numberOfCols) => {
-        console.log("tabLessColumns");
-        
         set(
           produce((state: UseTabs) => {
             state.tabs
@@ -94,17 +84,6 @@ export const useTabs = create<UseTabs>(
           })
         );
       },
-      // defaultTabContent: (tabID, tabOpenedByDefault) =>
-      //   set(
-      //     produce((state: UseTabs) => {
-      //       let tabToUpdate = state.tabs.find((obj) => obj.id === tabID);
-
-      //       if (tabToUpdate) {
-      //         let tabIndex = state.tabs.indexOf(tabToUpdate);
-      //         state.tabs[tabIndex].opened = tabOpenedByDefault;
-      //       }
-      //     })
-      //   ),
       defaultTabContentAll: () =>
         set(
           produce((state: UseTabs) => {
@@ -113,20 +92,6 @@ export const useTabs = create<UseTabs>(
             });
           })
         ),
-
-      // deleteEmptyTab: (tabIdsUsedByBookmarks) =>
-      //   set(
-      //     produce((state: UseTabs) => {
-      //       state.tabs.forEach((obj, i) => {
-      //         if (
-      //           tabIdsUsedByBookmarks.indexOf(obj.id) === -1 &&
-      //           obj.type === "folder"
-      //         ) {
-      //           state.tabs.splice(i, 1);
-      //         }
-      //       });
-      //     })
-      //   ),
       deleteTab: (tabID) =>
         set(
           produce((state: UseTabs) => {
@@ -137,12 +102,10 @@ export const useTabs = create<UseTabs>(
             }
           })
         ),
-
       dragTab: (itemID, itemColNumber, colNumber, tabID, draggingIntoTab) =>
         set(
           produce((state: UseTabs) => {
             let itemToUpdate = state.tabs.find((obj) => obj.id === itemID);
-
             let itemToUpdateColumn_init = (itemToUpdate as SingleTabData)
               .column;
             let itemToUpdatePriority_init = (itemToUpdate as SingleTabData)
@@ -151,7 +114,6 @@ export const useTabs = create<UseTabs>(
             if (itemToUpdate) {
               itemToUpdate.column = colNumber;
             }
-
             // reseting priority numbers in column that was item origin
             // no need to reset if draggingIntoTab as tabs will be switched
             if (itemColNumber !== colNumber && !draggingIntoTab) {
@@ -191,10 +153,8 @@ export const useTabs = create<UseTabs>(
             // dragging into tab
             if (draggingIntoTab && itemToUpdate) {
               let tabToUpdate = state.tabs[draggedIntoIndex];
-
               itemToUpdate.column = tabToUpdate.column;
               itemToUpdate.priority = tabToUpdate.priority;
-
               tabToUpdate.column = itemToUpdateColumn_init;
               tabToUpdate.priority = itemToUpdatePriority_init;
               return;
@@ -285,10 +245,8 @@ export const useTabs = create<UseTabs>(
         set(
           produce((state: UseTabs) => {
             let tabToUpdate = state.tabs.find((obj) => obj.id === tabID);
-
             if (tabToUpdate) {
               tabToUpdate.title = tabTitleInput;
-              // updated[tabIndex].deletable = currentTab[0].deletable
               if (wasTabOpenClicked) {
                 tabToUpdate.openedByDefault = tabOpen;
                 setTabOpened_local(tabOpen);
@@ -339,7 +297,6 @@ export const useTabs = create<UseTabs>(
         set(
           produce((state: UseTabs) => {
             let currentTab = state.tabs.find((obj) => obj.id === tabID);
-
             if (currentTab) {
               currentTab.date = null;
               currentTab.description = null;
@@ -384,16 +341,7 @@ export const useTabs = create<UseTabs>(
           tabOpenedState: nullOrID,
         }));
       },
-      // auth version only
-      // tabDeletingPause: true,
-      // setTabDeletingPause: (trueOrFalse) => {
-      //   set((state: UseTabs) => ({
-      //     ...state,
-      //     tabDeletingPause: trueOrFalse,
-      //   }));
-      // },
     }),
-
     {
       name: "tabs-storage",
     }

@@ -281,8 +281,6 @@ export const LogoutMutation = `
   }
 `;
 
-
-
 export const BackgroundImgUploadMutation = `
   mutation ($image: Upload) {
     backgroundImgUpload(image: $image) {
@@ -343,8 +341,6 @@ mutation ($email: String) {
 }
 `;
 
-
-
 export const ChangePasswordAfterForgotMutation = `
   mutation ChangePasswordAfterForgot($token: String, $newPassword: String) {
     changePasswordAfterForgot(token: $token, newPassword: $newPassword) {
@@ -354,5 +350,3 @@ export const ChangePasswordAfterForgotMutation = `
     }
   }
 `;
-
-// export const

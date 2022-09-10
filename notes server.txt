@@ -682,3 +682,22 @@ Image is attached as a request body
 == file query:
 backgroundImgQuery in Main is generating url (using files on the server) with users id in it, this url is passed to MainRoute
 In MainRoute an express route is using the passed url to return file from the server
+
+============ rss links for testing
+
+/*  RSS links for testing
+Not working in production! due to mixed content (http request on https domain)
+  "http://rss.cnn.com/rss/edition.rss"
+  "http://rss.sciam.com/basic-science"
+
+ [ // !!! RSS_reactQuery should run the second URL in case of error
+    rssLink: "http://rss.sciam.com/basic-science",
+    // rssLink: "http://rss.sciam.com/basic-science?format=xml", !!!]
+
+   rssLink: "https://dailygalaxy.com/feed/",
+    // rssLink: "https://tvn24.pl/najwazniejsze.xml",
+    // rssLink: "https://feeds.feedburner.com/sciencealert-latestnews"
+    // rssLink: "https://science.sciencemag.org/rss/twis.xml", <- works, but date & description unknown
+    // rssLink: "https://techbeacon.com/rss.xml"  
+    // rssLink:  "https://feeds.theguardian.com/theguardian/uk-news/rss"
+*/

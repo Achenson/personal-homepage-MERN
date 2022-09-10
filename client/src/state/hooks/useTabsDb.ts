@@ -1,11 +1,8 @@
 import create from "zustand";
+
+import { tabsDataDbInit } from "../../state/data/tabsData";
+
 import { TabDatabase_i } from "../../../../schema/types/tabType";
-// import { tabsDbInit } from "../../../../schema/data/defaultTabs";
-import { SingleBookmarkDataBasic } from "../../utils/interfaces";
-
-import {tabsDataDbInit} from "../../state/data/tabsData"
-
-
 
 interface UseTabsDb {
   tabsDb: TabDatabase_i[];

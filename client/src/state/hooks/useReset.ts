@@ -5,7 +5,6 @@ export const useReset = create<{
   setReset: (trueOrFalse: boolean) => void;
 }>((set) => ({
   enabled: false,
-  // enabled: true,
   setReset: (trueOrFalse) =>
     set((state) => ({
       ...state,

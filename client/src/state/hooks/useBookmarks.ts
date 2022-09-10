@@ -2,12 +2,16 @@ import create from "zustand";
 import { persist } from "zustand/middleware";
 import produce from "immer";
 
-import { SingleBookmarkData } from "../../utils/interfaces";
 import { bookmarksData } from "../data/bookmarksData";
+
+import { SingleBookmarkData } from "../../utils/interfaces";
 
 interface UseBookmarks {
   addBookmark: (singleBookmarkData: SingleBookmarkData) => void;
-  getTabsToDelete: (bookmarkIdToDelete: string, bookmarkTagsToDelete: string[]) => string[];
+  getTabsToDelete: (
+    bookmarkIdToDelete: string,
+    bookmarkTagsToDelete: string[]
+  ) => string[];
   editBookmark: (
     editId: string,
     title: string,
@@ -18,7 +22,6 @@ interface UseBookmarks {
   deleteBookmark: (
     bookmarkID: string,
     singleBookmarkData: SingleBookmarkData
-    // nonDeletableTabId: string
   ) => void;
   addTag: (newFolderTabId: string, bookmarksInputArr: string[]) => void;
   // changing or adding a tag in all bookmarks
@@ -29,8 +32,6 @@ interface UseBookmarks {
   ) => void;
   // delete tag in all bookmarks
   deleteTag: (tabTitle: string) => void;
-  // setTabIdsUsedByBookmarks: (newTags: string[]) => void;
-  // tabIdsUsedByBookmarks: string[];
   bookmarks: SingleBookmarkData[];
 }
 
@@ -41,11 +42,10 @@ export const useBookmarks = create<UseBookmarks>(
       getTabsToDelete(bookmarkIdToDelete, bookmarkTagsToDelete) {
         // should contain all tags, but without the tags present in bookmark to del
         let arrOfTags: string[] = [];
-
         let bmarksWithoutBkmarkToDel: SingleBookmarkData[] =
           get().bookmarks.filter((el) => el.id !== bookmarkIdToDelete);
 
-          // pushing unique tags to arrOfAllTags
+        // pushing unique tags to arrOfAllTags
         for (let bmark of bmarksWithoutBkmarkToDel) {
           for (let tag of bmark.tags) {
             if (arrOfTags.indexOf(tag) === -1) {
@@ -54,37 +54,16 @@ export const useBookmarks = create<UseBookmarks>(
           }
         }
 
-        // first item in the arr is bookmark to delete
-        // let bookmarkToDeleteArr = get().bookmarks.filter(
-        //   (el) => el.id === bookmarkIdToDelete
-        // );
-
-
         let tagsToDelete: string[] = [];
 
-        // if one of the tag(tab) of bookmark to del is not present is all tags -> this tags (tabs) to delete 
-        // for (let tag of bookmarkToDeleteArr[0].tags) {
-        //   if (arrOfTags.indexOf(tag) === -1) {
-        //     tagsToDelete.push(tag);
-        //   }
-        // }
-
+        // if one of the tag(tab) of bookmark to del is not present is all tags -> this tags (tabs) to delete
         for (let tag of bookmarkTagsToDelete) {
           if (arrOfTags.indexOf(tag) === -1) {
             tagsToDelete.push(tag);
           }
         }
 
-
-
         return tagsToDelete;
-
-        // if (tagsToDelete.length === 0) {
-        //   return null;
-        // } else {
-        //   return tagsToDelete;
-        // }
-
       },
 
       addBookmark: (singleBookmarkData) => {
@@ -111,10 +90,8 @@ export const useBookmarks = create<UseBookmarks>(
         );
       },
 
-      // deleteBookmark: (bookmarkID, singleBookmarkData, nonDeletableTabId) => {
       deleteBookmark: (bookmarkID, singleBookmarkData) => {
         let tagsIdsToDelete: string[] = [];
-
         singleBookmarkData.tags.forEach((el) => {
           let filteredBookmarks = get().bookmarks.filter(
             (obj) => obj.id !== singleBookmarkData.id
@@ -132,23 +109,11 @@ export const useBookmarks = create<UseBookmarks>(
           if (!isElPresent && el !== "ALL_TAGS") {
             tagsIdsToDelete.push(el);
           }
-          // if (!isElPresent && el !== nonDeletableTabId) {
-          //   tagsIdsToDelete.push(el);
-          // }
         });
-
-        // let tabIdsUsedByBookmarksData_new: string[] = [];
-
-        // get().tabIdsUsedByBookmarks.forEach((el) => {
-        //   if (tagsIdsToDelete.indexOf(el) === -1) {
-        //     tabIdsUsedByBookmarksData_new.push(el);
-        //   }
-        // });
 
         set((state) => ({
           ...state,
           bookmarks: state.bookmarks.filter(({ id }) => id !== bookmarkID),
-          // tabIdsUsedByBookmarks: [...tabIdsUsedByBookmarksData_new],
         }));
       },
 
@@ -214,13 +179,6 @@ export const useBookmarks = create<UseBookmarks>(
         );
       },
 
-      // setTabIdsUsedByBookmarks: (newTags) => {
-      //   set((state) => ({
-      //     ...state,
-      //     tabIdsUsedByBookmarks: [...newTags],
-      //   }));
-      // },
-      // tabIdsUsedByBookmarks: ["ALL_TAGS", "2", "3", "4", "5"],
       bookmarks: [...bookmarksData],
     }),
     {

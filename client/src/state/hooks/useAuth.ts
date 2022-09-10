@@ -1,5 +1,4 @@
 import create from "zustand";
-import { LoginMutation } from "../../graphql/graphqlMutations";
 
 import { AuthContextZustand_i } from "../../utils/interfaces";
 
@@ -9,8 +8,6 @@ export const useAuth = create<AuthContextZustand_i>((set) => ({
   accessToken: null,
   loginNotification: null,
   messagePopup: null,
-  // loginErrorMessage: null,
-  // loginNotification arg -> setting message after deleting user
   logout: (loginNotification) =>
     set((state) => ({
       ...state,
@@ -26,23 +23,14 @@ export const useAuth = create<AuthContextZustand_i>((set) => ({
       authenticatedUserId: userId,
       accessToken: token,
     })),
-
   setLoginNotification: (loginNotification) =>
     set((state) => ({
       ...state,
       loginNotification: loginNotification,
     })),
-
-    setMessagePopup: (message) =>
+  setMessagePopup: (message) =>
     set((state) => ({
       ...state,
       messagePopup: message,
     })),
-
-
-  //   setLoggedInState: (trueOrFalse) =>
-  //     set((state) => ({
-  //       ...state,
-  //       loggedInState: trueOrFalse,
-  //     })),
 }));

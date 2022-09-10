@@ -169,20 +169,3 @@ export const tabsDataDbInit: TabDatabaseInit_i[] = [
     type: "folder",
   },
 ];
-
-/*  RSS links for testing
-Not working in production! due to mixed content (http request on https domain)
-  "http://rss.cnn.com/rss/edition.rss"
-  "http://rss.sciam.com/basic-science"
-
- [ // !!! RSS_reactQuery should run the second URL in case of error
-    rssLink: "http://rss.sciam.com/basic-science",
-    // rssLink: "http://rss.sciam.com/basic-science?format=xml", !!!]
-
-   rssLink: "https://dailygalaxy.com/feed/",
-    // rssLink: "https://tvn24.pl/najwazniejsze.xml",
-    // rssLink: "https://feeds.feedburner.com/sciencealert-latestnews"
-    // rssLink: "https://science.sciencemag.org/rss/twis.xml", <- works, but date & description unknown
-    // rssLink: "https://techbeacon.com/rss.xml"  
-    // rssLink:  "https://feeds.theguardian.com/theguardian/uk-news/rss"
-*/
