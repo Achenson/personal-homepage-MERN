@@ -1,9 +1,7 @@
-import { GraphQLID } from "graphql";
+import { GraphQLID, GraphQLError } from "graphql";
 import { BookmarkType } from "../types/bookmarkType";
-import { GraphQLError } from "graphql";
 
 import { RequestWithAuth } from "../middleware/isAuth";
-
 const Bookmark = require("../../mongoModels/bookmarkSchema");
 
 export const deleteBookmarkMutationField = {
@@ -14,7 +12,6 @@ export const deleteBookmarkMutationField = {
   resolve(_source: unknown, args: { id: string }, request: RequestWithAuth) {
     if (!request.isAuth) {
       return new GraphQLError("Auth error");
-      // throw new Error("Auth error");
     }
 
     return Bookmark.findByIdAndDelete(args.id);

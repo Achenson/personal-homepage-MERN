@@ -1,36 +1,24 @@
 import graphql = require("graphql");
 import bcrypt = require("bcrypt");
-
-import { Request, Response } from "express";
-
-const { GraphQLString, GraphQLNonNull } = graphql;
+const { GraphQLString } = graphql;
 
 import User = require("../../mongoModels/userSchema");
-
 const createAccessToken = require("../middleware/accessToken");
 const createRefreshToken = require("../middleware/refreshToken");
 const sendRefreshToken = require("../middleware/sendRefreshToken");
+import { RequestWithAuth } from "../middleware/isAuth";
 
 import { AuthDataTypeLogin } from "../types/authDataType";
-
-import { RequestWithAuth } from "../middleware/isAuth";
 
 interface AuthData_i {
   email_or_name: string;
   password: string;
 }
 
-interface ExpressReqRes {
-  req: Request;
-  res: Response;
-}
-
 export const loginMutationField = {
   type: AuthDataTypeLogin,
   args: {
-    // email_or_name: { type: new GraphQLNonNull(GraphQLString) },
     email_or_name: { type: GraphQLString },
-    // password: { type: new GraphQLNonNull(GraphQLString) },
     password: { type: GraphQLString },
   },
 
@@ -51,7 +39,6 @@ export const loginMutationField = {
     // @ts-ignore
     const user = await User.findOne({ [credential]: email_or_name });
     if (!user) {
-      // throw new Error("User does not exist!");
       return {
         ok: false,
         userId: null,
@@ -60,10 +47,8 @@ export const loginMutationField = {
       };
     }
 
-    //   implement later!!
     const isEqual = await bcrypt.compare(password, user.password);
     if (!isEqual) {
-      // throw new Error("Password is incorrect!");
       return {
         ok: false,
         userId: null,
@@ -73,12 +58,7 @@ export const loginMutationField = {
     }
 
     await sendRefreshToken(res, createRefreshToken(user));
-
     const token = createAccessToken(user);
-
-    // console.log("token");
-    // console.log(token);
-    
 
     return { ok: true, userId: user.id, token: token, error: null };
   },

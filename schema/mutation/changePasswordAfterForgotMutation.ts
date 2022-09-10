@@ -1,23 +1,15 @@
 const jwt = require("jsonwebtoken");
 import bcrypt = require("bcrypt");
-
-import { Request, Response } from "express";
-
-import { AuthDataType } from "../types/authDataType";
-
-interface ExpressReqRes {
-  req: Request;
-  res: Response;
-}
-
-import { RequestWithAuth } from "../middleware/isAuth";
-
 import { GraphQLString } from "graphql";
 
 const createAccessToken = require("../middleware/accessToken.ts");
 const createRefreshToken = require("../middleware/refreshToken.ts");
 const sendRefreshToken = require("../middleware/sendRefreshToken.ts");
 const User = require("../../mongoModels/userSchema");
+
+import { RequestWithAuth } from "../middleware/isAuth";
+
+import { AuthDataType } from "../types/authDataType";
 
 export const changePasswordAfterForgotMutationField = {
   type: AuthDataType,
@@ -26,20 +18,16 @@ export const changePasswordAfterForgotMutationField = {
     newPassword: { type: GraphQLString },
   },
 
-  //   resolve(_source: unknown, args: {stringToAdd: string}) {
   async resolve(
     _source: unknown,
     args: { token: string; newPassword: string },
     { res }: RequestWithAuth
   ) {
-    let decodedToken = jwt.verify(args.token, process.env.FORGOT_PASSWORD as string);
-
+    let decodedToken = jwt.verify(
+      args.token,
+      process.env.FORGOT_PASSWORD as string
+    );
     let userId = decodedToken?.userId;
-
-    console.log("decoded userID");
-    console.log(userId);
-    
-    
 
     if (!userId) {
       return { userId: null, token: null, error: "Invalid token provided" };
@@ -50,9 +38,7 @@ export const changePasswordAfterForgotMutationField = {
     if (!user) {
       return { userId: null, token: null, error: "Account no longer exists" };
     }
-
     console.log("USER PRESENT");
-    
 
     let update;
     await bcrypt

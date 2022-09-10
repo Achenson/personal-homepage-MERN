@@ -1,6 +1,7 @@
-const Bookmark = require("../../mongoModels/bookmarkSchema");
-
 import { GraphQLError } from "graphql";
+
+const Bookmark = require("../../mongoModels/bookmarkSchema");
+import { RequestWithAuth } from "../middleware/isAuth";
 
 import {
   BookmarkFields,
@@ -8,18 +9,18 @@ import {
   BookmarkType,
 } from "../types/bookmarkType";
 
-import { RequestWithAuth } from "../middleware/isAuth";
-
 export const changeBookmarkMutationField = {
   type: BookmarkType,
   args: {
     ...BookmarkFields,
   },
-  resolve(_source: unknown, args: BookmarkDatabase_i, request: RequestWithAuth) {
-
+  resolve(
+    _source: unknown,
+    args: BookmarkDatabase_i,
+    request: RequestWithAuth
+  ) {
     if (!request.isAuth) {
       return new GraphQLError("Auth error");
-      // throw new Error("Auth error");
     }
 
     let update = {
@@ -28,7 +29,7 @@ export const changeBookmarkMutationField = {
       title: args.title,
       URL: args.URL,
       tags: args.tags,
-      defaultFaviconFallback: args.defaultFaviconFallback
+      defaultFaviconFallback: args.defaultFaviconFallback,
     };
 
     return Bookmark.findByIdAndUpdate(args.id, update, {

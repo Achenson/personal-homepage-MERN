@@ -1,27 +1,18 @@
-const User = require("../../mongoModels/userSchema");
-import {
-  GraphQLID,
-  GraphQLNonNull,
-  GraphQLString,
-  GraphQLError,
-} from "graphql";
+import bcrypt = require("bcrypt");
+import { GraphQLID, GraphQLString, GraphQLError } from "graphql";
 
+const User = require("../../mongoModels/userSchema");
+import { RequestWithAuth } from "../middleware/isAuth";
 
 import {
   ChangePasswordByUserType,
   ChangePasswordByUser_i,
 } from "../types/changePasswordByUserType";
 
-import { RequestWithAuth } from "../middleware/isAuth";
-
-import bcrypt = require("bcrypt");
-
 export const changePasswordByUserMutationField = {
   type: ChangePasswordByUserType,
   args: {
     id: { type: GraphQLID },
-
-    // password: { type: new GraphQLNonNull(GraphQLString) },
     passwordCurrent: { type: GraphQLString },
     passwordNew: { type: GraphQLString },
   },
@@ -32,7 +23,6 @@ export const changePasswordByUserMutationField = {
   ) {
     if (!request.isAuth) {
       return new GraphQLError("Auth error");
-      // throw new Error("Auth error");
     }
 
     const user = await User.findById(id);
@@ -56,9 +46,7 @@ export const changePasswordByUserMutationField = {
     }
 
     let hashedPassword = await bcrypt.hash(passwordNew, 12);
-
     let update = { password: hashedPassword };
-
     let changedUser = await User.findByIdAndUpdate(id, update, {
       // to return updated object
       new: true,

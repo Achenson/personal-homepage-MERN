@@ -1,6 +1,6 @@
 import bcrypt = require("bcrypt");
+
 const User = require("../../mongoModels/userSchema");
-import { GraphQLString } from "graphql";
 
 import { UserFields, UserType, UserToChangeByAdmin_i } from "../types/userType";
 
@@ -14,7 +14,6 @@ export const changeUserByAdminMutationField = {
 
     let updateName = { name: args.name };
     let updateEmail = { email: args.email };
-    // let updateToken = {tokenVersion: args.tokenVersion}
 
     if (args.name) {
       Object.assign(update, updateName);
@@ -29,16 +28,6 @@ export const changeUserByAdminMutationField = {
       let updatePassword = { password: newPassword };
       Object.assign(update, updatePassword);
     }
-
-    // if (args.email) {
-    //   Object.assign(update, updateToken);
-    // }
-
-    // let update = {
-    //   name: args.name,
-    //   email: args.email,
-    //   password: args.password,
-    // };
 
     return User.findByIdAndUpdate(args.id, update, {
       // to return updated object

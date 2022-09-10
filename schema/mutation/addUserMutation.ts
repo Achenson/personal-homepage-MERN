@@ -1,14 +1,11 @@
-const graphql = require("graphql");
-
 const mkdirp = require("mkdirp");
 const bcrypt = require("bcrypt");
+import { GraphQLString } from "graphql";
 
 const Settings = require("../../mongoModels/settingsSchema");
 const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
 import Bookmark = require("../../mongoModels/bookmarkSchema");
-
-import { GraphQLString } from "graphql";
 
 import {
   columnColors,
@@ -16,7 +13,6 @@ import {
 } from "../../client/src/utils/data/colors_column";
 import { backgroundColors } from "../../client/src/utils/data/colors_background";
 import { tabColors } from "../../client/src/utils/data/colors_tab";
-
 import { bookmarks } from "../data/defaultBookmarks";
 import { tabs } from "../data/defaultTabs";
 
@@ -101,7 +97,6 @@ export const addUserMutationField = {
 
     return new Promise((resolve, reject) => {
       // if user with this name & email is found
-
       bcrypt.hash(args.password, 12).then((hashedPassword: string) => {
         let user = new User({
           name: args.name,
@@ -177,11 +172,8 @@ export const addUserMutationField = {
 
           let arrOfFolderIds: string[] = await Promise.all(arrOfPromises);
 
-          console.log(arrOfFolderIds);
-
           function calcTagNames(bookmark: BookmarkLocal_i) {
             let newArr: string[] = [];
-
             // for each el of arrOfFolderIds
             arrOfFolderIds.forEach((el, i) => {
               // if i is present in bookmark.tagIndices

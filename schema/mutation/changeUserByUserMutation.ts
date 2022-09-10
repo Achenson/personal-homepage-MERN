@@ -1,15 +1,13 @@
+import bcrypt = require("bcrypt");
+import { GraphQLID, GraphQLString, GraphQLError } from "graphql";
+
 const User = require("../../mongoModels/userSchema");
-import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
+import { RequestWithAuth } from "../middleware/isAuth";
 
 import {
   ChangeUserByUserType,
   ChangeUserByUser_i,
 } from "../types/changeUserByUserType";
-
-import { RequestWithAuth } from "../middleware/isAuth";
-import { GraphQLError } from "graphql";
-
-import bcrypt = require("bcrypt");
 
 export const changeUserByUserMutationField = {
   type: ChangeUserByUserType,
@@ -17,7 +15,6 @@ export const changeUserByUserMutationField = {
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     email: { type: GraphQLString },
-    // password: { type: new GraphQLNonNull(GraphQLString) },
     passwordCurrent: { type: GraphQLString },
   },
   async resolve(
@@ -27,7 +24,6 @@ export const changeUserByUserMutationField = {
   ) {
     if (!request.isAuth) {
       return new GraphQLError("Auth error");
-      // throw new Error("Auth error");
     }
 
     const user = await User.findById(id);
@@ -121,7 +117,6 @@ export const changeUserByUserMutationField = {
     }
 
     let update = {};
-
     let updateName = { name: name };
     let updateEmail = { email: email };
 

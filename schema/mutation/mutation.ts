@@ -1,5 +1,5 @@
 const graphql = require("graphql");
-// import graphql = require("graphql")
+const { GraphQLObjectType } = graphql;
 
 import { changeSettingsMutationField } from "./changeSettingsMutation";
 import { addUserMutationField } from "./addUserMutation";
@@ -20,8 +20,6 @@ import { changeUserByUserMutationField } from "./changeUserByUserMutation";
 import { changePasswordByUserMutationField } from "./changePasswordByUserMutation";
 import { forgotPasswordMutationField } from "./forgotPasswordMutation";
 import { changePasswordAfterForgotMutationField } from "./changePasswordAfterForgotMutation";
-
-const { GraphQLObjectType } = graphql;
 
 export const Mutation = new GraphQLObjectType({
   name: "Mutation",

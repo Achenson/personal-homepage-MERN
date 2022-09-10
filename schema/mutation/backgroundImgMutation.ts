@@ -1,25 +1,5 @@
-import fs = require("fs");
-import path = require("path");
-
-// const BackgroundImgSchema = require("../../mongoModels/backgroundImgSchema");
-
-// import { BackgroundImg } from "../../schema/types/backgroundImgType";
-
 import { GraphQLObjectType, GraphQLString, GraphQLBoolean } from "graphql";
-import { GraphQLUpload, FileUpload } from "graphql-upload";
-
-// import {
-//   BackgroundImgType,
-//   BackgroundImgFields,
-// } from "../types/backgroundImgType";
-
-// const UploadedFileType = new GraphQLObjectType({
-//   name: "UploadedFile",
-//   fields: {
-//     originalname: { type: GraphQLString },
-//     mimetype: { type: GraphQLString },
-//   },
-// });
+import { GraphQLUpload } from "graphql-upload";
 
 const UploadedFileType = new GraphQLObjectType({
   name: "UploadedFile",
@@ -30,25 +10,6 @@ const UploadedFileType = new GraphQLObjectType({
     // createReadStream: {type: GraphQLObjectType}
   },
 });
-
-// function removeBackgroundImg(fileName: string, userIdOrDemoId: string) {
-//   console.log("removing background IMg");
-//   return;
-
-//   fs.unlink(
-//     path.join(
-//       __dirname,
-//       "..",
-//       "..",
-//       "backgroundImgs",
-//       userIdOrDemoId,
-//       fileName
-//     ),
-//     (err: any) => {
-//       if (err) console.error(err);
-//     }
-//   );
-// }
 
 export const backgroundImgUploadMutationField = {
   description: "Uploads an image.",
@@ -62,14 +23,8 @@ export const backgroundImgUploadMutationField = {
   },
   // async resolve(parent: unknown, { image }: { image: any }, request: any) {
   // // async resolve(rootValue: any) {
-
-
   //   console.log("background img mutation runs");
-    
   //   let operations = await request.operations;
-
- 
   //   return operations;
   // },
-
 };

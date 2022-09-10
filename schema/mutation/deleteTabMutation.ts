@@ -1,12 +1,9 @@
-import { GraphQLID } from "graphql";
-import { TabType} from "../types/tabType";
-
-import { GraphQLError } from "graphql";
-
-import { RequestWithAuth } from "../middleware/isAuth";
-
+import { GraphQLID, GraphQLError } from "graphql";
 
 const Tab = require("../../mongoModels/tabSchema");
+import { RequestWithAuth } from "../middleware/isAuth";
+
+import { TabType } from "../types/tabType";
 
 export const deleteTabMutationField = {
   type: TabType,
@@ -14,12 +11,9 @@ export const deleteTabMutationField = {
     id: { type: GraphQLID },
   },
   resolve(_source: unknown, args: { id: string }, request: RequestWithAuth) {
-
     if (!request.isAuth) {
       return new GraphQLError("Auth error");
-      // throw new Error("Auth error");
     }
-
 
     return Tab.findByIdAndDelete(args.id);
   },

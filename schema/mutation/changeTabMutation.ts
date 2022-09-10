@@ -1,10 +1,9 @@
-const Tab = require("../../mongoModels/tabSchema");
-import { TabDatabase_i, TabFields, TabType } from "../types/tabType";
-
 import { GraphQLError } from "graphql";
-// import { testUserId } from "../../client/src/state/data/testUserId";
 
+const Tab = require("../../mongoModels/tabSchema");
 import { RequestWithAuth } from "../middleware/isAuth";
+
+import { TabDatabase_i, TabFields, TabType } from "../types/tabType";
 
 export const changeTabMutationField = {
   type: TabType,
@@ -12,15 +11,8 @@ export const changeTabMutationField = {
     ...TabFields,
   },
   resolve(_source: unknown, args: TabDatabase_i, request: RequestWithAuth) {
-
-    // console.log("change tab mutation is Auth");
-    // console.log(request.isAuth);
-    // console.log(request.userId);
-    
-    
     if (!request.isAuth) {
       return new GraphQLError("Auth error");
-      // throw new Error("Auth error");
     }
 
     let update = {
