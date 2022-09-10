@@ -1,15 +1,15 @@
 import React from "react";
 
 import { bookmarkErrors } from "../../utils/data/errors";
-import {BookmarkErrors} from "../../utils/interfaces"
+
+import { BookmarkErrors } from "../../utils/interfaces";
 
 interface Props {
   errors: BookmarkErrors;
 }
 
 function BookmarkErrors_render({ errors }: Props): JSX.Element {
-
-  const errorsCSS = "text-red-500 -mb-5 -mt-1.5"
+  const errorsCSS = "text-red-500 -mb-5 -mt-1.5";
 
   return (
     <>

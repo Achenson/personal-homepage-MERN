@@ -114,10 +114,6 @@ function SelectableList({
       return;
     }
 
-    // if (selectableToHighlight === null) {
-    //   return;
-    // }
-
     if (setWasAnythingClicked) {
       (setWasAnythingClicked as React.Dispatch<React.SetStateAction<boolean>>)(
         true
@@ -175,7 +171,6 @@ function SelectableList({
   return (
     <div
       className="absolute z-50 bg-white w-full border border-t-0"
-      // style={{ width: "271px", marginLeft: "42px" }}
       style={{ marginTop: marginTop }}
     >
       {visibleSelectables_sorted.length === 0 ? (
@@ -188,9 +183,6 @@ function SelectableList({
                 selectableToHighlight === i ? "bg-blueGray-200" : ""
               }  pl-px truncate`}
               onClick={() => {
-                // if (selectableToHighlight !== i) {
-                //   return;
-                // }
                 chooseCurrent(el, "mouse");
               }}
               onMouseEnter={() => {

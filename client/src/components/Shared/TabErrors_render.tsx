@@ -1,6 +1,7 @@
 import React from "react";
 
 import { tabErrors } from "../../utils/data/errors";
+
 import { TabErrors } from "../../utils/interfaces";
 
 interface Props {

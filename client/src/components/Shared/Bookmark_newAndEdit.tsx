@@ -5,7 +5,6 @@ import Bookmark_lowerUI from "../LowerUI/Bookmark_lowerUI";
 
 import { useBookmarks } from "../../state/hooks/useBookmarks";
 import { useTabs } from "../../state/hooks/useTabs";
-// import { useDbContext } from "../../context/dbContext";
 import { useTabsDb } from "../../state/hooks/useTabsDb";
 import { useBookmarksDb } from "../../state/hooks/useBookmarksDb";
 
@@ -17,7 +16,6 @@ import {
   SingleTabData,
 } from "../../utils/interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
-import { UseGlobalSettingsAll } from "../../state/hooks/defaultSettingsHooks";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 
 interface Props {
@@ -30,9 +28,6 @@ interface Props {
   // for upperUI newBookmark only
   mainPaddingRight?: boolean;
   scrollbarWidth?: number;
-  // bookmarks: SingleBookmarkData[];
-  // tabs: SingleTabData[];
-  // bookmarks: SingleBookmarkData[];
   globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
 }
@@ -54,22 +49,14 @@ function Bookmark_newAndEdit({
   colNumber,
   mainPaddingRight,
   scrollbarWidth,
-  // bookmarks,
-  // tabs,
   globalSettings,
   userIdOrNoId,
 }: Props): JSX.Element {
-  // const bookmarks = useBookmarks((state) => state.bookmarks);
-  // const tabs = useTabs((state) => state.tabs);
-
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
 
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
   let tabs: TabDatabase_i[] | SingleTabData[];
-
-  // const bookmarksDb = useDbContext()?.bookmarks;
-  // const tabsDb = useDbContext()?.tabs;
 
   const tabsDb = useTabsDb((store) => store.tabsDb);
   const bookmarksDb = useBookmarksDb((store) => store.bookmarksDb);
@@ -111,7 +98,6 @@ function Bookmark_newAndEdit({
     }
 
     if (bookmarkComponentType === "new_lowerUI") {
-      // if (tabTitle !== tabs.find((obj) => obj.id === "ALL_TAGS")?.title) {
       if (tabTitle !== tabs.find((obj) => !obj.deletable)?.title) {
         return tabTitle as string;
       } else return "";
@@ -122,7 +108,6 @@ function Bookmark_newAndEdit({
     tabs.forEach((obj) => {
       if (
         (currentBookmark as SingleBookmarkData).tags.indexOf(obj.id) > -1 &&
-        // obj.id !== "ALL_TAGS"
         obj.deletable
       ) {
         arrOut.push(obj.title);
@@ -164,21 +149,6 @@ function Bookmark_newAndEdit({
 
     let lastSelectablesArrEl =
       selectablesInputArr[selectablesInputArr.length - 1];
-
-    // function letterToLetterMatch(lastInput: string, el: string) {
-    //   for (let i = 0; i < lastInput.length; i++) {
-    //     if (
-    //       lastInput[i] !== el[i] &&
-    //       // returns true if lastInput is present in initial bookmarks
-    //       initialTags.indexOf(lastInput) === -1 &&
-    //       // returns true is last char is a comma
-    //       selectablesInputStr[selectablesInputStr.length - 1] !== ","
-    //     ) {
-    //       return false;
-    //     }
-    //   }
-    //   return true;
-    // }
 
     initialTags.forEach((el) => {
       if (
@@ -238,7 +208,6 @@ function Bookmark_newAndEdit({
     let tags: string[] = [];
 
     foldersTab.forEach((obj) => {
-      // if (obj.id !== "ALL_TAGS") {
       if (obj.deletable) {
         tags.push(obj.title);
       }
@@ -273,8 +242,6 @@ function Bookmark_newAndEdit({
           {...bookmark_props}
           mainPaddingRight={mainPaddingRight as boolean}
           scrollbarWidth={scrollbarWidth as number}
-          // bookmarks={bookmarks}
-          // tabs={tabs}
           globalSettings={globalSettings}
           userIdOrNoId={userIdOrNoId}
         />
@@ -284,8 +251,6 @@ function Bookmark_newAndEdit({
           currentBookmark={currentBookmark as BookmarkDatabase_i}
           bookmarkId={bookmarkId as string}
           colNumber={colNumber as number}
-          // bookmarks={bookmarks}
-          // tabs={tabs}
           globalSettings={globalSettings}
           userIdOrNoId={userIdOrNoId}
         />
