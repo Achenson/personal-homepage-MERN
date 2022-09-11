@@ -356,6 +356,9 @@ might have been used in few cases?)DONE
 DONE 302. aria-labelled by to use in few cases? (used in GlobalSettings) DONE
 DONE 303. info about files limits somewhere? (info is being shown only before any img is successfully updated) DONE
 DONE 304. check if all dbContext values are being used(reexecuteTabs & staleBookmarks not used - deleted) DONE
+DONE 306. file after file cleaning. order of imports/interfaces!
+  modules components svgs graphqlMutation/queries state context utility funcs etc. static data interfaces
+DONE
 DONE 307. noteEdit -> measure component? (after clicking edit, note is open, height is calculated and based on that the
 number of textarea rows is calculated) DONE
 DONE 308. tabTitles -> currently & is not allowed, but tips & tricks are being set from the beginning! 
@@ -434,31 +437,19 @@ TO implement in future versions?
 302. check tabs speed in producion! too slow >  not remembering state after closing the app.
  -> move the logic to localStorage? disadvantage -> no sync between different devices
 305. technical info about the app on github page
-306. file after file cleaning. order of imports/interfaces!
-  modules
-  components
-  svgs
-  graphqlMutation/queries
-  state
-  context
-  utility funcs etc.
-  static data
-  interfaces
 
 comps less than 600...?
 
 310. Default Tab Colors -> Rss too much to the right?
 311. EdtiTab_main -> check editTag logic -> is it needed still?
-312. rss-parser check if used
+312. rss-parser check if used (server.ts, before - in some RSS component)
 313. Tab -> why is tabOpened_local not needed for notes?
 314. last npm audi
 315. tailwind packing before production
 316. readme files
 317. producion / development code change - see comments in forgotPasswordMutation
 
-
-
-code before cleaning  (TypeScriptReact + typescript)-> 15,199
+code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
 
 
 

@@ -1,10 +1,9 @@
 import graphql = require("graphql");
+const { GraphQLObjectType, GraphQLID, GraphQLInt, GraphQLString } = graphql;
 
 const Settings = require("../../mongoModels/settingsSchema");
 
 import { SettingsType } from "../types/settingsType";
-
-const { GraphQLObjectType, GraphQLID, GraphQLInt, GraphQLString } = graphql;
 
 export interface User_basic_i {
   name: string;
