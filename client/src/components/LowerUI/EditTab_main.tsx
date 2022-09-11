@@ -239,7 +239,6 @@ Props): JSX.Element {
         setTabOpened_local
       );
 
-      // to be LEFT OUT?? see note #201 (check)
       if (tabType === "folder") {
         // changing a tag in bookmarks
         editTag(tabID, arrOfBookmarksNames, bookmarksInputArr);

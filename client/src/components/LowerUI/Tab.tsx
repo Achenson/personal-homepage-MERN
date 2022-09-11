@@ -120,8 +120,8 @@ function Tab({
     setTabOpenedState,
     setReset,
     toggleTab,
-    tabOpened,
-    tabOpenedByDefault
+    tabOpened
+    // tabOpenedByDefault
   );
 
   let tabContextValue = { tabVisState, tabVisDispatch };
@@ -569,7 +569,7 @@ function Tab({
           </div>
         )}
 
-        {/* {tabOpened_local && tabType === "note" && ( */}
+        {/* tabOpened_local is used in NoteInput instead */}
         {tabType === "note" && (
           <NoteInput
             currentTab={currentTab as SingleTabData}

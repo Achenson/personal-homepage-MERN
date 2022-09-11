@@ -437,76 +437,14 @@ TO implement in future versions?
 302. check tabs speed in producion! too slow >  not remembering state after closing the app.
  -> move the logic to localStorage? disadvantage -> no sync between different devices
 305. technical info about the app on github page
-
-comps less than 600...?
-
 310. Default Tab Colors -> Rss too much to the right?
-311. EdtiTab_main -> check editTag logic -> is it needed still?
-312. rss-parser check if used (server.ts, before - in some RSS component)
-313. Tab -> why is tabOpened_local not needed for notes?
-314. last npm audi
+314. last npm audi, both server & clientside
 315. tailwind packing before production
 316. readme files
 317. producion / development code change - see comments in forgotPasswordMutation
+318. testing before puting to producition
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
-
-
-
-
-    const regexForTitle =
-  /^\w(\s*[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w$/;
-
-  
-  console.log(regexForTitle.source);
-
-
-
- const regexForBookmarks = new RegExp(`^${regexForTitle.source}(,\\s${regexForTitle.source})*,?$`);
-
- const regexForBookmarksOld = /^\w(\s*[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w$(,\s\w(\s*[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]*)*\w)*,?$/
-
- //console.log(regexForBookmarks);
- 
- 
- const regexTest = new RegExp(`${regexForTitle.source}`);
-
-let testNewRegex = regexTest.test("dsfsd %ffds");
-//console.log(testNewRegex)
-
-
-let testOld = regexForTitle.test("dsfsd %ffds");
-//console.log(testOld)
-
-
-let test_regexForBookmarks_new = regexForBookmarks.test("sdffsfd, sfsdf")
-console.log(test_regexForBookmarks_new)
- 
-let test_regexForBookmarks_old = regexForBookmarksOld.test("sdffsfsss, f")
-console.log(test_regexForBookmarks_old)
-
-
-
-
-
-
-
-
-
-"urql": "^2.0.5"
-
-
-firecamp upload mutation: 
-variables should be like that:
-{
-  "image": ""
-}
-
-mutation ($image: Upload!) {
-    backgroundImgMutation(image: $image)
-  }
-
-6239ceb924aee400c5bc84ce"
 
 ======================================
 JWT logic: 
@@ -593,7 +531,6 @@ setting nodemailer -> 2 step authentication in gmail -> setting app password
 https://stackoverflow.com/questions/59188483/error-invalid-login-535-5-7-8-username-and-password-not-accepted?answertab=trending#tab-top
 
 
-
 ===========
 mongo/schema etc .notes
 
@@ -603,18 +540,6 @@ schema -> root mutation & root query
 individual mutations & queries -> using models from mongoModels folder (root of the app)
 
 client -> graphql folder -> graphql queries for mutation & queries
-
-
-======================
-other notes
-
-backgroundSettings_Upload -> reexecute query works only after introducint async function!
-
-react-tracked -> optimized rerender for zustand itp?
-
-//// bookmarkAllTags purpose -> delete a Tab if its last bookmark is deleted  not used anymore///
-
-
 
 ================  useCallback & useMemo
 https://kentcdodds.com/blog/usememo-and-usecallback
@@ -695,10 +620,26 @@ Not working in production! due to mixed content (http request on https domain)
     // rssLink:  "https://feeds.theguardian.com/theguardian/uk-news/rss"
 */
 
-=======
-  // 1. testing sending test cookie in request using postman
-  // cookies -> add domain: localhost -> coookie name: jid
-  // console.log(req.headers);
+======================
+other notes
 
-    //  testing: send login mutation in graphql, get accessToken
-  // testin2: take refresh cookie from res (sieć)
+backgroundSettings_Upload -> reexecute query works only after introducint async function!
+
+react-tracked -> optimized rerender for zustand itp?
+
+//// bookmarkAllTags purpose -> delete a Tab if its last bookmark is deleted  not used anymore///
+
+// 1. testing sending test cookie in request using postman
+// cookies -> add domain: localhost -> coookie name: jid
+// console.log(req.headers);
+
+//  testing: send login mutation in graphql, get accessToken
+// testin2: take refresh cookie from res (sieć)
+  
+"urql": "^2.0.5"
+
+firecamp upload mutation: 
+variables should be like that:
+{
+  "image": ""
+}
