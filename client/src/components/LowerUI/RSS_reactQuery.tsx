@@ -21,6 +21,8 @@ function ReactQuery({
   isTabDraggedOver,
   globalSettings,
 }: Props): JSX.Element {
+  const environment = process.env.NODE_ENV;
+
   function calcItemsPerPage() {
     if (typeof currentTab?.itemsPerPage === "number") {
       return currentTab.itemsPerPage;
@@ -60,7 +62,14 @@ function ReactQuery({
   });
 
   async function fetchFeed() {
-    let baseFetchUrl = "http://localhost:4000/fetch_rss/";
+    let baseFetchUrl: string;
+
+    if (environment === "production") {
+      baseFetchUrl = "/fetch_rss/";
+    } else {
+      baseFetchUrl = "http://localhost:4000/fetch_rss/";
+    }
+
     let extendedRSSurl = `${currentTab.rssLink}?format=xml`;
 
     try {

@@ -22,7 +22,7 @@ const isAuth = require("./schema/middleware/isAuth");
 import { schema } from "./schema/schema";
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 app.use(
   helmet({

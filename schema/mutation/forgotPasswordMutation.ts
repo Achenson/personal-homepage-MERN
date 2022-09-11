@@ -11,13 +11,14 @@ export const forgotPasswordMutationField = {
   },
 
   async resolve(_source: unknown, args: { email: string }) {
-    //     let passforgotUri;
-    // if (environment === "production") {
-    //   passforgotUri = "https://wikispeedtyping.herokuapp.com/#/passforgot-change/"
-    // } else {
-    //   passforgotUri = "http://localhost:3000/passforgot-change/";
-    // }
-    let passforgotUri = "http://localhost:3000/passforgot-change/";
+    const environment = process.env.NODE_ENV;
+
+    let passforgotUri;
+    if (environment === "production") {
+      passforgotUri = "https://smoothtabs.herokuapp.com/#/passforgot-change/";
+    } else {
+      passforgotUri = "http://localhost:3000/passforgot-change/";
+    }
 
     const user = await User.findOne({ email: args.email });
 

@@ -366,6 +366,8 @@ DONE 308. tabTitles -> currently & is not allowed, but tips & tricks are being s
 DONE 309. better tags handling -> in editFolder if the selectables go empty (e. double space) they won't
 be visible again (bug was only in editFolder, selectables visibility was not reset in onChange) DONE
 DONE 310. Default Tab Colors -> Rss too much to the right? DONE
+DONE 317. producion / development code change - see comments in forgotPasswordMutation (
+  code changed also in server.ts App MainRoute and RSS_reactQuery) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -441,7 +443,6 @@ TO implement in future versions?
 314. last npm audi, both server & clientside
 315. tailwind packing before production
 316. readme files
-317. producion / development code change - see comments in forgotPasswordMutation
 318. testing before puting to producition
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854

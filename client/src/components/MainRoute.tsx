@@ -48,6 +48,8 @@ function MainRoute({
   backgroundImgResults,
   reexecuteBackgroundImg,
 }: Props): JSX.Element {
+  const environment = process.env.NODE_ENV;
+
   const backgroundColor = globalSettings.backgroundColor;
   const setLoginNotification = useAuth((store) => store.setLoginNotification);
 
@@ -72,7 +74,14 @@ function MainRoute({
       backgroundImgUrl
     ) {
       // let parsedUrl = path.join("http://localhost:4000/" + backgroundImgUrl)
-      let parsedUrl = "http://localhost:4000/" + backgroundImgUrl;
+      let parsedUrl: string;
+
+      if (environment === "production") {
+        parsedUrl = "/" + backgroundImgUrl;
+      } else {
+        parsedUrl = "http://localhost:4000/" + backgroundImgUrl;
+      }
+
       return `url(${parsedUrl})`;
     }
     return undefined;

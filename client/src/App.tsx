@@ -1,12 +1,7 @@
 import React, { useMemo } from "react";
 import { DndProvider } from "react-dnd-multi-backend";
 import HTML5toTouch from "react-dnd-multi-backend/dist/esm/HTML5toTouch";
-import {
-  createClient,
-  Provider,
-  dedupExchange,
-  cacheExchange,
-} from "urql";
+import { createClient, Provider, dedupExchange, cacheExchange } from "urql";
 import { multipartFetchExchange } from "@urql/exchange-multipart-fetch";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { authExchange } from "@urql/exchange-auth";
@@ -51,7 +46,7 @@ function App() {
 
   const client = useMemo(() => {
     return createClient({
-      url: "http://localhost:4000/graphql",
+      url: graphqlUri,
       exchanges: [
         dedupExchange,
         cacheExchange,
@@ -100,9 +95,9 @@ function App() {
               console.log("no auth state - initial app run");
 
               const accessToken = authContext.accessToken;
-              
+
               if (accessToken) {
-                // code executed after login. Also, later on app reload 
+                // code executed after login. Also, later on app reload
                 // (after the code for no access token runs first)
 
                 // ====== checking if accessToken is expired
@@ -125,9 +120,9 @@ function App() {
                   return refreshToken();
                 }
               }
-               // code executed immediately on app reload 
+              // code executed immediately on app reload
               console.log("no access token");
-              return refreshToken()
+              return refreshToken();
             }
             // code executed when an auth erros has occured (meaning: accessToken has expired)
 
