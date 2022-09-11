@@ -365,6 +365,7 @@ DONE 308. tabTitles -> currently & is not allowed, but tips & tricks are being s
 (major rework, special characters are now allowed! no flanking spaces, no commas, no double spaces) DONE
 DONE 309. better tags handling -> in editFolder if the selectables go empty (e. double space) they won't
 be visible again (bug was only in editFolder, selectables visibility was not reset in onChange) DONE
+DONE 310. Default Tab Colors -> Rss too much to the right? DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -437,7 +438,6 @@ TO implement in future versions?
 302. check tabs speed in producion! too slow >  not remembering state after closing the app.
  -> move the logic to localStorage? disadvantage -> no sync between different devices
 305. technical info about the app on github page
-310. Default Tab Colors -> Rss too much to the right?
 314. last npm audi, both server & clientside
 315. tailwind packing before production
 316. readme files

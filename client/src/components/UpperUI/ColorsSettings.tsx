@@ -103,15 +103,15 @@ function ColorsSettings({
     xsScreen: boolean
   ) {
     if (defaultColorsFor === "folders") {
-      return xsScreen ? "80px" : "83px";
+      return xsScreen ? "82px" : "85px";
     }
 
     if (defaultColorsFor === "notes") {
-      return xsScreen ? "92px" : "126px";
+      return xsScreen ? "93px" : "128px";
     }
 
     if (defaultColorsFor === "rss") {
-      return xsScreen ? "103px" : "171px";
+      return xsScreen ? "101px" : "168px";
     }
 
     if (defaultColorsFor === "unselected") {
@@ -210,7 +210,7 @@ function ColorsSettings({
                   aria-label={"Default folders color menu"}
                 ></button>
               </div>
-              <div className="flex justify-start items-center mb-2 mt-2 mr-6 ml-6 xs:mr-4 xs:ml-4">
+              <div className="flex justify-start items-center mb-2 mt-2 mr-5 ml-6 xs:mr-3 xs:ml-4">
                 <div className="h-5 w-5 xs:h-6 xs:w-6 mr-px mb-1 xs:mb-1">
                   <NoteSVG className="w-full h-full" />
                 </div>
