@@ -445,6 +445,10 @@ TO implement in future versions?
 316. readme files
 318. testing before puting to producition
 "react-scripts": "^4.0.3", <- working
+"mongoose": "^6.0.7", -> 6.6.0 
+12.09.2022 -> server-> 2high severity
+ -> no fix available; clienside -> 1high severity, dep of react-script but the newset react-script has been installed
+
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
 
