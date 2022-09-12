@@ -444,6 +444,7 @@ TO implement in future versions?
 315. tailwind packing before production
 316. readme files
 318. testing before puting to producition
+"react-scripts": "^4.0.3", <- working
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
 
