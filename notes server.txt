@@ -178,10 +178,11 @@ DONE 147. darker default background img? (change to darker - slight blueGray) DO
 DONE 148. after registering -> automatically fill up username field in Login? DONE
 DONE 150. change naming to ByUser & ByAdmin DONE
 DONE 151. check if changeUSer "by admin" works DONE (reworked)
-DONE153. serverside interfaces are in types files, better interfaces sharing between client and server?
+DONE 153. serverside interfaces are in types files, better interfaces sharing between client and server?
 ) (settings and basic types for tabs and bookmarks are being taken by server from client) DONE 
 DONE 154. UserProfile -> mutations should succeed if there is proper field being send back (done? if there is no
 proper fields being return -> generic error) DONE
+DONE 155. better email validation (slightly better)DONE
 xxx 156. UserProfile -> no server connection error -> !res may be not the right kind of logic for it? (seems good enough?) xxx
 DONE 157. UserProfile -> simplify error logic! less ifs, errors received serverside if no proper data returned DONE
 DONE 158. addUserMutation -> change so it distinguish between username and email already present in DB DONE
@@ -392,6 +393,7 @@ GOOD enough?
   it maybe possible if it was uses inside a graphql resolver
   https://github.com/apollographql/apollo-server/issues/301 x
   xx 129. implement willAuthError for better performance (goodEnough) xx
+  x 149. more rigid password checking (eg. gmail req. is similar)x
   xxx 160. editUser -> update causes flickering due to reexecuting query (left, urql problem?) xxx
   xx 168. objectAssign -> convert to function? (good enough, but not type safe) xx
   xxx 170. AuthNotification components -> implement in UserProfile (good enough - AuthNotification would actually mean more codelines)xxx
@@ -430,8 +432,6 @@ TO implement in future versions?
 TO implement in future versions?
                                   
 139. wiki-speed-typing, take care of 138 issue!
-149. more rigid password checking?
-155. better email validation
 188. wiki-speed-typing -> check if password retrival is available still
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
 167.(pushed) changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?

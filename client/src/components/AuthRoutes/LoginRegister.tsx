@@ -159,7 +159,8 @@ function LoginRegister({ globalSettings }: Props): JSX.Element {
       return;
     }
 
-    if (email === "" || email.indexOf("@") === -1) {
+    // if (email === "" || email.indexOf("@") === -1) {
+    if (email === "" || !/.+@.+/.test(email)) {
       setRegisterErrorMessage("Invalid email");
       return;
     }
