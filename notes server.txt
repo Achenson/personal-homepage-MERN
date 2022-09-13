@@ -370,6 +370,8 @@ DONE 310. Default Tab Colors -> Rss too much to the right? DONE
 DONE 317. producion / development code change - see comments in forgotPasswordMutation (
   code changed also in server.ts App MainRoute and RSS_reactQuery) DONE
 DONE 320. bug -> user register successfully message everytime, even if the user or email is already in the db! not saved in db though DONE
+DONE 321. mention somewhere that only https links are allowed as RSS (tips & tricks) DONE
+DONE 322. mention somewhere that bookmark links should be copied from the browseras they should start with http or https (tips & tricks) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -430,26 +432,29 @@ GOOD enough
 TO implement in future versions?
   x 263. option to reset single Tab color to default? (goodEnough for now, all tabs have to reseted) x 
   willAuthError
+  a way to remember tabs' column position?
 TO implement in future versions?
                                   
 139. wiki-speed-typing, take care of 138 issue!
 188. wiki-speed-typing -> check if password retrival is available still
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
 167.(pushed) changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
-181. (pushed) clean db in the end
 233. rrs itemsPerPage -> test on mobile! real one
 302. check tabs speed in producion! too slow >  not remembering state after closing the app.
  -> move the logic to localStorage? disadvantage -> no sync between different devices
 305. technical info about the app on github page
 314. last npm audi, both server & clientside
-315. tailwind packing before production
-316. readme files
-318. testing before puting to producition
 "react-scripts": "^4.0.3", <- working
 "mongoose": "^6.0.7", -> 6.6.0 
 12.09.2022 -> server-> 2high severity
  -> no fix available; clienside -> 1high severity, dep of react-script but the newset react-script has been installed
+315. tailwind packing before production
+316. readme files
+318. testing before puting to producition (client tested)
+!!!! 181. (pushed) clean db in the end - after testing !!!!
 319. allow for more rss items? 100?
+323. later, even after the app is ready -> change default RSS channels
+
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
 

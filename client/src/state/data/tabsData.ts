@@ -89,7 +89,11 @@ Refer to tips & trick note for advanced usage.
     openedByDefault: false,
     deletable: true,
     type: "note",
-    noteInput: `The content visibility of all tabs is being preserved between reloads. You can reset (curly arrow in the upper left section) the tabs' content visibility to default state, which can be set for individual tabs.
+    noteInput: `The safest way to enter proper URL address for a bookmark is to copy it directly from your browser address bar.
+
+RSS channels without a secure link (not starting with https) are not allowed.
+
+The content visibility of all tabs is being preserved between reloads. You can reset (curly arrow in the upper left section) the tabs' content visibility to default state, which can be set for individual tabs.
 
 Tab colors can be set either individually or globally for bookmark folders, notes and RSS channels. In "Default tab colors" settings menu you can reset all individual tab colors to global configuration.
 
