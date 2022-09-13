@@ -369,6 +369,7 @@ be visible again (bug was only in editFolder, selectables visibility was not res
 DONE 310. Default Tab Colors -> Rss too much to the right? DONE
 DONE 317. producion / development code change - see comments in forgotPasswordMutation (
   code changed also in server.ts App MainRoute and RSS_reactQuery) DONE
+DONE 320. bug -> user register successfully message everytime, even if the user or email is already in the db! not saved in db though DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -448,7 +449,7 @@ TO implement in future versions?
 "mongoose": "^6.0.7", -> 6.6.0 
 12.09.2022 -> server-> 2high severity
  -> no fix available; clienside -> 1high severity, dep of react-script but the newset react-script has been installed
-
+319. allow for more rss items? 100?
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
 

@@ -110,21 +110,20 @@ function LoginRegister({ globalSettings }: Props): JSX.Element {
           return;
         }
 
-        if (res.data?.login?.error === "User does not exist") {
-          console.log(res.data.login.error);
-          setLoginErrorMessage(res.data.login.error);
-          return;
-        }
-
-        if (res.data?.login?.error === "Password is incorrect") {
-          console.log(res.data.login.error);
-          setLoginErrorMessage(res.data.login.error);
-          return;
-        }
-
         if (res.error) {
           console.log(res.error.message);
           setLoginErrorMessage("Unknown server error");
+          return;
+        }
+
+        if (!res.data?.login) {
+          setLoginErrorMessage("An unknown error has occured");
+          return;
+        }
+
+        if (res.data?.login?.error) {
+          console.log(res.data.login.error);
+          setLoginErrorMessage(res.data.login.error);
           return;
         }
 
@@ -195,10 +194,11 @@ function LoginRegister({ globalSettings }: Props): JSX.Element {
           return;
         }
 
-        if (!res.data?.addUser) {
+        if (!res.data?.addUser?.id) {
           if (res.error) {
             console.log(res.error.message);
             setRegisterErrorMessage("Unknown server error");
+            return;
           }
 
           if (res.data?.addUser?.error) {
