@@ -454,6 +454,9 @@ TO implement in future versions?
 !!!! 181. (pushed) clean db in the end - after testing !!!!
 319. allow for more rss items? 100?
 323. later, even after the app is ready -> change default RSS channels
+324. still possible to enter a tag with comma (if double comma is at the end)
+325. tabs (server code only) -> if default visibility is set to off, the tab will close just
+after updating it
 
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
