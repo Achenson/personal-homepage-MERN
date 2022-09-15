@@ -192,7 +192,7 @@ Props): JSX.Element {
     ...errorsAllFalse,
   });
 
-  const [tabOpen, setTabOpen] = useState(currentTab.openedByDefault);
+  const [tabOpenedByDefault, setTabOpenedByDefault] = useState(currentTab.openedByDefault);
 
   const [selectablesListVis, setSelectablesListVis] = useState<boolean>(false);
 
@@ -235,7 +235,7 @@ Props): JSX.Element {
         wasCheckboxClicked,
         wasItemsPerPageClicked,
         tabType,
-        tabOpen,
+        tabOpenedByDefault,
         setTabOpened_local
       );
 
@@ -251,8 +251,8 @@ Props): JSX.Element {
       editTab({
         ...currentTab,
         title: tabTitleInput,
-        openedByDefault: tabOpen,
-        opened: tabOpen
+        openedByDefault: tabOpenedByDefault,
+        opened: wasTabOpenClicked ? tabOpenedByDefault : currentTab.opened
       });
 
       console.log(bookmarksInputArr);
@@ -294,9 +294,9 @@ Props): JSX.Element {
       editTab({
         ...currentTab,
         title: tabTitleInput,
-        openedByDefault: tabOpen,
+        openedByDefault: tabOpenedByDefault,
         noteInput: textAreaValue,
-        opened: tabOpen
+        opened: wasTabOpenClicked ? tabOpenedByDefault : currentTab.opened
       });
     }
 
@@ -304,8 +304,8 @@ Props): JSX.Element {
       editTab({
         ...currentTab,
         title: tabTitleInput,
-        openedByDefault: tabOpen,
-        opened: tabOpen,
+        openedByDefault: tabOpenedByDefault,
+        opened: wasTabOpenClicked ? tabOpenedByDefault : currentTab.opened,
         rssLink: rssLinkInput,
         date: globalSettings.date === dateCheckbox ? null : dateCheckbox,
         description:
@@ -478,11 +478,11 @@ Props): JSX.Element {
           <div className="flex justify-between items-center">
             <p>Default content visibility</p>
 
-            {tabOpen ? (
+            {tabOpenedByDefault ? (
               <button
                 className="h-6 w-6 focus-2"
                 onClick={() => {
-                  setTabOpen((b) => !b);
+                  setTabOpenedByDefault((b) => !b);
                   setWasTabOpenClicked(true);
                   setSelectablesListVis(false);
                 }}
@@ -494,7 +494,7 @@ Props): JSX.Element {
               <button
                 className="h-6 w-6 focus-2"
                 onClick={() => {
-                  setTabOpen((b) => !b);
+                  setTabOpenedByDefault((b) => !b);
                   setWasTabOpenClicked(true);
                   setSelectablesListVis(false);
                 }}

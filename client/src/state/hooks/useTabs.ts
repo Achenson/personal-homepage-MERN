@@ -31,7 +31,7 @@ interface UseTabs {
     wasCheckboxClicked: boolean,
     wasItemsPerPageClicked: boolean,
     tabType: "folder" | "note" | "rss",
-    tabOpen: boolean,
+    tabOpenByDefault: boolean,
     setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
   resetAllTabColors: () => void;
@@ -239,7 +239,7 @@ export const useTabs = create<UseTabs>(
         wasCheckboxClicked,
         wasItemsPerPageClicked,
         tabType,
-        tabOpen,
+        tabOpenedByDefault,
         setTabOpened_local
       ) => {
         set(
@@ -248,9 +248,9 @@ export const useTabs = create<UseTabs>(
             if (tabToUpdate) {
               tabToUpdate.title = tabTitleInput;
               if (wasTabOpenClicked) {
-                tabToUpdate.openedByDefault = tabOpen;
-                setTabOpened_local(tabOpen);
-                tabToUpdate.opened = tabOpen;
+                tabToUpdate.openedByDefault = tabOpenedByDefault;
+                setTabOpened_local(tabOpenedByDefault);
+                tabToUpdate.opened = tabOpenedByDefault;
               }
 
               if (tabType === "note") {
