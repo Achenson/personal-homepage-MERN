@@ -27,7 +27,7 @@ export const titleRegex_unflanked = new RegExp(
 );
 
 export const tagsOrBookmarksRegexForSaving = new RegExp(
-  `^${titleRegex_unflanked.source}(,\\s${titleRegex_unflanked.source})*,?$`
+  `^${titleRegex_unflanked.source}(,\\s${titleRegex_unflanked.source})*$`
 );
 
 

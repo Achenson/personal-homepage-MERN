@@ -372,6 +372,8 @@ DONE 317. producion / development code change - see comments in forgotPasswordMu
 DONE 320. bug -> user register successfully message everytime, even if the user or email is already in the db! not saved in db though DONE
 DONE 321. mention somewhere that only https links are allowed as RSS (tips & tricks) DONE
 DONE 322. mention somewhere that bookmark links should be copied from the browseras they should start with http or https (tips & tricks) DONE
+DONE 324. still possible to enter a tag with comma (if double comma is at the end)
+(comma at the end of the regex deleted -> the string being tested already does not contain it!) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -454,7 +456,6 @@ TO implement in future versions?
 !!!! 181. (pushed) clean db in the end - after testing !!!!
 319. allow for more rss items? 100?
 323. later, even after the app is ready -> change default RSS channels
-324. still possible to enter a tag with comma (if double comma is at the end)
 325. tabs (server code only) -> if default visibility is set to off, the tab will close just
 after updating it
 
