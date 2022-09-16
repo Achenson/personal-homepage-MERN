@@ -41,7 +41,8 @@ function PassordForgotten({ globalSettings }: Props): JSX.Element {
   }, []);
 
   function sendPasswordChangeLink() {
-    if (email === "" || email.indexOf("@") === -1) {
+    // if (email === "" || email.indexOf("@") === -1) {
+    if (email === "" || !/.+@.+/.test(email)) {
       setErrorMessage("Invalid email");
       setNotificationMessage(null);
       return;

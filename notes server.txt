@@ -376,6 +376,7 @@ DONE 324. still possible to enter a tag with comma (if double comma is at the en
 (comma at the end of the regex deleted -> the string being tested already does not contain it!) DONE
 DONE 325. tabs: folders  (server code only) -> if default visibility is set to off, the tab will close just
 after updating it (EditTab_main -> now it changes the openess of a tab only if tabOpenedByDefault was clicked) DONE
+DONE 327. email validation -> do it everywhere! DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -458,7 +459,6 @@ TO implement in future versions?
 !!!! 181. (pushed) clean db in the end - after testing !!!!
 319. allow for more rss items? 100?
 323. later, even after the app is ready -> change default RSS channels
-326. possible RSS bug in EditTab_main -> difference in saving for db and non auth code
 
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854

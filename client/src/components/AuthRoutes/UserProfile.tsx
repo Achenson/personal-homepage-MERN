@@ -254,7 +254,8 @@ function UserProfile({ globalSettings }: Props): JSX.Element {
                     return;
                   }
 
-                  if (email.indexOf("@") === -1) {
+                  // if (email.indexOf("@") === -1) {
+                  if (!/.+@.+/.test(email)) {
                     errMessage("Please enter valid email address");
                     return;
                   }
