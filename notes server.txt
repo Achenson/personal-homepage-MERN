@@ -212,6 +212,7 @@ DONE 177. useAuth zustand hook -> loginErrorMessage -> delete or implement? (del
 DONE 178. after registering & redirecting to login -> focus should be set on password DONE
 DONE 179. after registering -> register fields should be emptied DONE
 xxx 180. focus should be on first field after clicking Login or Register (good-enough)xxx
+DONE !!!! 181. (pushed) clean db in the end - after testing !!!! DONE
   X 182. wiki-speed-typing - better login/register looks? (good enough) X
   X 183. login/register modals -> name of the app should be visible somewhere?
   (goodEnough - visible on the tab) X
@@ -451,18 +452,17 @@ TO implement in future versions?
 302. check tabs speed in producion! too slow >  not remembering state after closing the app.
  -> move the logic to localStorage? disadvantage -> no sync between different devices
 305. technical info about the app on github page
+
 314. last npm audi, both server & clientside
 "react-scripts": "^4.0.3", <- working
 "mongoose": "^6.0.7", -> 6.6.0 
 12.09.2022 -> server-> 2high severity
  -> no fix available; clienside -> 1high severity, dep of react-script but the newset react-script has been installed
+
 315. tailwind packing before production
 316. readme files
-!!!! 181. (pushed) clean db in the end - after testing !!!!
 319. allow for more rss items? 100?
 323. later, even after the app is ready -> change default RSS channels
-325. 1 webpack warning?
-
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
 
