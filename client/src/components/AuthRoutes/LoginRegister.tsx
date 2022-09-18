@@ -271,141 +271,168 @@ function LoginRegister({ globalSettings }: Props): JSX.Element {
         </button>
       </div>
 
-      <div className="mt-3 mb-5 flex flex-col items-center">
-        {loginOrRegister === "login" ? (
-          <div className="w-48">
-            <p>Email address / username</p>
-            <LogRegProfile_input
-              ref={firstFieldRef}
-              inputValue={email_or_name}
-              setInputValue={setEmail_or_name}
-              preventCopyPaste={false}
-              passwordInputType={false}
-              passVisible={undefined}
-            />
-          </div>
-        ) : (
-          <>
+      {loginOrRegister === "login" ? (
+        <form>
+          <div className="mt-3 mb-5 flex flex-col items-center">
             <div className="w-48">
-              <p>Username</p>
+              <p>Email address / username</p>
               <LogRegProfile_input
-                inputValue={username}
-                setInputValue={setUsername}
+                ref={firstFieldRef}
+                inputValue={email_or_name}
+                setInputValue={setEmail_or_name}
                 preventCopyPaste={false}
                 passwordInputType={false}
                 passVisible={undefined}
               />
             </div>
-            <div className="mt-1 w-48">
-              <p>Email address</p>
-              <LogRegProfile_input
-                inputValue={email}
-                setInputValue={setEmail}
-                preventCopyPaste={false}
-                passwordInputType={false}
-                passVisible={undefined}
-              />
+            <div>
+              <div className="mt-1 w-48">
+                <div className="flex items-center justify-between">
+                  <p>Password</p>
+                  <button
+                    className="focus-1-offset"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setPassVisible(!passVisible);
+                    }}
+                    aria-label={"Show/hide password"}
+                  >
+                    <span className={`text-sm text-${uiColor}`}>
+                      {passVisible ? "hide" : "show"}
+                    </span>
+                  </button>
+                </div>
+                <LogRegProfile_input
+                  ref={secondFieldRef}
+                  inputValue={password}
+                  setInputValue={setPassword}
+                  preventCopyPaste={true}
+                  passwordInputType={true}
+                  passVisible={passVisible}
+                />
+              </div>
             </div>
-          </>
-        )}
-
-        <div className={`${loginOrRegister === "register" ? "mt-3" : ""}`}>
-          <div className="mt-1 w-48">
-            <div className="flex items-center justify-between">
-              <p>Password</p>
+            {loginErrorMessage && (
+              <AuthNotification
+                notificationType="error"
+                notification={loginErrorMessage}
+              />
+            )}
+            {loginNotification && (
+              <AuthNotification
+                notificationType="confirmation"
+                notification={loginNotification}
+              />
+            )}
+          </div>
+          <div className="flex justify-center">
+            <div className="flex flex-col -mb-1">
               <button
-                className="focus-1-offset"
-                onClick={() => {
-                  setPassVisible(!passVisible);
+                className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
+                    focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  loginValidation();
                 }}
-                aria-label={"Show/hide password"}
               >
-                <span className={`text-sm text-${uiColor}`}>
-                  {passVisible ? "hide" : "show"}
-                </span>
+                Login
+              </button>
+              <button
+                className={`mt-0.5 text-sm text-gray-400 hover:text-opacity-50 cursor-pointer  focus-1-offset`}
+                onClick={(e) => {
+                  e.preventDefault(); 
+                  navigate("/passforgot");
+                }}
+              >
+                Forgot password?
               </button>
             </div>
-
-            <LogRegProfile_input
-              ref={secondFieldRef}
-              inputValue={
-                loginOrRegister === "login" ? password : passwordForRegister
-              }
-              setInputValue={
-                loginOrRegister === "login"
-                  ? setPassword
-                  : setPasswordForRegister
-              }
-              preventCopyPaste={true}
-              passwordInputType={true}
-              passVisible={passVisible}
-            />
           </div>
-
-          {loginOrRegister === "register" && (
-            <div className="mt-1 w-48">
-              <p>Confirm password</p>
-              <LogRegProfile_input
-                inputValue={passwordForRegisterConfirm}
-                setInputValue={setPasswordForRegisterConfirm}
-                preventCopyPaste={true}
-                passwordInputType={true}
-                passVisible={passVisible}
-              />
+        </form>
+      ) : (
+        <form action="">
+          <div className="mt-3 mb-5 flex flex-col items-center">
+            <>
+              <div className="w-48">
+                <p>Username</p>
+                <LogRegProfile_input
+                  inputValue={username}
+                  setInputValue={setUsername}
+                  preventCopyPaste={false}
+                  passwordInputType={false}
+                  passVisible={undefined}
+                />
+              </div>
+              <div className="mt-1 w-48">
+                <p>Email address</p>
+                <LogRegProfile_input
+                  inputValue={email}
+                  setInputValue={setEmail}
+                  preventCopyPaste={false}
+                  passwordInputType={false}
+                  passVisible={undefined}
+                />
+              </div>
+            </>
+            <div className={`mt-3`}>
+              <div className="mt-1 w-48">
+                <div className="flex items-center justify-between">
+                  <p>Password</p>
+                  <button
+                    className="focus-1-offset"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setPassVisible(!passVisible);
+                    }}
+                    aria-label={"Show/hide password"}
+                  >
+                    <span className={`text-sm text-${uiColor}`}>
+                      {passVisible ? "hide" : "show"}
+                    </span>
+                  </button>
+                </div>
+                <LogRegProfile_input
+                  ref={secondFieldRef}
+                  inputValue={passwordForRegister}
+                  setInputValue={setPasswordForRegister}
+                  preventCopyPaste={true}
+                  passwordInputType={true}
+                  passVisible={passVisible}
+                />
+              </div>
+              <div className="mt-1 w-48">
+                <p>Confirm password</p>
+                <LogRegProfile_input
+                  inputValue={passwordForRegisterConfirm}
+                  setInputValue={setPasswordForRegisterConfirm}
+                  preventCopyPaste={true}
+                  passwordInputType={true}
+                  passVisible={passVisible}
+                />
+              </div>
             </div>
-          )}
-        </div>
-
-        {loginOrRegister === "login" && loginErrorMessage && (
-          <AuthNotification
-            notificationType="error"
-            notification={loginErrorMessage}
-          />
-        )}
-        {loginOrRegister === "register" && registerErrorMessage && (
-          <AuthNotification
-            notificationType="error"
-            notification={registerErrorMessage}
-          />
-        )}
-        {loginOrRegister === "login" && loginNotification && (
-          <AuthNotification
-            notificationType="confirmation"
-            notification={loginNotification}
-          />
-        )}
-      </div>
-
-      <div className="flex justify-center">
-        {loginOrRegister === "login" ? (
-          <div className="flex flex-col -mb-1">
+            {registerErrorMessage && (
+              <AuthNotification
+                notificationType="error"
+                notification={registerErrorMessage}
+              />
+            )}
+          </div>
+          <div className="flex justify-center">
             <button
               className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
-                  focus:outline-none focus-visible:ring-1 ring-${uiColor}`}
-              onClick={loginValidation}
-            >
-              Login
-            </button>
-            <button
-              className={`mt-0.5 text-sm text-gray-400 hover:text-opacity-50 cursor-pointer  focus-1-offset`}
-              onClick={() => {
-                navigate("/passforgot");
+                      focus:outline-none focus-visible:ring-1 ring-${uiColor}
+                      `}
+              onClick={(e) => {
+                e.preventDefault();
+                registerValidation();
               }}
             >
-              Forgot password?
+              Register
             </button>
           </div>
-        ) : (
-          <button
-            className={`w-24 border border-${uiColor} rounded-md px-1 pb-px hover:bg-${uiColor} hover:bg-opacity-50 transition-colors duration-150
-                  focus:outline-none focus-visible:ring-1 ring-${uiColor}
-                  `}
-            onClick={registerValidation}
-          >
-            Register
-          </button>
-        )}
-      </div>
+        </form>
+      )}
     </div>
   );
 }
