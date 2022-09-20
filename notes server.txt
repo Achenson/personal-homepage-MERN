@@ -454,6 +454,7 @@ TO implement in future versions?
 319. allow for more rss items? 100?
 328. later, even after the app is ready -> change default RSS channels
 329. wiki-speed-typing should be moved to new stack until april 2023
+330. testing BrowserRouter (also - change in the URL in forgotPasswordMutation) instead of HashRouter
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
 

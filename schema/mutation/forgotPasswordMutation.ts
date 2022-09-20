@@ -15,7 +15,8 @@ export const forgotPasswordMutationField = {
 
     let passforgotUri;
     if (environment === "production") {
-      passforgotUri = "https://smoothtabs.herokuapp.com/#/passforgot-change/";
+      // passforgotUri = "https://smoothtabs.herokuapp.com/#/passforgot-change/";
+      passforgotUri = "https://smoothtabs.herokuapp.com/passforgot-change/";
     } else {
       passforgotUri = "http://localhost:3000/passforgot-change/";
     }
