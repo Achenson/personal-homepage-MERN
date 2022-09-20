@@ -664,7 +664,7 @@ variables should be like that:
 3. urql - results.stale may be crucial for having up to date db data! 
 
 ============================
-Heroku deployment (originally in wiki-speed-typing):
+Heroku deployment (modified, originally in wiki-speed-typing):
 
 0.heroku account
 1. server.js:
@@ -672,18 +672,23 @@ Heroku deployment (originally in wiki-speed-typing):
 (in wiki-speed-typing - after cors logic)
 - if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
-} [heroku will autumaticaly config its vars so that NODE_ENV === "production"]
+} [heroku will autumatically config its vars so that NODE_ENV === "production"]
 
 2. scripts, so npm run build in the client run automatically on heroku
 // script "heroku-postbuild" <- this exact name!
 // script "start" <- also for heroku
 
-3. heroku site -> setting -> config vars -> add the save vars as in .env
+3. heroku site -> new app-> setting -> config vars -> add the save vars as in .env
 
 4. HashRouter instead of BrowserRouter!!! otherwise you won't be able to refresh routes other than main,
 and link send by email(password change) won't work
 
-5. heroku login -> heroku create... -> git push heroku master
+5. heroku site -> deploy -> "Heroku Git, use heroku cli" -> install heroku app cli-> 
+in vscode terminal: heroku login -> follow instruction from the last option (when git repo already exist) 
+[not sure if this step in necessary -> maybe deploying with github is enough? heroku app cli is useful though]
+
+
+ heroku login -> heroku create... -> git push heroku master
 
 6.integrating with github -> heroku site -> deploy
 
