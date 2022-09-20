@@ -1,7 +1,5 @@
 Typescript & tailwing manual updated:
 
-
-
 tailwind ccs && typescript:
 
 1. npx create-react-app my-app --template typescript !!

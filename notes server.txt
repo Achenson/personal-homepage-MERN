@@ -3,16 +3,6 @@
  // "server": "nodemon --exec ts-node server.ts",
  "server": "nodemon server.ts",
 
-
-notes:
-
-1. in GraphQL, all types are nullable by default!
-2. to get object from mutation with saving: return a promise, resolve with the product!
-3. urql - results.stale crucial for having up to date db data! 
-[server.js & SingleBookmark -> favicon test on click]
-[server.js & testMutation -> adding additional data through middleware and passing to graphql resolver test]
-
-
  issues:
  
  DONE 2. working graphql playground DONE
@@ -639,6 +629,8 @@ Not working in production! due to mixed content (http request on https domain)
     // rssLink: "https://techbeacon.com/rss.xml"  
     // rssLink:  "https://feeds.theguardian.com/theguardian/uk-news/rss"
 */
+==== tailwind
+see notes in client folde
 
 ======================
 other notes
@@ -663,3 +655,35 @@ variables should be like that:
 {
   "image": ""
 }
+
+
+1. in GraphQL, all types are nullable by default!
+2. to get object from mutation with saving: return a promise, resolve with the product!
+3. urql - results.stale may be crucial for having up to date db data! 
+
+============================
+Heroku deployment (originally in wiki-speed-typing):
+
+0.heroku account
+1. server.js:
+- const PORT = process.env.PORT || 4000;
+- if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+} [heroku will autumaticaly config its vars so that NODE_ENV === "production"]
+
+2. scripts, so npm run build in the client run automatically on heroku
+// script "heroku-postbuild" <- this exact name!
+// script "start" <- also for heroku
+
+3. heroku site -> setting -> config vars -> add the save vars as in .env
+
+4. HashRouter instead of BrowserRouter!!! otherwise you won't be able to refresh routes other than main,
+and link send by email(password change) won't work
+
+5. heroku login -> heroku create... -> git push heroku master
+
+6.integrating with github -> heroku site -> deploy
+
+7. app.js, index.js, schema.js -> logic dependent on if app is in production or development mode
+
+8 !!!!! store.js redux.devtools -> uncomment when in development!!!!
