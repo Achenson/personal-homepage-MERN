@@ -23,6 +23,7 @@
     "react-query-devtools": "^2.6.3",
     "react-remove-scroll": "^2.4.3",
     "react-router-dom": "^6.2.1",
+    "react-scripts": "5.0.1",
     "rss-parser": "^3.10.0",
     "typescript": "^4.0.5",
     "url-regex-safe": "^2.0.2",
@@ -66,7 +67,6 @@
     "gh-pages": "^3.2.3",
     "postcss": "^8.3.5",
     "postcss-cli": "^8.2.0",
-    "react-scripts": "5.0.1",
     "tailwindcss": "^2.2.4"
   }
 }
