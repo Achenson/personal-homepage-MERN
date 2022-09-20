@@ -452,7 +452,8 @@ TO implement in future versions?
 315. tailwind packing before production
 316. readme files
 319. allow for more rss items? 100?
-323. later, even after the app is ready -> change default RSS channels
+328. later, even after the app is ready -> change default RSS channels
+329. wiki-speed-typing should be moved to new stack until april 2023
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
 
@@ -667,6 +668,7 @@ Heroku deployment (originally in wiki-speed-typing):
 0.heroku account
 1. server.js:
 - const PORT = process.env.PORT || 4000;
+(in wiki-speed-typing - after cors logic)
 - if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 } [heroku will autumaticaly config its vars so that NODE_ENV === "production"]

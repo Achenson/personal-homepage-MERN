@@ -22,6 +22,7 @@ const isAuth = require("./schema/middleware/isAuth");
 import { schema } from "./schema/schema";
 
 const app = express();
+// 1 step Heroku
 const port = process.env.PORT || 4000;
 
 app.use(
@@ -48,6 +49,12 @@ app.use(
     credentials: true,
   })
 );
+
+// 2(3) step heroku
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
 
 app.use(isAuth);
 //  parsing cookie only in the context of that particular route
