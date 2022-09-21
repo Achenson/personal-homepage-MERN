@@ -58,7 +58,7 @@ function UserProfile({ globalSettings }: Props): JSX.Element {
 
   useEffect(() => {
     setMessagePopup(null);
-  }, []);
+  }, [setMessagePopup]);
 
   const [userResults, reexecuteUserResults] = useQuery({
     query: UserQuery,

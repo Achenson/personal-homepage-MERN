@@ -59,7 +59,7 @@ function MainWrapper(): JSX.Element {
     data: data_bookmarks,
     fetching: fetching_bookmarks,
     error: error_bookmarks,
-    stale: stale_bookmarks,
+    // stale: stale_bookmarks,
   } = bookmarkResults;
 
   const { data, fetching, error } = settingsResults;

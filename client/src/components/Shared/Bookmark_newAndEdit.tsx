@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import NewBookmark_UpperUI from "../UpperUI/NewBookmark_UpperUI";
 import Bookmark_lowerUI from "../LowerUI/Bookmark_lowerUI";
@@ -142,6 +142,48 @@ function Bookmark_newAndEdit({
     }
   });
 
+  const shouldSelectableBeVisible = useCallback(
+    (
+      initialTagOrBookmark: string,
+      selectablesInputStr: string,
+      lastSelectablesArrEl: string
+    ) => {
+      if (selectablesInputStr.length === 0) {
+        return true;
+      }
+      // when typing last word -> filter out non matching words
+      if (!letterToLetterMatch(lastSelectablesArrEl, initialTagOrBookmark)) {
+        return false;
+      }
+      // if there is no match for a selectable surrounded only be characters that cannot flank a title
+      //  (spaces, commas)  ), -> selectable not visible
+      if (
+        createSelectablesRegex(initialTagOrBookmark).test(selectablesInputStr)
+      ) {
+        return false;
+      }
+      // selectable is visible in case the title is flanked by legal title character -
+      // in that case the title is treated as a separate entity
+      return true;
+
+      function letterToLetterMatch(lastInput: string, el: string) {
+        for (let i = 0; i < lastInput.length; i++) {
+          if (
+            lastInput[i] !== el[i] &&
+            // returns true if lastInput is present in initial bookmarks
+            initialTags.indexOf(lastInput) === -1 &&
+            // returns true is last char is a comma
+            selectablesInputStr[selectablesInputStr.length - 1] !== ","
+          ) {
+            return false;
+          }
+        }
+        return true;
+      }
+    },
+    [initialTags, selectablesInputStr]
+  );
+
   useEffect(() => {
     let newVisibleTags: string[] = [];
 
@@ -163,46 +205,13 @@ function Bookmark_newAndEdit({
     if (newVisibleTags.length === 0) {
       setSelectablesListVis(false);
     }
-  }, [selectablesInputStr, initialTags, setVisibleTags, setSelectablesListVis]);
-
-  function shouldSelectableBeVisible(
-    initialTagOrBookmark: string,
-    selectablesInputStr: string,
-    lastSelectablesArrEl: string
-  ) {
-    if (selectablesInputStr.length === 0) {
-      return true;
-    }
-    // when typing last word -> filter out non matching words
-    if (!letterToLetterMatch(lastSelectablesArrEl, initialTagOrBookmark)) {
-      return false;
-    }
-    // if there is no match for a selectable surrounded only be characters that cannot flank a title
-    //  (spaces, commas)  ), -> selectable not visible
-    if (
-      createSelectablesRegex(initialTagOrBookmark).test(selectablesInputStr)
-    ) {
-      return false;
-    }
-    // selectable is visible in case the title is flanked by legal title character -
-    // in that case the title is treated as a separate entity
-    return true;
-  }
-
-  function letterToLetterMatch(lastInput: string, el: string) {
-    for (let i = 0; i < lastInput.length; i++) {
-      if (
-        lastInput[i] !== el[i] &&
-        // returns true if lastInput is present in initial bookmarks
-        initialTags.indexOf(lastInput) === -1 &&
-        // returns true is last char is a comma
-        selectablesInputStr[selectablesInputStr.length - 1] !== ","
-      ) {
-        return false;
-      }
-    }
-    return true;
-  }
+  }, [
+    selectablesInputStr,
+    initialTags,
+    setVisibleTags,
+    setSelectablesListVis,
+    shouldSelectableBeVisible,
+  ]);
 
   function makeInitialTags(): string[] {
     let tags: string[] = [];

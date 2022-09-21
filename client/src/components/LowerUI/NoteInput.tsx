@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 
 import { useTabContext } from "../../context/tabContext";
 import { GlobalSettingsState, SingleTabData } from "../../utils/interfaces";
@@ -32,18 +32,18 @@ function NoteInput({
     };
   });
 
+  const getHeight = useCallback(() => {
+    const newHeight = heightRef.current?.clientHeight;
+    setNoteHeight(newHeight as number);
+  }, [heightRef.current?.clientHeight, setNoteHeight]);
+
   useEffect(() => {
     getHeight();
-  }, [currentTab?.noteInput, tabOpened_local]);
+  }, [currentTab?.noteInput, tabOpened_local, getHeight]);
 
   useEffect(() => {
     window.addEventListener("resize", getHeight);
-  }, []);
-
-  function getHeight() {
-    const newHeight = heightRef.current?.clientHeight;
-    setNoteHeight(newHeight as number);
-  }
+  }, [getHeight]);
 
   function handleKeyDown(event: KeyboardEvent) {
     if (

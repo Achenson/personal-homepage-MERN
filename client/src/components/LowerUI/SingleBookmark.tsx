@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useMutation } from "urql";
 
 import Bookmark_newAndEdit from "../Shared/Bookmark_newAndEdit";
@@ -189,6 +189,7 @@ function SingleBookmark({
               ) : (
                 <img
                   src={faviconUrlApi_domain}
+                  alt="favicon"
                   className="cursor-pointer"
                   style={{
                     height: "15px",

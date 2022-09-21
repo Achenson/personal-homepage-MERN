@@ -55,7 +55,7 @@ function MainRoute({
 
   useEffect(() => {
     setLoginNotification(null);
-  }, []);
+  }, [setLoginNotification]);
 
   let paddingProps = {
     mainPaddingRight,

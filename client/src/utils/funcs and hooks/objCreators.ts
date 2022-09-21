@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 import { SingleTabData, SingleBookmarkData } from "../interfaces";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
-import NoteInput from "../../components/LowerUI/NoteInput";
 
 export function createBasicTab(
   title: string,

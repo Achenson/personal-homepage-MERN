@@ -15,7 +15,7 @@ export function createSelectablesRegex(singleSelectable: string) {
 // no commas allowed
 export const singleCharRegex =
   // /[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]/;
-  /[\w~`!@#$%^&*()\-+={}\[\];:'"\\|<>./?]/;
+  /[\w~`!@#$%^&*()\-+={}[\];:'"\\|<>./?]/;
 
 // title for bookmark or tab
 export const titleRegex = new RegExp(

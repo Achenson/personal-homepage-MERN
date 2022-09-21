@@ -96,7 +96,7 @@ function App() {
 
               const accessToken = authContext.accessToken;
 
-              if (accessToken) {
+              if (accessToken && authContext.isAuthenticated) {
                 // code executed after login. Also, later on app reload
                 // (after the code for no access token runs first)
 
@@ -165,7 +165,7 @@ function App() {
           return { accessToken: res.accessToken as string };
         });
     }
-  }, [authContext.isAuthenticated]);
+  }, [authContext.isAuthenticated, authContext.accessToken, loginAttempt]);
 
   /*  if (!client) {
     console.log("no client");

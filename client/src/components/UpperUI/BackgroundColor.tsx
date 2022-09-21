@@ -23,8 +23,6 @@ function BackgroundColor({
 }: Props): JSX.Element {
   const backgroundColor = globalSettings.backgroundColor;
 
-  const [selected, setSelected] = useState(false);
-
   const upperUiContext = useUpperUiContext();
 
   let focusOnBackgroundColor_ref = useRef<HTMLButtonElement>(null);
@@ -57,7 +55,6 @@ function BackgroundColor({
         border-black rounded-lg cursor-pointer hover:border-gray-500
         focus:outline-none focus-visible:ring-2 ring-${focusColor()}`}
         onClick={() => {
-          setSelected((b) => !b);
           upperUiContext.upperVisDispatch({ type: "COLORS_BACKGROUND_TOGGLE" });
         }}
         tabIndex={5}

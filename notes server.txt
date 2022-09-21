@@ -456,6 +456,12 @@ TO implement in future versions?
 329. wiki-speed-typing should be moved to new stack until april 2023
 330. testing BrowserRouter (also - change in the URL in forgotPasswordMutation) instead of HashRouter
 
+331. fix typescript warnings! ? upperUiContext deps in UpperRightMenu & UpperRightMenu_XS not incluted
+-causing rerender flood!
+check window. deps (shouldn't be there according to TS lint) after scrollbar issue is done!
+332. unmounted component errors for NoteInput -> shown when resizing the window
+333. bug! scrollbar not being hidden when settings itp are open
+
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
 
 ======================================
@@ -674,24 +680,35 @@ Heroku deployment (modified, originally in wiki-speed-typing):
   app.use(express.static("client/build"));
 } [heroku will autumatically config its vars so that NODE_ENV === "production"]
 
-2. scripts, so npm run build in the client run automatically on heroku
-// script "heroku-postbuild" <- this exact name!
-// script "start" <- also for heroku
+2. in all aplication -> const environment = process.env.NODE_ENV;
+conditionally make all serverside URLS either http://localhost:4000/ or "/"
++ change the link being send to the client for password change
 
-3. heroku site -> new app-> setting -> config vars -> add the save vars as in .env
+3. scripts, so npm run build in the client run automatically on heroku
+script "heroku-postbuild" <- this exact name!
+script "start" <- also for heroku
 
-4. HashRouter instead of BrowserRouter!!! otherwise you won't be able to refresh routes other than main,
+4. app.js, index.js, schema.js -> logic dependent on if app is in production or development mode
+
+5. heroku site -> new app-> setting -> config vars -> add the save vars as in .env (without ""!)
+
+? 6. HashRouter instead of BrowserRouter!!! otherwise you won't be able to refresh routes other than main,
 and link send by email(password change) won't work
 
-5. heroku site -> deploy -> "Heroku Git, use heroku cli" -> install heroku app cli-> 
+7. heroku site -> deploy -> "Heroku Git, use heroku cli" -> install heroku app cli-> 
 in vscode terminal: heroku login -> follow instruction from the last option (when git repo already exist) 
-[not sure if this step in necessary -> maybe deploying with github is enough? heroku app cli is useful though]
+(not sure if this step in necessary -> maybe deploying with github is enough? heroku app cli is useful though)
+ [[ heroku login -> heroku create... -> git push heroku master old instructions - not needed? ]]
 
+8.integrating with github -> heroku site -> deploy -> GitHub -> will be directed to GitHub login ->
+set automatic deploy, manual deploy of the main branch
 
- heroku login -> heroku create... -> git push heroku master
+9. add in package.json (same node version as being used in development!)
+   "engines": {
+    "node": "14.x"
+  },
 
-6.integrating with github -> heroku site -> deploy
+10. react-scrips -> move out of dev dependencies to normal dependencies
+same with all typescript @types... dependencies
 
-7. app.js, index.js, schema.js -> logic dependent on if app is in production or development mode
-
-8 !!!!! store.js redux.devtools -> uncomment when in development!!!!
+[for redux.devtools ]8 !!!!! store.js redux.devtools -> uncomment when in development!!!!

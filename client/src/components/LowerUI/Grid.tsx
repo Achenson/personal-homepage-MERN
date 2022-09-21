@@ -137,7 +137,14 @@ function Grid({
         setCloseAllTabsState(false);
       }, 500);
     }
-  }, [closeAllTabsState, setCloseAllTabsState, userIdOrNoId]);
+  }, [
+    closeAllTabsState,
+    setCloseAllTabsState,
+    userIdOrNoId,
+    defaultTabContentAll,
+    editTab,
+    tabs,
+  ]);
 
   useEffect(() => {
     if (resetColors) {
@@ -149,7 +156,14 @@ function Grid({
 
       setResetColors(false);
     }
-  }, [resetColors, setResetColors, userIdOrNoId]);
+  }, [
+    resetColors,
+    setResetColors,
+    userIdOrNoId,
+    editTab,
+    resetAllTabColors,
+    tabs,
+  ]);
 
   function renderColumns(numberOfCols: 1 | 2 | 3 | 4) {
     let columnProps = {

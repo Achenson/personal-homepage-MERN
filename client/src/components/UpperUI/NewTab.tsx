@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useMutation } from "urql";
 import FocusLock from "react-focus-lock";
 
@@ -117,6 +117,49 @@ function NewTab({
   const [initialBookmarks, setInitialBookmarks] = useState(() =>
     makeInitialBookmarks()
   );
+
+  const shouldSelectableBeVisible = useCallback(
+    (
+      initialTagOrBookmark: string,
+      selectablesInputStr: string,
+      lastSelectablesArrEl: string
+    ) => {
+      if (selectablesInputStr.length === 0) {
+        return true;
+      }
+      // when typing last word -> filter out non matching words
+      if (!letterToLetterMatch(lastSelectablesArrEl, initialTagOrBookmark)) {
+        return false;
+      }
+      // if there is no match for a selectable surrounded only be characters that cannot flank a title
+      //  (spaces, commas)  ), -> selectable not visible
+      if (
+        createSelectablesRegex(initialTagOrBookmark).test(selectablesInputStr)
+      ) {
+        return false;
+      }
+      // selectable is visible in case the title is flanked by legal title character -
+      // in that case the title is treated as a separate entity
+      return true;
+
+      function letterToLetterMatch(lastInput: string, el: string) {
+        for (let i = 0; i < lastInput.length; i++) {
+          if (
+            lastInput[i] !== el[i] &&
+            // returns true if lastInput is present in initial bookmarks
+            initialBookmarks.indexOf(lastInput) === -1 &&
+            // returns true is last char is a comma
+            selectablesInputStr[selectablesInputStr.length - 1] !== ","
+          ) {
+            return false;
+          }
+        }
+        return true;
+      }
+    },
+    [initialBookmarks, selectablesInputStr]
+  );
+
   // XX tags won't be visible on first render even though visibleTags length won't be 0 (see useEffect)
   useEffect(() => {
     let newVisibleBookmarks: string[] = [];
@@ -142,46 +185,8 @@ function NewTab({
     initialBookmarks,
     setVisibleBookmarks,
     setSelectablesListVis,
+    shouldSelectableBeVisible,
   ]);
-
-  function shouldSelectableBeVisible(
-    initialTagOrBookmark: string,
-    selectablesInputStr: string,
-    lastSelectablesArrEl: string
-  ) {
-    if (selectablesInputStr.length === 0) {
-      return true;
-    }
-    // when typing last word -> filter out non matching words
-    if (!letterToLetterMatch(lastSelectablesArrEl, initialTagOrBookmark)) {
-      return false;
-    }
-    // if there is no match for a selectable surrounded only be characters that cannot flank a title
-    //  (spaces, commas)  ), -> selectable not visible
-    if (
-      createSelectablesRegex(initialTagOrBookmark).test(selectablesInputStr)
-    ) {
-      return false;
-    }
-    // selectable is visible in case the title is flanked by legal title character -
-    // in that case the title is treated as a separate entity
-    return true;
-  }
-
-  function letterToLetterMatch(lastInput: string, el: string) {
-    for (let i = 0; i < lastInput.length; i++) {
-      if (
-        lastInput[i] !== el[i] &&
-        // returns true if lastInput is present in initial bookmarks
-        initialBookmarks.indexOf(lastInput) === -1 &&
-        // returns true is last char is a comma
-        selectablesInputStr[selectablesInputStr.length - 1] !== ","
-      ) {
-        return false;
-      }
-    }
-    return true;
-  }
 
   function makeInitialBookmarks(): string[] {
     let bookmarksInitial: string[] = [];

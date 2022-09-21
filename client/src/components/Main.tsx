@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect, Children } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useQuery } from "urql";
 
@@ -160,14 +160,20 @@ function Main({
     if (tabsDb && userIdOrNoId) {
       updateTabsDb(tabsDb);
     }
-  }, [tabsDb, userIdOrNoId]);
+  }, [tabsDb, userIdOrNoId, updateTabsDb]);
 
   useEffect(() => {
     if (bookmarksDb && userIdOrNoId) {
       updateBookmarksDb(bookmarksDb);
       updateReexecuteBookmarks(reexecuteBookmarks);
     }
-  }, [bookmarksDb, userIdOrNoId]);
+  }, [
+    bookmarksDb,
+    userIdOrNoId,
+    updateBookmarksDb,
+    updateReexecuteBookmarks,
+    reexecuteBookmarks,
+  ]);
 
   let paddingProps = {
     mainPaddingRight: paddingRight,
