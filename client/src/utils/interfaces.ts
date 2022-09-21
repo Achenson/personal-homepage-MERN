@@ -100,7 +100,6 @@ export interface UpperVisState {
   newTabVis: boolean;
   backgroundSettingsVis: boolean;
   settingsVis: boolean;
-  profileVis: boolean;
   colorsSettingsVis: boolean;
   colorsBackgroundVis: boolean;
   colorsColumnVis: boolean;
@@ -184,7 +183,6 @@ interface UpperVisAction_noPayload {
     | "COLORS_COLUMN_TOGGLE"
     | "CLOSE_ALL"
     | "ADD_TAB_XS_TOGGLE"
-    | "PROFILE_TOGGLE"
     | "XS_SIZING_TRUE"
     | "XS_SIZING_FALSE"
     | "TAB_EDITABLES_OPENABLE_DEFAULT"

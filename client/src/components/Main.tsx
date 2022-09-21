@@ -90,9 +90,9 @@ function Main({
     }
   }, [
     setScrollbarWidth,
-    document.body.style.overflow,
-    window.innerWidth,
-    document.documentElement.clientWidth,
+    // document.body.style.overflow,
+    // window.innerWidth,
+    // document.documentElement.clientWidth,
   ]);
 
   useEffect(() => {
@@ -100,7 +100,6 @@ function Main({
       upperVisState.colorsSettingsVis ||
       upperVisState.backgroundSettingsVis ||
       upperVisState.settingsVis ||
-      upperVisState.profileVis ||
       upperVisState.newBookmarkVis ||
       upperVisState.newTabVis
     ) {
@@ -126,12 +125,11 @@ function Main({
     upperVisState.colorsSettingsVis,
     upperVisState.backgroundSettingsVis,
     upperVisState.settingsVis,
-    upperVisState.profileVis,
     upperVisState.newBookmarkVis,
     upperVisState.newTabVis,
-    document.body.style.overflow,
-    document.documentElement.clientHeight,
-    document.documentElement.scrollHeight,
+    // document.body.style.overflow,
+    // document.documentElement.clientHeight,
+    // document.documentElement.scrollHeight,
     globalSettings.picBackground,
   ]);
 

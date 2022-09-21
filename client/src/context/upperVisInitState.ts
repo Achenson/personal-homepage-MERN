@@ -5,7 +5,6 @@ export const initUpperVisState: UpperVisState = {
   newTabVis: false,
   backgroundSettingsVis: false,
   settingsVis: false,
-  profileVis: false,
   colorsSettingsVis: false,
   colorsBackgroundVis: false,
   colorsColumnVis: false,

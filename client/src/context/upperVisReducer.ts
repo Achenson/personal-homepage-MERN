@@ -39,11 +39,6 @@ export function upperVisReducer(
         ...upperVisStateMostlyFalse,
         settingsVis: !state.settingsVis,
       };
-    case "PROFILE_TOGGLE":
-      return {
-        ...upperVisStateMostlyFalse,
-        profileVis: !state.profileVis,
-      };
     case "COLORS_BACKGROUND_TOGGLE":
       return {
         ...upperVisStateMostlyFalse,

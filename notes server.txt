@@ -371,6 +371,9 @@ DONE 324. deps, browser errors check -  Password field is not contained in a for
 DONE 325. tabs: folders  (server code only) -> if default visibility is set to off, the tab will close just
 after updating it (EditTab_main -> now it changes the openess of a tab only if tabOpenedByDefault was clicked) DONE
 DONE 327. email validation -> do it everywhere! DONE
+DONE 331. fix typescript warnings! ? upperUiContext deps in UpperRightMenu & UpperRightMenu_XS not included
+check window. & document deps (shouldn't be there according to TS lint) in Main DONE
+??? 332. unmounted component errors for NoteInput -> shown when resizing the window  (could not be replicated) ??
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -456,11 +459,6 @@ TO implement in future versions?
 329. wiki-speed-typing should be moved to new stack until april 2023
 330. testing BrowserRouter (also - change in the URL in forgotPasswordMutation) instead of HashRouter
 
-331. fix typescript warnings! ? upperUiContext deps in UpperRightMenu & UpperRightMenu_XS not incluted
--causing rerender flood!
-check window. deps (shouldn't be there according to TS lint) after scrollbar issue is done!
-332. unmounted component errors for NoteInput -> shown when resizing the window
-333. bug! scrollbar not being hidden when settings itp are open
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
 
