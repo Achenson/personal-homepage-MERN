@@ -464,7 +464,7 @@ scripts: "start": "ts-node server.ts",
 deleted from package.json -> module: "commonjs"
 serverside -> ts node, later ts moved out of dev deps
 tsconfig.json:
-"noEmitHelpers": false, 
+"noEmitOnErrors": false, 
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
 
