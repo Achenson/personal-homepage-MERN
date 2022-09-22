@@ -73,9 +73,11 @@ app.use(
   (req: RequestWithAuth, res: Response, next: NextFunction) => {
     // console.log("req.body /graphql");
     // console.log(req.body);
+    // @ts-ignore
     backgroundImgUpload(req, res, function (multerErr) {
       // console.log("background img auth");
       // console.log(req.isAuth);
+        // @ts-ignore
       if (!req.body) {
         next();
         return;
