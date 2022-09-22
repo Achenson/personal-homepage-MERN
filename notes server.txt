@@ -462,7 +462,7 @@ TO implement in future versions?
 331. changes which enabled heroku to work locally (heroku local:
 scripts: "start": "ts-node server.ts",
 deleted from package.json -> module: "commonjs"
-serverside -> ts node moved out of dev deps
+serverside -> ts node, later ts moved out of dev deps
 
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
 
