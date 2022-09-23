@@ -12,7 +12,7 @@
     "dev": "npm-run-all -p server client",
     "build": "cd client && npm run build",
     "install-client": "cd client && npm install",
-    "start": "ts-node server.ts",
+    "start": "ts-node --transpile-only server.ts",
     "heroku-postbuild": "npm run install-client && npm run build",
     "codegen": "graphql-codegen --config codegen.yml"
   },
