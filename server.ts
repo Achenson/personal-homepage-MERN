@@ -25,13 +25,24 @@ const app = express();
 // 1 step Heroku
 const port = process.env.PORT || 4000;
 
+// change to this for development to enable graphql playground
+// app.use(
+//   helmet({
+//     // to enable express-graphql playground
+//     contentSecurityPolicy:
+//       process.env.NODE_ENV === "production" ? undefined : false,
+//   })
+// );
+
+// in production:
 app.use(
-  helmet({
-    // to enable express-graphql playground
-    contentSecurityPolicy:
-      process.env.NODE_ENV === "production" ? undefined : false,
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      "img-src": ["'self'", "https: data:"]
+    }
   })
-);
+)
 
 // credentials: Configures the Access-Control-Allow-Credentials CORS header.
 //  Set to true to pass the header, otherwise it is omitted.
