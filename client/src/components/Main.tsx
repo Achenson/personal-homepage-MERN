@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { useQuery } from "urql";
 
 import AuthOuterComponent from "./AuthRoutes/AuthOuterComponent";
@@ -180,7 +180,7 @@ function Main({
 
   return (
     <UpperUiContext.Provider value={upperUiValue}>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route
             path="/"
@@ -269,7 +269,7 @@ function Main({
             }
           />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </UpperUiContext.Provider>
   );
 }

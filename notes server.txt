@@ -371,9 +371,17 @@ DONE 324. deps, browser errors check -  Password field is not contained in a for
 DONE 325. tabs: folders  (server code only) -> if default visibility is set to off, the tab will close just
 after updating it (EditTab_main -> now it changes the openess of a tab only if tabOpenedByDefault was clicked) DONE
 DONE 327. email validation -> do it everywhere! DONE
+DONE 330. testing BrowserRouter (also - change in the URL in forgotPasswordMutation) instead of HashRouter (
+  changed to HashRouter, otherwise password change link and refreshing path other than main won't work,
+same as with with wikispeedtyping app) DONE
 DONE 331. fix typescript warnings! ? upperUiContext deps in UpperRightMenu & UpperRightMenu_XS not included
 check window. & document deps (shouldn't be there according to TS lint) in Main DONE
+DONE 331.5 changes which enabled heroku to work locally - see notes DONE
 ??? 332. unmounted component errors for NoteInput -> shown when resizing the window  (could not be replicated) ??
+DONE 333'. Refused to load the image 'https://icon.horse/icon/bbc.com' because it violates the following
+ Content Security Policy directive: "img-src 'self' data:" (changed helmet settings) DONE 
+ DONE 334. helmet would it ever work for production whit settings it to undefined ?
+ Yes! undefined is the default DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -457,27 +465,17 @@ TO implement in future versions?
 319. allow for more rss items? 100?
 328. later, even after the app is ready -> change default RSS channels
 329. wiki-speed-typing should be moved to new stack until april 2023
-330. testing BrowserRouter (also - change in the URL in forgotPasswordMutation) instead of HashRouter
-
-331. changes which enabled heroku to work locally (heroku local:
-scripts: "start": "ts-node server.ts",
-deleted from package.json -> module: "commonjs"
-serverside -> ts-node, & later typescript moved out of dev deps
-
-start script: --transpile only test worked!
+335'. share how to solve the issue wiht heroku deployment on article comments?
+336'. favicons should not have alt text as is gets in the way in case of problems?
 
 ' -> issues with an app on heroku
 
-333'. 
-Refused to load the image 'https://icon.horse/icon/bbc.com' because it violates the following
- Content Security Policy directive: "img-src 'self' data:"
- 334. helmet does it ever work with current settings?
- Yes! undefined is the default
- 335'. share how to solve the issue wiht heroku deployment on article comments?
-336'. favicons should not have alt text as is gets in the way in case of problems?
-
-
 code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
+
+======================================
+!!! Helmet in server.ts:
+
+swap the code with commented out version to get localhost:4000/graphql working locally!!!
 
 ======================================
 JWT logic: 
@@ -723,7 +721,29 @@ set automatic deploy, manual deploy of the main branch
     "node": "14.x"
   },
 
-10. react-scrips -> move out of dev dependencies to normal dependencies
+10. app didn't work in the beginning, steps taken:
+
+type heroku local for trying to get it run locally:
+
+clientside: 
+
+react-scrips -> move out of dev dependencies to normal dependencies
 same with all typescript @types... dependencies
+
+serverside:
+
+  "engines": {
+    "node": "14.x"
+  },  [not sure if needed actually]
+
+scripts: "start": "ts-node --transpile server.ts",
+[heroku local was working first without --transpile flag, but the app wouldn't start due to ts errors!]
+
+deleted from package.json -> "type": "module",  be sure that module: "commonjs" is present
+https://stackoverflow.com/questions/62096269/cant-run-my-node-js-typescript-project-typeerror-err-unknown-file-extension
+[heroku local issue -> it also asked for adding "type": "module" first but later I had to remove it? not sure]
+
+serverside -> ts-node, & later typescript moved out of dev deps (but @types.. deps remained in dev dependencies!)
+
 
 [for redux.devtools ]8 !!!!! store.js redux.devtools -> uncomment when in development!!!!
