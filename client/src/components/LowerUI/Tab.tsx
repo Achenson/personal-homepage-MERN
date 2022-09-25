@@ -92,10 +92,6 @@ function Tab({
   const setFocusedTabState = useTabs((store) => store.setFocusedTabState);
   const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
 
-  function toggleTab() {
-    setTabOpened(b=>!b)
-  }
-
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
     ChangeTabMutation
   );
@@ -116,8 +112,6 @@ function Tab({
     tabID,
     setTabOpenedState,
     setReset,
-    toggleTab,
-    tabOpened
     // tabOpenedByDefault
   );
 
@@ -337,7 +331,8 @@ function Tab({
           >
             <div
               className="pl-1 w-full h-7 truncate cursor-pointer"
-              onClick={() => {                
+              onClick={() => {
+                setTabOpened(b=>!b)                
                 tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
                 upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                 if (!resetEnabled) setReset(true);
@@ -458,6 +453,7 @@ function Tab({
                   upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
 
                   if (tabType === "note" && !tabOpened) {
+                    setTabOpened(b=>!b)    
                     tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
                     upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                     if (!resetEnabled) setReset(true);

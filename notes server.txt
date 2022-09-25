@@ -468,8 +468,8 @@ TO implement in future versions?
 335'. share how to solve the issue wiht heroku deployment on article comments?
 336'. favicons should not have alt text as is gets in the way in case of problems?
 337. back to opening tabs only locally (both auth and nonAuth) due to performance issues:
-1. opening state in Tab
-1.5 is tabOpenedLocal needed?
+DONE 1. opening state in Tab
+DONE 1.5 is tabOpenedLocal needed? (delete)
 2. auto opening after changin default visibility
 3. handling reset
 4 changing initial data

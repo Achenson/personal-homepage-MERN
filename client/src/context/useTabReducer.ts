@@ -6,8 +6,6 @@ export function useTabReducer(
   tabID: string,
   setTabOpenedState: (nullOrID: string | null) => void,
   setReset: (trueOrFalse: boolean) => void,
-  toggleTab: () => void,
-  tabOpened: boolean
 ): [TabVisState, React.Dispatch<TabVisAction>] {
   const initVisState: TabVisState = {
     editTabVis: false,
@@ -68,9 +66,6 @@ export function useTabReducer(
             setReset(true);
             setTabOpenedState(tabID);
           });
-          setTimeout(() => {
-            toggleTab();
-          });
         }
         return {
           ...state,
@@ -110,11 +105,6 @@ export function useTabReducer(
         setTimeout(() => {
           setTabOpenedState(tabID);
         });
-        setTimeout(() => {
-          console.log("TOGGLE TAB");
-          toggleTab();
-        });
-
         return {
           ...state,
           colorsVis: false,
