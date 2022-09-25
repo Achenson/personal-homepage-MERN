@@ -470,7 +470,7 @@ TO implement in future versions?
 337. back to opening tabs only locally (both auth and nonAuth) due to performance issues:
 DONE 1. opening state in Tab
 DONE 1.5 is tabOpenedLocal needed? (delete)
-2. auto opening after changin default visibility
+DONE 2. auto opening after changin default visibility DONE
 3. handling reset
 4 changing initial data
 5 edit toggle note open (see interfaces)

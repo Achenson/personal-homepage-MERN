@@ -30,7 +30,11 @@ import { useTabContext } from "../../context/tabContext";
 import { tabErrorHandling } from "../../utils/funcs and hooks/tabErrorHandling";
 import { tabErrorsAllFalse as errorsAllFalse } from "../../utils/data/errors";
 
-import { GlobalSettingsState, SingleBookmarkData, SingleTabData } from "../../utils/interfaces";
+import {
+  GlobalSettingsState,
+  SingleBookmarkData,
+  SingleTabData,
+} from "../../utils/interfaces";
 import { TabDatabase_i } from "../../../../schema/types/tabType";
 import { BookmarkDatabase_i } from "../../../../schema/types/bookmarkType";
 
@@ -46,7 +50,7 @@ interface Props {
   globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
   tabIsDeletable: boolean;
-  noteHeight?: number | null
+  noteHeight?: number | null;
 }
 
 function EditTab({
@@ -57,11 +61,8 @@ function EditTab({
   globalSettings,
   userIdOrNoId,
   tabIsDeletable,
-  noteHeight
-}: 
-
-Props): JSX.Element {
-
+  noteHeight,
+}: Props): JSX.Element {
   const editTabNotAuth = useTabs((store) => store.editTab);
 
   let bookmarks: BookmarkDatabase_i[] | SingleBookmarkData[];
@@ -192,7 +193,9 @@ Props): JSX.Element {
     ...errorsAllFalse,
   });
 
-  const [tabOpenedByDefault, setTabOpenedByDefault] = useState(currentTab.openedByDefault);
+  const [tabOpenedByDefault, setTabOpenedByDefault] = useState(
+    currentTab.openedByDefault
+  );
 
   const [selectablesListVis, setSelectablesListVis] = useState<boolean>(false);
 
@@ -248,11 +251,11 @@ Props): JSX.Element {
     }
 
     if (tabType === "folder") {
+      if (wasTabOpenClicked) setTabOpened(tabOpenedByDefault);
       editTab({
         ...currentTab,
         title: tabTitleInput,
         openedByDefault: tabOpenedByDefault,
-        opened: wasTabOpenClicked ? tabOpenedByDefault : currentTab.opened
       });
 
       console.log(bookmarksInputArr);
@@ -291,21 +294,21 @@ Props): JSX.Element {
     }
 
     if (tabType === "note") {
+      if (wasTabOpenClicked) setTabOpened(tabOpenedByDefault);
       editTab({
         ...currentTab,
         title: tabTitleInput,
         openedByDefault: tabOpenedByDefault,
         noteInput: textAreaValue,
-        opened: wasTabOpenClicked ? tabOpenedByDefault : currentTab.opened
       });
     }
 
     if (tabType === "rss") {
+      if (wasTabOpenClicked) setTabOpened(tabOpenedByDefault);
       editTab({
         ...currentTab,
         title: tabTitleInput,
         openedByDefault: tabOpenedByDefault,
-        opened: wasTabOpenClicked ? tabOpenedByDefault : currentTab.opened,
         rssLink: rssLinkInput,
         date: globalSettings.date === dateCheckbox ? null : dateCheckbox,
         description:
@@ -318,7 +321,6 @@ Props): JSX.Element {
             : rssItemsPerPage,
       });
     }
-
   }
 
   function saveFunc() {
