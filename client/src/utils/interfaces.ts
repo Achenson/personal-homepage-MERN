@@ -34,7 +34,6 @@ export interface SingleTabDataBasic {
   color: string | null;
   column: number;
   priority: number;
-  opened: boolean;
   openedByDefault: boolean;
   deletable: boolean;
   type: "folder" | "note" | "rss";

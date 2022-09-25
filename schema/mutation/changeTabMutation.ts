@@ -20,7 +20,6 @@ export const changeTabMutationField = {
       color: args.color,
       column: args.column,
       priority: args.priority,
-      opened: args.opened,
       openedByDefault: args.openedByDefault,
       deletable: args.deletable,
       type: args.type,

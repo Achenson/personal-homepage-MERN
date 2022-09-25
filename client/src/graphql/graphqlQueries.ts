@@ -6,7 +6,6 @@ export const TabsQuery = `query ($userId: ID) {
       color
       column
       priority
-      opened
       openedByDefault
       deletable
       type

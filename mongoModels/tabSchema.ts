@@ -9,7 +9,6 @@ const TabSchema = new Schema<TabDatabase_i>({
   color: Schema.Types.Mixed,
   column: Number,
   priority: Number,
-  opened: Boolean,
   openedByDefault: Boolean,
   deletable: Boolean,
   type: String,

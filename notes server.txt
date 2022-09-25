@@ -474,9 +474,11 @@ DONE 2. auto opening after changin default visibility DONE
 DONE 3. handling reset DONE
 DONE 4 edit toggle note open (see interfaces) DONE 
 4.5 check useEffect deps & other clienside problems detected
-5 changing initial data
-6 cleaning db
+DONE 5 changing initial data & adding tabs/user muts & graphql DONE
+DONE 6 cleaning db DONE
 7. changing tips & tricks
+
+338. html autocomplete attribute - at least to prevent auto filing the register form?
 
 ' -> issues with an app on heroku
 

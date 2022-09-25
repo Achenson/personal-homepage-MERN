@@ -240,7 +240,6 @@ export const useTabs = create<UseTabs>(
               if (wasTabOpenClicked) {
                 tabToUpdate.openedByDefault = tabOpenedByDefault;
                 setTabOpened(tabOpenedByDefault);
-                tabToUpdate.opened = tabOpenedByDefault;
               }
 
               if (tabType === "note") {

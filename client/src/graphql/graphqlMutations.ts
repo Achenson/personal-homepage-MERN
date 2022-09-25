@@ -142,7 +142,6 @@ export const AddTabMutation = `
     $color: String,
     $column: Int,
     $priority: Int,
-    $opened: Boolean,
     $openedByDefault: Boolean,
     $deletable: Boolean,
     $type: String,
@@ -157,7 +156,6 @@ export const AddTabMutation = `
       color: $color,
       column: $column,
       priority: $priority,
-      opened: $opened,
       openedByDefault: $openedByDefault,
       deletable: $deletable,
       type: $type,
@@ -173,7 +171,6 @@ export const AddTabMutation = `
           color
           column
           priority
-          opened
           openedByDefault
           deletable
           type
@@ -197,7 +194,6 @@ export const DeleteTabMutation = `
         color
         column
         priority
-        opened
         openedByDefault
         deletable
         type
@@ -218,7 +214,6 @@ export const ChangeTabMutation = `
     $color: String,
     $column: Int,
     $priority: Int,
-    $opened: Boolean,
     $openedByDefault: Boolean,
     $deletable: Boolean,
     $type: String,
@@ -235,7 +230,6 @@ export const ChangeTabMutation = `
       color: $color,
       column: $column,
       priority: $priority,
-      opened: $opened,
       openedByDefault: $openedByDefault,
       deletable: $deletable,
       type: $type,
@@ -251,7 +245,6 @@ export const ChangeTabMutation = `
           color
           column
           priority
-          opened
           openedByDefault
           deletable
           type

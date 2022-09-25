@@ -21,7 +21,6 @@ export const TabFields = {
   color: { type: GraphQLString },
   column: { type: GraphQLInt },
   priority: { type: GraphQLInt },
-  opened: { type: GraphQLBoolean },
   openedByDefault: { type: GraphQLBoolean },
   deletable: { type: GraphQLBoolean },
   type: { type: GraphQLString },
