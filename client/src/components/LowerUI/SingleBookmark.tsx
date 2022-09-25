@@ -38,7 +38,7 @@ interface Props {
   isTabDraggedOver: boolean;
   globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
-  tabOpened_local: boolean;
+  tabOpened: boolean;
 }
 
 interface BookmarkId {
@@ -57,7 +57,7 @@ function SingleBookmark({
   isTabDraggedOver,
   globalSettings,
   userIdOrNoId,
-  tabOpened_local,
+  tabOpened,
 }: Props): JSX.Element {
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
@@ -144,7 +144,7 @@ function SingleBookmark({
 
   return (
     <div
-      className={`${tabOpened_local ? "visible" : "hidden"}`}
+      className={`${tabOpened ? "visible" : "hidden"}`}
       onFocus={() => {
         setFocusedTabState(null);
       }}

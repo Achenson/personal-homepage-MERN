@@ -111,6 +111,7 @@ export function useTabReducer(
           setTabOpenedState(tabID);
         });
         setTimeout(() => {
+          console.log("TOGGLE TAB");
           toggleTab();
         });
 

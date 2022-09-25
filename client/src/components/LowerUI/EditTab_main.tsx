@@ -42,7 +42,7 @@ interface Props {
   tabType: "folder" | "note" | "rss";
   tabID: string;
   currentTab: TabDatabase_i;
-  setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>;
+  setTabOpened: React.Dispatch<React.SetStateAction<boolean>>;
   globalSettings: GlobalSettingsState;
   userIdOrNoId: string | null;
   tabIsDeletable: boolean;
@@ -53,7 +53,7 @@ function EditTab({
   tabID,
   tabType,
   currentTab,
-  setTabOpened_local,
+  setTabOpened,
   globalSettings,
   userIdOrNoId,
   tabIsDeletable,
@@ -236,7 +236,7 @@ Props): JSX.Element {
         wasItemsPerPageClicked,
         tabType,
         tabOpenedByDefault,
-        setTabOpened_local
+        setTabOpened
       );
 
       if (tabType === "folder") {

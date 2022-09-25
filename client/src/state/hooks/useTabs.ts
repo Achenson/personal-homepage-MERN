@@ -32,12 +32,11 @@ interface UseTabs {
     wasItemsPerPageClicked: boolean,
     tabType: "folder" | "note" | "rss",
     tabOpenByDefault: boolean,
-    setTabOpened_local: React.Dispatch<React.SetStateAction<boolean>>
+    setTabOpened: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
   resetAllTabColors: () => void;
   setTabColor: (color: string, tabID: string) => void;
   resetTabRssSettings: (tabID: string) => void;
-  toggleTab: (tabID: string, tabOpened: boolean) => void;
   tabs: SingleTabData[];
   // setting all tabs to default setting (open/close state) after clicking Reset
   closeAllTabsState: boolean;
@@ -240,7 +239,7 @@ export const useTabs = create<UseTabs>(
         wasItemsPerPageClicked,
         tabType,
         tabOpenedByDefault,
-        setTabOpened_local
+        setTabOpened
       ) => {
         set(
           produce((state: UseTabs) => {
@@ -249,7 +248,7 @@ export const useTabs = create<UseTabs>(
               tabToUpdate.title = tabTitleInput;
               if (wasTabOpenClicked) {
                 tabToUpdate.openedByDefault = tabOpenedByDefault;
-                setTabOpened_local(tabOpenedByDefault);
+                setTabOpened(tabOpenedByDefault);
                 tabToUpdate.opened = tabOpenedByDefault;
               }
 
@@ -301,18 +300,6 @@ export const useTabs = create<UseTabs>(
               currentTab.date = null;
               currentTab.description = null;
               currentTab.itemsPerPage = null;
-            }
-          })
-        ),
-      // non-auth only
-      toggleTab: (tabID, tabOpened) =>
-        set(
-          produce((state: UseTabs) => {
-            let tabToUpdate = state.tabs.find(
-              (obj: SingleTabData) => obj.id === tabID
-            );
-            if (tabToUpdate) {
-              state.tabs[state.tabs.indexOf(tabToUpdate)].opened = !tabOpened;
             }
           })
         ),

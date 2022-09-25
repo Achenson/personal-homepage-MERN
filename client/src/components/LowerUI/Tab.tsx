@@ -77,7 +77,6 @@ function Tab({
 
   const [tabOpened, setTabOpened] = useState(tabOpenedByDefault)
   // needed for immediate tab content opening/closing after locking/unlocking
-  const [tabOpened_local, setTabOpened_local] = useState(tabOpened);
   const setReset = useReset((store) => store.setReset);
   const resetEnabled = useReset((store) => store.enabled);
   const tabsNotAuth = useTabs((store) => store.tabs);
@@ -102,10 +101,6 @@ function Tab({
   );
 
   const upperUiContext = useUpperUiContext();
-
-  useEffect(() => {
-    setTabOpened_local(tabOpened);
-  }, [tabOpened]);
 
   const [iconsVis, setIconsVis] = useState<boolean>(false);
 
@@ -342,7 +337,7 @@ function Tab({
           >
             <div
               className="pl-1 w-full h-7 truncate cursor-pointer"
-              onClick={() => {
+              onClick={() => {                
                 tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
                 upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                 if (!resetEnabled) setReset(true);
@@ -513,7 +508,7 @@ function Tab({
               tabID={tabID}
               tabType={tabType}
               currentTab={currentTab as TabDatabase_i}
-              setTabOpened_local={setTabOpened_local}
+              setTabOpened={setTabOpened}
               globalSettings={globalSettings}
               userIdOrNoId={userIdOrNoId}
               tabIsDeletable={tabIsDeletable}
@@ -521,7 +516,7 @@ function Tab({
             />
           )}
 
-        {tabOpened_local && tabType === "folder" && (
+        {tabOpened && tabType === "folder" && (
           <div>
             {(userIdOrNoId
               ? (bookmarksDb as BookmarkDatabase_i[])
@@ -541,25 +536,25 @@ function Tab({
                     isTabDraggedOver={isTabDraggedOver}
                     globalSettings={globalSettings}
                     userIdOrNoId={userIdOrNoId}
-                    tabOpened_local={tabOpened_local}
+                    tabOpened={tabOpened}
                   />
                 );
               })}
           </div>
         )}
 
-        {/* tabOpened_local is used in NoteInput instead */}
+        {/* tabOpened is used in NoteInput instead */}
         {tabType === "note" && (
           <NoteInput
             currentTab={currentTab as SingleTabData}
             isTabDraggedOver={isTabDraggedOver}
             globalSettings={globalSettings}
-            tabOpened_local={tabOpened_local}
+            tabOpened={tabOpened}
             setNoteHeight={setNoteHeight}
           />
         )}
 
-        {tabOpened_local && tabType === "rss" && (
+        {tabOpened && tabType === "rss" && (
           <RSS_reactQuery
             tabID={tabID}
             currentTab={currentTab as SingleTabData}
