@@ -34,7 +34,6 @@ function Grid({
   globalSettings,
   userIdOrNoId,
 }: Props): JSX.Element {
-  const defaultTabContentAll = useTabs((store) => store.defaultTabContentAll);
 
   const tabsNotAuth = useTabs((store) => store.tabs);
   const bookmarksNotAuth = useBookmarks((store) => store.bookmarks);
@@ -54,8 +53,6 @@ function Grid({
     ChangeTabMutation
   );
 
-  const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
-  const setCloseAllTabsState = useTabs((store) => store.setCloseAllTabsState);
   const resetAllTabColors = useTabs((store) => store.resetAllTabColors);
   const resetColors = useResetColors((store) => store.resetColors);
   const setResetColors = useResetColors((store) => store.setResetColors);
@@ -92,27 +89,6 @@ function Grid({
   }, [windowSize.width]);
 
   useEffect(() => {
-    if (areTabsInDefaultState()) {
-      setReset(false);
-    } else {
-      setReset(true);
-    }
-
-    function areTabsInDefaultState() {
-      let isDefault = true;
-
-      tabs.forEach((el) => {
-        if (el.opened !== el.openedByDefault) {
-          isDefault = false;
-          return;
-        }
-      });
-
-      return isDefault;
-    }
-  }, [setReset, tabs]);
-
-  useEffect(() => {
     if (
       upperUiContext.upperVisState.colorsBackgroundVis ||
       upperUiContext.upperVisState.colorsColumnVis
@@ -120,31 +96,6 @@ function Grid({
       setReset(true);
     }
   }, [upperUiContext, setReset]);
-
-  useEffect(() => {
-    if (closeAllTabsState) {
-      if (!userIdOrNoId) {
-        defaultTabContentAll();
-      }
-
-      if (userIdOrNoId) {
-        (tabs as TabDatabase_i[]).forEach((obj) => {
-          editTab({ ...obj, opened: obj.openedByDefault });
-        });
-      }
-
-      setTimeout(() => {
-        setCloseAllTabsState(false);
-      }, 500);
-    }
-  }, [
-    closeAllTabsState,
-    setCloseAllTabsState,
-    userIdOrNoId,
-    defaultTabContentAll,
-    editTab,
-    tabs,
-  ]);
 
   useEffect(() => {
     if (resetColors) {

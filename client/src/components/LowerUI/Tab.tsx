@@ -75,7 +75,7 @@ function Tab({
     (store) => store.setTabBeingDraggedColor
   );
 
-  const [tabOpened, setTabOpened] = useState(tabOpenedByDefault)
+  const [tabOpened, setTabOpened] = useState(tabOpenedByDefault);
   // needed for immediate tab content opening/closing after locking/unlocking
   const setReset = useReset((store) => store.setReset);
   const resetEnabled = useReset((store) => store.enabled);
@@ -88,6 +88,8 @@ function Tab({
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   const tabOpenedState = useTabs((store) => store.tabOpenedState);
+  const closeAllTabsState = useTabs((store) => store.closeAllTabsState)
+  const setCloseAllTabsState = useTabs((store) => store.setCloseAllTabsState)
   const focusedTabState = useTabs((store) => store.focusedTabState);
   const setFocusedTabState = useTabs((store) => store.setFocusedTabState);
   const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
@@ -111,7 +113,7 @@ function Tab({
   const [tabVisState, tabVisDispatch] = useTabReducer(
     tabID,
     setTabOpenedState,
-    setReset,
+    setReset
     // tabOpenedByDefault
   );
 
@@ -122,6 +124,35 @@ function Tab({
       tabVisDispatch({ type: "TAB_EDITABLES_CLOSE" });
     }
   }, [tabOpenedState, tabID, tabVisDispatch]);
+
+  useEffect(() => {
+    if (isTabInDefaultState()) {
+      setReset(false);
+    } else {
+      setReset(true);
+    }
+
+    function isTabInDefaultState() {
+      let isDefault = true;
+
+      if (tabOpened !== tabOpenedByDefault) {
+        isDefault = false;
+        return;
+      }
+
+      return isDefault;
+    }
+  }, [setReset, tabs]);
+
+  useEffect(() => {
+    if (closeAllTabsState && tabOpened !== tabOpenedByDefault) {
+      setTabOpened(tabOpenedByDefault);
+      // setTimeout(() => {
+      //   setCloseAllTabsState(false);
+      // }, 500);
+      setCloseAllTabsState(false);
+    }
+  }, [closeAllTabsState, tabOpened, tabOpenedByDefault]);
 
   const [bookmarkId, setBookmarkId] = useState<string>();
 
@@ -332,7 +363,7 @@ function Tab({
             <div
               className="pl-1 w-full h-7 truncate cursor-pointer"
               onClick={() => {
-                setTabOpened(b=>!b)                
+                setTabOpened((b) => !b);
                 tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
                 upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                 if (!resetEnabled) setReset(true);
@@ -453,7 +484,7 @@ function Tab({
                   upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
 
                   if (tabType === "note" && !tabOpened) {
-                    setTabOpened(b=>!b)    
+                    setTabOpened((b) => !b);
                     tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
                     upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                     if (!resetEnabled) setReset(true);

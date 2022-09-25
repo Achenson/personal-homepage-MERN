@@ -10,7 +10,6 @@ interface UseTabs {
   addTabs: (newTabDataArr: SingleTabData[]) => void;
   // moving tabs to lower number cols(left) if globalSettings numberOfCols changes
   tabsLessColumns: (numberOfCols: 1 | 2 | 3 | 4) => void;
-  defaultTabContentAll: () => void;
   deleteTab: (tabID: string) => void;
   dragTab: (
     itemID: string,
@@ -83,14 +82,6 @@ export const useTabs = create<UseTabs>(
           })
         );
       },
-      defaultTabContentAll: () =>
-        set(
-          produce((state: UseTabs) => {
-            state.tabs.forEach((tab) => {
-              tab.opened = tab.openedByDefault;
-            });
-          })
-        ),
       deleteTab: (tabID) =>
         set(
           produce((state: UseTabs) => {
