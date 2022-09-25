@@ -74,25 +74,6 @@ export function useTabReducer(
           editBookmarkVis: null,
           editTabVis: !state.editTabVis,
         };
-
-      case "EDIT_TOGGLE_NOTE_OPEN_DB":
-        if (!state.editTabVis) {
-          setTimeout(() => {
-            setReset(true);
-            setTabOpenedState(tabID);
-          });
-          setTimeout(() => {
-            action.payload.editTab(action.payload.changedTab);
-          });
-        }
-        return {
-          ...state,
-          colorsVis: false,
-          newBookmarkVis: false,
-          editBookmarkVis: null,
-          editTabVis: !state.editTabVis,
-        };
-
       case "EDIT_CLOSE":
         return {
           ...state,

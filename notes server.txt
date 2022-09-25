@@ -472,7 +472,7 @@ DONE 1. opening state in Tab
 DONE 1.5 is tabOpenedLocal needed? (delete)
 DONE 2. auto opening after changin default visibility DONE
 DONE 3. handling reset DONE
-4 edit toggle note open (see interfaces)
+DONE 4 edit toggle note open (see interfaces) DONE 
 4.5 check useEffect deps & other clienside problems detected
 5 changing initial data
 6 cleaning db

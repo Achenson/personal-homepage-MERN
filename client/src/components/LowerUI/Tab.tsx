@@ -464,31 +464,14 @@ function Tab({
                 ).slice(5)} ring-opacity-40 `}
                 onClick={() => {
                   if (tabType === "note" && !tabOpened) {
-                    userIdOrNoId
-                      ? tabVisDispatch({
-                          type: "EDIT_TOGGLE_NOTE_OPEN_DB",
-                          payload: {
-                            editTab: editTab,
-                            changedTab: {
-                              ...(currentTab as TabDatabase_i),
-                              opened: !tabOpened,
-                            },
-                          },
-                        })
-                      : tabVisDispatch({ type: "EDIT_TOGGLE_NOTE_OPEN" });
+                    setTabOpened((b) => !b);
+                    tabVisDispatch({ type: "EDIT_TOGGLE_NOTE_OPEN" });
                     upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                     if (!resetEnabled) setReset(true);
                     return;
                   }
                   tabVisDispatch({ type: "EDIT_TOGGLE" });
                   upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
-
-                  if (tabType === "note" && !tabOpened) {
-                    setTabOpened((b) => !b);
-                    tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
-                    upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
-                    if (!resetEnabled) setReset(true);
-                  }
                 }}
                 aria-label={"Edit tab"}
               >

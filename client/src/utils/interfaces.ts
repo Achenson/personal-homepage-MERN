@@ -230,17 +230,6 @@ interface TabVisAction_EDIT_BOOKMARK_OPEN {
   payload: string;
 }
 
-interface TabContentToggle_payload {
-  editTab: (changedTab: TabDatabase_i) => {};
-  changedTab: TabDatabase_i;
-}
-
-interface TabVisAction_EDIT_TOGGLE_NOTE_OPEN_DB {
-  type: "EDIT_TOGGLE_NOTE_OPEN_DB";
-  payload: TabContentToggle_payload;
-}
-
 export type TabVisAction =
   | TabVisAction_noPayload
   | TabVisAction_EDIT_BOOKMARK_OPEN
-  | TabVisAction_EDIT_TOGGLE_NOTE_OPEN_DB
