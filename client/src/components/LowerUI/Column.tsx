@@ -182,7 +182,6 @@ function Column({
                 tabColor={el.color}
                 tabType={el.type}
                 colNumber={el.column}
-                tabOpened={el.opened}
                 tabOpenedByDefault={el.openedByDefault}
                 tabIsDeletable={el.deletable}
                 globalSettings={globalSettings}

@@ -235,12 +235,6 @@ interface TabContentToggle_payload {
   changedTab: TabDatabase_i;
 }
 
-interface TabVisAction_TAB_CONTENT_TOGGLE_DB {
-  type: "TAB_CONTENT_TOGGLE_DB";
-  payload: TabContentToggle_payload;
-}
-
-
 interface TabVisAction_EDIT_TOGGLE_NOTE_OPEN_DB {
   type: "EDIT_TOGGLE_NOTE_OPEN_DB";
   payload: TabContentToggle_payload;
@@ -249,5 +243,4 @@ interface TabVisAction_EDIT_TOGGLE_NOTE_OPEN_DB {
 export type TabVisAction =
   | TabVisAction_noPayload
   | TabVisAction_EDIT_BOOKMARK_OPEN
-  | TabVisAction_TAB_CONTENT_TOGGLE_DB
   | TabVisAction_EDIT_TOGGLE_NOTE_OPEN_DB

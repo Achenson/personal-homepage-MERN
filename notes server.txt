@@ -467,6 +467,15 @@ TO implement in future versions?
 329. wiki-speed-typing should be moved to new stack until april 2023
 335'. share how to solve the issue wiht heroku deployment on article comments?
 336'. favicons should not have alt text as is gets in the way in case of problems?
+337. back to opening tabs only locally (both auth and nonAuth) due to performance issues:
+1. opening state in Tab
+1.5 is tabOpenedLocal needed?
+2. auto opening after changin default visibility
+3. handling reset
+4 changing initial data
+5 edit toggle note open (see interfaces)
+6 cleaning db
+7. changing tips & tricks
 
 ' -> issues with an app on heroku
 

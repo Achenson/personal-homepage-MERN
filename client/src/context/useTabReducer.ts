@@ -6,7 +6,7 @@ export function useTabReducer(
   tabID: string,
   setTabOpenedState: (nullOrID: string | null) => void,
   setReset: (trueOrFalse: boolean) => void,
-  toggleTab: (tabID: string, tabOpened: boolean) => void,
+  toggleTab: () => void,
   tabOpened: boolean
 ): [TabVisState, React.Dispatch<TabVisAction>] {
   const initVisState: TabVisState = {
@@ -69,7 +69,7 @@ export function useTabReducer(
             setTabOpenedState(tabID);
           });
           setTimeout(() => {
-            toggleTab(tabID, tabOpened);
+            toggleTab();
           });
         }
         return {
@@ -111,22 +111,7 @@ export function useTabReducer(
           setTabOpenedState(tabID);
         });
         setTimeout(() => {
-          toggleTab(tabID, tabOpened);
-        });
-
-        return {
-          ...state,
-          colorsVis: false,
-          editTabVis: false,
-          newBookmarkVis: false,
-          editBookmarkVis: null,
-        };
-      case "TAB_CONTENT_TOGGLE_DB":
-        setTimeout(() => {
-          setTabOpenedState(tabID);
-        });
-        setTimeout(() => {
-          action.payload.editTab(action.payload.changedTab);
+          toggleTab();
         });
 
         return {

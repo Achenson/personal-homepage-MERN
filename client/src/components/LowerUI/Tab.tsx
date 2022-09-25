@@ -50,7 +50,6 @@ interface Props {
   tabColor: string | null;
   tabType: "folder" | "note" | "rss";
   colNumber: number;
-  tabOpened: boolean;
   tabOpenedByDefault: boolean;
   tabIsDeletable: boolean;
   globalSettings: GlobalSettingsState;
@@ -64,7 +63,6 @@ function Tab({
   tabColor,
   tabType,
   colNumber,
-  tabOpened,
   tabOpenedByDefault,
   tabIsDeletable,
   globalSettings,
@@ -77,6 +75,7 @@ function Tab({
     (store) => store.setTabBeingDraggedColor
   );
 
+  const [tabOpened, setTabOpened] = useState(tabOpenedByDefault)
   // needed for immediate tab content opening/closing after locking/unlocking
   const [tabOpened_local, setTabOpened_local] = useState(tabOpened);
   const setReset = useReset((store) => store.setReset);
@@ -93,7 +92,10 @@ function Tab({
   const focusedTabState = useTabs((store) => store.focusedTabState);
   const setFocusedTabState = useTabs((store) => store.setFocusedTabState);
   const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
-  const toggleTab = useTabs((store) => store.toggleTab);
+
+  function toggleTab() {
+    setTabOpened(b=>!b)
+  }
 
   const [editTabResult, editTab] = useMutation<any, TabDatabase_i>(
     ChangeTabMutation
@@ -341,18 +343,7 @@ function Tab({
             <div
               className="pl-1 w-full h-7 truncate cursor-pointer"
               onClick={() => {
-                userIdOrNoId
-                  ? tabVisDispatch({
-                      type: "TAB_CONTENT_TOGGLE_DB",
-                      payload: {
-                        editTab: editTab,
-                        changedTab: {
-                          ...(currentTab as TabDatabase_i),
-                          opened: !tabOpened,
-                        },
-                      },
-                    })
-                  : tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
+                tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
                 upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                 if (!resetEnabled) setReset(true);
               }}
@@ -472,19 +463,7 @@ function Tab({
                   upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
 
                   if (tabType === "note" && !tabOpened) {
-                    console.log("tab note test");
-                    userIdOrNoId
-                      ? tabVisDispatch({
-                          type: "TAB_CONTENT_TOGGLE_DB",
-                          payload: {
-                            editTab: editTab,
-                            changedTab: {
-                              ...(currentTab as TabDatabase_i),
-                              opened: !tabOpened,
-                            },
-                          },
-                        })
-                      : tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
+                    tabVisDispatch({ type: "TAB_CONTENT_TOGGLE" });
                     upperUiContext.upperVisDispatch({ type: "CLOSE_ALL" });
                     if (!resetEnabled) setReset(true);
                   }
