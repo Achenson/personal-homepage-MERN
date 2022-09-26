@@ -88,8 +88,8 @@ function Tab({
   tabs = userIdOrNoId ? (tabsDb as TabDatabase_i[]) : tabsNotAuth;
 
   const tabOpenedState = useTabs((store) => store.tabOpenedState);
-  const closeAllTabsState = useTabs((store) => store.closeAllTabsState)
-  const setCloseAllTabsState = useTabs((store) => store.setCloseAllTabsState)
+  const closeAllTabsState = useTabs((store) => store.closeAllTabsState);
+  const setCloseAllTabsState = useTabs((store) => store.setCloseAllTabsState);
   const focusedTabState = useTabs((store) => store.focusedTabState);
   const setFocusedTabState = useTabs((store) => store.setFocusedTabState);
   const setTabOpenedState = useTabs((store) => store.setTabOpenedState);
@@ -126,9 +126,7 @@ function Tab({
   }, [tabOpenedState, tabID, tabVisDispatch]);
 
   useEffect(() => {
-    if (isTabInDefaultState()) {
-      setReset(false);
-    } else {
+    if (!isTabInDefaultState()) {
       setReset(true);
     }
 
@@ -142,7 +140,7 @@ function Tab({
 
       return isDefault;
     }
-  }, [setReset, tabs]);
+  }, [setReset, tabs, tabOpened, tabOpenedByDefault]);
 
   useEffect(() => {
     if (closeAllTabsState && tabOpened !== tabOpenedByDefault) {
@@ -151,8 +149,10 @@ function Tab({
       //   setCloseAllTabsState(false);
       // }, 500);
       setCloseAllTabsState(false);
+      return;
     }
-  }, [closeAllTabsState, tabOpened, tabOpenedByDefault]);
+    setCloseAllTabsState(false);
+  }, [closeAllTabsState, setCloseAllTabsState, tabOpened, tabOpenedByDefault]);
 
   const [bookmarkId, setBookmarkId] = useState<string>();
 
