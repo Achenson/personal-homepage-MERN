@@ -403,6 +403,7 @@ DONE 337. back to opening tabs only locally (both auth and nonAuth) due to perfo
 DONE 338. html autocomplete attribute - at least to prevent autofiling the register form? 
 (conditionally settings autocomplete attribute to "new-password" or "current-password"
 it prevents autofiling but not browser suggestion though)DONE
+DONE 340. favicon  (done using https://favicon.io/favicon-generator/, font - graduate, size - 100)DONE
 DONE 341. issue - ForgottenPassChange was not available when using localhost - fix: 
 change url address to be suitable for HashRouter (#) DONE
 
@@ -490,7 +491,6 @@ TO implement in future versions?
 335'. share how to solve the issue wiht heroku deployment on article comments?
 
 339. delete old git branches
-340. favicon?
 
 ' -> issues with an app on heroku
 
