@@ -267,6 +267,7 @@ If that's not what you want, please create a client and add a Provider. (fixed b
 DONE 232. rss local -> changing global rss settings is not being reflected immediately
 (if a setting has been changed locally, even after reseting to default)!! (
   auth version also didn't worked, code reworked) DONE
+DONE 233. rrs itemsPerPage -> test on mobile! real one DONE
 DONE 234. rss itemPerPage -> cannot be set by keyboard to more than 9 -> problem? (solved by making changes on refocus) DONE
 DONE 235. non-auth version problem with less column settings-> missing content? DONE
 DONE 240. (rethink again - slow performance!?) bookmarks are rendered only after tab is open ->
@@ -346,6 +347,9 @@ DONE 301. problem with reloading on auth (check non auth version also) version -
 DONE 301.5  delete aria-label where it is not needed -> eg. if the text inside the button tag is goodEnough (aria-labelled by
 might have been used in few cases?)DONE
 DONE 302. aria-labelled by to use in few cases? (used in GlobalSettings) DONE
+DONE 302.5 check tabs speed in producion! too slow >  not remembering state after closing the app.
+ -> move the logic to localStorage? disadvantage -> no sync between different devices (
+logic moved not to localStorage, but to each Tab component state ) DONE
 DONE 303. info about files limits somewhere? (info is being shown only before any img is successfully updated) DONE
 DONE 304. check if all dbContext values are being used(reexecuteTabs & staleBookmarks not used - deleted) DONE
 DONE 306. file after file cleaning. order of imports/interfaces!
@@ -383,19 +387,24 @@ DONE 333'. Refused to load the image 'https://icon.horse/icon/bbc.com' because i
  DONE 334. helmet would it ever work for production whit settings it to undefined ?
  Yes! undefined is the default DONE
 DONE 337. back to opening tabs only locally (both auth and nonAuth) due to performance issues:
-DONE 1. opening state in Tab
-DONE 1.5 is tabOpenedLocal needed? (delete)
-DONE 2. auto opening after changin default visibility DONE
-DONE 3. handling reset DONE
-DONE 4 edit toggle note open (see interfaces) DONE 
-DONE 4.5 check useEffect deps & other clienside problems detected
-bug! flickering when trying to open tab and the reset is off ->
-happens when clicking Reset if there is nothing to change by it 
-(fixed be setting closeAllTabsState to false always right after it changes to true, not
-just in case when a tab is not in a default state) DONE
-DONE 5 changing initial data & adding tabs/user muts & graphql DONE
-DONE 6 cleaning db DONE
-DONE 7. changing tips & tricks DONE
+  DONE 1. opening state in Tab
+  DONE 1.5 is tabOpenedLocal needed? (delete)
+  DONE 2. auto opening after changin default visibility DONE
+  DONE 3. handling reset DONE
+  DONE 4 edit toggle note open (see interfaces) DONE 
+  DONE 4.5 check useEffect deps & other clienside problems detected
+  bug! flickering when trying to open tab and the reset is off ->
+  happens when clicking Reset if there is nothing to change by it 
+  (fixed be setting closeAllTabsState to false always right after it changes to true, not
+  just in case when a tab is not in a default state) DONE
+  DONE 5 changing initial data & adding tabs/user muts & graphql DONE
+  DONE 6 cleaning db DONE
+  DONE 7. changing tips & tricks DONE
+DONE 338. html autocomplete attribute - at least to prevent autofiling the register form? 
+(conditionally settings autocomplete attribute to "new-password" or "current-password"
+it prevents autofiling but not browser suggestion though)DONE
+DONE 341. issue - ForgottenPassChange was not available when using localhost - fix: 
+change url address to be suitable for HashRouter (#) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -451,6 +460,7 @@ GOOD enough?
   DONE 305. image error is being shown only 1st time or 1st time after successful img upload 
   (if same file is being uploaded  -> no res from the server)) workaround ->
    error is not being set after clicking one of 3 default imgs. "error" color changed to black DONE
+  xx 336'. favicons should not have alt text as is gets in the way in case of problems (goodEnough) xx
 GOOD enough
 
 TO implement in future versions/project?
@@ -466,10 +476,6 @@ TO implement in future versions?
 188. wiki-speed-typing -> check if password retrival is available still
 231. local development -> user has to be created on different pcs separetely or no backgroundImg??
 167.(pushed) changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
-233. rrs itemsPerPage -> test on mobile! real one
-302. check tabs speed in producion! too slow >  not remembering state after closing the app.
- -> move the logic to localStorage? disadvantage -> no sync between different devices
-305. technical info about the app on github page
 
 314. last npm audi, both server & clientside
 "react-scripts": "^4.0.3", <- working
@@ -477,15 +483,12 @@ TO implement in future versions?
 12.09.2022 -> server-> 2high severity
  -> no fix available; clienside -> 1high severity, dep of react-script but the newset react-script has been installed
 
-315. tailwind packing before production
-316. readme files
+316. readme files/technical info about the app on github page
 319. allow for more rss items? 100?
 328. later, even after the app is ready -> change default RSS channels
 329. wiki-speed-typing should be moved to new stack until april 2023
 335'. share how to solve the issue wiht heroku deployment on article comments?
-336'. favicons should not have alt text as is gets in the way in case of problems?
 
-338. html autocomplete attribute - at least to prevent auto filing the register form?
 339. delete old git branches
 340. favicon?
 

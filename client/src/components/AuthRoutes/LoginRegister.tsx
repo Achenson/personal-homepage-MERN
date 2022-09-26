@@ -281,7 +281,7 @@ function LoginRegister({ globalSettings }: Props): JSX.Element {
                 inputValue={email_or_name}
                 setInputValue={setEmail_or_name}
                 preventCopyPaste={false}
-                passwordInputType={false}
+                passwordInputType={null}
                 passVisible={undefined}
               />
             </div>
@@ -307,7 +307,7 @@ function LoginRegister({ globalSettings }: Props): JSX.Element {
                   inputValue={password}
                   setInputValue={setPassword}
                   preventCopyPaste={true}
-                  passwordInputType={true}
+                  passwordInputType={"CURRENT"}
                   passVisible={passVisible}
                 />
               </div>
@@ -359,7 +359,7 @@ function LoginRegister({ globalSettings }: Props): JSX.Element {
                   inputValue={username}
                   setInputValue={setUsername}
                   preventCopyPaste={false}
-                  passwordInputType={false}
+                  passwordInputType={null}
                   passVisible={undefined}
                 />
               </div>
@@ -369,7 +369,7 @@ function LoginRegister({ globalSettings }: Props): JSX.Element {
                   inputValue={email}
                   setInputValue={setEmail}
                   preventCopyPaste={false}
-                  passwordInputType={false}
+                  passwordInputType={null}
                   passVisible={undefined}
                 />
               </div>
@@ -396,7 +396,7 @@ function LoginRegister({ globalSettings }: Props): JSX.Element {
                   inputValue={passwordForRegister}
                   setInputValue={setPasswordForRegister}
                   preventCopyPaste={true}
-                  passwordInputType={true}
+                  passwordInputType={"NEW"}
                   passVisible={passVisible}
                 />
               </div>
@@ -406,7 +406,7 @@ function LoginRegister({ globalSettings }: Props): JSX.Element {
                   inputValue={passwordForRegisterConfirm}
                   setInputValue={setPasswordForRegisterConfirm}
                   preventCopyPaste={true}
-                  passwordInputType={true}
+                  passwordInputType={"NEW"}
                   passVisible={passVisible}
                 />
               </div>

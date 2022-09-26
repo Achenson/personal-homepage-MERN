@@ -135,7 +135,7 @@ function UserProfile({ globalSettings }: Props): JSX.Element {
         inputValue={passwordCurrent}
         setInputValue={setPasswordCurrent}
         preventCopyPaste={true}
-        passwordInputType={true}
+        passwordInputType={"CURRENT"}
         passVisible={passVisible}
       />
     </div>
@@ -157,7 +157,7 @@ function UserProfile({ globalSettings }: Props): JSX.Element {
                 inputValue={username}
                 setInputValue={setUsername}
                 preventCopyPaste={false}
-                passwordInputType={false}
+                passwordInputType={null}
                 passVisible={undefined}
               />
             </div>
@@ -167,7 +167,7 @@ function UserProfile({ globalSettings }: Props): JSX.Element {
                 inputValue={email}
                 setInputValue={setEmail}
                 preventCopyPaste={false}
-                passwordInputType={false}
+                passwordInputType={null}
                 passVisible={undefined}
               />
             </div>
@@ -184,7 +184,7 @@ function UserProfile({ globalSettings }: Props): JSX.Element {
                 inputValue={passwordNew}
                 setInputValue={setPasswordNew}
                 preventCopyPaste={true}
-                passwordInputType={true}
+                passwordInputType={"NEW"}
                 passVisible={passVisible}
               />
             </div>
@@ -194,7 +194,7 @@ function UserProfile({ globalSettings }: Props): JSX.Element {
                 inputValue={passwordNewConfirm}
                 setInputValue={setPasswordNewConfirm}
                 preventCopyPaste={true}
-                passwordInputType={true}
+                passwordInputType={"NEW"}
                 passVisible={passVisible}
               />
             </div>

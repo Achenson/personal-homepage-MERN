@@ -102,7 +102,7 @@ function PassordForgotten({ globalSettings }: Props): JSX.Element {
             inputValue={email}
             setInputValue={setEmail}
             preventCopyPaste={false}
-            passwordInputType={false}
+            passwordInputType={null}
             passVisible={undefined}
           />
         </div>

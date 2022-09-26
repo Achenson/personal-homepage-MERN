@@ -4,7 +4,7 @@ interface Props {
   inputValue: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   preventCopyPaste: boolean;
-  passwordInputType: boolean;
+  passwordInputType: "NEW" | "CURRENT" | null;
   passVisible: boolean | undefined;
 }
 
@@ -33,6 +33,12 @@ function LogRegProfile_input(
           return "password";
         }
       })()}
+      // autoComplete={passwordInputType === "NEW" ? "new-password" : undefined}
+      autoComplete={((passwordInputType: "NEW" | "CURRENT" | null) => {
+        if (passwordInputType === "NEW") return "new-password";
+        if (passwordInputType === "CURRENT") return "current-password";
+        return undefined;
+      })(passwordInputType)}
       className="w-full pl-px border border-gray-200 h-7 hover:border-gray-300 transition-colors duration-150
        focus-1"
       style={{

@@ -18,7 +18,9 @@ export const forgotPasswordMutationField = {
       passforgotUri = "https://smoothtabs.herokuapp.com/#/passforgot-change/";
       // passforgotUri = "https://smoothtabs.herokuapp.com/passforgot-change/";
     } else {
-      passforgotUri = "http://localhost:3000/passforgot-change/";
+      passforgotUri = "http://localhost:3000/#/passforgot-change/";
+      // when using BrowserRouter:
+      // passforgotUri = "http://localhost:3000/passforgot-change/";
     }
 
     const user = await User.findOne({ email: args.email });

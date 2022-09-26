@@ -164,7 +164,7 @@ function ForgottenPassChange({ globalSettings }: Props): JSX.Element {
             inputValue={newPassword}
             setInputValue={setNewPassword}
             preventCopyPaste={true}
-            passwordInputType={true}
+            passwordInputType={"NEW"}
             passVisible={passVisible}
           />
 
@@ -174,7 +174,7 @@ function ForgottenPassChange({ globalSettings }: Props): JSX.Element {
             inputValue={newPasswordConfirm}
             setInputValue={setNewPasswordConfirm}
             preventCopyPaste={true}
-            passwordInputType={true}
+            passwordInputType={"NEW"}
             passVisible={passVisible}
           />
         </div>
