@@ -382,6 +382,20 @@ DONE 333'. Refused to load the image 'https://icon.horse/icon/bbc.com' because i
  Content Security Policy directive: "img-src 'self' data:" (changed helmet settings) DONE 
  DONE 334. helmet would it ever work for production whit settings it to undefined ?
  Yes! undefined is the default DONE
+DONE 337. back to opening tabs only locally (both auth and nonAuth) due to performance issues:
+DONE 1. opening state in Tab
+DONE 1.5 is tabOpenedLocal needed? (delete)
+DONE 2. auto opening after changin default visibility DONE
+DONE 3. handling reset DONE
+DONE 4 edit toggle note open (see interfaces) DONE 
+DONE 4.5 check useEffect deps & other clienside problems detected
+bug! flickering when trying to open tab and the reset is off ->
+happens when clicking Reset if there is nothing to change by it 
+(fixed be setting closeAllTabsState to false always right after it changes to true, not
+just in case when a tab is not in a default state) DONE
+DONE 5 changing initial data & adding tabs/user muts & graphql DONE
+DONE 6 cleaning db DONE
+DONE 7. changing tips & tricks DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -470,20 +484,6 @@ TO implement in future versions?
 329. wiki-speed-typing should be moved to new stack until april 2023
 335'. share how to solve the issue wiht heroku deployment on article comments?
 336'. favicons should not have alt text as is gets in the way in case of problems?
-337. back to opening tabs only locally (both auth and nonAuth) due to performance issues:
-DONE 1. opening state in Tab
-DONE 1.5 is tabOpenedLocal needed? (delete)
-DONE 2. auto opening after changin default visibility DONE
-DONE 3. handling reset DONE
-DONE 4 edit toggle note open (see interfaces) DONE 
-DONE 4.5 check useEffect deps & other clienside problems detected
-bug! flickering when trying to open tab and the reset is off ->
-happens when clicking Reset if there is nothing to change by it 
-(fixed be setting closeAllTabsState to false always right after it changes to true, not
-just in case when a tab is not in a default state) DONE
-DONE 5 changing initial data & adding tabs/user muts & graphql DONE
-DONE 6 cleaning db DONE
-DONE 7. changing tips & tricks DONE
 
 338. html autocomplete attribute - at least to prevent auto filing the register form?
 339. delete old git branches
