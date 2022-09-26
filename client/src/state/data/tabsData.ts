@@ -86,7 +86,7 @@ Refer to tips & trick note for advanced usage.
 
 RSS channels without a secure link (not starting with https) are not allowed.
 
-The content visibility of all tabs is being preserved between reloads. You can reset (curly arrow in the upper left section) the tabs' content visibility to default state, which can be set for individual tabs.
+The tabs' content visibility can be reset (curly arrow in the upper left section) to default state, which can be set for individual tabs.
 
 Tab colors can be set either individually or globally for bookmark folders, notes and RSS channels. In "Default tab colors" settings menu you can reset all individual tab colors to global configuration.
 

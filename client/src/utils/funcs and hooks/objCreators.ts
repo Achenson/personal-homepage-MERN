@@ -8,7 +8,6 @@ export function createBasicTab(
   title: string,
   column: number,
   priority: number,
-  opened: boolean = false,
   openedByDefault: boolean = false,
   deletable: boolean = true
 ) {
@@ -18,7 +17,6 @@ export function createBasicTab(
     color: null,
     column,
     priority,
-    opened,
     openedByDefault,
     deletable,
   };

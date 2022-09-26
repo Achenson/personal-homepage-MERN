@@ -480,15 +480,14 @@ DONE 4.5 check useEffect deps & other clienside problems detected
 bug! flickering when trying to open tab and the reset is off ->
 happens when clicking Reset if there is nothing to change by it 
 (fixed be setting closeAllTabsState to false always right after it changes to true, not
-just in case when a tab is not in a default state)
-DONE
+just in case when a tab is not in a default state) DONE
 DONE 5 changing initial data & adding tabs/user muts & graphql DONE
 DONE 6 cleaning db DONE
-
-7. changing tips & tricks
+DONE 7. changing tips & tricks DONE
 
 338. html autocomplete attribute - at least to prevent auto filing the register form?
 339. delete old git branches
+340. favicon?
 
 ' -> issues with an app on heroku
 

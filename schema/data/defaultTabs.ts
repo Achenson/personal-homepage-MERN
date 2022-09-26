@@ -6,7 +6,6 @@ export const tabs: SingleTabDataBasic[] = [
     color: "red-400",
     column: 1,
     priority: 1,
-    opened: true,
     openedByDefault: true,
     deletable: false,
     type: "folder",
@@ -16,7 +15,6 @@ export const tabs: SingleTabDataBasic[] = [
     color: null,
     column: 1,
     priority: 0,
-    opened: false,
     openedByDefault: false,
     deletable: true,
     type: "folder",
@@ -26,7 +24,6 @@ export const tabs: SingleTabDataBasic[] = [
     color: null,
     column: 2,
     priority: 0,
-    opened: false,
     openedByDefault: false,
     deletable: true,
     type: "folder",
@@ -36,7 +33,6 @@ export const tabs: SingleTabDataBasic[] = [
     color: null,
     column: 2,
     priority: 1,
-    opened: false,
     openedByDefault: false,
     deletable: true,
     type: "folder",
@@ -46,7 +42,6 @@ export const tabs: SingleTabDataBasic[] = [
     color: null,
     column: 2,
     priority: 2,
-    opened: false,
     openedByDefault: false,
     deletable: true,
     type: "folder",
@@ -56,7 +51,6 @@ export const tabs: SingleTabDataBasic[] = [
     color: null,
     column: 4,
     priority: 0,
-    opened: true,
     openedByDefault: false,
     deletable: true,
     type: "note",
@@ -73,7 +67,6 @@ Refer to tips & trick note for advanced usage.`,
     color: null,
     column: 4,
     priority: 1,
-    opened: false,
     openedByDefault: false,
     deletable: true,
     type: "note",
@@ -81,7 +74,7 @@ Refer to tips & trick note for advanced usage.`,
 
 RSS channels without a secure link (not starting with https) are not allowed.
     
-The content visibility of all tabs is being preserved between reloads. You can reset (curly arrow in the upper left section) the tabs' content visibility to default state, which can be set for individual tabs.
+The tabs' content visibility can be reset (curly arrow in the upper left section) to default state, which can be set for individual tabs.
   
 Tab colors can be set either individually or globally for bookmark folders, notes and RSS channels. In "Default tab colors" settings menu you can reset all individual tab colors to global configuration.
   
@@ -104,7 +97,6 @@ Except for tabs' position rearranging, all SmoothTabs features can be controlled
     color: null,
     column: 3,
     priority: 0,
-    opened: false,
     openedByDefault: false,
     deletable: true,
     type: "rss",
@@ -118,7 +110,6 @@ Except for tabs' position rearranging, all SmoothTabs features can be controlled
     color: null,
     column: 3,
     priority: 1,
-    opened: false,
     openedByDefault: false,
     deletable: true,
     type: "rss",
@@ -132,7 +123,6 @@ Except for tabs' position rearranging, all SmoothTabs features can be controlled
     color: null,
     column: 3,
     priority: 2,
-    opened: false,
     openedByDefault: false,
     deletable: true,
     type: "rss",
