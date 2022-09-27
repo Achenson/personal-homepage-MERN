@@ -16,7 +16,7 @@ App inspired by iGTab - https://igtab.com/
 
 ## Technologies used
 
-- React
+- React with React Router
 - Typescript
 - Zustand (state management)
 - Urql (GraphQL client)
