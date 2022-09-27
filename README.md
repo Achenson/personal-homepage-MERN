@@ -23,6 +23,7 @@ App inspired by iGTab - https://igtab.com/
 - MongoDB 
 - Express
 - JSON Web Token (authentication)
+- Tailwind CSS
 
 ## Live app
 
