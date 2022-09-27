@@ -264,6 +264,7 @@ x 227. mutations -> sometimes the graphql args are listed, Fields should be impo
 Fields in userType & args -> should they always be the same? (no, it only for convenience) x
 DONE 229. Browser error: Default Client: No client has been specified using urql's Provider.This means that urql will be falling back to defaults including making requests to `/graphql`.
 If that's not what you want, please create a client and add a Provider. (fixed be deleting unused code in App)DONE 
+xx 231. local development -> user has to be created on different pcs separetely or no backgroundImg?? (unrelevant)xx
 DONE 232. rss local -> changing global rss settings is not being reflected immediately
 (if a setting has been changed locally, even after reseting to default)!! (
   auth version also didn't worked, code reworked) DONE
@@ -362,6 +363,12 @@ DONE 308. tabTitles -> currently & is not allowed, but tips & tricks are being s
 DONE 309. better tags handling -> in editFolder if the selectables go empty (e. double space) they won't
 be visible again (bug was only in editFolder, selectables visibility was not reset in onChange) DONE
 DONE 310. Default Tab Colors -> Rss too much to the right? DONE
+DONE 314. last npm audi, both server & clientside
+"react-scripts": "^4.0.3", <- working
+"mongoose": "^6.0.7", -> 6.6.0 
+12.09.2022 -> server-> 2high severity
+ -> no fix available; clienside -> 1high severity, dep of react-script but the newset react-script has been installed DONE
+DONE 316. readme files/technical info about the app on github page DONE
 DONE 317. producion / development code change - see comments in forgotPasswordMutation (
   code changed also in server.ts App MainRoute and RSS_reactQuery) DONE
 318. testing before puting to producition (client & server tested)
@@ -471,24 +478,18 @@ TO implement in future versions/project?
   reset Btn is sometimes enabled even if there is nothing to change by it (
     this is due to tab state being tracked only locally, in the previous version it also happened,
     only not for tabs (but for tab colors))
+  logo? what should clicking it do
 TO implement in future versions?
                                   
-139. wiki-speed-typing, take care of 138 issue!
-188. wiki-speed-typing -> check if password retrival is available still
-231. local development -> user has to be created on different pcs separetely or no backgroundImg??
-167.(pushed) changeUserByAdmin and other mutations for admin  -> can it remain in production? test it after app is in production!! is it secure?
-
-314. last npm audi, both server & clientside
-"react-scripts": "^4.0.3", <- working
-"mongoose": "^6.0.7", -> 6.6.0 
-12.09.2022 -> server-> 2high severity
- -> no fix available; clienside -> 1high severity, dep of react-script but the newset react-script has been installed
-
-316. readme files/technical info about the app on github page
+188. wiki-speed-typing -> check if password retrival is available still - not available! improve
+167.(pushed) changeUserByAdmin and other mutations for admin ->
+can it remain in production? test it after app is in production!! is it secure?
 319. allow for more rss items? 100?
 328. later, even after the app is ready -> change default RSS channels
 329. wiki-speed-typing should be moved to new stack until april 2023
 335'. share how to solve the issue wiht heroku deployment on article comments?
+342'. on mobile or firefox? first default background img not being loaded
+343'. after each app update on heroku, updating images does not work unless you register again? check!
 
 339. delete old git branches
 
