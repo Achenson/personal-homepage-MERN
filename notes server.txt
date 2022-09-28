@@ -488,8 +488,9 @@ can it remain in production? test it after app is in production!! is it secure?
 328. later, even after the app is ready -> change default RSS channels
 329. wiki-speed-typing should be moved to new stack until april 2023
 335'. share how to solve the issue wiht heroku deployment on article comments?
-342'. on mobile or firefox? first default background img not being loaded
 343'. after each app update on heroku, updating images does not work unless you register again? check!
+to gitignore? fsExtra used during file upload to create a folder if it is not there,
+backgroundImgs added to gitignore
 
 339. delete old git branches
 
