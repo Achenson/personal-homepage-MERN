@@ -393,6 +393,9 @@ DONE 333'. Refused to load the image 'https://icon.horse/icon/bbc.com' because i
  Content Security Policy directive: "img-src 'self' data:" (changed helmet settings) DONE 
  DONE 334. helmet would it ever work for production whit settings it to undefined ?
  Yes! undefined is the default DONE
+DONE 335'.share how to solve the issue wiht heroku deployment on article comments?
+https://dev.to/lawrence_eagles/causes-of-heroku-h10-app-crashed-error-and-how-to-solve-them-3jnl?comments_sort=latest#toggle-comments-sort-dropdown
+ DONE
 DONE 337. back to opening tabs only locally (both auth and nonAuth) due to performance issues:
   DONE 1. opening state in Tab
   DONE 1.5 is tabOpenedLocal needed? (delete)
@@ -410,9 +413,13 @@ DONE 337. back to opening tabs only locally (both auth and nonAuth) due to perfo
 DONE 338. html autocomplete attribute - at least to prevent autofiling the register form? 
 (conditionally settings autocomplete attribute to "new-password" or "current-password"
 it prevents autofiling but not browser suggestion though)DONE
+DONe 339. delete old git branches (some branches deleted)Done
 DONE 340. favicon  (done using https://favicon.io/favicon-generator/, font - graduate, size - 100)DONE
 DONE 341. issue - ForgottenPassChange was not available when using localhost - fix: 
 change url address to be suitable for HashRouter (#) DONE
+DONE 343'. after each app update on heroku, updating images does not work unless you register again? check!
+to gitignore? (fsExtra used during file upload to create a folder if it is not there,
+backgroundImgs added to gitignore) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -479,6 +486,14 @@ TO implement in future versions/project?
     this is due to tab state being tracked only locally, in the previous version it also happened,
     only not for tabs (but for tab colors))
   logo? what should clicking it do
+  !! cut loading times 
+
+  persistent file uploads - currently there are being stored for less than 24hours:
+  https://devcenter.heroku.com/articles/simple-file-upload
+  "Adding direct uploads to your app allows you to offload the storage of static files from your app.
+  This is crucial on Heroku, because your app’s dynos have an ephemeral filesystem.
+   This means that all files that aren’t part of your app’s slug are lost whenever
+    a dyno restarts or is replaced (this happens at least once a day)."
 TO implement in future versions?
                                   
 188. wiki-speed-typing -> check if password retrival is available still - not available! improve
@@ -487,16 +502,14 @@ can it remain in production? test it after app is in production!! is it secure?
 319. allow for more rss items? 100?
 328. later, even after the app is ready -> change default RSS channels
 329. wiki-speed-typing should be moved to new stack until april 2023
-335'. share how to solve the issue wiht heroku deployment on article comments?
-343'. after each app update on heroku, updating images does not work unless you register again? check!
-to gitignore? fsExtra used during file upload to create a folder if it is not there,
-backgroundImgs added to gitignore
+344. write known issues section - mention dissapearing backgroundImgs (readme, tips or tricks?)
+!!! 345. backgroundImgs - disappearing after 24h anyway - fix in future version by usiing heroku together with
+imgur api, save old code to different branch!!!!
+346. long app loading time
 
-339. delete old git branches
 
-' -> issues with an app on heroku
 
-code before cleaning  (TypeScriptReact + typescript)-> 15,199 -> 14 854
+NOTES
 
 ======================================
 !!! Helmet in server.ts:
@@ -765,7 +778,7 @@ serverside:
 scripts: "start": "ts-node --transpile server.ts",
 [heroku local was working first without --transpile flag, but the app wouldn't start due to ts errors!]
 
-deleted from package.json -> "type": "module",  be sure that module: "commonjs" is present
+deleted from package.json -> "type": "module",  be sure that module: "commonjs" is present is tsconfig.json
 https://stackoverflow.com/questions/62096269/cant-run-my-node-js-typescript-project-typeerror-err-unknown-file-extension
 [heroku local issue -> it also asked for adding "type": "module" first but later I had to remove it? not sure]
 
