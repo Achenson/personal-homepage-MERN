@@ -509,6 +509,8 @@ imgur api, save old code to different branch!!!!
 
 Imgur api issues/notes
 347. bring back urls saved to db
+348. send email with all env updated
+349. info that the image will be deleted after 0.5 year
 
 NOTES
 

@@ -8,6 +8,8 @@ const mongoose = require("mongoose");
 import fs = require("fs");
 import path = require("path");
 import cookieParser = require("cookie-parser");
+// no ts typesx
+const imgbbUploader = require("imgbb-uploader");
 
 const rssRoute = require("./routes/rss");
 const refreshTokenRoute = require("./routes/refreshToken");
@@ -39,10 +41,10 @@ app.use(
   helmet.contentSecurityPolicy({
     useDefaults: true,
     directives: {
-      "img-src": ["'self'", "https: data:"]
-    }
+      "img-src": ["'self'", "https: data:"],
+    },
   })
-)
+);
 
 // credentials: Configures the Access-Control-Allow-Credentials CORS header.
 //  Set to true to pass the header, otherwise it is omitted.
@@ -66,7 +68,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-
 app.use(isAuth);
 //  parsing cookie only in the context of that particular route
 // app.use("/refresh_token", cookieParser(), refreshTokenRoute);
@@ -88,7 +89,7 @@ app.use(
     backgroundImgUpload(req, res, function (multerErr) {
       // console.log("background img auth");
       // console.log(req.isAuth);
-        // @ts-ignore
+      // @ts-ignore
       if (!req.body) {
         next();
         return;
@@ -118,6 +119,67 @@ app.use(
           removeBackgroundImg(file, userId);
         }
       });
+
+      // let arrayOfFiles = fs.readdirSync(dest)
+      // console.log("arrayOfFiles");
+      // console.log(arrayOfFiles);
+
+      // let imageAsBase64 = fs.readFileSync(dest + newBackgroundImageName , "base64");
+      // console.log(imageAsBase64);
+
+      let imgbbOptions = {
+        apiKey: process.env.IMGBB,
+        imagePath: dest + newBackgroundImageName,
+        // 6 months
+        expiration: 15552000,
+      };
+
+      imgbbUploader(imgbbOptions)
+        .then((response: any) => console.log(response))
+        .catch((error: Error) => console.error(error));
+
+
+
+
+        /* 
+        
+        
+        {
+  id: 'XzL1gVT',
+  title: '4c513906c26e',
+  url_viewer: 'https://ibb.co/XzL1gVT',    
+  url: 'https://i.ibb.co/cN30Hxd/4c513906c26e.jpg',
+  display_url: 'https://i.ibb.co/Cn8gZWF/4c513906c26e.jpg',
+  width: '1920',
+  height: '1079',
+  size: 442239,
+  time: '1664525046',
+  expiration: '15552000',
+  image: {
+    filename: '4c513906c26e.jpg',
+    name: '4c513906c26e',
+    mime: 'image/jpeg',
+    extension: 'jpg',
+    url: 'https://i.ibb.co/cN30Hxd/4c513906c26e.jpg'
+  },
+  thumb: {
+    filename: '4c513906c26e.jpg',
+    name: '4c513906c26e',
+    mime: 'image/jpeg',
+    extension: 'jpg',
+    url: 'https://i.ibb.co/XzL1gVT/4c513906c26e.jpg'
+  },
+  medium: {
+    filename: '4c513906c26e.jpg',
+    name: '4c513906c26e',
+    mime: 'image/jpeg',
+    extension: 'jpg',
+    url: 'https://i.ibb.co/Cn8gZWF/4c513906c26e.jpg'
+  },
+  delete_url: 'https://ibb.co/XzL1gVT/f5882c9657faf401173a3025fb3ff3d5'
+}
+           
+        */
 
       // crucial!! cause page reload -> new img as a background
       res.status(201).json({
