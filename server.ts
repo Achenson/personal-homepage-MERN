@@ -11,6 +11,8 @@ import cookieParser = require("cookie-parser");
 // no ts typesx
 const imgbbUploader = require("imgbb-uploader");
 
+import BackgroundImgUrl = require("./mongoModels/backgroundImgUrlSchema");
+
 const rssRoute = require("./routes/rss");
 const refreshTokenRoute = require("./routes/refreshToken");
 const backgroundImgRoute = require("./routes/backgroundImg");
@@ -22,6 +24,8 @@ import {
 import { RequestWithAuth } from "./schema/middleware/isAuth";
 const isAuth = require("./schema/middleware/isAuth");
 import { schema } from "./schema/schema";
+
+import { BackgroundImgUrl_i } from "./schema/types/backgroundImgType";
 
 const app = express();
 // 1 step Heroku
@@ -120,13 +124,7 @@ app.use(
         }
       });
 
-      // let arrayOfFiles = fs.readdirSync(dest)
-      // console.log("arrayOfFiles");
-      // console.log(arrayOfFiles);
-
-      // let imageAsBase64 = fs.readFileSync(dest + newBackgroundImageName , "base64");
-      // console.log(imageAsBase64);
-
+      // ======= for imgbb only
       let imgbbOptions = {
         apiKey: process.env.IMGBB,
         imagePath: dest + newBackgroundImageName,
@@ -135,51 +133,26 @@ app.use(
       };
 
       imgbbUploader(imgbbOptions)
-        .then((response: any) => console.log(response))
+        .then((res: any) => {
+          // console.log(res);
+
+          let update: BackgroundImgUrl_i = {
+            userId: userId,
+            // @ts-ignore
+            URL: res.url,
+          };
+
+          // @ts-ignore
+          return BackgroundImgUrl.findOneAndUpdate({ userId: userId }, update, {
+            // to return updated object
+            new: true,
+            upsert: true, // Make this update into an upsert,
+            useFindAndModify: false,
+          });
+        })
         .catch((error: Error) => console.error(error));
 
-
-
-
-        /* 
-        
-        
-        {
-  id: 'XzL1gVT',
-  title: '4c513906c26e',
-  url_viewer: 'https://ibb.co/XzL1gVT',    
-  url: 'https://i.ibb.co/cN30Hxd/4c513906c26e.jpg',
-  display_url: 'https://i.ibb.co/Cn8gZWF/4c513906c26e.jpg',
-  width: '1920',
-  height: '1079',
-  size: 442239,
-  time: '1664525046',
-  expiration: '15552000',
-  image: {
-    filename: '4c513906c26e.jpg',
-    name: '4c513906c26e',
-    mime: 'image/jpeg',
-    extension: 'jpg',
-    url: 'https://i.ibb.co/cN30Hxd/4c513906c26e.jpg'
-  },
-  thumb: {
-    filename: '4c513906c26e.jpg',
-    name: '4c513906c26e',
-    mime: 'image/jpeg',
-    extension: 'jpg',
-    url: 'https://i.ibb.co/XzL1gVT/4c513906c26e.jpg'
-  },
-  medium: {
-    filename: '4c513906c26e.jpg',
-    name: '4c513906c26e',
-    mime: 'image/jpeg',
-    extension: 'jpg',
-    url: 'https://i.ibb.co/Cn8gZWF/4c513906c26e.jpg'
-  },
-  delete_url: 'https://ibb.co/XzL1gVT/f5882c9657faf401173a3025fb3ff3d5'
-}
-           
-        */
+      // ========
 
       // crucial!! cause page reload -> new img as a background
       res.status(201).json({

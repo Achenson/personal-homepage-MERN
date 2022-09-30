@@ -511,6 +511,13 @@ Imgur api issues/notes
 347. bring back urls saved to db
 348. send email with all env updated
 349. info that the image will be deleted after 0.5 year
+350. info that imgs are visible be the admin
+351. test png files
+352. deleting user (by user & by admin) should delete url from db
+
+353. naming problem for imgs remains! check zrzut ekranu png
+
+354. explaining logic -> img saved to server only to be used for imgbb
 
 NOTES
 
