@@ -1,6 +1,8 @@
 import graphql = require("graphql");
 import fs = require("fs");
+import fsExtra = require("fs-extra");
 import path = require("path");
+import download = require("image-downloader");
 const { GraphQLID } = graphql;
 
 const BackgroundImgUrl = require("../../mongoModels/backgroundImgUrlSchema");
@@ -20,21 +22,7 @@ export const backgroundImgQueryField = {
   ) {
     console.log("!!!backgroundImgQuery  started !!!!");
 
-  if (!request.isAuth) return;
-
-  let backgroundImgUrlRes = await BackgroundImgUrl.findOne(
-      { userId: userId },
-    );
-
-  console.log(backgroundImgUrlRes);
-    
-  if (backgroundImgUrlRes.URL) {
-    return {
-      backgroundImgUrl: backgroundImgUrlRes.URL,
-    };
-  }
-
-  return null
+    if (!request.isAuth) return;
 
 /* logic before implementing imgbb
     let backgroundImgFiles = fs.readdirSync(
@@ -57,6 +45,54 @@ export const backgroundImgQueryField = {
     }
     return null;
 */
+
+    let backgroundDir = path.join(
+      __dirname,
+      "..",
+      "..",
+      "backgroundImgs",
+      userId
+    );
+
+    fsExtra.ensureDirSync(backgroundDir);
+
+    let backgroundImgFiles = fs.readdirSync(backgroundDir);
+
+    if (backgroundImgFiles.length === 0) {
+      let backgroundImgUrlRes = await BackgroundImgUrl.findOne({
+        userId: userId,
+      });
+
+      if (backgroundImgUrlRes?.URL) {
+        const downloadOptions = {
+          url: backgroundImgUrlRes.URL,
+          dest: backgroundDir,
+        };
+
+        download
+          .image(downloadOptions)
+          .then(({ filename }) => {
+            return {
+              backgroundImgUrl: filename,
+            };
+          })
+          .catch((err) => console.error(err));
+      }
+
+      return {
+        backgroundImgUrl: null,
+      };
+    }
+
+    let backgroundImgUrl =
+      "background_img/" + userId + "/" + backgroundImgFiles[0];
+
+    if (backgroundImgUrl) {
+      return {
+        backgroundImgUrl: backgroundImgUrl,
+      };
+    }
+    return null;
 
     // let fetchedBackgroundImg = await fetchBackgroundImg();
     // return fetchedBackgroundImg;

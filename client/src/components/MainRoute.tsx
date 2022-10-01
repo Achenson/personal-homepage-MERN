@@ -73,23 +73,14 @@ function MainRoute({
       defaultImage === "customBackground" &&
       backgroundImgUrl
     ) {
-      
-  // ====== beforeimplementing imgbb    
-      // let parsedUrl: string;
+      let parsedUrl: string;
 
-      // if (environment === "production") {
-      //   parsedUrl = "/" + backgroundImgUrl;
-      // } else {
-      //   parsedUrl = "http://localhost:4000/" + backgroundImgUrl;
-      // }
-      // return `url(${parsedUrl})`;
-// ======
-
-      console.log("backgroundImgUrl")
-      console.log(backgroundImgUrl)
-
-
-  return `url(${backgroundImgUrl})`;
+      if (environment === "production") {
+        parsedUrl = "/" + backgroundImgUrl;
+      } else {
+        parsedUrl = "http://localhost:4000/" + backgroundImgUrl;
+      }
+      return `url(${parsedUrl})`;
     }
     return undefined;
   }
