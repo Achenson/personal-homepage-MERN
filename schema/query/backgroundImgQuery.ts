@@ -63,6 +63,13 @@ export const backgroundImgQueryField = {
         userId: userId,
       });
 
+      if (!backgroundImgUrlRes?.URL) {
+        return {
+          backgroundImgUrl: "No image url in the database",
+        };
+      }
+      
+
       if (backgroundImgUrlRes?.URL) {
         const downloadOptions = {
           url: backgroundImgUrlRes.URL,
@@ -79,9 +86,7 @@ export const backgroundImgQueryField = {
           .catch((err) => console.error(err));
       }
 
-      return {
-        backgroundImgUrl: null,
-      };
+      return null
     }
 
     let backgroundImgUrl =

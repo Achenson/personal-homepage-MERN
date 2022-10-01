@@ -420,6 +420,10 @@ change url address to be suitable for HashRouter (#) DONE
 DONE 343'. after each app update on heroku, updating images does not work unless you register again? check!
 to gitignore? (fsExtra used during file upload to create a folder if it is not there,
 backgroundImgs added to gitignore) DONE
+DONE 356. to do for full change to imgBB -> in backgroundImgQuery:
+if there is no backgroung img files on the server (should be gone after max 24h) -> create one by
+taking from db and saving to server (MainRoute - reexecuteBookmarks if no url but if
+custom image in settings is set) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -486,14 +490,14 @@ TO implement in future versions/project?
     this is due to tab state being tracked only locally, in the previous version it also happened,
     only not for tabs (but for tab colors))
   logo? what should clicking it do
-  !! cut loading times 
-
-  persistent file uploads - currently there are being stored for less than 24hours:
+  cut loading times ?
+  DONE persistent file uploads - currently there are being stored for less than 24hours:
   https://devcenter.heroku.com/articles/simple-file-upload
   "Adding direct uploads to your app allows you to offload the storage of static files from your app.
   This is crucial on Heroku, because your app’s dynos have an ephemeral filesystem.
    This means that all files that aren’t part of your app’s slug are lost whenever
-    a dyno restarts or is replaced (this happens at least once a day)."
+    a dyno restarts or is replaced (this happens at least once a day)." DONE
+  get rid probably excessive renders when no img is present and is being taken from db(MainRoute)
 TO implement in future versions?
                                   
 188. wiki-speed-typing -> check if password retrival is available still - not available! improve
@@ -519,42 +523,7 @@ Imgur api issues/notes
 
 354. explaining logic -> img saved to server only to be used for imgbb
 355. backgroundImg route - it is not needed in current version?! change notes
-
-356. to do for full change to imgBB -> in backgroundImgQuery:
-if there is no backgroung img files on the server (should be gone after max 24h) -> create one by
-taking from db 
-
-const BackgroundImgUrl = require("../../mongoModels/backgroundImgUrlSchema");
-
-     BackgroundImgUrl.findOne(
-        { userId: userId },
-        (err: Error, res: any) => {
-          if (err) {
-            console.log(err);
-            return { backgroundImgUrl: null };
-          }
-          if (!res) {
-            return { backgroundImgUrl: null };
-          }
-
-          console.log("RES");
-          console.log(res);
-
-          /* 
-        
-        {
-  _id: new ObjectId("6336fe214b0d6be250251c44"),
-  userId: '63344c0b791cdc7dc3d9d7fe',      
-  URL: 'https://i.ibb.co/dfCqc6X/8dfaa64fca02.jpg',
-  __v: 0
-}
-        */
-
-          return { backgroundImgUrl: res.URL };
-        }
-      );
-
-
+357. check site loading times
 
 NOTES
 

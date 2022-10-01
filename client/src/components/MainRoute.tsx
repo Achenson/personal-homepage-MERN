@@ -68,6 +68,15 @@ function MainRoute({
   };
 
   function renderBackgroundImg(picBackground: boolean, defaultImage: string) {
+    // ===== logic for imgbb
+    if (
+      picBackground &&
+      defaultImage === "customBackground" &&
+      backgroundImgUrl === "No image url in the database"
+    ) {
+      return undefined
+    }
+    //  =====
     if (
       picBackground &&
       defaultImage === "customBackground" &&
@@ -82,6 +91,21 @@ function MainRoute({
       }
       return `url(${parsedUrl})`;
     }
+
+    // ===== logic for imgbbb
+    if (
+      picBackground &&
+      defaultImage === "customBackground" &&
+      !backgroundImgUrl
+    ) {
+
+      setTimeout(
+        () => reexecuteBackgroundImg({ requestPolicy: "network-only" }),
+        500
+      );
+    }
+    // ======
+
     return undefined;
   }
 
