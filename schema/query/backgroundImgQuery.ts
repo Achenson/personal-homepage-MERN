@@ -3,6 +3,8 @@ import fs = require("fs");
 import path = require("path");
 const { GraphQLID } = graphql;
 
+const BackgroundImgUrl = require("../../mongoModels/backgroundImgUrlSchema");
+
 import { RequestWithAuth } from "../middleware/isAuth";
 import { BackgroundImgType } from "../types/backgroundImgType";
 
@@ -18,8 +20,23 @@ export const backgroundImgQueryField = {
   ) {
     console.log("!!!backgroundImgQuery  started !!!!");
 
-    if (!request.isAuth) return;
+  if (!request.isAuth) return;
 
+  let backgroundImgUrlRes = await BackgroundImgUrl.findOne(
+      { userId: userId },
+    );
+
+  console.log(backgroundImgUrlRes);
+    
+  if (backgroundImgUrlRes.URL) {
+    return {
+      backgroundImgUrl: backgroundImgUrlRes.URL,
+    };
+  }
+
+  return null
+
+/* logic before implementing imgbb
     let backgroundImgFiles = fs.readdirSync(
       path.join(__dirname, "..", "..", "backgroundImgs", userId)
     );
@@ -39,6 +56,7 @@ export const backgroundImgQueryField = {
       };
     }
     return null;
+*/
 
     // let fetchedBackgroundImg = await fetchBackgroundImg();
     // return fetchedBackgroundImg;

@@ -518,6 +518,43 @@ Imgur api issues/notes
 353. naming problem for imgs remains! check zrzut ekranu png
 
 354. explaining logic -> img saved to server only to be used for imgbb
+355. backgroundImg route - it is not needed in current version?! change notes
+
+356. to do for full change to imgBB -> in backgroundImgQuery:
+if there is no backgroung img files on the server (should be gone after max 24h) -> create one by
+taking from db 
+
+const BackgroundImgUrl = require("../../mongoModels/backgroundImgUrlSchema");
+
+     BackgroundImgUrl.findOne(
+        { userId: userId },
+        (err: Error, res: any) => {
+          if (err) {
+            console.log(err);
+            return { backgroundImgUrl: null };
+          }
+          if (!res) {
+            return { backgroundImgUrl: null };
+          }
+
+          console.log("RES");
+          console.log(res);
+
+          /* 
+        
+        {
+  _id: new ObjectId("6336fe214b0d6be250251c44"),
+  userId: '63344c0b791cdc7dc3d9d7fe',      
+  URL: 'https://i.ibb.co/dfCqc6X/8dfaa64fca02.jpg',
+  __v: 0
+}
+        */
+
+          return { backgroundImgUrl: res.URL };
+        }
+      );
+
+
 
 NOTES
 
@@ -679,7 +716,8 @@ Image is attached as a request body
 
 == file query:
 backgroundImgQuery in Main is generating url (using files on the server) with users id in it, this url is passed to MainRoute
-In MainRoute an express route is using the passed url to return file from the server
+In MainRoute an express route is using the passed url directly in backgroundImage style,
+this is image is being served from express in a static method, not in route!
 
 ============ rss links for testing
 
