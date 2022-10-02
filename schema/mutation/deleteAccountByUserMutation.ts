@@ -9,6 +9,7 @@ const Settings = require("../../mongoModels/settingsSchema");
 const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
 const Bookmark = require("../../mongoModels/bookmarkSchema");
+const BackgroundImgUrl = require("../../mongoModels/backgroundImgUrlSchema");
 import { RequestWithAuth } from "../middleware/isAuth";
 
 interface AuthData_i {
@@ -59,6 +60,7 @@ export const deleteAccountByUserMutationField = {
       Settings.findOneAndDelete({ userId: id }),
       Bookmark.deleteMany({ userId: id }),
       Tab.deleteMany({ userId: id }),
+      BackgroundImgUrl.findOneAndDelete({ userId: id })
     ]);
 
     let deletedUser = await User.findByIdAndDelete(id);

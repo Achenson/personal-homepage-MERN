@@ -5,7 +5,9 @@ import { GraphQLID, GraphQLList } from "graphql";
 const Settings = require("../../mongoModels/settingsSchema");
 const User = require("../../mongoModels/userSchema");
 const Tab = require("../../mongoModels/tabSchema");
+const BackgroundImgUrl = require("../../mongoModels/backgroundImgUrlSchema");
 const Bookmark = require("../../mongoModels/bookmarkSchema");
+
 
 import { DeleteUsersByAdminType } from "../types/deleteUsersByAdminType";
 
@@ -23,6 +25,7 @@ export const deleteUsersByAdminMutationField = {
           Settings.findOneAndDelete({ userId: id }),
           Bookmark.deleteMany({ userId: id }),
           Tab.deleteMany({ userId: id }),
+          BackgroundImgUrl.findOneAndDelete({ userId: id })
         ]);
 
         fs.rmdir(
