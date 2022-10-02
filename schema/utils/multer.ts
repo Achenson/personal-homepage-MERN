@@ -1,7 +1,6 @@
 import multer = require("multer");
 import fsExtra = require("fs-extra");
 
-
 export let newBackgroundImageName: string;
 
 const storage = multer.diskStorage({
@@ -14,7 +13,7 @@ const storage = multer.diskStorage({
     if (!req.isAuth || !req.userId) return;
     // console.log("Storage multer");
     // console.log(authHeader);
-    
+
     // @ts-ignore
     const backgroundDir = "backgroundImgs/" + req.userId;
     fsExtra.ensureDirSync(backgroundDir);
@@ -24,7 +23,10 @@ const storage = multer.diskStorage({
     cb(null, dest);
   },
   filename: function (req, file, cb) {
-    let fileOriginalNameMod = file.originalname.replace(/\s/g, "_");
+    let fileOriginalNameMod = file.originalname
+      .replace(/\s/g, "_")
+      .replace(/\(/g, "")
+      .replace(/\)/g, "");
     let newFileName = Date.now() + "_" + fileOriginalNameMod;
     cb(null, newFileName);
     newBackgroundImageName = newFileName;

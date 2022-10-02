@@ -426,6 +426,7 @@ DONE 349. info that the image will be deleted after 0.5 year DONE
 DEON 350. info that imgs are visible be the admin DONE
 DONE 351. test uploading png files DONE
 DONE 352. deleting user (by user & by admin) should delete url from db DONE
+DONE 353. naming problem for imgs remains! check zrzut ekranu png ( "(" and ")" changed to "") DONE
 DONE 354. explaining imgbb logic DONE
 DONE 355. backgroundImg route - it is not needed in current version?! change notes
 (route deleted) DONE
@@ -514,10 +515,6 @@ test it after app is in production!! is it secure?
 
 !!! 345. backgroundImgs - disappearing after 24h anyway - fix in future version by usiing heroku together with
 imgur api, save old code to different branch!!!!
-
-Imgur api issues/notes
-
-353. naming problem for imgs remains! check zrzut ekranu png
 
 357. check app loading times in production
 
