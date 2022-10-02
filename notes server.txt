@@ -424,6 +424,8 @@ DONE 347. (imgbb transition) bring back urls saved to db DONE
 DONE 348. send email with all env updated DONE
 DONE 351. test uploading png files DONE
 DONE 352. deleting user (by user & by admin) should delete url from db DONE
+DONE 355. backgroundImg route - it is not needed in current version?! change notes
+(route deleted) DONE
 DONE 356. to do for full change to imgBB -> in backgroundImgQuery:
 if there is no backgroung img files on the server (should be gone after max 24h) -> create one by
 taking from db and saving to server (MainRoute - reexecuteBookmarks if no url but if
@@ -522,7 +524,6 @@ Imgur api issues/notes
 353. naming problem for imgs remains! check zrzut ekranu png
 
 354. explaining logic -> img saved to server only to be used for imgbb
-355. backgroundImg route - it is not needed in current version?! change notes
 357. check site loading times in production
 
 NOTES

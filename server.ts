@@ -15,7 +15,7 @@ import BackgroundImgUrl = require("./mongoModels/backgroundImgUrlSchema");
 
 const rssRoute = require("./routes/rss");
 const refreshTokenRoute = require("./routes/refreshToken");
-const backgroundImgRoute = require("./routes/backgroundImg");
+// const backgroundImgRoute = require("./routes/backgroundImg");
 
 import {
   backgroundImgUpload,
@@ -81,7 +81,7 @@ app.use("/refresh_token", refreshTokenRoute);
 app.use("/fetch_rss", rssRoute);
 
 app.use("/background_img", express.static("backgroundImgs"));
-app.use("/background_img", backgroundImgRoute);
+// app.use("/background_img", backgroundImgRoute);
 
 app.use(
   "/graphql",
