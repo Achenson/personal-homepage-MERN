@@ -422,6 +422,8 @@ to gitignore? (fsExtra used during file upload to create a folder if it is not t
 backgroundImgs added to gitignore) DONE
 DONE 347. (imgbb transition) bring back urls saved to db DONE
 DONE 348. send email with all env updated DONE
+DONE 349. info that the image will be deleted after 0.5 year DONE
+DEON 350. info that imgs are visible be the admin DONE
 DONE 351. test uploading png files DONE
 DONE 352. deleting user (by user & by admin) should delete url from db DONE
 DONE 354. explaining imgbb logic DONE
@@ -505,22 +507,19 @@ TO implement in future versions?
                                   
 188. wiki-speed-typing -> check if password retrival is available still - not available! improve
 167.(pushed) changeUserByAdmin and other mutations for admin ->
-can it remain in production? !!!! test it after app is in production!! is it secure?
+test it after app is in production!! is it secure?
 319. allow for more rss items? 100?
 328. later, even after the app is ready -> change default RSS channels
 329. wiki-speed-typing should be moved to new stack until april 2023
 
 !!! 345. backgroundImgs - disappearing after 24h anyway - fix in future version by usiing heroku together with
 imgur api, save old code to different branch!!!!
-346. long app loading time
 
 Imgur api issues/notes
-349. info that the image will be deleted after 0.5 year
-350. info that imgs are visible be the admin
 
 353. naming problem for imgs remains! check zrzut ekranu png
 
-357. check site loading times in production
+357. check app loading times in production
 
 NOTES
 

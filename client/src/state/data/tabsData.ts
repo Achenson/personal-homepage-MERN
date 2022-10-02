@@ -61,7 +61,7 @@ export const tabsData: SingleTabData[] = [
     color: null,
     column: 4,
     priority: 0,
-    openedByDefault: false,
+    openedByDefault: true,
     deletable: true,
     type: "note",
     noteInput: `Welcome to SmoothTabs,
@@ -70,7 +70,9 @@ Manage bookmarks, notes and RSS channels in a form of draggable & foldable tabs.
 
 Register to get persistent data storage and an option to upload an image as a background. Unregistered user's data is preserved until the browser data is cleared.
 
-Refer to tips & trick note for advanced usage.
+WARNING: uploaded images are visible to the admin. Images need to be reuploaded after every 6 months.
+
+Refer to tips & tricks note for advanced usage.
 `,
   },
   {
