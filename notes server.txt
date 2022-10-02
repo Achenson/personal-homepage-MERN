@@ -424,6 +424,7 @@ DONE 347. (imgbb transition) bring back urls saved to db DONE
 DONE 348. send email with all env updated DONE
 DONE 351. test uploading png files DONE
 DONE 352. deleting user (by user & by admin) should delete url from db DONE
+DONE 354. explaining imgbb logic DONE
 DONE 355. backgroundImg route - it is not needed in current version?! change notes
 (route deleted) DONE
 DONE 356. to do for full change to imgBB -> in backgroundImgQuery:
@@ -498,11 +499,7 @@ TO implement in future versions/project?
   logo? what should clicking it do
   cut loading times ?
   DONE persistent file uploads - currently there are being stored for less than 24hours:
-  https://devcenter.heroku.com/articles/simple-file-upload
-  "Adding direct uploads to your app allows you to offload the storage of static files from your app.
-  This is crucial on Heroku, because your app’s dynos have an ephemeral filesystem.
-   This means that all files that aren’t part of your app’s slug are lost whenever
-    a dyno restarts or is replaced (this happens at least once a day)." DONE
+  (implemented imgbb) DONE 
   get rid probably excessive renders when no img is present and is being taken from db(MainRoute)
 TO implement in future versions?
                                   
@@ -523,7 +520,6 @@ Imgur api issues/notes
 
 353. naming problem for imgs remains! check zrzut ekranu png
 
-354. explaining logic -> img saved to server only to be used for imgbb
 357. check site loading times in production
 
 NOTES
@@ -682,12 +678,32 @@ is changed with low frequency, should be kept relatively close in app structure,
 Image is attached as a request body
 - multer is being used as a middleware in server.ts -> it runs everytime there is a body in a request, and if the user if authenticated
 (req.isAuth)
-- image is being saved not in a db, but on the server! (in backgroundImgs folder)
+- image is initially being saved not in a db, but on the server! (in backgroundImgs folder)
+(following imgbb logic added later due to heroku not keeping additional files
+  https://devcenter.heroku.com/articles/simple-file-upload
+  "Adding direct uploads to your app allows you to offload the storage of static files from your app.
+  This is crucial on Heroku, because your app’s dynos have an ephemeral filesystem.
+  This means that all files that aren’t part of your app’s slug are lost whenever
+  a dyno restarts or is replaced (this happens at least once a day).")
+- in multer.ts - creating the backgroundImg folder/userId folder if it does not exist
+- in server.ts imgbb-uploader package is taking the just saved img and store it in imgbb with an url
+- the url is being saved to mongodb along with userId
 
 == file query:
 backgroundImgQuery in Main is generating url (using files on the server) with users id in it, this url is passed to MainRoute
 In MainRoute an express route is using the passed url directly in backgroundImage style,
 this is image is being served from express in a static method, not in route!
+(following imgbb logic added later)
+- in backgroundQuery -> if no image is present in the backgroundImg folder or the folder does not exist:
+recreating the folder, downloading image (using url in mongodb) and saving it
+- in MainRoute - reexecuteBookmarks logic after timeout if custom image settings is on, but url is empty
+(can cause excessive rerenders, setTimeout cannot be set to low value)
+- logic implemented for the edge case when there is no url in the db, it would cause infinite rerenders
+
+- images cannot be deleted by the user from imgbb only from mongodb
+- images from imgbb will be gone after 6 months
+- WARNING admin can see images in imgbb
+
 
 ============ rss links for testing
 
