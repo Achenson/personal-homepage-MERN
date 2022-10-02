@@ -420,6 +420,8 @@ change url address to be suitable for HashRouter (#) DONE
 DONE 343'. after each app update on heroku, updating images does not work unless you register again? check!
 to gitignore? (fsExtra used during file upload to create a folder if it is not there,
 backgroundImgs added to gitignore) DONE
+DONE !!! 345. backgroundImgs - disappearing after 24h anyway - fix in future version by usiing heroku together with
+imgur api, save old code to different branch!!!! (imgBB used, old code saved in comments only) DONE
 DONE 347. (imgbb transition) bring back urls saved to db DONE
 DONE 348. send email with all env updated DONE
 DONE 349. info that the image will be deleted after 0.5 year DONE
@@ -512,9 +514,6 @@ test it after app is in production!! is it secure?
 319. allow for more rss items? 100?
 328. later, even after the app is ready -> change default RSS channels
 329. wiki-speed-typing should be moved to new stack until april 2023
-
-!!! 345. backgroundImgs - disappearing after 24h anyway - fix in future version by usiing heroku together with
-imgur api, save old code to different branch!!!!
 
 357. check app loading times in production
 
