@@ -61,8 +61,9 @@ exampe in tailwind.js:
     ],
 
 - all classes that won't be purged should be included as a plain text, no js!
-- css will be purged when NODE_ENV is set to production
- (automatically after build command in create-react-app !)
+- css will be purged when "enabled: true," line is added to tailwind.js (see notes serverside)
+(old note: NODE_ENV is set to production
+ automatically after build command in create-react-app ??) 
 
 53. RSS -> proxy server or fetching from backend
 

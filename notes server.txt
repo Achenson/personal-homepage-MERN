@@ -436,6 +436,9 @@ DONE 356. to do for full change to imgBB -> in backgroundImgQuery:
 if there is no backgroung img files on the server (should be gone after max 24h) -> create one by
 taking from db and saving to server (MainRoute - reexecuteBookmarks if no url but if
 custom image in settings is set) DONE
+DONE 357. check app loading times in production  (pure initial loading time,
+purging css was not working, no it works but has to changed in the code
+when working on style in development) DONE
 
 GOOD enough?
   no GraphQLNonNull used, good enough this time
@@ -515,14 +518,22 @@ test it after app is in production!! is it secure?
 328. later, even after the app is ready -> change default RSS channels
 329. wiki-speed-typing should be moved to new stack until april 2023
 
-357. check app loading times in production
 
 NOTES
 
 ======================================
-!!! Helmet in server.ts:
+!!!!! code changing whet between development and production mode
+
+1. Helmet in server.ts:
 
 swap the code with commented out version to get localhost:4000/graphql working locally!!!
+
+2. tailwind:
+
+production mode: in client, add "enabled: true," in tailwind.js,
+-> cd client, npm run build:css
+development mode: comment out "enabled: true," in tailwind.js,
+-> cd client, npm run build:css
 
 ======================================
 JWT logic: 
