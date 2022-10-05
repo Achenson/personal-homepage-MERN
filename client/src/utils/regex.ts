@@ -15,19 +15,22 @@ export function createSelectablesRegex(singleSelectable: string) {
 // no commas allowed
 export const singleCharRegex =
   // /[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]/;
-  /[\w~`!@#$%^&*()\-+={}[\];:'"\\|<>./?]/;
+  // /[\w~`!@#$%^&*()\-+={}[\];:'"\\|<>./?]/;
+  // changed to allow letters outside standard latin, "u" had to be added to new RegExp
+  // https://javascript.info/regexp-character-sets-and-ranges
+  /[\p{Alpha}~`!@#$%^&*()\-+={}[\];:'"\\|<>./?]/u;
 
 // title for bookmark or tab
 export const titleRegex = new RegExp(
-  `^${singleCharRegex.source}(\\s?${singleCharRegex.source}+)*$`
+  `^${singleCharRegex.source}(\\s?${singleCharRegex.source}+)*$`, "u"
 );
 
 export const titleRegex_unflanked = new RegExp(
-  `${singleCharRegex.source}(\\s?${singleCharRegex.source}+)*`
+  `${singleCharRegex.source}(\\s?${singleCharRegex.source}+)*`, "u"
 );
 
 export const tagsOrBookmarksRegexForSaving = new RegExp(
-  `^${titleRegex_unflanked.source}(,\\s${titleRegex_unflanked.source})*$`
+  `^${titleRegex_unflanked.source}(,\\s${titleRegex_unflanked.source})*$`, "u"
 );
 
 

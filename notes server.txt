@@ -185,6 +185,8 @@ DONE 165. LoginRegister_input naming change (component also used elsewhere) DONE
 ! X 166. after implementing forgot password logic -> make sure that it won't work when token is revoked? (
   not needed! revoking tokens is intended to be use for eg. is refreshToken got stolen - this does not mean that the hacker
   has access to users email!) X
+DONE 167.(pushed) changeUserByAdmin and other mutations for admin ->
+test it after app is in production!! DONE
 ! X 169. changeUserByAdmin -> changing password - should it be left out? (NO - in case login password was stolen [
   revokingToken would not be enough, as the db & refreshToken tokenVersion will be again the same after logging in,
   so password has to be change by the admin])X  !
@@ -209,6 +211,7 @@ DONE !!!! 181. (pushed) clean db in the end - after testing !!!! DONE
 ??? 184. Profile_Input passedRef -> check agains BackgroudnSettings_Upload ???
 DONE 185. common upper component for login-register, passwordforgotten & passwordChange (AuthOuterComponent added) DONE
 DONE 187. option to make passwords visible! DONE
+DONE 188. wiki-speed-typing -> check if password retrival is available still - not available! improve DONE
 xx 190. PasswordForgotten  / forgotPasswordMutation -> more consistent naming? (good enough) xx
 DONE 191. PasswordForgotten -> forgotPasswordMutation should return false sometimes and it should be handled?
 to get info clientside that there is no regisered user DONE
@@ -382,7 +385,9 @@ DONE 324. deps, browser errors check -  Password field is not contained in a for
 DONE 325. tabs: folders  (server code only) -> if default visibility is set to off, the tab will close just
 after updating it (EditTab_main -> now it changes the openess of a tab only if tabOpenedByDefault was clicked) DONE
 DONE 327. email validation -> do it everywhere! DONE
-DONE 330. testing BrowserRouter (also - change in the URL in forgotPasswordMutation) instead of HashRouter (
+DONE 329. wiki-speed-typing should be moved to new stack until april 2023 DONE
+DONE 330. non-standard latin chars didn't work - fixed by /\p{Alpha}/u DONE
+DONE 330.5 testing BrowserRouter (also - change in the URL in forgotPasswordMutation) instead of HashRouter (
   changed to HashRouter, otherwise password change link and refreshing path other than main won't work,
 same as with with wikispeedtyping app) DONE
 DONE 331. fix typescript warnings! ? upperUiContext deps in UpperRightMenu & UpperRightMenu_XS not included
@@ -511,13 +516,7 @@ TO implement in future versions/project?
   get rid probably excessive renders when no img is present and is being taken from db(MainRoute)
 TO implement in future versions?
                                   
-188. wiki-speed-typing -> check if password retrival is available still - not available! improve
-167.(pushed) changeUserByAdmin and other mutations for admin ->
-test it after app is in production!! is it secure?
-319. allow for more rss items? 100?
-328. later, even after the app is ready -> change default RSS channels
-329. wiki-speed-typing should be moved to new stack until april 2023
-
+All current issues fixed!
 
 NOTES
 
