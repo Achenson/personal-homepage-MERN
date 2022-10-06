@@ -16,9 +16,9 @@ export function createSelectablesRegex(singleSelectable: string) {
 export const singleCharRegex =
   // /[\w~`!@#\$%\^&\*\(\)\-\+=\{\}\[\];:'"\\\|<>\./\?]/;
   // /[\w~`!@#$%^&*()\-+={}[\];:'"\\|<>./?]/;
-  // changed to allow letters outside standard latin, "u" had to be added to new RegExp
+  // changed to allow (among others) letters outside standard latin, "u" had to be added to new RegExp
   // https://javascript.info/regexp-character-sets-and-ranges
-  /[\p{Alpha}~`!@#$%^&*()\-+={}[\];:'"\\|<>./?]/u;
+  /[\p{Alpha}\p{M}\p{Nd}\p{Pc}\p{Join_C}~`!@#$%^&*()\-+={}[\];:'"\\|<>./?]/u;
 
 // title for bookmark or tab
 export const titleRegex = new RegExp(
