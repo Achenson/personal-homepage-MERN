@@ -1,5 +1,19 @@
 # SmoothTabs - personal homepage [fullstack]
 
+## Update 01.2023
+
+This repository contains code for an app previously hosted on Heroku. It is no longer working due to removal of Heroku free tier. Since then the code has been splitted to separate frontend and backend repositories and hosted on Render:
+
+https://github.com/Achenson/personal-homepage-MERN-frontend
+
+https://github.com/Achenson/personal-homepage-MERN-backend
+
+Live version of the app hosted on render:
+
+https://smoothtabs.onrender.com/
+
+## Info
+
 Manage bookmarks, RSS channels and notes in a form of draggable & foldable tabs.
 
 Register to get persistent data storage and an option to upload an image as a background. Unregistered user's data is preserved in local storage.
@@ -26,9 +40,4 @@ App inspired by iGTab - https://igtab.com/
 - Express
 - JSON Web Token (authentication)
 - Tailwind CSS
-
-## Live app
-
-https://smoothtabs.herokuapp.com/
-
 
